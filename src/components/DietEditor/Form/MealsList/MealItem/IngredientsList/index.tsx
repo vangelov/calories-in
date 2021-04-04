@@ -1,7 +1,7 @@
 import { IngredientField, MealForm } from 'core/dietForm'
 import { Box, Text } from '@chakra-ui/react'
 import IngredientItem from './IngredientItem'
-import { Stats } from 'core/dietStats'
+import { Stats } from 'core/stats'
 import { Droppable } from 'react-beautiful-dnd'
 import { ArrayField } from 'react-hook-form'
 

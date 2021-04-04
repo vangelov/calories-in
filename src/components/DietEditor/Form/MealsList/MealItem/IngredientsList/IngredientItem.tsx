@@ -1,7 +1,7 @@
 import { Input, Flex, Text, Button } from '@chakra-ui/react'
 import { getIngredinetsFormsPath, IngredientField } from 'core/dietForm'
 import { useFormContext } from 'react-hook-form'
-import { Stats } from 'core/dietStats'
+import { Stats } from 'core/stats'
 import { Draggable } from 'react-beautiful-dnd'
 import { useUndoRedoMethods } from 'core/undoRedo'
 

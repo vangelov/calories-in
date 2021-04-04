@@ -1,6 +1,5 @@
 import { Flex, Button } from '@chakra-ui/react'
-import { useUndoRedoMethods } from 'core/undoRedo'
-import { useUndoRedoState } from 'core/undoRedo'
+import { useUndoRedoMethods, useUndoRedoState } from 'core/undoRedo'
 
 type Props = {
   onMealAdd: () => void

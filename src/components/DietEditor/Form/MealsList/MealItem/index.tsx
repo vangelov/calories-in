@@ -1,7 +1,7 @@
 import { getMealsFormsPath, MealField } from 'core/dietForm'
 import { Flex, LayoutProps, SpaceProps, Input } from '@chakra-ui/react'
 import IngredientsList from './IngredientsList'
-import { useMealStats, useUpdateMealStats } from 'core/dietStats'
+import { useMealStats, useUpdateMealStats } from 'core/stats'
 import useIngredientsController from './useIngredientsController'
 import Header from './Header'
 import { useFormContext } from 'react-hook-form'

@@ -7,7 +7,7 @@ import { DietForm, useDietForm } from 'core/dietForm'
 import { FormProvider } from 'react-hook-form'
 import { useRef } from 'react'
 import { FoodsDragAndDropProvider } from 'core/foodsDnd'
-import Watcher from 'core/undoRedo/Watcher'
+import { Watcher } from 'core/undoRedo'
 
 type Props = {
   dietForm: DietForm

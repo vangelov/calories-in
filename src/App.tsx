@@ -1,20 +1,20 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import MainLayout from 'components/layout/MainLayout'
 import DietEditor from 'components/DietEditor'
-import { DragDropRespondersProvider } from 'core/dndResponders'
-import { DietStatsProvider } from 'core/dietStats'
+import { DragAndDropRespondersProvider } from 'core/dndResponders'
+import { DietStatsProvider } from 'core/stats'
 import Sidebar from 'components/Sidebar'
 
 function App() {
   return (
     <ChakraProvider>
-      <DragDropRespondersProvider>
+      <DragAndDropRespondersProvider>
         <DietStatsProvider>
           <MainLayout sidebarElement={<Sidebar />}>
             <DietEditor />
           </MainLayout>
         </DietStatsProvider>
-      </DragDropRespondersProvider>
+      </DragAndDropRespondersProvider>
     </ChakraProvider>
   )
 }

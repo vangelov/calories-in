@@ -1,36 +1,13 @@
-import {
-  ReactNode,
-  useReducer,
-  createContext,
-  useContext,
-  useEffect,
-} from 'react'
+import { ReactNode, useReducer } from 'react'
 import {
   DragDropContext,
   DragStart,
   DropResult,
-  OnDragEndResponder,
-  OnDragStartResponder,
   ResponderProvided,
 } from 'react-beautiful-dnd'
-
-type Responder = OnDragEndResponder | OnDragStartResponder
-
-type State = {
-  responders: {
-    onDragEnd: OnDragEndResponder[]
-    onDragStart: OnDragStartResponder[]
-  }
-}
-
-type Event = keyof State['responders']
+import { State, Action, StateContext, DispatchContext } from './context'
 
 const INITIAL_STATE: State = { responders: { onDragEnd: [], onDragStart: [] } }
-
-type Action =
-  | { type: 'pushResponder'; responder: Responder; event: Event }
-  | { type: 'removeResponder'; responder: Responder; event: Event }
-type Dispatch = (action: Action) => void
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
@@ -59,9 +36,6 @@ type Props = {
   children: ReactNode
 }
 
-const StateContext = createContext<State | undefined>(undefined)
-const DispatchContext = createContext<Dispatch | undefined>(undefined)
-
 function DragDropRespondersProvider({ children }: Props) {
   const [state, dispatch] = useReducer(reducer, INITIAL_STATE)
 
@@ -86,22 +60,6 @@ function DragDropRespondersProvider({ children }: Props) {
   )
 }
 
-function useDragDropEventResponder(event: Event, responder: Responder) {
-  const dispatch = useContext(DispatchContext)
-
-  if (!dispatch) {
-    throw new Error('Missing context provider in DragDropProvider')
-  }
-
-  useEffect(() => {
-    dispatch({ type: 'pushResponder', responder, event })
-
-    return () => {
-      dispatch({ type: 'removeResponder', responder, event })
-    }
-  })
-}
-
-export { useDragDropEventResponder }
+export * from './context'
 
 export default DragDropRespondersProvider

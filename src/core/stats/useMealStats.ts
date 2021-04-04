@@ -38,4 +38,4 @@ function useMealStats(
   }
 }
 
-export { useMealStats }
+export default useMealStats

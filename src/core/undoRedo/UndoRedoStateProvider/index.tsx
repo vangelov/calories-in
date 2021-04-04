@@ -17,4 +17,6 @@ function UndoRedoStateProvider({ children }: Props) {
   )
 }
 
+export * from './context'
+
 export default UndoRedoStateProvider

@@ -1,7 +1,7 @@
 import { Flex, Button, Input, Text } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { Diet } from 'core/types'
-import { useDietStats } from 'core/dietStats'
+import { useDietStats } from 'core/stats'
 import { useUndoRedoMethods } from 'core/undoRedo'
 
 type Props = {

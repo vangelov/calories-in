@@ -1,5 +1,5 @@
 import { DietForm, IngredientForm } from 'core/dietForm'
-import { useDragDropEventResponder } from 'core/dndResponders'
+import { useDragAndDropResponder } from 'core/dndResponders'
 import { ReactNode, useRef } from 'react'
 import { DragStart } from 'react-beautiful-dnd'
 import { useFormContext } from 'react-hook-form'
@@ -14,9 +14,14 @@ function FoodsDragAndDropProvider({ children }: Props) {
   const { getValues } = useFormContext<DietForm>()
 
   // We save the form so that after dragging has ended (in useReorderIngredientsForms) we can insert it
-  useDragDropEventResponder('onDragStart', (initial: DragStart) => {
-    const values = getValues()
+  useDragAndDropResponder('onDragStart', (initial: DragStart) => {
     const { source } = initial
+
+    if (source.droppableId === 'ITEMS') {
+      return
+    }
+
+    const values = getValues()
     const meal = values.mealsForms.find(
       ({ fieldId }) => fieldId === source.droppableId
     )
@@ -34,6 +39,6 @@ function FoodsDragAndDropProvider({ children }: Props) {
   )
 }
 
-export { StateContext }
+export * from './context'
 
 export default FoodsDragAndDropProvider

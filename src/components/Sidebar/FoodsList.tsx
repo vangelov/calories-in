@@ -1,9 +1,8 @@
-// @ts-nocheck
-
 import { Droppable, Draggable } from 'react-beautiful-dnd'
 import { Box } from '@chakra-ui/react'
 import styled from 'styled-components'
 import React from 'react'
+
 const ITEMS = [
   { id: '1', content: 'a' },
   { id: '2', content: 'b' },
@@ -11,7 +10,7 @@ const ITEMS = [
   { id: '4', content: 'd' },
 ]
 
-const Clone2 = styled(Box)`
+const Clone = styled(Box)`
   ~ div {
     transform: none !important;
   }
@@ -36,10 +35,11 @@ function FoodsList() {
                   >
                     {item.content}
                   </Box>
+
                   {snapshot.isDragging && (
-                    <Clone2 bg="white" padding={2}>
+                    <Clone bg="white" padding={2}>
                       {item.content}
-                    </Clone2>
+                    </Clone>
                   )}
                 </React.Fragment>
               )}

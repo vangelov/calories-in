@@ -4,7 +4,7 @@ import * as jsondiffpatch from 'jsondiffpatch'
 import DeltasStack from './deltasStack'
 import { UndoRedoMethodsContext } from './context'
 import useKeyboard from './useKeyboard'
-import { useUndoRedoSetState } from '../state'
+import { useUndoRedoSetState } from 'core/undoRedo'
 
 type Props = {
   dietForm: DietForm
@@ -103,5 +103,7 @@ function UndoRedoMethodsProvider({ children, dietForm }: Props) {
     </UndoRedoMethodsContext.Provider>
   )
 }
+
+export * from './context'
 
 export default UndoRedoMethodsProvider

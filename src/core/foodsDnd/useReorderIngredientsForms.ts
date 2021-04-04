@@ -1,8 +1,8 @@
 import { getIngredientForm, IngredientForm, MealField } from 'core/dietForm'
-import { useDragDropEventResponder } from 'core/dndResponders'
+import { useDragAndDropResponder } from 'core/dndResponders'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'
-import { useFoodsDragAndDropState } from './context'
+import { useFoodsDragAndDropState } from './FoodsDragAndDropProvider'
 
 type FunctionsParams = {
   mealField: MealField
@@ -24,7 +24,7 @@ function useReorderIngredientsForms({
     throw new Error('Missing FoodsDragAndDropProvider')
   }
 
-  useDragDropEventResponder('onDragEnd', (result: DropResult) => {
+  useDragAndDropResponder('onDragEnd', (result: DropResult) => {
     const { source, destination } = result
 
     if (!destination) {
@@ -40,10 +40,9 @@ function useReorderIngredientsForms({
       let ingredientForm: IngredientForm | undefined
 
       if (source.droppableId === 'ITEMS') {
-        console.log('s', source)
         ingredientForm = getIngredientForm({ foodId: 1, amountInGrams: 100 })
       } else {
-        // This form was saved at the beginning of the drag in FoodsDragAndDropProvider
+        // This form was saved at the beginning of the drag by FoodsDragAndDropProvider
         ingredientForm = ingredientFormRef.current
       }
 
