@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { ChakraProvider } from '@chakra-ui/react'
+import MainLayout from 'components/layout/MainLayout'
+import DietEditor from 'components/DietEditor'
+import { DragDropRespondersProvider } from 'core/dndResponders'
+import { DietStatsProvider } from 'core/dietStats'
+import Sidebar from 'components/Sidebar'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ChakraProvider>
+      <DragDropRespondersProvider>
+        <DietStatsProvider>
+          <MainLayout sidebarElement={<Sidebar />}>
+            <DietEditor />
+          </MainLayout>
+        </DietStatsProvider>
+      </DragDropRespondersProvider>
+    </ChakraProvider>
+  )
 }
 
-export default App;
+export default App

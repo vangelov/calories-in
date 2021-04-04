@@ -1,0 +1,53 @@
+import { Diet } from 'core/types'
+import { getDietForm } from 'core/dietForm'
+import { useState } from 'react'
+import { UndoRedoMethodsProvider, UndoRedoStateProvider } from 'core/undoRedo'
+import Form from './Form'
+
+const initialDiet: Diet = {
+  id: 1,
+  name: 'Test',
+  meals: [
+    {
+      name: 'Meal 1',
+      ingredients: [
+        { amountInGrams: 1, foodId: 2 },
+        { amountInGrams: 2, foodId: 2 },
+        { amountInGrams: 3, foodId: 2 },
+      ],
+    },
+    { name: 'Meal 2', ingredients: [{ amountInGrams: 4, foodId: 2 }] },
+    { name: 'Meal 3', ingredients: [{ amountInGrams: 5, foodId: 2 }] },
+  ],
+}
+
+function DietEditor() {
+  const [dietForm, setDietForm] = useState(() => getDietForm(initialDiet))
+
+  function onDietChange(diet: Diet) {
+    const dietFrom = getDietForm(diet)
+    setDietForm(dietFrom)
+  }
+
+  function onNewDiet() {
+    const dietFrom = getDietForm()
+    setDietForm(dietFrom)
+  }
+
+  return (
+    <UndoRedoStateProvider key={dietForm.formId}>
+      <UndoRedoMethodsProvider dietForm={dietForm}>
+        {(dietForm, t) => (
+          <Form
+            key={t}
+            onDietChange={onDietChange}
+            onNewDiet={onNewDiet}
+            dietForm={dietForm}
+          />
+        )}
+      </UndoRedoMethodsProvider>
+    </UndoRedoStateProvider>
+  )
+}
+
+export default DietEditor
