@@ -16,6 +16,7 @@
     "@types/uuid": "^8.3.0",
     "framer-motion": "^3.10.0",
     "jsondiffpatch": "^0.4.1",
+    "lint-staged": "^10.5.4",
     "overlayscrollbars": "^1.13.1",
     "overlayscrollbars-react": "^0.2.2",
     "react": "^17.0.1",
