@@ -30,19 +30,18 @@ function DietEditor() {
   }
 
   function onNewDiet() {
-    const dietFrom = getDietForm()
-    setDietForm(dietFrom)
+    setDietForm(getDietForm())
   }
 
   return (
     <UndoRedoStateProvider key={dietForm.formId}>
       <UndoRedoMethodsProvider dietForm={dietForm}>
-        {(dietForm, t) => (
+        {(currentDietForm, version) => (
           <Form
-            key={t}
+            key={version}
             onDietChange={onDietChange}
             onNewDiet={onNewDiet}
-            dietForm={dietForm}
+            dietForm={currentDietForm}
           />
         )}
       </UndoRedoMethodsProvider>

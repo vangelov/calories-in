@@ -6,11 +6,11 @@ import { useUndoRedoMethods } from 'core/undoRedo'
 function Watcher() {
   const { control } = useFormContext()
   const form = useWatch({ control }) as DietForm
-  const { push } = useUndoRedoMethods()
+  const { pushForm } = useUndoRedoMethods()
 
   useEffect(() => {
-    push(form)
-  }, [form, push])
+    pushForm(form)
+  }, [form, pushForm])
 
   return null
 }

@@ -5,7 +5,7 @@ type UndoRedoMethods = {
   saveLastChange: () => void
   undo: () => void
   redo: () => void
-  push: (form: DietForm) => void
+  pushForm: (form: DietForm) => void
 }
 
 const UndoRedoMethodsContext = createContext<UndoRedoMethods | undefined>(

@@ -1,9 +1,8 @@
 import { getIngredientForm, IngredientForm, MealField } from 'core/dietForm'
 import { useDragDropEventResponder } from 'core/dndResponders'
 import { useUndoRedoMethods } from 'core/undoRedo'
-import { useContext } from 'react'
 import { DropResult } from 'react-beautiful-dnd'
-import { StateContext } from './provider'
+import { useFoodsDragAndDropState } from './context'
 
 type FunctionsParams = {
   mealField: MealField
@@ -18,7 +17,7 @@ function useReorderIngredientsForms({
   insertIngredientForm,
   removeIngredientForm,
 }: FunctionsParams) {
-  const ingredientFormRef = useContext(StateContext)
+  const ingredientFormRef = useFoodsDragAndDropState()
   const { saveLastChange } = useUndoRedoMethods()
 
   if (!ingredientFormRef) {
