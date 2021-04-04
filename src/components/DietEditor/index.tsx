@@ -6,7 +6,7 @@ import Form from './Form'
 
 const initialDiet: Diet = {
   id: 1,
-  name: 'Test',
+  name: 'First diet',
   meals: [
     {
       name: 'Meal 1',
