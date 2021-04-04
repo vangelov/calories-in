@@ -17,7 +17,7 @@ const initialDiet: Diet = {
       ],
     },
     { name: 'Meal 2', ingredients: [{ amountInGrams: 4, foodId: 2 }] },
-    { name: 'Meal 3', ingredients: [{ amountInGrams: 5, foodId: 2 }] },
+    { name: 'Meal 3', ingredients: [{ amountInGrams: 500, foodId: 2 }] },
   ],
 }
 
