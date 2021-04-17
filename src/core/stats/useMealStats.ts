@@ -20,11 +20,11 @@ function useMealStats(
       defaultValue: mealField.ingredientsForms,
     }) || []
 
-  const ingredientsStats: Stats[] = ingredientsForms.map(
-    (ingredientForm, index) => {
-      const amountInGrams = ingredientForm
-        ? ingredientForm.amountInGrams
-        : ingredientsFields[index].amountInGrams
+  const ingredientsStats: Stats[] = ingredientsFields.map(
+    (ingredientField, index) => {
+      const amountInGrams = ingredientsForms[index]
+        ? ingredientsForms[index].amountInGrams
+        : ingredientField.amountInGrams
 
       return { protein: Number(amountInGrams) * 2 }
     }

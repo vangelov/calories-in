@@ -31,6 +31,8 @@ function useReorderIngredientsForms({
       return
     }
 
+    console.log('dest', destination)
+
     if (
       destination.droppableId === source.droppableId &&
       mealField.fieldId === destination.droppableId

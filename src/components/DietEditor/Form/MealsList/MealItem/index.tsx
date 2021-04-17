@@ -26,6 +26,12 @@ function MealItem({ mealField, index, onRemove, ...rest }: Props) {
 
   useUpdateMealStats(index, mealStats)
 
+  console.log(
+    's',
+    ingredientsStats,
+    ingredientsFormsController.ingredientsFields
+  )
+
   return (
     <Flex flexDirection="column" backgroundColor="gray" {...rest}>
       <Input
