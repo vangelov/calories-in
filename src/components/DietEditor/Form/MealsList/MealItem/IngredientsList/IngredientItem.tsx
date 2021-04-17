@@ -1,9 +1,10 @@
 import { Input, Flex, Text, Button } from '@chakra-ui/react'
 import { getIngredinetsFormsPath, IngredientField } from 'core/dietForm'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, Controller } from 'react-hook-form'
 import { Stats } from 'core/stats'
 import { Draggable } from 'react-beautiful-dnd'
 import { useUndoRedoMethods } from 'core/undoRedo'
+import { useFoodsByIdState } from 'core/foods/FoodsByIdProvider'
 
 type Props = {
   mealIndex: number
@@ -20,12 +21,19 @@ function Ingredient({
   ingredientStats,
   onRemove,
 }: Props) {
-  const { register } = useFormContext()
+  const { register, control } = useFormContext()
   const { saveLastChange } = useUndoRedoMethods()
+  const foodsByIdState = useFoodsByIdState()
 
   const onChange = () => {
     saveLastChange()
   }
+
+  if (!ingredientField.foodId) {
+    throw new Error('Food id is missing')
+  }
+
+  const food = foodsByIdState[ingredientField.foodId]
 
   return (
     <Draggable
@@ -42,7 +50,7 @@ function Ingredient({
           justifyContent="space-between"
           bg="gray"
         >
-          <Text>Food</Text>
+          <Text>{food.name}</Text>
 
           <Input
             type="hidden"
@@ -51,10 +59,10 @@ function Ingredient({
             defaultValue={ingredientField.fieldId}
           />
 
-          <Input
-            type="hidden"
+          <Controller
+            render={() => <div />}
             name={getIngredinetsFormsPath(mealIndex, index, 'foodId')}
-            ref={node => register(node)}
+            control={control}
             defaultValue={ingredientField.foodId}
           />
 

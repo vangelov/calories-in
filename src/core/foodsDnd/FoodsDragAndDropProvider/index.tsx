@@ -4,6 +4,7 @@ import { ReactNode, useRef } from 'react'
 import { DragStart } from 'react-beautiful-dnd'
 import { useFormContext } from 'react-hook-form'
 import { StateContext } from './context'
+import { FOODS_LIST_DROPPABLE_ID } from 'components/Sidebar/FoodsList'
 
 type Props = {
   children: ReactNode
@@ -17,7 +18,7 @@ function FoodsDragAndDropProvider({ children }: Props) {
   useDragAndDropResponder('onDragStart', (initial: DragStart) => {
     const { source } = initial
 
-    if (source.droppableId === 'ITEMS') {
+    if (source.droppableId === FOODS_LIST_DROPPABLE_ID) {
       return
     }
 

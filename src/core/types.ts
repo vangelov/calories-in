@@ -13,10 +13,13 @@ type Meal = {
   ingredients: Ingredient[]
 }
 
+type FoodsByIdMap = { [id: number]: Food }
+
 type Diet = {
   id: number
   name: string
   meals: Meal[]
+  foodsByIdMap: FoodsByIdMap
 }
 
-export type { Food, Ingredient, Meal, Diet }
+export type { Food, Ingredient, Meal, Diet, FoodsByIdMap }

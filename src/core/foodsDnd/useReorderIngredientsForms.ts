@@ -1,8 +1,11 @@
 import { getIngredientForm, IngredientForm, MealField } from 'core/dietForm'
 import { useDragAndDropResponder } from 'core/dndResponders'
+import { useFoodsByIdDispatch } from 'core/foods/FoodsByIdProvider'
+import { useFoodsListState } from 'core/foods/FoodsListProvider'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'
 import { useFoodsDragAndDropState } from './FoodsDragAndDropProvider'
+import { FOODS_LIST_DROPPABLE_ID } from 'components/Sidebar/FoodsList'
 
 type FunctionsParams = {
   mealField: MealField
@@ -10,6 +13,8 @@ type FunctionsParams = {
   insertIngredientForm: (at: number, ingredientForm: IngredientForm) => void
   removeIngredientForm: (from: number) => void
 }
+
+const DEFAULT_AMOUNT_IN_GRAMS = 100
 
 function useReorderIngredientsForms({
   mealField,
@@ -19,6 +24,8 @@ function useReorderIngredientsForms({
 }: FunctionsParams) {
   const ingredientFormRef = useFoodsDragAndDropState()
   const { saveLastChange } = useUndoRedoMethods()
+  const foodsByIdDispatch = useFoodsByIdDispatch()
+  const foodsListState = useFoodsListState()
 
   if (!ingredientFormRef) {
     throw new Error('Missing FoodsDragAndDropProvider')
@@ -31,8 +38,6 @@ function useReorderIngredientsForms({
       return
     }
 
-    console.log('dest', destination)
-
     if (
       destination.droppableId === source.droppableId &&
       mealField.fieldId === destination.droppableId
@@ -41,8 +46,14 @@ function useReorderIngredientsForms({
     } else if (destination.droppableId === mealField.fieldId) {
       let ingredientForm: IngredientForm | undefined
 
-      if (source.droppableId === 'ITEMS') {
-        ingredientForm = getIngredientForm({ foodId: 1, amountInGrams: 100 })
+      if (source.droppableId === FOODS_LIST_DROPPABLE_ID) {
+        const food = foodsListState[source.index]
+        foodsByIdDispatch({ type: 'addFood', food })
+
+        ingredientForm = getIngredientForm({
+          foodId: food.id,
+          amountInGrams: DEFAULT_AMOUNT_IN_GRAMS,
+        })
       } else {
         // This form was saved at the beginning of the drag by FoodsDragAndDropProvider
         ingredientForm = ingredientFormRef.current

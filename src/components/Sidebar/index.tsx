@@ -1,12 +1,12 @@
 import FoodsList from './FoodsList'
-import { Box } from '@chakra-ui/react'
+import { Flex, Box } from '@chakra-ui/react'
 
 function Sidebar() {
   return (
-    <Box>
-      <Box height="100px" />
-      <FoodsList />
-    </Box>
+    <Flex height="100%" flexDirection="column">
+      <Box height="130px" />
+      <FoodsList flex={1} />
+    </Flex>
   )
 }
 

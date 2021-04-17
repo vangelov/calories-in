@@ -66,14 +66,14 @@ function UndoRedoMethodsProvider({ children, dietForm }: Props) {
       timeoutIdRef.current = window.setTimeout(() => {
         if (markRef.current) {
           markRef.current = false
-          console.log('comp1', lastFormRef.current)
-          console.log('comp2', form)
+          // console.log('comp1', lastFormRef.current)
+          // console.log('comp2', form)
 
           const delta = patcher.diff(lastFormRef.current, form)
 
           if (delta) {
             lastFormRef.current = form
-            console.log('push', delta)
+            // console.log('push', delta)
             deltasStackRef.current.push(delta)
             updateState()
           }
