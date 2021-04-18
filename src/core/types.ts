@@ -1,5 +1,6 @@
 type Food = {
   id: number
+  categoryId: number
   name: string
 }
 
@@ -15,6 +16,11 @@ type Meal = {
 
 type FoodsByIdMap = { [id: number]: Food }
 
+type FoodCategory = {
+  id: number
+  name: string
+}
+
 type Diet = {
   id: number
   name: string
@@ -22,4 +28,4 @@ type Diet = {
   foodsByIdMap: FoodsByIdMap
 }
 
-export type { Food, Ingredient, Meal, Diet, FoodsByIdMap }
+export type { Food, Ingredient, Meal, Diet, FoodsByIdMap, FoodCategory }

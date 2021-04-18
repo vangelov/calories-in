@@ -9,7 +9,8 @@
     "saturatedFat": 0.4,
     "fiber": 0,
     "salt": 0.11,
-    "id": 1
+    "id": 1,
+    "categoryId": 1
   },
   {
     "name": "Chicken thighs (with skin)",
@@ -21,7 +22,8 @@
     "saturatedFat": 3.6,
     "fiber": 0,
     "salt": 0.199898,
-    "id": 2
+    "id": 2,
+    "categoryId": 1
   },
   {
     "name": "Chicken wings (with skin)",
@@ -33,7 +35,8 @@
     "saturatedFat": 4.3,
     "fiber": 0,
     "salt": 0.3,
-    "id": 3
+    "id": 3,
+    "categoryId": 1
   },
   {
     "name": "Turkey breast (no skin)",
@@ -45,7 +48,8 @@
     "saturatedFat": 0.5,
     "fiber": 0.5,
     "salt": 0.37,
-    "id": 4
+    "id": 4,
+    "categoryId": 1
   },
   {
     "name": "Turkey thighs (with skin)",
@@ -57,7 +61,8 @@
     "saturatedFat": 0.6,
     "fiber": 0,
     "salt": 0.17,
-    "id": 5
+    "id": 5,
+    "categoryId": 1
   },
   {
     "name": "Ground turkey",
@@ -69,7 +74,8 @@
     "saturatedFat": 2.2321,
     "fiber": 0,
     "salt": 0.16741075,
-    "id": 6
+    "id": 6,
+    "categoryId": 1
   },
   {
     "name": "Beef chuck",
@@ -81,7 +87,8 @@
     "saturatedFat": 3.4,
     "fiber": 0,
     "salt": 1,
-    "id": 7
+    "id": 7,
+    "categoryId": 2
   },
   {
     "name": "Beef flank",
@@ -93,7 +100,8 @@
     "saturatedFat": 2.2,
     "fiber": 0,
     "salt": 0.19,
-    "id": 8
+    "id": 8,
+    "categoryId": 2
   },
   {
     "name": "Beef meatballs",
@@ -105,7 +113,8 @@
     "saturatedFat": 8.1,
     "fiber": 0,
     "salt": 1.8,
-    "id": 9
+    "id": 9,
+    "categoryId": 2
   },
   {
     "name": "Beef rib steak",
@@ -117,7 +126,8 @@
     "saturatedFat": 8.1,
     "fiber": 0,
     "salt": 0.22,
-    "id": 10
+    "id": 10,
+    "categoryId": 2
   },
   {
     "name": "Beef sirloin",
@@ -129,7 +139,8 @@
     "saturatedFat": 7,
     "fiber": 0,
     "salt": 0.1524,
-    "id": 11
+    "id": 11,
+    "categoryId": 2
   },
   {
     "name": "Beef tongue",
@@ -141,7 +152,8 @@
     "saturatedFat": 3.2,
     "fiber": 0,
     "salt": 0.93,
-    "id": 12
+    "id": 12,
+    "categoryId": 2
   },
   {
     "name": "Beef ribeye steak",
@@ -153,7 +165,8 @@
     "saturatedFat": 5.6,
     "fiber": 0,
     "salt": 0.1524,
-    "id": 13
+    "id": 13,
+    "categoryId": 2
   },
   {
     "name": "Beef burger",
@@ -165,7 +178,8 @@
     "saturatedFat": 5,
     "fiber": 0,
     "salt": 2,
-    "id": 14
+    "id": 14,
+    "categoryId": 2
   },
   {
     "name": "Black angus burger",
@@ -177,7 +191,8 @@
     "saturatedFat": 4.2,
     "fiber": 0,
     "salt": 1.42,
-    "id": 15
+    "id": 15,
+    "categoryId": 2
   },
   {
     "name": "Ground beef (12% fat)",
@@ -189,7 +204,8 @@
     "saturatedFat": 5.7,
     "fiber": 0,
     "salt": 0.13,
-    "id": 16
+    "id": 16,
+    "categoryId": 2
   },
   {
     "name": "Ground beef (15% fat)",
@@ -201,7 +217,8 @@
     "saturatedFat": 6.1999998092651,
     "fiber": 0,
     "salt": 0.21999999880791,
-    "id": 17
+    "id": 17,
+    "categoryId": 2
   },
   {
     "name": "Ground beef (20% fat)",
@@ -213,7 +230,8 @@
     "saturatedFat": 9.1,
     "fiber": 0,
     "salt": 0.2,
-    "id": 18
+    "id": 18,
+    "categoryId": 2
   },
   {
     "name": "Bacon",
@@ -225,7 +243,8 @@
     "saturatedFat": 12.5,
     "fiber": 0,
     "salt": 4.75,
-    "id": 19
+    "id": 19,
+    "categoryId": 2
   },
   {
     "name": "Pork loin",
@@ -237,7 +256,8 @@
     "saturatedFat": 2.3,
     "fiber": 0,
     "salt": 0.13,
-    "id": 20
+    "id": 20,
+    "categoryId": 2
   },
   {
     "name": "Pork ribs",
@@ -249,7 +269,8 @@
     "saturatedFat": 3.2,
     "fiber": 0,
     "salt": 0.1,
-    "id": 21
+    "id": 21,
+    "categoryId": 2
   },
   {
     "name": "Pork tenderloin",
@@ -261,7 +282,8 @@
     "saturatedFat": 1.5,
     "fiber": 0,
     "salt": 0.12,
-    "id": 22
+    "id": 22,
+    "categoryId": 2
   },
   {
     "name": "Pork shoulder steak",
@@ -273,7 +295,8 @@
     "saturatedFat": 3.3,
     "fiber": 0,
     "salt": 1.4732,
-    "id": 23
+    "id": 23,
+    "categoryId": 3
   },
   {
     "name": "Salmon trout",
@@ -285,7 +308,8 @@
     "saturatedFat": 0.7,
     "fiber": 0,
     "salt": 1.3,
-    "id": 24
+    "id": 24,
+    "categoryId": 4
   },
   {
     "name": "Salmon fillet",
@@ -297,7 +321,8 @@
     "saturatedFat": 0.44642857142857,
     "fiber": 0,
     "salt": 0.55803571428573,
-    "id": 25
+    "id": 25,
+    "categoryId": 4
   },
   {
     "name": "Tuna in water",
@@ -309,7 +334,8 @@
     "saturatedFat": 0.4,
     "fiber": 0,
     "salt": 1.25,
-    "id": 26
+    "id": 26,
+    "categoryId": 4
   },
   {
     "name": "Tilapia",
@@ -321,7 +347,8 @@
     "saturatedFat": 0.4464,
     "fiber": 0,
     "salt": 0.08928575,
-    "id": 27
+    "id": 27,
+    "categoryId": 4
   },
   {
     "name": "Cod fillet",
@@ -333,7 +360,8 @@
     "saturatedFat": 0,
     "fiber": 0,
     "salt": 0.1325,
-    "id": 28
+    "id": 28,
+    "categoryId": 4
   },
   {
     "name": "Sardines in olive oil",
@@ -345,7 +373,8 @@
     "saturatedFat": 3.53,
     "fiber": 0,
     "salt": 1.02,
-    "id": 29
+    "id": 29,
+    "categoryId": 4
   },
   {
     "name": "Pollock",
@@ -357,7 +386,8 @@
     "saturatedFat": 0,
     "fiber": 0,
     "salt": 0.398,
-    "id": 30
+    "id": 30,
+    "categoryId": 4
   },
   {
     "name": "Herring",
@@ -369,7 +399,8 @@
     "saturatedFat": 3.6,
     "fiber": 0,
     "salt": 1.84,
-    "id": 31
+    "id": 31,
+    "categoryId": 4
   },
   {
     "name": "Cottage cheese",
@@ -381,7 +412,8 @@
     "saturatedFat": 2.6,
     "fiber": 0,
     "salt": 0.73,
-    "id": 32
+    "id": 32,
+    "categoryId": 5
   },
   {
     "name": "Mozzarella",
@@ -393,7 +425,8 @@
     "saturatedFat": 8.5,
     "fiber": 0,
     "salt": 0.6,
-    "id": 33
+    "id": 33,
+    "categoryId": 5
   },
   {
     "name": "Feta",
@@ -405,7 +438,8 @@
     "saturatedFat": 15.6,
     "fiber": 0,
     "salt": 2.2,
-    "id": 34
+    "id": 34,
+    "categoryId": 5
   },
   {
     "name": "Parmesan",
@@ -417,7 +451,8 @@
     "saturatedFat": 20,
     "fiber": 0,
     "salt": 1.6,
-    "id": 35
+    "id": 35,
+    "categoryId": 5
   },
   {
     "name": "Haloumi",
@@ -429,7 +464,8 @@
     "saturatedFat": 15.89999961853,
     "fiber": 0.6,
     "salt": 2.5799999237061,
-    "id": 36
+    "id": 36,
+    "categoryId": 5
   },
   {
     "name": "Cow milk (1% fat)",
@@ -441,7 +477,8 @@
     "saturatedFat": 0.62,
     "fiber": 0,
     "salt": 0.1675,
-    "id": 37
+    "id": 37,
+    "categoryId": 6
   },
   {
     "name": "Cow milk (2% fat)",
@@ -453,7 +490,8 @@
     "saturatedFat": 1.25,
     "fiber": 0,
     "salt": 0.11979175,
-    "id": 38
+    "id": 38,
+    "categoryId": 6
   },
   {
     "name": "Cow milk (3.5% fat)",
@@ -465,7 +503,9 @@
     "saturatedFat": 2.4,
     "fiber": 0,
     "salt": 0.1,
-    "id": 39
+    "id": 39,
+    "categoryId": 6
+
   },
   {
     "name": "Almomd milk",
@@ -477,7 +517,9 @@
     "saturatedFat": 0.2,
     "fiber": 1.2,
     "salt": 0.15748031496063,
-    "id": 40
+    "id": 40,
+    "categoryId": 6
+
   },
   {
     "name": "Skyr",
@@ -489,7 +531,9 @@
     "saturatedFat": 0.1,
     "fiber": 0,
     "salt": 0.14,
-    "id": 41
+    "id": 41,
+    "categoryId": 6
+
   },
   {
     "name": "Eggs",
@@ -501,7 +545,9 @@
     "saturatedFat": 2.6,
     "fiber": 0,
     "salt": 0.3,
-    "id": 42
+    "id": 42,
+    "categoryId": 6
+
   },
   {
     "name": "Liquid egg whites",
@@ -513,7 +559,9 @@
     "saturatedFat": 0,
     "fiber": 0.1,
     "salt": 0.16,
-    "id": 43
+    "id": 43,
+    "categoryId": 6
+
   },
   {
     "name": "White rice",
@@ -525,7 +573,9 @@
     "saturatedFat": 0.2,
     "fiber": 2.4,
     "salt": 0.02,
-    "id": 44
+    "id": 44,
+    "categoryId": 7
+
   },
   {
     "name": "Brown rice",
@@ -537,7 +587,8 @@
     "saturatedFat": 0.6,
     "fiber": 3.6,
     "salt": 0.03,
-    "id": 45
+    "id": 45,
+    "categoryId": 7
   },
   {
     "name": "Couscous",
@@ -549,7 +600,8 @@
     "saturatedFat": 0.4,
     "fiber": 3.4,
     "salt": 0.02,
-    "id": 46
+    "id": 46,
+    "categoryId": 7
   },
   {
     "name": "Oats",
@@ -561,7 +613,8 @@
     "saturatedFat": 1.5,
     "fiber": 9,
     "salt": 0.01,
-    "id": 47
+    "id": 47,
+    "categoryId": 7
   },
   {
     "name": "Pasta",
@@ -573,7 +626,8 @@
     "saturatedFat": 0.3,
     "fiber": 3.5,
     "salt": 0,
-    "id": 48
+    "id": 48,
+    "categoryId": 7
   },
   {
     "name": "Whole-wheat pasta",
@@ -585,7 +639,8 @@
     "saturatedFat": 0.4,
     "fiber": 9,
     "salt": 0.01,
-    "id": 49
+    "id": 49,
+    "categoryId": 7
   },
   {
     "name": "Quinoa",
@@ -597,7 +652,8 @@
     "saturatedFat": 0.6,
     "fiber": 6,
     "salt": 0.59,
-    "id": 50
+    "id": 50,
+    "categoryId": 7
   },
   {
     "name": "White bread",
@@ -609,7 +665,8 @@
     "saturatedFat": 0.6,
     "fiber": 2.1,
     "salt": 0.98,
-    "id": 51
+    "id": 51,
+    "categoryId": 7
   },
   {
     "name": "Whole-wheat bread",
@@ -621,7 +678,8 @@
     "saturatedFat": 0,
     "fiber": 7.1,
     "salt": 1.0575,
-    "id": 52
+    "id": 52,
+    "categoryId": 7
   },
   {
     "name": "Buns",
@@ -633,7 +691,8 @@
     "saturatedFat": 0.9,
     "fiber": 2.9,
     "salt": 1.1,
-    "id": 53
+    "id": 53,
+    "categoryId": 7
   },
   {
     "name": "Tortila",
@@ -645,7 +704,8 @@
     "saturatedFat": 3,
     "fiber": 1.8,
     "salt": 0.94,
-    "id": 54
+    "id": 54,
+    "categoryId": 7
   },
   {
     "name": "Buckwheat",
@@ -657,7 +717,8 @@
     "saturatedFat": 0.7,
     "fiber": 4,
     "salt": 0.01,
-    "id": 55
+    "id": 55,
+    "categoryId": 7
   },
   {
     "name": "Bulgur",
@@ -669,6 +730,7 @@
     "saturatedFat": 0.2,
     "fiber": 6.2,
     "salt": 0.04,
-    "id": 56
+    "id": 56,
+    "categoryId": 7
   }
 ]

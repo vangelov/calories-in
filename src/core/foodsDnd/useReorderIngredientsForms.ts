@@ -5,7 +5,7 @@ import { useFoodsListState } from 'core/foods/FoodsListProvider'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'
 import { useFoodsDragAndDropState } from './FoodsDragAndDropProvider'
-import { FOODS_LIST_DROPPABLE_ID } from 'components/Sidebar/FoodsList'
+import { isFoodCategoryDroppableId } from 'core/foods'
 
 type FunctionsParams = {
   mealField: MealField
@@ -46,7 +46,7 @@ function useReorderIngredientsForms({
     } else if (destination.droppableId === mealField.fieldId) {
       let ingredientForm: IngredientForm | undefined
 
-      if (source.droppableId === FOODS_LIST_DROPPABLE_ID) {
+      if (isFoodCategoryDroppableId(source.droppableId)) {
         const food = foodsListState[source.index]
         foodsByIdDispatch({ type: 'addFood', food })
 

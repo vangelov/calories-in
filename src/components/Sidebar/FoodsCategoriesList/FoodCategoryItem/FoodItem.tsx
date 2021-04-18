@@ -1,6 +1,6 @@
 import { Draggable } from 'react-beautiful-dnd'
 import { Box } from '@chakra-ui/react'
-import styled from 'styled-components'
+import styled from '@emotion/styled'
 import React from 'react'
 import { Food } from 'core/types'
 

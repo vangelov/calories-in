@@ -21,9 +21,9 @@ const initialDiet: Diet = {
     { name: 'Meal 3', ingredients: [{ amountInGrams: 500, foodId: 3 }] },
   ],
   foodsByIdMap: {
-    '1': { id: 1, name: 'Food1' },
-    '2': { id: 2, name: 'Food2' },
-    '3': { id: 3, name: 'Food3' },
+    '1': { id: 1, name: 'Food1', categoryId: 7 },
+    '2': { id: 2, name: 'Food2', categoryId: 7 },
+    '3': { id: 3, name: 'Food3', categoryId: 7 },
   },
 }
 
@@ -40,8 +40,6 @@ function DietEditor() {
   function onNewDiet() {
     setDietForm(getDietForm())
   }
-
-  console.log('render', diet, dietForm)
 
   return (
     <UndoRedoStateProvider key={dietForm.formId}>

@@ -20,7 +20,7 @@ const anotherDiet: Diet = {
     { name: 'Meal B', ingredients: [{ amountInGrams: 200, foodId: 2 }] },
   ],
   foodsByIdMap: {
-    '2': { id: 2, name: 'food2' },
+    '2': { id: 2, name: 'food2', categoryId: 1 },
   },
 }
 
