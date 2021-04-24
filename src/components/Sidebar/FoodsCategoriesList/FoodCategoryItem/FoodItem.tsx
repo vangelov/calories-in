@@ -8,10 +8,12 @@ import {
   Button,
   Flex,
   Text,
+  Box,
 } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import React from 'react'
 import { Food } from 'core/types'
+import { motion } from 'framer-motion'
 
 const FoodItemClone = styled(FoodItemInternal)`
   ~ div {
@@ -24,35 +26,62 @@ type Props = {
   index: number
   innerRef?: any
   isDragging?: boolean
+  animateOnMount?: boolean
+  onRemove?: (index: number) => void
 } & BoxProps
 
 function FoodItemInternal({
   food,
   innerRef,
   isDragging = false,
+  index,
+  animateOnMount = false,
+  onRemove,
   ...rest
 }: Props) {
   return (
-    <Flex
+    <Box
       bg="white"
       boxShadow={isDragging ? 'dark-lg' : undefined}
       ref={innerRef}
       alignItems="center"
       {...rest}
     >
-      <Text flex={1}>{food.name}</Text>
+      <motion.div
+        key={food.id}
+        initial={animateOnMount ? { opacity: 0, y: 0, height: 0 } : false}
+        animate={animateOnMount ? { opacity: 1, y: 0, height: 'auto' } : false}
+        exit={{
+          opacity: 0,
+          height: 0,
+          transition: { exitDuration: 0.2 },
+        }}
+      >
+        <Flex>
+          <Text flex={1}>{food.name}</Text>
 
-      <Menu isLazy={true} eventListeners={false} placement="right">
-        <MenuButton as={Button}>Actions</MenuButton>
-        <MenuList>
-          <MenuItem>Delete</MenuItem>
-        </MenuList>
-      </Menu>
-    </Flex>
+          {onRemove && (
+            <Menu
+              isLazy={true}
+              strategy="fixed"
+              eventListeners={false}
+              placement="right"
+            >
+              <MenuButton as={Button}>Actions</MenuButton>
+              <MenuList>
+                <MenuItem onClick={() => onRemove && onRemove(index)}>
+                  Delete
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          )}
+        </Flex>
+      </motion.div>
+    </Box>
   )
 }
 
-function FoodItem({ food, index }: Props) {
+function FoodItem({ food, index, onRemove, animateOnMount }: Props) {
   return (
     <Draggable draggableId={food.id.toString()} index={index}>
       {(provided, snapshot) => (
@@ -65,10 +94,17 @@ function FoodItem({ food, index }: Props) {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             style={provided.draggableProps.style}
+            onRemove={onRemove}
+            animateOnMount={animateOnMount}
           />
 
           {snapshot.isDragging && (
-            <FoodItemClone isDragging={false} food={food} index={index} />
+            <FoodItemClone
+              onRemove={() => {}}
+              isDragging={false}
+              food={food}
+              index={index}
+            />
           )}
         </React.Fragment>
       )}

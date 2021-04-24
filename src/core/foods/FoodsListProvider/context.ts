@@ -4,8 +4,8 @@ import { Food } from 'core/types'
 type State = Food[]
 
 type Action =
-  | { type: 'addFood'; food: Food; index: number }
-  | { type: 'removeFood'; foodId: number }
+  | { type: 'addFood'; food: Food }
+  | { type: 'removeFood'; index: number }
 
 type Dispatch = (action: Action) => void
 

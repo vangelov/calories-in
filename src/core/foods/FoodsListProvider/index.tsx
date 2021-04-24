@@ -5,14 +5,13 @@ import { State, Action, StateContext, DispatchContext } from './context'
 function reducer(state: State, action: Action): State {
   switch (action.type) {
     case 'addFood':
-      return [
-        ...state.slice(0, action.index),
-        action.food,
-        ...state.slice(action.index + 1),
-      ]
+      const index = state.findIndex(
+        ({ categoryId }) => categoryId === action.food.categoryId
+      )
+      return [...state.slice(0, index), action.food, ...state.slice(index)]
 
     case 'removeFood':
-      return state.filter(food => food.id !== action.foodId)
+      return [...state.slice(0, action.index), ...state.slice(action.index + 1)]
   }
 }
 
