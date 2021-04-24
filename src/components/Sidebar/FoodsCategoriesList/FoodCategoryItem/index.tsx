@@ -12,8 +12,8 @@ type Props = {
 
 function FoodCategoryItem({ foods, foodCategory, indexOffset }: Props) {
   return (
-    <Box>
-      <Box backgroundColor="yellow" marginRight={10} position="sticky" top="0">
+    <Box marginRight={5} marginLeft={5}>
+      <Box zIndex={1} backgroundColor="yellow" position="sticky" top="0">
         <Text>{foodCategory.name}</Text>
       </Box>
 
@@ -22,7 +22,7 @@ function FoodCategoryItem({ foods, foodCategory, indexOffset }: Props) {
         isDropDisabled={true}
       >
         {provided => (
-          <Box ref={provided.innerRef} paddingLeft={2} overflow="scroll">
+          <Box ref={provided.innerRef}>
             {foods.map((food, index) => (
               <FoodItem key={food.id} food={food} index={indexOffset + index} />
             ))}

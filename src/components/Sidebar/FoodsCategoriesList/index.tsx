@@ -1,9 +1,9 @@
-import { Box, FlexProps } from '@chakra-ui/react'
+import { Box, BoxProps } from '@chakra-ui/react'
 import { useFoodsPerCategories } from 'core/foods'
 import { ReactElement } from 'react'
 import FoodCategoryItem from './FoodCategoryItem'
 
-type Props = FlexProps
+type Props = BoxProps
 
 function FoodsCategoriesList({ ...rest }: Props) {
   const foodsPerCategories = useFoodsPerCategories()

@@ -1,26 +1,32 @@
 import { Delta } from 'jsondiffpatch'
+import { deepCopy } from 'core/utils'
+
+type PatchUnpatchResult = {
+  scrollTop: number
+  delta: Delta
+}
 
 class DeltaNode {
   delta: Delta
-
+  scrollTop: number
   nextNode: DeltaNode | undefined
   prevNode: DeltaNode | undefined
 
-  constructor(delta: Delta) {
+  constructor(delta: Delta, scrollTop: number) {
     this.delta = delta
+    this.scrollTop = scrollTop
   }
 }
 
 const MAX_SIZE = 100
-
 class DeltasStack {
-  startNode: DeltaNode | undefined = undefined
-  pointerNode: DeltaNode | undefined = undefined
+  startNode?: DeltaNode = undefined
+  pointerNode?: DeltaNode = undefined
   size: number = 0
   canUnpatch: boolean = false
   canPatch: boolean = false
 
-  getNextDeltaToUnpatch(): Delta | null {
+  getNextResultToUnpatch(): PatchUnpatchResult | null {
     if (!this.canUnpatch) {
       return null
     }
@@ -32,10 +38,15 @@ class DeltasStack {
     }
 
     if (this.pointerNode) {
+      const { delta, scrollTop } = this.pointerNode
       this.canUnpatch = this.pointerNode.nextNode !== undefined
       this.canPatch = true
 
-      return this.pointerNode.delta
+      // jsondiffpatch sometimes modifies this delta for some reason
+      return {
+        delta: deepCopy(delta),
+        scrollTop,
+      }
     }
 
     this.canUnpatch = false
@@ -43,16 +54,18 @@ class DeltasStack {
     return null
   }
 
-  getNextDeltaToPatch(): Delta | null {
+  getNextResultToPatch(): PatchUnpatchResult | null {
     if (this.pointerNode) {
-      const delta = this.pointerNode.delta
-
+      const { delta, scrollTop } = this.pointerNode
       this.pointerNode = this.pointerNode.prevNode
 
       this.canPatch = this.pointerNode !== undefined
       this.canUnpatch = true
 
-      return delta
+      return {
+        delta: deepCopy(delta),
+        scrollTop,
+      }
     }
 
     return null
@@ -74,13 +87,13 @@ class DeltasStack {
     }
   }
 
-  push(delta: Delta) {
+  push(delta: Delta, scrollTop: number) {
     if (this.pointerNode) {
       this.startNode = this.pointerNode.nextNode
       this.pointerNode = undefined
     }
 
-    const node = new DeltaNode(delta)
+    const node = new DeltaNode(delta, scrollTop)
 
     if (!this.startNode) {
       this.startNode = node

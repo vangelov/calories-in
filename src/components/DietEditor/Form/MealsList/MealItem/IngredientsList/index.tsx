@@ -30,11 +30,11 @@ function IngredientsList({
           {ingredientsFields.map((ingredientField, index) => (
             <IngredientItem
               key={ingredientField.fieldId}
+              onRemove={onIngredientRemove}
               mealIndex={mealIndex}
               index={index}
               ingredientField={ingredientField}
               ingredientStats={ingredientsStats[index]}
-              onRemove={() => onIngredientRemove(index)}
             />
           ))}
           {ingredientsFields.length > 0 && provided.placeholder}

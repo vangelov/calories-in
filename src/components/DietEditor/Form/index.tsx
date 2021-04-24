@@ -5,7 +5,7 @@ import Controls from './Controls'
 import { Diet } from 'core/types'
 import { DietForm, useDietForm } from 'core/dietForm'
 import { FormProvider } from 'react-hook-form'
-import { useRef } from 'react'
+import { RefObject, useLayoutEffect, useRef } from 'react'
 import { FoodsDragAndDropProvider } from 'core/foodsDnd'
 import { Watcher } from 'core/undoRedo'
 
@@ -13,11 +13,25 @@ type Props = {
   dietForm: DietForm
   onDietChange: (diet: Diet) => void
   onNewDiet: () => void
+  scrollRef: RefObject<HTMLDivElement>
+  scrollTop: number
 }
 
-function Form({ dietForm, onDietChange, onNewDiet }: Props) {
+function Form({
+  dietForm,
+  onDietChange,
+  onNewDiet,
+  scrollTop,
+  scrollRef,
+}: Props) {
   const formMethods = useDietForm(dietForm)
   const mealsControllerRef = useRef<MealsController>()
+
+  useLayoutEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollTop
+    }
+  }, [scrollRef, scrollTop])
 
   function onMealAdd() {
     mealsControllerRef.current?.onMealAdd()
@@ -31,7 +45,13 @@ function Form({ dietForm, onDietChange, onNewDiet }: Props) {
         <Header onNewDiet={onNewDiet} onDietChange={onDietChange} />
         <Controls onMealAdd={onMealAdd} />
 
-        <Box position="relative" zIndex={0} flex={1} overflow="scroll">
+        <Box
+          ref={scrollRef}
+          position="relative"
+          zIndex={0}
+          flex={1}
+          overflow="scroll"
+        >
           <MealsList mealsControllerRef={mealsControllerRef} />
         </Box>
       </FoodsDragAndDropProvider>
