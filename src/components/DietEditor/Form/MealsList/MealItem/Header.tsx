@@ -1,22 +1,35 @@
 import { Input, Button, Flex } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
-import { MealField, getMealsFormsPath } from 'core/dietForm'
-import { useRef } from 'react'
+import { MealField, getMealsFormsPath, IngredientField } from 'core/dietForm'
 import { useUndoRedoMethods } from 'core/undoRedo'
+import { useMealStats, useUpdateMealStats } from 'core/stats'
 
 type Props = {
   mealIndex: number
   mealField: MealField
+  ingredientsFields: IngredientField[]
   zIndex: number
+  index: number
   onRemove: (mealIndex: number) => void
 }
 
-function Header({ mealIndex, mealField, onRemove, zIndex }: Props) {
+function Header({
+  mealIndex,
+  mealField,
+  index,
+  onRemove,
+  ingredientsFields,
+  zIndex,
+}: Props) {
   const { register } = useFormContext()
-  const inputRef = useRef<HTMLInputElement | null>(null)
   const { saveLastChange } = useUndoRedoMethods()
+  const nameRegister = register(getMealsFormsPath(mealIndex, 'name'))
+  const { mealStats } = useMealStats(index, mealField, ingredientsFields)
 
-  const onMealNameChange = () => {
+  useUpdateMealStats(index, mealStats)
+
+  function onNameChange(event: any) {
+    nameRegister.onChange(event)
     saveLastChange()
   }
 
@@ -30,14 +43,10 @@ function Header({ mealIndex, mealField, onRemove, zIndex }: Props) {
       justifyContent="space-between"
     >
       <Input
-        name={getMealsFormsPath(mealIndex, 'name')}
+        {...nameRegister}
+        onChange={onNameChange}
         bg="white"
         width="30%"
-        ref={node => {
-          register(node)
-          inputRef.current = node
-        }}
-        onChange={onMealNameChange}
         defaultValue={mealField.name}
       />
       <Button onClick={() => onRemove(mealIndex)}>Remove</Button>

@@ -1,6 +1,5 @@
 import { getMealForm, MealField, useMealsForms } from 'core/dietForm'
 import { useUndoRedoMethods } from 'core/undoRedo'
-import { useFormContext } from 'react-hook-form'
 
 type MealsController = {
   mealsFields: MealField[]
@@ -9,20 +8,21 @@ type MealsController = {
 }
 
 function useMealsController(): MealsController {
-  const { control } = useFormContext()
-  const { mealsFields, appendMealForm, removeMealForm } = useMealsForms({
-    control,
-  })
+  const { mealsFields, appendMealForm, removeMealForm } = useMealsForms()
   const { saveLastChange } = useUndoRedoMethods()
 
   function onMealAdd() {
     const mealForm = getMealForm()
-    appendMealForm(mealForm)
+    appendMealForm(mealForm, {
+      shouldFocus: true,
+      focusName: `mealsForms.${mealsFields.length}.name`,
+    })
     saveLastChange()
   }
 
   function onMealRemove(index: number) {
     removeMealForm(index)
+    saveLastChange()
   }
 
   return {

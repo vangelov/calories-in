@@ -1,5 +1,5 @@
 import { Meal } from 'core/types'
-import { ArrayField, Control, useFieldArray } from 'react-hook-form'
+import { useFieldArray } from 'react-hook-form'
 import { getIngredientForm, IngredientForm } from './ingredientForm'
 import { getFormPath } from './utils'
 import { v4 as uuidv4 } from 'uuid'
@@ -32,24 +32,19 @@ function getMealForm(meal?: Meal): MealForm {
   }
 }
 
-type Params = {
-  control: Control
-}
+type MealField = Partial<MealForm>
 
-type MealField = Partial<ArrayField<MealForm, 'id'>>
-
-function useMealsForms({ control }: Params) {
+function useMealsForms() {
   const {
     fields: mealsFields,
     append: appendMealForm,
     remove: removeMealForm,
-  } = useFieldArray<MealForm>({
-    control,
+  } = useFieldArray({
     name: getMealsFormsPath(),
   })
 
   return {
-    mealsFields,
+    mealsFields: mealsFields as MealField[],
     appendMealForm,
     removeMealForm,
   }

@@ -7,7 +7,7 @@ type UseAddFoodParams = {
   getFoodCategoryItemRefById: (id: number) => RefObject<HTMLDivElement>
 }
 
-let id = 0
+let id = 100
 
 function useAddFood({
   foodCategoriesListRef,

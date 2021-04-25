@@ -14,9 +14,10 @@ function FoodsCategoriesList({
   forwardRef,
   ...rest
 }: Props) {
-  const foodsPerCategories = useFoodsPerCategories()
+  const { foodsPerCategories, foodsCountDiff } = useFoodsPerCategories()
   const foodsCategoryItems: ReactElement<typeof FoodCategoryItem>[] = []
-  let foodsCountByNow = 0
+  const shouldAnimateFoodsOnMount = Math.abs(foodsCountDiff) === 1
+  let foodsCountSoFar = 0
 
   for (const { foodCategory, foods } of foodsPerCategories) {
     foodsCategoryItems.push(
@@ -25,11 +26,12 @@ function FoodsCategoriesList({
         ref={getFoodCategoryItemRefById(foodCategory.id)}
         foods={foods}
         foodCategory={foodCategory}
-        indexOffset={foodsCountByNow}
+        indexOffset={foodsCountSoFar}
+        shouldAnimateFoodsOnMount={shouldAnimateFoodsOnMount}
       />
     )
 
-    foodsCountByNow += foods.length
+    foodsCountSoFar += foods.length
   }
 
   return (

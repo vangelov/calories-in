@@ -1,6 +1,6 @@
 import { Diet } from 'core/types'
 import { getMealForm, MealForm } from './mealForm'
-import { useForm, UseFormMethods } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 type DietForm = {
   formId: string
@@ -26,7 +26,7 @@ function getDietForm(diet?: Diet): DietForm {
   }
 }
 
-function useDietForm(dietForm: DietForm): UseFormMethods<DietForm> {
+function useDietForm(dietForm: DietForm) {
   const formMethods = useForm<DietForm>({
     defaultValues: dietForm,
   })

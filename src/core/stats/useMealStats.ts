@@ -2,7 +2,8 @@ import { useFormContext, useWatch } from 'react-hook-form'
 import {
   IngredientField,
   MealField,
-  getIngredinetsFormsPath,
+  getIngredientsFormsPath,
+  IngredientForm,
 } from 'core/dietForm'
 import { Stats } from './types'
 import { sumStats } from './utils'
@@ -13,22 +14,15 @@ function useMealStats(
   ingredientsFields: IngredientField[]
 ) {
   const { control } = useFormContext()
-  const ingredientsForms =
-    useWatch({
-      control,
-      name: getIngredinetsFormsPath(mealIndex),
-      defaultValue: mealField.ingredientsForms,
-    }) || []
+  const ingredientsForms = useWatch({
+    control,
+    name: getIngredientsFormsPath(mealIndex),
+    defaultValue: mealField.ingredientsForms,
+  }) as IngredientForm[]
 
-  const ingredientsStats: Stats[] = ingredientsFields.map(
-    (ingredientField, index) => {
-      const amountInGrams = ingredientsForms[index]
-        ? ingredientsForms[index].amountInGrams
-        : ingredientField.amountInGrams
-
-      return { protein: Number(amountInGrams) * 2 }
-    }
-  )
+  const ingredientsStats: Stats[] = ingredientsForms.map(ingredientsForm => {
+    return { protein: Number(ingredientsForm.amountInGrams) * 2 }
+  })
 
   const mealStats = sumStats(ingredientsStats)
 

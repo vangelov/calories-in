@@ -5,7 +5,6 @@ import { Droppable } from 'react-beautiful-dnd'
 import { getFoodCategoryDroppableId } from 'core/foods'
 import { AnimatePresence } from 'framer-motion'
 import { useFoodsListDispatch } from 'core/foods/FoodsListProvider'
-import useIsFirstRender from 'core/utils/useIsFirstRender'
 import { forwardRef, ForwardedRef } from 'react'
 
 type Props = {
@@ -13,6 +12,7 @@ type Props = {
   foodCategory: FoodCategory
   indexOffset: number
   forwardRef?: ForwardedRef<HTMLDivElement>
+  shouldAnimateFoodsOnMount: boolean
 }
 
 function FoodCategoryItem({
@@ -20,13 +20,15 @@ function FoodCategoryItem({
   foodCategory,
   indexOffset,
   forwardRef,
+  shouldAnimateFoodsOnMount,
 }: Props) {
-  const isFirstRender = useIsFirstRender()
   const foodsListDispatch = useFoodsListDispatch()
 
   const onFoodItemRemove = (index: number) => {
     foodsListDispatch({ type: 'removeFood', index })
   }
+
+  console.log('render cat')
 
   return (
     <Box ref={forwardRef} marginRight={5} marginLeft={5}>
@@ -47,7 +49,7 @@ function FoodCategoryItem({
                   food={food}
                   onRemove={onFoodItemRemove}
                   index={indexOffset + index}
-                  animateOnMount={!isFirstRender}
+                  animateOnMount={shouldAnimateFoodsOnMount}
                 />
               ))}
             </AnimatePresence>

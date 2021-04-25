@@ -26,6 +26,11 @@ function Form({
 }: Props) {
   const formMethods = useDietForm(dietForm)
   const mealsControllerRef = useRef<MealsController>()
+  const { handleSubmit } = formMethods
+
+  const onSubmit = handleSubmit((form: DietForm) => {
+    console.log('submit', form)
+  })
 
   useLayoutEffect(() => {
     if (scrollRef.current) {
@@ -43,7 +48,7 @@ function Form({
 
       <FoodsDragAndDropProvider>
         <Header onNewDiet={onNewDiet} onDietChange={onDietChange} />
-        <Controls onMealAdd={onMealAdd} />
+        <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
 
         <Box
           ref={scrollRef}

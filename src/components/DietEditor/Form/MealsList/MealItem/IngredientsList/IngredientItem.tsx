@@ -8,8 +8,8 @@ import {
   MenuList,
   MenuItem,
 } from '@chakra-ui/react'
-import { getIngredinetsFormsPath, IngredientField } from 'core/dietForm'
-import { useFormContext, Controller } from 'react-hook-form'
+import { getIngredientsFormsPath, IngredientField } from 'core/dietForm'
+import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import { Stats } from 'core/stats'
 import { Draggable } from 'react-beautiful-dnd'
 import { useUndoRedoMethods } from 'core/undoRedo'
@@ -34,7 +34,7 @@ const variants = {
   collapsed: { opacity: 0, height: 0, x: 0 },
 }
 
-function Ingredient({
+function IngredientItem({
   mealIndex,
   index,
   ingredientField,
@@ -46,8 +46,12 @@ function Ingredient({
   const { saveLastChange } = useUndoRedoMethods()
   const foodsByIdState = useFoodsByIdState()
   const [isVisible, setIsVisible] = useState(true)
+  const amountName = getIngredientsFormsPath(mealIndex, index, 'amountInGrams')
+  const amountRegister = register(amountName)
+  const amountInGrams = useWatch({ name: amountName })
 
-  const onChange = () => {
+  const onAmountChange = (event: any) => {
+    amountRegister.onChange(event)
     saveLastChange()
   }
 
@@ -83,14 +87,15 @@ function Ingredient({
 
             <Input
               type="hidden"
-              name={getIngredinetsFormsPath(mealIndex, index, 'fieldId')}
-              ref={node => register(node)}
+              {...register(
+                getIngredientsFormsPath(mealIndex, index, 'fieldId')
+              )}
               defaultValue={ingredientField.fieldId}
             />
 
             <Controller
               render={() => <div />}
-              name={getIngredinetsFormsPath(mealIndex, index, 'foodId')}
+              name={getIngredientsFormsPath(mealIndex, index, 'foodId')}
               control={control}
               defaultValue={ingredientField.foodId}
             />
@@ -100,12 +105,11 @@ function Ingredient({
               width="100px"
               autoComplete="off"
               bg="white"
-              name={getIngredinetsFormsPath(mealIndex, index, 'amountInGrams')}
-              ref={node => register(node)}
+              {...amountRegister}
+              onChange={onAmountChange}
               defaultValue={ingredientField.amountInGrams}
-              onChange={onChange}
             />
-            <Text width="50px">{ingredientStats.protein}</Text>
+            <Text width="50px">{amountInGrams * 2}</Text>
 
             <Menu isLazy={true} eventListeners={false} placement="right">
               <MenuButton as={Button}>Actions</MenuButton>
@@ -120,4 +124,4 @@ function Ingredient({
   )
 }
 
-export default Ingredient
+export default IngredientItem

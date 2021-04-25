@@ -28,6 +28,7 @@ function Header({ onDietChange, onNewDiet }: Props) {
   const { register } = useFormContext()
   const dietStats = useDietStats()
   const { saveLastChange } = useUndoRedoMethods()
+  const nameRegister = register('name')
 
   function onChangeButtonClick() {
     onDietChange(anotherDiet)
@@ -37,7 +38,8 @@ function Header({ onDietChange, onNewDiet }: Props) {
     onNewDiet()
   }
 
-  function onNameChange() {
+  function onNameChange(event: any) {
+    nameRegister.onChange(event)
     saveLastChange()
   }
 
@@ -50,9 +52,8 @@ function Header({ onDietChange, onNewDiet }: Props) {
       alignItems="center"
       backgroundColor="brown"
     >
-      <Input type="hidden" name="formId" ref={register} />
-
-      <Input name="name" onChange={onNameChange} ref={register} />
+      <Input type="hidden" {...register('formId')} />
+      <Input {...nameRegister} onChange={onNameChange} />
 
       <Button onClick={onChangeButtonClick}>Change</Button>
       <Button onClick={onNewButtonClick}>New</Button>

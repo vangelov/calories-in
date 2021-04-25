@@ -1,6 +1,6 @@
 import { Food, FoodCategory } from 'core/types'
 import { useFoodsListState } from './FoodsListProvider'
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef } from 'react'
 
 const CATEGORIES = [
   { name: 'Poultry', id: 1 },
@@ -47,15 +47,28 @@ function getFoodsPerCategories(
   return foodsPerCategories
 }
 
-function useFoodsPerCategories(): FoodsPerCategory[] {
+function useSameOrPreviousValue(value: any) {
+  const previous = useRef(value)
+
+  useEffect(() => {
+    previous.current = value
+  }, [value])
+
+  return previous.current
+}
+
+function useFoodsPerCategories() {
   const foods = useFoodsListState()
+  const previousFoods = useSameOrPreviousValue(foods)
 
   const foodsPerCategories = useMemo(() => {
     const foodsByCategoryId = groupFoodsByCategoryId(foods)
     return getFoodsPerCategories(CATEGORIES, foodsByCategoryId)
   }, [foods])
 
-  return foodsPerCategories
+  const foodsCountDiff = foods.length - previousFoods.length
+
+  return { foodsPerCategories, foodsCountDiff }
 }
 
 export default useFoodsPerCategories

@@ -22,7 +22,6 @@ function MealsList({ mealsControllerRef }: Props) {
           mealField={mealField}
         />
       ))}
-      <Box height="50%" />
     </Box>
   )
 }

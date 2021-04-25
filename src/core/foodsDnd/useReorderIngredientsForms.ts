@@ -6,11 +6,16 @@ import { useUndoRedoMethods } from 'core/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'
 import { useFoodsDragAndDropState } from './FoodsDragAndDropProvider'
 import { isFoodCategoryDroppableId } from 'core/foods'
+import { FieldArrayMethodProps } from 'react-hook-form'
 
 type FunctionsParams = {
   mealField: MealField
   moveIngredientForm: (from: number, to: number) => void
-  insertIngredientForm: (at: number, ingredientForm: IngredientForm) => void
+  insertIngredientForm: (
+    at: number,
+    ingredientForm: IngredientForm,
+    options?: FieldArrayMethodProps
+  ) => void
   removeIngredientForm: (from: number) => void
 }
 
@@ -48,6 +53,7 @@ function useReorderIngredientsForms({
 
       if (isFoodCategoryDroppableId(source.droppableId)) {
         const food = foodsListState[source.index]
+
         foodsByIdDispatch({ type: 'addFood', food })
 
         ingredientForm = getIngredientForm({
@@ -60,7 +66,9 @@ function useReorderIngredientsForms({
       }
 
       if (ingredientForm) {
-        insertIngredientForm(destination.index, ingredientForm)
+        insertIngredientForm(destination.index, ingredientForm, {
+          shouldFocus: false,
+        })
       }
     } else if (source.droppableId === mealField.fieldId) {
       removeIngredientForm(source.index)

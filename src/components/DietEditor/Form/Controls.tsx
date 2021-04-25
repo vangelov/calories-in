@@ -3,9 +3,10 @@ import { useUndoRedoMethods, useUndoRedoState } from 'core/undoRedo'
 
 type Props = {
   onMealAdd: () => void
+  onSave: () => void
 }
 
-function Controls({ onMealAdd }: Props) {
+function Controls({ onMealAdd, onSave }: Props) {
   const { undo, redo } = useUndoRedoMethods()
   const { canUndo, canRedo } = useUndoRedoState()
 
@@ -26,6 +27,7 @@ function Controls({ onMealAdd }: Props) {
       backgroundColor="brown"
     >
       <Button onClick={onMealAdd}>Add Meal</Button>
+      <Button onClick={onSave}>Save</Button>
       <Button isDisabled={!canUndo} onClick={onUndo}>
         Undo
       </Button>

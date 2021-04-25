@@ -6,7 +6,7 @@ function getFormPath(
   let path = currentPath
 
   if (index !== undefined) {
-    path = `${path}[${index}]`
+    path = `${path}.${index}`
 
     if (fieldName !== undefined) {
       path = `${path}.${fieldName}`

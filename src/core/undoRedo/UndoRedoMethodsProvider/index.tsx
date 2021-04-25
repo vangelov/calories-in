@@ -8,7 +8,7 @@ import {
   RefObject,
 } from 'react'
 import * as jsondiffpatch from 'jsondiffpatch'
-import DeltasStack from './DeltasStack'
+import DeltasStack from './deltasStack'
 import { UndoRedoMethodsContext } from './context'
 import useKeyboard from './useKeyboard'
 import { useUndoRedoSetState } from 'core/undoRedo'
@@ -84,6 +84,7 @@ function UndoRedoMethodsProvider({ children, dietForm, scrollRef }: Props) {
 
           if (delta) {
             lastFormRef.current = form
+            console.log('push', delta)
 
             deltasStackRef.current.push(
               delta,
