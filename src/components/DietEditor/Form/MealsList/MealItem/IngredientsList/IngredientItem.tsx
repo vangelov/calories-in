@@ -48,7 +48,7 @@ function IngredientItem({
   const [isVisible, setIsVisible] = useState(true)
   const amountName = getIngredientsFormsPath(mealIndex, index, 'amountInGrams')
   const amountRegister = register(amountName)
-  const amountInGrams = useWatch({ name: amountName })
+  const amountInGrams = useWatch({ name: amountName }) as number
 
   const onAmountChange = (event: any) => {
     amountRegister.onChange(event)

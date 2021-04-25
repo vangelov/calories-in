@@ -7,6 +7,7 @@ import { DropResult } from 'react-beautiful-dnd'
 import { useFoodsDragAndDropState } from './FoodsDragAndDropProvider'
 import { isFoodCategoryDroppableId } from 'core/foods'
 import { FieldArrayMethodProps } from 'react-hook-form'
+import { useLayoutEffect, useState } from 'react'
 
 type FunctionsParams = {
   mealField: MealField
@@ -21,6 +22,11 @@ type FunctionsParams = {
 
 const DEFAULT_AMOUNT_IN_GRAMS = 100
 
+type PendingInsert = {
+  ingredientForm: IngredientForm
+  index: number
+}
+
 function useReorderIngredientsForms({
   mealField,
   moveIngredientForm,
@@ -31,10 +37,18 @@ function useReorderIngredientsForms({
   const { saveLastChange } = useUndoRedoMethods()
   const foodsByIdDispatch = useFoodsByIdDispatch()
   const foodsListState = useFoodsListState()
+  const [pendingInsert, setPendingInsert] = useState<PendingInsert>()
 
   if (!ingredientFormRef) {
     throw new Error('Missing FoodsDragAndDropProvider')
   }
+
+  useLayoutEffect(() => {
+    if (pendingInsert) {
+      const { index, ingredientForm } = pendingInsert
+      insertIngredientForm(index, ingredientForm)
+    }
+  }, [pendingInsert, insertIngredientForm])
 
   useDragAndDropResponder('onDragEnd', (result: DropResult) => {
     const { source, destination } = result
@@ -66,9 +80,7 @@ function useReorderIngredientsForms({
       }
 
       if (ingredientForm) {
-        insertIngredientForm(destination.index, ingredientForm, {
-          shouldFocus: false,
-        })
+        setPendingInsert({ ingredientForm, index: destination.index })
       }
     } else if (source.droppableId === mealField.fieldId) {
       removeIngredientForm(source.index)

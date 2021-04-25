@@ -68,7 +68,7 @@ function FoodItemInternal({
               placement="right"
             >
               <MenuButton as={Button}>Actions</MenuButton>
-              <MenuList>
+              <MenuList zIndex={100}>
                 <MenuItem onClick={() => onRemove && onRemove(index)}>
                   Delete
                 </MenuItem>
@@ -94,16 +94,16 @@ function FoodItem({ food, index, onRemove, animateOnMount }: Props) {
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             style={provided.draggableProps.style}
-            onRemove={onRemove}
+            onRemove={snapshot.isDragging ? undefined : onRemove}
             animateOnMount={animateOnMount}
           />
 
           {snapshot.isDragging && (
             <FoodItemClone
-              onRemove={() => {}}
               isDragging={false}
               food={food}
               index={index}
+              onRemove={() => {}}
             />
           )}
         </React.Fragment>
