@@ -16,7 +16,11 @@ import { useUndoRedoSetState } from 'core/undoRedo'
 type Props = {
   dietForm: DietForm
   scrollRef: RefObject<HTMLDivElement>
-  children: (currentDietForm: DietForm, version: string, t: number) => ReactNode
+  children: (
+    currentDietForm: DietForm,
+    version: string,
+    scrollTop: number
+  ) => ReactNode
 }
 
 const patcher = jsondiffpatch.create({
