@@ -50,13 +50,7 @@ function Form({
         <Header onNewDiet={onNewDiet} onDietChange={onDietChange} />
         <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
 
-        <Box
-          ref={scrollRef}
-          position="relative"
-          zIndex={0}
-          flex={1}
-          overflow="scroll"
-        >
+        <Box ref={scrollRef} zIndex={0} flex={1} overflowY="scroll">
           <MealsList mealsControllerRef={mealsControllerRef} />
         </Box>
       </FoodsDragAndDropProvider>

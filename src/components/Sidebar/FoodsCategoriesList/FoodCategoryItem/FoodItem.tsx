@@ -1,19 +1,10 @@
 import { Draggable } from 'react-beautiful-dnd'
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  BoxProps,
-  Button,
-  Flex,
-  Text,
-  Box,
-} from '@chakra-ui/react'
+import { BoxProps, Flex, Text, Box } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import React from 'react'
 import { Food } from 'core/types'
 import { motion } from 'framer-motion'
+import { Menu, MenuItem, MenuButton } from 'components/general'
 
 const FoodItemClone = styled(FoodItemInternal)`
   ~ div {
@@ -45,6 +36,7 @@ function FoodItemInternal({
       boxShadow={isDragging ? 'dark-lg' : undefined}
       ref={innerRef}
       alignItems="center"
+      padding={2}
       {...rest}
     >
       <motion.div
@@ -62,17 +54,14 @@ function FoodItemInternal({
 
           {onRemove && (
             <Menu
-              isLazy={true}
-              strategy="fixed"
-              eventListeners={false}
-              placement="right"
+              arrow
+              align="end"
+              viewScroll="close"
+              menuButton={<MenuButton>Open menu</MenuButton>}
             >
-              <MenuButton as={Button}>Actions</MenuButton>
-              <MenuList zIndex={100}>
-                <MenuItem onClick={() => onRemove && onRemove(index)}>
-                  Delete
-                </MenuItem>
-              </MenuList>
+              <MenuItem>New File</MenuItem>
+              <MenuItem>Save</MenuItem>
+              <MenuItem>Close Window</MenuItem>
             </Menu>
           )}
         </Flex>

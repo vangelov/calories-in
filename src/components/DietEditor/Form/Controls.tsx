@@ -3,6 +3,7 @@ import { DietForm } from 'core/dietForm'
 import { useUndoRedoMethods, useUndoRedoState } from 'core/undoRedo'
 import { useFormContext } from 'react-hook-form'
 import { v4 as uuidv4 } from 'uuid'
+import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
 
 type Props = {
   onMealAdd: () => void
@@ -58,6 +59,12 @@ function Controls({ onMealAdd, onSave }: Props) {
       <Button isDisabled={!canRedo} onClick={onRedo}>
         Redo
       </Button>
+
+      <Menu menuButton={<MenuButton>Open menu</MenuButton>}>
+        <MenuItem>New File</MenuItem>
+        <MenuItem>Save</MenuItem>
+        <MenuItem>Close Window</MenuItem>
+      </Menu>
     </Flex>
   )
 }

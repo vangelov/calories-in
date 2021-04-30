@@ -1,13 +1,4 @@
-import {
-  Input,
-  Flex,
-  Text,
-  Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-} from '@chakra-ui/react'
+import { Input, Flex, Text } from '@chakra-ui/react'
 import { getIngredientsFormsPath, IngredientField } from 'core/dietForm'
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import { Stats } from 'core/stats'
@@ -16,6 +7,7 @@ import { useUndoRedoMethods } from 'core/undoRedo'
 import { useFoodsByIdState } from 'core/foods/FoodsByIdProvider'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
+import { Menu, MenuItem, MenuButton } from 'components/general'
 
 type Props = {
   mealIndex: number
@@ -50,7 +42,7 @@ function IngredientItem({
   const amountRegister = register(amountName)
   const amountInGrams = useWatch({ name: amountName }) as number
 
-  const onAmountChange = (event: any) => {
+  function onAmountChange(event: any) {
     amountRegister.onChange(event)
     saveLastChange()
   }
@@ -111,11 +103,13 @@ function IngredientItem({
             />
             <Text width="50px">{amountInGrams * 2}</Text>
 
-            <Menu isLazy={true} eventListeners={false} placement="right">
-              <MenuButton as={Button}>Actions</MenuButton>
-              <MenuList>
-                <MenuItem onClick={() => setIsVisible(false)}>Delete</MenuItem>
-              </MenuList>
+            <Menu
+              arrow
+              viewScroll="close"
+              menuButton={<MenuButton>Open menu</MenuButton>}
+            >
+              <MenuItem onClick={() => setIsVisible(false)}>Remove</MenuItem>
+              <MenuItem>Cancel</MenuItem>
             </Menu>
           </Flex>
         </motion.div>
