@@ -12,8 +12,6 @@ function MealsList({ mealsControllerRef }: Props) {
 
   mealsControllerRef.current = mealsController
 
-  console.log('t', mealsController.mealsFields)
-
   return (
     <Box height="100%">
       {mealsController.mealsFields.map((mealField, index) => (

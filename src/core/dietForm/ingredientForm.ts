@@ -13,11 +13,15 @@ type IngredientForm = {
 function getIngredientForm(ingredient: Ingredient): IngredientForm {
   const fieldId = uuidv4()
 
-  return {
+  const r = {
     fieldId,
     foodId: ingredient.foodId,
     amountInGrams: ingredient.amountInGrams.toString(),
   }
+
+  Object.defineProperty(r, 'prop', { value: 2, enumerable: false })
+
+  return r
 }
 
 type IngredientField = Partial<IngredientForm>

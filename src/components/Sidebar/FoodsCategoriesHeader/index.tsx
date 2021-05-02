@@ -1,4 +1,4 @@
-import { Box, Button, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, useDisclosure, Text } from '@chakra-ui/react'
 import { RefObject } from 'react'
 import AddFoodDialog from './AddFoodDialog'
 import useAddFood from './useAddFood'
@@ -24,7 +24,8 @@ function FoodsCategoriesHeader({
   }
 
   return (
-    <Box height="130px">
+    <Box height="130px" bg="red" p={8}>
+      <Text>Foods</Text>
       <Button onClick={addFoodDialogDisclosure.onOpen}>Add food</Button>
       <AddFoodDialog
         isOpen={addFoodDialogDisclosure.isOpen}

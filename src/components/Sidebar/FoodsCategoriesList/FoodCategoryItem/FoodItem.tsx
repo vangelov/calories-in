@@ -1,10 +1,11 @@
 import { Draggable } from 'react-beautiful-dnd'
-import { BoxProps, Flex, Text, Box } from '@chakra-ui/react'
+import { BoxProps, Flex, Text, Box, IconButton } from '@chakra-ui/react'
 import styled from '@emotion/styled'
 import React from 'react'
 import { Food } from 'core/types'
 import { motion } from 'framer-motion'
-import { Menu, MenuItem, MenuButton } from 'components/general'
+import { Menu, MenuItem } from 'components/general'
+import { MoreHorizontal } from 'react-feather'
 
 const FoodItemClone = styled(FoodItemInternal)`
   ~ div {
@@ -37,6 +38,10 @@ function FoodItemInternal({
       ref={innerRef}
       alignItems="center"
       padding={2}
+      border="solid"
+      borderColor="gray.500"
+      borderRadius={4}
+      borderWidth={1}
       {...rest}
     >
       <motion.div
@@ -49,28 +54,41 @@ function FoodItemInternal({
           transition: { exitDuration: 0.2 },
         }}
       >
-        <Flex>
-          <Text flex={1}>{food.name}</Text>
+        <Flex alignItems="center">
+          <Text color="gray.500" fontSize="md" flex={1}>
+            {food.name}
+          </Text>
 
-          {onRemove && (
-            <Menu
-              arrow
-              align="end"
-              viewScroll="close"
-              menuButton={<MenuButton>Open menu</MenuButton>}
-            >
-              <MenuItem>New File</MenuItem>
-              <MenuItem>Save</MenuItem>
-              <MenuItem>Close Window</MenuItem>
-            </Menu>
-          )}
+          <Menu
+            arrow
+            align="end"
+            viewScroll="close"
+            menuButton={
+              <IconButton
+                aria-label="test"
+                icon={<MoreHorizontal color="gray" pointerEvents="none" />}
+                variant="ghost"
+              />
+            }
+          >
+            <MenuItem>New File</MenuItem>
+            <MenuItem>Save</MenuItem>
+            <MenuItem>Close Window</MenuItem>
+          </Menu>
         </Flex>
       </motion.div>
     </Box>
   )
 }
 
-function FoodItem({ food, index, onRemove, animateOnMount }: Props) {
+function FoodItem({
+  food,
+  index,
+  onRemove,
+  animateOnMount,
+
+  ...rest
+}: Props) {
   return (
     <Draggable draggableId={food.id.toString()} index={index}>
       {(provided, snapshot) => (
@@ -85,6 +103,7 @@ function FoodItem({ food, index, onRemove, animateOnMount }: Props) {
             style={provided.draggableProps.style}
             onRemove={snapshot.isDragging ? undefined : onRemove}
             animateOnMount={animateOnMount}
+            {...rest}
           />
 
           {snapshot.isDragging && (
@@ -93,6 +112,7 @@ function FoodItem({ food, index, onRemove, animateOnMount }: Props) {
               food={food}
               index={index}
               onRemove={() => {}}
+              {...rest}
             />
           )}
         </React.Fragment>

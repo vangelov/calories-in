@@ -8,6 +8,7 @@ import { useFoodsDragAndDropState } from './FoodsDragAndDropProvider'
 import { isFoodCategoryDroppableId } from 'core/foods'
 import { FieldArrayMethodProps } from 'react-hook-form'
 import { useLayoutEffect, useState } from 'react'
+import { useLastFieldIdProvider } from './LastFieldIdProvider'
 
 type FunctionsParams = {
   mealField: MealField
@@ -38,6 +39,7 @@ function useReorderIngredientsForms({
   const foodsByIdDispatch = useFoodsByIdDispatch()
   const foodsListState = useFoodsListState()
   const [pendingInsert, setPendingInsert] = useState<PendingInsert>()
+  const { setLastFieldId } = useLastFieldIdProvider()
 
   if (!ingredientFormRef) {
     throw new Error('Missing FoodsDragAndDropProvider')
@@ -46,7 +48,7 @@ function useReorderIngredientsForms({
   useLayoutEffect(() => {
     if (pendingInsert) {
       const { index, ingredientForm } = pendingInsert
-      insertIngredientForm(index, ingredientForm)
+      insertIngredientForm(index, ingredientForm, { shouldFocus: false })
     }
   }, [pendingInsert, insertIngredientForm])
 
@@ -74,6 +76,8 @@ function useReorderIngredientsForms({
           foodId: food.id,
           amountInGrams: DEFAULT_AMOUNT_IN_GRAMS,
         })
+
+        setLastFieldId(ingredientForm.fieldId)
       } else {
         // This form was saved at the beginning of the drag by FoodsDragAndDropProvider
         ingredientForm = ingredientFormRef.current

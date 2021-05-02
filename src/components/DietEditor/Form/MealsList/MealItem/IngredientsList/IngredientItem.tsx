@@ -1,19 +1,20 @@
 import { Input, Flex, Text } from '@chakra-ui/react'
 import { getIngredientsFormsPath, IngredientField } from 'core/dietForm'
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
-import { Stats } from 'core/stats'
 import { Draggable } from 'react-beautiful-dnd'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { useFoodsByIdState } from 'core/foods/FoodsByIdProvider'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Menu, MenuItem, MenuButton } from 'components/general'
+import { useLastFieldIdProvider } from 'core/foodsDnd/LastFieldIdProvider'
 
 type Props = {
   mealIndex: number
   index: number
   ingredientField: IngredientField
-  ingredientStats: Stats
+
+  isLast: boolean
   onRemove: (index: number) => void
 }
 
@@ -30,8 +31,8 @@ function IngredientItem({
   mealIndex,
   index,
   ingredientField,
-  ingredientStats,
 
+  isLast,
   onRemove,
 }: Props) {
   const { register, control } = useFormContext()
@@ -41,10 +42,17 @@ function IngredientItem({
   const amountName = getIngredientsFormsPath(mealIndex, index, 'amountInGrams')
   const amountRegister = register(amountName)
   const amountInGrams = useWatch({ name: amountName }) as number
+  const { getAndResetLastFieldId } = useLastFieldIdProvider()
 
   function onAmountChange(event: any) {
     amountRegister.onChange(event)
     saveLastChange()
+  }
+
+  function onAnimationComplete() {
+    if (!isVisible) {
+      onRemove(index)
+    }
   }
 
   if (!ingredientField.foodId) {
@@ -52,6 +60,11 @@ function IngredientItem({
   }
 
   const food = foodsByIdState[ingredientField.foodId]
+  const isLastFieldId = getAndResetLastFieldId(
+    ingredientField.fieldId as string
+  )
+
+  console.log('test', isLastFieldId)
 
   return (
     <Draggable
@@ -61,9 +74,10 @@ function IngredientItem({
     >
       {(provided, snapshot) => (
         <motion.div
-          initial={false}
+          style={{ opacity: isLastFieldId ? 0 : 1 }}
+          initial={isLastFieldId ? undefined : false}
           animate={isVisible ? 'open' : 'collapsed'}
-          onAnimationComplete={() => !isVisible && onRemove(index)}
+          onAnimationComplete={onAnimationComplete}
           variants={variants}
         >
           <Flex
@@ -74,8 +88,12 @@ function IngredientItem({
             justifyContent="space-between"
             boxShadow={snapshot.isDragging ? 'dark-lg' : undefined}
             bg="gray"
+            alignItems="center"
+            p={3}
+            borderBottomWidth={isLast || snapshot.isDragging ? 0 : 1}
+            borderBottomColor="red.700"
           >
-            <Text>{food.name}</Text>
+            <Text fontSize="lg">{food.name}</Text>
 
             <Input
               type="hidden"
@@ -95,6 +113,7 @@ function IngredientItem({
             <Input
               css={{ 'z-index': '0 !important' }}
               width="100px"
+              height={12}
               autoComplete="off"
               bg="white"
               {...amountRegister}

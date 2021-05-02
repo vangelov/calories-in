@@ -9,7 +9,7 @@ export type MainLayoutProps = {
 function MainLayout({ children, sidebarElement }: MainLayoutProps) {
   return (
     <Flex height="100vh">
-      <Box width="300px">{sidebarElement}</Box>
+      <Box width="368px">{sidebarElement}</Box>
       <Flex flexDirection="column" height="100%" flex={1} bg="green">
         {children}
       </Flex>

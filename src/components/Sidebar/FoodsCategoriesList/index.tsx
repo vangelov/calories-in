@@ -36,6 +36,7 @@ function FoodsCategoriesList({
 
   return (
     <Box ref={forwardRef} overflowY="scroll" {...rest}>
+      <Box height={6} />
       {foodsCategoryItems}
     </Box>
   )

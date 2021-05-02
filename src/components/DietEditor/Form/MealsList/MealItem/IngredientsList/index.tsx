@@ -22,7 +22,7 @@ function IngredientsList({
   return (
     <Droppable droppableId={mealField.fieldId as string}>
       {(provided, snapshot) => (
-        <Box padding={2} ref={provided.innerRef} minHeight="56px">
+        <Box ref={provided.innerRef} minHeight={16}>
           {ingredientsFields.map((ingredientField, index) => (
             <IngredientItem
               key={ingredientField.fieldId}
@@ -30,11 +30,11 @@ function IngredientsList({
               mealIndex={mealIndex}
               index={index}
               ingredientField={ingredientField}
-              ingredientStats={ingredientsStats[index]}
+              isLast={index === ingredientsFields.length - 1}
             />
           ))}
           {ingredientsFields.length > 0 && provided.placeholder}
-          {ingredientsFields.length === 0 && <Text>Empty</Text>}
+          {ingredientsFields.length === 0 && <Text fontSize="lg">Empty</Text>}
         </Box>
       )}
     </Droppable>

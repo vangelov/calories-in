@@ -14,6 +14,7 @@ function Sidebar() {
         foodCategoriesListRef={foodCategoriesListRef}
         getFoodCategoryItemRefById={getFoodCategoryItemRefById}
       />
+
       <FoodsCategoriesList
         ref={foodCategoriesListRef}
         getFoodCategoryItemRefById={getFoodCategoryItemRefById}

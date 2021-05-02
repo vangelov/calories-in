@@ -28,12 +28,20 @@ function FoodCategoryItem({
     foodsListDispatch({ type: 'removeFood', index })
   }
 
-  console.log('render cat')
-
   return (
-    <Box ref={forwardRef} marginRight={5} marginLeft={5}>
-      <Box zIndex={1} backgroundColor="yellow" position="sticky" top="0">
-        <Text>{foodCategory.name}</Text>
+    <Box ref={forwardRef} mx={8}>
+      <Box zIndex={1} backgroundColor="white" position="sticky" top="0">
+        <Box
+          p={3}
+          borderRadius={4}
+          backgroundColor="gray"
+          position="sticky"
+          top="0"
+        >
+          <Text fontSize="lg" fontWeight="bold">
+            {foodCategory.name}
+          </Text>
+        </Box>
       </Box>
 
       <Droppable
@@ -45,6 +53,8 @@ function FoodCategoryItem({
             <AnimatePresence>
               {foods.map((food, index) => (
                 <FoodItem
+                  mt={2}
+                  mb={index === foods.length - 1 ? 2 : 0}
                   key={food.id}
                   food={food}
                   onRemove={onFoodItemRemove}

@@ -1,4 +1,4 @@
-import { Input, Button, Flex } from '@chakra-ui/react'
+import { Input, Button, Flex, Text } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { MealField, getMealsFormsPath, IngredientField } from 'core/dietForm'
 import { useUndoRedoMethods } from 'core/undoRedo'
@@ -36,19 +36,22 @@ function Header({
   return (
     <Flex
       position="sticky"
-      top="0px"
-      bg="rgba(0, 0, 255, 0.88)"
-      padding={2}
+      top="0"
+      bg="lightgray"
+      padding={4}
       zIndex={zIndex}
       justifyContent="space-between"
     >
       <Input
         {...nameRegister}
         onChange={onNameChange}
+        autoComplete="off"
+        height={12}
         bg="white"
         width="30%"
         defaultValue={mealField.name}
       />
+      <Text>{mealStats.protein}</Text>
       <Button onClick={() => onRemove(mealIndex)}>Remove</Button>
     </Flex>
   )

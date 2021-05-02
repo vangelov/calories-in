@@ -6,7 +6,7 @@ import { Diet } from 'core/types'
 import { DietForm, useDietForm } from 'core/dietForm'
 import { FormProvider } from 'react-hook-form'
 import { RefObject, useLayoutEffect, useRef } from 'react'
-import { FoodsDragAndDropProvider } from 'core/foodsDnd'
+import { FoodsDragAndDropProvider, LastFieldIdProvider } from 'core/foodsDnd'
 import { Watcher } from 'core/undoRedo'
 
 type Props = {
@@ -47,12 +47,14 @@ function Form({
       <Watcher />
 
       <FoodsDragAndDropProvider>
-        <Header onNewDiet={onNewDiet} onDietChange={onDietChange} />
-        <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
+        <LastFieldIdProvider>
+          <Header onNewDiet={onNewDiet} onDietChange={onDietChange} />
+          <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
 
-        <Box ref={scrollRef} zIndex={0} flex={1} overflowY="scroll">
-          <MealsList mealsControllerRef={mealsControllerRef} />
-        </Box>
+          <Box ref={scrollRef} zIndex={0} flex={1} overflowY="scroll">
+            <MealsList mealsControllerRef={mealsControllerRef} />
+          </Box>
+        </LastFieldIdProvider>
       </FoodsDragAndDropProvider>
     </FormProvider>
   )
