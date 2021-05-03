@@ -1,4 +1,4 @@
-import { Flex, Text, Box } from '@chakra-ui/react'
+import { Flex, Text } from '@chakra-ui/react'
 
 type Props = {
   value: string
@@ -14,30 +14,26 @@ function StatValue({
   isBold = false,
 }: Props) {
   return (
-    <Flex width="100%" height="100%" alignItems="center">
-      <Flex
-        width="100%"
-        height="100%"
-        alignItems="flex-end"
-        justifyContent="center"
-        flexDirection="column"
-      >
-        {label && (
-          <Text fontSize="xs" textColor="gray.400">
-            {label}
-          </Text>
-        )}
-
-        <Text
-          fontSize="md"
-          textColor={color}
-          fontWeight={isBold ? 'bold' : undefined}
-        >
-          {value}
+    <Flex
+      width="100%"
+      height="100%"
+      alignItems="flex-end"
+      justifyContent="center"
+      flexDirection="column"
+    >
+      {label && (
+        <Text fontSize="xs" textColor="gray.400">
+          {label}
         </Text>
-      </Flex>
+      )}
 
-      {isBold && <Box ml={1} height="80%" width="1px" bg="gray.300" />}
+      <Text
+        fontSize="md"
+        textColor={color}
+        fontWeight={isBold ? 'bold' : undefined}
+      >
+        {value}
+      </Text>
     </Flex>
   )
 }
