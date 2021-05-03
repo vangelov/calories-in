@@ -17,8 +17,6 @@ const Header = ({ foodCategory }: Props) => {
         borderRadius={4}
         spacing={3}
         backgroundColor={foodCategory.color}
-        position="sticky"
-        top="0"
         width="100%"
       >
         <FoodCategoryIcon fill="text.name" />

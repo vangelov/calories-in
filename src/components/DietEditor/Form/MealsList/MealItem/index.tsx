@@ -32,7 +32,7 @@ function MealItem({ mealField, index, onRemove, forwardRef, ...rest }: Props) {
         defaultValue={mealField.fieldId}
       />
       <Header
-        zIndex={1}
+        zIndex={2}
         index={index}
         mealIndex={index}
         mealField={mealField}

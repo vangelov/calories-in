@@ -1,4 +1,4 @@
-import { Input, Button, Flex, Text, Center, IconButton } from '@chakra-ui/react'
+import { Input, Flex, Center, IconButton } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { MealField, getMealsFormsPath, IngredientField } from 'core/dietForm'
 import { useUndoRedoMethods } from 'core/undoRedo'
@@ -7,6 +7,7 @@ import StatsLayout from 'components/general/StatsLayout'
 import StatValue from 'components/general/StatValue'
 import { Menu, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
+import { useState } from 'react'
 
 type Props = {
   mealIndex: number
@@ -29,6 +30,7 @@ function Header({
   const { saveLastChange } = useUndoRedoMethods()
   const nameRegister = register(getMealsFormsPath(mealIndex, 'name'))
   const { mealStats } = useMealStats(index, mealField, ingredientsFields)
+  const [test, setTest] = useState(false)
 
   useUpdateMealStats(index, mealStats)
 
@@ -46,7 +48,7 @@ function Header({
       bg="gray.50"
       px={3}
       py={4}
-      zIndex={zIndex}
+      zIndex={test ? 1000 : zIndex}
       justifyContent="space-between"
       borderBottomWidth={1}
       borderBottomColor="gray.200"
@@ -64,6 +66,13 @@ function Header({
             borderColor="gray.200"
             width="90%"
             defaultValue={mealField.name}
+          />
+        }
+        amountElement={
+          <StatValue
+            label="Amount"
+            color="gray.500"
+            value={`${amountInGrams}g`}
           />
         }
         energyElement={
@@ -100,6 +109,7 @@ function Header({
               arrow
               align="end"
               viewScroll="close"
+              onChange={e => setTest(e.open)}
               menuButton={
                 <IconButton
                   aria-label="test"
