@@ -21,7 +21,10 @@ function useMealStats(
   }) as IngredientForm[]
 
   const ingredientsStats: Stats[] = ingredientsForms.map(ingredientsForm => {
-    return { protein: Number(ingredientsForm.amountInGrams) * 2 }
+    return {
+      protein: Number(ingredientsForm.amountInGrams) * 2,
+      amountInGrams: Number(ingredientsForm.amountInGrams),
+    }
   })
 
   const mealStats = sumStats(ingredientsStats)

@@ -1,13 +1,17 @@
-import { Input, Flex, Text } from '@chakra-ui/react'
+import { Input, Flex, IconButton, Center } from '@chakra-ui/react'
 import { getIngredientsFormsPath, IngredientField } from 'core/dietForm'
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import { Draggable } from 'react-beautiful-dnd'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { Menu, MenuItem, MenuButton } from 'components/general'
 import { useLastFieldIdProvider } from 'core/foodsDnd/LastFieldIdProvider'
 import FoodInfo from './FoodInfo'
+import { FoodAmountInput } from 'components/general'
+import StatsLayout from 'components/general/StatsLayout'
+import StatValue from 'components/general/StatValue'
+import { Menu, MenuItem } from 'components/general'
+import { MoreHorizontal } from 'react-feather'
 
 type Props = {
   mealIndex: number
@@ -31,7 +35,6 @@ function IngredientItem({
   mealIndex,
   index,
   ingredientField,
-
   isLast,
   onRemove,
 }: Props) {
@@ -77,7 +80,6 @@ function IngredientItem({
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             style={provided.draggableProps.style}
-            justifyContent="space-between"
             boxShadow={snapshot.isDragging ? 'dark-lg' : undefined}
             bg="white"
             alignItems="center"
@@ -86,8 +88,6 @@ function IngredientItem({
             borderBottomWidth={isLast || snapshot.isDragging ? 0 : 1}
             borderBottomColor="gray.200"
           >
-            <FoodInfo ingredientField={ingredientField} />
-
             <Input
               fontSize="md"
               type="hidden"
@@ -104,29 +104,43 @@ function IngredientItem({
               defaultValue={ingredientField.foodId}
             />
 
-            <Input
-              css={{ 'z-index': '0 !important' }}
-              width="100px"
-              height={12}
-              fontSize="md"
-              autoComplete="off"
-              borderColor="gray.200"
-              textColor="gray.500"
-              bg="white"
-              {...amountRegister}
-              onChange={onAmountChange}
-              defaultValue={ingredientField.amountInGrams}
+            <StatsLayout
+              nameElement={<FoodInfo ingredientField={ingredientField} />}
+              amountElement={
+                <FoodAmountInput
+                  {...amountRegister}
+                  onChange={onAmountChange}
+                  defaultValue={ingredientField.amountInGrams}
+                />
+              }
+              energyElement={<StatValue value={`${amountInGrams * 10}kcal`} />}
+              proteinElement={<StatValue value={`${amountInGrams * 2}g`} />}
+              carbsElement={<StatValue value={`${amountInGrams * 2.5}g`} />}
+              fatElement={<StatValue value={`${amountInGrams * 1.5}g`} />}
+              menuElement={
+                <Center height="100%">
+                  <Menu
+                    arrow
+                    align="end"
+                    viewScroll="close"
+                    menuButton={
+                      <IconButton
+                        aria-label="test"
+                        icon={
+                          <MoreHorizontal color="gray" pointerEvents="none" />
+                        }
+                        variant="ghost"
+                      />
+                    }
+                  >
+                    <MenuItem onClick={() => setIsVisible(false)}>
+                      Remove
+                    </MenuItem>
+                    <MenuItem>Cancel</MenuItem>
+                  </Menu>
+                </Center>
+              }
             />
-            <Text width="50px">{amountInGrams * 2}</Text>
-
-            <Menu
-              arrow
-              viewScroll="close"
-              menuButton={<MenuButton>Open menu</MenuButton>}
-            >
-              <MenuItem onClick={() => setIsVisible(false)}>Remove</MenuItem>
-              <MenuItem>Cancel</MenuItem>
-            </Menu>
           </Flex>
         </motion.div>
       )}

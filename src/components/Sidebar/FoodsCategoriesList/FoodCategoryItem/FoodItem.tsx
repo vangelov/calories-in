@@ -37,7 +37,8 @@ function FoodItemInternal({
       boxShadow={isDragging ? 'dark-lg' : undefined}
       ref={innerRef}
       alignItems="center"
-      padding={2}
+      py={3}
+      px={4}
       border="solid"
       borderColor="gray.500"
       borderRadius={4}

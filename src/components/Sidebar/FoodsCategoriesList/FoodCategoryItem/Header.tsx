@@ -1,4 +1,5 @@
-import { Flex, Text, Box } from '@chakra-ui/react'
+import { Flex, Text, HStack } from '@chakra-ui/react'
+import { getFoodCategoryIcon } from 'core/foodsCategories'
 import { FoodCategory } from 'core/types'
 
 type Props = {
@@ -6,21 +7,25 @@ type Props = {
 }
 
 const Header = ({ foodCategory }: Props) => {
+  const FoodCategoryIcon = getFoodCategoryIcon(foodCategory)
+
   return (
     <Flex zIndex={1} backgroundColor="white" position="sticky" top="0">
-      <Box
+      <HStack
         mt={4}
-        p={3}
+        p={4}
         borderRadius={4}
+        spacing={3}
         backgroundColor={foodCategory.color}
         position="sticky"
         top="0"
         width="100%"
       >
+        <FoodCategoryIcon fill="text.name" />
         <Text fontSize="lg" fontWeight="bold" textColor="text.name">
           {foodCategory.name}
         </Text>
-      </Box>
+      </HStack>
     </Flex>
   )
 }
