@@ -65,6 +65,7 @@ function Header({
             bg="white"
             borderColor="gray.200"
             width="90%"
+            fontWeight="bold"
             defaultValue={mealField.name}
           />
         }

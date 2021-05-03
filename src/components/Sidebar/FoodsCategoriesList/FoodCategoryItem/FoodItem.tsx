@@ -40,7 +40,7 @@ function FoodItemInternal({
       py={3}
       px={4}
       border="solid"
-      borderColor="gray.500"
+      borderColor="gray.200"
       borderRadius={4}
       borderWidth={1}
       {...rest}

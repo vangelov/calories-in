@@ -107,11 +107,13 @@ function IngredientItem({
             <StatsLayout
               nameElement={<FoodInfo ingredientField={ingredientField} />}
               amountElement={
-                <FoodAmountInput
-                  {...amountRegister}
-                  onChange={onAmountChange}
-                  defaultValue={ingredientField.amountInGrams}
-                />
+                <Flex width="100%" justifyContent="flex-end">
+                  <FoodAmountInput
+                    {...amountRegister}
+                    onChange={onAmountChange}
+                    defaultValue={ingredientField.amountInGrams}
+                  />
+                </Flex>
               }
               energyElement={<StatValue value={`${amountInGrams * 10}kcal`} />}
               proteinElement={<StatValue value={`${amountInGrams * 2}g`} />}
