@@ -7,6 +7,8 @@ function Watcher() {
   const form = useWatch({}) as DietForm
   const { pushForm } = useUndoRedoMethods()
 
+  console.log('push')
+
   useEffect(() => {
     pushForm(form)
   }, [form, pushForm])

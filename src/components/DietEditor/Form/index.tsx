@@ -51,7 +51,16 @@ function Form({
           <Header onNewDiet={onNewDiet} onDietChange={onDietChange} />
           <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
 
-          <Box ref={scrollRef} zIndex={0} flex={1} overflowY="scroll">
+          <Box
+            borderLeftWidth={1}
+            borderLeftColor="gray.200"
+            borderRightWidth={1}
+            borderRightColor="gray.200"
+            ref={scrollRef}
+            zIndex={0}
+            flex={1}
+            overflowY="scroll"
+          >
             <MealsList mealsControllerRef={mealsControllerRef} />
           </Box>
         </LastFieldIdProvider>

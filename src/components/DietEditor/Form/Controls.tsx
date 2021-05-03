@@ -48,7 +48,9 @@ function Controls({ onMealAdd, onSave }: Props) {
       height="40px"
       width="100%"
       alignItems="center"
-      backgroundColor="brown"
+      backgroundColor="white"
+      borderBottomWidth={1}
+      borderBottomColor="gray.200"
     >
       <Button onClick={onMealAdd}>Add Meal</Button>
       <Button onClick={onSave}>Save</Button>

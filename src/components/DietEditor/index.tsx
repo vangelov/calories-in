@@ -21,9 +21,9 @@ const initialDiet: Diet = {
     { name: 'Meal 3', ingredients: [{ amountInGrams: 500, foodId: 443 }] },
   ],
   foodsByIdMap: {
-    '441': { id: 441, name: 'Food1', categoryId: 7 },
-    '442': { id: 442, name: 'Food2', categoryId: 7 },
-    '443': { id: 443, name: 'Food3', categoryId: 7 },
+    '441': { id: 441, name: 'Food1', categoryId: 3 },
+    '442': { id: 442, name: 'Food2', categoryId: 3 },
+    '443': { id: 443, name: 'Food3', categoryId: 3 },
   },
 }
 

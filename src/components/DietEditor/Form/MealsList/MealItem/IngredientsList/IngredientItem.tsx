@@ -3,11 +3,11 @@ import { getIngredientsFormsPath, IngredientField } from 'core/dietForm'
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import { Draggable } from 'react-beautiful-dnd'
 import { useUndoRedoMethods } from 'core/undoRedo'
-import { useFoodsByIdState } from 'core/foods/FoodsByIdProvider'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Menu, MenuItem, MenuButton } from 'components/general'
 import { useLastFieldIdProvider } from 'core/foodsDnd/LastFieldIdProvider'
+import FoodInfo from './FoodInfo'
 
 type Props = {
   mealIndex: number
@@ -37,7 +37,6 @@ function IngredientItem({
 }: Props) {
   const { register, control } = useFormContext()
   const { saveLastChange } = useUndoRedoMethods()
-  const foodsByIdState = useFoodsByIdState()
   const [isVisible, setIsVisible] = useState(true)
   const amountName = getIngredientsFormsPath(mealIndex, index, 'amountInGrams')
   const amountRegister = register(amountName)
@@ -55,16 +54,9 @@ function IngredientItem({
     }
   }
 
-  if (!ingredientField.foodId) {
-    throw new Error('Food id is missing')
-  }
-
-  const food = foodsByIdState[ingredientField.foodId]
   const isLastFieldId = getAndResetLastFieldId(
     ingredientField.fieldId as string
   )
-
-  console.log('test', isLastFieldId)
 
   return (
     <Draggable
@@ -87,15 +79,17 @@ function IngredientItem({
             style={provided.draggableProps.style}
             justifyContent="space-between"
             boxShadow={snapshot.isDragging ? 'dark-lg' : undefined}
-            bg="gray"
+            bg="white"
             alignItems="center"
+            position="relative"
             p={3}
             borderBottomWidth={isLast || snapshot.isDragging ? 0 : 1}
-            borderBottomColor="red.700"
+            borderBottomColor="gray.200"
           >
-            <Text fontSize="lg">{food.name}</Text>
+            <FoodInfo ingredientField={ingredientField} />
 
             <Input
+              fontSize="md"
               type="hidden"
               {...register(
                 getIngredientsFormsPath(mealIndex, index, 'fieldId')
@@ -114,7 +108,10 @@ function IngredientItem({
               css={{ 'z-index': '0 !important' }}
               width="100px"
               height={12}
+              fontSize="md"
               autoComplete="off"
+              borderColor="gray.200"
+              textColor="gray.500"
               bg="white"
               {...amountRegister}
               onChange={onAmountChange}

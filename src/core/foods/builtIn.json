@@ -244,7 +244,7 @@
     "fiber": 0,
     "salt": 4.75,
     "id": 19,
-    "categoryId": 2
+    "categoryId": 3
   },
   {
     "name": "Pork loin",
@@ -257,7 +257,7 @@
     "fiber": 0,
     "salt": 0.13,
     "id": 20,
-    "categoryId": 2
+    "categoryId": 3
   },
   {
     "name": "Pork ribs",
@@ -270,7 +270,7 @@
     "fiber": 0,
     "salt": 0.1,
     "id": 21,
-    "categoryId": 2
+    "categoryId": 3
   },
   {
     "name": "Pork tenderloin",
@@ -283,7 +283,7 @@
     "fiber": 0,
     "salt": 0.12,
     "id": 22,
-    "categoryId": 2
+    "categoryId": 3
   },
   {
     "name": "Pork shoulder steak",

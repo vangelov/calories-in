@@ -4,7 +4,7 @@ import { ReactNode, useRef } from 'react'
 import { DragStart } from 'react-beautiful-dnd'
 import { useFormContext } from 'react-hook-form'
 import { StateContext } from './context'
-import { isFoodCategoryDroppableId } from 'core/foods'
+import { isFoodCategoryDroppableId } from 'core/foodsCategories'
 
 type Props = {
   children: ReactNode

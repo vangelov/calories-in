@@ -85,12 +85,12 @@ function UndoRedoMethodsProvider({ children, dietForm, scrollRef }: Props) {
         if (markRef.current) {
           markRef.current = false
           const delta = patcher.diff(lastFormRef.current, form)
-          console.log('comp1', lastFormRef.current)
-          console.log('comp2', form)
+          //console.log('comp1', lastFormRef.current)
+          //console.log('comp2', form)
 
           if (delta) {
             lastFormRef.current = form
-            console.log('push', delta)
+            //console.log('push', delta)
 
             deltasStackRef.current.push(
               delta,

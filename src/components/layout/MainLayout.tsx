@@ -10,7 +10,7 @@ function MainLayout({ children, sidebarElement }: MainLayoutProps) {
   return (
     <Flex height="100vh">
       <Box width="368px">{sidebarElement}</Box>
-      <Flex flexDirection="column" height="100%" flex={1} bg="green">
+      <Flex flexDirection="column" height="100%" flex={1} bg="gray.50">
         {children}
       </Flex>
     </Flex>

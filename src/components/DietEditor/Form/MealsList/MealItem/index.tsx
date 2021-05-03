@@ -14,14 +14,7 @@ type Props = {
 } & LayoutProps &
   SpaceProps
 
-function MealItem({
-  mealField,
-  index,
-  onRemove,
-  forwardRef,
-
-  ...rest
-}: Props) {
+function MealItem({ mealField, index, onRemove, forwardRef, ...rest }: Props) {
   const ingredientsFormsController = useIngredientsController(index, mealField)
 
   const { register } = useFormContext()
@@ -30,7 +23,7 @@ function MealItem({
     <Flex
       ref={forwardRef}
       flexDirection="column"
-      backgroundColor="gray"
+      backgroundColor="white"
       {...rest}
     >
       <Input

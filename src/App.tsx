@@ -8,17 +8,20 @@ import { FoodsListProvider } from 'core/foods'
 import builInFoods from 'core/foods/builtIn.json'
 import 'focus-visible/dist/focus-visible'
 import theme from 'components/theme'
+import { FoodsCategoriesProvider } from 'core/foodsCategories'
 
 function App() {
   return (
     <ChakraProvider theme={theme}>
       <DragAndDropRespondersProvider>
         <FoodsListProvider initialFoods={builInFoods}>
-          <DietStatsProvider>
-            <MainLayout sidebarElement={<Sidebar />}>
-              <DietEditor />
-            </MainLayout>
-          </DietStatsProvider>
+          <FoodsCategoriesProvider>
+            <DietStatsProvider>
+              <MainLayout sidebarElement={<Sidebar />}>
+                <DietEditor />
+              </MainLayout>
+            </DietStatsProvider>
+          </FoodsCategoriesProvider>
         </FoodsListProvider>
       </DragAndDropRespondersProvider>
     </ChakraProvider>

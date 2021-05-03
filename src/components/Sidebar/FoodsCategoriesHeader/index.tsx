@@ -24,7 +24,13 @@ function FoodsCategoriesHeader({
   }
 
   return (
-    <Box height="130px" bg="red" p={8}>
+    <Box
+      height="130px"
+      bg="white"
+      borderBottomWidth={1}
+      borderBottomColor="gray.200"
+      p={8}
+    >
       <Text>Foods</Text>
       <Button onClick={addFoodDialogDisclosure.onOpen}>Add food</Button>
       <AddFoodDialog

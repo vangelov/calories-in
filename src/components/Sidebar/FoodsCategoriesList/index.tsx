@@ -1,5 +1,5 @@
 import { Box, BoxProps } from '@chakra-ui/react'
-import { useFoodsPerCategories } from 'core/foods'
+import { useFoodsPerCategories } from 'core/foodsCategories'
 import { ForwardedRef, ReactElement, RefObject } from 'react'
 import FoodCategoryItem from './FoodCategoryItem'
 import { forwardRef } from 'react'
@@ -36,7 +36,6 @@ function FoodsCategoriesList({
 
   return (
     <Box ref={forwardRef} overflowY="scroll" {...rest}>
-      <Box height={6} />
       {foodsCategoryItems}
     </Box>
   )

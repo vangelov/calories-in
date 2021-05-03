@@ -1,11 +1,12 @@
 import { Food, FoodCategory } from 'core/types'
-import { Box, Text } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import FoodItem from './FoodItem'
 import { Droppable } from 'react-beautiful-dnd'
-import { getFoodCategoryDroppableId } from 'core/foods'
+import { getFoodCategoryDroppableId } from 'core/foodsCategories'
 import { AnimatePresence } from 'framer-motion'
 import { useFoodsListDispatch } from 'core/foods/FoodsListProvider'
 import { forwardRef, ForwardedRef } from 'react'
+import Header from './Header'
 
 type Props = {
   foods: Food[]
@@ -30,19 +31,7 @@ function FoodCategoryItem({
 
   return (
     <Box ref={forwardRef} mx={8}>
-      <Box zIndex={1} backgroundColor="white" position="sticky" top="0">
-        <Box
-          p={3}
-          borderRadius={4}
-          backgroundColor="gray"
-          position="sticky"
-          top="0"
-        >
-          <Text fontSize="lg" fontWeight="bold">
-            {foodCategory.name}
-          </Text>
-        </Box>
-      </Box>
+      <Header foodCategory={foodCategory} />
 
       <Droppable
         droppableId={getFoodCategoryDroppableId(foodCategory)}
@@ -54,7 +43,6 @@ function FoodCategoryItem({
               {foods.map((food, index) => (
                 <FoodItem
                   mt={2}
-                  mb={index === foods.length - 1 ? 2 : 0}
                   key={food.id}
                   food={food}
                   onRemove={onFoodItemRemove}

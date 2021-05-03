@@ -37,10 +37,14 @@ function Header({
     <Flex
       position="sticky"
       top="0"
-      bg="lightgray"
+      bg="gray.50"
       padding={4}
       zIndex={zIndex}
       justifyContent="space-between"
+      borderBottomWidth={1}
+      borderBottomColor="gray.200"
+      borderTopWidth={mealIndex === 0 ? 0 : 1}
+      borderTopColor="gray.200"
     >
       <Input
         {...nameRegister}
@@ -48,6 +52,7 @@ function Header({
         autoComplete="off"
         height={12}
         bg="white"
+        borderColor="gray.200"
         width="30%"
         defaultValue={mealField.name}
       />

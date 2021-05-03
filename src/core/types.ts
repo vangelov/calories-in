@@ -19,6 +19,7 @@ type FoodsByIdMap = { [id: number]: Food }
 type FoodCategory = {
   id: number
   name: string
+  color: string
 }
 
 type Diet = {

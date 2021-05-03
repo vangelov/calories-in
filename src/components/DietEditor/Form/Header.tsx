@@ -50,7 +50,7 @@ function Header({ onDietChange, onNewDiet }: Props) {
       width="100%"
       justifyContent="space-between"
       alignItems="center"
-      backgroundColor="brown"
+      backgroundColor="white"
     >
       <Input type="hidden" {...register('formId')} />
       <Input {...nameRegister} onChange={onNameChange} />

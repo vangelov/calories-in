@@ -22,7 +22,7 @@ function IngredientsList({
   return (
     <Droppable droppableId={mealField.fieldId as string}>
       {(provided, snapshot) => (
-        <Box ref={provided.innerRef} minHeight={16}>
+        <Box ref={provided.innerRef} minHeight="72px">
           {ingredientsFields.map((ingredientField, index) => (
             <IngredientItem
               key={ingredientField.fieldId}
