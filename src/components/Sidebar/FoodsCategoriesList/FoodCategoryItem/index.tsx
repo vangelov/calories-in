@@ -30,7 +30,7 @@ function FoodCategoryItem({
   }
 
   return (
-    <Box ref={forwardRef} mx={8}>
+    <Box ref={forwardRef} mx={6}>
       <Header foodCategory={foodCategory} />
 
       <Droppable

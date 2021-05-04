@@ -20,7 +20,6 @@ function FoodAmountInput({ forwardedRef, ...rest }: Props) {
       <Input
         css={{ 'z-index': '0 !important' }}
         width="79px"
-        height={12}
         fontSize="md"
         autoComplete="off"
         borderColor="gray.200"
@@ -31,7 +30,7 @@ function FoodAmountInput({ forwardedRef, ...rest }: Props) {
         {...rest}
         ref={forwardedRef}
       />
-      <Text size="lg" textColor="gray.500">
+      <Text fontSize="lg" textColor="gray.500">
         g
       </Text>
     </HStack>

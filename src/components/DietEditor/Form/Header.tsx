@@ -1,10 +1,12 @@
-import { Flex, Input } from '@chakra-ui/react'
+import { Flex, Input, IconButton } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { Diet } from 'core/types'
 import { useDietStats } from 'core/stats'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import StatsLayout from 'components/general/StatsLayout'
 import StatValue from 'components/general/StatValue'
+import { Info } from 'react-feather'
+import RightAligned from 'components/general/RightAligned'
 
 type Props = {
   onDietChange: (diet: Diet) => void
@@ -48,18 +50,15 @@ function Header({ onDietChange, onNewDiet }: Props) {
   const amountInGrams = dietStats.amountInGrams
 
   return (
-    <Flex
-      padding={2}
-      height="90px"
-      width="100%"
-      justifyContent="space-between"
-      alignItems="center"
-      backgroundColor="white"
-    >
+    <Flex pb={3} borderBottomWidth={1} width="100%">
       <Input type="hidden" {...register('formId')} />
 
       <StatsLayout
-        nameElement={<Input {...nameRegister} onChange={onNameChange} />}
+        nameElement={
+          <Flex height="100%" alignItems="flex-end">
+            <Input {...nameRegister} onChange={onNameChange} />
+          </Flex>
+        }
         energyElement={
           <StatValue
             isBold={true}
@@ -92,7 +91,15 @@ function Header({ onDietChange, onNewDiet }: Props) {
             value={`${amountInGrams * 1.5}g`}
           />
         }
-        menuElement={<div />}
+        menuElement={
+          <RightAligned>
+            <IconButton
+              aria-label="test"
+              icon={<Info color="gray" pointerEvents="none" />}
+              variant="ghost"
+            />
+          </RightAligned>
+        }
       />
     </Flex>
   )

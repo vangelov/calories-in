@@ -6,6 +6,21 @@ const Input = {
   },
 }
 
+const Button = {
+  variants: {
+    solid: {
+      backgroundColor: '#74CFD1',
+      textColor: 'white',
+      _hover: {
+        backgroundColor: 'teal.400',
+      },
+    },
+    outline: {
+      textColor: 'gray.400',
+    },
+  },
+}
+
 const theme = extendTheme({
   styles: {
     global: {
@@ -33,6 +48,7 @@ const theme = extendTheme({
   },
   components: {
     Input,
+    Button,
   },
 })
 

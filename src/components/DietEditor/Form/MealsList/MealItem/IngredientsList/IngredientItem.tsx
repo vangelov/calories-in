@@ -1,4 +1,4 @@
-import { Input, Flex, IconButton, Center } from '@chakra-ui/react'
+import { Input, Flex, IconButton } from '@chakra-ui/react'
 import { getIngredientsFormsPath, IngredientField } from 'core/dietForm'
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import { Draggable } from 'react-beautiful-dnd'
@@ -12,6 +12,7 @@ import StatsLayout from 'components/general/StatsLayout'
 import StatValue from 'components/general/StatValue'
 import { Menu, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
+import RightAligned from 'components/general/RightAligned'
 
 type Props = {
   mealIndex: number
@@ -80,11 +81,12 @@ function IngredientItem({
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             style={provided.draggableProps.style}
-            boxShadow={snapshot.isDragging ? 'dark-lg' : undefined}
+            boxShadow={snapshot.isDragging ? 'lg' : undefined}
             bg="white"
             alignItems="center"
             position="relative"
-            p={3}
+            py={4}
+            px={6}
             borderBottomWidth={isLast || snapshot.isDragging ? 0 : 1}
             borderBottomColor="gray.200"
           >
@@ -107,20 +109,20 @@ function IngredientItem({
             <StatsLayout
               nameElement={<FoodInfo ingredientField={ingredientField} />}
               amountElement={
-                <Flex width="100%" justifyContent="flex-end">
+                <RightAligned>
                   <FoodAmountInput
                     {...amountRegister}
                     onChange={onAmountChange}
                     defaultValue={ingredientField.amountInGrams}
                   />
-                </Flex>
+                </RightAligned>
               }
               energyElement={<StatValue value={`${amountInGrams * 10}kcal`} />}
               proteinElement={<StatValue value={`${amountInGrams * 2}g`} />}
               carbsElement={<StatValue value={`${amountInGrams * 2.5}g`} />}
               fatElement={<StatValue value={`${amountInGrams * 1.5}g`} />}
               menuElement={
-                <Center height="100%">
+                <RightAligned>
                   <Menu
                     arrow
                     align="end"
@@ -140,7 +142,7 @@ function IngredientItem({
                     </MenuItem>
                     <MenuItem>Cancel</MenuItem>
                   </Menu>
-                </Center>
+                </RightAligned>
               }
             />
           </Flex>

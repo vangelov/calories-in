@@ -34,7 +34,6 @@ function MealItem({ mealField, index, onRemove, forwardRef, ...rest }: Props) {
       <Header
         zIndex={2}
         index={index}
-        mealIndex={index}
         mealField={mealField}
         ingredientsFields={ingredientsFormsController.ingredientsFields}
         onRemove={onRemove}

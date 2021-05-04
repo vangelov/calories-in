@@ -29,10 +29,12 @@ function FoodsCategoriesHeader({
       bg="white"
       borderBottomWidth={1}
       borderBottomColor="gray.200"
-      p={8}
+      p={6}
     >
       <Text>Foods</Text>
-      <Button onClick={addFoodDialogDisclosure.onOpen}>Add food</Button>
+      <Button variant="outline" onClick={addFoodDialogDisclosure.onOpen}>
+        Add food
+      </Button>
       <AddFoodDialog
         isOpen={addFoodDialogDisclosure.isOpen}
         onFoodAdded={onFoodAdded}

@@ -1,4 +1,4 @@
-import { Input, Flex, Center, IconButton } from '@chakra-ui/react'
+import { Input, Flex, IconButton } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { MealField, getMealsFormsPath, IngredientField } from 'core/dietForm'
 import { useUndoRedoMethods } from 'core/undoRedo'
@@ -8,18 +8,17 @@ import StatValue from 'components/general/StatValue'
 import { Menu, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
 import { useState } from 'react'
+import RightAligned from 'components/general/RightAligned'
 
 type Props = {
-  mealIndex: number
   mealField: MealField
   ingredientsFields: IngredientField[]
   zIndex: number
   index: number
-  onRemove: (mealIndex: number) => void
+  onRemove: (index: number) => void
 }
 
 function Header({
-  mealIndex,
   mealField,
   index,
   onRemove,
@@ -28,7 +27,7 @@ function Header({
 }: Props) {
   const { register } = useFormContext()
   const { saveLastChange } = useUndoRedoMethods()
-  const nameRegister = register(getMealsFormsPath(mealIndex, 'name'))
+  const nameRegister = register(getMealsFormsPath(index, 'name'))
   const { mealStats } = useMealStats(index, mealField, ingredientsFields)
   const [test, setTest] = useState(false)
 
@@ -46,13 +45,13 @@ function Header({
       position="sticky"
       top="0"
       bg="gray.50"
-      px={3}
       py={4}
+      px={6}
       zIndex={test ? 1000 : zIndex}
       justifyContent="space-between"
       borderBottomWidth={1}
       borderBottomColor="gray.200"
-      borderTopWidth={mealIndex === 0 ? 0 : 1}
+      borderTopWidth={index === 0 ? 0 : 1}
       borderTopColor="gray.200"
     >
       <StatsLayout
@@ -61,11 +60,11 @@ function Header({
             {...nameRegister}
             onChange={onNameChange}
             autoComplete="off"
-            height={12}
             bg="white"
             borderColor="gray.200"
             width="90%"
             fontWeight="bold"
+            fontSize="lg"
             defaultValue={mealField.name}
           />
         }
@@ -105,7 +104,7 @@ function Header({
           />
         }
         menuElement={
-          <Center height="100%">
+          <RightAligned>
             <Menu
               arrow
               align="end"
@@ -119,10 +118,10 @@ function Header({
                 />
               }
             >
-              <MenuItem>Remove</MenuItem>
+              <MenuItem onClick={() => onRemove(index)}>Remove</MenuItem>
               <MenuItem>Cancel</MenuItem>
             </Menu>
-          </Center>
+          </RightAligned>
         }
       />
     </Flex>

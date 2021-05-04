@@ -2861,6 +2861,11 @@
     "@webassemblyjs/wast-parser" "1.9.0"
     "@xtuc/long" "4.2.2"
 
+"@xobotyi/scrollbar-width@^1.9.5":
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/@xobotyi/scrollbar-width/-/scrollbar-width-1.9.5.tgz#80224a6919272f405b87913ca13b92929bdf3c4d"
+  integrity sha512-N8tkAACJx2ww8vFMneJmaAgmjAG1tnVBZJRLRcx061tmsLRZHSEZSLuGWnwPtunsSLvSqXQ2wfp7Mgqg1I+2dQ==
+
 "@xtuc/ieee754@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@xtuc/ieee754/-/ieee754-1.2.0.tgz#eef014a3145ae477a1cbc00cd1e552336dceb790"
@@ -3979,6 +3984,11 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
+classnames@^2.2.5:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.3.1.tgz#dfcfa3891e306ec1dad105d0e88f4417b8535e8e"
+  integrity sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
+
 clean-css@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.2.3.tgz#507b5de7d97b48ee53d84adb0160ff6216380f78"
@@ -4023,6 +4033,11 @@ cliui@^6.0.0:
     string-width "^4.2.0"
     strip-ansi "^6.0.0"
     wrap-ansi "^6.2.0"
+
+cnbuilder@^2.5.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/cnbuilder/-/cnbuilder-2.6.0.tgz#309b4f34371be80ad5452f983b7bac1af4f09ac8"
+  integrity sha512-SA2gBDcU6B9T1uMhA3m13dVffdaA8RC9TIz7zQygYwbdwOf6l8IGem5UbDc661W2YcQ0aiwt6FqDhDpAE7YUqA==
 
 co@^4.6.0:
   version "4.6.0"
@@ -6027,6 +6042,11 @@ get-package-type@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/get-package-type/-/get-package-type-0.1.0.tgz#8de2d803cff44df3bc6c456e6668b36c3926e11a"
   integrity sha512-pjzuKtY64GYfWizNAJ0fr9VqttZkNiK2iS430LtIHzjBEr6bX8Am2zm4sW4Ro5wjWW5cAlRL1qAMTcXbjNAO2Q==
+
+get-scrollbar-width@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/get-scrollbar-width/-/get-scrollbar-width-1.0.5.tgz#2ca950f716bf28f459fe8d5b6ee5ecc6f276c4ca"
+  integrity sha512-eEvo2PMnm9O2/xpk2L3t/MxcB1nJtooT7rVfP5aJVBtE0lBRywthQVTYFuuMONBIOyM0Rq3p+Hnpt5T50G13CA==
 
 get-stream@^4.0.0:
   version "4.1.0"
@@ -9733,7 +9753,7 @@ prompts@2.4.0, prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.6.2, prop-types@^15.7.2:
+prop-types@^15.6.0, prop-types@^15.6.2, prop-types@^15.7.2:
   version "15.7.2"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.7.2.tgz#52c41e75b8c87e72b9d9360e0206b99dcbffa6c5"
   integrity sha512-8QQikdH7//R2vurIJSutZ1smHYTcLpRWEOlHnzcWHmBYrOGUysKwSsrC89BCiFj3CbrfJ/nXFdJepOVrY1GCHQ==
@@ -9973,6 +9993,14 @@ react-dom@^17.0.1:
     object-assign "^4.1.1"
     scheduler "^0.20.1"
 
+react-draggable@^4.4.2:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/react-draggable/-/react-draggable-4.4.3.tgz#0727f2cae5813e36b0e4962bf11b2f9ef2b406f3"
+  integrity sha512-jV4TE59MBuWm7gb6Ns3Q1mxX8Azffb7oTtDtBgFkxRvhDp38YAARmRplrj0+XGkhOJB5XziArX+4HUUABtyZ0w==
+  dependencies:
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
+
 react-error-overlay@^6.0.9:
   version "6.0.9"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.9.tgz#3c743010c9359608c375ecd6bc76f35d93995b0a"
@@ -10117,6 +10145,20 @@ react-scripts@4.0.3:
     workbox-webpack-plugin "5.1.4"
   optionalDependencies:
     fsevents "^2.1.3"
+
+react-scrollbar-size@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/react-scrollbar-size/-/react-scrollbar-size-3.2.0.tgz#2ab5c6f574cd0051dfcdbae337a64073a949ad6f"
+  integrity sha512-3CiK6Wf+kkZukwQGoVeYA87QsfNunMADK9wZ388VMzbuN7Y67F9b6b/KNf8lSYDNbqRNHzapDaVbC9AaO1vENw==
+
+react-scrollbars-custom@^4.0.25:
+  version "4.0.25"
+  resolved "https://registry.yarnpkg.com/react-scrollbars-custom/-/react-scrollbars-custom-4.0.25.tgz#64c1390fc04fe2b90373d5d142bd129a3d46e394"
+  integrity sha512-kipJK49fwvHsDgumIGiTmrJkxw5QD9urN7f4o2VvSrsHNOWMrDppNf+IjgobT5w+ZjbaaHfLk5NmZ/n1zgKtcw==
+  dependencies:
+    cnbuilder "^2.5.0"
+    react-draggable "^4.4.2"
+    zoom-level "^2.5.0"
 
 react-style-singleton@^2.1.0:
   version "2.1.1"
@@ -12620,3 +12662,8 @@ yocto-queue@^0.1.0:
   version "0.1.0"
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
+
+zoom-level@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/zoom-level/-/zoom-level-2.5.0.tgz#286ec16f247b8bb7a900df6612567688eeef498a"
+  integrity sha512-7UlRWU4Q3uCMCeDVMOm7eBrIu145OqsIJ3p6zq58l8UsSYwKWxc6zEapC5YA9tIeh0oheb4cT9Kk2Wq353loFg==

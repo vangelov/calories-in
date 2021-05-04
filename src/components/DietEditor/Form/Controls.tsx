@@ -1,9 +1,29 @@
-import { Flex, Button } from '@chakra-ui/react'
-import { DietForm } from 'core/dietForm'
+import { Flex, Button, IconButton, ButtonGroup, chakra } from '@chakra-ui/react'
+//import { DietForm } from 'core/dietForm'
 import { useUndoRedoMethods, useUndoRedoState } from 'core/undoRedo'
-import { useFormContext } from 'react-hook-form'
-import { v4 as uuidv4 } from 'uuid'
-import { Menu, MenuItem, MenuButton } from '@szhsin/react-menu'
+//import { useFormContext } from 'react-hook-form'
+// import { v4 as uuidv4 } from 'uuid'
+import { Menu, MenuItem } from 'components/general'
+import {
+  CornerUpLeft,
+  CornerUpRight,
+  Copy,
+  FileText,
+  Trash,
+  MoreHorizontal,
+  Plus,
+  Save,
+} from 'react-feather'
+import { Tooltip } from '@chakra-ui/react'
+
+const CornerUpLeftStyled = chakra(CornerUpLeft)
+const CornerUpRightStyled = chakra(CornerUpRight)
+const CopyStyled = chakra(Copy)
+const FileTextStyled = chakra(FileText)
+const TrashStyled = chakra(Trash)
+const PlusStyled = chakra(Plus)
+const SaveStyled = chakra(Save)
+const MoreHorizontalStyled = chakra(MoreHorizontal)
 
 type Props = {
   onMealAdd: () => void
@@ -11,7 +31,6 @@ type Props = {
 }
 
 function Controls({ onMealAdd, onSave }: Props) {
-  const { getValues, reset } = useFormContext<DietForm>()
   const { undo, redo } = useUndoRedoMethods()
   const { canUndo, canRedo } = useUndoRedoState()
 
@@ -22,6 +41,9 @@ function Controls({ onMealAdd, onSave }: Props) {
   function onRedo() {
     redo()
   }
+
+  /*
+    const { getValues, reset } = useFormContext<DietForm>()
 
   function onRearrange() {
     const form = getValues()
@@ -40,33 +62,94 @@ function Controls({ onMealAdd, onSave }: Props) {
     }
 
     reset(newForm)
-  }
+  }*/
 
   return (
     <Flex
-      padding={2}
-      height="40px"
       width="100%"
+      pt={3}
+      justifyContent="space-between"
       alignItems="center"
-      backgroundColor="white"
-      borderBottomWidth={1}
-      borderBottomColor="gray.200"
     >
-      <Button onClick={onMealAdd}>Add Meal</Button>
-      <Button onClick={onSave}>Save</Button>
-      <Button onClick={onRearrange}>Rearrange meals</Button>
-      <Button isDisabled={!canUndo} onClick={onUndo}>
-        Undo
-      </Button>
-      <Button isDisabled={!canRedo} onClick={onRedo}>
-        Redo
-      </Button>
+      <ButtonGroup spacing={1} variant="outline">
+        <Tooltip hasArrow label="Undo" aria-label="A tooltip">
+          <IconButton
+            aria-label="undo"
+            icon={<CornerUpLeftStyled color="gray.400" pointerEvents="none" />}
+            isDisabled={!canUndo}
+            onClick={onUndo}
+          />
+        </Tooltip>
 
-      <Menu menuButton={<MenuButton>Open menu</MenuButton>}>
-        <MenuItem>New File</MenuItem>
-        <MenuItem>Save</MenuItem>
-        <MenuItem>Close Window</MenuItem>
-      </Menu>
+        <Tooltip hasArrow label="Redo" aria-label="A tooltip">
+          <IconButton
+            aria-label="test"
+            icon={<CornerUpRightStyled color="gray.400" pointerEvents="none" />}
+            isDisabled={!canRedo}
+            onClick={onRedo}
+          />
+        </Tooltip>
+      </ButtonGroup>
+
+      <ButtonGroup spacing={1} variant="outline">
+        <Tooltip hasArrow label="Duplicate" aria-label="A tooltip">
+          <IconButton
+            aria-label="undo"
+            icon={<CopyStyled color="gray.400" pointerEvents="none" />}
+          />
+        </Tooltip>
+
+        <Tooltip hasArrow label="Export" aria-label="A tooltip">
+          <IconButton
+            aria-label="test"
+            icon={<FileTextStyled color="gray.400" pointerEvents="none" />}
+          />
+        </Tooltip>
+
+        <Tooltip hasArrow label="Delete" aria-label="A tooltip">
+          <IconButton
+            aria-label="test"
+            icon={<TrashStyled color="gray.400" pointerEvents="none" />}
+          />
+        </Tooltip>
+      </ButtonGroup>
+
+      <Flex>
+        <Button
+          leftIcon={<SaveStyled color="gray.400" pointerEvents="none" />}
+          variant="outline"
+          mr={1}
+          onClick={onSave}
+        >
+          Save
+        </Button>
+        <Button
+          leftIcon={<PlusStyled color="white" pointerEvents="none" />}
+          mr={1}
+          variant="solid"
+          onClick={onMealAdd}
+        >
+          Add Meal
+        </Button>
+
+        <Menu
+          arrow
+          align="end"
+          viewScroll="close"
+          menuButton={
+            <IconButton
+              aria-label="test"
+              icon={
+                <MoreHorizontalStyled color="gray.400" pointerEvents="none" />
+              }
+              variant="outline"
+            />
+          }
+        >
+          <MenuItem>Remove</MenuItem>
+          <MenuItem>Cancel</MenuItem>
+        </Menu>
+      </Flex>
     </Flex>
   )
 }

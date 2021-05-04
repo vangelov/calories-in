@@ -1,6 +1,6 @@
 import Header from './Header'
 import MealsList, { MealsController } from './MealsList'
-import { Box } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import Controls from './Controls'
 import { Diet } from 'core/types'
 import { DietForm, useDietForm } from 'core/dietForm'
@@ -8,6 +8,7 @@ import { FormProvider } from 'react-hook-form'
 import { RefObject, useLayoutEffect, useRef } from 'react'
 import { FoodsDragAndDropProvider, LastFieldIdProvider } from 'core/foodsDnd'
 import { Watcher } from 'core/undoRedo'
+import InvisibleScrollbar from 'components/general/InvisibleScrollbar'
 
 type Props = {
   dietForm: DietForm
@@ -48,8 +49,20 @@ function Form({
 
       <FoodsDragAndDropProvider>
         <LastFieldIdProvider>
-          <Header onNewDiet={onNewDiet} onDietChange={onDietChange} />
-          <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
+          <Flex
+            py={4}
+            px={6}
+            borderLeftWidth={1}
+            borderBottomWidth={1}
+            borderBottomColor="gray.200"
+            bg="white"
+          >
+            <Box width="100%">
+              <Header onNewDiet={onNewDiet} onDietChange={onDietChange} />
+              <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
+            </Box>
+            <InvisibleScrollbar />
+          </Flex>
 
           <Box
             borderLeftWidth={1}

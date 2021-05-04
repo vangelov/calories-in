@@ -1,4 +1,5 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Text, Box } from '@chakra-ui/react'
+import RightAligned from './RightAligned'
 
 type Props = {
   value: string
@@ -9,18 +10,22 @@ type Props = {
 
 function StatValue({
   value,
-  color = 'gray.400',
+  color = 'gray.300',
   label,
   isBold = false,
 }: Props) {
   return (
-    <Flex
-      width="100%"
-      height="100%"
-      alignItems="flex-end"
-      justifyContent="center"
-      flexDirection="column"
-    >
+    <RightAligned position="relative">
+      {isBold && (
+        <Box
+          position="absolute"
+          top="2px"
+          bottom="5px"
+          right="-10px"
+          width="1px"
+          bg="gray.400"
+        />
+      )}
       {label && (
         <Text fontSize="xs" textColor="gray.400">
           {label}
@@ -28,13 +33,20 @@ function StatValue({
       )}
 
       <Text
+        lineHeight="4"
         fontSize="md"
-        textColor={color}
         fontWeight={isBold ? 'bold' : undefined}
+        textColor={color}
       >
         {value}
       </Text>
-    </Flex>
+
+      {isBold && (
+        <Text fontSize="md" textColor="gray.400">
+          563g
+        </Text>
+      )}
+    </RightAligned>
   )
 }
 
