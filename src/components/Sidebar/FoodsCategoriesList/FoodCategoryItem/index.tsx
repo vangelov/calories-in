@@ -42,7 +42,6 @@ function FoodCategoryItem({
             <AnimatePresence>
               {foods.map((food, index) => (
                 <FoodItem
-                  mt={2}
                   key={food.id}
                   food={food}
                   onRemove={onFoodItemRemove}

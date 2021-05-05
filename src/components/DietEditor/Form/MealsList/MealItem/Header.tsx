@@ -56,6 +56,7 @@ function Header({
         nameElement={
           <Input
             {...nameRegister}
+            placeholder="Enter meal name"
             onChange={onNameChange}
             autoComplete="off"
             bg="white"

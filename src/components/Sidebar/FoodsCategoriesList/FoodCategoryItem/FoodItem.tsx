@@ -33,16 +33,9 @@ function FoodItemInternal({
 }: Props) {
   return (
     <Box
-      bg="white"
-      boxShadow={isDragging ? 'dark-lg' : undefined}
+      boxShadow={isDragging ? 'lg' : undefined}
       ref={innerRef}
       alignItems="center"
-      py={3}
-      px={4}
-      border="solid"
-      borderColor="gray.200"
-      borderRadius={4}
-      borderWidth={1}
       _hover={{ backgroundColor: 'rgb(247, 250, 252, 0.5)' }}
       {...rest}
     >
@@ -53,30 +46,41 @@ function FoodItemInternal({
         exit={{
           opacity: 0,
           height: 0,
-          transition: { exitDuration: 0.2 },
         }}
       >
-        <Flex alignItems="center">
-          <Text color="gray.500" fontSize="md" flex={1}>
-            {food.name}
-          </Text>
-
-          <Menu
-            arrow
-            align="end"
-            viewScroll="close"
-            menuButton={
-              <IconButton
-                aria-label="test"
-                icon={<MoreHorizontal color="gray" pointerEvents="none" />}
-                variant="ghost"
-              />
-            }
+        <Flex alignItems="center" width="100%" pt="8px" height="74px">
+          <Flex
+            bg="white"
+            px={4}
+            alignItems="center"
+            border="solid"
+            borderColor="gray.200"
+            width="100%"
+            borderRadius={4}
+            borderWidth={1}
+            height="66px"
           >
-            <MenuItem>New File</MenuItem>
-            <MenuItem>Save</MenuItem>
-            <MenuItem>Close Window</MenuItem>
-          </Menu>
+            <Text color="gray.500" fontSize="md" flex={1}>
+              {food.name}
+            </Text>
+
+            <Menu
+              arrow
+              align="end"
+              viewScroll="close"
+              menuButton={
+                <IconButton
+                  aria-label="test"
+                  icon={<MoreHorizontal color="gray" pointerEvents="none" />}
+                  variant="ghost"
+                />
+              }
+            >
+              <MenuItem onClick={() => onRemove && onRemove(index)}>
+                Remove
+              </MenuItem>
+            </Menu>
+          </Flex>
         </Flex>
       </motion.div>
     </Box>
