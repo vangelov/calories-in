@@ -57,7 +57,11 @@ function Header({ onDietChange, onNewDiet }: Props) {
       <StatsLayout
         nameElement={
           <HStack height="100%" alignItems="flex-end" spacing={1}>
-            <Input {...nameRegister} onChange={onNameChange} />
+            <Input
+              {...nameRegister}
+              textColor="gray.600"
+              onChange={onNameChange}
+            />
 
             <Tooltip hasArrow label="Export" aria-label="A tooltip">
               <IconButton

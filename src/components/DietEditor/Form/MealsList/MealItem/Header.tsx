@@ -51,8 +51,6 @@ function Header({
       justifyContent="space-between"
       borderBottomWidth={1}
       borderBottomColor="gray.200"
-      borderTopWidth={index === 0 ? 0 : 1}
-      borderTopColor="gray.200"
     >
       <StatsLayout
         nameElement={

@@ -1,4 +1,4 @@
-import { Input, Flex, IconButton } from '@chakra-ui/react'
+import { Input, Flex, IconButton, Box } from '@chakra-ui/react'
 import { getIngredientsFormsPath, IngredientField } from 'core/dietForm'
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import { Draggable } from 'react-beautiful-dnd'
@@ -87,9 +87,19 @@ function IngredientItem({
             position="relative"
             py={4}
             px={6}
-            borderBottomWidth={isLast || snapshot.isDragging ? 0 : 1}
-            borderBottomColor="gray.200"
+            minHeight="74px"
+            _hover={{ backgroundColor: 'rgb(247, 250, 252, 0.35)' }}
           >
+            {!snapshot.isDragging && (
+              <Box
+                position="absolute"
+                bottom="0"
+                left="0"
+                right="0"
+                bg="gray.200"
+                height="px"
+              />
+            )}
             <Input
               fontSize="md"
               type="hidden"

@@ -10,7 +10,7 @@ type Props = {
 
 function StatValue({
   value,
-  color = 'gray.300',
+  color = 'gray.400',
   label,
   isBold = false,
 }: Props) {

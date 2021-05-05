@@ -43,6 +43,7 @@ function FoodItemInternal({
       borderColor="gray.200"
       borderRadius={4}
       borderWidth={1}
+      _hover={{ backgroundColor: 'rgb(247, 250, 252, 0.5)' }}
       {...rest}
     >
       <motion.div
