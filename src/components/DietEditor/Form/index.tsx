@@ -51,6 +51,7 @@ function Form({
         <LastFieldIdProvider>
           <Flex
             py={4}
+            width="100%"
             px={6}
             borderLeftWidth={1}
             borderBottomWidth={1}

@@ -22,7 +22,7 @@ function StatsLayout({
   ...rest
 }: Props) {
   return (
-    <Grid width="100%" templateColumns="repeat(10, 1fr)" gap={1} {...rest}>
+    <Grid width="100%" templateColumns="repeat(10, 1fr)" gap={0} {...rest}>
       <GridItem colSpan={4}>{nameElement}</GridItem>
       <GridItem colSpan={1}>{amountElement}</GridItem>
       <GridItem colSpan={1}>{energyElement}</GridItem>

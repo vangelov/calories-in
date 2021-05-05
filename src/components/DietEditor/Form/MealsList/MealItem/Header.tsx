@@ -62,7 +62,7 @@ function Header({
             autoComplete="off"
             bg="white"
             borderColor="gray.200"
-            width="90%"
+            width="85%"
             fontWeight="bold"
             fontSize="lg"
             defaultValue={mealField.name}

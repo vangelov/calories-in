@@ -84,6 +84,8 @@ function useReorderIngredientsForms({
       }
 
       if (ingredientForm) {
+        /* For some reason when a drag is done with the keyboard react-hook-form starts
+           behaving strange if we do the insert in this rendering cycle */
         setPendingInsert({ ingredientForm, index: destination.index })
       }
     } else if (source.droppableId === mealField.fieldId) {

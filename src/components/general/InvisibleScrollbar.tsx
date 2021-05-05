@@ -1,9 +1,10 @@
-import { useScrollbarSize } from 'react-scrollbar-size'
+import scrollbarSize from 'scrollbar-size'
 import { Box } from '@chakra-ui/react'
 
 function InvisibleScrollbar() {
-  const { width: scrollbarWidth } = useScrollbarSize()
-  return <Box width={`${scrollbarWidth}px`} height="0" />
+  const scrollbarWidth = scrollbarSize()
+
+  return <Box width={`${scrollbarWidth}px`} />
 }
 
 export default InvisibleScrollbar

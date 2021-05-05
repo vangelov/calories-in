@@ -1,4 +1,4 @@
-import { Flex, Input, IconButton } from '@chakra-ui/react'
+import { Flex, Input, IconButton, Tooltip, HStack } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { Diet } from 'core/types'
 import { useDietStats } from 'core/stats'
@@ -7,6 +7,7 @@ import StatsLayout from 'components/general/StatsLayout'
 import StatValue from 'components/general/StatValue'
 import { Info } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
+import { ChevronDown } from 'react-feather'
 
 type Props = {
   onDietChange: (diet: Diet) => void
@@ -55,9 +56,17 @@ function Header({ onDietChange, onNewDiet }: Props) {
 
       <StatsLayout
         nameElement={
-          <Flex height="100%" alignItems="flex-end">
+          <HStack height="100%" alignItems="flex-end" spacing={1}>
             <Input {...nameRegister} onChange={onNameChange} />
-          </Flex>
+
+            <Tooltip hasArrow label="Export" aria-label="A tooltip">
+              <IconButton
+                variant="outline"
+                aria-label="test"
+                icon={<ChevronDown color="gray" pointerEvents="none" />}
+              />
+            </Tooltip>
+          </HStack>
         }
         energyElement={
           <StatValue

@@ -65,56 +65,57 @@ function Controls({ onMealAdd, onSave }: Props) {
   }*/
 
   return (
-    <Flex
-      width="100%"
-      pt={3}
-      justifyContent="space-between"
-      alignItems="center"
-    >
-      <ButtonGroup spacing={1} variant="outline">
-        <Tooltip hasArrow label="Undo" aria-label="A tooltip">
-          <IconButton
-            aria-label="undo"
-            icon={<CornerUpLeftStyled color="gray.400" pointerEvents="none" />}
-            isDisabled={!canUndo}
-            onClick={onUndo}
-          />
-        </Tooltip>
+    <Flex width="100%" pt={3} alignItems="center">
+      <Flex flex="4" justifyContent="space-between">
+        <ButtonGroup spacing={1} variant="outline">
+          <Tooltip hasArrow label="Undo" aria-label="A tooltip">
+            <IconButton
+              aria-label="undo"
+              icon={
+                <CornerUpLeftStyled color="gray.400" pointerEvents="none" />
+              }
+              isDisabled={!canUndo}
+              onClick={onUndo}
+            />
+          </Tooltip>
 
-        <Tooltip hasArrow label="Redo" aria-label="A tooltip">
-          <IconButton
-            aria-label="test"
-            icon={<CornerUpRightStyled color="gray.400" pointerEvents="none" />}
-            isDisabled={!canRedo}
-            onClick={onRedo}
-          />
-        </Tooltip>
-      </ButtonGroup>
+          <Tooltip hasArrow label="Redo" aria-label="A tooltip">
+            <IconButton
+              aria-label="test"
+              icon={
+                <CornerUpRightStyled color="gray.400" pointerEvents="none" />
+              }
+              isDisabled={!canRedo}
+              onClick={onRedo}
+            />
+          </Tooltip>
+        </ButtonGroup>
 
-      <ButtonGroup spacing={1} variant="outline">
-        <Tooltip hasArrow label="Duplicate" aria-label="A tooltip">
-          <IconButton
-            aria-label="undo"
-            icon={<CopyStyled color="gray.400" pointerEvents="none" />}
-          />
-        </Tooltip>
+        <ButtonGroup spacing={1} variant="outline">
+          <Tooltip hasArrow label="Duplicate" aria-label="A tooltip">
+            <IconButton
+              aria-label="undo"
+              icon={<CopyStyled color="gray.400" pointerEvents="none" />}
+            />
+          </Tooltip>
 
-        <Tooltip hasArrow label="Export" aria-label="A tooltip">
-          <IconButton
-            aria-label="test"
-            icon={<FileTextStyled color="gray.400" pointerEvents="none" />}
-          />
-        </Tooltip>
+          <Tooltip hasArrow label="Export" aria-label="A tooltip">
+            <IconButton
+              aria-label="test"
+              icon={<FileTextStyled color="gray.400" pointerEvents="none" />}
+            />
+          </Tooltip>
 
-        <Tooltip hasArrow label="Delete" aria-label="A tooltip">
-          <IconButton
-            aria-label="test"
-            icon={<TrashStyled color="gray.400" pointerEvents="none" />}
-          />
-        </Tooltip>
-      </ButtonGroup>
+          <Tooltip hasArrow label="Delete" aria-label="A tooltip">
+            <IconButton
+              aria-label="test"
+              icon={<TrashStyled color="gray.400" pointerEvents="none" />}
+            />
+          </Tooltip>
+        </ButtonGroup>
+      </Flex>
 
-      <Flex>
+      <Flex flex="6" justifyContent="flex-end">
         <Button
           leftIcon={<SaveStyled color="gray.400" pointerEvents="none" />}
           variant="outline"
