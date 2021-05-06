@@ -5,7 +5,7 @@ import { Draggable } from 'react-beautiful-dnd'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { useLastFieldIdProvider } from 'core/foodsDnd/LastFieldIdProvider'
+import { useLastFieldIdProvider } from 'core/ingredientsDnd'
 import FoodInfo from './FoodInfo'
 import { FoodAmountInput } from 'components/general'
 import StatsLayout from 'components/general/StatsLayout'
@@ -19,7 +19,6 @@ type Props = {
   index: number
   ingredientField: IngredientField
 
-  isLast: boolean
   onRemove: (index: number) => void
 }
 
@@ -36,7 +35,7 @@ function IngredientItem({
   mealIndex,
   index,
   ingredientField,
-  isLast,
+
   onRemove,
 }: Props) {
   const { register, control } = useFormContext()

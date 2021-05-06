@@ -30,7 +30,7 @@ const initialDiet: Diet = {
 function DietEditor() {
   const [diet, setDiet] = useState(initialDiet)
   const [dietForm, setDietForm] = useState(() => getDietForm(diet))
-  const ref = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
 
   function onDietChange(diet: Diet) {
     const dietFrom = getDietForm(diet)
@@ -45,10 +45,10 @@ function DietEditor() {
   return (
     <UndoRedoStateProvider key={dietForm.formId}>
       <FoodsByIdProvider initialFoodsByIdMap={diet.foodsByIdMap}>
-        <UndoRedoMethodsProvider scrollRef={ref} dietForm={dietForm}>
+        <UndoRedoMethodsProvider scrollRef={scrollRef} dietForm={dietForm}>
           {(currentDietForm, version, scrollTop) => (
             <Form
-              scrollRef={ref}
+              scrollRef={scrollRef}
               key={version}
               onDietChange={onDietChange}
               onNewDiet={onNewDiet}

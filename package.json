@@ -25,7 +25,6 @@
     "react-dom": "^17.0.1",
     "react-feather": "^2.0.9",
     "react-hook-form": "7.3.0",
-    "react-merge-refs": "^1.1.0",
     "react-scripts": "4.0.3",
     "scrollbar-size": "^2.1.0",
     "smoothscroll-polyfill": "^0.4.4",

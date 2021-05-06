@@ -9,7 +9,9 @@ import { Menu, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
 import { RefObject, useState } from 'react'
 import RightAligned from 'components/general/RightAligned'
-import mergeRefs from 'react-merge-refs'
+import { MenuChangeEvent } from '@szhsin/react-menu'
+import { useIsMounted } from 'core/utils'
+import { useMergeRefs } from '@chakra-ui/react'
 
 type Props = {
   mealField: MealField
@@ -33,6 +35,11 @@ function Header({
   const nameRegister = register(getMealsFormsPath(index, 'name'))
   const { mealStats } = useMealStats(index, mealField, ingredientsFields)
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const isMountedRef = useIsMounted()
+  const nameInputRef = useMergeRefs(
+    nameRegister.ref,
+    getMealNameInputRefById(mealField.fieldId as string)
+  )
 
   useUpdateMealStats(index, mealStats)
 
@@ -41,6 +48,13 @@ function Header({
     saveLastChange()
   }
 
+  function onMenuChange(event: MenuChangeEvent) {
+    setTimeout(() => {
+      if (isMountedRef.current) {
+        setIsMenuOpen(event.open)
+      }
+    }, 0)
+  }
   const amountInGrams = mealStats.amountInGrams
 
   return (
@@ -59,10 +73,7 @@ function Header({
         nameElement={
           <Input
             {...nameRegister}
-            ref={mergeRefs([
-              nameRegister.ref,
-              getMealNameInputRefById(mealField.fieldId as string),
-            ])}
+            ref={nameInputRef}
             placeholder="Enter meal name"
             onChange={onNameChange}
             autoComplete="off"
@@ -115,7 +126,7 @@ function Header({
               arrow
               align="end"
               viewScroll="close"
-              onChange={event => setIsMenuOpen(event.open)}
+              onChange={onMenuChange}
               menuButton={
                 <IconButton
                   aria-label="test"

@@ -6,7 +6,10 @@ import { Diet } from 'core/types'
 import { DietForm, useDietForm } from 'core/dietForm'
 import { FormProvider } from 'react-hook-form'
 import { RefObject, useLayoutEffect, useRef } from 'react'
-import { FoodsDragAndDropProvider, LastFieldIdProvider } from 'core/foodsDnd'
+import {
+  IngredientsFormsDndProvider,
+  LastFieldIdProvider,
+} from 'core/ingredientsDnd'
 import { Watcher } from 'core/undoRedo'
 import InvisibleScrollbar from 'components/general/InvisibleScrollbar'
 
@@ -47,7 +50,7 @@ function Form({
     <FormProvider {...formMethods}>
       <Watcher />
 
-      <FoodsDragAndDropProvider>
+      <IngredientsFormsDndProvider>
         <LastFieldIdProvider>
           <Flex
             py={4}
@@ -65,23 +68,12 @@ function Form({
             <InvisibleScrollbar />
           </Flex>
 
-          <Box
-            borderLeftWidth={1}
-            borderLeftColor="gray.200"
-            borderRightWidth={1}
-            borderRightColor="gray.200"
-            ref={scrollRef}
-            zIndex={0}
-            flex={1}
-            overflowY="scroll"
-          >
-            <MealsList
-              scrollRef={scrollRef}
-              mealsControllerRef={mealsControllerRef}
-            />
-          </Box>
+          <MealsList
+            scrollRef={scrollRef}
+            mealsControllerRef={mealsControllerRef}
+          />
         </LastFieldIdProvider>
-      </FoodsDragAndDropProvider>
+      </IngredientsFormsDndProvider>
     </FormProvider>
   )
 }

@@ -10,7 +10,7 @@ type Props = {
   children: ReactNode
 }
 
-function FoodsDragAndDropProvider({ children }: Props) {
+function IngredientsFormsDndProvider({ children }: Props) {
   const ingredientFormRef = useRef<IngredientForm>()
   const { getValues } = useFormContext<DietForm>()
 
@@ -43,4 +43,4 @@ function FoodsDragAndDropProvider({ children }: Props) {
 
 export * from './context'
 
-export default FoodsDragAndDropProvider
+export default IngredientsFormsDndProvider

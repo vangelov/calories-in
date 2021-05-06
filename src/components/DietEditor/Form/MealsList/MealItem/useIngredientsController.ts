@@ -1,5 +1,5 @@
 import { useIngredientsForms, MealField } from 'core/dietForm'
-import { useReorderIngredientsForms } from 'core/foodsDnd'
+import { useReorderIngredientsForms } from 'core/ingredientsDnd'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { useEffect, useState } from 'react'
 

@@ -4,7 +4,7 @@ import { useFoodsByIdDispatch } from 'core/foods/FoodsByIdProvider'
 import { useFoodsListState } from 'core/foods/FoodsListProvider'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'
-import { useFoodsDragAndDropState } from './FoodsDragAndDropProvider'
+import { useIngredientsFormsDndState } from './IngredientsFormsDndProvider'
 import { isFoodCategoryDroppableId } from 'core/foodsCategories'
 import { FieldArrayMethodProps } from 'react-hook-form'
 import { useLayoutEffect, useState } from 'react'
@@ -29,7 +29,7 @@ function useReorderIngredientsForms({
   insertIngredientForm,
   removeIngredientForm,
 }: FunctionsParams) {
-  const ingredientFormRef = useFoodsDragAndDropState()
+  const ingredientFormRef = useIngredientsFormsDndState()
   const { saveLastChange } = useUndoRedoMethods()
   const foodsByIdDispatch = useFoodsByIdDispatch()
   const foodsListState = useFoodsListState()

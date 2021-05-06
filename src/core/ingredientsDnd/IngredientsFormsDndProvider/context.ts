@@ -5,7 +5,7 @@ type State = MutableRefObject<IngredientForm | undefined>
 
 const StateContext = createContext<State | undefined>(undefined)
 
-function useFoodsDragAndDropState() {
+function useIngredientsFormsDndState() {
   const state = useContext(StateContext)
 
   if (!state) {
@@ -15,4 +15,4 @@ function useFoodsDragAndDropState() {
   return state
 }
 
-export { StateContext, useFoodsDragAndDropState }
+export { StateContext, useIngredientsFormsDndState }

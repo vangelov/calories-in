@@ -45,7 +45,6 @@ function MealItem({
         mealField={mealField}
         mealIndex={index}
         ingredientsFields={ingredientsFormsController.ingredientsFields}
-        ingredientsStats={[]}
         onIngredientRemove={ingredientsFormsController.onIngredientRemove}
       />
     </Flex>

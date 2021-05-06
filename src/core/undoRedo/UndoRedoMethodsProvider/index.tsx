@@ -90,7 +90,7 @@ function UndoRedoMethodsProvider({ children, dietForm, scrollRef }: Props) {
 
           if (delta) {
             lastFormRef.current = form
-            //console.log('push', delta)
+            console.log('push', delta)
 
             deltasStackRef.current.push(
               delta,
