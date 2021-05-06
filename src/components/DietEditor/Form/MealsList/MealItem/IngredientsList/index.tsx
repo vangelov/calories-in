@@ -19,6 +19,8 @@ function IngredientsList({
   ingredientsFields,
   ingredientsStats,
 }: Props) {
+  console.log('test', mealIndex, ingredientsFields)
+
   return (
     <Droppable droppableId={mealField.fieldId as string}>
       {(provided, snapshot) => (

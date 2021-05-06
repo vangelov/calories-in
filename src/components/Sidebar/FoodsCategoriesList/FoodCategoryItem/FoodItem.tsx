@@ -36,7 +36,6 @@ function FoodItemInternal({
       boxShadow={isDragging ? 'lg' : undefined}
       ref={innerRef}
       alignItems="center"
-      _hover={{ backgroundColor: 'rgb(247, 250, 252, 0.5)' }}
       {...rest}
     >
       <motion.div
@@ -59,6 +58,7 @@ function FoodItemInternal({
             borderRadius={4}
             borderWidth={1}
             height="66px"
+            _hover={{ backgroundColor: 'rgb(247, 250, 252, 0.6)' }}
           >
             <Text color="gray.500" fontSize="md" flex={1}>
               {food.name}

@@ -38,10 +38,10 @@ function Header({ onDietChange, onNewDiet }: Props) {
   /*function onChangeButtonClick() {
     onDietChange(anotherDiet)
   }
-
+*/
   function onNewButtonClick() {
     onNewDiet()
-  }*/
+  }
 
   function onNameChange(event: any) {
     nameRegister.onChange(event)
@@ -67,6 +67,7 @@ function Header({ onDietChange, onNewDiet }: Props) {
               <IconButton
                 variant="outline"
                 aria-label="test"
+                onClick={onNewButtonClick}
                 icon={<ChevronDown color="gray" pointerEvents="none" />}
               />
             </Tooltip>

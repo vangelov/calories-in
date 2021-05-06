@@ -23,6 +23,7 @@ function FoodsDragAndDropProvider({ children }: Props) {
     }
 
     const values = getValues()
+
     const meal = values.mealsForms.find(
       ({ fieldId }) => fieldId === source.droppableId
     )

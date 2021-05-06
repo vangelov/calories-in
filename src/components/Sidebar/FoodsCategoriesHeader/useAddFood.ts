@@ -25,7 +25,7 @@ function useAddFood({
     }
 
     await delay(300)
-    await scrollTo(foodCategoriesListRef.current, foodCategoryItemRef.current)
+    await scrollTo(foodCategoryItemRef.current, foodCategoriesListRef.current)
 
     foodsListDispatch({
       type: 'addFood',

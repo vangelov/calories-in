@@ -7,8 +7,9 @@ import StatsLayout from 'components/general/StatsLayout'
 import StatValue from 'components/general/StatValue'
 import { Menu, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
-import { useState } from 'react'
+import { RefObject, useState } from 'react'
 import RightAligned from 'components/general/RightAligned'
+import mergeRefs from 'react-merge-refs'
 
 type Props = {
   mealField: MealField
@@ -16,6 +17,7 @@ type Props = {
   zIndex: number
   index: number
   onRemove: (index: number) => void
+  getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
 }
 
 function Header({
@@ -24,12 +26,13 @@ function Header({
   onRemove,
   ingredientsFields,
   zIndex,
+  getMealNameInputRefById,
 }: Props) {
   const { register } = useFormContext()
   const { saveLastChange } = useUndoRedoMethods()
   const nameRegister = register(getMealsFormsPath(index, 'name'))
   const { mealStats } = useMealStats(index, mealField, ingredientsFields)
-  const [test, setTest] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useUpdateMealStats(index, mealStats)
 
@@ -47,7 +50,7 @@ function Header({
       bg="gray.50"
       py={4}
       px={6}
-      zIndex={test ? 1000 : zIndex}
+      zIndex={isMenuOpen ? 1000 : zIndex}
       justifyContent="space-between"
       borderBottomWidth={1}
       borderBottomColor="gray.200"
@@ -56,6 +59,10 @@ function Header({
         nameElement={
           <Input
             {...nameRegister}
+            ref={mergeRefs([
+              nameRegister.ref,
+              getMealNameInputRefById(mealField.fieldId as string),
+            ])}
             placeholder="Enter meal name"
             onChange={onNameChange}
             autoComplete="off"
@@ -108,7 +115,7 @@ function Header({
               arrow
               align="end"
               viewScroll="close"
-              onChange={e => setTest(e.open)}
+              onChange={event => setIsMenuOpen(event.open)}
               menuButton={
                 <IconButton
                   aria-label="test"

@@ -9,6 +9,9 @@ import builInFoods from 'core/foods/builtIn.json'
 import 'focus-visible/dist/focus-visible'
 import theme from 'components/theme'
 import { FoodsCategoriesProvider } from 'core/foodsCategories'
+import smoothscroll from 'smoothscroll-polyfill'
+
+smoothscroll.polyfill()
 
 function App() {
   return (

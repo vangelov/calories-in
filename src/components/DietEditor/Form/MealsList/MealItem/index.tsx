@@ -4,34 +4,36 @@ import IngredientsList from './IngredientsList'
 import useIngredientsController from './useIngredientsController'
 import Header from './Header'
 import { useFormContext } from 'react-hook-form'
-import { ForwardedRef, forwardRef } from 'react'
+import { RefObject } from 'react'
 
 type Props = {
   mealField: MealField
   index: number
-  forwardRef?: ForwardedRef<HTMLDivElement>
   onRemove: (index: number) => void
+  getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
 } & LayoutProps &
   SpaceProps
 
-function MealItem({ mealField, index, onRemove, forwardRef, ...rest }: Props) {
+function MealItem({
+  mealField,
+  index,
+  onRemove,
+  getMealNameInputRefById,
+  ...rest
+}: Props) {
   const ingredientsFormsController = useIngredientsController(index, mealField)
 
   const { register } = useFormContext()
 
   return (
-    <Flex
-      ref={forwardRef}
-      flexDirection="column"
-      backgroundColor="white"
-      {...rest}
-    >
+    <Flex flexDirection="column" backgroundColor="white" {...rest}>
       <Input
         type="hidden"
         {...register(getMealsFormsPath(index, 'fieldId'))}
         defaultValue={mealField.fieldId}
       />
       <Header
+        getMealNameInputRefById={getMealNameInputRefById}
         zIndex={2}
         index={index}
         mealField={mealField}
@@ -50,6 +52,4 @@ function MealItem({ mealField, index, onRemove, forwardRef, ...rest }: Props) {
   )
 }
 
-export default forwardRef<HTMLDivElement, Props>((props, ref) => (
-  <MealItem forwardRef={ref} {...props} />
-))
+export default MealItem

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import isElementVisible from './isElementVisible'
 
 function useScrollTo() {
   const scrollTimeoutRef = useRef<number>()
@@ -9,7 +10,11 @@ function useScrollTo() {
     }
   }, [])
 
-  function scrollTo(container: HTMLElement, node: HTMLElement) {
+  function scrollTo(node: HTMLElement, container: HTMLElement) {
+    if (isElementVisible(node, container)) {
+      return Promise.resolve()
+    }
+
     return new Promise<void>(resolve => {
       function listener() {
         window.clearTimeout(scrollTimeoutRef.current)

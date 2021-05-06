@@ -75,7 +75,10 @@ function Form({
             flex={1}
             overflowY="scroll"
           >
-            <MealsList mealsControllerRef={mealsControllerRef} />
+            <MealsList
+              scrollRef={scrollRef}
+              mealsControllerRef={mealsControllerRef}
+            />
           </Box>
         </LastFieldIdProvider>
       </FoodsDragAndDropProvider>

@@ -23,11 +23,6 @@ type FunctionsParams = {
 
 const DEFAULT_AMOUNT_IN_GRAMS = 100
 
-type PendingInsert = {
-  ingredientForm: IngredientForm
-  index: number
-}
-
 function useReorderIngredientsForms({
   mealField,
   moveIngredientForm,
@@ -38,7 +33,7 @@ function useReorderIngredientsForms({
   const { saveLastChange } = useUndoRedoMethods()
   const foodsByIdDispatch = useFoodsByIdDispatch()
   const foodsListState = useFoodsListState()
-  const [pendingInsert, setPendingInsert] = useState<PendingInsert>()
+  const [pendingInsert, setPendingInsert] = useState<() => void>()
   const { setLastFieldId } = useLastFieldIdProvider()
 
   if (!ingredientFormRef) {
@@ -47,10 +42,9 @@ function useReorderIngredientsForms({
 
   useLayoutEffect(() => {
     if (pendingInsert) {
-      const { index, ingredientForm } = pendingInsert
-      insertIngredientForm(index, ingredientForm, { shouldFocus: false })
+      pendingInsert()
     }
-  }, [pendingInsert, insertIngredientForm])
+  }, [pendingInsert])
 
   useDragAndDropResponder('onDragEnd', (result: DropResult) => {
     const { source, destination } = result
@@ -83,11 +77,13 @@ function useReorderIngredientsForms({
         ingredientForm = ingredientFormRef.current
       }
 
-      if (ingredientForm) {
-        /* For some reason when a drag is done with the keyboard react-hook-form starts
-           behaving strange if we do the insert in this rendering cycle */
-        setPendingInsert({ ingredientForm, index: destination.index })
-      }
+      setPendingInsert(() => {
+        if (ingredientForm) {
+          insertIngredientForm(destination.index, ingredientForm, {
+            shouldFocus: false,
+          })
+        }
+      })
     } else if (source.droppableId === mealField.fieldId) {
       removeIngredientForm(source.index)
     }
