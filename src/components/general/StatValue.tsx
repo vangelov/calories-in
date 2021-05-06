@@ -1,22 +1,33 @@
 import { Text, Box } from '@chakra-ui/react'
 import RightAligned from './RightAligned'
 
+type StatType = 'ingredient' | 'meal' | 'mealEnergy' | 'diet' | 'dietEnergy'
+
 type Props = {
   value: string
-  color?: string
+  valueDetail?: string
   label?: string
-  isBold?: boolean
+  type: StatType
 }
 
-function StatValue({
-  value,
-  color = 'gray.400',
-  label,
-  isBold = false,
-}: Props) {
+function getValueTextColor(statType: StatType) {
+  if (statType === 'ingredient') {
+    return 'gray.400'
+  }
+
+  if (statType.startsWith('meal')) {
+    return 'gray.500'
+  }
+
+  return 'gray.600'
+}
+
+function StatValue({ value, valueDetail, label, type }: Props) {
+  const isForDiet = type.startsWith('diet')
+
   return (
     <RightAligned position="relative">
-      {isBold && (
+      {isForDiet && (
         <Box
           position="absolute"
           top="2px"
@@ -26,6 +37,7 @@ function StatValue({
           bg="gray.400"
         />
       )}
+
       {label && (
         <Text fontSize="xs" textColor="gray.400">
           {label}
@@ -33,17 +45,17 @@ function StatValue({
       )}
 
       <Text
-        lineHeight="4"
+        lineHeight={isForDiet ? '4' : undefined}
         fontSize="md"
-        fontWeight={isBold ? 'bold' : undefined}
-        textColor={color}
+        fontWeight={type.endsWith('Energy') ? 'bold' : undefined}
+        textColor={getValueTextColor(type)}
       >
         {value}
       </Text>
 
-      {isBold && (
+      {valueDetail && (
         <Text fontSize="md" textColor="gray.400">
-          563g
+          {valueDetail}
         </Text>
       )}
     </RightAligned>

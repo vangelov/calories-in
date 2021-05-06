@@ -7,6 +7,9 @@ const styles = {
       outline: 'none',
       'box-shadow:': 'none',
     },
+    '.rc-menu__item--hover': {
+      'background-color': '#EDF2F7',
+    },
   },
 }
 

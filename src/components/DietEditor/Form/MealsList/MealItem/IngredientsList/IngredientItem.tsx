@@ -127,10 +127,27 @@ function IngredientItem({
                   />
                 </RightAligned>
               }
-              energyElement={<StatValue value={`${amountInGrams * 10}kcal`} />}
-              proteinElement={<StatValue value={`${amountInGrams * 2}g`} />}
-              carbsElement={<StatValue value={`${amountInGrams * 2.5}g`} />}
-              fatElement={<StatValue value={`${amountInGrams * 1.5}g`} />}
+              energyElement={
+                <StatValue
+                  type="ingredient"
+                  value={`${amountInGrams * 10}kcal`}
+                />
+              }
+              proteinElement={
+                <StatValue type="ingredient" value={`${amountInGrams * 2}g`} />
+              }
+              carbsElement={
+                <StatValue
+                  type="ingredient"
+                  value={`${amountInGrams * 2.5}g`}
+                />
+              }
+              fatElement={
+                <StatValue
+                  type="ingredient"
+                  value={`${amountInGrams * 1.5}g`}
+                />
+              }
               menuElement={
                 <RightAligned>
                   <Menu

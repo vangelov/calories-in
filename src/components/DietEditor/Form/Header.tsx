@@ -75,34 +75,34 @@ function Header({ onDietChange, onNewDiet }: Props) {
         }
         energyElement={
           <StatValue
-            isBold={true}
+            type="dietEnergy"
             label="Energy"
-            color="gray.500"
             value={`${amountInGrams * 10}kcal`}
+            valueDetail="+200kcal"
           />
         }
         proteinElement={
           <StatValue
-            isBold={true}
+            type="diet"
             label="Protein"
-            color="gray.500"
             value={`${amountInGrams * 2}g`}
+            valueDetail="190g"
           />
         }
         carbsElement={
           <StatValue
-            isBold={true}
+            type="diet"
             label="Carbs"
-            color="gray.500"
             value={`${amountInGrams * 2.5}g`}
+            valueDetail="350g"
           />
         }
         fatElement={
           <StatValue
-            isBold={true}
+            type="diet"
             label="Fat"
-            color="gray.500"
             value={`${amountInGrams * 1.5}g`}
+            valueDetail="65g"
           />
         }
         menuElement={

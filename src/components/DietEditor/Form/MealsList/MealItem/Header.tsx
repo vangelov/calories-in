@@ -86,37 +86,33 @@ function Header({
           />
         }
         amountElement={
-          <StatValue
-            label="Amount"
-            color="gray.500"
-            value={`${amountInGrams}g`}
-          />
+          <StatValue type="meal" label="Amount" value={`${amountInGrams}g`} />
         }
         energyElement={
           <StatValue
+            type="mealEnergy"
             label="Energy"
-            color="gray.500"
             value={`${amountInGrams * 10}kcal`}
           />
         }
         proteinElement={
           <StatValue
+            type="meal"
             label="Protein"
-            color="gray.500"
             value={`${amountInGrams * 2}g`}
           />
         }
         carbsElement={
           <StatValue
+            type="meal"
             label="Carbs"
-            color="gray.500"
             value={`${amountInGrams * 2.5}g`}
           />
         }
         fatElement={
           <StatValue
+            type="meal"
             label="Fat"
-            color="gray.500"
             value={`${amountInGrams * 1.5}g`}
           />
         }
