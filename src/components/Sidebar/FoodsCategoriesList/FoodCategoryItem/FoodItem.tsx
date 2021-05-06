@@ -6,6 +6,7 @@ import { Food } from 'core/types'
 import { motion } from 'framer-motion'
 import { Menu, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
+import { transparentize } from '@chakra-ui/theme-tools'
 
 const FoodItemClone = styled(FoodItemInternal)`
   ~ div {
@@ -58,7 +59,7 @@ function FoodItemInternal({
             borderRadius={4}
             borderWidth={1}
             height="66px"
-            _hover={{ backgroundColor: 'rgb(247, 250, 252, 0.6)' }}
+            _hover={{ backgroundColor: transparentize('gray.50', 0.6) }}
           >
             <Text color="gray.500" fontSize="md" flex={1}>
               {food.name}

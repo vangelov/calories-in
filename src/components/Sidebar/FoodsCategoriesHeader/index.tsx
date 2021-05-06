@@ -25,13 +25,13 @@ function FoodsCategoriesHeader({
 
   return (
     <Box
-      height="130px"
+      height="156px"
       bg="white"
       borderBottomWidth={1}
       borderBottomColor="gray.200"
       p={6}
     >
-      <Text>Foods</Text>
+      <Text fontSize="lg">Foods</Text>
       <Button variant="outline" onClick={addFoodDialogDisclosure.onOpen}>
         Add food
       </Button>
