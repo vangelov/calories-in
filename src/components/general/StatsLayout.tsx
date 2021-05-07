@@ -1,5 +1,5 @@
 import { Grid, GridItem, Box, GridProps } from '@chakra-ui/react'
-import React, { ReactElement } from 'react'
+import { ForwardedRef, ReactElement, forwardRef } from 'react'
 
 type Props = {
   nameElement: ReactElement
@@ -9,6 +9,7 @@ type Props = {
   carbsElement: ReactElement
   fatElement: ReactElement
   menuElement: ReactElement
+  forwardedRef?: ForwardedRef<HTMLDivElement>
 } & GridProps
 
 function StatsLayout({
@@ -19,10 +20,17 @@ function StatsLayout({
   carbsElement,
   fatElement,
   menuElement,
+  forwardedRef,
   ...rest
 }: Props) {
   return (
-    <Grid width="100%" templateColumns="repeat(10, 1fr)" gap={0} {...rest}>
+    <Grid
+      ref={forwardedRef}
+      width="100%"
+      templateColumns="repeat(10, 1fr)"
+      gap={0}
+      {...rest}
+    >
       <GridItem colSpan={4}>{nameElement}</GridItem>
       <GridItem colSpan={1}>{amountElement}</GridItem>
       <GridItem colSpan={1}>{energyElement}</GridItem>
@@ -34,4 +42,6 @@ function StatsLayout({
   )
 }
 
-export default StatsLayout
+export default forwardRef<HTMLDivElement, Props>((props, ref) => (
+  <StatsLayout forwardedRef={ref} {...props} />
+))

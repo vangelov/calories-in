@@ -1,6 +1,6 @@
 import FoodsCategoriesList from './FoodsCategoriesList'
 import { Flex } from '@chakra-ui/react'
-import FoodsCategoriesHeader from './FoodsCategoriesHeader'
+import FoodsControls from './FoodsControls'
 import { useGetRefForId } from 'core/utils'
 import { useRef } from 'react'
 
@@ -10,7 +10,7 @@ function Sidebar() {
 
   return (
     <Flex height="100%" flexDirection="column">
-      <FoodsCategoriesHeader
+      <FoodsControls
         foodCategoriesListRef={foodCategoriesListRef}
         getFoodCategoryItemRefById={getFoodCategoryItemRefById}
       />

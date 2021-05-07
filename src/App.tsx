@@ -10,6 +10,7 @@ import 'focus-visible/dist/focus-visible'
 import theme from 'components/theme'
 import { FoodsCategoriesProvider } from 'core/foodsCategories'
 import smoothscroll from 'smoothscroll-polyfill'
+import ElementHeightProvder from 'core/ElementHeightProvider'
 
 smoothscroll.polyfill()
 
@@ -20,9 +21,11 @@ function App() {
         <FoodsListProvider initialFoods={builInFoods}>
           <FoodsCategoriesProvider>
             <DietStatsProvider>
-              <MainLayout sidebarElement={<Sidebar />}>
-                <DietEditor />
-              </MainLayout>
+              <ElementHeightProvder>
+                <MainLayout sidebarElement={<Sidebar />}>
+                  <DietEditor />
+                </MainLayout>
+              </ElementHeightProvder>
             </DietStatsProvider>
           </FoodsCategoriesProvider>
         </FoodsListProvider>

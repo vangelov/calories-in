@@ -1,11 +1,11 @@
-import { Text, Box } from '@chakra-ui/react'
+import { Text, Box, Collapse } from '@chakra-ui/react'
 import RightAligned from './RightAligned'
 
 type StatType = 'ingredient' | 'meal' | 'mealEnergy' | 'diet' | 'dietEnergy'
 
 type Props = {
   value: string
-  valueDetail?: string
+  valueDetail?: any
   label?: string
   type: StatType
 }
@@ -53,11 +53,11 @@ function StatValue({ value, valueDetail, label, type }: Props) {
         {value}
       </Text>
 
-      {valueDetail && (
+      <Collapse in={valueDetail !== undefined} animateOpacity>
         <Text fontSize="md" textColor="gray.400">
           {valueDetail}
         </Text>
-      )}
+      </Collapse>
     </RightAligned>
   )
 }

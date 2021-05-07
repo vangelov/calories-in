@@ -1,4 +1,4 @@
-import Header from './Header'
+import NameAndStats from './NameAndStats'
 import MealsList, { MealsController } from './MealsList'
 import { Box, Flex } from '@chakra-ui/react'
 import Controls from './Controls'
@@ -62,7 +62,7 @@ function Form({
             bg="white"
           >
             <Box width="100%">
-              <Header onNewDiet={onNewDiet} onDietChange={onDietChange} />
+              <NameAndStats onNewDiet={onNewDiet} onDietChange={onDietChange} />
               <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
             </Box>
             <InvisibleScrollbar />

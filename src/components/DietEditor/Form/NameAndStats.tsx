@@ -1,4 +1,11 @@
-import { Flex, Input, IconButton, Tooltip, HStack } from '@chakra-ui/react'
+import {
+  Flex,
+  Input,
+  IconButton,
+  Tooltip,
+  HStack,
+  chakra,
+} from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { Diet } from 'core/types'
 import { useDietStats } from 'core/stats'
@@ -7,7 +14,12 @@ import StatsLayout from 'components/general/StatsLayout'
 import StatValue from 'components/general/StatValue'
 import { Info } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
-import { ChevronDown } from 'react-feather'
+import { List, ArrowUpCircle } from 'react-feather'
+import { useRef } from 'react'
+import { useElementHeightUpdate } from 'core/ElementHeightProvider'
+
+const ListStyled = chakra(List)
+const ArrowUpCircleStyled = chakra(ArrowUpCircle)
 
 type Props = {
   onDietChange: (diet: Diet) => void
@@ -29,11 +41,14 @@ type Props = {
   },
 }*/
 
-function Header({ onDietChange, onNewDiet }: Props) {
+function NameAndStats({ onDietChange, onNewDiet }: Props) {
   const { register } = useFormContext()
   const dietStats = useDietStats()
   const { saveLastChange } = useUndoRedoMethods()
   const nameRegister = register('name')
+  const statsRef = useRef<HTMLDivElement>(null)
+
+  useElementHeightUpdate(statsRef)
 
   /*function onChangeButtonClick() {
     onDietChange(anotherDiet)
@@ -55,20 +70,22 @@ function Header({ onDietChange, onNewDiet }: Props) {
       <Input type="hidden" {...register('formId')} />
 
       <StatsLayout
+        ref={statsRef}
         nameElement={
           <HStack height="100%" alignItems="flex-end" spacing={1}>
             <Input
               {...nameRegister}
               textColor="gray.600"
+              autoComplete="off"
               onChange={onNameChange}
             />
 
-            <Tooltip hasArrow label="Export" aria-label="A tooltip">
+            <Tooltip hasArrow label="Browse" aria-label="Browse tooltip">
               <IconButton
                 variant="outline"
                 aria-label="test"
                 onClick={onNewButtonClick}
-                icon={<ChevronDown color="gray" pointerEvents="none" />}
+                icon={<ListStyled color="gray.400" pointerEvents="none" />}
               />
             </Tooltip>
           </HStack>
@@ -78,7 +95,12 @@ function Header({ onDietChange, onNewDiet }: Props) {
             type="dietEnergy"
             label="Energy"
             value={`${amountInGrams * 10}kcal`}
-            valueDetail="+200kcal"
+            valueDetail={
+              <Flex alignItems="center">
+                <ArrowUpCircleStyled width="15px" height="15px" mr={1} />{' '}
+                200kcal
+              </Flex>
+            }
           />
         }
         proteinElement={
@@ -119,4 +141,4 @@ function Header({ onDietChange, onNewDiet }: Props) {
   )
 }
 
-export default Header
+export default NameAndStats
