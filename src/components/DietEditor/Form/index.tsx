@@ -19,6 +19,7 @@ type Props = {
   onNewDiet: () => void
   scrollRef: RefObject<HTMLDivElement>
   scrollTop: number
+  isEditingExistingDiet: boolean
 }
 
 function Form({
@@ -27,6 +28,7 @@ function Form({
   onNewDiet,
   scrollTop,
   scrollRef,
+  isEditingExistingDiet,
 }: Props) {
   const formMethods = useDietForm(dietForm)
   const mealsControllerRef = useRef<MealsController>()
@@ -62,7 +64,11 @@ function Form({
             bg="white"
           >
             <Box width="100%">
-              <NameAndStats onNewDiet={onNewDiet} onDietChange={onDietChange} />
+              <NameAndStats
+                isEditingExistingDiet={isEditingExistingDiet}
+                onNewDiet={onNewDiet}
+                onDietChange={onDietChange}
+              />
               <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
             </Box>
             <InvisibleScrollbar />

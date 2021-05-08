@@ -1,6 +1,5 @@
 import { useFormContext, useWatch } from 'react-hook-form'
 import {
-  IngredientField,
   MealField,
   getIngredientsFormsPath,
   IngredientForm,
@@ -8,11 +7,7 @@ import {
 import { Stats } from './types'
 import { sumStats } from './utils'
 
-function useMealStats(
-  mealIndex: number,
-  mealField: MealField,
-  ingredientsFields: IngredientField[]
-) {
+function useMealStats(mealIndex: number, mealField: MealField) {
   const { control } = useFormContext()
   const ingredientsForms = useWatch({
     control,

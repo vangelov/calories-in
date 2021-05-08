@@ -1,14 +1,17 @@
-import { Text, Box, Collapse } from '@chakra-ui/react'
+import { Text, Box, HStack, FlexProps, Collapse } from '@chakra-ui/react'
+import { ReactNode } from 'react'
 import RightAligned from './RightAligned'
 
 type StatType = 'ingredient' | 'meal' | 'mealEnergy' | 'diet' | 'dietEnergy'
 
 type Props = {
   value: string
-  valueDetail?: any
+  valueDetail?: string
+  valueDetailLeftIcon?: ReactNode
   label?: string
   type: StatType
-}
+  showsValueDetail?: boolean
+} & FlexProps
 
 function getValueTextColor(statType: StatType) {
   if (statType === 'ingredient') {
@@ -22,11 +25,19 @@ function getValueTextColor(statType: StatType) {
   return 'gray.600'
 }
 
-function StatValue({ value, valueDetail, label, type }: Props) {
+function Stat({
+  value,
+  valueDetail,
+  label,
+  type,
+  valueDetailLeftIcon,
+  showsValueDetail = false,
+  ...rest
+}: Props) {
   const isForDiet = type.startsWith('diet')
 
   return (
-    <RightAligned position="relative">
+    <RightAligned position="relative" {...rest}>
       {isForDiet && (
         <Box
           position="absolute"
@@ -53,13 +64,21 @@ function StatValue({ value, valueDetail, label, type }: Props) {
         {value}
       </Text>
 
-      <Collapse in={valueDetail !== undefined} animateOpacity>
-        <Text fontSize="md" textColor="gray.400">
-          {valueDetail}
-        </Text>
+      <Collapse
+        transition={{ ease: 'easeInOut', duration: 2 }}
+        style={{ overflow: 'hidden' }}
+        in={showsValueDetail}
+      >
+        <HStack alignItems="center" spacing={1}>
+          {valueDetail && valueDetailLeftIcon}
+
+          <Text fontSize="md" textColor="gray.400">
+            {valueDetail}
+          </Text>
+        </HStack>
       </Collapse>
     </RightAligned>
   )
 }
 
-export default StatValue
+export default Stat

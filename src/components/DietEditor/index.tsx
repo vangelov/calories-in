@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 import { UndoRedoMethodsProvider, UndoRedoStateProvider } from 'core/undoRedo'
 import Form from './Form'
 import { FoodsByIdProvider } from 'core/foods'
+import { DietStatsProvider, InitialEnergyProvider } from 'core/stats'
 
 const initialDiet: Diet = {
   id: 1,
@@ -28,7 +29,7 @@ const initialDiet: Diet = {
 }
 
 function DietEditor() {
-  const [diet, setDiet] = useState(initialDiet)
+  const [diet, setDiet] = useState<Diet | undefined>(initialDiet)
   const [dietForm, setDietForm] = useState(() => getDietForm(diet))
   const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -39,25 +40,31 @@ function DietEditor() {
   }
 
   function onNewDiet() {
+    setDiet(undefined)
     setDietForm(getDietForm())
   }
 
   return (
     <UndoRedoStateProvider key={dietForm.formId}>
-      <FoodsByIdProvider initialFoodsByIdMap={diet.foodsByIdMap}>
-        <UndoRedoMethodsProvider scrollRef={scrollRef} dietForm={dietForm}>
-          {(currentDietForm, version, scrollTop) => (
-            <Form
-              scrollRef={scrollRef}
-              key={version}
-              onDietChange={onDietChange}
-              onNewDiet={onNewDiet}
-              dietForm={currentDietForm}
-              scrollTop={scrollTop}
-            />
-          )}
-        </UndoRedoMethodsProvider>
-      </FoodsByIdProvider>
+      <InitialEnergyProvider>
+        <DietStatsProvider>
+          <FoodsByIdProvider initialFoodsByIdMap={diet && diet.foodsByIdMap}>
+            <UndoRedoMethodsProvider scrollRef={scrollRef} dietForm={dietForm}>
+              {(currentDietForm, version, scrollTop) => (
+                <Form
+                  isEditingExistingDiet={diet !== undefined}
+                  scrollRef={scrollRef}
+                  key={version}
+                  onDietChange={onDietChange}
+                  onNewDiet={onNewDiet}
+                  dietForm={currentDietForm}
+                  scrollTop={scrollTop}
+                />
+              )}
+            </UndoRedoMethodsProvider>
+          </FoodsByIdProvider>
+        </DietStatsProvider>
+      </InitialEnergyProvider>
     </UndoRedoStateProvider>
   )
 }

@@ -17,12 +17,12 @@ function reducer(state: State, action: Action): State {
 }
 
 type Props = {
-  initialFoodsByIdMap: FoodsByIdMap
+  initialFoodsByIdMap?: FoodsByIdMap
   children: ReactNode
 }
 
 function FoodsByIdProvider({ children, initialFoodsByIdMap }: Props) {
-  const [state, dispatch] = useReducer(reducer, initialFoodsByIdMap)
+  const [state, dispatch] = useReducer(reducer, initialFoodsByIdMap || {})
 
   return (
     <DispatchContext.Provider value={dispatch}>

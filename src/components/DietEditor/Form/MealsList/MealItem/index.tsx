@@ -37,7 +37,6 @@ function MealItem({
         zIndex={2}
         index={index}
         mealField={mealField}
-        ingredientsFields={ingredientsFormsController.ingredientsFields}
         onRemove={onRemove}
       />
 

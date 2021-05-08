@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 
-function useSameOrPreviousValue(value: any) {
+function useSameOrPreviousValue<T>(value: T) {
   const previous = useRef(value)
 
   useEffect(() => {

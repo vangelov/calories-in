@@ -41,6 +41,7 @@ function FoodItemInternal({
     >
       <motion.div
         key={food.id}
+        style={{ overflow: 'hidden' }}
         initial={animateOnMount ? { opacity: 0, y: 0, height: 0 } : false}
         animate={animateOnMount ? { opacity: 1, y: 0, height: 'auto' } : false}
         exit={{

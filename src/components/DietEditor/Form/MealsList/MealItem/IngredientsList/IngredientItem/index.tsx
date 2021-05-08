@@ -1,4 +1,4 @@
-import { Input, Flex, IconButton, Box } from '@chakra-ui/react'
+import { Input, Flex, Box } from '@chakra-ui/react'
 import { transparentize } from '@chakra-ui/theme-tools'
 import { getIngredientsFormsPath, IngredientField } from 'core/dietForm'
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
@@ -9,11 +9,9 @@ import { useState } from 'react'
 import { useLastFieldIdProvider } from 'core/ingredientsDnd'
 import FoodInfo from './FoodInfo'
 import { FoodAmountInput } from 'components/general'
-import StatsLayout from 'components/general/StatsLayout'
-import StatValue from 'components/general/StatValue'
-import { Menu, MenuItem } from 'components/general'
-import { MoreHorizontal } from 'react-feather'
+import { StatsLayout, Stat } from 'components/general'
 import RightAligned from 'components/general/RightAligned'
+import Menu from './Menu'
 
 type Props = {
   mealIndex: number
@@ -128,49 +126,18 @@ function IngredientItem({
                 </RightAligned>
               }
               energyElement={
-                <StatValue
-                  type="ingredient"
-                  value={`${amountInGrams * 10}kcal`}
-                />
+                <Stat type="ingredient" value={`${amountInGrams * 10}kcal`} />
               }
               proteinElement={
-                <StatValue type="ingredient" value={`${amountInGrams * 2}g`} />
+                <Stat type="ingredient" value={`${amountInGrams * 2}g`} />
               }
               carbsElement={
-                <StatValue
-                  type="ingredient"
-                  value={`${amountInGrams * 2.5}g`}
-                />
+                <Stat type="ingredient" value={`${amountInGrams * 2.5}g`} />
               }
               fatElement={
-                <StatValue
-                  type="ingredient"
-                  value={`${amountInGrams * 1.5}g`}
-                />
+                <Stat type="ingredient" value={`${amountInGrams * 1.5}g`} />
               }
-              menuElement={
-                <RightAligned>
-                  <Menu
-                    arrow
-                    align="end"
-                    viewScroll="close"
-                    menuButton={
-                      <IconButton
-                        aria-label="test"
-                        icon={
-                          <MoreHorizontal color="gray" pointerEvents="none" />
-                        }
-                        variant="ghost"
-                      />
-                    }
-                  >
-                    <MenuItem onClick={() => setIsVisible(false)}>
-                      Remove
-                    </MenuItem>
-                    <MenuItem>Cancel</MenuItem>
-                  </Menu>
-                </RightAligned>
-              }
+              menuElement={<Menu onRemove={() => setIsVisible(false)} />}
             />
           </Flex>
         </motion.div>

@@ -1,13 +1,17 @@
 import { sumStats } from './utils'
 import { useDietStatsState } from './DietStatsProvider'
-import { Stats } from './types'
+import { useInitialEnergySetState } from './InitialEnergyProvider'
 
-function useDietStats(): Stats {
+function useDietStats() {
   const state = useDietStatsState()
+  const initialEnergySetState = useInitialEnergySetState()
 
   const mealsStats = Object.values(state)
+  const dietStats = sumStats(mealsStats)
 
-  return sumStats(mealsStats)
+  initialEnergySetState(dietStats.amountInGrams * 10)
+
+  return dietStats
 }
 
 export default useDietStats
