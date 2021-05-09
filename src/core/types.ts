@@ -2,6 +2,10 @@ type Food = {
   id: number
   categoryId: number
   name: string
+  protein: number
+  carbs: number
+  fat: number
+  energy: number
 }
 
 type Ingredient = {

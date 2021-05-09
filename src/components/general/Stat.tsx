@@ -1,11 +1,19 @@
 import { Text, Box, HStack, FlexProps, Collapse } from '@chakra-ui/react'
+import { formatGrams } from 'core/format'
+import formatEnergy from 'core/format/formatKcal'
 import { ReactNode } from 'react'
 import RightAligned from './RightAligned'
 
-type StatType = 'ingredient' | 'meal' | 'mealEnergy' | 'diet' | 'dietEnergy'
+type StatType =
+  | 'ingredient'
+  | 'ingredientEnergy'
+  | 'meal'
+  | 'mealEnergy'
+  | 'diet'
+  | 'dietEnergy'
 
 type Props = {
-  value: string
+  value: number
   valueDetail?: string
   valueDetailLeftIcon?: ReactNode
   label?: string
@@ -14,7 +22,7 @@ type Props = {
 } & FlexProps
 
 function getValueTextColor(statType: StatType) {
-  if (statType === 'ingredient') {
+  if (statType.startsWith('ingredient')) {
     return 'gray.400'
   }
 
@@ -35,6 +43,9 @@ function Stat({
   ...rest
 }: Props) {
   const isForDiet = type.startsWith('diet')
+  const isEnergy = type.endsWith('Energy')
+  const isBold = type !== 'ingredientEnergy' && isEnergy
+  const formattedValue = isEnergy ? formatEnergy(value) : formatGrams(value)
 
   return (
     <RightAligned position="relative" {...rest}>
@@ -58,10 +69,10 @@ function Stat({
       <Text
         lineHeight={isForDiet ? '4' : undefined}
         fontSize="md"
-        fontWeight={type.endsWith('Energy') ? 'bold' : undefined}
+        fontWeight={isBold ? 'bold' : undefined}
         textColor={getValueTextColor(type)}
       >
-        {value}
+        {formattedValue}
       </Text>
 
       <Collapse

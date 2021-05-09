@@ -17,7 +17,7 @@ function useAddFood({
   const scrollTo = useScrollTo()
 
   async function onAddFood() {
-    const food = { name: 'test', categoryId: 5, id: id++ }
+    const food = { name: 'test', categoryId: 5, id: id++ } as any
     const foodCategoryItemRef = getFoodCategoryItemRefById(food.categoryId)
 
     if (!foodCategoryItemRef.current || !foodCategoriesListRef.current) {

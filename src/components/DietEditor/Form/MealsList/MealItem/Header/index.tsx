@@ -27,8 +27,6 @@ function Header({
 
   useUpdateMealStats(index, mealStats)
 
-  const amountInGrams = mealStats.amountInGrams
-
   return (
     <Flex
       position="sticky"
@@ -50,24 +48,18 @@ function Header({
           />
         }
         amountElement={
-          <Stat type="meal" label="Amount" value={`${amountInGrams}g`} />
+          <Stat type="meal" label="Amount" value={mealStats.amountInGrams} />
         }
         energyElement={
-          <Stat
-            type="mealEnergy"
-            label="Energy"
-            value={`${amountInGrams * 10}kcal`}
-          />
+          <Stat type="mealEnergy" label="Energy" value={mealStats.energy} />
         }
         proteinElement={
-          <Stat type="meal" label="Protein" value={`${amountInGrams * 2}g`} />
+          <Stat type="meal" label="Protein" value={mealStats.protein} />
         }
         carbsElement={
-          <Stat type="meal" label="Carbs" value={`${amountInGrams * 2.5}g`} />
+          <Stat type="meal" label="Carbs" value={mealStats.carbs} />
         }
-        fatElement={
-          <Stat type="meal" label="Fat" value={`${amountInGrams * 1.5}g`} />
-        }
+        fatElement={<Stat type="meal" label="Fat" value={mealStats.fat} />}
         menuElement={
           <Menu
             mealField={mealField}

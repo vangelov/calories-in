@@ -1,21 +1,16 @@
 import { Text, Box, Flex, BoxProps } from '@chakra-ui/react'
 import { useFoodCategoryByIdMap } from 'core/foodsCategories/FoodsCategoriesProvider'
-import { useFoodsByIdState } from 'core/foods/FoodsByIdProvider'
 import { IngredientField } from 'core/dietForm'
 import { getFoodCategoryIcon } from 'core/foodsCategories'
+import { Food } from 'core/types'
 
 type Props = {
   ingredientField: IngredientField
+  food: Food
 } & BoxProps
 
-function FoodInfo({ ingredientField, ...rest }: Props) {
-  if (!ingredientField.foodId) {
-    throw new Error('Food id is missing')
-  }
-
-  const foodsByIdState = useFoodsByIdState()
+function FoodInfo({ ingredientField, food, ...rest }: Props) {
   const foodCategoryByIdMap = useFoodCategoryByIdMap()
-  const food = foodsByIdState[ingredientField.foodId]
   const foodCategory = foodCategoryByIdMap[food.categoryId]
   const FoodCategoryIcon = getFoodCategoryIcon(foodCategory)
 

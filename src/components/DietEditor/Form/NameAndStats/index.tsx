@@ -51,8 +51,6 @@ function NameAndStats({
     onNewDiet()
   }
 
-  const amountInGrams = dietStats.amountInGrams
-
   return (
     <Flex pb={3} borderBottomWidth={1} width="100%">
       <Input type="hidden" {...register('formId')} />
@@ -62,7 +60,7 @@ function NameAndStats({
         nameElement={<Name onSelectDiet={onNewButtonClick} />}
         energyElement={
           <EnergyStat
-            dietStats={dietStats}
+            energy={dietStats.energy}
             isEditingExistingDiet={isEditingExistingDiet}
           />
         }
@@ -71,7 +69,7 @@ function NameAndStats({
             justifyContent="flex-start"
             type="diet"
             label="Protein"
-            value={`${amountInGrams * 2}g`}
+            value={dietStats.protein}
             valueDetail="154g"
           />
         }
@@ -80,7 +78,7 @@ function NameAndStats({
             justifyContent="flex-start"
             type="diet"
             label="Carbs"
-            value={`${amountInGrams * 2.5}g`}
+            value={dietStats.carbs}
             valueDetail="154g"
           />
         }
@@ -89,7 +87,7 @@ function NameAndStats({
             justifyContent="flex-start"
             type="diet"
             label="Fat"
-            value={`${amountInGrams * 1.5}g`}
+            value={dietStats.fat}
             valueDetail="154g"
           />
         }

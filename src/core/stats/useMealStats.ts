@@ -4,8 +4,10 @@ import {
   getIngredientsFormsPath,
   IngredientForm,
 } from 'core/dietForm'
-import { Stats } from './types'
-import { sumStats } from './utils'
+import sumStats from './sumStats'
+import { useFoodsByIdState } from 'core/foods'
+import numberOrZeroFromString from 'core/utils/numberOrZeroFromString'
+import getIngredientStats from './getIngredientStats'
 
 function useMealStats(mealIndex: number, mealField: MealField) {
   const { control } = useFormContext()
@@ -15,11 +17,13 @@ function useMealStats(mealIndex: number, mealField: MealField) {
     defaultValue: mealField.ingredientsForms,
   }) as IngredientForm[]
 
-  const ingredientsStats: Stats[] = ingredientsForms.map(ingredientsForm => {
-    return {
-      protein: Number(ingredientsForm.amountInGrams) * 2,
-      amountInGrams: Number(ingredientsForm.amountInGrams),
-    }
+  const foodsByIdState = useFoodsByIdState()
+
+  const ingredientsStats = ingredientsForms.map(ingredientsForm => {
+    const amountInGrams = numberOrZeroFromString(ingredientsForm.amountInGrams)
+    const food = foodsByIdState[ingredientsForm.foodId]
+
+    return getIngredientStats(amountInGrams, food)
   })
 
   const mealStats = sumStats(ingredientsStats)

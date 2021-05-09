@@ -12,6 +12,9 @@ import { FoodAmountInput } from 'components/general'
 import { StatsLayout, Stat } from 'components/general'
 import RightAligned from 'components/general/RightAligned'
 import Menu from './Menu'
+import { useFoodsByIdState } from 'core/foods/FoodsByIdProvider'
+import { numberOrZeroFromString } from 'core/utils'
+import { getIngredientStats } from 'core/stats'
 
 type Props = {
   mealIndex: number
@@ -41,7 +44,7 @@ function IngredientItem({
   const [isVisible, setIsVisible] = useState(true)
   const amountName = getIngredientsFormsPath(mealIndex, index, 'amountInGrams')
   const amountRegister = register(amountName)
-  const amountInGrams = useWatch({ name: amountName }) as number
+  const amountInGramsString = useWatch({ name: amountName })
   const { getAndResetLastFieldId } = useLastFieldIdProvider()
 
   function onAmountChange(event: any) {
@@ -58,6 +61,16 @@ function IngredientItem({
   const isLastFieldId = getAndResetLastFieldId(
     ingredientField.fieldId as string
   )
+
+  if (!ingredientField.foodId) {
+    throw new Error('Food id is missing')
+  }
+
+  const foodsByIdState = useFoodsByIdState()
+  const food = foodsByIdState[ingredientField.foodId]
+
+  const amountInGrams = numberOrZeroFromString(amountInGramsString)
+  const ingredientStats = getIngredientStats(amountInGrams, food)
 
   return (
     <Draggable
@@ -86,6 +99,7 @@ function IngredientItem({
             px={6}
             minHeight="74px"
             _hover={{ backgroundColor: transparentize('gray.50', 0.35) }}
+            _focus={{ borderWidth: 2 }}
           >
             {!snapshot.isDragging && (
               <Box
@@ -114,7 +128,9 @@ function IngredientItem({
             />
 
             <StatsLayout
-              nameElement={<FoodInfo ingredientField={ingredientField} />}
+              nameElement={
+                <FoodInfo food={food} ingredientField={ingredientField} />
+              }
               amountElement={
                 <RightAligned>
                   <FoodAmountInput
@@ -125,16 +141,16 @@ function IngredientItem({
                 </RightAligned>
               }
               energyElement={
-                <Stat type="ingredient" value={`${amountInGrams * 10}kcal`} />
+                <Stat type="ingredientEnergy" value={ingredientStats.energy} />
               }
               proteinElement={
-                <Stat type="ingredient" value={`${amountInGrams * 2}g`} />
+                <Stat type="ingredient" value={ingredientStats.protein} />
               }
               carbsElement={
-                <Stat type="ingredient" value={`${amountInGrams * 2.5}g`} />
+                <Stat type="ingredient" value={ingredientStats.carbs} />
               }
               fatElement={
-                <Stat type="ingredient" value={`${amountInGrams * 1.5}g`} />
+                <Stat type="ingredient" value={ingredientStats.fat} />
               }
               menuElement={<Menu onRemove={() => setIsVisible(false)} />}
             />

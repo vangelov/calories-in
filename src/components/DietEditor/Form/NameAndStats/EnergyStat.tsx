@@ -3,22 +3,18 @@ import { Stat } from 'components/general'
 import { ArrowUpCircle, ArrowDownCircle } from 'react-feather'
 import { useInitialEnergyState } from 'core/stats/InitialEnergyProvider'
 import { useSameOrPreviousValue } from 'core/utils'
-import { Stats } from 'core/stats'
 
 const ArrowUpCircleStyled = chakra(ArrowUpCircle)
 const ArrowDownCircleStyled = chakra(ArrowDownCircle)
 
 type Props = {
-  dietStats: Stats
+  energy: number
   isEditingExistingDiet: boolean
 }
 
-function EnergyStat({ isEditingExistingDiet, dietStats }: Props) {
+function EnergyStat({ isEditingExistingDiet, energy }: Props) {
   const initialEnergy = useInitialEnergyState()
-  const amountInGrams = dietStats.amountInGrams
-  const energyDelta = isEditingExistingDiet
-    ? dietStats.amountInGrams * 10 - initialEnergy.current
-    : 0
+  const energyDelta = isEditingExistingDiet ? energy - initialEnergy.current : 0
   const energyValueDetail = `${Math.abs(energyDelta)}kcal`
   const previousOrSameEnergyValueDetail = useSameOrPreviousValue(
     energyValueDetail
@@ -29,7 +25,7 @@ function EnergyStat({ isEditingExistingDiet, dietStats }: Props) {
       justifyContent="flex-start"
       type="dietEnergy"
       label="Energy"
-      value={`${amountInGrams * 10}kcal`}
+      value={energy}
       valueDetail={
         energyDelta !== 0 ? energyValueDetail : previousOrSameEnergyValueDetail
       }

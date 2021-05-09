@@ -6,6 +6,7 @@ import Form from './Form'
 import { FoodsByIdProvider } from 'core/foods'
 import { DietStatsProvider, InitialEnergyProvider } from 'core/stats'
 
+/*
 const initialDiet: Diet = {
   id: 1,
   name: 'First diet',
@@ -26,10 +27,10 @@ const initialDiet: Diet = {
     '442': { id: 442, name: 'Food2', categoryId: 3 },
     '443': { id: 443, name: 'Food3', categoryId: 3 },
   },
-}
+}*/
 
 function DietEditor() {
-  const [diet, setDiet] = useState<Diet | undefined>(initialDiet)
+  const [diet, setDiet] = useState<Diet | undefined>(undefined)
   const [dietForm, setDietForm] = useState(() => getDietForm(diet))
   const scrollRef = useRef<HTMLDivElement>(null)
 

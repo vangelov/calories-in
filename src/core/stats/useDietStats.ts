@@ -1,4 +1,4 @@
-import { sumStats } from './utils'
+import sumStats from './sumStats'
 import { useDietStatsState } from './DietStatsProvider'
 import { useInitialEnergySetState } from './InitialEnergyProvider'
 
