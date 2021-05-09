@@ -8,7 +8,7 @@ import { useIngredientsFormsDndState } from './IngredientsFormsDndProvider'
 import { isFoodCategoryDroppableId } from 'core/foodsCategories'
 import { FieldArrayMethodProps } from 'react-hook-form'
 import { useLayoutEffect, useState } from 'react'
-import { useLastFieldIdProvider } from './LastFieldIdProvider'
+import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 
 type FunctionsParams = {
   mealField: MealField
@@ -34,7 +34,7 @@ function useReorderIngredientsForms({
   const foodsByIdDispatch = useFoodsByIdDispatch()
   const foodsListState = useFoodsListState()
   const [pendingInsert, setPendingInsert] = useState<() => void>()
-  const { setLastFieldId } = useLastFieldIdProvider()
+  const oneTimeCheck = useOneTimeCheck()
 
   if (!ingredientFormRef) {
     throw new Error('Missing FoodsDragAndDropProvider')
@@ -71,7 +71,7 @@ function useReorderIngredientsForms({
           amountInGrams: DEFAULT_AMOUNT_IN_GRAMS,
         })
 
-        setLastFieldId(ingredientForm.fieldId)
+        oneTimeCheck.set(ingredientForm.fieldId)
       } else {
         // This form was saved at the beginning of the drag by FoodsDragAndDropProvider
         ingredientForm = ingredientFormRef.current

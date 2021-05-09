@@ -1,9 +1,15 @@
 import { InputProps, Input, Text, HStack } from '@chakra-ui/react'
 import { ForwardedRef, forwardRef, MouseEvent } from 'react'
+import { Controller } from 'react-hook-form'
 
-type Props = { forwardedRef?: ForwardedRef<HTMLInputElement> } & InputProps
+type Props = {
+  name: string
+  forwardedRef?: ForwardedRef<HTMLInputElement>
+} & InputProps
 
-function FoodAmountInput({ forwardedRef, ...rest }: Props) {
+const MAX_AMOUNT_EXCLUDING = 10000
+
+function FoodAmountInput({ name, defaultValue, onChange }: Props) {
   function onMouseDown(event: MouseEvent<HTMLInputElement>) {
     const input = event.target as HTMLInputElement
 
@@ -17,19 +23,31 @@ function FoodAmountInput({ forwardedRef, ...rest }: Props) {
 
   return (
     <HStack spacing={1} alignItems="center">
-      <Input
-        css={{ 'z-index': '0 !important' }}
-        width="79px"
-        fontSize="md"
-        autoComplete="off"
-        borderColor="gray.200"
-        textColor="gray.500"
-        textAlign="right"
-        bg="white"
-        onMouseDown={onMouseDown}
-        {...rest}
-        ref={forwardedRef}
+      <Controller
+        name={name}
+        defaultValue={defaultValue}
+        render={({ field }) => (
+          <Input
+            fontSize="md"
+            autoComplete="off"
+            borderColor="gray.200"
+            textColor="gray.500"
+            textAlign="right"
+            bg="white"
+            onChange={event => {
+              const value = event.target.value
+
+              if (Number(value) < MAX_AMOUNT_EXCLUDING) {
+                field.onChange(value)
+                onChange && onChange(event)
+              }
+            }}
+            value={field.value}
+            onMouseDown={onMouseDown}
+          />
+        )}
       />
+
       <Text fontSize="lg" textColor="gray.500">
         g
       </Text>

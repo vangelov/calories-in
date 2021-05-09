@@ -6,7 +6,6 @@ import { Draggable } from 'react-beautiful-dnd'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { useLastFieldIdProvider } from 'core/ingredientsDnd'
 import FoodInfo from './FoodInfo'
 import { FoodAmountInput } from 'components/general'
 import { StatsLayout, Stat } from 'components/general'
@@ -15,6 +14,7 @@ import Menu from './Menu'
 import { useFoodsByIdState } from 'core/foods/FoodsByIdProvider'
 import { numberOrZeroFromString } from 'core/utils'
 import { getIngredientStats } from 'core/stats'
+import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 
 type Props = {
   mealIndex: number
@@ -43,12 +43,10 @@ function IngredientItem({
   const { saveLastChange } = useUndoRedoMethods()
   const [isVisible, setIsVisible] = useState(true)
   const amountName = getIngredientsFormsPath(mealIndex, index, 'amountInGrams')
-  const amountRegister = register(amountName)
   const amountInGramsString = useWatch({ name: amountName })
-  const { getAndResetLastFieldId } = useLastFieldIdProvider()
+  const oneTimeCheck = useOneTimeCheck()
 
-  function onAmountChange(event: any) {
-    amountRegister.onChange(event)
+  function onAmountChange() {
     saveLastChange()
   }
 
@@ -58,7 +56,7 @@ function IngredientItem({
     }
   }
 
-  const isLastFieldId = getAndResetLastFieldId(
+  const isJustAdded = oneTimeCheck.checkAndReset(
     ingredientField.fieldId as string
   )
 
@@ -80,8 +78,8 @@ function IngredientItem({
     >
       {(provided, snapshot) => (
         <motion.div
-          style={{ opacity: isLastFieldId ? 0 : 1 }}
-          initial={isLastFieldId ? undefined : false}
+          style={{ opacity: isJustAdded ? 0 : 1 }}
+          initial={isJustAdded ? undefined : false}
           animate={isVisible ? 'open' : 'collapsed'}
           onAnimationComplete={onAnimationComplete}
           variants={variants}
@@ -134,7 +132,7 @@ function IngredientItem({
               amountElement={
                 <RightAligned>
                   <FoodAmountInput
-                    {...amountRegister}
+                    name={amountName}
                     onChange={onAmountChange}
                     defaultValue={ingredientField.amountInGrams}
                   />

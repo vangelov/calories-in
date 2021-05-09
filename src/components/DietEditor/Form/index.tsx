@@ -6,10 +6,7 @@ import { Diet } from 'core/types'
 import { DietForm, useDietForm } from 'core/dietForm'
 import { FormProvider } from 'react-hook-form'
 import { RefObject, useLayoutEffect, useRef } from 'react'
-import {
-  IngredientsFormsDndProvider,
-  LastFieldIdProvider,
-} from 'core/ingredientsDnd'
+import { IngredientsFormsDndProvider } from 'core/ingredientsDnd'
 import { Watcher } from 'core/undoRedo'
 import InvisibleScrollbar from 'components/general/InvisibleScrollbar'
 
@@ -53,32 +50,30 @@ function Form({
       <Watcher />
 
       <IngredientsFormsDndProvider>
-        <LastFieldIdProvider>
-          <Flex
-            py={4}
-            width="100%"
-            px={6}
-            borderLeftWidth={1}
-            borderBottomWidth={1}
-            borderBottomColor="gray.200"
-            bg="white"
-          >
-            <Box width="100%">
-              <NameAndStats
-                isEditingExistingDiet={isEditingExistingDiet}
-                onNewDiet={onNewDiet}
-                onDietChange={onDietChange}
-              />
-              <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
-            </Box>
-            <InvisibleScrollbar />
-          </Flex>
+        <Flex
+          py={4}
+          width="100%"
+          px={6}
+          borderLeftWidth={1}
+          borderBottomWidth={1}
+          borderBottomColor="gray.200"
+          bg="white"
+        >
+          <Box width="100%">
+            <NameAndStats
+              isEditingExistingDiet={isEditingExistingDiet}
+              onNewDiet={onNewDiet}
+              onDietChange={onDietChange}
+            />
+            <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
+          </Box>
+          <InvisibleScrollbar />
+        </Flex>
 
-          <MealsList
-            scrollRef={scrollRef}
-            mealsControllerRef={mealsControllerRef}
-          />
-        </LastFieldIdProvider>
+        <MealsList
+          scrollRef={scrollRef}
+          mealsControllerRef={mealsControllerRef}
+        />
       </IngredientsFormsDndProvider>
     </FormProvider>
   )

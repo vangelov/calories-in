@@ -10,6 +10,7 @@ import theme from 'components/theme'
 import { FoodsCategoriesProvider } from 'core/foodsCategories'
 import smoothscroll from 'smoothscroll-polyfill'
 import ElementHeightProvder from 'core/ElementHeightProvider'
+import OneTimeCheckProvider from 'core/OneTimeCheckProvider'
 
 smoothscroll.polyfill()
 
@@ -20,9 +21,11 @@ function App() {
         <FoodsListProvider initialFoods={builInFoods}>
           <FoodsCategoriesProvider>
             <ElementHeightProvder>
-              <MainLayout sidebarElement={<Sidebar />}>
-                <DietEditor />
-              </MainLayout>
+              <OneTimeCheckProvider>
+                <MainLayout sidebarElement={<Sidebar />}>
+                  <DietEditor />
+                </MainLayout>
+              </OneTimeCheckProvider>
             </ElementHeightProvder>
           </FoodsCategoriesProvider>
         </FoodsListProvider>

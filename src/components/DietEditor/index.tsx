@@ -5,6 +5,7 @@ import { UndoRedoMethodsProvider, UndoRedoStateProvider } from 'core/undoRedo'
 import Form from './Form'
 import { FoodsByIdProvider } from 'core/foods'
 import { DietStatsProvider, InitialEnergyProvider } from 'core/stats'
+import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 
 /*
 const initialDiet: Diet = {
@@ -33,6 +34,7 @@ function DietEditor() {
   const [diet, setDiet] = useState<Diet | undefined>(undefined)
   const [dietForm, setDietForm] = useState(() => getDietForm(diet))
   const scrollRef = useRef<HTMLDivElement>(null)
+  const oneTimeCheck = useOneTimeCheck()
 
   function onDietChange(diet: Diet) {
     const dietFrom = getDietForm(diet)
@@ -41,6 +43,7 @@ function DietEditor() {
   }
 
   function onNewDiet() {
+    oneTimeCheck.set('name')
     setDiet(undefined)
     setDietForm(getDietForm())
   }
