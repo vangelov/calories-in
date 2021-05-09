@@ -23,6 +23,7 @@ function Name({ onSelectDiet }: Props) {
     <HStack height="100%" alignItems="flex-end" spacing={1}>
       <Input
         {...nameRegister}
+        fontSize="lg"
         textColor="gray.600"
         autoComplete="off"
         onChange={onNameChange}

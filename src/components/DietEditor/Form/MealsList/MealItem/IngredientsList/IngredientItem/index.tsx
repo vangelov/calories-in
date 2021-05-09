@@ -34,7 +34,6 @@ function IngredientItem({
   mealIndex,
   index,
   ingredientField,
-
   onRemove,
 }: Props) {
   const { register, control } = useFormContext()
