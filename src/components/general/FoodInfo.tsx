@@ -1,17 +1,18 @@
 import { Text, Box, Flex, BoxProps } from '@chakra-ui/react'
 import { useFoodCategoryByIdMap } from 'core/foodsCategories/FoodsCategoriesProvider'
-import { IngredientField } from 'core/dietForm'
 import { getFoodCategoryIcon } from 'core/foodsCategories'
 import { Food } from 'core/types'
 
 type Props = {
-  ingredientField: IngredientField
   food: Food
+  nameNoOfLines?: number
+  detailText?: string
 } & BoxProps
 
-function FoodInfo({ ingredientField, food, ...rest }: Props) {
+function FoodInfo({ food, detailText, nameNoOfLines, ...rest }: Props) {
   const foodCategoryByIdMap = useFoodCategoryByIdMap()
   const foodCategory = foodCategoryByIdMap[food.categoryId]
+
   const FoodCategoryIcon = getFoodCategoryIcon(foodCategory)
 
   return (
@@ -25,11 +26,19 @@ function FoodInfo({ ingredientField, food, ...rest }: Props) {
         backgroundColor={foodCategory.color}
       />
 
-      <FoodCategoryIcon ml={1} mr={2} fill="gray.600" />
+      <FoodCategoryIcon flexShrink={0} ml={1} mr={2} fill="gray.600" />
 
-      <Text fontSize="lg" color="gray.600">
-        {food.name}
-      </Text>
+      <Box ml={2}>
+        <Text fontSize="lg" noOfLines={nameNoOfLines} color="gray.600">
+          {food.name}
+        </Text>
+
+        {detailText && (
+          <Text fontSize="xs" textColor="gray.400">
+            200kcal/100g
+          </Text>
+        )}
+      </Box>
     </Flex>
   )
 }

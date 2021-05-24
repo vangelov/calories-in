@@ -9,7 +9,7 @@ type Props = {
 
 const MAX_AMOUNT_EXCLUDING = 10000
 
-function FoodAmountInput({ name, defaultValue, onChange }: Props) {
+function FoodAmountInput({ name, defaultValue, onChange, ...rest }: Props) {
   function onMouseDown(event: MouseEvent<HTMLInputElement>) {
     const input = event.target as HTMLInputElement
 
@@ -34,6 +34,8 @@ function FoodAmountInput({ name, defaultValue, onChange }: Props) {
             textColor="gray.500"
             textAlign="right"
             bg="white"
+            maxWidth={20}
+            {...rest}
             onChange={event => {
               const value = event.target.value
 

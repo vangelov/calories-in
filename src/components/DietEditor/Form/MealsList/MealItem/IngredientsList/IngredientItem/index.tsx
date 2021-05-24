@@ -6,7 +6,7 @@ import { Draggable } from 'react-beautiful-dnd'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import FoodInfo from './FoodInfo'
+import FoodInfo from 'components/general/FoodInfo'
 import { FoodAmountInput } from 'components/general'
 import { StatsLayout, Stat } from 'components/general'
 import RightAligned from 'components/general/RightAligned'
@@ -29,6 +29,9 @@ const variants = {
     opacity: 1,
     height: 'auto',
     x: 0,
+  },
+  transparent: {
+    opacity: 0,
   },
   collapsed: { opacity: 0, height: 0, x: 0 },
 }
@@ -56,13 +59,17 @@ function IngredientItem({
     }
   }
 
-  const isJustAdded = oneTimeCheck.checkAndReset(
-    ingredientField.fieldId as string
-  )
-
-  if (!ingredientField.foodId) {
+  if (!ingredientField.foodId || !ingredientField.fieldId) {
     throw new Error('Food id is missing')
   }
+
+  const pendingAnimationForDragged = oneTimeCheck.checkAndReset(
+    ingredientField.fieldId
+  )
+
+  const pendingAnimationForInserted = oneTimeCheck.checkAndReset(
+    `${ingredientField.fieldId}test`
+  )
 
   const foodsByIdState = useFoodsByIdState()
   const food = foodsByIdState[ingredientField.foodId]
@@ -78,8 +85,18 @@ function IngredientItem({
     >
       {(provided, snapshot) => (
         <motion.div
-          style={{ opacity: isJustAdded ? 0 : 1 }}
-          initial={isJustAdded ? undefined : false}
+          transition={{ ease: 'easeInOut' }}
+          style={{
+            opacity:
+              pendingAnimationForDragged || pendingAnimationForInserted ? 0 : 1,
+          }}
+          initial={
+            pendingAnimationForInserted
+              ? 'collapsed'
+              : pendingAnimationForDragged
+              ? 'transparent'
+              : false
+          }
           animate={isVisible ? 'open' : 'collapsed'}
           onAnimationComplete={onAnimationComplete}
           variants={variants}
@@ -96,6 +113,7 @@ function IngredientItem({
             py={4}
             px={6}
             minHeight="74px"
+            height="74px"
             _hover={{ backgroundColor: transparentize('gray.50', 0.35) }}
             _focus={{ borderWidth: 2 }}
           >
@@ -126,9 +144,7 @@ function IngredientItem({
             />
 
             <StatsLayout
-              nameElement={
-                <FoodInfo food={food} ingredientField={ingredientField} />
-              }
+              nameElement={<FoodInfo food={food} />}
               amountElement={
                 <RightAligned>
                   <FoodAmountInput

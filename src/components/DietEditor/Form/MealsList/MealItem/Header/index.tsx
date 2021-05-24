@@ -10,6 +10,7 @@ type Props = {
   mealField: MealField
   zIndex: number
   index: number
+  onAddIngredient: (index: number) => void
   onRemove: (index: number) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
 }
@@ -18,7 +19,7 @@ function Header({
   mealField,
   index,
   onRemove,
-
+  onAddIngredient,
   zIndex,
   getMealNameInputRefById,
 }: Props) {
@@ -26,6 +27,8 @@ function Header({
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useUpdateMealStats(index, mealStats)
+
+  console.log('test', isMenuOpen)
 
   return (
     <Flex
@@ -64,6 +67,7 @@ function Header({
           <Menu
             mealField={mealField}
             index={index}
+            onAddIngredient={() => onAddIngredient(index)}
             onRemove={() => onRemove(index)}
             setIsMenuOpen={setIsMenuOpen}
           />

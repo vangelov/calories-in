@@ -9,8 +9,8 @@
     "saturatedFat": 0.4,
     "fiber": 0,
     "salt": 0.11,
-    "id": 1,
-    "categoryId": 1
+    "categoryId": 1,
+    "id": 1
   },
   {
     "name": "Chicken thighs (with skin)",
@@ -22,8 +22,8 @@
     "saturatedFat": 3.6,
     "fiber": 0,
     "salt": 0.199898,
-    "id": 2,
-    "categoryId": 1
+    "categoryId": 1,
+    "id": 2
   },
   {
     "name": "Chicken wings (with skin)",
@@ -35,8 +35,8 @@
     "saturatedFat": 4.3,
     "fiber": 0,
     "salt": 0.3,
-    "id": 3,
-    "categoryId": 1
+    "categoryId": 1,
+    "id": 3
   },
   {
     "name": "Turkey breast (no skin)",
@@ -48,8 +48,8 @@
     "saturatedFat": 0.5,
     "fiber": 0.5,
     "salt": 0.37,
-    "id": 4,
-    "categoryId": 1
+    "categoryId": 1,
+    "id": 4
   },
   {
     "name": "Turkey thighs (with skin)",
@@ -61,8 +61,8 @@
     "saturatedFat": 0.6,
     "fiber": 0,
     "salt": 0.17,
-    "id": 5,
-    "categoryId": 1
+    "categoryId": 1,
+    "id": 5
   },
   {
     "name": "Ground turkey",
@@ -74,8 +74,8 @@
     "saturatedFat": 2.2321,
     "fiber": 0,
     "salt": 0.16741075,
-    "id": 6,
-    "categoryId": 1
+    "categoryId": 1,
+    "id": 6
   },
   {
     "name": "Beef chuck",
@@ -87,8 +87,8 @@
     "saturatedFat": 3.4,
     "fiber": 0,
     "salt": 1,
-    "id": 7,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 7
   },
   {
     "name": "Beef flank",
@@ -100,8 +100,8 @@
     "saturatedFat": 2.2,
     "fiber": 0,
     "salt": 0.19,
-    "id": 8,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 8
   },
   {
     "name": "Beef meatballs",
@@ -113,8 +113,8 @@
     "saturatedFat": 8.1,
     "fiber": 0,
     "salt": 1.8,
-    "id": 9,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 9
   },
   {
     "name": "Beef rib steak",
@@ -126,8 +126,8 @@
     "saturatedFat": 8.1,
     "fiber": 0,
     "salt": 0.22,
-    "id": 10,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 10
   },
   {
     "name": "Beef sirloin",
@@ -139,8 +139,8 @@
     "saturatedFat": 7,
     "fiber": 0,
     "salt": 0.1524,
-    "id": 11,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 11
   },
   {
     "name": "Beef tongue",
@@ -152,8 +152,8 @@
     "saturatedFat": 3.2,
     "fiber": 0,
     "salt": 0.93,
-    "id": 12,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 12
   },
   {
     "name": "Beef ribeye steak",
@@ -165,8 +165,8 @@
     "saturatedFat": 5.6,
     "fiber": 0,
     "salt": 0.1524,
-    "id": 13,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 13
   },
   {
     "name": "Beef burger",
@@ -178,8 +178,8 @@
     "saturatedFat": 5,
     "fiber": 0,
     "salt": 2,
-    "id": 14,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 14
   },
   {
     "name": "Black angus burger",
@@ -191,8 +191,8 @@
     "saturatedFat": 4.2,
     "fiber": 0,
     "salt": 1.42,
-    "id": 15,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 15
   },
   {
     "name": "Ground beef (12% fat)",
@@ -204,8 +204,8 @@
     "saturatedFat": 5.7,
     "fiber": 0,
     "salt": 0.13,
-    "id": 16,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 16
   },
   {
     "name": "Ground beef (15% fat)",
@@ -217,8 +217,8 @@
     "saturatedFat": 6.1999998092651,
     "fiber": 0,
     "salt": 0.21999999880791,
-    "id": 17,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 17
   },
   {
     "name": "Ground beef (20% fat)",
@@ -230,8 +230,8 @@
     "saturatedFat": 9.1,
     "fiber": 0,
     "salt": 0.2,
-    "id": 18,
-    "categoryId": 2
+    "categoryId": 2,
+    "id": 18
   },
   {
     "name": "Bacon",
@@ -242,9 +242,9 @@
     "sugar": 0,
     "saturatedFat": 12.5,
     "fiber": 0,
-    "salt": 4.75,
-    "id": 19,
-    "categoryId": 3
+    "salt": 0.00475,
+    "categoryId": 3,
+    "id": 19
   },
   {
     "name": "Pork loin",
@@ -256,8 +256,8 @@
     "saturatedFat": 2.3,
     "fiber": 0,
     "salt": 0.13,
-    "id": 20,
-    "categoryId": 3
+    "categoryId": 3,
+    "id": 20
   },
   {
     "name": "Pork ribs",
@@ -269,8 +269,8 @@
     "saturatedFat": 3.2,
     "fiber": 0,
     "salt": 0.1,
-    "id": 21,
-    "categoryId": 3
+    "categoryId": 3,
+    "id": 21
   },
   {
     "name": "Pork tenderloin",
@@ -282,8 +282,8 @@
     "saturatedFat": 1.5,
     "fiber": 0,
     "salt": 0.12,
-    "id": 22,
-    "categoryId": 3
+    "categoryId": 3,
+    "id": 22
   },
   {
     "name": "Pork shoulder steak",
@@ -295,8 +295,8 @@
     "saturatedFat": 3.3,
     "fiber": 0,
     "salt": 1.4732,
-    "id": 23,
-    "categoryId": 3
+    "categoryId": 3,
+    "id": 23
   },
   {
     "name": "Salmon trout",
@@ -308,8 +308,8 @@
     "saturatedFat": 0.7,
     "fiber": 0,
     "salt": 1.3,
-    "id": 24,
-    "categoryId": 4
+    "categoryId": 4,
+    "id": 24
   },
   {
     "name": "Salmon fillet",
@@ -321,11 +321,11 @@
     "saturatedFat": 0.44642857142857,
     "fiber": 0,
     "salt": 0.55803571428573,
-    "id": 25,
-    "categoryId": 4
+    "categoryId": 4,
+    "id": 25
   },
   {
-    "name": "Tuna in water",
+    "name": "Tuna (canned in water)",
     "energy": 113,
     "protein": 23.1,
     "carbs": 0.5,
@@ -334,8 +334,8 @@
     "saturatedFat": 0.4,
     "fiber": 0,
     "salt": 1.25,
-    "id": 26,
-    "categoryId": 4
+    "categoryId": 4,
+    "id": 26
   },
   {
     "name": "Tilapia",
@@ -347,8 +347,8 @@
     "saturatedFat": 0.4464,
     "fiber": 0,
     "salt": 0.08928575,
-    "id": 27,
-    "categoryId": 4
+    "categoryId": 4,
+    "id": 27
   },
   {
     "name": "Cod fillet",
@@ -360,8 +360,8 @@
     "saturatedFat": 0,
     "fiber": 0,
     "salt": 0.1325,
-    "id": 28,
-    "categoryId": 4
+    "categoryId": 4,
+    "id": 28
   },
   {
     "name": "Sardines in olive oil",
@@ -373,8 +373,8 @@
     "saturatedFat": 3.53,
     "fiber": 0,
     "salt": 1.02,
-    "id": 29,
-    "categoryId": 4
+    "categoryId": 4,
+    "id": 29
   },
   {
     "name": "Pollock",
@@ -386,8 +386,8 @@
     "saturatedFat": 0,
     "fiber": 0,
     "salt": 0.398,
-    "id": 30,
-    "categoryId": 4
+    "categoryId": 4,
+    "id": 30
   },
   {
     "name": "Herring",
@@ -399,8 +399,8 @@
     "saturatedFat": 3.6,
     "fiber": 0,
     "salt": 1.84,
-    "id": 31,
-    "categoryId": 4
+    "categoryId": 4,
+    "id": 31
   },
   {
     "name": "Cottage cheese",
@@ -412,8 +412,8 @@
     "saturatedFat": 2.6,
     "fiber": 0,
     "salt": 0.73,
-    "id": 32,
-    "categoryId": 5
+    "categoryId": 5,
+    "id": 32
   },
   {
     "name": "Mozzarella",
@@ -425,8 +425,8 @@
     "saturatedFat": 8.5,
     "fiber": 0,
     "salt": 0.6,
-    "id": 33,
-    "categoryId": 5
+    "categoryId": 5,
+    "id": 33
   },
   {
     "name": "Feta",
@@ -438,8 +438,8 @@
     "saturatedFat": 15.6,
     "fiber": 0,
     "salt": 2.2,
-    "id": 34,
-    "categoryId": 5
+    "categoryId": 5,
+    "id": 34
   },
   {
     "name": "Parmesan",
@@ -451,8 +451,8 @@
     "saturatedFat": 20,
     "fiber": 0,
     "salt": 1.6,
-    "id": 35,
-    "categoryId": 5
+    "categoryId": 5,
+    "id": 35
   },
   {
     "name": "Haloumi",
@@ -464,8 +464,8 @@
     "saturatedFat": 15.89999961853,
     "fiber": 0.6,
     "salt": 2.5799999237061,
-    "id": 36,
-    "categoryId": 5
+    "categoryId": 5,
+    "id": 36
   },
   {
     "name": "Cow milk (1% fat)",
@@ -477,8 +477,8 @@
     "saturatedFat": 0.62,
     "fiber": 0,
     "salt": 0.1675,
-    "id": 37,
-    "categoryId": 6
+    "categoryId": 5,
+    "id": 37
   },
   {
     "name": "Cow milk (2% fat)",
@@ -490,8 +490,8 @@
     "saturatedFat": 1.25,
     "fiber": 0,
     "salt": 0.11979175,
-    "id": 38,
-    "categoryId": 6
+    "categoryId": 5,
+    "id": 38
   },
   {
     "name": "Cow milk (3.5% fat)",
@@ -503,9 +503,8 @@
     "saturatedFat": 2.4,
     "fiber": 0,
     "salt": 0.1,
-    "id": 39,
-    "categoryId": 6
-
+    "categoryId": 5,
+    "id": 39
   },
   {
     "name": "Almomd milk",
@@ -517,9 +516,8 @@
     "saturatedFat": 0.2,
     "fiber": 1.2,
     "salt": 0.15748031496063,
-    "id": 40,
-    "categoryId": 6
-
+    "categoryId": 5,
+    "id": 40
   },
   {
     "name": "Skyr",
@@ -531,9 +529,8 @@
     "saturatedFat": 0.1,
     "fiber": 0,
     "salt": 0.14,
-    "id": 41,
-    "categoryId": 6
-
+    "categoryId": 5,
+    "id": 41
   },
   {
     "name": "Eggs",
@@ -545,9 +542,8 @@
     "saturatedFat": 2.6,
     "fiber": 0,
     "salt": 0.3,
-    "id": 42,
-    "categoryId": 6
-
+    "categoryId": 5,
+    "id": 42
   },
   {
     "name": "Liquid egg whites",
@@ -559,9 +555,8 @@
     "saturatedFat": 0,
     "fiber": 0.1,
     "salt": 0.16,
-    "id": 43,
-    "categoryId": 6
-
+    "categoryId": 5,
+    "id": 43
   },
   {
     "name": "White rice",
@@ -573,9 +568,8 @@
     "saturatedFat": 0.2,
     "fiber": 2.4,
     "salt": 0.02,
-    "id": 44,
-    "categoryId": 7
-
+    "categoryId": 6,
+    "id": 44
   },
   {
     "name": "Brown rice",
@@ -587,8 +581,8 @@
     "saturatedFat": 0.6,
     "fiber": 3.6,
     "salt": 0.03,
-    "id": 45,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 45
   },
   {
     "name": "Couscous",
@@ -600,8 +594,8 @@
     "saturatedFat": 0.4,
     "fiber": 3.4,
     "salt": 0.02,
-    "id": 46,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 46
   },
   {
     "name": "Oats",
@@ -613,8 +607,8 @@
     "saturatedFat": 1.5,
     "fiber": 9,
     "salt": 0.01,
-    "id": 47,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 47
   },
   {
     "name": "Pasta",
@@ -626,8 +620,8 @@
     "saturatedFat": 0.3,
     "fiber": 3.5,
     "salt": 0,
-    "id": 48,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 48
   },
   {
     "name": "Whole-wheat pasta",
@@ -639,8 +633,8 @@
     "saturatedFat": 0.4,
     "fiber": 9,
     "salt": 0.01,
-    "id": 49,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 49
   },
   {
     "name": "Quinoa",
@@ -652,8 +646,8 @@
     "saturatedFat": 0.6,
     "fiber": 6,
     "salt": 0.59,
-    "id": 50,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 50
   },
   {
     "name": "White bread",
@@ -665,8 +659,8 @@
     "saturatedFat": 0.6,
     "fiber": 2.1,
     "salt": 0.98,
-    "id": 51,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 51
   },
   {
     "name": "Whole-wheat bread",
@@ -678,8 +672,8 @@
     "saturatedFat": 0,
     "fiber": 7.1,
     "salt": 1.0575,
-    "id": 52,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 52
   },
   {
     "name": "Buns",
@@ -691,8 +685,8 @@
     "saturatedFat": 0.9,
     "fiber": 2.9,
     "salt": 1.1,
-    "id": 53,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 53
   },
   {
     "name": "Tortila",
@@ -704,8 +698,8 @@
     "saturatedFat": 3,
     "fiber": 1.8,
     "salt": 0.94,
-    "id": 54,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 54
   },
   {
     "name": "Buckwheat",
@@ -717,8 +711,8 @@
     "saturatedFat": 0.7,
     "fiber": 4,
     "salt": 0.01,
-    "id": 55,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 55
   },
   {
     "name": "Bulgur",
@@ -730,7 +724,1021 @@
     "saturatedFat": 0.2,
     "fiber": 6.2,
     "salt": 0.04,
-    "id": 56,
-    "categoryId": 7
+    "categoryId": 6,
+    "id": 56
+  },
+  {
+    "name": "Broccoli",
+    "energy": 46,
+    "protein": 2.8,
+    "carbs": 6.6,
+    "fat": 0.4,
+    "sugar": 1.7,
+    "saturatedFat": 0.04,
+    "fiber": 2.6,
+    "salt": 0.08,
+    "categoryId": 7,
+    "id": 57
+  },
+  {
+    "name": "Carrots",
+    "energy": 29,
+    "protein": 0.5,
+    "carbs": 6,
+    "fat": 0.5,
+    "sugar": 5.5,
+    "saturatedFat": 0.2,
+    "fiber": 2.8,
+    "salt": 0.07,
+    "categoryId": 7,
+    "id": 58
+  },
+  {
+    "name": "Celery",
+    "energy": 10,
+    "protein": 0.5,
+    "carbs": 0.9,
+    "fat": 0.5,
+    "sugar": 0.9,
+    "saturatedFat": 0.1,
+    "fiber": 0,
+    "salt": 0.15,
+    "categoryId": 7,
+    "id": 59
+  },
+  {
+    "name": "Cucumber",
+    "energy": 15,
+    "protein": 0.84,
+    "carbs": 3.8,
+    "fat": 0,
+    "sugar": 1.69,
+    "saturatedFat": 0,
+    "fiber": 0.4,
+    "salt": 0.005,
+    "categoryId": 7,
+    "id": 60
+  },
+  {
+    "name": "White mushrooms",
+    "energy": 24,
+    "protein": 3.53,
+    "carbs": 3.53,
+    "fat": 0,
+    "sugar": 2.35,
+    "saturatedFat": 0,
+    "fiber": 1.2,
+    "salt": 0,
+    "categoryId": 7,
+    "id": 61
+  },
+  {
+    "name": "Red peppers",
+    "energy": 29.4,
+    "protein": 1.21,
+    "carbs": 7,
+    "fat": 0.3,
+    "sugar": 6,
+    "saturatedFat": 0.1,
+    "fiber": 2.2,
+    "salt": 0.0356,
+    "categoryId": 7,
+    "id": 62
+  },
+  {
+    "name": "Radishes",
+    "energy": 11,
+    "protein": 0.7,
+    "carbs": 1.9,
+    "fat": 0.2,
+    "sugar": 1.9,
+    "saturatedFat": 0.1,
+    "fiber": 0.9,
+    "salt": 0.03,
+    "categoryId": 7,
+    "id": 63
+  },
+  {
+    "name": "Lettuce",
+    "energy": 15,
+    "protein": 1.3,
+    "carbs": 1.4,
+    "fat": 0.5,
+    "sugar": 0.7,
+    "saturatedFat": 0.1,
+    "fiber": 0,
+    "salt": 0.02,
+    "categoryId": 7,
+    "id": 64
+  },
+  {
+    "name": "Spinach",
+    "energy": 22,
+    "protein": 2.7,
+    "carbs": 1,
+    "fat": 0.8,
+    "sugar": 0.9,
+    "saturatedFat": 0.2,
+    "fiber": 2.2,
+    "salt": 0.14,
+    "categoryId": 7,
+    "id": 65
+  },
+  {
+    "name": "Tomatoes",
+    "energy": 20,
+    "protein": 0.91,
+    "carbs": 3.07,
+    "fat": 3.04,
+    "sugar": 0.84,
+    "saturatedFat": 0,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 7,
+    "id": 66
+  },
+  {
+    "name": "Asparagus",
+    "energy": 14,
+    "protein": 1.6,
+    "carbs": 0.7,
+    "fat": 0.5,
+    "sugar": 0.1,
+    "saturatedFat": 0.1,
+    "fiber": 1,
+    "salt": 0.070104,
+    "categoryId": 7,
+    "id": 67
+  },
+  {
+    "name": "Kale",
+    "energy": 34,
+    "protein": 3.4,
+    "carbs": 1.4,
+    "fat": 1.6,
+    "sugar": 0,
+    "saturatedFat": 0.2,
+    "fiber": 3.6,
+    "salt": 0.1,
+    "categoryId": 7,
+    "id": 68
+  },
+  {
+    "name": "White potatoes",
+    "categoryId": 8,
+    "energy": 69,
+    "protein": 1.68,
+    "carbs": 15.7,
+    "fat": 0.1,
+    "saturatedFat": 0,
+    "sugar": 1.15,
+    "fiber": 2.4,
+    "salt": 16,
+    "id": 68
+  },
+  {
+    "name": "Sweet potatoes",
+    "energy": 74,
+    "protein": 1.6,
+    "carbs": 16.9,
+    "fat": 0.5,
+    "sugar": 7.8,
+    "saturatedFat": 0.1,
+    "fiber": 1.2,
+    "salt": 0.27,
+    "categoryId": 8,
+    "id": 69
+  },
+  {
+    "name": "Popcorn",
+    "energy": 354,
+    "protein": 10.2,
+    "carbs": 61.2,
+    "fat": 4.6,
+    "sugar": 1,
+    "saturatedFat": 0.6,
+    "fiber": 15.7,
+    "salt": 0.01,
+    "categoryId": 8,
+    "id": 70
+  },
+  {
+    "name": "Pumpkin",
+    "energy": 25.9,
+    "protein": 0.81,
+    "carbs": 4.5,
+    "fat": 0.07,
+    "sugar": 3.1,
+    "saturatedFat": 0.036,
+    "fiber": 2,
+    "salt": 0.023622,
+    "categoryId": 8,
+    "id": 71
+  },
+  {
+    "name": "Butternut squash",
+    "energy": 54,
+    "protein": 1.7,
+    "carbs": 8.5,
+    "fat": 1,
+    "sugar": 6.8,
+    "saturatedFat": 0.1,
+    "fiber": 2.3,
+    "salt": 0.02,
+    "categoryId": 8,
+    "id": 72
+  },
+  {
+    "name": "Lentils (dry)",
+    "energy": 342,
+    "protein": 27,
+    "carbs": 52,
+    "fat": 0.6,
+    "sugar": 3,
+    "saturatedFat": 0,
+    "fiber": 17,
+    "salt": 0,
+    "categoryId": 9,
+    "id": 73
+  },
+  {
+    "name": "Chickpeas (dry)",
+    "energy": 345,
+    "protein": 21.7,
+    "carbs": 53,
+    "fat": 0.8,
+    "sugar": 2.2,
+    "saturatedFat": 0.6,
+    "fiber": 19.5,
+    "salt": 0.01,
+    "categoryId": 9,
+    "id": 74
+  },
+  {
+    "name": "Peas (dry)",
+    "energy": 67,
+    "protein": 5.1,
+    "carbs": 8.7,
+    "fat": 0.5,
+    "sugar": 5.4,
+    "saturatedFat": 0.10000000149012,
+    "fiber": 4.5,
+    "salt": 0.0099999997764826,
+    "categoryId": 9,
+    "id": 75
+  },
+  {
+    "name": "Red beans (canned)",
+    "energy": 111,
+    "protein": 8.3,
+    "carbs": 15.2,
+    "fat": 0,
+    "sugar": 0.5,
+    "saturatedFat": 0,
+    "fiber": 8.5,
+    "salt": 0.51,
+    "categoryId": 9,
+    "id": 76
+  },
+  {
+    "name": "Black beans (canned)",
+    "energy": 87,
+    "protein": 4.9,
+    "carbs": 12,
+    "fat": 0.5,
+    "sugar": 1,
+    "saturatedFat": 0.1,
+    "fiber": 0,
+    "salt": 0.93,
+    "categoryId": 9,
+    "id": 77
+  },
+  {
+    "name": "White beans (canned)",
+    "energy": 92,
+    "protein": 5.9,
+    "carbs": 11,
+    "fat": 1.5,
+    "sugar": 0.6,
+    "saturatedFat": 0.5,
+    "fiber": 5.3,
+    "salt": 0.8,
+    "categoryId": 9,
+    "id": 78
+  },
+  {
+    "name": "Soybeans (baked)",
+    "energy": 451,
+    "protein": 39.6,
+    "carbs": 32.1,
+    "fat": 21.6,
+    "sugar": 0,
+    "saturatedFat": 3.1,
+    "fiber": 8.1,
+    "salt": 1.5,
+    "categoryId": 9,
+    "id": 79
+  },
+  {
+    "name": "Granny Smith Apples",
+    "energy": 54,
+    "protein": 0.41,
+    "carbs": 14.05,
+    "fat": 0,
+    "sugar": 10.33,
+    "saturatedFat": 0,
+    "fiber": 2.1,
+    "salt": 0,
+    "categoryId": 10,
+    "id": 80
+  },
+  {
+    "name": "Bananas",
+    "energy": 89,
+    "protein": 1.1,
+    "carbs": 23,
+    "fat": 0.3,
+    "sugar": 12,
+    "saturatedFat": 0.1,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 10,
+    "id": 81
+  },
+  {
+    "name": "Blueberries",
+    "energy": 65,
+    "protein": 0.80000001192093,
+    "carbs": 14,
+    "fat": 0.30000001192093,
+    "sugar": 14,
+    "saturatedFat": 0.10000000149012,
+    "fiber": 1.6,
+    "salt": 0.01,
+    "categoryId": 10,
+    "id": 82
+  },
+  {
+    "name": "White grapes (seedless)",
+    "energy": 66,
+    "protein": 0.5,
+    "carbs": 15.4,
+    "fat": 0.5,
+    "sugar": 15.4,
+    "saturatedFat": 0.1,
+    "fiber": 0.7,
+    "salt": 0.1,
+    "categoryId": 10,
+    "id": 83
+  },
+  {
+    "name": "Oranges",
+    "energy": 42,
+    "protein": 1.1,
+    "carbs": 8.5,
+    "fat": 0,
+    "sugar": 8.5,
+    "saturatedFat": 0,
+    "fiber": 0,
+    "salt": 0.01,
+    "categoryId": 10,
+    "id": 84
+  },
+  {
+    "name": "Mandarines",
+    "energy": 45,
+    "protein": 0.8,
+    "carbs": 9.2,
+    "fat": 0.2,
+    "sugar": 9.2,
+    "saturatedFat": 0,
+    "fiber": 1.7,
+    "salt": 0,
+    "categoryId": 10,
+    "id": 85
+  },
+  {
+    "name": "Peaches",
+    "energy": 39,
+    "categoryId": 10,
+    "protein": 0.91,
+    "carbs": 9.54,
+    "fat": 0.25,
+    "saturatedFat": 0,
+    "sugar": 8.39,
+    "fiber": 1.5,
+    "salt": 0,
+    "id": 86
+  },
+  {
+    "name": "Raspberries",
+    "energy": 52,
+    "categoryId": 10,
+    "protein": 1.2,
+    "carbs": 11.9,
+    "fat": 0.65,
+    "saturatedFat": 0,
+    "sugar": 4.42,
+    "fiber": 6.5,
+    "salt": 1,
+    "id": 87
+  },
+  {
+    "name": "Strawberries",
+    "energy": 38,
+    "protein": 0.8,
+    "carbs": 6.5,
+    "fat": 0.4,
+    "sugar": 5,
+    "saturatedFat": 0,
+    "fiber": 2,
+    "salt": 0.0025,
+    "categoryId": 10,
+    "id": 86
+  },
+  {
+    "name": "Dates",
+    "energy": 295,
+    "protein": 3.2999999523163,
+    "carbs": 68,
+    "fat": 0.20000000298023,
+    "sugar": 68,
+    "saturatedFat": 0.10000000149012,
+    "fiber": 0,
+    "salt": 0.10000000149012,
+    "categoryId": 10,
+    "id": 87
+  },
+  {
+    "name": "Blackberries",
+    "energy": 43,
+    "categoryId": 10,
+    "protein": 1.39,
+    "carbs": 9.61,
+    "fat": 0.49,
+    "saturatedFat": 0,
+    "sugar": 4.88,
+    "fiber": 5.3,
+    "salt": 0,
+    "id": 90
+  },
+  {
+    "name": "Apricots",
+    "energy": 48,
+    "categoryId": 10,
+    "protein": 1.4,
+    "carbs": 11.1,
+    "fat": 0.39,
+    "saturatedFat": 0,
+    "sugar": 9.24,
+    "fiber": 2,
+    "salt": 1,
+    "id": 91
+  },
+  {
+    "name": "Figs (dried)",
+    "energy": 304,
+    "protein": 3.1,
+    "carbs": 57.8,
+    "fat": 2.9,
+    "sugar": 54.3,
+    "saturatedFat": 0.4,
+    "fiber": 0,
+    "salt": 0.2,
+    "categoryId": 10,
+    "id": 88
+  },
+  {
+    "name": "Pomegranate seeds",
+    "energy": 345,
+    "protein": 5.5,
+    "carbs": 57,
+    "fat": 5.9,
+    "sugar": 17,
+    "saturatedFat": 2.4,
+    "fiber": 0,
+    "salt": 0.23,
+    "categoryId": 10,
+    "id": 89
+  },
+  {
+    "name": "Watermelon",
+    "energy": 120,
+    "protein": 0.24,
+    "carbs": 32,
+    "fat": 0.8,
+    "sugar": 24,
+    "saturatedFat": 0,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 10,
+    "id": 90
+  },
+  {
+    "name": "Melon",
+    "energy": 34,
+    "protein": 0.8,
+    "carbs": 8,
+    "fat": 0.2,
+    "sugar": 8,
+    "saturatedFat": 0.1,
+    "fiber": 0,
+    "salt": 0.00016,
+    "categoryId": 10,
+    "id": 91
+  },
+  {
+    "name": "Kiwi",
+    "energy": 45,
+    "protein": 1,
+    "carbs": 14.7,
+    "fat": 0.3,
+    "sugar": 12.3,
+    "saturatedFat": 0.1,
+    "fiber": 1.4,
+    "salt": 0,
+    "categoryId": 10,
+    "id": 92
+  },
+  {
+    "name": "Plums",
+    "energy": 33,
+    "protein": 0.6,
+    "carbs": 8.8,
+    "fat": 0.1,
+    "sugar": 8.8,
+    "saturatedFat": 0,
+    "fiber": 1.6,
+    "salt": 0,
+    "categoryId": 10,
+    "id": 93
+  },
+  {
+    "name": "Cherries",
+    "energy": 70.8,
+    "protein": 1.3,
+    "carbs": 14.2,
+    "fat": 0.3,
+    "sugar": 12.4,
+    "saturatedFat": 0.043,
+    "fiber": 1.6,
+    "salt": 0.013,
+    "categoryId": 10,
+    "id": 94
+  },
+  {
+    "name": "Mango",
+    "energy": 63,
+    "protein": 0.7,
+    "carbs": 13.6,
+    "fat": 0.2,
+    "sugar": 13.3,
+    "saturatedFat": 0.1,
+    "fiber": 3.5,
+    "salt": 0.1,
+    "categoryId": 10,
+    "id": 95
+  },
+  {
+    "name": "Grapefruit",
+    "energy": 33,
+    "categoryId": 10,
+    "protein": 0.69,
+    "carbs": 8.41,
+    "fat": 0.1,
+    "saturatedFat": 0,
+    "sugar": 7.31,
+    "fiber": 1.1,
+    "salt": 0,
+    "id": 100
+  },
+  {
+    "name": "Pomelo",
+    "energy": 38,
+    "protein": 0.76,
+    "carbs": 8.86,
+    "fat": 0,
+    "sugar": 0,
+    "saturatedFat": 0,
+    "fiber": 1,
+    "salt": 0,
+    "categoryId": 10,
+    "id": 96
+  },
+  {
+    "name": "Coconut",
+    "energy": 366,
+    "protein": 3.2,
+    "carbs": 3.7,
+    "fat": 36,
+    "sugar": 3.7,
+    "saturatedFat": 31.4,
+    "fiber": 7.3,
+    "salt": 0.05,
+    "categoryId": 10,
+    "id": 97
+  },
+  {
+    "name": "Almonds",
+    "energy": 645,
+    "protein": 24.2,
+    "carbs": 5.4,
+    "fat": 56,
+    "sugar": 4.4,
+    "saturatedFat": 4.9,
+    "fiber": 11.2,
+    "salt": 0.02,
+    "categoryId": 11,
+    "id": 98
+  },
+  {
+    "name": "Chestnuts",
+    "energy": 206,
+    "protein": 50,
+    "carbs": 41,
+    "fat": 1.3,
+    "sugar": 6,
+    "saturatedFat": 0,
+    "fiber": 6,
+    "salt": 0,
+    "categoryId": 11,
+    "id": 99
+  },
+  {
+    "name": "Cashews",
+    "energy": 599,
+    "protein": 18.8,
+    "carbs": 23.1,
+    "fat": 47,
+    "sugar": 7.7,
+    "saturatedFat": 9.2,
+    "fiber": 4.3,
+    "salt": 0.02,
+    "categoryId": 11,
+    "id": 100
+  },
+  {
+    "name": "Hazelnuts",
+    "energy": 671,
+    "protein": 16,
+    "carbs": 3.9,
+    "fat": 64,
+    "sugar": 3.7,
+    "saturatedFat": 6.2,
+    "fiber": 9.8,
+    "salt": 0.2,
+    "categoryId": 11,
+    "id": 101
+  },
+  {
+    "name": "Macadamia",
+    "energy": 758,
+    "protein": 8.6,
+    "carbs": 5.8,
+    "fat": 77,
+    "sugar": 3.5,
+    "saturatedFat": 13,
+    "fiber": 8,
+    "salt": 0.19,
+    "categoryId": 11,
+    "id": 102
+  },
+  {
+    "name": "Peanuts",
+    "energy": 619,
+    "protein": 24.4,
+    "carbs": 11,
+    "fat": 51.2,
+    "sugar": 5.2,
+    "saturatedFat": 7.8,
+    "fiber": 0,
+    "salt": 1,
+    "categoryId": 11,
+    "id": 103
+  },
+  {
+    "name": "Pecans",
+    "energy": 731,
+    "protein": 10.1,
+    "carbs": 5.2,
+    "fat": 72.1,
+    "sugar": 4.2,
+    "saturatedFat": 6.1,
+    "fiber": 10.2,
+    "salt": 0.01,
+    "categoryId": 11,
+    "id": 104
+  },
+  {
+    "name": "Pistachios",
+    "energy": 605,
+    "protein": 26.5,
+    "carbs": 10.3,
+    "fat": 49.2,
+    "sugar": 5.6,
+    "saturatedFat": 6.3,
+    "fiber": 7.6,
+    "salt": 1.78,
+    "categoryId": 11,
+    "id": 105
+  },
+  {
+    "name": "Walnuts",
+    "energy": 414,
+    "protein": 14,
+    "carbs": 3.7,
+    "fat": 69.1,
+    "sugar": 3,
+    "saturatedFat": 7.3,
+    "fiber": 0,
+    "salt": 0.02,
+    "categoryId": 11,
+    "id": 106
+  },
+  {
+    "name": "Brazil nuts",
+    "energy": 699,
+    "protein": 14.7,
+    "carbs": 3.6,
+    "fat": 67.4,
+    "sugar": 2.3,
+    "saturatedFat": 15.5,
+    "fiber": 9.5,
+    "salt": 0.01,
+    "categoryId": 11,
+    "id": 107
+  },
+  {
+    "name": "Pine nuts",
+    "energy": 697,
+    "protein": 14,
+    "carbs": 4,
+    "fat": 68.6,
+    "sugar": 3.9,
+    "saturatedFat": 4.6,
+    "fiber": 3.7,
+    "salt": 0.1,
+    "categoryId": 11,
+    "id": 108
+  },
+  {
+    "name": "Flaxseed",
+    "energy": 2096,
+    "protein": 22.1,
+    "carbs": 3,
+    "fat": 40,
+    "sugar": 1.8,
+    "saturatedFat": 4.5,
+    "fiber": 23.7,
+    "salt": 0,
+    "categoryId": 11,
+    "id": 109
+  },
+  {
+    "name": "Sunflower seeds",
+    "energy": 582,
+    "protein": 19,
+    "carbs": 24,
+    "fat": 50,
+    "sugar": 2.7,
+    "saturatedFat": 5.2,
+    "fiber": 0,
+    "salt": 8,
+    "categoryId": 11,
+    "id": 110
+  },
+  {
+    "name": "Pumpkin seeds",
+    "energy": 587,
+    "protein": 35,
+    "carbs": 3.3,
+    "fat": 47,
+    "sugar": 1.3,
+    "saturatedFat": 8.6,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 11,
+    "id": 111
+  },
+  {
+    "name": "Chia seeds",
+    "energy": 464,
+    "protein": 22,
+    "carbs": 2.6,
+    "fat": 34,
+    "sugar": 2.6,
+    "saturatedFat": 4,
+    "fiber": 30,
+    "salt": 0.01,
+    "categoryId": 11,
+    "id": 112
+  },
+  {
+    "name": "Olive oil",
+    "energy": 828,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 92,
+    "sugar": 0,
+    "saturatedFat": 14,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 12,
+    "id": 113
+  },
+  {
+    "name": "Coconut oil",
+    "energy": 857,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 100,
+    "sugar": 0,
+    "saturatedFat": 85.71,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 12,
+    "id": 114
+  },
+  {
+    "name": "Sunflower oil",
+    "energy": 828,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 92,
+    "sugar": 0,
+    "saturatedFat": 9,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 12,
+    "id": 115
+  },
+  {
+    "name": "Sesame oil",
+    "energy": 828,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 92,
+    "sugar": 0,
+    "saturatedFat": 14,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 12,
+    "id": 116
+  },
+  {
+    "name": "Flexseed oil",
+    "energy": 900,
+    "protein": 0.1,
+    "carbs": 0.1,
+    "fat": 92.8,
+    "sugar": 0.1,
+    "saturatedFat": 8.94,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 12,
+    "id": 117
+  },
+  {
+    "name": "Canola oil",
+    "energy": 857,
+    "protein": 0,
+    "carbs": 0,
+    "fat": 100,
+    "sugar": 0,
+    "saturatedFat": 7.14,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 12,
+    "id": 118
+  },
+  {
+    "name": "Cow butter",
+    "energy": 746,
+    "protein": 1,
+    "carbs": 1,
+    "fat": 82,
+    "sugar": 1,
+    "saturatedFat": 58,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 12,
+    "id": 119
+  },
+  {
+    "name": "Peanut butter",
+    "energy": 624,
+    "protein": 26.1,
+    "carbs": 11.4,
+    "fat": 51.2,
+    "sugar": 5.5,
+    "saturatedFat": 5.4,
+    "fiber": 7.2,
+    "salt": 0.47,
+    "categoryId": 12,
+    "id": 120
+  },
+  {
+    "name": "Almond butter",
+    "energy": 635,
+    "protein": 27,
+    "carbs": 6,
+    "fat": 54,
+    "sugar": 4,
+    "saturatedFat": 4.5,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 12,
+    "id": 121
+  },
+  {
+    "name": "Coconut butter",
+    "energy": 710,
+    "protein": 6.45,
+    "carbs": 25.81,
+    "fat": 64.52,
+    "sugar": 6.45,
+    "saturatedFat": 61.29,
+    "fiber": 12.9,
+    "salt": 0.08,
+    "categoryId": 12,
+    "id": 122
+  },
+  {
+    "name": "Tahini",
+    "energy": 710,
+    "protein": 24.9,
+    "carbs": 3.2,
+    "fat": 65.5,
+    "sugar": 1.4,
+    "saturatedFat": 10.1,
+    "fiber": 3.4,
+    "salt": 0.04,
+    "categoryId": 12,
+    "id": 123
+  },
+  {
+    "name": "Avocado",
+    "energy": 130,
+    "protein": 1,
+    "carbs": 4,
+    "fat": 12.5,
+    "sugar": 3.6,
+    "saturatedFat": 2.8,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 12,
+    "id": 124
+  },
+  {
+    "name": "Humus",
+    "energy": 218,
+    "protein": 6.3,
+    "carbs": 10,
+    "fat": 16,
+    "sugar": 0,
+    "saturatedFat": 0,
+    "fiber": 0,
+    "salt": 1.4,
+    "categoryId": 12,
+    "id": 125
+  },
+  {
+    "name": "Dark chocolate 99%",
+    "energy": 597,
+    "protein": 15,
+    "carbs": 9.7,
+    "fat": 52,
+    "sugar": 0.6,
+    "saturatedFat": 32,
+    "fiber": 17,
+    "salt": 0,
+    "categoryId": 12,
+    "id": 126
+  },
+  {
+    "name": "Dark chocolate 85%",
+    "energy": 584,
+    "protein": 12.5,
+    "carbs": 19,
+    "fat": 46,
+    "sugar": 11,
+    "saturatedFat": 28,
+    "fiber": 0,
+    "salt": 0.02,
+    "categoryId": 12,
+    "id": 127
+  },
+  {
+    "name": "Dark chocolate 65%",
+    "energy": 562,
+    "protein": 8.2,
+    "carbs": 40.3,
+    "fat": 38.6,
+    "sugar": 32.8,
+    "saturatedFat": 23.3,
+    "fiber": 0,
+    "salt": 0,
+    "categoryId": 12,
+    "id": 128
   }
 ]

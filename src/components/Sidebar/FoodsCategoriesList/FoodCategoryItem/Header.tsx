@@ -1,16 +1,22 @@
-import { Flex, Text, HStack } from '@chakra-ui/react'
+import { Flex, Text, HStack, FlexProps } from '@chakra-ui/react'
 import { getFoodCategoryIcon } from 'core/foodsCategories'
 import { FoodCategory } from 'core/types'
 
 type Props = {
   foodCategory: FoodCategory
-}
+} & FlexProps
 
-const Header = ({ foodCategory }: Props) => {
+const Header = ({ foodCategory, ...rest }: Props) => {
   const FoodCategoryIcon = getFoodCategoryIcon(foodCategory)
 
   return (
-    <Flex zIndex={1} backgroundColor="white" position="sticky" top="0">
+    <Flex
+      zIndex={1}
+      backgroundColor="white"
+      position="sticky"
+      top="0"
+      {...rest}
+    >
       <HStack
         mt={4}
         p={4}

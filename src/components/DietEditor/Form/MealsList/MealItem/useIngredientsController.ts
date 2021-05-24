@@ -41,6 +41,7 @@ function useIngredientsController(mealIndex: number, mealField: MealField) {
   return {
     ingredientsFields,
     onIngredientRemove,
+    insertIngredientForm,
   }
 }
 

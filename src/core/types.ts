@@ -6,6 +6,9 @@ type Food = {
   carbs: number
   fat: number
   energy: number
+  saturatedFat: number
+  sugar: number
+  fiber: number
 }
 
 type Ingredient = {

@@ -10,6 +10,9 @@ const colors = {
   text: {
     name: '#4A5568',
   },
+  brand: {
+    '500': '#74CFD1',
+  },
 }
 
 export default colors

@@ -1,7 +1,9 @@
-import { IconButton } from '@chakra-ui/react'
+import { IconButton, chakra } from '@chakra-ui/react'
 import { Menu as MenuBase, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
+
+const MoreHorizontalStyled = chakra(MoreHorizontal)
 
 type Props = {
   onRemove: () => void
@@ -17,7 +19,9 @@ function Menu({ onRemove }: Props) {
         menuButton={
           <IconButton
             aria-label="test"
-            icon={<MoreHorizontal color="gray" pointerEvents="none" />}
+            icon={
+              <MoreHorizontalStyled color="gray.400" pointerEvents="none" />
+            }
             variant="ghost"
           />
         }
