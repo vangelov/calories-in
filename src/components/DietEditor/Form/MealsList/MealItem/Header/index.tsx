@@ -28,8 +28,6 @@ function Header({
 
   useUpdateMealStats(index, mealStats)
 
-  console.log('test', isMenuOpen)
-
   return (
     <Flex
       position="sticky"

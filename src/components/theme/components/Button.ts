@@ -1,7 +1,7 @@
 const Button = {
   variants: {
     solid: {
-      backgroundColor: '#74CFD1',
+      backgroundColor: 'custom.500',
       textColor: 'white',
       _hover: {
         backgroundColor: 'teal.400',

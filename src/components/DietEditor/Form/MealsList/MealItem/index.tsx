@@ -1,4 +1,9 @@
-import { getIngredientForm, getMealsFormsPath, MealField } from 'core/dietForm'
+import {
+  getIngredientForm,
+  getMealsFormsPath,
+  IngredientForm,
+  MealField,
+} from 'core/dietForm'
 import {
   Flex,
   LayoutProps,
@@ -12,9 +17,10 @@ import Header from './Header'
 import { useFormContext } from 'react-hook-form'
 import { RefObject } from 'react'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
-import AddIngredientDrawer from './AddIngredientDrawer'
-import { useFoodsByIdDispatch, useFoodsListState } from 'core/foods'
+import SelectOrCreateFoodsDrawer from './SelectOrCreateFoodsDrawer'
+import { useFoodsByIdDispatch } from 'core/foods'
 import { useUndoRedoMethods } from 'core/undoRedo'
+import { Food } from 'core/types'
 
 type Props = {
   mealField: MealField
@@ -34,29 +40,31 @@ function MealItem({
   const ingredientsFormsController = useIngredientsController(index, mealField)
   const addAddIngredientDisclosure = useDisclosure()
   const foodsByIdDispatch = useFoodsByIdDispatch()
-  const foodsListState = useFoodsListState()
   const { saveLastChange } = useUndoRedoMethods()
 
   const { register } = useFormContext()
   const oneTimeCheck = useOneTimeCheck()
 
-  function onSave() {
+  function onSave(foods: Food[]) {
     addAddIngredientDisclosure.onClose()
 
-    const food = foodsListState[0]
+    const ingredientForms: IngredientForm[] = []
 
-    foodsByIdDispatch({ type: 'addFood', food })
+    for (const food of foods) {
+      foodsByIdDispatch({ type: 'addFood', food })
 
-    const ingredientForm = getIngredientForm({
-      foodId: 1,
-      amountInGrams: 100,
-    })
+      const ingredientForm = getIngredientForm({
+        foodId: food.id,
+        amountInGrams: 100,
+      })
 
-    oneTimeCheck.set(`${ingredientForm.fieldId}test`)
+      oneTimeCheck.set(`${ingredientForm.fieldId}test`)
+      ingredientForms.push(ingredientForm)
+    }
 
     ingredientsFormsController.insertIngredientForm(
       ingredientsFormsController.ingredientsFields.length,
-      ingredientForm
+      ingredientForms
     )
 
     saveLastChange()
@@ -85,7 +93,7 @@ function MealItem({
         onIngredientRemove={ingredientsFormsController.onIngredientRemove}
       />
 
-      <AddIngredientDrawer
+      <SelectOrCreateFoodsDrawer
         isOpen={addAddIngredientDisclosure.isOpen}
         onClose={addAddIngredientDisclosure.onClose}
         onSave={onSave}

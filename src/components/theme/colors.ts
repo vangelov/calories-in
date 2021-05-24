@@ -1,7 +1,4 @@
 const colors = {
-  borders: {
-    active: '#74CFD1',
-  },
   foodCategories: {
     redMeat: '#FFC3C3',
     poultry: '#FFEFD8',
@@ -10,7 +7,7 @@ const colors = {
   text: {
     name: '#4A5568',
   },
-  brand: {
+  custom: {
     '500': '#74CFD1',
   },
 }

@@ -35,7 +35,10 @@ function FoodInfo({ food, detailText, nameNoOfLines, ...rest }: Props) {
 
         {detailText && (
           <Text fontSize="xs" textColor="gray.400">
-            200kcal/100g
+            <Text as="span" fontWeight="bold" fontSize="xs">
+              200kcal
+            </Text>{' '}
+            per 100g
           </Text>
         )}
       </Box>

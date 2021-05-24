@@ -1,10 +1,9 @@
 import { InputProps, Input, Text, HStack } from '@chakra-ui/react'
-import { ForwardedRef, forwardRef, MouseEvent } from 'react'
+import { MouseEvent } from 'react'
 import { Controller } from 'react-hook-form'
 
 type Props = {
   name: string
-  forwardedRef?: ForwardedRef<HTMLInputElement>
 } & InputProps
 
 const MAX_AMOUNT_EXCLUDING = 10000
@@ -57,6 +56,4 @@ function FoodAmountInput({ name, defaultValue, onChange, ...rest }: Props) {
   )
 }
 
-export default forwardRef<HTMLInputElement, Props>((props, ref) => (
-  <FoodAmountInput forwardedRef={ref} {...props} />
-))
+export default FoodAmountInput

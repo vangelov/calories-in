@@ -1,6 +1,6 @@
 const Input = {
   defaultProps: {
-    focusBorderColor: 'borders.active',
+    focusBorderColor: 'custom.500',
   },
 }
 

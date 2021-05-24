@@ -23,6 +23,7 @@
     "@xobotyi/scrollbar-width": "^1.9.5",
     "focus-visible": "^5.2.0",
     "framer-motion": "^3.10.0",
+    "fuse.js": "^6.4.6",
     "jsondiffpatch": "^0.4.1",
     "react": "^17.0.1",
     "react-beautiful-dnd": "13.0.0",

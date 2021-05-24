@@ -2,11 +2,11 @@ import { ReactElement, ReactNode } from 'react'
 import { Box, Flex } from '@chakra-ui/react'
 
 export type MainLayoutProps = {
-  sidebarElement: ReactElement
+  sidebarElement?: ReactElement
   children: ReactNode
 }
 
-function MainLayout({ children, sidebarElement }: MainLayoutProps) {
+function MainLayout({ children }: MainLayoutProps) {
   return (
     <Flex height="100vh">
       <Box width="150px" bg="gray" />
