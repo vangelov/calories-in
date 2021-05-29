@@ -7,22 +7,24 @@ import {
   Select,
   Text,
   VStack,
+  FlexProps,
 } from '@chakra-ui/react'
 import { Divider } from '@chakra-ui/react'
 import { Search } from 'react-feather'
 import VirtualizedList from './VirtualizedList'
-import { Selection } from 'core/utils/useSelection'
+import { Selection } from 'core/utils'
 import { ChangeEvent, useState } from 'react'
 import { FOODS_CATEGORIES } from 'core/foodsCategories'
 import { useFilterFoods, FoodsFilter } from 'core/foods'
+import { Food } from 'core/types'
 
 const SearchStyled = chakra(Search)
 
 type Props = {
-  selection: Selection
-}
+  selection: Selection<Food>
+} & FlexProps
 
-function FoodsList({ selection }: Props) {
+function FoodsList({ selection, ...rest }: Props) {
   const [filter, setFilter] = useState<FoodsFilter>({ query: '' })
 
   function onInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -39,7 +41,7 @@ function FoodsList({ selection }: Props) {
   const filteredFoods = filterFoods(filter)
 
   return (
-    <Flex flexDirection="column" height="100%" mt={6} flex={1}>
+    <Flex flexDirection="column" {...rest}>
       <VStack spacing={3}>
         <InputGroup size="lg">
           <InputLeftElement
@@ -63,7 +65,9 @@ function FoodsList({ selection }: Props) {
         >
           <option value={undefined}>All categories</option>
           {FOODS_CATEGORIES.map(category => (
-            <option value={category.id}>{category.name}</option>
+            <option key={category.id} value={category.id}>
+              {category.name}
+            </option>
           ))}
         </Select>
       </VStack>
@@ -75,7 +79,7 @@ function FoodsList({ selection }: Props) {
           foodsCount={filteredFoods.length}
           isFoodSelected={food => selection.isIdSelected(food.id)}
           getFood={index => filteredFoods[index]}
-          onFoodSelect={food => selection.onToggleId(food.id)}
+          onFoodSelect={food => selection.onToggleItem(food)}
         />
       ) : (
         <Flex

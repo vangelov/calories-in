@@ -1,15 +1,31 @@
 import { useState } from 'react'
 
+type Item = { id: number }
+
 type SelectionMap = { [id: number]: boolean | undefined }
 
-function useSelection() {
-  const [selectionMap, setSelectionMap] = useState<SelectionMap>({})
+type Selection<T extends Item> = {
+  isIdSelected: (id: number) => boolean
+  onToggleItem: (item: T) => void
+  selectedItems: T[]
+  selectionMap: SelectionMap
+  reset: () => void
+}
 
-  function onToggleId(id: number) {
-    setSelectionMap(selectionMap => {
-      const isSelected = Boolean(selectionMap[id])
-      return { ...selectionMap, [id]: !isSelected }
-    })
+function useSelection<T extends Item>(): Selection<T> {
+  const [selectionMap, setSelectionMap] = useState<SelectionMap>({})
+  const [selectedItems, setSelectedItems] = useState<T[]>([])
+
+  function onToggleItem(item: T) {
+    const { id } = item
+    const isSelected = Boolean(selectionMap[id])
+
+    if (isSelected) {
+      setSelectedItems(selectedItems.filter(({ id }) => item.id !== id))
+    } else {
+      setSelectedItems([...selectedItems, item])
+    }
+    setSelectionMap({ ...selectionMap, [id]: !isSelected })
   }
 
   function isIdSelected(id: number) {
@@ -17,26 +33,19 @@ function useSelection() {
     return isSelected
   }
 
-  function getSelectedIdsCount() {
-    return Object.keys(selectionMap).filter(
-      (key: string) => selectionMap[Number(key)] === true
-    ).length
-  }
-
   function reset() {
+    setSelectedItems([])
     setSelectionMap({})
   }
 
   return {
     isIdSelected,
-    onToggleId,
+    onToggleItem,
     selectionMap,
-    getSelectedIdsCount,
+    selectedItems,
     reset,
   }
 }
-
-type Selection = ReturnType<typeof useSelection>
 
 export type { Selection }
 

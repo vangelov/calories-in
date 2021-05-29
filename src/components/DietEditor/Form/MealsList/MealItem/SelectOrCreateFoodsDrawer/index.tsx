@@ -8,22 +8,32 @@ import {
   DrawerCloseButton,
   Button,
   Flex,
+  VStack,
 } from '@chakra-ui/react'
 import { Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import FoodsList from 'components/general/FoodsList'
 import { useFoodsListState } from 'core/foods'
 import { Food } from 'core/types'
 import useSelection from 'core/utils/useSelection'
+import SelectedFoods from './SelectedFoods'
 
 type Props = {
   onClose: () => void
   isOpen: boolean
   onSave: (foods: Food[]) => void
+  mealName?: string
 }
 
-function SelectOrCreateFoodsDrawer({ onClose, isOpen, onSave }: Props) {
-  const selection = useSelection()
+function SelectOrCreateFoodsDrawer({
+  onClose,
+  isOpen,
+  onSave,
+  mealName,
+}: Props) {
+  const selection = useSelection<Food>()
   const foods = useFoodsListState()
+
+  const title = mealName ? `Add foods to ${mealName}` : 'Add foods'
 
   function onSaveButtonClick() {
     const selectedFoods: Food[] = foods.filter(food =>
@@ -44,7 +54,7 @@ function SelectOrCreateFoodsDrawer({ onClose, isOpen, onSave }: Props) {
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
-        <DrawerHeader>Add foods</DrawerHeader>
+        <DrawerHeader>{title}</DrawerHeader>
 
         <DrawerBody>
           <Flex width="100%" height="100%" flexDirection="column">
@@ -59,7 +69,17 @@ function SelectOrCreateFoodsDrawer({ onClose, isOpen, onSave }: Props) {
               </Stack>
             </RadioGroup>
 
-            <FoodsList selection={selection} />
+            <VStack
+              flex={1}
+              mt={3}
+              spacing={3}
+              flexDirection="column"
+              alignItems="stretch"
+            >
+              <SelectedFoods selection={selection} />
+
+              <FoodsList selection={selection} flex={1} />
+            </VStack>
           </Flex>
         </DrawerBody>
 

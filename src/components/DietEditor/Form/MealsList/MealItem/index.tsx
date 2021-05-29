@@ -1,4 +1,5 @@
 import {
+  DietForm,
   getIngredientForm,
   getMealsFormsPath,
   IngredientForm,
@@ -15,7 +16,7 @@ import IngredientsList from './IngredientsList'
 import useIngredientsController from './useIngredientsController'
 import Header from './Header'
 import { useFormContext } from 'react-hook-form'
-import { RefObject } from 'react'
+import { RefObject, useState } from 'react'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 import SelectOrCreateFoodsDrawer from './SelectOrCreateFoodsDrawer'
 import { useFoodsByIdDispatch } from 'core/foods'
@@ -37,10 +38,12 @@ function MealItem({
   getMealNameInputRefById,
   ...rest
 }: Props) {
+  const { getValues } = useFormContext<DietForm>()
   const ingredientsFormsController = useIngredientsController(index, mealField)
   const addAddIngredientDisclosure = useDisclosure()
   const foodsByIdDispatch = useFoodsByIdDispatch()
   const { saveLastChange } = useUndoRedoMethods()
+  const [mealName, setMealName] = useState<string | undefined>()
 
   const { register } = useFormContext()
   const oneTimeCheck = useOneTimeCheck()
@@ -70,6 +73,14 @@ function MealItem({
     saveLastChange()
   }
 
+  function onAddIngredient() {
+    const dietForm = getValues()
+    const mealForm = dietForm.mealsForms[index]
+
+    setMealName(mealForm.name)
+    addAddIngredientDisclosure.onOpen()
+  }
+
   return (
     <Flex flexDirection="column" backgroundColor="white" {...rest}>
       <Input
@@ -83,7 +94,7 @@ function MealItem({
         index={index}
         mealField={mealField}
         onRemove={onRemove}
-        onAddIngredient={addAddIngredientDisclosure.onOpen}
+        onAddIngredient={onAddIngredient}
       />
 
       <IngredientsList
@@ -94,6 +105,7 @@ function MealItem({
       />
 
       <SelectOrCreateFoodsDrawer
+        mealName={mealName}
         isOpen={addAddIngredientDisclosure.isOpen}
         onClose={addAddIngredientDisclosure.onClose}
         onSave={onSave}
