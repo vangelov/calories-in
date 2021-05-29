@@ -40,7 +40,7 @@ function VirtualizedList({
         innerElementType={Inner}
         height={height}
         itemCount={foodsCount}
-        itemSize={82}
+        itemSize={72}
         width="100%"
       >
         {({ style, index }: any) => {

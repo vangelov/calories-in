@@ -34,6 +34,7 @@ function FoodAmountInput({ name, defaultValue, onChange, ...rest }: Props) {
             textAlign="right"
             bg="white"
             maxWidth={20}
+            size="md"
             {...rest}
             onChange={event => {
               const value = event.target.value

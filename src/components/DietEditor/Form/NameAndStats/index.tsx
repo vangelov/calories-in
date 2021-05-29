@@ -52,7 +52,7 @@ function NameAndStats({
   }
 
   return (
-    <Flex pb={3} borderBottomWidth={1} width="100%">
+    <Flex pb={2} borderBottomWidth={1} width="100%">
       <Input type="hidden" {...register('formId')} />
 
       <StatsLayout
@@ -70,7 +70,8 @@ function NameAndStats({
             type="diet"
             label="Protein"
             value={dietStats.protein}
-            valueDetail="154g"
+            valueDetail="25%"
+            showsValueDetail={true}
           />
         }
         carbsElement={
@@ -79,7 +80,8 @@ function NameAndStats({
             type="diet"
             label="Carbs"
             value={dietStats.carbs}
-            valueDetail="154g"
+            valueDetail="55%"
+            showsValueDetail={true}
           />
         }
         fatElement={
@@ -88,7 +90,8 @@ function NameAndStats({
             type="diet"
             label="Fat"
             value={dietStats.fat}
-            valueDetail="154g"
+            valueDetail="20%"
+            showsValueDetail={true}
           />
         }
         menuElement={

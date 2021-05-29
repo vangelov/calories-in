@@ -110,12 +110,8 @@ function IngredientItem({
             bg="white"
             alignItems="center"
             position="relative"
-            py={4}
-            px={6}
-            minHeight="74px"
-            height="74px"
+            p={3}
             _hover={{ backgroundColor: transparentize('gray.50', 0.35) }}
-            _focus={{ borderWidth: 2 }}
           >
             {!snapshot.isDragging && (
               <Box

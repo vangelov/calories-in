@@ -26,10 +26,10 @@ function FoodInfo({ food, detailText, nameNoOfLines, ...rest }: Props) {
         backgroundColor={foodCategory.color}
       />
 
-      <FoodCategoryIcon flexShrink={0} ml={1} mr={2} fill="gray.600" />
+      <FoodCategoryIcon flexShrink={0} ml={1} fill="gray.600" />
 
       <Box ml={2}>
-        <Text fontSize="lg" noOfLines={nameNoOfLines} color="gray.600">
+        <Text fontSize="md" noOfLines={nameNoOfLines} color="gray.600">
           {food.name}
         </Text>
 

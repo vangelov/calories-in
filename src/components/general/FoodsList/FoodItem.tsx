@@ -35,9 +35,9 @@ function FoodItem({ food, isSelected = false, ...rest }: Props) {
         justifyContent="space-between"
         alignItems="center"
         p={3}
-        height="74px"
+        height="64px"
       >
-        <FoodInfo nameNoOfLines={2} detailText="test" food={food} />
+        <FoodInfo nameNoOfLines={1} detailText="test" food={food} />
         <IconButton
           aria-label="test"
           icon={<InfoStyled color="gray.400" pointerEvents="none" />}

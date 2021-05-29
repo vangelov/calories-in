@@ -19,7 +19,7 @@ function IngredientsList({
   return (
     <Droppable droppableId={mealField.fieldId as string}>
       {provided => (
-        <Box ref={provided.innerRef} minHeight="74px">
+        <Box ref={provided.innerRef} minHeight="64px">
           {ingredientsFields.map((ingredientField, index) => (
             <IngredientItem
               key={ingredientField.fieldId}

@@ -33,8 +33,7 @@ function Header({
       position="sticky"
       top="0"
       bg="gray.50"
-      py={4}
-      px={6}
+      p={3}
       zIndex={isMenuOpen ? 1000 : zIndex}
       justifyContent="space-between"
       borderBottomWidth={1}

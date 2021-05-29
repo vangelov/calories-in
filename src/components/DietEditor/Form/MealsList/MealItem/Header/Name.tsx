@@ -34,9 +34,8 @@ function Name({ mealField, index, getMealNameInputRefById }: Props) {
       onChange={onNameChange}
       autoComplete="off"
       bg="white"
-      borderColor="gray.200"
+      textColor="gray.600"
       width="85%"
-      fontWeight="bold"
       fontSize="lg"
       defaultValue={mealField.name}
     />
