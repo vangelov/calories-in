@@ -8,7 +8,6 @@ import 'focus-visible/dist/focus-visible'
 import theme from 'components/theme'
 import { FoodsCategoriesProvider } from 'core/foodsCategories'
 import smoothscroll from 'smoothscroll-polyfill'
-import ElementHeightProvder from 'core/ElementHeightProvider'
 import OneTimeCheckProvider from 'core/OneTimeCheckProvider'
 
 smoothscroll.polyfill()
@@ -19,13 +18,11 @@ function App() {
       <DragAndDropRespondersProvider>
         <FoodsListProvider initialFoods={builInFoods}>
           <FoodsCategoriesProvider>
-            <ElementHeightProvder>
-              <OneTimeCheckProvider>
-                <MainLayout>
-                  <DietEditor />
-                </MainLayout>
-              </OneTimeCheckProvider>
-            </ElementHeightProvder>
+            <OneTimeCheckProvider>
+              <MainLayout>
+                <DietEditor />
+              </MainLayout>
+            </OneTimeCheckProvider>
           </FoodsCategoriesProvider>
         </FoodsListProvider>
       </DragAndDropRespondersProvider>

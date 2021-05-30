@@ -6,8 +6,6 @@ import StatsLayout from 'components/general/StatsLayout'
 import { Stat } from 'components/general'
 import { Info } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
-import { useRef } from 'react'
-import { useElementHeightUpdate } from 'core/ElementHeightProvider'
 import Name from './Name'
 import EnergyStat from './EnergyStat'
 
@@ -39,9 +37,6 @@ function NameAndStats({
 }: Props) {
   const { register } = useFormContext()
   const dietStats = useDietStats()
-  const statsRef = useRef<HTMLDivElement>(null)
-
-  useElementHeightUpdate(statsRef)
 
   /*function onChangeButtonClick() { 
       onDietChange(anotherDiet)
@@ -56,7 +51,6 @@ function NameAndStats({
       <Input type="hidden" {...register('formId')} />
 
       <StatsLayout
-        ref={statsRef}
         nameElement={<Name onSelectDiet={onNewButtonClick} />}
         energyElement={
           <EnergyStat

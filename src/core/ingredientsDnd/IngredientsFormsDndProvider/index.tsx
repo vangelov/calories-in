@@ -4,7 +4,6 @@ import { ReactNode, useRef } from 'react'
 import { DragStart } from 'react-beautiful-dnd'
 import { useFormContext } from 'react-hook-form'
 import { StateContext } from './context'
-import { isFoodCategoryDroppableId } from 'core/foodsCategories'
 
 type Props = {
   children: ReactNode
@@ -17,11 +16,6 @@ function IngredientsFormsDndProvider({ children }: Props) {
   // We save the form so that after dragging has ended (in useReorderIngredientsForms) we can insert it
   useDragAndDropResponder('onDragStart', (initial: DragStart) => {
     const { source } = initial
-
-    if (isFoodCategoryDroppableId(source.droppableId)) {
-      return
-    }
-
     const values = getValues()
 
     const meal = values.mealsForms.find(
