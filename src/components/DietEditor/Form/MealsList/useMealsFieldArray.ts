@@ -1,21 +1,21 @@
-import { getMealForm, MealField, useMealsForms } from 'core/dietForm'
+import { getMealForm, getMealsFormsPath, MealField } from 'core/dietForm'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { MutableRefObject } from 'react'
+import { useFieldArray } from 'react-hook-form'
 
 type Params = {
   pendingMealFieldIdRef: MutableRefObject<string | null>
 }
 
-type MealsController = {
-  mealsFields: MealField[]
-  onMealAdd: () => void
-  onMealRemove: (index: number) => void
-}
+function useMealsFieldArray({ pendingMealFieldIdRef }: Params) {
+  const {
+    fields: mealsFields,
+    append: appendMealForm,
+    remove: removeMealForm,
+  } = useFieldArray({
+    name: getMealsFormsPath(),
+  })
 
-function useMealsController({
-  pendingMealFieldIdRef,
-}: Params): MealsController {
-  const { mealsFields, appendMealForm, removeMealForm } = useMealsForms()
   const { saveLastChange } = useUndoRedoMethods()
 
   function onMealAdd() {
@@ -31,12 +31,14 @@ function useMealsController({
   }
 
   return {
-    mealsFields,
+    mealsFields: mealsFields as MealField[],
     onMealAdd,
     onMealRemove,
   }
 }
 
-export type { MealsController }
+type MealsFieldArray = ReturnType<typeof useMealsFieldArray>
 
-export default useMealsController
+export type { MealsFieldArray }
+
+export default useMealsFieldArray

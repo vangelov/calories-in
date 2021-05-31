@@ -1,26 +1,26 @@
 import { Box } from '@chakra-ui/react'
 import MealItem from './MealItem'
-import useMealsController, { MealsController } from './useMealsController'
+import useMealsFieldArray, { MealsFieldArray } from './useMealsFieldArray'
 import { MutableRefObject, RefObject } from 'react'
 import { useGetRefForId } from 'core/utils'
 import useScrollToAndFocusMeal from './useScrollToAndFocusMeal'
 
 type Props = {
   scrollRef: RefObject<HTMLDivElement>
-  mealsControllerRef: MutableRefObject<MealsController | undefined>
+  mealsFieldArrayRef: MutableRefObject<MealsFieldArray | undefined>
 }
 
-function MealsList({ mealsControllerRef, scrollRef }: Props) {
+function MealsList({ mealsFieldArrayRef, scrollRef }: Props) {
   const getMealNameInputRefById = useGetRefForId()
   const pendingMealFieldIdRef = useScrollToAndFocusMeal({
     getMealNameInputRefById,
     scrollRef,
   })
-  const mealsController = useMealsController({
+  const mealsFieldArray = useMealsFieldArray({
     pendingMealFieldIdRef,
   })
 
-  mealsControllerRef.current = mealsController
+  mealsFieldArrayRef.current = mealsFieldArray
 
   return (
     <Box
@@ -33,19 +33,17 @@ function MealsList({ mealsControllerRef, scrollRef }: Props) {
       flex={1}
       overflowY="scroll"
     >
-      {mealsController.mealsFields.map((mealField, index) => (
+      {mealsFieldArray.mealsFields.map((mealField, index) => (
         <MealItem
           key={mealField.fieldId}
           getMealNameInputRefById={getMealNameInputRefById}
           index={index}
-          onRemove={mealsController.onMealRemove}
+          onRemove={mealsFieldArray.onMealRemove}
           mealField={mealField}
         />
       ))}
     </Box>
   )
 }
-
-export * from './useMealsController'
 
 export default MealsList

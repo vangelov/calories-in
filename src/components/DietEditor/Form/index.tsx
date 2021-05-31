@@ -1,5 +1,5 @@
 import NameAndStats from './NameAndStats'
-import MealsList, { MealsController } from './MealsList'
+import MealsList from './MealsList'
 import { Box, Flex } from '@chakra-ui/react'
 import Controls from './Controls'
 import { Diet } from 'core/types'
@@ -9,6 +9,7 @@ import { RefObject, useLayoutEffect, useRef } from 'react'
 import { IngredientsFormsDndProvider } from 'core/ingredientsDnd'
 import { Watcher } from 'core/undoRedo'
 import InvisibleScrollbar from 'components/general/InvisibleScrollbar'
+import { MealsFieldArray } from './MealsList/useMealsFieldArray'
 
 type Props = {
   dietForm: DietForm
@@ -28,7 +29,7 @@ function Form({
   isEditingExistingDiet,
 }: Props) {
   const formMethods = useDietForm(dietForm)
-  const mealsControllerRef = useRef<MealsController>()
+  const mealsFieldArrayRef = useRef<MealsFieldArray>()
   const { handleSubmit } = formMethods
 
   const onSubmit = handleSubmit((form: DietForm) => {
@@ -42,7 +43,7 @@ function Form({
   }, [scrollRef, scrollTop])
 
   function onMealAdd() {
-    mealsControllerRef.current?.onMealAdd()
+    mealsFieldArrayRef.current?.onMealAdd()
   }
 
   return (
@@ -72,7 +73,7 @@ function Form({
 
         <MealsList
           scrollRef={scrollRef}
-          mealsControllerRef={mealsControllerRef}
+          mealsFieldArrayRef={mealsFieldArrayRef}
         />
       </IngredientsFormsDndProvider>
     </FormProvider>
