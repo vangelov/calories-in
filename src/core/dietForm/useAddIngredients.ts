@@ -1,4 +1,8 @@
-import { getIngredientForm, IngredientForm } from 'core/dietForm'
+import {
+  getIngredientForm,
+  IngredientForm,
+  getInsertIngredientAnimationKey,
+} from 'core/dietForm'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 import { useDietFoodsDispatch } from 'core/foods'
 import { useUndoRedoMethods } from 'core/undoRedo'
@@ -25,7 +29,7 @@ function useAddIngredietnts({ ingredientsFieldArray }: Params) {
         amountInGrams: 100,
       })
 
-      oneTimeCheck.set(`${ingredientForm.fieldId}test`)
+      oneTimeCheck.set(getInsertIngredientAnimationKey(ingredientForm.fieldId))
       ingredientForms.push(ingredientForm)
     }
 

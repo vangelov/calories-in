@@ -15,6 +15,7 @@ import { useDietFoodsState } from 'core/foods/DietFoodsProvider'
 import { numberOrZeroFromString } from 'core/utils'
 import { getIngredientStats } from 'core/stats'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
+import { getInsertIngredientAnimationKey } from 'core/dietForm'
 
 type Props = {
   mealIndex: number
@@ -29,9 +30,6 @@ const variants = {
     opacity: 1,
     height: 'auto',
     x: 0,
-  },
-  transparent: {
-    opacity: 0,
   },
   collapsed: { opacity: 0, height: 0, x: 0 },
 }
@@ -63,12 +61,8 @@ function IngredientItem({
     throw new Error('Food id is missing')
   }
 
-  const pendingAnimationForDragged = oneTimeCheck.checkAndReset(
-    ingredientField.fieldId
-  )
-
   const pendingAnimationForInserted = oneTimeCheck.checkAndReset(
-    `${ingredientField.fieldId}test`
+    getInsertIngredientAnimationKey(ingredientField.fieldId)
   )
 
   const foodsByIdState = useDietFoodsState()
@@ -87,16 +81,9 @@ function IngredientItem({
         <motion.div
           transition={{ ease: 'easeInOut' }}
           style={{
-            opacity:
-              pendingAnimationForDragged || pendingAnimationForInserted ? 0 : 1,
+            opacity: pendingAnimationForInserted ? 0 : 1,
           }}
-          initial={
-            pendingAnimationForInserted
-              ? 'collapsed'
-              : pendingAnimationForDragged
-              ? 'transparent'
-              : false
-          }
+          initial={pendingAnimationForInserted ? 'collapsed' : false}
           animate={isVisible ? 'open' : 'collapsed'}
           onAnimationComplete={onAnimationComplete}
           variants={variants}
