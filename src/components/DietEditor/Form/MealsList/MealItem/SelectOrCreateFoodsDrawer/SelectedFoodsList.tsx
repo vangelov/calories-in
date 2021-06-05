@@ -1,4 +1,11 @@
-import { Flex, Text, Tag, TagLabel, TagCloseButton } from '@chakra-ui/react'
+import {
+  Flex,
+  Text,
+  Tag,
+  TagLabel,
+  TagCloseButton,
+  Fade,
+} from '@chakra-ui/react'
 import { Selection } from 'core/utils'
 import { Food } from 'core/types'
 
@@ -18,16 +25,12 @@ function SelectedFoods({ selection }: Props) {
       {selectedFoods.length > 0 ? (
         <Flex mx={-1} flexWrap="wrap">
           {selectedFoods.map(food => (
-            <Tag
-              size="md"
-              key={food.id}
-              borderRadius="full"
-              variant="outline"
-              m={1}
-            >
-              <TagLabel>{food.name}</TagLabel>
-              <TagCloseButton onClick={() => onFoodUnselect(food)} />
-            </Tag>
+            <Fade key={food.id} in={true}>
+              <Tag size="md" borderRadius="full" variant="outline" m={1}>
+                <TagLabel>{food.name}</TagLabel>
+                <TagCloseButton onClick={() => onFoodUnselect(food)} />
+              </Tag>
+            </Fade>
           ))}
         </Flex>
       ) : (

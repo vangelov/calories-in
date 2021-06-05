@@ -15,7 +15,7 @@ import FoodsList from 'components/general/FoodsList'
 import { useFoodsListState } from 'core/foods'
 import { Food } from 'core/types'
 import useSelection from 'core/utils/useSelection'
-import SelectedFoods from './SelectedFoods'
+import SelectedFoodsList from './SelectedFoodsList'
 
 type Props = {
   onClose: () => void
@@ -76,8 +76,7 @@ function SelectOrCreateFoodsDrawer({
               flexDirection="column"
               alignItems="stretch"
             >
-              <SelectedFoods selection={selection} />
-
+              <SelectedFoodsList selection={selection} />
               <FoodsList selection={selection} flex={1} />
             </VStack>
           </Flex>

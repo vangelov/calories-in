@@ -3,9 +3,10 @@ import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 import { useFoodsByIdDispatch } from 'core/foods'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { Food } from 'core/types'
+import { IngredientsFieldArray } from './useIngredientsFieldArray'
 
 type Params = {
-  ingredientsFieldArray: any
+  ingredientsFieldArray: IngredientsFieldArray
 }
 
 function useAddIngredietnts({ ingredientsFieldArray }: Params) {

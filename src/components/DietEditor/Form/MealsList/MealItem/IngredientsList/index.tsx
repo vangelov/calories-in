@@ -7,7 +7,7 @@ type Props = {
   mealIndex: number
   mealField: MealField
   ingredientsFields: IngredientField[]
-  onIngredientRemove: (index: number) => void
+  onIngredientRemove: (index: number, mealIndex: number) => void
 }
 
 function IngredientsList({

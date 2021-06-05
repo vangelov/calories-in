@@ -17,7 +17,7 @@ import { useFormContext } from 'react-hook-form'
 import { RefObject, useState } from 'react'
 import SelectOrCreateFoodsDrawer from './SelectOrCreateFoodsDrawer'
 import { Food } from 'core/types'
-import useAddIngredietnts from 'core/dietForm/useAddIngredients'
+import { useAddIngredients } from 'core/dietForm'
 
 type Props = {
   mealField: MealField
@@ -38,7 +38,7 @@ function MealItem({
   const ingredientsFieldArray = useIngredientsFieldArray(index, mealField)
   const addAddIngredientDisclosure = useDisclosure()
   const [mealName, setMealName] = useState<string | undefined>()
-  const addIngredients = useAddIngredietnts({ ingredientsFieldArray })
+  const addIngredients = useAddIngredients({ ingredientsFieldArray })
   const { register } = useFormContext()
 
   function onSave(foods: Food[]) {

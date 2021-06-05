@@ -49,4 +49,8 @@ function useIngredientsFieldArray(mealIndex: number, mealField: MealField) {
   }
 }
 
+type IngredientsFieldArray = ReturnType<typeof useIngredientsFieldArray>
+
+export type { IngredientsFieldArray }
+
 export default useIngredientsFieldArray
