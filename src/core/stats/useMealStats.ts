@@ -5,7 +5,7 @@ import {
   IngredientForm,
 } from 'core/dietForm'
 import sumStats from './sumStats'
-import { useFoodsByIdState } from 'core/foods'
+import { useDietFoodsState } from 'core/foods'
 import numberOrZeroFromString from 'core/utils/numberOrZeroFromString'
 import getIngredientStats from './getIngredientStats'
 
@@ -17,7 +17,7 @@ function useMealStats(mealIndex: number, mealField: MealField) {
     defaultValue: mealField.ingredientsForms,
   }) as IngredientForm[]
 
-  const foodsByIdState = useFoodsByIdState()
+  const foodsByIdState = useDietFoodsState()
 
   const ingredientsStats = ingredientsForms.map(ingredientsForm => {
     const amountInGrams = numberOrZeroFromString(ingredientsForm.amountInGrams)

@@ -1,32 +1,32 @@
 import { createContext, useContext } from 'react'
-import { FoodsByIdMap, Food } from 'core/types'
+import { Food } from 'core/types'
 
-type State = FoodsByIdMap
+type State = Food[]
 
 type Action =
   | { type: 'addFood'; food: Food }
-  | { type: 'removeFood'; foodId: number }
+  | { type: 'removeFood'; index: number }
 
 type Dispatch = (action: Action) => void
 
 const StateContext = createContext<State | undefined>(undefined)
 const DispatchContext = createContext<Dispatch | undefined>(undefined)
 
-function useFoodsByIdDispatch() {
+function useUserFoodsDispatch() {
   const dispatch = useContext(DispatchContext)
 
   if (!dispatch) {
-    throw new Error('Missing dispatch context provider in FoodsByIdProvider')
+    throw new Error('Missing dispatch context provider in FoodsListProvider')
   }
 
   return dispatch
 }
 
-function useFoodsByIdState() {
+function useUserFoodsState() {
   const state = useContext(StateContext)
 
   if (!state) {
-    throw new Error('Missing state context provider in FoodsByIdProvider')
+    throw new Error('Missing state context provider in FoodsListProvider')
   }
 
   return state
@@ -37,6 +37,6 @@ export type { State, Action }
 export {
   StateContext,
   DispatchContext,
-  useFoodsByIdDispatch,
-  useFoodsByIdState,
+  useUserFoodsDispatch,
+  useUserFoodsState,
 }

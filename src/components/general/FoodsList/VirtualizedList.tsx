@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/react'
 import { FixedSizeList } from 'react-window'
 import FoodItem from './FoodItem'
-import useResizeObserver from 'use-resize-observer'
-import { forwardRef } from 'react'
+import useResizeObserver from '@react-hook/resize-observer'
+import { forwardRef, useRef, useState } from 'react'
 import { Food } from 'core/types'
 
 const TOP_PADDING = 12
@@ -31,7 +31,10 @@ function VirtualizedList({
   onFoodSelect,
   foodsCount,
 }: Props) {
-  const { ref, height = 0 } = useResizeObserver<HTMLDivElement>()
+  const [height, setHeight] = useState(0)
+  const ref = useRef<HTMLDivElement>(null)
+
+  useResizeObserver(ref, entry => setHeight(entry.contentRect.height))
 
   return (
     <Box position="relative" ref={ref} flex={1}>

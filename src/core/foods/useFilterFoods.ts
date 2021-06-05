@@ -1,4 +1,4 @@
-import { useFoodsListState } from './FoodsListProvider'
+import { useUserFoodsState } from './UserFoodsProvider'
 import Fuse from 'fuse.js'
 import { useMemo } from 'react'
 import { Food } from 'core/types'
@@ -29,7 +29,7 @@ function groupFoodsByCategoryId(foods: Food[]) {
 }
 
 function useFilterFoods() {
-  const foods = useFoodsListState()
+  const foods = useUserFoodsState()
   const fuse = useMemo(() => new Fuse(foods, OPTIONS), [foods])
   const foodsByCategoryId = useMemo(() => groupFoodsByCategoryId(foods), [
     foods,

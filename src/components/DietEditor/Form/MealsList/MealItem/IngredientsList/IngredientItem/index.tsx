@@ -11,7 +11,7 @@ import { FoodAmountInput } from 'components/general'
 import { StatsLayout, Stat } from 'components/general'
 import RightAligned from 'components/general/RightAligned'
 import Menu from './Menu'
-import { useFoodsByIdState } from 'core/foods/FoodsByIdProvider'
+import { useDietFoodsState } from 'core/foods/DietFoodsProvider'
 import { numberOrZeroFromString } from 'core/utils'
 import { getIngredientStats } from 'core/stats'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
@@ -71,7 +71,7 @@ function IngredientItem({
     `${ingredientField.fieldId}test`
   )
 
-  const foodsByIdState = useFoodsByIdState()
+  const foodsByIdState = useDietFoodsState()
   const food = foodsByIdState[ingredientField.foodId]
 
   const amountInGrams = numberOrZeroFromString(amountInGramsString)

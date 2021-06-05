@@ -3,7 +3,7 @@ import { getDietForm } from 'core/dietForm'
 import { useRef, useState } from 'react'
 import { UndoRedoMethodsProvider, UndoRedoStateProvider } from 'core/undoRedo'
 import Form from './Form'
-import { FoodsByIdProvider } from 'core/foods'
+import { DietFoodsProvider } from 'core/foods'
 import { DietStatsProvider, InitialEnergyProvider } from 'core/stats'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 
@@ -52,7 +52,7 @@ function DietEditor() {
     <UndoRedoStateProvider key={dietForm.formId}>
       <InitialEnergyProvider>
         <DietStatsProvider>
-          <FoodsByIdProvider initialFoodsByIdMap={diet && diet.foodsByIdMap}>
+          <DietFoodsProvider initialFoodsByIdMap={diet && diet.foodsByIdMap}>
             <UndoRedoMethodsProvider scrollRef={scrollRef} dietForm={dietForm}>
               {(currentDietForm, version, scrollTop) => (
                 <Form
@@ -66,7 +66,7 @@ function DietEditor() {
                 />
               )}
             </UndoRedoMethodsProvider>
-          </FoodsByIdProvider>
+          </DietFoodsProvider>
         </DietStatsProvider>
       </InitialEnergyProvider>
     </UndoRedoStateProvider>

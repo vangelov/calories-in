@@ -23,7 +23,7 @@ function buildFoodCategoryByIdMap(
   return foodCategoryByIdMap
 }
 
-function FoodsByIdProvider({ children }: Props) {
+function DietFoodsProvider({ children }: Props) {
   const [foodCategoryByIdMap] = useState(() =>
     buildFoodCategoryByIdMap(FOODS_CATEGORIES)
   )
@@ -39,4 +39,4 @@ function FoodsByIdProvider({ children }: Props) {
 
 export * from './context'
 
-export default FoodsByIdProvider
+export default DietFoodsProvider

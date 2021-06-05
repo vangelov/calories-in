@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import FoodsList from 'components/general/FoodsList'
-import { useFoodsListState } from 'core/foods'
+import { useUserFoodsState } from 'core/foods'
 import { Food } from 'core/types'
 import useSelection from 'core/utils/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
@@ -31,7 +31,7 @@ function SelectOrCreateFoodsDrawer({
   mealName,
 }: Props) {
   const selection = useSelection<Food>()
-  const foods = useFoodsListState()
+  const foods = useUserFoodsState()
 
   const title = mealName ? `Add foods to ${mealName}` : 'Add foods'
 

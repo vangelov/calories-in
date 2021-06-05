@@ -1,7 +1,7 @@
-export { default as FoodsByIdProvider } from './FoodsByIdProvider'
-export * from './FoodsByIdProvider'
+export { default as DietFoodsProvider } from './DietFoodsProvider'
+export * from './DietFoodsProvider'
 
-export { default as FoodsListProvider } from './FoodsListProvider'
-export { useFoodsListState } from './FoodsListProvider'
+export { default as UserFoodsProvider } from './UserFoodsProvider'
+export { useUserFoodsState } from './UserFoodsProvider'
 export { default as useFilterFoods } from './useFilterFoods'
 export type { FoodsFilter } from './useFilterFoods'
