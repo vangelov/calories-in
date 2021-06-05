@@ -3,13 +3,12 @@ import MealsList from './MealsList'
 import { Box, Flex } from '@chakra-ui/react'
 import Controls from './Controls'
 import { Diet } from 'core/types'
-import { DietForm, useDietForm } from 'core/dietForm'
+import { DietForm, useDietForm, MealsFieldArray } from 'core/dietForm'
 import { FormProvider } from 'react-hook-form'
 import { RefObject, useLayoutEffect, useRef } from 'react'
 import { IngredientsFormsDndProvider } from 'core/ingredientsDnd'
 import { Watcher } from 'core/undoRedo'
 import InvisibleScrollbar from 'components/general/InvisibleScrollbar'
-import { MealsFieldArray } from './MealsList/useMealsFieldArray'
 
 type Props = {
   dietForm: DietForm

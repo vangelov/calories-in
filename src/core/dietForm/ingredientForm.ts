@@ -1,5 +1,4 @@
 import { Ingredient } from 'core/types'
-import { useFieldArray } from 'react-hook-form'
 import { getMealsFormsPath } from './mealForm'
 import { getFormPath } from './utils'
 import { v4 as uuidv4 } from 'uuid'
@@ -22,23 +21,6 @@ function getIngredientForm(ingredient: Ingredient): IngredientForm {
 
 type IngredientField = Partial<IngredientForm>
 
-function useIngredientsForms(mealIndex: number) {
-  const {
-    fields: ingredientsFields,
-    insert: insertIngredientForm,
-    remove: removeIngredientForm,
-    move: moveIngredientForm,
-  } = useFieldArray({
-    name: getIngredientsFormsPath(mealIndex),
-  })
-
-  return {
-    ingredientsFields: ingredientsFields as IngredientField[],
-    insertIngredientForm,
-    removeIngredientForm,
-    moveIngredientForm,
-  }
-}
 function getIngredientsFormsPath(
   mealIndex: number,
   index?: number,
@@ -50,4 +32,4 @@ function getIngredientsFormsPath(
 
 export type { IngredientForm, IngredientField }
 
-export { getIngredientForm, useIngredientsForms, getIngredientsFormsPath }
+export { getIngredientForm, getIngredientsFormsPath }

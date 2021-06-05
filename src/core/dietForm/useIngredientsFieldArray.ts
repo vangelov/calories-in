@@ -1,15 +1,19 @@
-import { useIngredientsForms, MealField } from 'core/dietForm'
+import { MealField, getIngredientsFormsPath, IngredientField } from './dietForm'
 import { useReorderIngredientsForms } from 'core/ingredientsDnd'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { useEffect, useState } from 'react'
+import { useFieldArray } from 'react-hook-form'
 
-function useIngredientsController(mealIndex: number, mealField: MealField) {
+function useIngredientsFieldArray(mealIndex: number, mealField: MealField) {
   const {
-    ingredientsFields,
-    removeIngredientForm,
-    insertIngredientForm,
-    moveIngredientForm,
-  } = useIngredientsForms(mealIndex)
+    fields: ingredientsFields,
+    insert: insertIngredientForm,
+    remove: removeIngredientForm,
+    move: moveIngredientForm,
+  } = useFieldArray({
+    name: getIngredientsFormsPath(mealIndex),
+  })
+
   const [removeData, setRemoveData] = useState({ index: -1 })
 
   const { saveLastChange } = useUndoRedoMethods()
@@ -39,10 +43,10 @@ function useIngredientsController(mealIndex: number, mealField: MealField) {
   }
 
   return {
-    ingredientsFields,
+    ingredientsFields: ingredientsFields as IngredientField[],
     onIngredientRemove,
     insertIngredientForm,
   }
 }
 
-export default useIngredientsController
+export default useIngredientsFieldArray

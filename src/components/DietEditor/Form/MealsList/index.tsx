@@ -1,9 +1,12 @@
 import { Box } from '@chakra-ui/react'
 import MealItem from './MealItem'
-import useMealsFieldArray, { MealsFieldArray } from './useMealsFieldArray'
+import {
+  useMealsFieldArray,
+  MealsFieldArray,
+  useScrollToAndFocusMeal,
+} from 'core/dietForm'
 import { MutableRefObject, RefObject } from 'react'
 import { useGetRefForId } from 'core/utils'
-import useScrollToAndFocusMeal from './useScrollToAndFocusMeal'
 
 type Props = {
   scrollRef: RefObject<HTMLDivElement>

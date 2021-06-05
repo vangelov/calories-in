@@ -1,4 +1,4 @@
-import { getMealForm, getMealsFormsPath, MealField } from 'core/dietForm'
+import { getMealForm, getMealsFormsPath, MealField } from './dietForm'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { MutableRefObject } from 'react'
 import { useFieldArray } from 'react-hook-form'

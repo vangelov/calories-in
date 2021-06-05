@@ -1,9 +1,8 @@
 import {
   DietForm,
-  getIngredientForm,
   getMealsFormsPath,
-  IngredientForm,
   MealField,
+  useIngredientsFieldArray,
 } from 'core/dietForm'
 import {
   Flex,
@@ -13,15 +12,12 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import IngredientsList from './IngredientsList'
-import useIngredientsController from './useIngredientsController'
 import Header from './Header'
 import { useFormContext } from 'react-hook-form'
 import { RefObject, useState } from 'react'
-import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 import SelectOrCreateFoodsDrawer from './SelectOrCreateFoodsDrawer'
-import { useFoodsByIdDispatch } from 'core/foods'
-import { useUndoRedoMethods } from 'core/undoRedo'
 import { Food } from 'core/types'
+import useAddIngredietnts from 'core/dietForm/useAddIngredients'
 
 type Props = {
   mealField: MealField
@@ -39,45 +35,22 @@ function MealItem({
   ...rest
 }: Props) {
   const { getValues } = useFormContext<DietForm>()
-  const ingredientsFormsController = useIngredientsController(index, mealField)
+  const ingredientsFieldArray = useIngredientsFieldArray(index, mealField)
   const addAddIngredientDisclosure = useDisclosure()
-  const foodsByIdDispatch = useFoodsByIdDispatch()
-  const { saveLastChange } = useUndoRedoMethods()
   const [mealName, setMealName] = useState<string | undefined>()
-
+  const addIngredients = useAddIngredietnts({ ingredientsFieldArray })
   const { register } = useFormContext()
-  const oneTimeCheck = useOneTimeCheck()
 
   function onSave(foods: Food[]) {
     addAddIngredientDisclosure.onClose()
-
-    const ingredientForms: IngredientForm[] = []
-
-    for (const food of foods) {
-      foodsByIdDispatch({ type: 'addFood', food })
-
-      const ingredientForm = getIngredientForm({
-        foodId: food.id,
-        amountInGrams: 100,
-      })
-
-      oneTimeCheck.set(`${ingredientForm.fieldId}test`)
-      ingredientForms.push(ingredientForm)
-    }
-
-    ingredientsFormsController.insertIngredientForm(
-      ingredientsFormsController.ingredientsFields.length,
-      ingredientForms
-    )
-
-    saveLastChange()
+    addIngredients.onAddIngredients(foods)
   }
 
   function onAddIngredient() {
     const dietForm = getValues()
     const mealForm = dietForm.mealsForms[index]
-
     setMealName(mealForm.name)
+
     addAddIngredientDisclosure.onOpen()
   }
 
@@ -100,8 +73,8 @@ function MealItem({
       <IngredientsList
         mealField={mealField}
         mealIndex={index}
-        ingredientsFields={ingredientsFormsController.ingredientsFields}
-        onIngredientRemove={ingredientsFormsController.onIngredientRemove}
+        ingredientsFields={ingredientsFieldArray.ingredientsFields}
+        onIngredientRemove={ingredientsFieldArray.onIngredientRemove}
       />
 
       <SelectOrCreateFoodsDrawer
