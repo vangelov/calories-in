@@ -14,6 +14,10 @@ function getIngredientStats(amountInGrams: number, food: Food): Stats {
     protein,
     carbs,
     fat,
+    saturatedFat: 0,
+    sugar: 0,
+    sodium: 0,
+    fiber: 0,
   }
 }
 

@@ -12,7 +12,6 @@ import { StatsLayout, Stat } from 'components/general'
 import RightAligned from 'components/general/RightAligned'
 import Menu from './Menu'
 import { useDietFoodsState } from 'core/foods/DietFoodsProvider'
-import { numberOrZeroFromString } from 'core/utils'
 import { getIngredientStats } from 'core/stats'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 import { getInsertIngredientAnimationKey } from 'core/dietForm'
@@ -44,7 +43,7 @@ function IngredientItem({
   const { saveLastChange } = useUndoRedoMethods()
   const [isVisible, setIsVisible] = useState(true)
   const amountName = getIngredientsFormsPath(mealIndex, index, 'amountInGrams')
-  const amountInGramsString = useWatch({ name: amountName })
+  const amountInGrams = useWatch({ name: amountName })
   const oneTimeCheck = useOneTimeCheck()
 
   function onAmountChange() {
@@ -67,8 +66,6 @@ function IngredientItem({
 
   const foodsByIdState = useDietFoodsState()
   const food = foodsByIdState[ingredientField.foodId]
-
-  const amountInGrams = numberOrZeroFromString(amountInGramsString)
   const ingredientStats = getIngredientStats(amountInGrams, food)
 
   return (

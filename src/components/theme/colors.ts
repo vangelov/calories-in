@@ -9,6 +9,7 @@ const colors = {
   },
   custom: {
     '500': '#74CFD1',
+    '600': '#38a8aa',
   },
 }
 

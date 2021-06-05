@@ -4,11 +4,18 @@ import { Controller } from 'react-hook-form'
 
 type Props = {
   name: string
+  unit?: string
 } & InputProps
 
 const MAX_AMOUNT_EXCLUDING = 10000
 
-function FoodAmountInput({ name, defaultValue, onChange, ...rest }: Props) {
+function FoodAmountInput({
+  name,
+  defaultValue,
+  onChange,
+  unit = 'g',
+  ...rest
+}: Props) {
   function onMouseDown(event: MouseEvent<HTMLInputElement>) {
     const input = event.target as HTMLInputElement
 
@@ -38,9 +45,10 @@ function FoodAmountInput({ name, defaultValue, onChange, ...rest }: Props) {
             {...rest}
             onChange={event => {
               const value = event.target.value
+              const valueAsNumber = Number(value)
 
-              if (Number(value) < MAX_AMOUNT_EXCLUDING) {
-                field.onChange(value)
+              if (valueAsNumber < MAX_AMOUNT_EXCLUDING) {
+                field.onChange(valueAsNumber)
                 onChange && onChange(event)
               }
             }}
@@ -50,9 +58,11 @@ function FoodAmountInput({ name, defaultValue, onChange, ...rest }: Props) {
         )}
       />
 
-      <Text fontSize="lg" textColor="gray.500">
-        g
-      </Text>
+      {unit && (
+        <Text fontSize="lg" textColor="gray.500">
+          {unit}
+        </Text>
+      )}
     </HStack>
   )
 }

@@ -1,7 +1,4 @@
-type Food = {
-  id: number
-  categoryId: number
-  name: string
+type NutritionStats = {
   protein: number
   carbs: number
   fat: number
@@ -11,6 +8,12 @@ type Food = {
   fiber: number
   sodium: number
 }
+
+type Food = {
+  id: number
+  categoryId: number
+  name: string
+} & NutritionStats
 
 type Ingredient = {
   foodId: number
@@ -37,4 +40,12 @@ type Diet = {
   foodsByIdMap: FoodsByIdMap
 }
 
-export type { Food, Ingredient, Meal, Diet, FoodsByIdMap, FoodCategory }
+export type {
+  Food,
+  Ingredient,
+  Meal,
+  Diet,
+  FoodsByIdMap,
+  FoodCategory,
+  NutritionStats,
+}

@@ -10,12 +10,16 @@ import {
   Flex,
   VStack,
 } from '@chakra-ui/react'
-import { Radio, RadioGroup, Stack } from '@chakra-ui/react'
 import FoodsList from 'components/general/FoodsList'
 import { useUserFoodsState } from 'core/foods'
 import { Food } from 'core/types'
 import useSelection from 'core/utils/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
+import ActionTypeOptions, { ActionType } from './ActionTypeOptions'
+import { useRef, useState } from 'react'
+import CreateOrEditFood from 'components/foods/CreateOrEditFood'
+import { getFoodForm, useFoodForm } from 'core/foodForm/foodForm'
+import { FormProvider } from 'react-hook-form'
 
 type Props = {
   onClose: () => void
@@ -32,16 +36,27 @@ function SelectOrCreateFoodsDrawer({
 }: Props) {
   const selection = useSelection<Food>()
   const foods = useUserFoodsState()
-
   const title = mealName ? `Add foods to ${mealName}` : 'Add foods'
+  const [actionType, setActionType] = useState<ActionType>('selectFoods')
+  const formMethods = useFoodForm(getFoodForm())
+  const { handleSubmit } = formMethods
+  const searchInputRef = useRef<HTMLInputElement>(null)
+
+  const onSubmit = handleSubmit(form => {
+    console.log('f', form)
+  })
 
   function onSaveButtonClick() {
-    const selectedFoods: Food[] = foods.filter(food =>
-      selection.isIdSelected(food.id)
-    )
+    if (actionType === 'selectFoods') {
+      const selectedFoods: Food[] = foods.filter(food =>
+        selection.isIdSelected(food.id)
+      )
 
-    selection.reset()
-    onSave(selectedFoods)
+      selection.reset()
+      onSave(selectedFoods)
+    } else {
+      onSubmit()
+    }
   }
 
   function onBeforeClose() {
@@ -50,7 +65,13 @@ function SelectOrCreateFoodsDrawer({
   }
 
   return (
-    <Drawer isOpen={isOpen} size="md" placement="right" onClose={onBeforeClose}>
+    <Drawer
+      initialFocusRef={searchInputRef}
+      isOpen={isOpen}
+      size="md"
+      placement="right"
+      onClose={onBeforeClose}
+    >
       <DrawerOverlay />
       <DrawerContent>
         <DrawerCloseButton />
@@ -58,27 +79,31 @@ function SelectOrCreateFoodsDrawer({
 
         <DrawerBody>
           <Flex width="100%" height="100%" flexDirection="column">
-            <RadioGroup value="1">
-              <Stack direction="row" spacing={5}>
-                <Radio colorScheme="custom" size="lg" value="1">
-                  Select Foods
-                </Radio>
-                <Radio colorScheme="custom" value="2" size="lg">
-                  Create Food
-                </Radio>
-              </Stack>
-            </RadioGroup>
+            <ActionTypeOptions
+              actionType={actionType}
+              onActionChange={setActionType}
+            />
 
-            <VStack
-              flex={1}
-              mt={3}
-              spacing={3}
-              flexDirection="column"
-              alignItems="stretch"
-            >
-              <SelectedFoodsList selection={selection} />
-              <FoodsList selection={selection} flex={1} />
-            </VStack>
+            {actionType === 'selectFoods' ? (
+              <VStack
+                flex={1}
+                mt={3}
+                spacing={3}
+                flexDirection="column"
+                alignItems="stretch"
+              >
+                <SelectedFoodsList selection={selection} />
+                <FoodsList
+                  searchInputRef={searchInputRef}
+                  selection={selection}
+                  flex={1}
+                />
+              </VStack>
+            ) : (
+              <FormProvider {...formMethods}>
+                <CreateOrEditFood flex={1} />
+              </FormProvider>
+            )}
           </Flex>
         </DrawerBody>
 

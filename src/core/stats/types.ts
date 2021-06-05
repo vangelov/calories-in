@@ -1,9 +1,7 @@
+import { NutritionStats } from 'core/types'
+
 type Stats = {
   amountInGrams: number
-  energy: number
-  protein: number
-  carbs: number
-  fat: number
-}
+} & NutritionStats
 
 export type { Stats }

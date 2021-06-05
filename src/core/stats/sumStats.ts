@@ -7,6 +7,10 @@ function sumStats(stats: Stats[]): Stats {
     amountInGrams: 0,
     carbs: 0,
     fat: 0,
+    saturatedFat: 0,
+    sugar: 0,
+    sodium: 0,
+    fiber: 0,
   }
 
   for (const { amountInGrams, energy, protein, carbs, fat } of stats) {

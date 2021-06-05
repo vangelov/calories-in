@@ -13,7 +13,7 @@ import { Divider } from '@chakra-ui/react'
 import { Search } from 'react-feather'
 import VirtualizedList from './VirtualizedList'
 import { Selection } from 'core/utils'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, RefObject, useState } from 'react'
 import { FOODS_CATEGORIES } from 'core/foodsCategories'
 import { useFilterFoods, FoodsFilter } from 'core/foods'
 import { Food } from 'core/types'
@@ -21,10 +21,11 @@ import { Food } from 'core/types'
 const SearchStyled = chakra(Search)
 
 type Props = {
+  searchInputRef?: RefObject<HTMLInputElement>
   selection: Selection<Food>
 } & FlexProps
 
-function FoodsList({ selection, ...rest }: Props) {
+function FoodsList({ selection, searchInputRef, ...rest }: Props) {
   const [filter, setFilter] = useState<FoodsFilter>({ query: '' })
 
   function onInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -43,15 +44,15 @@ function FoodsList({ selection, ...rest }: Props) {
   return (
     <Flex flexDirection="column" {...rest}>
       <VStack spacing={3}>
-        <InputGroup size="lg">
+        <InputGroup size="md">
           <InputLeftElement
             pointerEvents="none"
             children={<SearchStyled pointerEvents="none" color="gray.400" />}
           />
           <Input
+            ref={searchInputRef}
             value={filter.query}
             onChange={onInputChange}
-            autoFocus={true}
             placeholder="Search"
           />
         </InputGroup>
@@ -59,7 +60,7 @@ function FoodsList({ selection, ...rest }: Props) {
         <Select
           onChange={onSelectChange}
           focusBorderColor="custom.500"
-          size="lg"
+          size="md"
           flex={1}
           colorScheme="red"
         >
