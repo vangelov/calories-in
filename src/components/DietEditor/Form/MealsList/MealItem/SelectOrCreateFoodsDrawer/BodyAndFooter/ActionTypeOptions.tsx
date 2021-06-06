@@ -4,7 +4,7 @@ type ActionType = 'selectFoods' | 'createNewFood'
 
 type Props = {
   actionType: ActionType
-  onActionChange: (actionType: ActionType) => void
+  onActionTypeChange: (actionType: ActionType) => void
 }
 
 const tabIndexToActionTypeMap: Record<number, ActionType> = {
@@ -17,10 +17,10 @@ const actionTypeToTabIndexMap: Record<ActionType, number> = {
   createNewFood: 1,
 }
 
-function ActionTypeOptions({ onActionChange, actionType }: Props) {
+function ActionTypeOptions({ onActionTypeChange, actionType }: Props) {
   function onTabChange(selectedTabIndex: number) {
     const actionType = tabIndexToActionTypeMap[selectedTabIndex]
-    onActionChange(actionType)
+    onActionTypeChange(actionType)
   }
 
   const tabIndex = actionTypeToTabIndexMap[actionType]

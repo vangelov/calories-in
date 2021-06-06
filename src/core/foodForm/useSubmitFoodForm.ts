@@ -7,7 +7,7 @@ type Params = {
   formMethods: UseFormReturn<FoodForm>
   onComplete: (food: Food) => void
 }
-function useSubmit({ formMethods, onComplete }: Params) {
+function useSubmitFoodForm({ formMethods, onComplete }: Params) {
   const { handleSubmit } = formMethods
   const foodsByIdDispatch = useFoodsByIdDispatch()
   const foodsByIdState = useFoodsByIdState()
@@ -40,4 +40,4 @@ function useSubmit({ formMethods, onComplete }: Params) {
   }
 }
 
-export default useSubmit
+export default useSubmitFoodForm

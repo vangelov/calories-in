@@ -12,9 +12,8 @@ import SelectedFoodsList from './SelectedFoodsList'
 import ActionTypeOptions, { ActionType } from './ActionTypeOptions'
 import { RefObject, useState } from 'react'
 import { CreateOrEditFoodFields } from 'components/foods'
-import { getFoodForm, useFoodForm } from 'core/foodForm'
+import { getFoodForm, useFoodForm, useSubmitFoodForm } from 'core/foodForm'
 import { FormProvider } from 'react-hook-form'
-import { default as useFoodFormSubmit } from 'core/foodForm/useSubmit'
 
 type Props = {
   onClose: () => void
@@ -27,7 +26,7 @@ function BodyAndFooter({ onClose, onSave, searchInputRef }: Props) {
   const [actionType, setActionType] = useState<ActionType>('selectFoods')
   const formMethods = useFoodForm(getFoodForm())
 
-  const submit = useFoodFormSubmit({
+  const submitFoodForm = useSubmitFoodForm({
     formMethods,
     onComplete: (food: Food) => onSave([food]),
   })
@@ -36,7 +35,7 @@ function BodyAndFooter({ onClose, onSave, searchInputRef }: Props) {
     if (actionType === 'selectFoods') {
       onSave(selection.selectedItems)
     } else {
-      submit.onSubmit()
+      submitFoodForm.onSubmit()
     }
   }
 
@@ -46,7 +45,7 @@ function BodyAndFooter({ onClose, onSave, searchInputRef }: Props) {
         <Flex width="100%" height="100%" flexDirection="column">
           <ActionTypeOptions
             actionType={actionType}
-            onActionChange={setActionType}
+            onActionTypeChange={setActionType}
           />
 
           {actionType === 'selectFoods' ? (
