@@ -11,7 +11,7 @@ import { FoodAmountInput } from 'components/foods'
 import { StatsLayout, Stat } from 'components/general'
 import RightAligned from 'components/general/RightAligned'
 import Menu from './Menu'
-import { useDietFoodsState } from 'core/foods'
+import { useFoodsByIdState } from 'core/foods'
 import { getIngredientStats } from 'core/stats'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 import { getInsertIngredientAnimationKey } from 'core/dietForm'
@@ -64,7 +64,7 @@ function IngredientItem({
     getInsertIngredientAnimationKey(ingredientField.fieldId)
   )
 
-  const foodsByIdState = useDietFoodsState()
+  const foodsByIdState = useFoodsByIdState()
   const food = foodsByIdState[ingredientField.foodId]
   const ingredientStats = getIngredientStats(amountInGrams, food)
 

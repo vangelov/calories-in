@@ -6,13 +6,14 @@ type State = FoodsByIdMap
 type Action =
   | { type: 'addFood'; food: Food }
   | { type: 'removeFood'; foodId: number }
+  | { type: 'replaceFood'; foodId: number; food: Food }
 
 type Dispatch = (action: Action) => void
 
 const StateContext = createContext<State | undefined>(undefined)
 const DispatchContext = createContext<Dispatch | undefined>(undefined)
 
-function useDietFoodsDispatch() {
+function useFoodsByIdDispatch() {
   const dispatch = useContext(DispatchContext)
 
   if (!dispatch) {
@@ -22,7 +23,7 @@ function useDietFoodsDispatch() {
   return dispatch
 }
 
-function useDietFoodsState() {
+function useFoodsByIdState() {
   const state = useContext(StateContext)
 
   if (!state) {
@@ -37,6 +38,6 @@ export type { State, Action }
 export {
   StateContext,
   DispatchContext,
-  useDietFoodsDispatch,
-  useDietFoodsState,
+  useFoodsByIdDispatch,
+  useFoodsByIdState,
 }

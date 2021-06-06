@@ -4,7 +4,7 @@ import {
   getInsertIngredientAnimationKey,
 } from 'core/dietForm'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
-import { useDietFoodsDispatch } from 'core/foods'
+import { useFoodsByIdDispatch } from 'core/foods'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { Food } from 'core/types'
 import { IngredientsFieldArray } from './useIngredientsFieldArray'
@@ -14,7 +14,7 @@ type Params = {
 }
 
 function useAddIngredietnts({ ingredientsFieldArray }: Params) {
-  const foodsByIdDispatch = useDietFoodsDispatch()
+  const foodsByIdDispatch = useFoodsByIdDispatch()
   const { saveLastChange } = useUndoRedoMethods()
   const oneTimeCheck = useOneTimeCheck()
 

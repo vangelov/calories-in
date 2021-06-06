@@ -2,19 +2,14 @@ import {
   FormControl,
   Flex,
   FormLabel,
-  Input,
   Text,
   VStack,
   Divider,
   FormErrorMessage,
   FormControlProps,
 } from '@chakra-ui/react'
-import { FoodAmountInput } from 'components/foods'
-import { cloneElement, ReactElement } from 'react'
 import { useFormContext } from 'react-hook-form'
-import { FoodCategoriesSelect } from 'components/foods'
-
-type InputType = 'text' | 'nutritionValue' | 'foodCategory'
+import useGetInputElement, { InputType } from './useGetInputElement'
 
 type Props = {
   name: string
@@ -23,50 +18,6 @@ type Props = {
   nutritionValueUnit?: string
   isIdented?: boolean
 } & FormControlProps
-
-function useGetInputElement({ inputType, name }: Props, isInvalid: boolean) {
-  const { register } = useFormContext()
-  let result: ReactElement | null = null
-
-  if (inputType === 'text') {
-    result = (
-      <Input
-        autoFocus={true}
-        autoComplete="off"
-        {...register(name, { required: 'Please enter a name' })}
-      />
-    )
-  }
-
-  if (inputType === 'foodCategory') {
-    result = (
-      <FoodCategoriesSelect
-        {...register(name, {
-          valueAsNumber: true,
-          required: 'Please select a category',
-        })}
-      >
-        <option disabled value={undefined}>
-          Select category
-        </option>
-      </FoodCategoriesSelect>
-    )
-  }
-
-  if (inputType === 'nutritionValue') {
-    result = <FoodAmountInput name={name} unit="" />
-  }
-
-  if (!result) {
-    throw new Error()
-  }
-
-  if (isInvalid) {
-    return cloneElement(result, { focusBorderColor: 'red.500' })
-  }
-
-  return result
-}
 
 function FormField(props: Props) {
   const {
@@ -80,7 +31,7 @@ function FormField(props: Props) {
   const { formState } = useFormContext()
   const { errors } = formState
   const isInvalid = errors[name] !== undefined
-  const inputElement = useGetInputElement(props, isInvalid)
+  const inputElement = useGetInputElement({ isInvalid, name, inputType })
 
   return (
     <FormControl

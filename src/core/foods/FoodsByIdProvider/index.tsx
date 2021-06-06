@@ -1,4 +1,4 @@
-import { FoodsByIdMap } from 'core/types'
+import { Food, FoodsByIdMap } from 'core/types'
 import { ReactNode, useReducer } from 'react'
 import { State, Action, StateContext, DispatchContext } from './context'
 
@@ -13,16 +13,36 @@ function reducer(state: State, action: Action): State {
       const newState = { ...state }
       delete newState[action.foodId]
       return newState
+
+    case 'replaceFood':
+      return {
+        ...state,
+        [action.foodId]: action.food,
+      }
   }
 }
 
 type Props = {
-  initialFoodsByIdMap?: FoodsByIdMap
+  initialFoods: Food[]
   children: ReactNode
 }
 
-function FoodsByIdProvider({ children, initialFoodsByIdMap }: Props) {
-  const [state, dispatch] = useReducer(reducer, initialFoodsByIdMap || {})
+const getInitialFoodsMap = (initialFoods: Food[]) => {
+  const initialMap: FoodsByIdMap = {}
+
+  for (const food of initialFoods) {
+    initialMap[food.id] = food
+  }
+
+  return initialMap
+}
+
+function FoodsByIdProvider({ children, initialFoods }: Props) {
+  const [state, dispatch] = useReducer(
+    reducer,
+    initialFoods,
+    getInitialFoodsMap
+  )
 
   return (
     <DispatchContext.Provider value={dispatch}>

@@ -6,7 +6,6 @@ import {
   VStack,
 } from '@chakra-ui/react'
 import { FoodsList } from 'components/foods'
-import { useUserFoodsState } from 'core/foods'
 import { Food } from 'core/types'
 import useSelection from 'core/utils/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
@@ -24,7 +23,6 @@ type Props = {
 
 function BodyAndFooter({ onClose, onSave, searchInputRef }: Props) {
   const selection = useSelection<Food>()
-  const foods = useUserFoodsState()
   const [actionType, setActionType] = useState<ActionType>('selectFoods')
   const formMethods = useFoodForm(getFoodForm())
 
@@ -36,11 +34,7 @@ function BodyAndFooter({ onClose, onSave, searchInputRef }: Props) {
 
   function onSaveButtonClick() {
     if (actionType === 'selectFoods') {
-      const selectedFoods: Food[] = foods.filter(food =>
-        selection.isIdSelected(food.id)
-      )
-
-      onSave(selectedFoods)
+      onSave(selection.selectedItems)
     } else {
       onSubmit()
     }
