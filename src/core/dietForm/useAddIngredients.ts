@@ -4,7 +4,6 @@ import {
   getInsertIngredientAnimationKey,
 } from 'core/dietForm'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
-import { useFoodsByIdDispatch } from 'core/foods'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { Food } from 'core/types'
 import { IngredientsFieldArray } from './useIngredientsFieldArray'
@@ -13,8 +12,7 @@ type Params = {
   ingredientsFieldArray: IngredientsFieldArray
 }
 
-function useAddIngredietnts({ ingredientsFieldArray }: Params) {
-  const foodsByIdDispatch = useFoodsByIdDispatch()
+function useAddIngredients({ ingredientsFieldArray }: Params) {
   const { saveLastChange } = useUndoRedoMethods()
   const oneTimeCheck = useOneTimeCheck()
 
@@ -22,8 +20,6 @@ function useAddIngredietnts({ ingredientsFieldArray }: Params) {
     const ingredientForms: IngredientForm[] = []
 
     for (const food of foods) {
-      foodsByIdDispatch({ type: 'addFood', food })
-
       const ingredientForm = getIngredientForm({
         foodId: food.id,
         amountInGrams: 100,
@@ -33,10 +29,7 @@ function useAddIngredietnts({ ingredientsFieldArray }: Params) {
       ingredientForms.push(ingredientForm)
     }
 
-    ingredientsFieldArray.insertIngredientForm(
-      ingredientsFieldArray.ingredientsFields.length,
-      ingredientForms
-    )
+    ingredientsFieldArray.appendIngredientForms(ingredientForms)
 
     saveLastChange()
   }
@@ -46,4 +39,4 @@ function useAddIngredietnts({ ingredientsFieldArray }: Params) {
   }
 }
 
-export default useAddIngredietnts
+export default useAddIngredients

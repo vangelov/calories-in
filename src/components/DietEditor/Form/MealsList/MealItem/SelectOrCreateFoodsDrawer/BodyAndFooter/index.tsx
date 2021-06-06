@@ -14,6 +14,7 @@ import { RefObject, useState } from 'react'
 import { CreateOrEditFoodFields } from 'components/foods'
 import { getFoodForm, useFoodForm } from 'core/foodForm'
 import { FormProvider } from 'react-hook-form'
+import { default as useFoodFormSubmit } from 'core/foodForm/useSubmit'
 
 type Props = {
   onClose: () => void
@@ -26,17 +27,16 @@ function BodyAndFooter({ onClose, onSave, searchInputRef }: Props) {
   const [actionType, setActionType] = useState<ActionType>('selectFoods')
   const formMethods = useFoodForm(getFoodForm())
 
-  const { handleSubmit } = formMethods
-
-  const onSubmit = handleSubmit(form => {
-    console.log('f', form)
+  const submit = useFoodFormSubmit({
+    formMethods,
+    onComplete: (food: Food) => onSave([food]),
   })
 
   function onSaveButtonClick() {
     if (actionType === 'selectFoods') {
       onSave(selection.selectedItems)
     } else {
-      onSubmit()
+      submit.onSubmit()
     }
   }
 

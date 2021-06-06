@@ -54,6 +54,8 @@ function MealItem({
     addAddIngredientDisclosure.onOpen()
   }
 
+  console.log('f', ingredientsFieldArray.ingredientsFields)
+
   return (
     <Flex flexDirection="column" backgroundColor="white" {...rest}>
       <Input

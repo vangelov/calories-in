@@ -8,6 +8,7 @@ function useIngredientsFieldArray(mealIndex: number, mealField: MealField) {
   const {
     fields: ingredientsFields,
     insert: insertIngredientForm,
+    append: appendIngredientForms,
     remove: removeIngredientForm,
     move: moveIngredientForm,
   } = useFieldArray({
@@ -46,6 +47,7 @@ function useIngredientsFieldArray(mealIndex: number, mealField: MealField) {
     ingredientsFields: ingredientsFields as IngredientField[],
     onIngredientRemove,
     insertIngredientForm,
+    appendIngredientForms,
   }
 }
 
