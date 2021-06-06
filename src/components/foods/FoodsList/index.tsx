@@ -4,7 +4,6 @@ import {
   InputLeftElement,
   chakra,
   Flex,
-  Select,
   Text,
   VStack,
   FlexProps,
@@ -14,9 +13,9 @@ import { Search } from 'react-feather'
 import VirtualizedList from './VirtualizedList'
 import { Selection } from 'core/utils'
 import { ChangeEvent, RefObject, useState } from 'react'
-import { FOODS_CATEGORIES } from 'core/foodsCategories'
 import { useFilterFoods, FoodsFilter } from 'core/foods'
 import { Food } from 'core/types'
+import { FoodCategoriesSelect } from 'components/foods'
 
 const SearchStyled = chakra(Search)
 
@@ -57,20 +56,9 @@ function FoodsList({ selection, searchInputRef, ...rest }: Props) {
           />
         </InputGroup>
 
-        <Select
-          onChange={onSelectChange}
-          focusBorderColor="custom.500"
-          size="md"
-          flex={1}
-          colorScheme="red"
-        >
+        <FoodCategoriesSelect onChange={onSelectChange}>
           <option value={undefined}>All categories</option>
-          {FOODS_CATEGORIES.map(category => (
-            <option key={category.id} value={category.id}>
-              {category.name}
-            </option>
-          ))}
-        </Select>
+        </FoodCategoriesSelect>
       </VStack>
 
       <Divider mt={3} width="100%" />

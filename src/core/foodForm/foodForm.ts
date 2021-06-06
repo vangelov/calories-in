@@ -5,6 +5,7 @@ type FoodForm = {
   name: string
   categoryId: number
   servingSizeInGrams: number
+  addToUserFoods?: boolean
 } & NutritionStats
 
 function getFoodForm(food?: Food) {
@@ -38,6 +39,7 @@ function getFoodForm(food?: Food) {
     sugar: 0,
     fiber: 0,
     protein: 0,
+    addToUserFoods: true,
   }
 }
 

@@ -3,13 +3,16 @@ import {
   Flex,
   FormLabel,
   Input,
-  Select,
   Text,
   VStack,
   Divider,
+  FormErrorMessage,
+  FormControlProps,
 } from '@chakra-ui/react'
-import { FoodAmountInput } from 'components/general'
-import { FOODS_CATEGORIES } from 'core/foodsCategories'
+import { FoodAmountInput } from 'components/foods'
+import { cloneElement, ReactElement } from 'react'
+import { useFormContext } from 'react-hook-form'
+import { FoodCategoriesSelect } from 'components/foods'
 
 type InputType = 'text' | 'nutritionValue' | 'foodCategory'
 
@@ -19,38 +22,50 @@ type Props = {
   inputType: InputType
   nutritionValueUnit?: string
   isIdented?: boolean
-}
+} & FormControlProps
 
-function getInputElement({ inputType, nutritionValueUnit, name }: Props) {
+function useGetInputElement({ inputType, name }: Props, isInvalid: boolean) {
+  const { register } = useFormContext()
+  let result: ReactElement | null = null
+
   if (inputType === 'text') {
-    return <Input autoComplete="none" name={name} />
+    result = (
+      <Input
+        autoFocus={true}
+        autoComplete="off"
+        {...register(name, { required: 'Please enter a name' })}
+      />
+    )
   }
 
   if (inputType === 'foodCategory') {
-    return (
-      <Select
-        onChange={() => {}}
-        focusBorderColor="custom.500"
-        size="md"
-        name={name}
+    result = (
+      <FoodCategoriesSelect
+        {...register(name, {
+          valueAsNumber: true,
+          required: 'Please select a category',
+        })}
       >
-        <option disabled selected value={undefined}>
+        <option disabled value={undefined}>
           Select category
         </option>
-        {FOODS_CATEGORIES.map(category => (
-          <option key={category.id} value={category.id}>
-            {category.name}
-          </option>
-        ))}
-      </Select>
+      </FoodCategoriesSelect>
     )
   }
 
   if (inputType === 'nutritionValue') {
-    return <FoodAmountInput name={name} unit="" />
+    result = <FoodAmountInput name={name} unit="" />
   }
 
-  throw new Error()
+  if (!result) {
+    throw new Error()
+  }
+
+  if (isInvalid) {
+    return cloneElement(result, { focusBorderColor: 'red.500' })
+  }
+
+  return result
 }
 
 function FormField(props: Props) {
@@ -60,11 +75,20 @@ function FormField(props: Props) {
     inputType,
     isIdented = false,
     nutritionValueUnit = 'g',
+    ...rest
   } = props
-  const inputElement = getInputElement(props)
+  const { formState } = useFormContext()
+  const { errors } = formState
+  const isInvalid = errors[name] !== undefined
+  const inputElement = useGetInputElement(props, isInvalid)
 
   return (
-    <FormControl id={name} pl={isIdented ? 10 : 0}>
+    <FormControl
+      isInvalid={isInvalid}
+      id={name}
+      pl={isIdented ? 10 : 0}
+      {...rest}
+    >
       <VStack spacing={2} alignItems="stretch">
         {isIdented ? <Divider /> : null}
         <Flex justifyContent="space-between" alignItems="center">
@@ -89,6 +113,7 @@ function FormField(props: Props) {
             )}
           </Flex>
         </Flex>
+        <FormErrorMessage>{errors[name]?.message}</FormErrorMessage>
       </VStack>
     </FormControl>
   )

@@ -1,21 +1,34 @@
 import { Box, Divider, FlexProps, VStack, Checkbox } from '@chakra-ui/react'
+import { useFormContext } from 'react-hook-form'
 import FormField from './FormField'
 
 type Props = FlexProps
 
 function CreateOrEditFood({ ...rest }: Props) {
+  const { register } = useFormContext()
+
   return (
     <Box {...rest} overflowY="scroll" p={4}>
       <VStack spacing={4} alignItems="stretch">
-        <FormField name="name" label="Name" inputType="text" />
+        <FormField
+          name="name"
+          label="Name"
+          inputType="text"
+          isRequired={true}
+        />
         <FormField
           name="categoryId"
           label="Category"
           inputType="foodCategory"
+          isRequired={true}
         />
 
-        <Checkbox colorScheme="custom" size="md">
-          Also add this food to my list of foods for later selection
+        <Checkbox
+          colorScheme="custom"
+          size="md"
+          {...register('addToUserFoods')}
+        >
+          Also add this food to my list of foods for future selection
         </Checkbox>
 
         <VStack spacing={2}>
@@ -44,6 +57,10 @@ function CreateOrEditFood({ ...rest }: Props) {
             label="Saturated fat"
             inputType="nutritionValue"
           />
+
+          <Divider />
+
+          <FormField name="sodium" label="Sodium" inputType="nutritionValue" />
 
           <Divider />
 

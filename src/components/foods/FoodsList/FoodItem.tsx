@@ -1,4 +1,4 @@
-import FoodInfo from 'components/general/FoodInfo'
+import { FoodInfo } from 'components/foods'
 import { transparentize } from '@chakra-ui/theme-tools'
 import { Flex, FlexProps, Box, IconButton, chakra } from '@chakra-ui/react'
 import { Food } from 'core/types'
