@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react'
 import { MealField } from 'core/dietForm'
 import { useMealStats, useUpdateMealStats } from 'core/stats'
 import { Stat, StatsLayout } from 'components/general'
-import { RefObject, useState } from 'react'
+import { RefObject } from 'react'
 import Name from './Name'
 import Menu from './Menu'
 
@@ -24,17 +24,13 @@ function Header({
   getMealNameInputRefById,
 }: Props) {
   const { mealStats } = useMealStats(index, mealField)
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   useUpdateMealStats(index, mealStats)
 
   return (
     <Flex
-      position="sticky"
-      top="0"
       bg="gray.50"
-      p={3}
-      zIndex={isMenuOpen ? 1000 : zIndex}
+      py={3}
       justifyContent="space-between"
       borderBottomWidth={1}
       borderBottomColor="gray.200"
@@ -66,7 +62,6 @@ function Header({
             index={index}
             onAddIngredient={() => onAddIngredient(index)}
             onRemove={() => onRemove(index)}
-            setIsMenuOpen={setIsMenuOpen}
           />
         }
       />

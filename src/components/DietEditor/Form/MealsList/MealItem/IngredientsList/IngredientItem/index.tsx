@@ -124,7 +124,7 @@ function IngredientItem({
             />
 
             <StatsLayout
-              nameElement={<FoodInfo food={food} />}
+              nameElement={<FoodInfo ml={3} food={food} />}
               amountElement={
                 <RightAligned>
                   <FoodAmountInput

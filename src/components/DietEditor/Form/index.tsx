@@ -53,8 +53,6 @@ function Form({
         <Flex
           py={3}
           width="100%"
-          px={3}
-          borderLeftWidth={1}
           borderBottomWidth={1}
           borderBottomColor="gray.200"
           bg="white"

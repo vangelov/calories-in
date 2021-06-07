@@ -14,8 +14,16 @@ function MenuButtons() {
       viewScroll="close"
       menuButton={
         <IconButton
+          size="sm"
+          mr={1}
           aria-label="test"
-          icon={<MoreHorizontalStyled color="gray.400" pointerEvents="none" />}
+          icon={
+            <MoreHorizontalStyled
+              size={20}
+              color="gray.400"
+              pointerEvents="none"
+            />
+          }
           variant="outline"
         />
       }

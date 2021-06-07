@@ -1,5 +1,5 @@
 function formatEnergy(value: number) {
-  return `${value}kcal`
+  return `${value}`
 }
 
 export default formatEnergy

@@ -56,7 +56,7 @@ function Stat({
           bottom="5px"
           right="-10px"
           width="1px"
-          bg="gray.300"
+          bg="gray.400"
         />
       )}
 
@@ -67,12 +67,15 @@ function Stat({
       )}
 
       <Text
-        lineHeight={isForDiet ? '4' : undefined}
+        lineHeight={5}
         fontSize="md"
         fontWeight={isBold ? 'bold' : undefined}
         textColor={getValueTextColor(type)}
       >
         {formattedValue}
+        <Text as="span" fontSize="sm">
+          {isEnergy ? 'kcal' : 'g'}
+        </Text>
       </Text>
 
       <Collapse

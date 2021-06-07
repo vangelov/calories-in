@@ -1,5 +1,5 @@
 function formatGrams(value: number) {
-  return `${value}g`
+  return `${value}`
 }
 
 export default formatGrams

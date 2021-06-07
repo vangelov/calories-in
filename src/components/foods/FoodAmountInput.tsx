@@ -40,8 +40,8 @@ function FoodAmountInput({
             textColor="gray.500"
             textAlign="right"
             bg="white"
-            maxWidth={20}
-            size="md"
+            maxWidth="65px"
+            size="sm"
             {...rest}
             onChange={event => {
               const value = event.target.value
@@ -59,7 +59,7 @@ function FoodAmountInput({
       />
 
       {unit && (
-        <Text fontSize="lg" textColor="gray.500">
+        <Text fontSize="sm" textColor="gray.500">
           {unit}
         </Text>
       )}

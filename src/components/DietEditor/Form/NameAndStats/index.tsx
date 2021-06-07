@@ -91,8 +91,10 @@ function NameAndStats({
         menuElement={
           <RightAligned>
             <IconButton
+              size="sm"
+              mr={3}
               aria-label="test"
-              icon={<Info color="gray" pointerEvents="none" />}
+              icon={<Info size={20} color="gray" pointerEvents="none" />}
               variant="ghost"
             />
           </RightAligned>

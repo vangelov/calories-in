@@ -18,10 +18,14 @@ function Menu({ onRemove }: Props) {
         viewScroll="close"
         menuButton={
           <IconButton
-            size="md"
+            size="sm"
             aria-label="test"
             icon={
-              <MoreHorizontalStyled color="gray.400" pointerEvents="none" />
+              <MoreHorizontalStyled
+                size={20}
+                color="gray.400"
+                pointerEvents="none"
+              />
             }
             variant="ghost"
           />

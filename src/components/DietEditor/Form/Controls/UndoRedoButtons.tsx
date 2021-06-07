@@ -14,8 +14,15 @@ function UndoRedo() {
     <ButtonGroup spacing={1} variant="outline">
       <Tooltip hasArrow label="Undo" aria-label="A tooltip">
         <IconButton
+          size="sm"
           aria-label="undo"
-          icon={<CornerUpLeftStyled color="gray.400" pointerEvents="none" />}
+          icon={
+            <CornerUpLeftStyled
+              size={20}
+              color="gray.400"
+              pointerEvents="none"
+            />
+          }
           isDisabled={!canUndo}
           onClick={() => undo()}
         />
@@ -23,8 +30,15 @@ function UndoRedo() {
 
       <Tooltip hasArrow label="Redo" aria-label="A tooltip">
         <IconButton
+          size="sm"
           aria-label="test"
-          icon={<CornerUpRightStyled color="gray.400" pointerEvents="none" />}
+          icon={
+            <CornerUpRightStyled
+              size={20}
+              color="gray.400"
+              pointerEvents="none"
+            />
+          }
           isDisabled={!canRedo}
           onClick={() => redo()}
         />

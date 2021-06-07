@@ -72,10 +72,10 @@ function BodyAndFooter({ onClose, onSave, searchInputRef }: Props) {
       </DrawerBody>
 
       <DrawerFooter>
-        <Button variant="outline" size="lg" mr={3} onClick={onClose}>
+        <Button variant="outline" size="md" mr={3} onClick={onClose}>
           Cancel
         </Button>
-        <Button size="lg" onClick={onSaveButtonClick}>
+        <Button size="md" onClick={onSaveButtonClick}>
           Save
         </Button>
       </DrawerFooter>

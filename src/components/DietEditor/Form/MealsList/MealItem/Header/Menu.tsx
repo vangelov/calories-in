@@ -4,8 +4,6 @@ import { useMealStats, useUpdateMealStats } from 'core/stats'
 import { Menu as MenuBase, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
-import { MenuChangeEvent } from '@szhsin/react-menu'
-import { useIsMounted } from 'core/utils'
 
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 type Props = {
@@ -13,28 +11,12 @@ type Props = {
   onRemove: () => void
   onAddIngredient: () => void
   index: number
-  setIsMenuOpen: (value: boolean) => void
 }
 
-function Menu({
-  mealField,
-  index,
-  setIsMenuOpen,
-  onRemove,
-  onAddIngredient,
-}: Props) {
+function Menu({ mealField, index, onRemove, onAddIngredient }: Props) {
   const { mealStats } = useMealStats(index, mealField)
-  const isMountedRef = useIsMounted()
 
   useUpdateMealStats(index, mealStats)
-
-  function onMenuChange(event: MenuChangeEvent) {
-    setTimeout(() => {
-      if (isMountedRef.current) {
-        setIsMenuOpen(event.open)
-      }
-    }, 0)
-  }
 
   return (
     <RightAligned>
@@ -42,12 +24,17 @@ function Menu({
         arrow
         align="end"
         viewScroll="close"
-        onChange={onMenuChange}
         menuButton={
           <IconButton
+            size="sm"
             aria-label="test"
+            mr={3}
             icon={
-              <MoreHorizontalStyled color="gray.400" pointerEvents="none" />
+              <MoreHorizontalStyled
+                size={20}
+                color="gray.400"
+                pointerEvents="none"
+              />
             }
             variant="outline"
           />

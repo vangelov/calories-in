@@ -26,16 +26,7 @@ function MealsList({ mealsFieldArrayRef, scrollRef }: Props) {
   mealsFieldArrayRef.current = mealsFieldArray
 
   return (
-    <Box
-      borderLeftWidth={1}
-      borderLeftColor="gray.200"
-      borderRightWidth={1}
-      borderRightColor="gray.200"
-      ref={scrollRef}
-      zIndex={0}
-      flex={1}
-      overflowY="scroll"
-    >
+    <Box ref={scrollRef} zIndex={0} flex={1} overflowY="scroll">
       {mealsFieldArray.mealsFields.map((mealField, index) => (
         <MealItem
           key={mealField.fieldId}
