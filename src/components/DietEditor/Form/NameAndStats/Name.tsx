@@ -40,7 +40,8 @@ function Name({ onSelectDiet }: Props) {
         {...nameRegister}
         ref={finalNameInputRef}
         size="md"
-        fontSize="xl"
+        fontSize="lg"
+        fontWeight="medium"
         textColor="gray.600"
         autoComplete="off"
         onChange={onNameChange}

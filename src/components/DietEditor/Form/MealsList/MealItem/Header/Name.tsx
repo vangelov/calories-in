@@ -37,6 +37,7 @@ function Name({ mealField, index, getMealNameInputRefById }: Props) {
       textColor="gray.600"
       width="85%"
       fontSize="lg"
+      fontWeight="medium"
       defaultValue={mealField.name}
     />
   )

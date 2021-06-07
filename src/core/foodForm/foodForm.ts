@@ -2,6 +2,7 @@ import { Food, NutritionStats } from 'core/types'
 import { useForm } from 'react-hook-form'
 
 type FoodForm = {
+  id?: number
   name: string
   categoryId: number
   servingSizeInGrams: number
@@ -12,6 +13,7 @@ function getFoodForm(food?: Food) {
 
   if (food) {
     return {
+      id: food.id,
       name: food.name,
       categoryId: food.categoryId,
       servingSizeInGrams,
