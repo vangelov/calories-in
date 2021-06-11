@@ -8,21 +8,13 @@ export type MainLayoutProps = {
 
 function MainLayout({ children }: MainLayoutProps) {
   return (
-    <Flex height="100vh">
-      <Box width="300px" bg="#28787a" />
+    <Box>
+      <Box top="0" height="100vh" position="fixed" width="200px" bg="yellow" />
 
-      <Flex width="100%" height="100%" bg="white" justifyContent="center">
-        <Flex
-          maxWidth="950px"
-          minWidth="900px"
-          flexDirection="column"
-          height="100%"
-          bg="white"
-        >
-          {children}
-        </Flex>
-      </Flex>
-    </Flex>
+      <Box px={3} ml="200px">
+        {children}
+      </Box>
+    </Box>
   )
 }
 export default MainLayout

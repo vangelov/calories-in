@@ -42,6 +42,7 @@ function FoodAmountInput({
             bg="white"
             maxWidth="65px"
             size="sm"
+            borderRadius={6}
             {...rest}
             onChange={event => {
               const value = event.target.value

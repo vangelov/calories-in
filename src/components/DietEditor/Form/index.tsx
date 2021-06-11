@@ -1,6 +1,6 @@
 import NameAndStats from './NameAndStats'
 import MealsList from './MealsList'
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Divider, Flex } from '@chakra-ui/react'
 import Controls from './Controls'
 import { Diet } from 'core/types'
 import { DietForm, useDietForm, MealsFieldArray } from 'core/dietForm'
@@ -51,27 +51,32 @@ function Form({
 
       <IngredientsFormsDndProvider>
         <Flex
-          py={3}
-          width="100%"
-          borderBottomWidth={1}
-          borderBottomColor="gray.200"
+          justifyContent="center"
           bg="white"
+          position="sticky"
+          top="0"
+          zIndex={1}
+          pt={3}
         >
-          <Box width="100%">
+          <Box flex={1} maxWidth="900px">
             <NameAndStats
               isEditingExistingDiet={isEditingExistingDiet}
               onNewDiet={onNewDiet}
               onDietChange={onDietChange}
             />
             <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
+            <Divider mt={3} />
           </Box>
-          <InvisibleScrollbar />
         </Flex>
 
-        <MealsList
-          scrollRef={scrollRef}
-          mealsFieldArrayRef={mealsFieldArrayRef}
-        />
+        <Flex justifyContent="center">
+          <Box flex={1} pt={3} maxWidth="900px">
+            <MealsList
+              scrollRef={scrollRef}
+              mealsFieldArrayRef={mealsFieldArrayRef}
+            />
+          </Box>
+        </Flex>
       </IngredientsFormsDndProvider>
     </FormProvider>
   )

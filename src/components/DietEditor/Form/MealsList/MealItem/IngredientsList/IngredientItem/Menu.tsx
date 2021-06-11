@@ -20,6 +20,7 @@ function Menu({ onRemove }: Props) {
           <IconButton
             size="sm"
             aria-label="test"
+            mr={1}
             icon={
               <MoreHorizontalStyled
                 size={20}

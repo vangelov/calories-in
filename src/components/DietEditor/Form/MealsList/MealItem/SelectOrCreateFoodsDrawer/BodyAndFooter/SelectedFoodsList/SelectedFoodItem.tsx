@@ -9,7 +9,7 @@ type Props = {
 function SelectedFoodItem({ food, onUnselect }: Props) {
   return (
     <Fade in={true}>
-      <Tag size="md" borderRadius="full" variant="outline" m={1}>
+      <Tag size="sm" borderRadius="full" variant="outline" m={1}>
         <TagLabel>{food.name}</TagLabel>
         <TagCloseButton onClick={() => onUnselect(food)} />
       </Tag>

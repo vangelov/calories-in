@@ -8,7 +8,7 @@ import Menu from './Menu'
 
 type Props = {
   mealField: MealField
-  zIndex: number
+
   index: number
   onAddIngredient: (index: number) => void
   onRemove: (index: number) => void
@@ -20,7 +20,7 @@ function Header({
   index,
   onRemove,
   onAddIngredient,
-  zIndex,
+
   getMealNameInputRefById,
 }: Props) {
   const { mealStats } = useMealStats(index, mealField)
@@ -31,9 +31,9 @@ function Header({
     <Flex
       bg="gray.50"
       py={3}
-      justifyContent="space-between"
+      borderTopRadius={10}
       borderBottomWidth={1}
-      borderBottomColor="gray.200"
+      justifyContent="space-between"
     >
       <StatsLayout
         nameElement={

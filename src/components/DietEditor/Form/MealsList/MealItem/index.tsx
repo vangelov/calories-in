@@ -57,7 +57,14 @@ function MealItem({
   console.log('f', ingredientsFieldArray.ingredientsFields)
 
   return (
-    <Flex flexDirection="column" backgroundColor="white" {...rest}>
+    <Flex
+      flexDirection="column"
+      borderRadius={10}
+      borderWidth="1px"
+      mb={3}
+      backgroundColor="white"
+      {...rest}
+    >
       <Input
         type="hidden"
         {...register(getMealsFormsPath(index, 'fieldId'))}
@@ -65,7 +72,6 @@ function MealItem({
       />
       <Header
         getMealNameInputRefById={getMealNameInputRefById}
-        zIndex={2}
         index={index}
         mealField={mealField}
         onRemove={onRemove}

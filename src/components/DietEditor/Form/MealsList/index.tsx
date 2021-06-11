@@ -26,7 +26,7 @@ function MealsList({ mealsFieldArrayRef, scrollRef }: Props) {
   mealsFieldArrayRef.current = mealsFieldArray
 
   return (
-    <Box ref={scrollRef} zIndex={0} flex={1} overflowY="scroll">
+    <Box ref={scrollRef}>
       {mealsFieldArray.mealsFields.map((mealField, index) => (
         <MealItem
           key={mealField.fieldId}

@@ -56,7 +56,7 @@ function Stat({
           bottom="5px"
           right="-10px"
           width="1px"
-          bg="gray.400"
+          bg="gray.300"
         />
       )}
 

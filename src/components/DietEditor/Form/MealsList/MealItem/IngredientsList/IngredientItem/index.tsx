@@ -91,22 +91,12 @@ function IngredientItem({
             {...provided.dragHandleProps}
             style={provided.draggableProps.style}
             boxShadow={snapshot.isDragging ? 'lg' : undefined}
-            bg="white"
+            bg={snapshot.isDragging ? 'white' : undefined}
             alignItems="center"
             position="relative"
-            p={3}
+            p={2}
             _hover={{ backgroundColor: transparentize('gray.50', 0.35) }}
           >
-            {!snapshot.isDragging && (
-              <Box
-                position="absolute"
-                bottom="0"
-                left="0"
-                right="0"
-                bg="gray.200"
-                height="px"
-              />
-            )}
             <Input
               fontSize="md"
               type="hidden"

@@ -47,7 +47,12 @@ function NameAndStats({
   }
 
   return (
-    <Flex pb={2} borderBottomWidth={1} width="100%">
+    <Flex
+      pb={2}
+      borderBottomWidth={1}
+      borderBottomColor="gray.100"
+      width="100%"
+    >
       <Input type="hidden" {...register('formId')} />
 
       <StatsLayout
