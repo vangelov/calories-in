@@ -1,12 +1,5 @@
 import { DietForm } from 'core/dietForm'
-import {
-  ReactNode,
-  useCallback,
-  useRef,
-  useMemo,
-  useState,
-  RefObject,
-} from 'react'
+import { ReactNode, useCallback, useRef, useMemo, useState } from 'react'
 import * as jsondiffpatch from 'jsondiffpatch'
 import DeltasStack from './deltasStack'
 import { UndoRedoMethodsContext } from './context'
@@ -15,7 +8,6 @@ import { useUndoRedoSetState } from 'core/undoRedo'
 
 type Props = {
   dietForm: DietForm
-  scrollRef: RefObject<HTMLDivElement>
   children: (
     currentDietForm: DietForm,
     version: string,
@@ -29,7 +21,7 @@ const patcher = jsondiffpatch.create({
 
 const TIMEOUT_IN_MS = 200
 
-function UndoRedoMethodsProvider({ children, dietForm, scrollRef }: Props) {
+function UndoRedoMethodsProvider({ children, dietForm }: Props) {
   const deltasStackRef = useRef(new DeltasStack())
   const lastFormRef = useRef<DietForm>(dietForm)
   const [versionIndex, setVersionIndex] = useState(0)
@@ -92,16 +84,13 @@ function UndoRedoMethodsProvider({ children, dietForm, scrollRef }: Props) {
             lastFormRef.current = form
             console.log('push', delta)
 
-            deltasStackRef.current.push(
-              delta,
-              scrollRef.current ? scrollRef.current.scrollTop : 0
-            )
+            deltasStackRef.current.push(delta, window.scrollY)
             updateState()
           }
         }
       }, TIMEOUT_IN_MS)
     },
-    [updateState, scrollRef]
+    [updateState]
   )
 
   useKeyboard({ undo, redo })

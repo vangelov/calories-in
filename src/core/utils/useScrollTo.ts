@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import isElementVisible from './isElementVisible'
+import isElementInViewport from './isElementInViewport'
 
 function useScrollTo() {
   const scrollTimeoutRef = useRef<number>()
@@ -11,7 +11,7 @@ function useScrollTo() {
   }, [])
 
   function scrollTo(node: HTMLElement, container: HTMLElement) {
-    if (isElementVisible(node, container)) {
+    if (isElementInViewport(node)) {
       return Promise.resolve()
     }
 
@@ -20,12 +20,12 @@ function useScrollTo() {
         window.clearTimeout(scrollTimeoutRef.current)
 
         scrollTimeoutRef.current = window.setTimeout(() => {
-          container.removeEventListener('scroll', listener)
+          window.removeEventListener('scroll', listener)
           resolve()
         }, 50)
       }
 
-      container.addEventListener('scroll', listener)
+      window.addEventListener('scroll', listener)
 
       node.scrollIntoView({
         behavior: 'smooth',

@@ -5,16 +5,14 @@ import Controls from './Controls'
 import { Diet } from 'core/types'
 import { DietForm, useDietForm, MealsFieldArray } from 'core/dietForm'
 import { FormProvider } from 'react-hook-form'
-import { RefObject, useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import { IngredientsFormsDndProvider } from 'core/ingredientsDnd'
 import { Watcher } from 'core/undoRedo'
-import InvisibleScrollbar from 'components/general/InvisibleScrollbar'
 
 type Props = {
   dietForm: DietForm
   onDietChange: (diet: Diet) => void
   onNewDiet: () => void
-  scrollRef: RefObject<HTMLDivElement>
   scrollTop: number
   isEditingExistingDiet: boolean
 }
@@ -24,7 +22,7 @@ function Form({
   onDietChange,
   onNewDiet,
   scrollTop,
-  scrollRef,
+
   isEditingExistingDiet,
 }: Props) {
   const formMethods = useDietForm(dietForm)
@@ -36,10 +34,8 @@ function Form({
   })
 
   useLayoutEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollTop
-    }
-  }, [scrollRef, scrollTop])
+    window.scroll({ top: scrollTop })
+  }, [scrollTop])
 
   function onMealAdd() {
     mealsFieldArrayRef.current?.onMealAdd()
@@ -71,10 +67,7 @@ function Form({
 
         <Flex justifyContent="center">
           <Box flex={1} pt={3} maxWidth="900px">
-            <MealsList
-              scrollRef={scrollRef}
-              mealsFieldArrayRef={mealsFieldArrayRef}
-            />
+            <MealsList mealsFieldArrayRef={mealsFieldArrayRef} />
           </Box>
         </Flex>
       </IngredientsFormsDndProvider>

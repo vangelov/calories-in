@@ -50,8 +50,9 @@ function Controls({ onMealAdd, onSave }: Props) {
 
         <Button
           size="sm"
-          colorScheme="teal"
-          leftIcon={<SaveStyled size={20} color="teal" pointerEvents="none" />}
+          leftIcon={
+            <SaveStyled size={20} color="gray.400" pointerEvents="none" />
+          }
           variant="outline"
           mr={1}
           onClick={onSave}
@@ -60,7 +61,6 @@ function Controls({ onMealAdd, onSave }: Props) {
         </Button>
         <Button
           size="sm"
-          colorScheme="teal"
           leftIcon={<PlusStyled size={20} color="white" pointerEvents="none" />}
           variant="solid"
           onClick={onMealAdd}

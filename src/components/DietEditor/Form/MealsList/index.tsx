@@ -5,19 +5,17 @@ import {
   MealsFieldArray,
   useScrollToAndFocusMeal,
 } from 'core/dietForm'
-import { MutableRefObject, RefObject } from 'react'
+import { MutableRefObject } from 'react'
 import { useGetRefForId } from 'core/utils'
 
 type Props = {
-  scrollRef: RefObject<HTMLDivElement>
   mealsFieldArrayRef: MutableRefObject<MealsFieldArray | undefined>
 }
 
-function MealsList({ mealsFieldArrayRef, scrollRef }: Props) {
+function MealsList({ mealsFieldArrayRef }: Props) {
   const getMealNameInputRefById = useGetRefForId()
   const pendingMealFieldIdRef = useScrollToAndFocusMeal({
     getMealNameInputRefById,
-    scrollRef,
   })
   const mealsFieldArray = useMealsFieldArray({
     pendingMealFieldIdRef,
@@ -26,7 +24,7 @@ function MealsList({ mealsFieldArrayRef, scrollRef }: Props) {
   mealsFieldArrayRef.current = mealsFieldArray
 
   return (
-    <Box ref={scrollRef}>
+    <Box>
       {mealsFieldArray.mealsFields.map((mealField, index) => (
         <MealItem
           key={mealField.fieldId}

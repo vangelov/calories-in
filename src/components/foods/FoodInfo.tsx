@@ -1,6 +1,4 @@
 import { Text, Box, Flex, BoxProps } from '@chakra-ui/react'
-import { useFoodCategoryByIdMap } from 'core/foodsCategories/FoodsCategoriesProvider'
-import { getFoodCategoryIcon } from 'core/foodsCategories'
 import { Food } from 'core/types'
 
 type Props = {
@@ -10,11 +8,6 @@ type Props = {
 } & BoxProps
 
 function FoodInfo({ food, detailText, nameNoOfLines, ...rest }: Props) {
-  const foodCategoryByIdMap = useFoodCategoryByIdMap()
-  const foodCategory = foodCategoryByIdMap[food.categoryId]
-
-  const FoodCategoryIcon = getFoodCategoryIcon(foodCategory)
-
   return (
     <Flex height="100%" alignItems="center" {...rest}>
       <Box>

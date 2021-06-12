@@ -3,13 +3,9 @@ import { RefObject, useEffect, useRef } from 'react'
 
 type Params = {
   getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
-  scrollRef: RefObject<HTMLDivElement>
 }
 
-function useScrollToAndFocusMeal({
-  getMealNameInputRefById,
-  scrollRef,
-}: Params) {
+function useScrollToAndFocusMeal({ getMealNameInputRefById }: Params) {
   const pendingMealFieldIdRef = useRef<string | null>(null)
   const scrollTo = useScrollTo()
 
@@ -21,14 +17,14 @@ function useScrollToAndFocusMeal({
         )
         pendingMealFieldIdRef.current = null
 
-        if (scrollRef.current && mealNameInputRef.current) {
-          await scrollTo(mealNameInputRef.current, scrollRef.current)
+        if (mealNameInputRef.current) {
+          await scrollTo(mealNameInputRef.current, document.body)
           mealNameInputRef.current.focus()
         }
       }
     }
     run()
-  }, [pendingMealFieldIdRef, getMealNameInputRefById, scrollRef, scrollTo])
+  }, [pendingMealFieldIdRef, getMealNameInputRefById, scrollTo])
 
   return pendingMealFieldIdRef
 }

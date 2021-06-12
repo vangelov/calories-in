@@ -1,4 +1,4 @@
-import { Input, Flex, Box } from '@chakra-ui/react'
+import { Input, Flex } from '@chakra-ui/react'
 import { transparentize } from '@chakra-ui/theme-tools'
 import { getIngredientsFormsPath, IngredientField } from 'core/dietForm'
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
