@@ -5,7 +5,6 @@ import { DragAndDropRespondersProvider } from 'core/dndResponders'
 import builInFoods from 'core/foods/builtIn.json'
 import 'focus-visible/dist/focus-visible'
 import theme from 'components/theme'
-import { FoodsCategoriesProvider } from 'core/foodsCategories'
 import smoothscroll from 'smoothscroll-polyfill'
 import OneTimeCheckProvider from 'core/OneTimeCheckProvider'
 import { FoodsByIdProvider } from 'core/foods'
@@ -17,13 +16,11 @@ function App() {
     <ChakraProvider theme={theme}>
       <DragAndDropRespondersProvider>
         <FoodsByIdProvider initialFoods={builInFoods}>
-          <FoodsCategoriesProvider>
-            <OneTimeCheckProvider>
-              <MainLayout>
-                <DietEditor />
-              </MainLayout>
-            </OneTimeCheckProvider>
-          </FoodsCategoriesProvider>
+          <OneTimeCheckProvider>
+            <MainLayout>
+              <DietEditor />
+            </MainLayout>
+          </OneTimeCheckProvider>
         </FoodsByIdProvider>
       </DragAndDropRespondersProvider>
     </ChakraProvider>
