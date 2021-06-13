@@ -4,7 +4,6 @@ import { useFieldArray } from 'react-hook-form'
 import { useEffect, useState, MutableRefObject } from 'react'
 import getInsertMealAnimationKey from './getInsertMealAnimationKey'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
-import { useReorderMealsForms } from 'core/mealsDnd'
 
 type Params = {
   pendingMealFieldIdRef: MutableRefObject<string | null>
@@ -32,8 +31,6 @@ function useMealsFieldArray({ pendingMealFieldIdRef }: Params) {
     }
   }, [removeData, removeMealForm, saveLastChange])
 
-  useReorderMealsForms({ moveMealForm })
-
   function onMealAdd() {
     const mealForm = getMealForm()
     oneTimeCheck.set(getInsertMealAnimationKey(mealForm.fieldId))
@@ -51,6 +48,7 @@ function useMealsFieldArray({ pendingMealFieldIdRef }: Params) {
     mealsFields: mealsFields as MealField[],
     onMealAdd,
     onMealRemove,
+    moveMealForm,
   }
 }
 

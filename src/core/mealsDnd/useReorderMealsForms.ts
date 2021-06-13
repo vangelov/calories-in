@@ -1,12 +1,13 @@
+import { MealsFieldArray } from 'core/dietForm'
 import { useDragAndDropResponder } from 'core/dndResponders'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'
 
 type Params = {
-  moveMealForm: (from: number, to: number) => void
+  mealsFieldArray: MealsFieldArray
 }
 
-function useReorderMealsForms({ moveMealForm }: Params) {
+function useReorderMealsForms({ mealsFieldArray }: Params) {
   const { saveLastChange } = useUndoRedoMethods()
 
   useDragAndDropResponder('onDragEnd', (result: DropResult) => {
@@ -16,7 +17,7 @@ function useReorderMealsForms({ moveMealForm }: Params) {
       return
     }
 
-    moveMealForm(source.index, destination.index)
+    mealsFieldArray.moveMealForm(source.index, destination.index)
 
     saveLastChange()
   })

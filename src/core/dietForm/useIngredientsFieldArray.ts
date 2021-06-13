@@ -1,10 +1,13 @@
-import { MealField, getIngredientsFormsPath, IngredientField } from './dietForm'
-import { useReorderIngredientsForms } from 'core/ingredientsDnd'
+import { getIngredientsFormsPath, IngredientField } from './dietForm'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { useEffect, useState } from 'react'
 import { useFieldArray } from 'react-hook-form'
 
-function useIngredientsFieldArray(mealIndex: number, mealField: MealField) {
+type Params = {
+  mealIndex: number
+}
+
+function useIngredientsFieldArray({ mealIndex }: Params) {
   const {
     fields: ingredientsFields,
     insert: insertIngredientForm,
@@ -28,13 +31,6 @@ function useIngredientsFieldArray(mealIndex: number, mealField: MealField) {
     }
   }, [removeData, removeIngredientForm, saveLastChange])
 
-  useReorderIngredientsForms({
-    mealField,
-    removeIngredientForm,
-    insertIngredientForm,
-    moveIngredientForm,
-  })
-
   function onIngredientRemove(ingredientIndex: number) {
     /* Because of the animation this remove is done after a timeout but for 
        some reason react-hook-form stops working in this case. We force a 
@@ -48,6 +44,8 @@ function useIngredientsFieldArray(mealIndex: number, mealField: MealField) {
     onIngredientRemove,
     insertIngredientForm,
     appendIngredientForms,
+    removeIngredientForm,
+    moveIngredientForm,
   }
 }
 

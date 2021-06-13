@@ -22,6 +22,7 @@ import { motion } from 'framer-motion'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 import getInsertMealAnimationKey from 'core/dietForm/getInsertMealAnimationKey'
 import { Draggable } from 'react-beautiful-dnd'
+import { useReorderIngredientsForms } from 'core/ingredientsDnd'
 
 type Props = {
   mealField: MealField
@@ -48,13 +49,15 @@ function MealItem({
   ...rest
 }: Props) {
   const { getValues } = useFormContext<DietForm>()
-  const ingredientsFieldArray = useIngredientsFieldArray(index, mealField)
+  const ingredientsFieldArray = useIngredientsFieldArray({ mealIndex: index })
   const addAddIngredientDisclosure = useDisclosure()
   const [mealName, setMealName] = useState<string | undefined>()
   const addIngredients = useAddIngredients({ ingredientsFieldArray })
   const { register } = useFormContext()
   const [isVisible, setIsVisible] = useState(true)
   const oneTimeCheck = useOneTimeCheck()
+
+  useReorderIngredientsForms({ mealField, ingredientsFieldArray })
 
   function onSave(foods: Food[]) {
     addAddIngredientDisclosure.onClose()
@@ -103,7 +106,6 @@ function MealItem({
           <Flex
             ref={provided.innerRef}
             {...provided.draggableProps}
-            {...provided.dragHandleProps}
             style={provided.draggableProps.style}
             flexDirection="column"
             borderRadius={10}
@@ -119,6 +121,7 @@ function MealItem({
               defaultValue={mealField.fieldId}
             />
             <Header
+              {...provided.dragHandleProps}
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}
               mealField={mealField}

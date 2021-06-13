@@ -3,25 +3,17 @@ import { useDragAndDropResponder } from 'core/dndResponders'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'
 import { useIngredientsFormsDndState } from './IngredientsFormsDndProvider'
-import { FieldArrayMethodProps } from 'react-hook-form'
 import { useLayoutEffect, useState } from 'react'
+import { IngredientsFieldArray } from 'core/dietForm/useIngredientsFieldArray'
 
 type Params = {
   mealField: MealField
-  moveIngredientForm: (from: number, to: number) => void
-  insertIngredientForm: (
-    at: number,
-    ingredientForm: IngredientForm,
-    options?: FieldArrayMethodProps
-  ) => void
-  removeIngredientForm: (from: number) => void
+  ingredientsFieldArray: IngredientsFieldArray
 }
 
 function useReorderIngredientsForms({
   mealField,
-  moveIngredientForm,
-  insertIngredientForm,
-  removeIngredientForm,
+  ingredientsFieldArray,
 }: Params) {
   const ingredientFormRef = useIngredientsFormsDndState()
   const { saveLastChange } = useUndoRedoMethods()
@@ -44,19 +36,23 @@ function useReorderIngredientsForms({
       destination.droppableId === source.droppableId &&
       mealField.fieldId === destination.droppableId
     ) {
-      moveIngredientForm(source.index, destination.index)
+      ingredientsFieldArray.moveIngredientForm(source.index, destination.index)
     } else if (destination.droppableId === mealField.fieldId) {
       let ingredientForm: IngredientForm | undefined = ingredientFormRef.current
 
       setPendingInsert(() => {
         if (ingredientForm) {
-          insertIngredientForm(destination.index, ingredientForm, {
-            shouldFocus: false,
-          })
+          ingredientsFieldArray.insertIngredientForm(
+            destination.index,
+            ingredientForm,
+            {
+              shouldFocus: false,
+            }
+          )
         }
       })
     } else if (source.droppableId === mealField.fieldId) {
-      removeIngredientForm(source.index)
+      ingredientsFieldArray.removeIngredientForm(source.index)
     }
 
     saveLastChange()

@@ -15,6 +15,7 @@ import { useFoodsByIdState } from 'core/foods'
 import { getIngredientStats } from 'core/stats'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 import { getInsertIngredientAnimationKey } from 'core/dietForm'
+import { useScreenSize } from 'core/ScreenSizeProvider'
 
 type Props = {
   mealIndex: number
@@ -45,6 +46,8 @@ function IngredientItem({
   const amountName = getIngredientsFormsPath(mealIndex, index, 'amountInGrams')
   const amountInGrams = useWatch({ name: amountName })
   const oneTimeCheck = useOneTimeCheck()
+  const screenSize = useScreenSize()
+  const amountInputSize = screenSize >= 2 ? 'sm' : 'md'
 
   function onAmountChange() {
     saveLastChange()
@@ -94,7 +97,8 @@ function IngredientItem({
             bg={snapshot.isDragging ? 'white' : undefined}
             alignItems="center"
             position="relative"
-            p={2}
+            py={2}
+            px={3}
             _hover={{ backgroundColor: transparentize('gray.50', 0.35) }}
           >
             <Input
@@ -114,10 +118,12 @@ function IngredientItem({
             />
 
             <StatsLayout
-              nameElement={<FoodInfo ml={3} food={food} />}
+              prefersAmount={true}
+              nameElement={<FoodInfo food={food} />}
               amountElement={
                 <RightAligned>
                   <FoodAmountInput
+                    size={amountInputSize}
                     name={amountName}
                     onChange={onAmountChange}
                     defaultValue={ingredientField.amountInGrams}

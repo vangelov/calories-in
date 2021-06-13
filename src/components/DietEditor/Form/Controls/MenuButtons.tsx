@@ -1,5 +1,6 @@
 import { IconButton, chakra } from '@chakra-ui/react'
 import { Menu, MenuItem } from 'components/general'
+import { useScreenSize } from 'core/ScreenSizeProvider'
 import { MoreHorizontal, Shuffle, Trash } from 'react-feather'
 
 const ShuffleStyled = chakra(Shuffle)
@@ -7,6 +8,10 @@ const TrashStyled = chakra(Trash)
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 
 function MenuButtons() {
+  const screenSize = useScreenSize()
+  const buttonSize = screenSize >= 2 ? 'sm' : 'md'
+  const mr = screenSize >= 2 ? 1 : 2
+
   return (
     <Menu
       arrow
@@ -14,8 +19,8 @@ function MenuButtons() {
       viewScroll="close"
       menuButton={
         <IconButton
-          size="sm"
-          mr={1}
+          size={buttonSize}
+          mr={mr}
           aria-label="test"
           icon={
             <MoreHorizontalStyled

@@ -4,16 +4,12 @@ import { useUndoRedoMethods } from 'core/undoRedo'
 import { useEffect, useRef } from 'react'
 import { useMergeRefs } from '@chakra-ui/react'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
-import { ArrowUpCircle, Calendar } from 'react-feather'
+import { ArrowUpCircle, AlertCircle } from 'react-feather'
 
 const ArrowUpCircleStyled = chakra(ArrowUpCircle)
-const CalendarStyled = chakra(Calendar)
+const AlertCircleStyled = chakra(AlertCircle)
 
-type Props = {
-  onSelectDiet: () => void
-}
-
-function Name({ onSelectDiet }: Props) {
+function Name() {
   const { register } = useFormContext()
   const { saveLastChange } = useUndoRedoMethods()
   const nameRegister = register('name')
@@ -46,11 +42,11 @@ function Name({ onSelectDiet }: Props) {
         bg="white"
       />
 
-      <HStack width="100%" spacing={4}>
+      <HStack display={{ base: 'none', md: 'flex' }} width="100%" spacing={4}>
         <HStack spacing={1}>
-          <CalendarStyled color="gray.400" size="16px" />
+          <AlertCircleStyled color="gray.400" size="16px" />
           <Text fontSize="xs" textColor="gray.400">
-            Last edited: few days ago
+            Unsaved changes
           </Text>
         </HStack>
 

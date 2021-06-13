@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { BoxProps, Flex } from '@chakra-ui/react'
 import { MealField } from 'core/dietForm'
 import { useMealStats, useUpdateMealStats } from 'core/stats'
 import { Stat, StatsLayout } from 'components/general'
@@ -12,7 +12,7 @@ type Props = {
   onAddIngredient: (index: number) => void
   onRemove: (index: number) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
-}
+} & BoxProps
 
 function Header({
   mealField,
@@ -20,6 +20,7 @@ function Header({
   onRemove,
   onAddIngredient,
   getMealNameInputRefById,
+  ...rest
 }: Props) {
   const { mealStats } = useMealStats(index, mealField)
 
@@ -33,6 +34,7 @@ function Header({
       borderBottomWidth={1}
       justifyContent="space-between"
       _hover={{ backgroundColor: 'gray.60' }}
+      {...rest}
     >
       <StatsLayout
         nameElement={

@@ -11,7 +11,11 @@ function FoodInfo({ food, detailText, nameNoOfLines, ...rest }: Props) {
   return (
     <Flex height="100%" alignItems="center" {...rest}>
       <Box>
-        <Text fontSize="md" noOfLines={nameNoOfLines} color="gray.600">
+        <Text
+          fontSize={{ base: 'sm', md: 'md' }}
+          noOfLines={nameNoOfLines}
+          color="gray.600"
+        >
           {food.name}
         </Text>
 

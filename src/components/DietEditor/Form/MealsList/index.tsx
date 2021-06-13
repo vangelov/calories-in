@@ -8,6 +8,7 @@ import {
 import { MutableRefObject } from 'react'
 import { useGetRefForId } from 'core/utils'
 import { Droppable } from 'react-beautiful-dnd'
+import { useReorderMealsForms } from 'core/mealsDnd'
 
 type Props = {
   mealsFieldArrayRef: MutableRefObject<MealsFieldArray | undefined>
@@ -21,6 +22,8 @@ function MealsList({ mealsFieldArrayRef }: Props) {
   const mealsFieldArray = useMealsFieldArray({
     pendingMealFieldIdRef,
   })
+
+  useReorderMealsForms({ mealsFieldArray })
 
   mealsFieldArrayRef.current = mealsFieldArray
 

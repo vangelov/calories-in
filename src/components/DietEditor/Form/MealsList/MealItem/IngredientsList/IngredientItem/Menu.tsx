@@ -2,6 +2,7 @@ import { IconButton, chakra } from '@chakra-ui/react'
 import { Menu as MenuBase, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
+import { useScreenSize } from 'core/ScreenSizeProvider'
 
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 
@@ -10,6 +11,9 @@ type Props = {
 }
 
 function Menu({ onRemove }: Props) {
+  const screenSize = useScreenSize()
+  const buttonSize = screenSize >= 2 ? 'sm' : 'md'
+
   return (
     <RightAligned>
       <MenuBase
@@ -18,9 +22,8 @@ function Menu({ onRemove }: Props) {
         viewScroll="close"
         menuButton={
           <IconButton
-            size="sm"
+            size={buttonSize}
             aria-label="test"
-            mr={1}
             icon={
               <MoreHorizontalStyled
                 size={20}

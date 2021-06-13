@@ -68,7 +68,7 @@ function Stat({
 
       <Text
         lineHeight={5}
-        fontSize="md"
+        fontSize={{ base: 'sm', md: 'md' }}
         fontWeight={isBold ? 'bold' : undefined}
         textColor={getValueTextColor(type)}
       >
@@ -86,7 +86,7 @@ function Stat({
         <HStack alignItems="center" spacing={1}>
           {valueDetail && valueDetailLeftIcon}
 
-          <Text fontSize="md" textColor="gray.400">
+          <Text fontSize={{ base: 'sm', md: 'md' }} textColor="gray.400">
             {valueDetail}
           </Text>
         </HStack>

@@ -1,14 +1,8 @@
-import { Flex, Button, chakra } from '@chakra-ui/react'
-//import { DietForm } from 'core/dietForm'
-//import { useFormContext } from 'react-hook-form'
-// import { v4 as uuidv4 } from 'uuid'
-import { Plus, Save } from 'react-feather'
+import { Flex } from '@chakra-ui/react'
 import UndoRedoButtons from './UndoRedoButtons'
 import UtilityButtons from './UtilityButtons'
 import MenuButtons from './MenuButtons'
-
-const PlusStyled = chakra(Plus)
-const SaveStyled = chakra(Save)
+import MainButtons from './MainButtons'
 
 type Props = {
   onMealAdd: () => void
@@ -16,28 +10,6 @@ type Props = {
 }
 
 function Controls({ onMealAdd, onSave }: Props) {
-  /*
-    const { getValues, reset } = useFormContext<DietForm>()
-
-  function onRearrange() {
-    const form = getValues()
-    const { mealsForms } = form
-
-    const newMealsForms = []
-
-    for (let i = mealsForms.length - 1; i >= 0; i--) {
-      const mealForm = { ...mealsForms[i], fieldId: uuidv4() }
-      newMealsForms.push(mealForm)
-    }
-
-    const newForm = {
-      ...form,
-      mealsForms: newMealsForms,
-    }
-
-    reset(newForm)
-  }*/
-
   return (
     <Flex width="100%" pt={3} alignItems="center">
       <Flex flex="4" justifyContent="space-between">
@@ -48,25 +20,7 @@ function Controls({ onMealAdd, onSave }: Props) {
       <Flex flex="6" justifyContent="flex-end">
         <MenuButtons />
 
-        <Button
-          size="sm"
-          leftIcon={
-            <SaveStyled size={20} color="gray.400" pointerEvents="none" />
-          }
-          variant="outline"
-          mr={1}
-          onClick={onSave}
-        >
-          Save
-        </Button>
-        <Button
-          size="sm"
-          leftIcon={<PlusStyled size={20} color="white" pointerEvents="none" />}
-          variant="solid"
-          onClick={onMealAdd}
-        >
-          Add Meal
-        </Button>
+        <MainButtons onMealAdd={onMealAdd} onSave={onSave} />
       </Flex>
     </Flex>
   )

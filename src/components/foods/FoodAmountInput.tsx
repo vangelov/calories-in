@@ -14,6 +14,7 @@ function FoodAmountInput({
   defaultValue,
   onChange,
   unit = 'g',
+  size,
   ...rest
 }: Props) {
   function onMouseDown(event: MouseEvent<HTMLInputElement>) {
@@ -40,8 +41,8 @@ function FoodAmountInput({
             textColor="gray.500"
             textAlign="right"
             bg="white"
-            maxWidth="65px"
-            size="sm"
+            maxWidth="74px"
+            size={size}
             borderRadius={6}
             {...rest}
             onChange={event => {

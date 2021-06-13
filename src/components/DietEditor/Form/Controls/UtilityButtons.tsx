@@ -8,7 +8,11 @@ const SettingsStyled = chakra(Settings)
 
 function UtilityButtons() {
   return (
-    <ButtonGroup spacing={1} variant="outline">
+    <ButtonGroup
+      spacing={1}
+      variant="outline"
+      display={{ base: 'none', md: 'block' }}
+    >
       <Tooltip hasArrow label="Export" aria-label="Export tooltip">
         <IconButton
           size="sm"

@@ -4,6 +4,7 @@ import { useMealStats, useUpdateMealStats } from 'core/stats'
 import { Menu as MenuBase, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
+import { useScreenSize } from 'core/ScreenSizeProvider'
 
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 type Props = {
@@ -15,6 +16,8 @@ type Props = {
 
 function Menu({ mealField, index, onRemove, onAddIngredient }: Props) {
   const { mealStats } = useMealStats(index, mealField)
+  const screenSize = useScreenSize()
+  const buttonSize = screenSize >= 2 ? 'md' : 'sm'
 
   useUpdateMealStats(index, mealStats)
 
@@ -26,7 +29,7 @@ function Menu({ mealField, index, onRemove, onAddIngredient }: Props) {
         viewScroll="close"
         menuButton={
           <IconButton
-            size="sm"
+            size={buttonSize}
             aria-label="test"
             mr={3}
             icon={
