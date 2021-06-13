@@ -15,7 +15,12 @@ function IngredientsFormsDndProvider({ children }: Props) {
 
   // We save the form so that after dragging has ended (in useReorderIngredientsForms) we can insert it
   useDragAndDropResponder('onDragStart', (initial: DragStart) => {
-    const { source } = initial
+    const { source, type } = initial
+
+    if (type !== 'ingredientsList') {
+      return
+    }
+
     const values = getValues()
 
     const meal = values.mealsForms.find(

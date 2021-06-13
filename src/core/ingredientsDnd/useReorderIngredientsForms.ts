@@ -6,7 +6,7 @@ import { useIngredientsFormsDndState } from './IngredientsFormsDndProvider'
 import { FieldArrayMethodProps } from 'react-hook-form'
 import { useLayoutEffect, useState } from 'react'
 
-type FunctionsParams = {
+type Params = {
   mealField: MealField
   moveIngredientForm: (from: number, to: number) => void
   insertIngredientForm: (
@@ -22,14 +22,10 @@ function useReorderIngredientsForms({
   moveIngredientForm,
   insertIngredientForm,
   removeIngredientForm,
-}: FunctionsParams) {
+}: Params) {
   const ingredientFormRef = useIngredientsFormsDndState()
   const { saveLastChange } = useUndoRedoMethods()
   const [pendingInsert, setPendingInsert] = useState<() => void>()
-
-  if (!ingredientFormRef) {
-    throw new Error('Missing FoodsDragAndDropProvider')
-  }
 
   useLayoutEffect(() => {
     if (pendingInsert) {
@@ -38,9 +34,9 @@ function useReorderIngredientsForms({
   }, [pendingInsert])
 
   useDragAndDropResponder('onDragEnd', (result: DropResult) => {
-    const { source, destination } = result
+    const { source, destination, type } = result
 
-    if (!destination) {
+    if (!destination || type !== 'ingredientsList') {
       return
     }
 

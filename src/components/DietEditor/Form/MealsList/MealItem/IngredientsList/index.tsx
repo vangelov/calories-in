@@ -17,7 +17,7 @@ function IngredientsList({
   ingredientsFields,
 }: Props) {
   return (
-    <Droppable droppableId={mealField.fieldId as string}>
+    <Droppable droppableId={mealField.fieldId as string} type="ingredientsList">
       {provided => (
         <Box ref={provided.innerRef} minHeight="48px">
           {ingredientsFields.map((ingredientField, index) => (

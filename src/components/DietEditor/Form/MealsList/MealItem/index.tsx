@@ -21,6 +21,7 @@ import { useAddIngredients } from 'core/dietForm'
 import { motion } from 'framer-motion'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 import getInsertMealAnimationKey from 'core/dietForm/getInsertMealAnimationKey'
+import { Draggable } from 'react-beautiful-dnd'
 
 type Props = {
   mealField: MealField
@@ -83,52 +84,65 @@ function MealItem({
   )
 
   return (
-    <motion.div
-      transition={{ ease: 'easeInOut' }}
-      style={{
-        opacity: pendingAnimationForInserted ? 0 : 1,
-      }}
-      initial={pendingAnimationForInserted ? 'collapsed' : false}
-      animate={isVisible ? 'open' : 'collapsed'}
-      onAnimationComplete={onAnimationComplete}
-      variants={variants}
+    <Draggable
+      key={mealField.fieldId}
+      draggableId={mealField.fieldId as string}
+      index={index}
     >
-      <Flex
-        flexDirection="column"
-        borderRadius={10}
-        borderWidth="1px"
-        mb={3}
-        backgroundColor="white"
-        {...rest}
-      >
-        <Input
-          type="hidden"
-          {...register(getMealsFormsPath(index, 'fieldId'))}
-          defaultValue={mealField.fieldId}
-        />
-        <Header
-          getMealNameInputRefById={getMealNameInputRefById}
-          index={index}
-          mealField={mealField}
-          onRemove={() => setIsVisible(false)}
-          onAddIngredient={onAddIngredient}
-        />
+      {(provided, snapshot) => (
+        <motion.div
+          transition={{ ease: 'easeInOut' }}
+          style={{
+            opacity: pendingAnimationForInserted ? 0 : 1,
+          }}
+          initial={pendingAnimationForInserted ? 'collapsed' : false}
+          animate={isVisible ? 'open' : 'collapsed'}
+          onAnimationComplete={onAnimationComplete}
+          variants={variants}
+        >
+          <Flex
+            ref={provided.innerRef}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
+            style={provided.draggableProps.style}
+            flexDirection="column"
+            borderRadius={10}
+            borderWidth="1px"
+            mb={3}
+            backgroundColor="white"
+            boxShadow={snapshot.isDragging ? 'lg' : undefined}
+            {...rest}
+          >
+            <Input
+              type="hidden"
+              {...register(getMealsFormsPath(index, 'fieldId'))}
+              defaultValue={mealField.fieldId}
+            />
+            <Header
+              getMealNameInputRefById={getMealNameInputRefById}
+              index={index}
+              mealField={mealField}
+              onRemove={() => setIsVisible(false)}
+              onAddIngredient={onAddIngredient}
+            />
 
-        <IngredientsList
-          mealField={mealField}
-          mealIndex={index}
-          ingredientsFields={ingredientsFieldArray.ingredientsFields}
-          onIngredientRemove={ingredientsFieldArray.onIngredientRemove}
-        />
+            <IngredientsList
+              mealField={mealField}
+              mealIndex={index}
+              ingredientsFields={ingredientsFieldArray.ingredientsFields}
+              onIngredientRemove={ingredientsFieldArray.onIngredientRemove}
+            />
 
-        <SelectOrCreateFoodsDrawer
-          mealName={mealName}
-          isOpen={addAddIngredientDisclosure.isOpen}
-          onClose={addAddIngredientDisclosure.onClose}
-          onSave={onSave}
-        />
-      </Flex>
-    </motion.div>
+            <SelectOrCreateFoodsDrawer
+              mealName={mealName}
+              isOpen={addAddIngredientDisclosure.isOpen}
+              onClose={addAddIngredientDisclosure.onClose}
+              onSave={onSave}
+            />
+          </Flex>
+        </motion.div>
+      )}
+    </Draggable>
   )
 }
 

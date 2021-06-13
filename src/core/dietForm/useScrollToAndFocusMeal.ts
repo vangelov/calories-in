@@ -18,7 +18,7 @@ function useScrollToAndFocusMeal({ getMealNameInputRefById }: Params) {
         pendingMealFieldIdRef.current = null
 
         if (mealNameInputRef.current) {
-          await scrollTo(mealNameInputRef.current, document.body)
+          await scrollTo(mealNameInputRef.current)
           mealNameInputRef.current.focus()
         }
       }

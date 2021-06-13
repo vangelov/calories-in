@@ -10,7 +10,7 @@ function useScrollTo() {
     }
   }, [])
 
-  function scrollTo(node: HTMLElement, container: HTMLElement) {
+  function scrollTo(node: HTMLElement) {
     if (isElementInViewport(node)) {
       return Promise.resolve()
     }
@@ -29,7 +29,7 @@ function useScrollTo() {
 
       node.scrollIntoView({
         behavior: 'smooth',
-        block: 'start',
+        block: 'center',
       })
     })
   }

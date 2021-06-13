@@ -8,7 +8,6 @@ import Menu from './Menu'
 
 type Props = {
   mealField: MealField
-
   index: number
   onAddIngredient: (index: number) => void
   onRemove: (index: number) => void
@@ -20,7 +19,6 @@ function Header({
   index,
   onRemove,
   onAddIngredient,
-
   getMealNameInputRefById,
 }: Props) {
   const { mealStats } = useMealStats(index, mealField)
@@ -34,6 +32,7 @@ function Header({
       borderTopRadius={10}
       borderBottomWidth={1}
       justifyContent="space-between"
+      _hover={{ backgroundColor: 'gray.60' }}
     >
       <StatsLayout
         nameElement={

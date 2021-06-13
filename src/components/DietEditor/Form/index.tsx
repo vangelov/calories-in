@@ -51,7 +51,7 @@ function Form({
           bg="white"
           position="sticky"
           top="0"
-          zIndex={1}
+          zIndex={2}
           pt={3}
         >
           <Box flex={1} maxWidth="900px">
@@ -68,6 +68,7 @@ function Form({
         <Flex justifyContent="center">
           <Box flex={1} pt={3} maxWidth="900px">
             <MealsList mealsFieldArrayRef={mealsFieldArrayRef} />
+            <Box height="300px" />
           </Box>
         </Flex>
       </IngredientsFormsDndProvider>
