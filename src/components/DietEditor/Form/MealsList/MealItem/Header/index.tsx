@@ -29,7 +29,7 @@ function Header({
   return (
     <Flex
       bg="gray.50"
-      py={3}
+      p={3}
       borderTopRadius={10}
       borderBottomWidth={1}
       justifyContent="space-between"

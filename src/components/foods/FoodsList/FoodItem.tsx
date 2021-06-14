@@ -1,9 +1,10 @@
 import { FoodInfo } from 'components/foods'
 import { transparentize } from '@chakra-ui/theme-tools'
-import { Flex, FlexProps, Box, IconButton, chakra } from '@chakra-ui/react'
+import { Flex, FlexProps, Box, chakra } from '@chakra-ui/react'
 import { Food } from 'core/types'
 import { Info } from 'react-feather'
 import { MouseEvent } from 'react'
+import { ResponsiveIconButton } from 'components/general'
 
 const InfoStyled = chakra(Info)
 
@@ -37,9 +38,14 @@ function FoodItem({ food, isSelected = false, ...rest }: Props) {
         p={3}
         height="64px"
       >
-        <FoodInfo nameNoOfLines={1} detailText="test" food={food} />
-        <IconButton
-          aria-label="test"
+        <FoodInfo
+          fontSize="md"
+          nameNoOfLines={1}
+          detailText="test"
+          food={food}
+        />
+        <ResponsiveIconButton
+          aria-label="Food details"
           icon={<InfoStyled color="gray.400" pointerEvents="none" />}
           variant="ghost"
           onClick={onClick}

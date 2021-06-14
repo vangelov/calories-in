@@ -1,21 +1,24 @@
-import { Text, Box, Flex, BoxProps } from '@chakra-ui/react'
+import { Text, Box, Flex, BoxProps, TypographyProps } from '@chakra-ui/react'
 import { Food } from 'core/types'
 
 type Props = {
   food: Food
   nameNoOfLines?: number
   detailText?: string
+  fontSize: TypographyProps['fontSize']
 } & BoxProps
 
-function FoodInfo({ food, detailText, nameNoOfLines, ...rest }: Props) {
+function FoodInfo({
+  food,
+  detailText,
+  fontSize,
+  nameNoOfLines,
+  ...rest
+}: Props) {
   return (
     <Flex height="100%" alignItems="center" {...rest}>
       <Box>
-        <Text
-          fontSize={{ base: 'sm', md: 'md' }}
-          noOfLines={nameNoOfLines}
-          color="gray.600"
-        >
+        <Text fontSize={fontSize} noOfLines={nameNoOfLines} color="gray.600">
           {food.name}
         </Text>
 
@@ -24,7 +27,7 @@ function FoodInfo({ food, detailText, nameNoOfLines, ...rest }: Props) {
             <Text as="span" fontWeight="bold" fontSize="xs">
               200kcal
             </Text>{' '}
-            per 100g
+            / 100g
           </Text>
         )}
       </Box>

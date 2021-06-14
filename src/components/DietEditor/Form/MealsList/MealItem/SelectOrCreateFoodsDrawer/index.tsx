@@ -8,6 +8,7 @@ import {
 import { Food } from 'core/types'
 import { useRef } from 'react'
 import BodyAndFooter from './BodyAndFooter'
+import { isMobile } from 'react-device-detect'
 
 type Props = {
   onClose: () => void
@@ -27,7 +28,7 @@ function SelectOrCreateFoodsDrawer({
 
   return (
     <Drawer
-      initialFocusRef={searchInputRef}
+      initialFocusRef={isMobile ? undefined : searchInputRef}
       isOpen={isOpen}
       size="md"
       placement="right"

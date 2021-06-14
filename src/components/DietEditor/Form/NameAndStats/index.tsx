@@ -1,4 +1,4 @@
-import { Flex, Input, IconButton } from '@chakra-ui/react'
+import { Flex, Input } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { useDietStats } from 'core/stats'
 import StatsLayout from 'components/general/StatsLayout'
@@ -7,6 +7,7 @@ import { Info } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
 import Name from './Name'
 import EnergyStat from './EnergyStat'
+import { ResponsiveIconButton } from 'components/general'
 
 type Props = {
   isEditingExistingDiet: boolean
@@ -65,9 +66,8 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
         }
         menuElement={
           <RightAligned>
-            <IconButton
-              size="sm"
-              aria-label="test"
+            <ResponsiveIconButton
+              aria-label="Nutrition details"
               icon={<Info size={20} color="gray" pointerEvents="none" />}
               variant="ghost"
             />

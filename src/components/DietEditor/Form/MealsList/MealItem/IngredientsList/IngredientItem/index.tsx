@@ -119,7 +119,9 @@ function IngredientItem({
 
             <StatsLayout
               prefersAmount={true}
-              nameElement={<FoodInfo food={food} />}
+              nameElement={
+                <FoodInfo fontSize={{ base: 'sm', md: 'md' }} food={food} />
+              }
               amountElement={
                 <RightAligned>
                   <FoodAmountInput

@@ -1,10 +1,10 @@
-import { IconButton, chakra } from '@chakra-ui/react'
+import { chakra } from '@chakra-ui/react'
 import { MealField } from 'core/dietForm'
 import { useMealStats, useUpdateMealStats } from 'core/stats'
 import { Menu as MenuBase, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
-import { useScreenSize } from 'core/ScreenSizeProvider'
+import { ResponsiveIconButton } from 'components/general'
 
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 type Props = {
@@ -16,8 +16,6 @@ type Props = {
 
 function Menu({ mealField, index, onRemove, onAddIngredient }: Props) {
   const { mealStats } = useMealStats(index, mealField)
-  const screenSize = useScreenSize()
-  const buttonSize = screenSize >= 2 ? 'md' : 'sm'
 
   useUpdateMealStats(index, mealStats)
 
@@ -28,10 +26,8 @@ function Menu({ mealField, index, onRemove, onAddIngredient }: Props) {
         align="end"
         viewScroll="close"
         menuButton={
-          <IconButton
-            size={buttonSize}
-            aria-label="test"
-            mr={3}
+          <ResponsiveIconButton
+            aria-label="Meal actions"
             icon={
               <MoreHorizontalStyled
                 size={20}

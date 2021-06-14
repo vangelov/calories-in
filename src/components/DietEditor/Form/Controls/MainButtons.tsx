@@ -1,6 +1,7 @@
-import { Tooltip, IconButton, Button, chakra } from '@chakra-ui/react'
+import { Button, chakra } from '@chakra-ui/react'
 import { useScreenSize } from 'core/ScreenSizeProvider'
 import { Plus, Save } from 'react-feather'
+import { ResponsiveIconButton } from 'components/general'
 
 const PlusStyled = chakra(Plus)
 const SaveStyled = chakra(Save)
@@ -42,25 +43,21 @@ function MainButtons({ onMealAdd, onSave }: Props) {
 
   return (
     <>
-      <Tooltip hasArrow label="Save" aria-label="A tooltip">
-        <IconButton
-          size="md"
-          aria-label="undo"
-          icon={<SaveStyled size={20} color="gray.400" pointerEvents="none" />}
-          variant="outline"
-          onClick={onSave}
-          mr={mr}
-        />
-      </Tooltip>
-      <Tooltip hasArrow label="Add meal" aria-label="A tooltip">
-        <IconButton
-          size="md"
-          aria-label="undo"
-          icon={<PlusStyled size={20} color="white" pointerEvents="none" />}
-          variant="solid"
-          onClick={onMealAdd}
-        />
-      </Tooltip>
+      <ResponsiveIconButton
+        aria-label="Save"
+        icon={<SaveStyled size={20} color="gray.400" pointerEvents="none" />}
+        variant="outline"
+        onClick={onSave}
+        mr={mr}
+      />
+
+      <ResponsiveIconButton
+        size="md"
+        aria-label="Add meal"
+        icon={<PlusStyled size={20} color="white" pointerEvents="none" />}
+        variant="solid"
+        onClick={onMealAdd}
+      />
     </>
   )
 }

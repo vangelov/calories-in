@@ -1,6 +1,6 @@
-import { IconButton, ButtonGroup, chakra } from '@chakra-ui/react'
+import { ButtonGroup, chakra } from '@chakra-ui/react'
 import { Copy, FileText, Settings } from 'react-feather'
-import { Tooltip } from '@chakra-ui/react'
+import { ResponsiveIconButton } from 'components/general'
 
 const CopyStyled = chakra(Copy)
 const FileTextStyled = chakra(FileText)
@@ -13,33 +13,25 @@ function UtilityButtons() {
       variant="outline"
       display={{ base: 'none', md: 'block' }}
     >
-      <Tooltip hasArrow label="Export" aria-label="Export tooltip">
-        <IconButton
-          size="sm"
-          aria-label="export"
-          icon={
-            <FileTextStyled size={20} color="gray.400" pointerEvents="none" />
-          }
-        />
-      </Tooltip>
+      <ResponsiveIconButton
+        size="sm"
+        aria-label="Export"
+        icon={
+          <FileTextStyled size={20} color="gray.400" pointerEvents="none" />
+        }
+      />
 
-      <Tooltip hasArrow label="Duplicate" aria-label="Undo tooltip">
-        <IconButton
-          size="sm"
-          aria-label="undo"
-          icon={<CopyStyled size={20} color="gray.400" pointerEvents="none" />}
-        />
-      </Tooltip>
+      <ResponsiveIconButton
+        aria-label="Duplicate"
+        icon={<CopyStyled size={20} color="gray.400" pointerEvents="none" />}
+      />
 
-      <Tooltip hasArrow label="Settings" aria-label="Settings tooltip">
-        <IconButton
-          size="sm"
-          aria-label="settings"
-          icon={
-            <SettingsStyled size={20} color="gray.400" pointerEvents="none" />
-          }
-        />
-      </Tooltip>
+      <ResponsiveIconButton
+        aria-label="settings"
+        icon={
+          <SettingsStyled size={20} color="gray.400" pointerEvents="none" />
+        }
+      />
     </ButtonGroup>
   )
 }

@@ -8,7 +8,7 @@ type Props = {
 
 function ScreenSizeProvider({ children }: Props) {
   const screenSize = useBreakpointValue({ base: 0, sm: 1, md: 2, lg: 3, xl: 4 })
-  console.log('s', screenSize)
+
   if (screenSize === undefined) {
     return null
   }
