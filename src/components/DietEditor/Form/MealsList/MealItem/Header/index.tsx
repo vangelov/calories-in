@@ -29,7 +29,7 @@ function Header({
   return (
     <Flex
       bg="gray.50"
-      p={3}
+      py={3}
       borderTopRadius={10}
       borderBottomWidth={1}
       justifyContent="space-between"
@@ -39,6 +39,7 @@ function Header({
       <StatsLayout
         nameElement={
           <Name
+            ml={3}
             mealField={mealField}
             getMealNameInputRefById={getMealNameInputRefById}
             index={index}
@@ -59,6 +60,7 @@ function Header({
         fatElement={<Stat type="meal" label="Fat" value={mealStats.fat} />}
         menuElement={
           <Menu
+            mr={3}
             mealField={mealField}
             index={index}
             onAddIngredient={() => onAddIngredient(index)}

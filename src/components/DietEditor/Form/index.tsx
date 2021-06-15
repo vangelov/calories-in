@@ -1,6 +1,6 @@
 import NameAndStats from './NameAndStats'
 import MealsList from './MealsList'
-import { Box, Divider, Flex } from '@chakra-ui/react'
+import { Box, Divider, Flex, Text, HStack } from '@chakra-ui/react'
 import Controls from './Controls'
 import { DietForm, useDietForm, MealsFieldArray } from 'core/dietForm'
 import { FormProvider } from 'react-hook-form'
@@ -61,7 +61,37 @@ function Form({
         <Flex justifyContent="center">
           <Box flex={1} pt={3} maxWidth="900px">
             <MealsList mealsFieldArrayRef={mealsFieldArrayRef} />
-            <Box height="300px" />
+          </Box>
+        </Flex>
+
+        <Flex
+          justifyContent="center"
+          bg="white"
+          position="sticky"
+          bottom="0"
+          zIndex={2}
+        >
+          <Box flex={1} maxWidth="900px">
+            <Divider />
+            <Flex py={3} alignItems="center" justifyContent="space-between">
+              <Text fontSize="sm" color="gray.500">
+                3 meals
+              </Text>
+
+              <HStack spacing={4} justifyContent="space-between">
+                <Text fontSize="sm" color="gray.500">
+                  Sugar: 100g
+                </Text>
+
+                <Text fontSize="sm" color="gray.500">
+                  Fiber: 20g
+                </Text>
+
+                <Text fontSize="sm" color="gray.500">
+                  Saturated fat: 10%
+                </Text>
+              </HStack>
+            </Flex>
           </Box>
         </Flex>
       </IngredientsFormsDndProvider>

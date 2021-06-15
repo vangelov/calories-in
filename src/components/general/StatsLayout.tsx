@@ -33,8 +33,8 @@ function StatsLayout({
       <Grid
         ref={forwardedRef}
         width="100%"
-        templateColumns="repeat(10, 1fr)"
         gap={0}
+        templateColumns="repeat(10, 1fr)"
         {...rest}
       >
         <GridItem colSpan={4}>{nameElement}</GridItem>

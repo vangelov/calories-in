@@ -98,7 +98,6 @@ function IngredientItem({
             alignItems="center"
             position="relative"
             py={2}
-            px={3}
             _hover={{ backgroundColor: transparentize('gray.50', 0.35) }}
           >
             <Input
@@ -120,7 +119,11 @@ function IngredientItem({
             <StatsLayout
               prefersAmount={true}
               nameElement={
-                <FoodInfo fontSize={{ base: 'sm', md: 'md' }} food={food} />
+                <FoodInfo
+                  ml={3}
+                  fontSize={{ base: 'sm', md: 'md' }}
+                  food={food}
+                />
               }
               amountElement={
                 <RightAligned>
@@ -144,7 +147,7 @@ function IngredientItem({
               fatElement={
                 <Stat type="ingredient" value={ingredientStats.fat} />
               }
-              menuElement={<Menu onRemove={() => setIsVisible(false)} />}
+              menuElement={<Menu mr={3} onRemove={() => setIsVisible(false)} />}
             />
           </Flex>
         </motion.div>

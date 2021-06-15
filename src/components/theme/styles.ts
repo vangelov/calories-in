@@ -7,6 +7,10 @@ const styles = {
     '.rc-menu__item--hover': {
       'background-color': '#EDF2F7',
     },
+    '.rc-menu__item--active': {
+      color: 'black',
+      'background-color': '#E2E8F0',
+    },
   },
 }
 

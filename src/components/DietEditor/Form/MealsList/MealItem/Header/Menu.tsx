@@ -1,4 +1,4 @@
-import { chakra } from '@chakra-ui/react'
+import { ButtonProps, chakra } from '@chakra-ui/react'
 import { MealField } from 'core/dietForm'
 import { useMealStats, useUpdateMealStats } from 'core/stats'
 import { Menu as MenuBase, MenuItem } from 'components/general'
@@ -12,9 +12,9 @@ type Props = {
   onRemove: () => void
   onAddIngredient: () => void
   index: number
-}
+} & ButtonProps
 
-function Menu({ mealField, index, onRemove, onAddIngredient }: Props) {
+function Menu({ mealField, index, onRemove, onAddIngredient, ...rest }: Props) {
   const { mealStats } = useMealStats(index, mealField)
 
   useUpdateMealStats(index, mealStats)
@@ -36,6 +36,7 @@ function Menu({ mealField, index, onRemove, onAddIngredient }: Props) {
               />
             }
             variant="outline"
+            {...rest}
           />
         }
       >

@@ -1,4 +1,4 @@
-import { Input } from '@chakra-ui/react'
+import { BoxProps, Input } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { MealField, getMealsFormsPath } from 'core/dietForm'
 import { useUndoRedoMethods } from 'core/undoRedo'
@@ -9,9 +9,9 @@ type Props = {
   mealField: MealField
   index: number
   getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
-}
+} & BoxProps
 
-function Name({ mealField, index, getMealNameInputRefById }: Props) {
+function Name({ mealField, index, getMealNameInputRefById, ...rest }: Props) {
   const { register } = useFormContext()
   const { saveLastChange } = useUndoRedoMethods()
   const nameRegister = register(getMealsFormsPath(index, 'name'))
@@ -40,6 +40,7 @@ function Name({ mealField, index, getMealNameInputRefById }: Props) {
       fontWeight="medium"
       size="md"
       defaultValue={mealField.name}
+      {...rest}
     />
   )
 }

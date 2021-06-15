@@ -1,4 +1,4 @@
-import { chakra } from '@chakra-ui/react'
+import { ButtonProps, chakra } from '@chakra-ui/react'
 import { Menu as MenuBase, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
@@ -8,9 +8,9 @@ const MoreHorizontalStyled = chakra(MoreHorizontal)
 
 type Props = {
   onRemove: () => void
-}
+} & ButtonProps
 
-function Menu({ onRemove }: Props) {
+function Menu({ onRemove, ...rest }: Props) {
   return (
     <RightAligned>
       <MenuBase
@@ -28,6 +28,7 @@ function Menu({ onRemove }: Props) {
               />
             }
             variant="ghost"
+            {...rest}
           />
         }
       >
