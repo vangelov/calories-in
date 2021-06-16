@@ -20,13 +20,7 @@ function Menu({ onRemove, ...rest }: Props) {
         menuButton={
           <ResponsiveIconButton
             aria-label="Ingredient actions"
-            icon={
-              <MoreHorizontalStyled
-                size={20}
-                color="gray.400"
-                pointerEvents="none"
-              />
-            }
+            icon={<MoreHorizontalStyled size={20} pointerEvents="none" />}
             variant="ghost"
             {...rest}
           />

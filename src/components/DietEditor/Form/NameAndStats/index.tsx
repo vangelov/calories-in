@@ -68,7 +68,7 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
           <RightAligned>
             <ResponsiveIconButton
               aria-label="Nutrition details"
-              icon={<Info size={20} color="gray" pointerEvents="none" />}
+              icon={<Info size={20} pointerEvents="none" />}
               variant="ghost"
             />
           </RightAligned>

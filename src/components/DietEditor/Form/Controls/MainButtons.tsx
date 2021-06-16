@@ -20,9 +20,7 @@ function MainButtons({ onMealAdd, onSave }: Props) {
       <>
         <Button
           size="sm"
-          leftIcon={
-            <SaveStyled size={20} color="gray.400" pointerEvents="none" />
-          }
+          leftIcon={<SaveStyled size={20} pointerEvents="none" />}
           variant="outline"
           mr={mr}
           onClick={onSave}
@@ -31,6 +29,7 @@ function MainButtons({ onMealAdd, onSave }: Props) {
         </Button>
         <Button
           size="sm"
+          colorScheme="teal"
           leftIcon={<PlusStyled size={20} color="white" pointerEvents="none" />}
           variant="solid"
           onClick={onMealAdd}
@@ -45,13 +44,14 @@ function MainButtons({ onMealAdd, onSave }: Props) {
     <>
       <ResponsiveIconButton
         aria-label="Save"
-        icon={<SaveStyled size={20} color="gray.400" pointerEvents="none" />}
+        icon={<SaveStyled size={20} pointerEvents="none" />}
         variant="outline"
         onClick={onSave}
         mr={mr}
       />
 
       <ResponsiveIconButton
+        colorScheme="teal"
         size="md"
         aria-label="Add meal"
         icon={<PlusStyled size={20} color="white" pointerEvents="none" />}

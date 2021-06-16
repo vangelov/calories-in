@@ -45,10 +45,10 @@ function Form({
       <IngredientsFormsDndProvider>
         <Flex
           justifyContent="center"
-          bg="white"
           position="sticky"
           top="0"
           zIndex={2}
+          bg="white"
           pt={3}
         >
           <Box flex={1} maxWidth="900px">
@@ -59,7 +59,7 @@ function Form({
         </Flex>
 
         <Flex justifyContent="center">
-          <Box flex={1} pt={3} maxWidth="900px">
+          <Box flex={1} pt={6} maxWidth="900px">
             <MealsList mealsFieldArrayRef={mealsFieldArrayRef} />
           </Box>
         </Flex>
@@ -73,14 +73,17 @@ function Form({
         >
           <Box flex={1} maxWidth="900px">
             <Divider />
-            <Flex py={3} alignItems="center" justifyContent="space-between">
+            <Flex py={2} alignItems="center" justifyContent="space-between">
               <Text fontSize="sm" color="gray.500">
                 3 meals
               </Text>
 
               <HStack spacing={4} justifyContent="space-between">
                 <Text fontSize="sm" color="gray.500">
-                  Sugar: 100g
+                  Sugar: 100
+                  <Text as="span" fontSize="xs" color="gray.500">
+                    g
+                  </Text>
                 </Text>
 
                 <Text fontSize="sm" color="gray.500">
@@ -88,7 +91,7 @@ function Form({
                 </Text>
 
                 <Text fontSize="sm" color="gray.500">
-                  Saturated fat: 10%
+                  Sugar: 10%
                 </Text>
               </HStack>
             </Flex>

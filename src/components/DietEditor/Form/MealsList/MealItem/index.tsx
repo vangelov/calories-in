@@ -110,7 +110,7 @@ function MealItem({
             flexDirection="column"
             borderRadius={10}
             borderWidth="1px"
-            mb={3}
+            mb={6}
             backgroundColor="white"
             boxShadow={snapshot.isDragging ? 'lg' : undefined}
             {...rest}
@@ -134,6 +134,7 @@ function MealItem({
               mealIndex={index}
               ingredientsFields={ingredientsFieldArray.ingredientsFields}
               onIngredientRemove={ingredientsFieldArray.onIngredientRemove}
+              onAddIngredients={onAddIngredient}
             />
 
             <SelectOrCreateFoodsDrawer

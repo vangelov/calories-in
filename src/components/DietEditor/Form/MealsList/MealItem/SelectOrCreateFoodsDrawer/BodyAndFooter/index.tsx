@@ -51,8 +51,7 @@ function BodyAndFooter({ onClose, onSave, searchInputRef }: Props) {
           {actionType === 'selectFoods' ? (
             <VStack
               flex={1}
-              mt={3}
-              spacing={3}
+              spacing={0}
               flexDirection="column"
               alignItems="stretch"
             >
@@ -75,7 +74,7 @@ function BodyAndFooter({ onClose, onSave, searchInputRef }: Props) {
         <Button variant="outline" size="md" mr={3} onClick={onClose}>
           Cancel
         </Button>
-        <Button size="md" onClick={onSaveButtonClick}>
+        <Button size="md" colorScheme="teal" onClick={onSaveButtonClick}>
           Save
         </Button>
       </DrawerFooter>

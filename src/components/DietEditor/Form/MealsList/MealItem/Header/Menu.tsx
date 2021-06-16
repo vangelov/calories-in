@@ -28,13 +28,7 @@ function Menu({ mealField, index, onRemove, onAddIngredient, ...rest }: Props) {
         menuButton={
           <ResponsiveIconButton
             aria-label="Meal actions"
-            icon={
-              <MoreHorizontalStyled
-                size={20}
-                color="gray.400"
-                pointerEvents="none"
-              />
-            }
+            icon={<MoreHorizontalStyled size={20} pointerEvents="none" />}
             variant="outline"
             {...rest}
           />

@@ -17,22 +17,14 @@ function UndoRedoButtons() {
     <ButtonGroup spacing={spacing} variant="outline">
       <ResponsiveIconButton
         aria-label="Undo"
-        icon={
-          <CornerUpLeftStyled size={20} color="gray.400" pointerEvents="none" />
-        }
+        icon={<CornerUpLeftStyled size={20} pointerEvents="none" />}
         isDisabled={!canUndo}
         onClick={() => undo()}
       />
 
       <ResponsiveIconButton
         aria-label="Redo"
-        icon={
-          <CornerUpRightStyled
-            size={20}
-            color="gray.400"
-            pointerEvents="none"
-          />
-        }
+        icon={<CornerUpRightStyled size={20} pointerEvents="none" />}
         isDisabled={!canRedo}
         onClick={() => redo()}
       />
