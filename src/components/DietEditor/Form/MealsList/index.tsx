@@ -16,9 +16,11 @@ type Props = {
 
 function MealsList({ mealsFieldArrayRef }: Props) {
   const getMealNameInputRefById = useGetRefForId()
+
   const pendingMealFieldIdRef = useScrollToAndFocusMeal({
     getMealNameInputRefById,
   })
+
   const mealsFieldArray = useMealsFieldArray({
     pendingMealFieldIdRef,
   })

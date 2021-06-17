@@ -59,7 +59,7 @@ function Form({
         </Flex>
 
         <Flex justifyContent="center">
-          <Box flex={1} pt={6} maxWidth="900px">
+          <Box flex={1} pt={3} maxWidth="900px">
             <MealsList mealsFieldArrayRef={mealsFieldArrayRef} />
           </Box>
         </Flex>
@@ -91,7 +91,7 @@ function Form({
                 </Text>
 
                 <Text fontSize="sm" color="gray.500">
-                  Sugar: 10%
+                  Saturated fat: 10%
                 </Text>
               </HStack>
             </Flex>

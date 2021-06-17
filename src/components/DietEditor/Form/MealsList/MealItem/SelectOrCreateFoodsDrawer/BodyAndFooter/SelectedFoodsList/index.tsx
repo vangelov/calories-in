@@ -15,7 +15,7 @@ function SelectedFoods({ selection }: Props) {
   }
 
   return (
-    <Box overflowX="scroll" py={3}>
+    <Box overflowX="scroll" my={3} py={3}>
       {selectedFoods.length > 0 ? (
         <HStack spacing={2}>
           {selectedFoods.map(food => (

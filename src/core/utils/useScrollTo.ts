@@ -29,7 +29,7 @@ function useScrollTo() {
 
       node.scrollIntoView({
         behavior: 'smooth',
-        block: 'center',
+        block: 'start',
       })
     })
   }

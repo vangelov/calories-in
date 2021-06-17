@@ -1,10 +1,9 @@
 import { Button, chakra } from '@chakra-ui/react'
 import { useScreenSize } from 'core/ScreenSizeProvider'
-import { Plus, Save } from 'react-feather'
+import { Plus, Share } from 'react-feather'
 import { ResponsiveIconButton } from 'components/general'
 
 const PlusStyled = chakra(Plus)
-const SaveStyled = chakra(Save)
 
 type Props = {
   onMealAdd: () => void
@@ -20,12 +19,13 @@ function MainButtons({ onMealAdd, onSave }: Props) {
       <>
         <Button
           size="sm"
-          leftIcon={<SaveStyled size={20} pointerEvents="none" />}
+          leftIcon={<Share size={20} pointerEvents="none" />}
           variant="outline"
+          colorScheme="teal"
           mr={mr}
           onClick={onSave}
         >
-          Save
+          Export
         </Button>
         <Button
           size="sm"
@@ -43,10 +43,11 @@ function MainButtons({ onMealAdd, onSave }: Props) {
   return (
     <>
       <ResponsiveIconButton
-        aria-label="Save"
-        icon={<SaveStyled size={20} pointerEvents="none" />}
+        aria-label="Export"
+        icon={<Share size={20} pointerEvents="none" />}
         variant="outline"
         onClick={onSave}
+        colorScheme="teal"
         mr={mr}
       />
 

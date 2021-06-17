@@ -5,7 +5,7 @@ import {
   chakra,
   Flex,
   Text,
-  VStack,
+  Stack,
   FlexProps,
 } from '@chakra-ui/react'
 import { Divider } from '@chakra-ui/react'
@@ -42,8 +42,8 @@ function FoodsList({ selection, searchInputRef, ...rest }: Props) {
 
   return (
     <Flex flexDirection="column" {...rest}>
-      <VStack spacing={3}>
-        <InputGroup size="md">
+      <Stack spacing={3} direction={{ base: 'column', md: 'row' }}>
+        <InputGroup size="md" flex={4}>
           <InputLeftElement
             pointerEvents="none"
             children={<SearchStyled pointerEvents="none" color="gray.400" />}
@@ -56,10 +56,10 @@ function FoodsList({ selection, searchInputRef, ...rest }: Props) {
           />
         </InputGroup>
 
-        <FoodCategoriesSelect onChange={onSelectChange}>
+        <FoodCategoriesSelect flex={3} onChange={onSelectChange}>
           <option value={undefined}>All categories</option>
         </FoodCategoriesSelect>
-      </VStack>
+      </Stack>
 
       <Divider mt={3} width="100%" />
 

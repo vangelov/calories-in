@@ -110,7 +110,7 @@ function MealItem({
             flexDirection="column"
             borderRadius={10}
             borderWidth="1px"
-            mb={6}
+            mb={3}
             backgroundColor="white"
             boxShadow={snapshot.isDragging ? 'lg' : undefined}
             {...rest}
