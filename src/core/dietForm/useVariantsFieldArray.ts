@@ -31,8 +31,21 @@ function useVariantsFieldArray({ formMethods }: Params) {
   }
 
   function onRemoveVariantForm(index: number) {
-    removeVariantForm(index)
-    saveLastChange()
+    if (variantsFields.length > 1) {
+      removeVariantForm(index)
+      let nextVariantFieldIndex = 0
+
+      if (index === variantsFields.length - 1) {
+        nextVariantFieldIndex = index - 1
+      } else {
+        nextVariantFieldIndex = index + 1
+      }
+
+      const nextVariantField = variantsFields[nextVariantFieldIndex]
+      setSelectedVariantFieldId(nextVariantField.fieldId as string)
+
+      saveLastChange()
+    }
   }
 
   function onMoveVariantForm(index1: number, index2: number) {

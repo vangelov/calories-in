@@ -25,12 +25,18 @@ function IngredientsFormsDndProvider({ children }: Props) {
 
     console.log('v', values)
 
-    const meal = values.variantsForms[0].mealsForms.find(
-      ({ fieldId }) => fieldId === source.droppableId
-    )
+    let sourceMealForm = null
 
-    if (meal) {
-      const ingredientForm = meal.ingredientsForms[source.index]
+    for (const variantForm of values.variantsForms) {
+      for (const mealForm of variantForm.mealsForms) {
+        if (mealForm.fieldId === source.droppableId) {
+          sourceMealForm = mealForm
+        }
+      }
+    }
+
+    if (sourceMealForm) {
+      const ingredientForm = sourceMealForm.ingredientsForms[source.index]
       ingredientFormRef.current = ingredientForm
     }
   })
