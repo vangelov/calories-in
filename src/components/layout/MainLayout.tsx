@@ -1,5 +1,6 @@
 import { ReactElement, ReactNode } from 'react'
-import { Box, useBreakpointValue } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
+import { useScreenSize } from 'core/ScreenSizeProvider'
 
 export type MainLayoutProps = {
   sidebarElement?: ReactElement
@@ -7,13 +8,8 @@ export type MainLayoutProps = {
 }
 
 function MainLayout({ children }: MainLayoutProps) {
-  const screenSize = useBreakpointValue<number>({
-    base: 0,
-    sm: 1,
-    md: 2,
-    lg: 3,
-  })
-  const hasSideNavigation = screenSize !== undefined && screenSize >= 3
+  const screenSize = useScreenSize()
+  const hasSideNavigation = screenSize >= 3
 
   return (
     <Box>

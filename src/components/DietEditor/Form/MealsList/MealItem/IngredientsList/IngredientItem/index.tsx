@@ -18,6 +18,7 @@ import { getInsertIngredientAnimationKey } from 'core/dietForm'
 import { useScreenSize } from 'core/ScreenSizeProvider'
 
 type Props = {
+  variantIndex: number
   mealIndex: number
   index: number
   ingredientField: IngredientField
@@ -35,6 +36,7 @@ const variants = {
 }
 
 function IngredientItem({
+  variantIndex,
   mealIndex,
   index,
   ingredientField,
@@ -43,7 +45,12 @@ function IngredientItem({
   const { register, control } = useFormContext()
   const { saveLastChange } = useUndoRedoMethods()
   const [isVisible, setIsVisible] = useState(true)
-  const amountName = getIngredientsFormsPath(mealIndex, index, 'amountInGrams')
+  const amountName = getIngredientsFormsPath(
+    variantIndex,
+    mealIndex,
+    index,
+    'amountInGrams'
+  )
   const amountInGrams = useWatch({ name: amountName })
   const oneTimeCheck = useOneTimeCheck()
   const screenSize = useScreenSize()
@@ -104,14 +111,24 @@ function IngredientItem({
               fontSize="md"
               type="hidden"
               {...register(
-                getIngredientsFormsPath(mealIndex, index, 'fieldId')
+                getIngredientsFormsPath(
+                  variantIndex,
+                  mealIndex,
+                  index,
+                  'fieldId'
+                )
               )}
               defaultValue={ingredientField.fieldId}
             />
 
             <Controller
               render={() => <div />}
-              name={getIngredientsFormsPath(mealIndex, index, 'foodId')}
+              name={getIngredientsFormsPath(
+                variantIndex,
+                mealIndex,
+                index,
+                'foodId'
+              )}
               control={control}
               defaultValue={ingredientField.foodId}
             />

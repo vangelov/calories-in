@@ -27,6 +27,7 @@ import { useReorderIngredientsForms } from 'core/ingredientsDnd'
 type Props = {
   mealField: MealField
   index: number
+  variantIndex: number
   onRemove: (index: number) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
 } & LayoutProps &
@@ -46,10 +47,14 @@ function MealItem({
   index,
   onRemove,
   getMealNameInputRefById,
+  variantIndex,
   ...rest
 }: Props) {
   const { getValues } = useFormContext<DietForm>()
-  const ingredientsFieldArray = useIngredientsFieldArray({ mealIndex: index })
+  const ingredientsFieldArray = useIngredientsFieldArray({
+    mealIndex: index,
+    variantIndex,
+  })
   const addAddIngredientDisclosure = useDisclosure()
   const [mealName, setMealName] = useState<string | undefined>()
   const addIngredients = useAddIngredients({ ingredientsFieldArray })
@@ -66,7 +71,7 @@ function MealItem({
 
   function onAddIngredient() {
     const dietForm = getValues()
-    const mealForm = dietForm.mealsForms[index]
+    const mealForm = dietForm.variantsForms[variantIndex].mealsForms[index]
     setMealName(mealForm.name)
 
     addAddIngredientDisclosure.onOpen()
@@ -117,11 +122,12 @@ function MealItem({
           >
             <Input
               type="hidden"
-              {...register(getMealsFormsPath(index, 'fieldId'))}
+              {...register(getMealsFormsPath(variantIndex, index, 'fieldId'))}
               defaultValue={mealField.fieldId}
             />
             <Header
               {...provided.dragHandleProps}
+              variantIndex={variantIndex}
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}
               mealField={mealField}
@@ -132,6 +138,7 @@ function MealItem({
             <IngredientsList
               mealField={mealField}
               mealIndex={index}
+              variantIndex={variantIndex}
               ingredientsFields={ingredientsFieldArray.ingredientsFields}
               onIngredientRemove={ingredientsFieldArray.onIngredientRemove}
               onAddIngredients={onAddIngredient}

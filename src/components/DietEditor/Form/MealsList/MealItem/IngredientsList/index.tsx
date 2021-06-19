@@ -6,6 +6,7 @@ import EmptyList from './EmptyList'
 
 type Props = {
   mealIndex: number
+  variantIndex: number
   mealField: MealField
   ingredientsFields: IngredientField[]
   onIngredientRemove: (index: number, mealIndex: number) => void
@@ -13,6 +14,7 @@ type Props = {
 }
 
 function IngredientsList({
+  variantIndex,
   mealIndex,
   mealField,
   onIngredientRemove,
@@ -27,6 +29,7 @@ function IngredientsList({
             <IngredientItem
               key={ingredientField.fieldId}
               onRemove={onIngredientRemove}
+              variantIndex={variantIndex}
               mealIndex={mealIndex}
               index={index}
               ingredientField={ingredientField}

@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react'
 import { useFieldArray } from 'react-hook-form'
 
 type Params = {
+  variantIndex: number
   mealIndex: number
 }
 
-function useIngredientsFieldArray({ mealIndex }: Params) {
+function useIngredientsFieldArray({ variantIndex, mealIndex }: Params) {
   const {
     fields: ingredientsFields,
     insert: insertIngredientForm,
@@ -15,7 +16,7 @@ function useIngredientsFieldArray({ mealIndex }: Params) {
     remove: removeIngredientForm,
     move: moveIngredientForm,
   } = useFieldArray({
-    name: getIngredientsFormsPath(mealIndex),
+    name: getIngredientsFormsPath(variantIndex, mealIndex),
   })
 
   const [removeData, setRemoveData] = useState({ index: -1 })

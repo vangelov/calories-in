@@ -2,6 +2,7 @@ import { Meal } from 'core/types'
 import { getIngredientForm, IngredientForm } from './ingredientForm'
 import { getFormPath } from './utils'
 import { v4 as uuidv4 } from 'uuid'
+import { getVariantsFormsPath } from './variantForm'
 
 type MealForm = {
   fieldId: string
@@ -33,8 +34,13 @@ function getMealForm(meal?: Meal): MealForm {
 
 type MealField = Partial<MealForm>
 
-function getMealsFormsPath(index?: number, fieldName?: string): string {
-  return getFormPath('mealsForms', index, fieldName)
+function getMealsFormsPath(
+  variantIndex: number,
+  index?: number,
+  fieldName?: string
+): string {
+  const variantsFormsPath = getVariantsFormsPath(variantIndex, 'mealsForms')
+  return getFormPath(variantsFormsPath, index, fieldName)
 }
 
 export type { MealForm, MealField }

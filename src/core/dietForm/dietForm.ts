@@ -1,28 +1,31 @@
 import { Diet } from 'core/types'
-import { getMealForm, MealForm } from './mealForm'
 import { useForm } from 'react-hook-form'
+import { getVariantForm, VariantForm } from './variantForm'
 
 type DietForm = {
   formId: string
   name: string
-  mealsForms: MealForm[]
+  selectedVariantFieldId: string
+  variantsForms: VariantForm[]
 }
 
 function getDietForm(diet?: Diet): DietForm {
+  const variantsForms = [getVariantForm(), getVariantForm()]
+
   if (diet) {
     return {
       formId: diet.id.toString(),
       name: diet.name,
-      mealsForms: diet.meals.map(meal => getMealForm(meal)),
+      variantsForms,
+      selectedVariantFieldId: variantsForms[0].fieldId,
     }
   }
-
-  const firstMeal = getMealForm()
 
   return {
     formId: Math.random().toString(),
     name: '',
-    mealsForms: [firstMeal],
+    variantsForms,
+    selectedVariantFieldId: variantsForms[0].fieldId,
   }
 }
 

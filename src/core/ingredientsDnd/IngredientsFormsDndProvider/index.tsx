@@ -23,7 +23,9 @@ function IngredientsFormsDndProvider({ children }: Props) {
 
     const values = getValues()
 
-    const meal = values.mealsForms.find(
+    console.log('v', values)
+
+    const meal = values.variantsForms[0].mealsForms.find(
       ({ fieldId }) => fieldId === source.droppableId
     )
 

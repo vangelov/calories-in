@@ -6,15 +6,22 @@ import { RefObject } from 'react'
 import { useMergeRefs } from '@chakra-ui/react'
 
 type Props = {
+  variantIndex: number
   mealField: MealField
   index: number
   getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
 } & BoxProps
 
-function Name({ mealField, index, getMealNameInputRefById, ...rest }: Props) {
+function Name({
+  variantIndex,
+  mealField,
+  index,
+  getMealNameInputRefById,
+  ...rest
+}: Props) {
   const { register } = useFormContext()
   const { saveLastChange } = useUndoRedoMethods()
-  const nameRegister = register(getMealsFormsPath(index, 'name'))
+  const nameRegister = register(getMealsFormsPath(variantIndex, index, 'name'))
 
   const nameInputRef = useMergeRefs(
     nameRegister.ref,

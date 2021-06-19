@@ -6,17 +6,18 @@ import getInsertMealAnimationKey from './getInsertMealAnimationKey'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
 
 type Params = {
+  variantIndex: number
   pendingMealFieldIdRef: MutableRefObject<string | null>
 }
 
-function useMealsFieldArray({ pendingMealFieldIdRef }: Params) {
+function useMealsFieldArray({ variantIndex, pendingMealFieldIdRef }: Params) {
   const {
     fields: mealsFields,
     append: appendMealForm,
     remove: removeMealForm,
     move: moveMealForm,
   } = useFieldArray({
-    name: getMealsFormsPath(),
+    name: getMealsFormsPath(variantIndex),
   })
   const [removeData, setRemoveData] = useState({ index: -1 })
   const { saveLastChange } = useUndoRedoMethods()

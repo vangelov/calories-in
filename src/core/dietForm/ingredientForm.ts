@@ -22,11 +22,16 @@ function getIngredientForm(ingredient: Ingredient): IngredientForm {
 type IngredientField = Partial<IngredientForm>
 
 function getIngredientsFormsPath(
+  variantIndex: number,
   mealIndex: number,
   index?: number,
   fieldName?: string
 ): string {
-  const mealsFormsPath = getMealsFormsPath(mealIndex, 'ingredientsForms')
+  const mealsFormsPath = getMealsFormsPath(
+    variantIndex,
+    mealIndex,
+    'ingredientsForms'
+  )
   return getFormPath(mealsFormsPath, index, fieldName)
 }
 

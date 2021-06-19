@@ -1,6 +1,5 @@
 import { ButtonProps, chakra } from '@chakra-ui/react'
 import { MealField } from 'core/dietForm'
-import { useMealStats, useUpdateMealStats } from 'core/stats'
 import { Menu as MenuBase, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
@@ -15,10 +14,6 @@ type Props = {
 } & ButtonProps
 
 function Menu({ mealField, index, onRemove, onAddIngredient, ...rest }: Props) {
-  const { mealStats } = useMealStats(index, mealField)
-
-  useUpdateMealStats(index, mealStats)
-
   return (
     <RightAligned>
       <MenuBase
