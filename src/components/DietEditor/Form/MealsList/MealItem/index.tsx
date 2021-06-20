@@ -55,7 +55,7 @@ function MealItem({
     mealIndex: index,
     variantIndex,
   })
-  const addAddIngredientDisclosure = useDisclosure()
+  const addIngredientDisclosure = useDisclosure()
   const [mealName, setMealName] = useState<string | undefined>()
   const addIngredients = useAddIngredients({ ingredientsFieldArray })
   const { register } = useFormContext()
@@ -65,7 +65,7 @@ function MealItem({
   useReorderIngredientsForms({ mealField, ingredientsFieldArray })
 
   function onSave(foods: Food[]) {
-    addAddIngredientDisclosure.onClose()
+    addIngredientDisclosure.onClose()
     addIngredients.onAddIngredients(foods)
   }
 
@@ -74,7 +74,7 @@ function MealItem({
     const mealForm = dietForm.variantsForms[variantIndex].mealsForms[index]
     setMealName(mealForm.name)
 
-    addAddIngredientDisclosure.onOpen()
+    addIngredientDisclosure.onOpen()
   }
 
   function onAnimationComplete() {
@@ -146,8 +146,8 @@ function MealItem({
 
             <SelectOrCreateFoodsDrawer
               mealName={mealName}
-              isOpen={addAddIngredientDisclosure.isOpen}
-              onClose={addAddIngredientDisclosure.onClose}
+              isOpen={addIngredientDisclosure.isOpen}
+              onClose={addIngredientDisclosure.onClose}
               onSave={onSave}
             />
           </Flex>

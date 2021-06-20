@@ -1,5 +1,6 @@
 import { VariantsFieldArray } from 'core/dietForm'
 import { useDragAndDropResponder } from 'core/dndResponders'
+import { useUndoRedoMethods } from 'core/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'
 
 type Params = {
@@ -7,6 +8,8 @@ type Params = {
 }
 
 function useReorderVariantsForms({ variantsFieldArray }: Params) {
+  const { saveLastChange } = useUndoRedoMethods()
+
   useDragAndDropResponder('onDragEnd', (result: DropResult) => {
     const { source, destination, type } = result
 
@@ -14,7 +17,9 @@ function useReorderVariantsForms({ variantsFieldArray }: Params) {
       return
     }
 
-    variantsFieldArray.onMoveVariantForm(source.index, destination.index)
+    variantsFieldArray.moveVariantForm(source.index, destination.index)
+
+    saveLastChange()
   })
 }
 

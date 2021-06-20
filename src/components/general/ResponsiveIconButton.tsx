@@ -4,15 +4,20 @@ import { ForwardedRef, forwardRef } from 'react'
 import { isMobile } from 'react-device-detect'
 
 type Props = {
+  withoutTooltip?: boolean
   forwardedRef?: ForwardedRef<HTMLButtonElement>
 } & IconButtonProps
 
-function ResponsiveIconButton({ forwardedRef, ...rest }: Props) {
+function ResponsiveIconButton({
+  forwardedRef,
+  withoutTooltip = false,
+  ...rest
+}: Props) {
   const screenSize = useScreenSize()
   const size = screenSize >= 2 ? 'sm' : 'md'
   const buttonElement = <IconButton ref={forwardedRef} size={size} {...rest} />
 
-  if (screenSize < 2 || isMobile) {
+  if (screenSize < 2 || isMobile || withoutTooltip) {
     return buttonElement
   }
 

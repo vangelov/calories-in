@@ -48,11 +48,6 @@ function useVariantsFieldArray({ formMethods }: Params) {
     }
   }
 
-  function onMoveVariantForm(index1: number, index2: number) {
-    moveVariantForm(index1, index2)
-    saveLastChange()
-  }
-
   const variantsFields = fields as VariantField[]
 
   const selectedVariantField = variantsFields.find(
@@ -75,8 +70,9 @@ function useVariantsFieldArray({ formMethods }: Params) {
     variantsFields,
     selectedVariantFieldId,
     onAppendVariantForm,
+    appendVariantForm,
     onRemoveVariantForm,
-    onMoveVariantForm,
+    moveVariantForm,
     selectedVariantField,
     selectedVariantFieldIndex,
     setSelectedVariantFieldId,

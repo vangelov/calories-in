@@ -8,13 +8,13 @@ type VariantForm = {
   mealsForms: MealForm[]
 }
 
-function getVariantForm(): VariantForm {
+function getVariantForm(name: string): VariantForm {
   const fieldId = uuidv4()
   const firstMeal = getMealForm()
 
   return {
     fieldId,
-    name: 'Every day',
+    name,
     mealsForms: [firstMeal],
   }
 }

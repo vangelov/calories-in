@@ -1,4 +1,4 @@
-import { Flex, IconButton, Box } from '@chakra-ui/react'
+import { Flex, IconButton, Box, useDisclosure } from '@chakra-ui/react'
 import { DietForm } from 'core/dietForm'
 import { VariantsFieldArray } from 'core/dietForm/useVariantsFieldArray'
 import { VariantField, VariantForm } from 'core/dietForm/variantForm'
@@ -8,6 +8,8 @@ import { v4 as uuidv4 } from 'uuid'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
 import useReorderVariantsForms from 'core/mealsDnd/useReorderVariantsForms'
+import VariantNameModal from './VariantNameModal'
+import useAddOrEditVariant from './useAddOrEditVariant'
 
 type Props = {
   variantsFieldArray: VariantsFieldArray
@@ -18,6 +20,7 @@ const deepCopy = (value: any, replacer?: (key: string, value: any) => any) =>
 
 function VariantsList({ variantsFieldArray }: Props) {
   const { getValues } = useFormContext<DietForm>()
+  const addOrEditVariant = useAddOrEditVariant({ variantsFieldArray })
 
   function onClone(index: number) {
     const values = getValues()
@@ -47,25 +50,26 @@ function VariantsList({ variantsFieldArray }: Props) {
     >
       {(provided, snapshot) => (
         <Flex ref={provided.innerRef}>
-          {variantsFieldArray.variantsFields.map((v, index) => {
+          {variantsFieldArray.variantsFields.map((variantField, index) => {
             return (
               <VariantItem
                 mr={1}
                 index={index}
                 onDelete={variantsFieldArray.onRemoveVariantForm}
                 onClone={onClone}
-                key={v.fieldId}
-                variantField={v}
+                key={variantField.fieldId}
+                variantField={variantField}
                 isSelected={
-                  v.fieldId === variantsFieldArray.selectedVariantFieldId
+                  variantField.fieldId ===
+                  variantsFieldArray.selectedVariantFieldId
                 }
-                onSelect={(variantField: VariantField) =>
+                onSelect={(selectedVariantField: VariantField) =>
                   variantsFieldArray.setSelectedVariantFieldId(
-                    variantField.fieldId as string
+                    selectedVariantField.fieldId as string
                   )
                 }
               >
-                {v.name}
+                {variantField.name}
               </VariantItem>
             )
           })}
@@ -82,9 +86,16 @@ function VariantsList({ variantsFieldArray }: Props) {
               aria-label="Add variant"
               icon={<Plus size={20} pointerEvents="none" />}
               variant="outline"
+              onClick={addOrEditVariant.onAddNew}
             />
             <Box width={3} height={3} />
           </Flex>
+
+          <VariantNameModal
+            isOpen={addOrEditVariant.isModalOpen}
+            onClose={addOrEditVariant.onModalClose}
+            onSave={addOrEditVariant.onModalSave}
+          />
         </Flex>
       )}
     </Droppable>
