@@ -5,10 +5,7 @@ import { useUndoRedoMethods } from 'core/undoRedo'
 
 function Watcher() {
   const form = useWatch({}) as DietForm
-  useWatch({ name: 'selectedVariantFieldId' })
   const { pushForm } = useUndoRedoMethods()
-
-  console.log('form', form)
 
   useEffect(() => {
     pushForm(form)

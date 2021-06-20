@@ -33,19 +33,19 @@ function useVariantsFieldArray({ formMethods }: Params) {
 
   function onRemoveVariantForm(index: number) {
     if (variantsFields.length > 1) {
-      removeVariantForm(index)
+      let nextVariantFieldIndex = 0
 
-      if (selectedVariantFormIndex === index) {
-        const nextVariantFieldIndex = index > 0 ? index - 1 : 0
-        setSelectedVariantFormIndex(nextVariantFieldIndex)
+      if (index <= selectedVariantFormIndex) {
+        nextVariantFieldIndex = Math.max(selectedVariantFormIndex - 1, 0)
       }
+      setSelectedVariantFormIndex(nextVariantFieldIndex)
+      removeVariantForm(index)
 
       saveLastChange()
     }
   }
 
   const variantsFields = fields as VariantField[]
-
   const selectedVariantField = variantsFields[selectedVariantFormIndex]
 
   function setSelectedVariantFormIndex(index: number) {

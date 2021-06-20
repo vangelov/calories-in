@@ -3,52 +3,42 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
-  ModalBody,
   ModalCloseButton,
-  Button,
-  FormControl,
-  Input,
-  FormLabel,
 } from '@chakra-ui/react'
+import { VariantField } from 'core/dietForm'
 import { useRef } from 'react'
+import BodyAndFooter from './BodyAndFooter'
 
 type Props = {
   onClose: () => void
   isOpen: boolean
+  title: string
+  variantField?: VariantField
   onSave: (name: string) => void
+  existingVariantsNames: string[]
 }
 
-function VariantNameModal({ onClose, isOpen, onSave }: Props) {
+function VariantNameModal({
+  onClose,
+  isOpen,
+  onSave,
+  title,
+  existingVariantsNames,
+}: Props) {
   const initialRef = useRef<HTMLInputElement>(null)
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={initialRef}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Create New Variant</ModalHeader>
+        <ModalHeader>{title}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>
-          <FormControl>
-            <FormLabel>Variant name</FormLabel>
-            <Input ref={initialRef} placeholder="First name" />
-          </FormControl>
-        </ModalBody>
-
-        <ModalFooter>
-          <Button mr={3} onClick={onClose}>
-            Close
-          </Button>
-          <Button
-            colorScheme="teal"
-            variant="solid"
-            onClick={() => {
-              onSave('V3')
-            }}
-          >
-            Save
-          </Button>
-        </ModalFooter>
+        <BodyAndFooter
+          onClose={onClose}
+          onSave={onSave}
+          initialRef={initialRef}
+          existingVariantsNames={existingVariantsNames}
+        />
       </ModalContent>
     </Modal>
   )

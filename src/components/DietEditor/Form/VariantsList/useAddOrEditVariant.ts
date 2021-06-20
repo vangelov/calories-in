@@ -1,50 +1,53 @@
 import { useDisclosure } from '@chakra-ui/hooks'
 import { VariantsFieldArray } from 'core/dietForm'
 import useAddOrEditVariantForm from 'core/dietForm/useAddOrEditVariantForm'
-import { useState } from 'react'
+import { useRef } from 'react'
 
 type Params = {
   variantsFieldArray: VariantsFieldArray
 }
 
-type PendingAction = { type: 'add' } | { type: 'edit'; index: number }
-
 function useAddOrEditVariant({ variantsFieldArray }: Params) {
   const variantNameModalDisclosure = useDisclosure()
-  const [pendingAction, setPendingAction] = useState<PendingAction>()
+  const onModalSaveRef = useRef<(name: string) => void>(() => {})
   const addOrEditVariantForm = useAddOrEditVariantForm({ variantsFieldArray })
+  const { variantsFields } = variantsFieldArray
 
   function onAddNew() {
-    setPendingAction({ type: 'add' })
     variantNameModalDisclosure.onOpen()
+
+    onModalSaveRef.current = (name: string) => {
+      variantNameModalDisclosure.onClose()
+      addOrEditVariantForm.onAdd(name)
+    }
+  }
+
+  function onCloneExisting(index: number) {
+    variantNameModalDisclosure.onOpen()
+
+    onModalSaveRef.current = (name: string) => {
+      variantNameModalDisclosure.onClose()
+      addOrEditVariantForm.onClone(name, index)
+    }
   }
 
   function onEdit(index: number) {
-    setPendingAction({ type: 'edit', index })
     variantNameModalDisclosure.onOpen()
-  }
 
-  function onModalSave(name: string) {
-    variantNameModalDisclosure.onClose()
-
-    if (!pendingAction) {
-      throw new Error()
-    }
-
-    if (pendingAction.type === 'add') {
-      addOrEditVariantForm.onAdd(name)
-    } else if (pendingAction.type === 'edit') {
-      const { index } = pendingAction
+    onModalSaveRef.current = (name: string) => {
+      variantNameModalDisclosure.onClose()
       addOrEditVariantForm.onEdit(name, index)
     }
   }
 
   return {
     onAddNew,
+    onCloneExisting,
     onEdit,
     isModalOpen: variantNameModalDisclosure.isOpen,
     onModalClose: variantNameModalDisclosure.onClose,
-    onModalSave,
+    onModalSave: onModalSaveRef.current,
+    existingVariantsNames: variantsFields.map(({ name }) => name as string),
   }
 }
 

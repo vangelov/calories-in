@@ -7,10 +7,11 @@ const MoreHorizontalStyled = chakra(MoreHorizontal)
 
 type Props = {
   onClone: () => void
+  onEditName: () => void
   onDelete: () => void
 } & ButtonProps
 
-function Menu({ onDelete, onClone, ...rest }: Props) {
+function Menu({ onDelete, onClone, onEditName, ...rest }: Props) {
   return (
     <MenuBase
       arrow
@@ -28,6 +29,8 @@ function Menu({ onDelete, onClone, ...rest }: Props) {
       }
     >
       <MenuItem onClick={onClone}>Clone variant</MenuItem>
+      <MenuItem onClick={onEditName}>Edit variant name</MenuItem>
+
       <MenuItem onClick={onDelete}>Delete variant</MenuItem>
     </MenuBase>
   )

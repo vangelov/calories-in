@@ -10,7 +10,7 @@ type DietForm = {
 }
 
 function getDietForm(diet?: Diet): DietForm {
-  const variantsForms = [getVariantForm('V1'), getVariantForm('V2')]
+  const variantsForms = [getVariantForm('Every day')]
 
   if (diet) {
     return {
