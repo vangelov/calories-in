@@ -13,8 +13,12 @@ function useAddOrEditVariantForm({ variantsFieldArray }: Props) {
 
   function onAdd(name: string) {
     const newVariantForm = getVariantForm(name)
+    const variantsFormsCountBeforeAdd =
+      variantsFieldArray.variantsFields.length - 1
     variantsFieldArray.appendVariantForm(newVariantForm)
-    variantsFieldArray.setSelectedVariantFieldId(newVariantForm.fieldId)
+    variantsFieldArray.setSelectedVariantFormIndex(
+      variantsFormsCountBeforeAdd + 1
+    )
     saveLastChange()
   }
 

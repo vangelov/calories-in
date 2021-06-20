@@ -17,6 +17,7 @@ function Menu({ onDelete, onClone, ...rest }: Props) {
       portal={true}
       menuButton={
         <ResponsiveIconButton
+          withoutTooltip={true}
           aria-label="Ingredient actions"
           icon={<MoreHorizontalStyled size={20} pointerEvents="none" />}
           variant="ghost"

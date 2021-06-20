@@ -18,6 +18,7 @@ function useReorderVariantsForms({ variantsFieldArray }: Params) {
     }
 
     variantsFieldArray.moveVariantForm(source.index, destination.index)
+    variantsFieldArray.setSelectedVariantFormIndex(destination.index)
 
     saveLastChange()
   })

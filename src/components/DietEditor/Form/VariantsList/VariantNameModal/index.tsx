@@ -7,8 +7,11 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  Box,
+  FormControl,
+  Input,
+  FormLabel,
 } from '@chakra-ui/react'
+import { useRef } from 'react'
 
 type Props = {
   onClose: () => void
@@ -17,14 +20,19 @@ type Props = {
 }
 
 function VariantNameModal({ onClose, isOpen, onSave }: Props) {
+  const initialRef = useRef<HTMLInputElement>(null)
+
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={initialRef}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Modal Title</ModalHeader>
+        <ModalHeader>Create New Variant</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Box height="100px" />
+          <FormControl>
+            <FormLabel>Variant name</FormLabel>
+            <Input ref={initialRef} placeholder="First name" />
+          </FormControl>
         </ModalBody>
 
         <ModalFooter>

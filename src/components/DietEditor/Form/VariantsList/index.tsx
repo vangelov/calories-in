@@ -1,7 +1,7 @@
-import { Flex, IconButton, Box, useDisclosure } from '@chakra-ui/react'
+import { Flex, IconButton, Box } from '@chakra-ui/react'
 import { DietForm } from 'core/dietForm'
 import { VariantsFieldArray } from 'core/dietForm/useVariantsFieldArray'
-import { VariantField, VariantForm } from 'core/dietForm/variantForm'
+import { VariantForm } from 'core/dietForm/variantForm'
 import { useFormContext } from 'react-hook-form'
 import VariantItem from './VariantItem'
 import { v4 as uuidv4 } from 'uuid'
@@ -36,8 +36,11 @@ function VariantsList({ variantsFieldArray }: Props) {
       }
     ) as VariantForm
 
+    const variantsCountBeforeClone =
+      variantsFieldArray.variantsFields.length - 1
+
     variantsFieldArray.onAppendVariantForm(copiedVariantForm)
-    variantsFieldArray.setSelectedVariantFieldId(copiedVariantForm.fieldId)
+    variantsFieldArray.setSelectedVariantFormIndex(variantsCountBeforeClone + 1)
   }
 
   useReorderVariantsForms({ variantsFieldArray })
@@ -60,13 +63,10 @@ function VariantsList({ variantsFieldArray }: Props) {
                 key={variantField.fieldId}
                 variantField={variantField}
                 isSelected={
-                  variantField.fieldId ===
-                  variantsFieldArray.selectedVariantFieldId
+                  index === variantsFieldArray.selectedVariantFormIndex
                 }
-                onSelect={(selectedVariantField: VariantField) =>
-                  variantsFieldArray.setSelectedVariantFieldId(
-                    selectedVariantField.fieldId as string
-                  )
+                onSelect={() =>
+                  variantsFieldArray.setSelectedVariantFormIndex(index)
                 }
               >
                 {variantField.name}

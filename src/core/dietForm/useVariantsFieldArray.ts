@@ -10,10 +10,11 @@ type Params = {
 function useVariantsFieldArray({ formMethods }: Params) {
   const { setValue, control } = formMethods
   const { saveLastChange } = useUndoRedoMethods()
-  const selectedVariantFieldId = useWatch({
-    name: 'selectedVariantFieldId',
-    control,
-  })
+  const selectedVariantFormIndex =
+    useWatch({
+      name: 'selectedVariantFormIndex',
+      control,
+    }) || 0
 
   const {
     fields,
@@ -33,16 +34,11 @@ function useVariantsFieldArray({ formMethods }: Params) {
   function onRemoveVariantForm(index: number) {
     if (variantsFields.length > 1) {
       removeVariantForm(index)
-      let nextVariantFieldIndex = 0
 
-      if (index === variantsFields.length - 1) {
-        nextVariantFieldIndex = index - 1
-      } else {
-        nextVariantFieldIndex = index + 1
+      if (selectedVariantFormIndex === index) {
+        const nextVariantFieldIndex = index > 0 ? index - 1 : 0
+        setSelectedVariantFormIndex(nextVariantFieldIndex)
       }
-
-      const nextVariantField = variantsFields[nextVariantFieldIndex]
-      setSelectedVariantFieldId(nextVariantField.fieldId as string)
 
       saveLastChange()
     }
@@ -50,32 +46,22 @@ function useVariantsFieldArray({ formMethods }: Params) {
 
   const variantsFields = fields as VariantField[]
 
-  const selectedVariantField = variantsFields.find(
-    ({ fieldId }) => fieldId === selectedVariantFieldId
-  )
-  const selectedVariantFieldIndex = variantsFields.findIndex(
-    ({ fieldId }) => fieldId === selectedVariantFieldId
-  )
+  const selectedVariantField = variantsFields[selectedVariantFormIndex]
 
-  function setSelectedVariantFieldId(fieldId: string) {
-    setValue('selectedVariantFieldId', fieldId)
+  function setSelectedVariantFormIndex(index: number) {
+    setValue('selectedVariantFormIndex', index)
     saveLastChange()
-  }
-
-  if (!selectedVariantFieldId || !selectedVariantField) {
-    throw new Error()
   }
 
   return {
     variantsFields,
-    selectedVariantFieldId,
+    setSelectedVariantFormIndex,
     onAppendVariantForm,
     appendVariantForm,
     onRemoveVariantForm,
     moveVariantForm,
+    selectedVariantFormIndex,
     selectedVariantField,
-    selectedVariantFieldIndex,
-    setSelectedVariantFieldId,
   }
 }
 

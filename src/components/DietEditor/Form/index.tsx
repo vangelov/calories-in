@@ -21,7 +21,7 @@ function Form({ dietForm, scrollTop, isEditingExistingDiet }: Props) {
   const mealsFieldArrayRef = useRef<MealsFieldArray>()
   const { handleSubmit } = formMethods
   const variantsFieldArray = useVariantsFieldArray({ formMethods })
-  const { selectedVariantField, selectedVariantFieldIndex } = variantsFieldArray
+  const { selectedVariantFormIndex, selectedVariantField } = variantsFieldArray
 
   useLayoutEffect(() => {
     window.scroll({ top: scrollTop })
@@ -49,10 +49,10 @@ function Form({ dietForm, scrollTop, isEditingExistingDiet }: Props) {
           }
           bodyElement={
             <MealsList
-              key={selectedVariantField.fieldId}
+              key={`${selectedVariantFormIndex}-${selectedVariantField.fieldId}`}
               variantField={selectedVariantField}
               mealsFieldArrayRef={mealsFieldArrayRef}
-              variantIndex={selectedVariantFieldIndex}
+              variantIndex={selectedVariantFormIndex}
             />
           }
           footerElement={

@@ -5,7 +5,7 @@ import { getVariantForm, VariantForm } from './variantForm'
 type DietForm = {
   formId: string
   name: string
-  selectedVariantFieldId: string
+  selectedVariantFormIndex: number
   variantsForms: VariantForm[]
 }
 
@@ -17,7 +17,7 @@ function getDietForm(diet?: Diet): DietForm {
       formId: diet.id.toString(),
       name: diet.name,
       variantsForms,
-      selectedVariantFieldId: variantsForms[0].fieldId,
+      selectedVariantFormIndex: 0,
     }
   }
 
@@ -25,7 +25,7 @@ function getDietForm(diet?: Diet): DietForm {
     formId: Math.random().toString(),
     name: '',
     variantsForms,
-    selectedVariantFieldId: variantsForms[0].fieldId,
+    selectedVariantFormIndex: 0,
   }
 }
 
