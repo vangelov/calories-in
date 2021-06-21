@@ -9,9 +9,10 @@ type Props = {
   onClone: () => void
   onEditName: () => void
   onDelete: () => void
+  canRemove: boolean
 } & ButtonProps
 
-function Menu({ onDelete, onClone, onEditName, ...rest }: Props) {
+function Menu({ onDelete, onClone, onEditName, canRemove, ...rest }: Props) {
   return (
     <MenuBase
       arrow
@@ -31,7 +32,9 @@ function Menu({ onDelete, onClone, onEditName, ...rest }: Props) {
       <MenuItem onClick={onClone}>Clone variant</MenuItem>
       <MenuItem onClick={onEditName}>Edit variant name</MenuItem>
 
-      <MenuItem onClick={onDelete}>Delete variant</MenuItem>
+      <MenuItem disabled={!canRemove} onClick={onDelete}>
+        Delete variant
+      </MenuItem>
     </MenuBase>
   )
 }

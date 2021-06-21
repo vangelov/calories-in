@@ -14,6 +14,7 @@ type Props = {
   isSelected: boolean
   onSelect: (variantField: VariantField) => void
   variantField: VariantField
+  canRemove: boolean
   index: number
 } & LayoutProps &
   SpaceProps
@@ -35,6 +36,7 @@ function VariantItem({
   isSelected,
   onSelect,
   variantField,
+  canRemove,
   index,
   ...rest
 }: Props) {
@@ -90,6 +92,7 @@ function VariantItem({
               </Button>
 
               <Menu
+                canRemove={canRemove}
                 onClone={() => onClone(index)}
                 onEditName={() => onEditName(index)}
                 onDelete={() => setIsVisible(false)}

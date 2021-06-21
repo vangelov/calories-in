@@ -15,6 +15,8 @@ function VariantsList({ variantsFieldArray }: Props) {
   const addOrEditVariant = useAddOrEditVariant({ variantsFieldArray })
   useReorderVariantsForms({ variantsFieldArray })
 
+  const { variantsFields } = variantsFieldArray
+
   return (
     <Droppable
       droppableId="variantsList"
@@ -23,9 +25,10 @@ function VariantsList({ variantsFieldArray }: Props) {
     >
       {(provided, snapshot) => (
         <Flex ref={provided.innerRef}>
-          {variantsFieldArray.variantsFields.map((variantField, index) => {
+          {variantsFields.map((variantField, index) => {
             return (
               <VariantItem
+                canRemove={variantsFields.length > 1}
                 mr={1}
                 index={index}
                 onDelete={variantsFieldArray.onRemoveVariantForm}
@@ -63,7 +66,7 @@ function VariantsList({ variantsFieldArray }: Props) {
           </Flex>
 
           <VariantNameModal
-            title="Test"
+            title={addOrEditVariant.modalTitle}
             isOpen={addOrEditVariant.isModalOpen}
             onClose={addOrEditVariant.onModalClose}
             onSave={addOrEditVariant.onModalSave}

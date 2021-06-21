@@ -28,7 +28,12 @@ function VariantNameModal({
   const initialRef = useRef<HTMLInputElement>(null)
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={initialRef}>
+    <Modal
+      isOpen={isOpen}
+      preserveScrollBarGap={true}
+      onClose={onClose}
+      initialFocusRef={initialRef}
+    >
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>{title}</ModalHeader>
