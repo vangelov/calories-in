@@ -30,15 +30,15 @@ type Props = {
   variantIndex: number
   onRemove: (index: number) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
+  onFirstAppear: () => void
 } & LayoutProps &
   SpaceProps
 
 const variants = {
   open: {
     opacity: 1,
-    height: 'auto',
-    x: 0,
   },
+  hidden: { opacity: 0 },
   collapsed: { opacity: 0, height: 0, x: 0 },
 }
 
@@ -48,6 +48,7 @@ function MealItem({
   onRemove,
   getMealNameInputRefById,
   variantIndex,
+  onFirstAppear,
   ...rest
 }: Props) {
   const { getValues } = useFormContext<DietForm>()
@@ -78,7 +79,9 @@ function MealItem({
   }
 
   function onAnimationComplete() {
-    if (!isVisible) {
+    if (pendingAnimationForInserted) {
+      onFirstAppear()
+    } else if (!isVisible) {
       onRemove(index)
     }
   }
@@ -99,11 +102,14 @@ function MealItem({
     >
       {(provided, snapshot) => (
         <motion.div
-          transition={{ ease: 'easeInOut' }}
+          transition={{
+            ease: 'easeInOut',
+            duration: pendingAnimationForInserted ? 0.12 : undefined,
+          }}
           style={{
             opacity: pendingAnimationForInserted ? 0 : 1,
           }}
-          initial={pendingAnimationForInserted ? 'collapsed' : false}
+          initial={pendingAnimationForInserted ? 'hidden' : false}
           animate={isVisible ? 'open' : 'collapsed'}
           onAnimationComplete={onAnimationComplete}
           variants={variants}

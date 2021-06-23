@@ -5,7 +5,7 @@ import {
   MealsFieldArray,
   useScrollToAndFocusMeal,
 } from 'core/dietForm'
-import { MutableRefObject } from 'react'
+import { MutableRefObject, useRef } from 'react'
 import { useGetRefForId } from 'core/utils'
 import { Droppable } from 'react-beautiful-dnd'
 import { useReorderMealsForms } from 'core/mealsDnd'
@@ -21,8 +21,10 @@ type Props = {
 function MealsList({ mealsFieldArrayRef, variantIndex, variantField }: Props) {
   const getMealNameInputRefById = useGetRefForId()
   const { register } = useFormContext()
+  const scrollTargetRef = useRef<HTMLDivElement>(null)
 
-  const pendingMealFieldIdRef = useScrollToAndFocusMeal({
+  const { pendingMealFieldIdRef, onScrollToMeal } = useScrollToAndFocusMeal({
+    scrollTargetRef,
     getMealNameInputRefById,
   })
 
@@ -53,10 +55,12 @@ function MealsList({ mealsFieldArrayRef, variantIndex, variantField }: Props) {
               index={index}
               onRemove={mealsFieldArray.onMealRemove}
               mealField={mealField}
+              onFirstAppear={onScrollToMeal}
             />
           ))}
 
           {provided.placeholder}
+          <Box ref={scrollTargetRef} height="58px" />
         </Box>
       )}
     </Droppable>

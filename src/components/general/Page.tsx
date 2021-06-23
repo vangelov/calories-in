@@ -48,10 +48,7 @@ function Page({ headerElement, bodyElement, footerElement }: Props) {
       </Flex>
 
       <Flex justifyContent="center">
-        <ElementContainer>
-          {bodyElement}
-          <Box height="100px" />
-        </ElementContainer>
+        <ElementContainer>{bodyElement}</ElementContainer>
       </Flex>
 
       <Box

@@ -1,33 +1,36 @@
 import { useScrollTo } from 'core/utils'
-import { RefObject, useEffect, useRef } from 'react'
+import { RefObject, useRef } from 'react'
 
 type Params = {
   getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
+  scrollTargetRef: RefObject<HTMLDivElement>
 }
 
-function useScrollToAndFocusMeal({ getMealNameInputRefById }: Params) {
+function useScrollToAndFocusMeal({
+  getMealNameInputRefById,
+  scrollTargetRef,
+}: Params) {
   const pendingMealFieldIdRef = useRef<string | null>(null)
   const scrollTo = useScrollTo()
 
-  useEffect(() => {
-    async function run() {
-      if (pendingMealFieldIdRef.current) {
-        const mealNameInputRef = getMealNameInputRefById(
-          pendingMealFieldIdRef.current
-        )
-        pendingMealFieldIdRef.current = null
+  async function onScrollToMeal() {
+    if (pendingMealFieldIdRef.current) {
+      const mealNameInputRef = getMealNameInputRefById(
+        pendingMealFieldIdRef.current
+      )
+      pendingMealFieldIdRef.current = null
 
-        if (mealNameInputRef.current) {
-          //await new Promise(r => setTimeout(() => r(1), 300))
-          await scrollTo(mealNameInputRef.current)
-          mealNameInputRef.current.focus()
-        }
+      if (scrollTargetRef.current) {
+        await scrollTo(scrollTargetRef.current)
+      }
+
+      if (mealNameInputRef.current) {
+        mealNameInputRef.current.focus()
       }
     }
-    run()
-  }, [pendingMealFieldIdRef, getMealNameInputRefById, scrollTo])
+  }
 
-  return pendingMealFieldIdRef
+  return { pendingMealFieldIdRef, onScrollToMeal }
 }
 
 export default useScrollToAndFocusMeal
