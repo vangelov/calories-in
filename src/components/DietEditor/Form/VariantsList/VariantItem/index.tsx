@@ -1,10 +1,11 @@
-import { Box, Button, HStack, LayoutProps, SpaceProps } from '@chakra-ui/react'
+import { Box, Text, HStack, LayoutProps, SpaceProps } from '@chakra-ui/react'
 import { getInsertVariantFormAnimationKey, VariantField } from 'core/dietForm'
 import { ReactNode, useState } from 'react'
 import Menu from './Menu'
 import { Draggable } from 'react-beautiful-dnd'
 import { motion } from 'framer-motion'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
+import { MouseEvent } from 'react'
 
 type Props = {
   children: ReactNode
@@ -57,11 +58,20 @@ function VariantItem({
     getInsertVariantFormAnimationKey(variantField.fieldId)
   )
 
+  function onClick(event: MouseEvent<HTMLDivElement>) {
+    const anyTarget: any = event.target
+
+    if (anyTarget.type !== 'button') {
+      onSelect(variantField)
+    }
+  }
+
   return (
     <Draggable
       key={variantField.fieldId}
       draggableId={variantField.fieldId as string}
       index={index}
+      isDragDisabled={!isSelected}
     >
       {provided => (
         <motion.div
@@ -80,20 +90,17 @@ function VariantItem({
             borderRadius="full"
             fontWeight="medium"
             borderWidth="1px"
+            onClick={onClick}
             px={3}
+            cursor="pointer"
             {...rest}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            <HStack spacing={1}>
-              <Button
-                pointerEvents={isSelected ? 'none' : 'all'}
-                size="sm"
-                variant="unstyled"
-                onClick={() => onSelect(variantField)}
-              >
+            <HStack spacing={1} height={8}>
+              <Text fontWeight="medium" noOfLines={1} fontSize="sm">
                 {children}
-              </Button>
+              </Text>
 
               <Menu
                 canRemove={canRemove}

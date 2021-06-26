@@ -20,6 +20,7 @@ function useVariantsFieldArray({ formMethods }: Params) {
     fields,
     append: appendVariantForm,
     remove: removeVariantForm,
+    insert: insertVariantForm,
     move: moveVariantForm,
   } = useFieldArray({
     name: getVariantsFormsPath() as any,
@@ -30,6 +31,7 @@ function useVariantsFieldArray({ formMethods }: Params) {
   const selectedVariantField = variantsFields[selectedVariantFormIndex]
 
   function setSelectedVariantFormIndex(index: number) {
+    console.log('set')
     setValue('selectedVariantFormIndex', index)
     saveLastChange()
   }
@@ -38,6 +40,7 @@ function useVariantsFieldArray({ formMethods }: Params) {
     variantsFields,
     setSelectedVariantFormIndex,
     appendVariantForm,
+    insertVariantForm,
     removeVariantForm,
     moveVariantForm,
     selectedVariantFormIndex,

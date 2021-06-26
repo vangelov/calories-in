@@ -31,15 +31,12 @@ function useCloneVariantForm({ variantsFieldArray }: Props) {
 
     copiedVariantForm.name = name
 
-    const variantsCountBeforeClone =
-      variantsFieldArray.variantsFields.length - 1
-
     oneTimeCheck.set(
       getInsertVariantFormAnimationKey(copiedVariantForm.fieldId)
     )
 
-    variantsFieldArray.appendVariantForm(copiedVariantForm)
-    variantsFieldArray.setSelectedVariantFormIndex(variantsCountBeforeClone + 1)
+    variantsFieldArray.insertVariantForm(index + 1, copiedVariantForm)
+    variantsFieldArray.setSelectedVariantFormIndex(index + 1)
 
     saveLastChange()
   }
