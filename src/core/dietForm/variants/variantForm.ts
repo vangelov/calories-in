@@ -1,6 +1,6 @@
-import { getMealForm, MealForm } from './mealForm'
+import { getMealForm, MealForm } from 'core/dietForm'
 import { v4 as uuidv4 } from 'uuid'
-import { getFormPath } from './utils'
+import { getFormPath } from '../utils'
 
 type VariantForm = {
   fieldId: string
@@ -25,6 +25,14 @@ function getVariantsFormsPath(index?: number, fieldName?: string): string {
   return getFormPath('variantsForms', index, fieldName)
 }
 
+function getInsertVariantFormAnimationKey(fieldId: string) {
+  return `insert-variant-animmation-${fieldId}`
+}
+
 export type { VariantForm, VariantField }
 
-export { getVariantForm, getVariantsFormsPath }
+export {
+  getVariantForm,
+  getVariantsFormsPath,
+  getInsertVariantFormAnimationKey,
+}

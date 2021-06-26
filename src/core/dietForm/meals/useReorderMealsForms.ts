@@ -1,4 +1,4 @@
-import { MealsFieldArray } from 'core/dietForm'
+import { MealsFieldArray } from './useMealsFieldArray'
 import { useDragAndDropResponder } from 'core/dndResponders'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'

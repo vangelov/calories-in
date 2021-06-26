@@ -1,5 +1,5 @@
 import { Box, Button, HStack, LayoutProps, SpaceProps } from '@chakra-ui/react'
-import { VariantField } from 'core/dietForm/variantForm'
+import { getInsertVariantFormAnimationKey, VariantField } from 'core/dietForm'
 import { ReactNode, useState } from 'react'
 import Menu from './Menu'
 import { Draggable } from 'react-beautiful-dnd'
@@ -49,8 +49,12 @@ function VariantItem({
     }
   }
 
+  if (!variantField.fieldId) {
+    throw new Error()
+  }
+
   const pendingAnimationForInserted = oneTimeCheck.checkAndReset(
-    `test${variantField.fieldId}`
+    getInsertVariantFormAnimationKey(variantField.fieldId)
   )
 
   return (

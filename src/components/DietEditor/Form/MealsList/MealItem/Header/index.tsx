@@ -35,7 +35,7 @@ function Header({
       borderTopRadius={10}
       borderBottomWidth={1}
       justifyContent="space-between"
-      _hover={{ backgroundColor: 'gray.60' }}
+      _hover={{ backgroundColor: 'gray.100' }}
       {...rest}
     >
       <StatsLayout

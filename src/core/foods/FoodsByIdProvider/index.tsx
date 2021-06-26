@@ -1,4 +1,4 @@
-import { Food, FoodsByIdMap } from 'core/types'
+import { Food } from 'core/types'
 import { ReactNode, useReducer } from 'react'
 import { State, Action, StateContext, DispatchContext } from './context'
 
@@ -28,7 +28,7 @@ type Props = {
 }
 
 const getInitialFoodsMap = (initialFoods: Food[]) => {
-  const initialMap: FoodsByIdMap = {}
+  const initialMap: Record<number, Food> = {}
 
   for (const food of initialFoods) {
     initialMap[food.id] = food

@@ -1,4 +1,4 @@
-import { VariantsFieldArray } from 'core/dietForm'
+import { VariantsFieldArray } from './useVariantsFieldArray'
 import { useDragAndDropResponder } from 'core/dndResponders'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'

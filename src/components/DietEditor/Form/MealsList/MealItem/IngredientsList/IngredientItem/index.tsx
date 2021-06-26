@@ -1,5 +1,4 @@
 import { Input, Flex } from '@chakra-ui/react'
-import { transparentize } from '@chakra-ui/theme-tools'
 import { getIngredientsFormsPath, IngredientField } from 'core/dietForm'
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import { Draggable } from 'react-beautiful-dnd'
@@ -14,7 +13,7 @@ import Menu from './Menu'
 import { useFoodsByIdState } from 'core/foods'
 import { getIngredientStats } from 'core/stats'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
-import { getInsertIngredientAnimationKey } from 'core/dietForm'
+import { getInsertIngredientFormAnimationKey } from 'core/dietForm'
 import { useScreenSize } from 'core/ScreenSizeProvider'
 
 type Props = {
@@ -71,7 +70,7 @@ function IngredientItem({
   }
 
   const pendingAnimationForInserted = oneTimeCheck.checkAndReset(
-    getInsertIngredientAnimationKey(ingredientField.fieldId)
+    getInsertIngredientFormAnimationKey(ingredientField.fieldId)
   )
 
   const foodsByIdState = useFoodsByIdState()
@@ -105,7 +104,7 @@ function IngredientItem({
             alignItems="center"
             position="relative"
             py={2}
-            _hover={{ backgroundColor: transparentize('gray.50', 0.35) }}
+            _hover={{ backgroundColor: 'gray.50' }}
           >
             <Input
               fontSize="md"

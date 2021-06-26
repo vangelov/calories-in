@@ -1,18 +1,20 @@
 import { Flex, IconButton, Box } from '@chakra-ui/react'
-import { VariantsFieldArray } from 'core/dietForm/useVariantsFieldArray'
+import { VariantsFieldArray } from 'core/dietForm'
 import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
-import useReorderVariantsForms from 'core/mealsDnd/useReorderVariantsForms'
 import VariantNameModal from './VariantNameModal'
-import useAddOrEditVariant from './useAddOrEditVariant'
+import { useRemoveVariantForm, useReorderVariantsForms } from 'core/dietForm'
+import useVariantActions from './useVariantActions'
 
 type Props = {
   variantsFieldArray: VariantsFieldArray
 }
 
 function VariantsList({ variantsFieldArray }: Props) {
-  const addOrEditVariant = useAddOrEditVariant({ variantsFieldArray })
+  const removeVariantForm = useRemoveVariantForm({ variantsFieldArray })
+  const variantActions = useVariantActions({ variantsFieldArray })
+
   useReorderVariantsForms({ variantsFieldArray })
 
   const { variantsFields } = variantsFieldArray
@@ -31,9 +33,9 @@ function VariantsList({ variantsFieldArray }: Props) {
                 canRemove={variantsFields.length > 1}
                 mr={1}
                 index={index}
-                onDelete={variantsFieldArray.onRemoveVariantForm}
-                onEditName={addOrEditVariant.onEdit}
-                onClone={addOrEditVariant.onCloneExisting}
+                onDelete={removeVariantForm.onRemove}
+                onEditName={variantActions.onRename}
+                onClone={variantActions.onClone}
                 key={variantField.fieldId}
                 variantField={variantField}
                 isSelected={
@@ -51,6 +53,7 @@ function VariantsList({ variantsFieldArray }: Props) {
           {provided.placeholder}
 
           <Flex
+            ml={2}
             opacity={snapshot.isUsingPlaceholder ? 0 : 1}
             transition="140ms opacity ease-out"
           >
@@ -60,17 +63,17 @@ function VariantsList({ variantsFieldArray }: Props) {
               aria-label="Add variant"
               icon={<Plus size={20} pointerEvents="none" />}
               variant="outline"
-              onClick={addOrEditVariant.onAddNew}
+              onClick={variantActions.onAppend}
             />
             <Box width={3} height={3} />
           </Flex>
 
           <VariantNameModal
-            title={addOrEditVariant.modalTitle}
-            isOpen={addOrEditVariant.isModalOpen}
-            onClose={addOrEditVariant.onModalClose}
-            onSave={addOrEditVariant.onModalSave}
-            existingVariantsNames={addOrEditVariant.existingVariantsNames}
+            title={variantActions.modalTitle}
+            isOpen={variantActions.isModalOpen}
+            onClose={variantActions.onModalClose}
+            onSave={variantActions.onModalSave}
+            existingVariantsNames={variantActions.existingVariantsNames}
           />
         </Flex>
       )}

@@ -1,6 +1,6 @@
 import { Ingredient } from 'core/types'
-import { getMealsFormsPath } from './mealForm'
-import { getFormPath } from './utils'
+import { getMealsFormsPath } from '../meals/mealForm'
+import { getFormPath } from '../utils'
 import { v4 as uuidv4 } from 'uuid'
 
 type IngredientForm = {
@@ -35,6 +35,14 @@ function getIngredientsFormsPath(
   return getFormPath(mealsFormsPath, index, fieldName)
 }
 
+function getInsertIngredientFormAnimationKey(fieldId: string) {
+  return `insert-ingredient-animation-${fieldId}`
+}
+
 export type { IngredientForm, IngredientField }
 
-export { getIngredientForm, getIngredientsFormsPath }
+export {
+  getIngredientForm,
+  getIngredientsFormsPath,
+  getInsertIngredientFormAnimationKey,
+}

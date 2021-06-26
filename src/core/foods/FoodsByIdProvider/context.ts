@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react'
-import { FoodsByIdMap, Food } from 'core/types'
+import { Food } from 'core/types'
 
-type State = FoodsByIdMap
+type State = Record<number, Food>
 
 type Action =
   | { type: 'addFood'; food: Food }

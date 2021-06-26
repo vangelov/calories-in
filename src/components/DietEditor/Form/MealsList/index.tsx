@@ -4,12 +4,13 @@ import {
   useMealsFieldArray,
   MealsFieldArray,
   useScrollToAndFocusMeal,
+  useRemoveMealForm,
 } from 'core/dietForm'
 import { MutableRefObject, useRef } from 'react'
 import { useGetRefForId } from 'core/utils'
 import { Droppable } from 'react-beautiful-dnd'
-import { useReorderMealsForms } from 'core/mealsDnd'
-import { getVariantsFormsPath, VariantField } from 'core/dietForm/variantForm'
+import { useReorderMealsForms } from 'core/dietForm'
+import { getVariantsFormsPath, VariantField } from 'core/dietForm'
 import { useFormContext } from 'react-hook-form'
 
 type Props = {
@@ -33,6 +34,8 @@ function MealsList({ mealsFieldArrayRef, variantIndex, variantField }: Props) {
     pendingMealFieldIdRef,
   })
 
+  const removeMealForm = useRemoveMealForm({ mealsFieldArray })
+
   useReorderMealsForms({ mealsFieldArray })
 
   mealsFieldArrayRef.current = mealsFieldArray
@@ -53,7 +56,7 @@ function MealsList({ mealsFieldArrayRef, variantIndex, variantField }: Props) {
               variantIndex={variantIndex}
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}
-              onRemove={mealsFieldArray.onMealRemove}
+              onRemove={removeMealForm.onRemove}
               mealField={mealField}
               onFirstAppear={onScrollToMeal}
             />

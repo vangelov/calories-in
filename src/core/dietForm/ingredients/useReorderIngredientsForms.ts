@@ -1,10 +1,11 @@
-import { IngredientForm, MealField } from 'core/dietForm'
+import { IngredientForm } from './ingredientForm'
+import { MealField } from '../meals/mealForm'
 import { useDragAndDropResponder } from 'core/dndResponders'
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'
 import { useIngredientsFormsDndState } from './IngredientsFormsDndProvider'
 import { useLayoutEffect, useState } from 'react'
-import { IngredientsFieldArray } from 'core/dietForm/useIngredientsFieldArray'
+import { IngredientsFieldArray } from 'core/dietForm'
 
 type Params = {
   mealField: MealField

@@ -1,7 +1,7 @@
 import { useUndoRedoMethods } from 'core/undoRedo'
 import { useFieldArray, UseFormReturn, useWatch } from 'react-hook-form'
-import { DietForm } from './dietForm'
-import { getVariantsFormsPath, VariantField, VariantForm } from './variantForm'
+import { DietForm } from 'core/dietForm'
+import { getVariantsFormsPath, VariantField } from './variantForm'
 
 type Params = {
   formMethods: UseFormReturn<DietForm>
@@ -26,23 +26,6 @@ function useVariantsFieldArray({ formMethods }: Params) {
     control,
   })
 
-  function onAppendVariantForm(variantForm: VariantForm) {
-    appendVariantForm(variantForm)
-    saveLastChange()
-  }
-
-  function onRemoveVariantForm(index: number) {
-    let nextVariantFieldIndex = 0
-
-    if (index <= selectedVariantFormIndex) {
-      nextVariantFieldIndex = Math.max(selectedVariantFormIndex - 1, 0)
-    }
-    setSelectedVariantFormIndex(nextVariantFieldIndex)
-    removeVariantForm(index)
-
-    saveLastChange()
-  }
-
   const variantsFields = fields as VariantField[]
   const selectedVariantField = variantsFields[selectedVariantFormIndex]
 
@@ -54,9 +37,8 @@ function useVariantsFieldArray({ formMethods }: Params) {
   return {
     variantsFields,
     setSelectedVariantFormIndex,
-    onAppendVariantForm,
     appendVariantForm,
-    onRemoveVariantForm,
+    removeVariantForm,
     moveVariantForm,
     selectedVariantFormIndex,
     selectedVariantField,

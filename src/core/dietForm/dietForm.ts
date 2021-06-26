@@ -1,6 +1,6 @@
 import { Diet } from 'core/types'
 import { useForm } from 'react-hook-form'
-import { getVariantForm, VariantForm } from './variantForm'
+import { getVariantForm, VariantForm } from './variants'
 
 type DietForm = {
   formId: string
@@ -40,6 +40,3 @@ function useDietForm(dietForm: DietForm) {
 export type { DietForm }
 
 export { getDietForm, useDietForm }
-
-export * from './mealForm'
-export * from './ingredientForm'

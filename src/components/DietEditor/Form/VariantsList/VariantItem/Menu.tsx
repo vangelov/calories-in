@@ -17,6 +17,7 @@ function Menu({ onDelete, onClone, onEditName, canRemove, ...rest }: Props) {
     <MenuBase
       arrow
       portal={true}
+      viewScroll="close"
       menuButton={
         <ResponsiveIconButton
           withoutTooltip={true}

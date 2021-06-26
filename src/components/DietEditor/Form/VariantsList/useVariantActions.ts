@@ -1,6 +1,10 @@
 import { useDisclosure } from '@chakra-ui/hooks'
-import { VariantsFieldArray } from 'core/dietForm'
-import useAddOrEditVariantForm from 'core/dietForm/useAddOrEditVariantForm'
+import {
+  useAppendVariantForm,
+  useCloneVariantForm,
+  useRenameVariantForm,
+  VariantsFieldArray,
+} from 'core/dietForm'
 import { useRef, useState } from 'react'
 
 type Params = {
@@ -10,46 +14,48 @@ type Params = {
 function useAddOrEditVariant({ variantsFieldArray }: Params) {
   const variantNameModalDisclosure = useDisclosure()
   const onModalSaveRef = useRef<(name: string) => void>(() => {})
-  const addOrEditVariantForm = useAddOrEditVariantForm({ variantsFieldArray })
+  const appendVariantForm = useAppendVariantForm({ variantsFieldArray })
+  const cloneVariantForm = useCloneVariantForm({ variantsFieldArray })
+  const renameVariantForm = useRenameVariantForm()
   const { variantsFields } = variantsFieldArray
   const [modalTitle, setModalTitle] = useState('')
 
-  function onAddNew() {
+  function onAppend() {
     variantNameModalDisclosure.onOpen()
     setModalTitle('Add Variant')
 
     onModalSaveRef.current = (name: string) => {
       variantNameModalDisclosure.onClose()
-      addOrEditVariantForm.onAdd(name)
+      appendVariantForm.onAppend(name)
     }
   }
 
-  function onCloneExisting(index: number) {
+  function onClone(index: number) {
     variantNameModalDisclosure.onOpen()
     const variantField = variantsFields[index]
     setModalTitle(`Clone ${variantField.name as string}`)
 
     onModalSaveRef.current = (name: string) => {
       variantNameModalDisclosure.onClose()
-      addOrEditVariantForm.onClone(name, index)
+      cloneVariantForm.onClone(name, index)
     }
   }
 
-  function onEdit(index: number) {
+  function onRename(index: number) {
     const variantField = variantsFields[index]
     setModalTitle(`Edit ${variantField.name as string}`)
     variantNameModalDisclosure.onOpen()
 
     onModalSaveRef.current = (name: string) => {
       variantNameModalDisclosure.onClose()
-      addOrEditVariantForm.onEdit(name, index)
+      renameVariantForm.onRename(name, index)
     }
   }
 
   return {
-    onAddNew,
-    onCloneExisting,
-    onEdit,
+    onAppend,
+    onClone,
+    onRename,
     isModalOpen: variantNameModalDisclosure.isOpen,
     onModalClose: variantNameModalDisclosure.onClose,
     onModalSave: onModalSaveRef.current,

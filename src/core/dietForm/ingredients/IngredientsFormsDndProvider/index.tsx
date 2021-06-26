@@ -23,8 +23,6 @@ function IngredientsFormsDndProvider({ children }: Props) {
 
     const values = getValues()
 
-    console.log('v', values)
-
     let sourceMealForm = null
 
     for (const variantForm of values.variantsForms) {

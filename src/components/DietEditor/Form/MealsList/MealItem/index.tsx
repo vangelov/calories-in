@@ -3,6 +3,7 @@ import {
   getMealsFormsPath,
   MealField,
   useIngredientsFieldArray,
+  useRemoveIngredientForm,
 } from 'core/dietForm'
 import {
   Flex,
@@ -17,12 +18,12 @@ import { useFormContext } from 'react-hook-form'
 import { RefObject, useState } from 'react'
 import SelectOrCreateFoodsDrawer from './SelectOrCreateFoodsDrawer'
 import { Food } from 'core/types'
-import { useAddIngredients } from 'core/dietForm'
+import { useAddIngredientsForms } from 'core/dietForm'
 import { motion } from 'framer-motion'
 import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
-import getInsertMealAnimationKey from 'core/dietForm/getInsertMealAnimationKey'
+import { getInsertMealFormAnimationKey } from 'core/dietForm'
 import { Draggable } from 'react-beautiful-dnd'
-import { useReorderIngredientsForms } from 'core/ingredientsDnd'
+import { useReorderIngredientsForms } from 'core/dietForm'
 
 type Props = {
   mealField: MealField
@@ -56,9 +57,13 @@ function MealItem({
     mealIndex: index,
     variantIndex,
   })
+  const removeIngredientForm = useRemoveIngredientForm({
+    ingredientsFieldArray,
+  })
+
   const addIngredientDisclosure = useDisclosure()
   const [mealName, setMealName] = useState<string | undefined>()
-  const addIngredients = useAddIngredients({ ingredientsFieldArray })
+  const addIngredients = useAddIngredientsForms({ ingredientsFieldArray })
   const { register } = useFormContext()
   const [isVisible, setIsVisible] = useState(true)
   const oneTimeCheck = useOneTimeCheck()
@@ -91,7 +96,7 @@ function MealItem({
   }
 
   const pendingAnimationForInserted = oneTimeCheck.checkAndReset(
-    getInsertMealAnimationKey(mealField.fieldId)
+    getInsertMealFormAnimationKey(mealField.fieldId)
   )
 
   return (
@@ -146,7 +151,7 @@ function MealItem({
               mealIndex={index}
               variantIndex={variantIndex}
               ingredientsFields={ingredientsFieldArray.ingredientsFields}
-              onIngredientRemove={ingredientsFieldArray.onIngredientRemove}
+              onIngredientRemove={removeIngredientForm.onRemove}
               onAddIngredients={onAddIngredient}
             />
 
