@@ -1,29 +1,21 @@
 import {
-  DietForm,
   getMealsFormsPath,
   MealField,
   useIngredientsFieldArray,
   useRemoveIngredientForm,
 } from 'core/diets'
-import {
-  Flex,
-  LayoutProps,
-  SpaceProps,
-  Input,
-  useDisclosure,
-} from '@chakra-ui/react'
+import { Flex, LayoutProps, SpaceProps, Input } from '@chakra-ui/react'
 import IngredientsList from './IngredientsList'
 import Header from './Header'
 import { useFormContext } from 'react-hook-form'
 import { RefObject, useState } from 'react'
 import SelectOrCreateFoodsDrawer from './SelectOrCreateFoodsDrawer'
-import { Food } from 'core/types'
-import { useAddIngredientsForms } from 'core/diets'
 import { motion } from 'framer-motion'
 import { useOneTimeCheck } from 'general/OneTimeCheckProvider'
 import { getInsertMealFormAnimationKey } from 'core/diets'
 import { Draggable } from 'react-beautiful-dnd'
 import { useReorderIngredientsForms } from 'core/diets'
+import useAddIngredients from './useAddIngredients'
 
 type Props = {
   mealField: MealField
@@ -52,7 +44,6 @@ function MealItem({
   onFirstAppear,
   ...rest
 }: Props) {
-  const { getValues } = useFormContext<DietForm>()
   const ingredientsFieldArray = useIngredientsFieldArray({
     mealIndex: index,
     variantIndex,
@@ -60,28 +51,17 @@ function MealItem({
   const removeIngredientForm = useRemoveIngredientForm({
     ingredientsFieldArray,
   })
+  const addIngredients = useAddIngredients({
+    index,
+    variantIndex,
+    ingredientsFieldArray,
+  })
 
-  const addIngredientDisclosure = useDisclosure()
-  const [mealName, setMealName] = useState<string | undefined>()
-  const addIngredients = useAddIngredientsForms({ ingredientsFieldArray })
   const { register } = useFormContext()
   const [isVisible, setIsVisible] = useState(true)
   const oneTimeCheck = useOneTimeCheck()
 
   useReorderIngredientsForms({ mealField, ingredientsFieldArray })
-
-  function onSave(foods: Food[]) {
-    addIngredientDisclosure.onClose()
-    addIngredients.onAddIngredients(foods)
-  }
-
-  function onAddIngredient() {
-    const dietForm = getValues()
-    const mealForm = dietForm.variantsForms[variantIndex].mealsForms[index]
-    setMealName(mealForm.name)
-
-    addIngredientDisclosure.onOpen()
-  }
 
   function onAnimationComplete() {
     if (pendingAnimationForInserted) {
@@ -143,7 +123,7 @@ function MealItem({
               index={index}
               mealField={mealField}
               onRemove={() => setIsVisible(false)}
-              onAddIngredient={onAddIngredient}
+              onAddIngredient={addIngredients.onAdd}
             />
 
             <IngredientsList
@@ -152,14 +132,14 @@ function MealItem({
               variantIndex={variantIndex}
               ingredientsFields={ingredientsFieldArray.ingredientsFields}
               onIngredientRemove={removeIngredientForm.onRemove}
-              onAddIngredients={onAddIngredient}
+              onAddIngredients={addIngredients.onAdd}
             />
 
             <SelectOrCreateFoodsDrawer
-              mealName={mealName}
-              isOpen={addIngredientDisclosure.isOpen}
-              onClose={addIngredientDisclosure.onClose}
-              onSave={onSave}
+              mealName={addIngredients.selectedMealName}
+              isOpen={addIngredients.isDrawerOpen}
+              onClose={addIngredients.onDrawerClose}
+              onSave={addIngredients.onDrawerSave}
             />
           </Flex>
         </motion.div>

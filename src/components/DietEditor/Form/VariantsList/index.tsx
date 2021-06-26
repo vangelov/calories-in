@@ -6,6 +6,7 @@ import { Droppable } from 'react-beautiful-dnd'
 import VariantNameModal from './VariantNameModal'
 import { useRemoveVariantForm, useReorderVariantsForms } from 'core/diets'
 import useVariantActions from './useVariantActions'
+import { useUndoRedoMethods } from 'general/undoRedo'
 
 type Props = {
   variantsFieldArray: VariantsFieldArray
@@ -14,6 +15,7 @@ type Props = {
 function VariantsList({ variantsFieldArray }: Props) {
   const removeVariantForm = useRemoveVariantForm({ variantsFieldArray })
   const variantActions = useVariantActions({ variantsFieldArray })
+  const { saveLastChange } = useUndoRedoMethods()
 
   useReorderVariantsForms({ variantsFieldArray })
 
@@ -41,9 +43,10 @@ function VariantsList({ variantsFieldArray }: Props) {
                 isSelected={
                   index === variantsFieldArray.selectedVariantFormIndex
                 }
-                onSelect={() =>
+                onSelect={() => {
                   variantsFieldArray.setSelectedVariantFormIndex(index)
-                }
+                  saveLastChange()
+                }}
               >
                 {variantField.name}
               </VariantItem>

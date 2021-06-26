@@ -1,5 +1,5 @@
 import { SelectProps, Select } from '@chakra-ui/select'
-import foodCategories from 'core/foods/builtIn.json'
+import foodCategories from 'core/foods/categories.json'
 
 import { ForwardedRef, forwardRef } from 'react'
 

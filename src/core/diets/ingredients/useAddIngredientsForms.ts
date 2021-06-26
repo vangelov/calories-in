@@ -18,7 +18,7 @@ function useAddIngredientsForms({ ingredientsFieldArray }: Params) {
   const { saveLastChange } = useUndoRedoMethods()
   const oneTimeCheck = useOneTimeCheck()
 
-  function onAddIngredients(foods: Food[]) {
+  function onAdd(foods: Food[]) {
     const ingredientForms: IngredientForm[] = []
 
     for (const food of foods) {
@@ -39,7 +39,7 @@ function useAddIngredientsForms({ ingredientsFieldArray }: Params) {
   }
 
   return {
-    onAddIngredients,
+    onAdd,
   }
 }
 
