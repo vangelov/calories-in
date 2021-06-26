@@ -1,7 +1,10 @@
 import { Diet } from 'core/types'
-import { getDietForm } from 'core/dietForm'
+import { getDietForm } from 'core/diets'
 import { useState } from 'react'
-import { UndoRedoMethodsProvider, UndoRedoStateProvider } from 'core/undoRedo'
+import {
+  UndoRedoMethodsProvider,
+  UndoRedoStateProvider,
+} from 'general/undoRedo'
 import Form from './Form'
 import { DietStatsProvider, InitialEnergyProvider } from 'core/stats'
 

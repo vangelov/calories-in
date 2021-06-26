@@ -1,10 +1,10 @@
 import { Flex, IconButton, Box } from '@chakra-ui/react'
-import { VariantsFieldArray } from 'core/dietForm'
+import { VariantsFieldArray } from 'core/diets'
 import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
 import VariantNameModal from './VariantNameModal'
-import { useRemoveVariantForm, useReorderVariantsForms } from 'core/dietForm'
+import { useRemoveVariantForm, useReorderVariantsForms } from 'core/diets'
 import useVariantActions from './useVariantActions'
 
 type Props = {

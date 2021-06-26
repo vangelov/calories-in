@@ -1,5 +1,5 @@
 import { IconButtonProps, IconButton, Tooltip } from '@chakra-ui/react'
-import { useScreenSize } from 'core/ScreenSizeProvider'
+import { useScreenSize } from 'components/general/ScreenSizeProvider'
 import { ForwardedRef, forwardRef } from 'react'
 import { isMobile } from 'react-device-detect'
 

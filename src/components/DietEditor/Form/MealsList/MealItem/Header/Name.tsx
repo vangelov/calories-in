@@ -1,7 +1,7 @@
 import { BoxProps, Input } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
-import { MealField, getMealsFormsPath } from 'core/dietForm'
-import { useUndoRedoMethods } from 'core/undoRedo'
+import { MealField, getMealsFormsPath } from 'core/diets'
+import { useUndoRedoMethods } from 'general/undoRedo'
 import { RefObject } from 'react'
 import { useMergeRefs } from '@chakra-ui/react'
 

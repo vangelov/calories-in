@@ -4,7 +4,7 @@ import {
   MealField,
   useIngredientsFieldArray,
   useRemoveIngredientForm,
-} from 'core/dietForm'
+} from 'core/diets'
 import {
   Flex,
   LayoutProps,
@@ -18,12 +18,12 @@ import { useFormContext } from 'react-hook-form'
 import { RefObject, useState } from 'react'
 import SelectOrCreateFoodsDrawer from './SelectOrCreateFoodsDrawer'
 import { Food } from 'core/types'
-import { useAddIngredientsForms } from 'core/dietForm'
+import { useAddIngredientsForms } from 'core/diets'
 import { motion } from 'framer-motion'
-import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
-import { getInsertMealFormAnimationKey } from 'core/dietForm'
+import { useOneTimeCheck } from 'general/OneTimeCheckProvider'
+import { getInsertMealFormAnimationKey } from 'core/diets'
 import { Draggable } from 'react-beautiful-dnd'
-import { useReorderIngredientsForms } from 'core/dietForm'
+import { useReorderIngredientsForms } from 'core/diets'
 
 type Props = {
   mealField: MealField

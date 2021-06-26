@@ -1,5 +1,6 @@
 import { SelectProps, Select } from '@chakra-ui/select'
-import { FOODS_CATEGORIES } from 'core/foodsCategories'
+import foodCategories from 'core/foods/builtIn.json'
+
 import { ForwardedRef, forwardRef } from 'react'
 
 type Props = { forwardedRef?: ForwardedRef<HTMLSelectElement> } & SelectProps
@@ -13,7 +14,7 @@ function FoodCategoriesSelect({ children, forwardedRef, ...rest }: Props) {
       {...rest}
     >
       {children}
-      {FOODS_CATEGORIES.map(category => (
+      {foodCategories.map(category => (
         <option key={category.id} value={category.id}>
           {category.name}
         </option>

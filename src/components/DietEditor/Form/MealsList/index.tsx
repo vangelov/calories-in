@@ -2,24 +2,24 @@ import { Box, Input } from '@chakra-ui/react'
 import MealItem from './MealItem'
 import {
   useMealsFieldArray,
-  MealsFieldArray,
   useScrollToAndFocusMeal,
   useRemoveMealForm,
-} from 'core/dietForm'
+  useAppendMealForm,
+} from 'core/diets'
 import { MutableRefObject, useRef } from 'react'
-import { useGetRefForId } from 'core/utils'
+import useGetRefForId from 'general/useGetRefForId'
 import { Droppable } from 'react-beautiful-dnd'
-import { useReorderMealsForms } from 'core/dietForm'
-import { getVariantsFormsPath, VariantField } from 'core/dietForm'
+import { useReorderMealsForms } from 'core/diets'
+import { getVariantsFormsPath, VariantField } from 'core/diets'
 import { useFormContext } from 'react-hook-form'
 
 type Props = {
   variantIndex: number
   variantField: VariantField
-  mealsFieldArrayRef: MutableRefObject<MealsFieldArray | undefined>
+  onAppendMealRef: MutableRefObject<(() => void) | undefined>
 }
 
-function MealsList({ mealsFieldArrayRef, variantIndex, variantField }: Props) {
+function MealsList({ onAppendMealRef, variantIndex, variantField }: Props) {
   const getMealNameInputRefById = useGetRefForId()
   const { register } = useFormContext()
   const scrollTargetRef = useRef<HTMLDivElement>(null)
@@ -31,14 +31,17 @@ function MealsList({ mealsFieldArrayRef, variantIndex, variantField }: Props) {
 
   const mealsFieldArray = useMealsFieldArray({
     variantIndex,
-    pendingMealFieldIdRef,
   })
 
   const removeMealForm = useRemoveMealForm({ mealsFieldArray })
+  const appendMealForm = useAppendMealForm({
+    mealsFieldArray,
+    pendingMealFieldIdRef,
+  })
 
   useReorderMealsForms({ mealsFieldArray })
 
-  mealsFieldArrayRef.current = mealsFieldArray
+  onAppendMealRef.current = appendMealForm.onAppend
 
   return (
     <Droppable droppableId="mealsList" type="mealsList">

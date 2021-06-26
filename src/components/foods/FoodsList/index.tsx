@@ -11,7 +11,7 @@ import {
 import { Divider } from '@chakra-ui/react'
 import { Search } from 'react-feather'
 import VirtualizedList from './VirtualizedList'
-import { Selection } from 'core/utils'
+import { Selection } from 'general/useSelection'
 import { ChangeEvent, RefObject, useState } from 'react'
 import { useFilterFoods, FoodsFilter } from 'core/foods'
 import { Food } from 'core/types'

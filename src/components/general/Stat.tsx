@@ -1,6 +1,4 @@
 import { Text, Box, HStack, FlexProps, Collapse } from '@chakra-ui/react'
-import { formatGrams } from 'core/format'
-import formatEnergy from 'core/format/formatKcal'
 import { ReactNode } from 'react'
 import RightAligned from './RightAligned'
 
@@ -45,7 +43,6 @@ function Stat({
   const isForDiet = type.startsWith('diet')
   const isEnergy = type.endsWith('Energy')
   const isBold = type !== 'ingredientEnergy' && isEnergy
-  const formattedValue = isEnergy ? formatEnergy(value) : formatGrams(value)
 
   return (
     <RightAligned position="relative" {...rest}>
@@ -72,7 +69,7 @@ function Stat({
         fontWeight={isBold ? 'bold' : undefined}
         textColor={getValueTextColor(type)}
       >
-        {formattedValue}
+        {value}
         <Text as="span" fontSize="sm">
           {isEnergy ? 'kcal' : 'g'}
         </Text>

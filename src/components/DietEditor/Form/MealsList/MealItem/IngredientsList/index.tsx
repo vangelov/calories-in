@@ -1,4 +1,4 @@
-import { IngredientField, MealField } from 'core/dietForm'
+import { IngredientField, MealField } from 'core/diets'
 import { Box } from '@chakra-ui/react'
 import IngredientItem from './IngredientItem'
 import { Droppable } from 'react-beautiful-dnd'

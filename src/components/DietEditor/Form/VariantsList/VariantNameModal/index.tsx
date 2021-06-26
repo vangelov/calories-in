@@ -5,7 +5,7 @@ import {
   ModalHeader,
   ModalCloseButton,
 } from '@chakra-ui/react'
-import { VariantField } from 'core/dietForm'
+import { VariantField } from 'core/diets'
 import { useRef } from 'react'
 import BodyAndFooter from './BodyAndFooter'
 

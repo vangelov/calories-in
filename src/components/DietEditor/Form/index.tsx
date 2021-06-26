@@ -4,13 +4,12 @@ import Controls from './Controls'
 import {
   DietForm,
   useDietForm,
-  MealsFieldArray,
   useVariantsFieldArray,
   IngredientsFormsDndProvider,
-} from 'core/dietForm'
+} from 'core/diets'
 import { FormProvider } from 'react-hook-form'
 import { useLayoutEffect, useRef } from 'react'
-import { Watcher } from 'core/undoRedo'
+import { Watcher } from 'general/undoRedo'
 import VariantsList from './VariantsList'
 import { Page } from 'components/general'
 
@@ -22,7 +21,7 @@ type Props = {
 
 function Form({ dietForm, scrollTop, isEditingExistingDiet }: Props) {
   const formMethods = useDietForm(dietForm)
-  const mealsFieldArrayRef = useRef<MealsFieldArray>()
+  const onAppendMealRef = useRef<() => void>()
   const { handleSubmit } = formMethods
   const variantsFieldArray = useVariantsFieldArray({ formMethods })
   const { selectedVariantFormIndex, selectedVariantField } = variantsFieldArray
@@ -32,7 +31,7 @@ function Form({ dietForm, scrollTop, isEditingExistingDiet }: Props) {
   }, [scrollTop])
 
   function onMealAdd() {
-    mealsFieldArrayRef.current?.onMealAdd()
+    onAppendMealRef.current && onAppendMealRef.current()
   }
 
   const onSubmit = handleSubmit((form: DietForm) => {
@@ -55,7 +54,7 @@ function Form({ dietForm, scrollTop, isEditingExistingDiet }: Props) {
             <MealsList
               key={`${selectedVariantFormIndex}-${selectedVariantField.fieldId}`}
               variantField={selectedVariantField}
-              mealsFieldArrayRef={mealsFieldArrayRef}
+              onAppendMealRef={onAppendMealRef}
               variantIndex={selectedVariantFormIndex}
             />
           }

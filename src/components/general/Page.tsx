@@ -1,5 +1,5 @@
 import { Box, Flex, Divider, BoxProps } from '@chakra-ui/react'
-import { useScreenSize } from 'core/ScreenSizeProvider'
+import { useScreenSize } from 'components/general/ScreenSizeProvider'
 import { ReactElement, ReactNode } from 'react'
 import styled from '@emotion/styled'
 

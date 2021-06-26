@@ -1,6 +1,6 @@
 import { ReactElement, ReactNode } from 'react'
 import { Box } from '@chakra-ui/react'
-import { useScreenSize } from 'core/ScreenSizeProvider'
+import { useScreenSize } from 'components/general/ScreenSizeProvider'
 
 export type MainLayoutProps = {
   sidebarElement?: ReactElement

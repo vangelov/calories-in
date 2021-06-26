@@ -1,5 +1,5 @@
 import { Flex, Text, HStack, Box } from '@chakra-ui/react'
-import { Selection } from 'core/utils'
+import { Selection } from 'general/useSelection'
 import { Food } from 'core/types'
 import SelectedFoodItem from './SelectedFoodItem'
 

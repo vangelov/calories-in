@@ -1,5 +1,5 @@
 import { BoxProps, Flex } from '@chakra-ui/react'
-import { MealField } from 'core/dietForm'
+import { MealField } from 'core/diets'
 import { useMealStats, useUpdateMealStats } from 'core/stats'
 import { Stat, StatsLayout } from 'components/general'
 import { RefObject } from 'react'

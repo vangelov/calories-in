@@ -1,5 +1,5 @@
 import { ButtonProps, chakra } from '@chakra-ui/react'
-import { MealField } from 'core/dietForm'
+import { MealField } from 'core/diets'
 import { Menu as MenuBase, MenuItem } from 'components/general'
 import { MoreHorizontal } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'

@@ -1,8 +1,8 @@
 import { Input, Flex } from '@chakra-ui/react'
-import { getIngredientsFormsPath, IngredientField } from 'core/dietForm'
+import { getIngredientsFormsPath, IngredientField } from 'core/diets'
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import { Draggable } from 'react-beautiful-dnd'
-import { useUndoRedoMethods } from 'core/undoRedo'
+import { useUndoRedoMethods } from 'general/undoRedo'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { FoodInfo } from 'components/foods'
@@ -12,9 +12,9 @@ import RightAligned from 'components/general/RightAligned'
 import Menu from './Menu'
 import { useFoodsByIdState } from 'core/foods'
 import { getIngredientStats } from 'core/stats'
-import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
-import { getInsertIngredientFormAnimationKey } from 'core/dietForm'
-import { useScreenSize } from 'core/ScreenSizeProvider'
+import { useOneTimeCheck } from 'general/OneTimeCheckProvider'
+import { getInsertIngredientFormAnimationKey } from 'core/diets'
+import { useScreenSize } from 'components/general/ScreenSizeProvider'
 
 type Props = {
   variantIndex: number

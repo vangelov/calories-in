@@ -4,7 +4,7 @@ import {
   useCloneVariantForm,
   useRenameVariantForm,
   VariantsFieldArray,
-} from 'core/dietForm'
+} from 'core/diets'
 import { useRef, useState } from 'react'
 
 type Params = {

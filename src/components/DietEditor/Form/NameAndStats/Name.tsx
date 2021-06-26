@@ -1,9 +1,9 @@
 import { Input, HStack, chakra, VStack, Text } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
-import { useUndoRedoMethods } from 'core/undoRedo'
+import { useUndoRedoMethods } from 'general/undoRedo'
 import { useEffect, useRef } from 'react'
 import { useMergeRefs } from '@chakra-ui/react'
-import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
+import { useOneTimeCheck } from 'general/OneTimeCheckProvider'
 import { ArrowUpCircle, AlertCircle } from 'react-feather'
 
 const ArrowUpCircleStyled = chakra(ArrowUpCircle)

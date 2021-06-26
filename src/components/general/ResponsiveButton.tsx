@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from '@chakra-ui/react'
-import { useScreenSize } from 'core/ScreenSizeProvider'
+import { useScreenSize } from 'components/general/ScreenSizeProvider'
 import { ForwardedRef, forwardRef } from 'react'
 
 type Props = {

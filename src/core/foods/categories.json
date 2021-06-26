@@ -1,0 +1,15 @@
+[
+    { "name": "Poultry", "id": 1 },
+    { "name": "Beef", "id": 2 },
+    { "name": "Pork", "id": 3 },
+    { "name": "Fish", "id": 4 },
+    { "name": "Dairy and eggs", "id": 5},
+    { "name": "Grains & Pasta", "id": 6},
+    { "name": "Vegetables", "id": 7 },
+    { "name": "Starchy Vegetables", "id": 8 },
+    { "name": "Legumes", "id": 9 },
+    { "name": "Fruits", "id": 10 },
+    { "name": "Nuts and seeds", "id": 11  },
+    { "name": "Fats, oils & butters", "id": 12  }
+]
+          

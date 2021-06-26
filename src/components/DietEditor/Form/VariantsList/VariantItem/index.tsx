@@ -1,10 +1,10 @@
 import { Box, Text, HStack, LayoutProps, SpaceProps } from '@chakra-ui/react'
-import { getInsertVariantFormAnimationKey, VariantField } from 'core/dietForm'
+import { getInsertVariantFormAnimationKey, VariantField } from 'core/diets'
 import { ReactNode, useState } from 'react'
 import Menu from './Menu'
 import { Draggable } from 'react-beautiful-dnd'
 import { motion } from 'framer-motion'
-import { useOneTimeCheck } from 'core/OneTimeCheckProvider'
+import { useOneTimeCheck } from 'general/OneTimeCheckProvider'
 import { MouseEvent } from 'react'
 
 type Props = {

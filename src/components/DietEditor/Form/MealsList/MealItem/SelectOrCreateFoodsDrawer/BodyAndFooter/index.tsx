@@ -7,12 +7,12 @@ import {
 } from '@chakra-ui/react'
 import { FoodsList } from 'components/foods'
 import { Food } from 'core/types'
-import useSelection from 'core/utils/useSelection'
+import useSelection from 'general/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
 import ActionTypeOptions, { ActionType } from './ActionTypeOptions'
 import { RefObject, useState } from 'react'
 import { CreateOrEditFoodFields } from 'components/foods'
-import { getFoodForm, useFoodForm, useSubmitFoodForm } from 'core/foodForm'
+import { getFoodForm, useFoodForm, useSubmitFoodForm } from 'core/foods'
 import { FormProvider } from 'react-hook-form'
 
 type Props = {

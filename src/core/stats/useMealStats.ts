@@ -1,9 +1,5 @@
 import { useFormContext, useWatch } from 'react-hook-form'
-import {
-  MealField,
-  getIngredientsFormsPath,
-  IngredientForm,
-} from 'core/dietForm'
+import { MealField, getIngredientsFormsPath, IngredientForm } from 'core/diets'
 import sumStats from './sumStats'
 import { useFoodsByIdState } from 'core/foods'
 import getIngredientStats from './getIngredientStats'
