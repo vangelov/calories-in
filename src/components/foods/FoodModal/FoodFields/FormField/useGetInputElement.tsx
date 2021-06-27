@@ -1,6 +1,6 @@
-import { Input } from '@chakra-ui/react'
+import { Input, useMergeRefs } from '@chakra-ui/react'
 import { FoodAmountInput } from 'components/foods'
-import { cloneElement, ReactElement } from 'react'
+import { cloneElement, ReactElement, RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FoodCategoriesSelect } from 'components/foods'
 
@@ -10,17 +10,26 @@ type Params = {
   name: string
   inputType: InputType
   isInvalid: boolean
+  textInputRef?: RefObject<HTMLInputElement>
 }
 
-function useGetInputElement({ inputType, name, isInvalid }: Params) {
+function useGetInputElement({
+  inputType,
+  name,
+  isInvalid,
+  textInputRef,
+}: Params) {
   const { register } = useFormContext()
   let result: ReactElement | null = null
+  const textInputRegister = register(name, { required: 'Please enter a name' })
+  const finalTextInputRef = useMergeRefs(textInputRegister.ref, textInputRef)
 
   if (inputType === 'text') {
     result = (
       <Input
         autoComplete="off"
-        {...register(name, { required: 'Please enter a name' })}
+        {...textInputRegister}
+        ref={finalTextInputRef}
       />
     )
   }

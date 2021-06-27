@@ -1,12 +1,8 @@
 import { useDisclosure } from '@chakra-ui/hooks'
-import {
-  DietForm,
-  IngredientsFieldArray,
-  useAddIngredientsForms,
-} from 'core/diets'
+import { IngredientsFieldArray, useAddIngredientsForms } from 'core/diets'
+import useFindMealForm from 'core/diets/meals/useFindMealForm'
 import { Food } from 'core/types'
 import { useRef, useState } from 'react'
-import { useFormContext } from 'react-hook-form'
 
 type Params = {
   index: number
@@ -19,22 +15,16 @@ function useAddIngredients({
   variantIndex,
   ingredientsFieldArray,
 }: Params) {
-  const { getValues } = useFormContext<DietForm>()
   const [selectedMealName, setSelectedMealName] = useState('')
   const drawerDisclosure = useDisclosure()
   const onDrawеrSaveRef = useRef<(foods: Food[]) => void>(() => {})
   const addIngredientsForms = useAddIngredientsForms({ ingredientsFieldArray })
-
-  function findSelectedMealName() {
-    const dietForm = getValues()
-    const { variantsForms } = dietForm
-    const mealForm = variantsForms[variantIndex].mealsForms[index]
-
-    return mealForm.name
-  }
+  const findMealForm = useFindMealForm()
 
   function onAdd() {
-    setSelectedMealName(findSelectedMealName())
+    const selectedMealForm = findMealForm(variantIndex, index)
+    setSelectedMealName(selectedMealForm.name)
+
     drawerDisclosure.onOpen()
 
     onDrawеrSaveRef.current = (foods: Food[]) => {
@@ -45,10 +35,12 @@ function useAddIngredients({
 
   return {
     onAdd,
-    selectedMealName: selectedMealName,
-    onDrawerSave: onDrawеrSaveRef.current,
-    isDrawerOpen: drawerDisclosure.isOpen,
-    onDrawerClose: drawerDisclosure.onClose,
+    selectFoodsDrawerProps: {
+      mealName: selectedMealName,
+      onSave: onDrawеrSaveRef.current,
+      isOpen: drawerDisclosure.isOpen,
+      onClose: drawerDisclosure.onClose,
+    },
   }
 }
 

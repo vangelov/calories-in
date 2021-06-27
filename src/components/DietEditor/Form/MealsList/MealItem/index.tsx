@@ -9,7 +9,7 @@ import IngredientsList from './IngredientsList'
 import Header from './Header'
 import { useFormContext } from 'react-hook-form'
 import { RefObject, useState } from 'react'
-import SelectOrCreateFoodsDrawer from './SelectOrCreateFoodsDrawer'
+import SelectFoodsDrawer from './SelectFoodsDrawer'
 import { motion } from 'framer-motion'
 import { useOneTimeCheck } from 'general/oneTimeCheck'
 import { getInsertMealFormAnimationKey } from 'core/diets'
@@ -135,12 +135,7 @@ function MealItem({
               onAddIngredients={addIngredients.onAdd}
             />
 
-            <SelectOrCreateFoodsDrawer
-              mealName={addIngredients.selectedMealName}
-              isOpen={addIngredients.isDrawerOpen}
-              onClose={addIngredients.onDrawerClose}
-              onSave={addIngredients.onDrawerSave}
-            />
+            <SelectFoodsDrawer {...addIngredients.selectFoodsDrawerProps} />
           </Flex>
         </motion.div>
       )}

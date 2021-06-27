@@ -8,6 +8,7 @@ import {
   FormErrorMessage,
   FormControlProps,
 } from '@chakra-ui/react'
+import { RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
 import useGetInputElement, { InputType } from './useGetInputElement'
 
@@ -17,6 +18,7 @@ type Props = {
   inputType: InputType
   nutritionValueUnit?: string
   isIdented?: boolean
+  textInputRef?: RefObject<HTMLInputElement>
 } & FormControlProps
 
 function FormField(props: Props) {
@@ -26,12 +28,18 @@ function FormField(props: Props) {
     inputType,
     isIdented = false,
     nutritionValueUnit = 'g',
+    textInputRef,
     ...rest
   } = props
   const { formState } = useFormContext()
   const { errors } = formState
   const isInvalid = errors[name] !== undefined
-  const inputElement = useGetInputElement({ isInvalid, name, inputType })
+  const inputElement = useGetInputElement({
+    isInvalid,
+    name,
+    inputType,
+    textInputRef,
+  })
 
   return (
     <FormControl

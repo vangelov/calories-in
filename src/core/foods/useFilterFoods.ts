@@ -10,10 +10,8 @@ type FoodsFilter = {
   query: string
 }
 
-type FoodsByCategoryIdMap = { [categoryId: number]: Food[] }
-
 function groupFoodsByCategoryId(foods: Food[]) {
-  const foodsByCategoryIdMap: FoodsByCategoryIdMap = {}
+  const foodsByCategoryIdMap: Record<number, Food[]> = {}
 
   for (const food of foods) {
     const { categoryId } = food
@@ -28,7 +26,7 @@ function groupFoodsByCategoryId(foods: Food[]) {
   return foodsByCategoryIdMap
 }
 
-function useFilterFoods() {
+function useFilterFoods(foodsFilter: FoodsFilter) {
   const foodsById = useFoodsByIdState()
   const foods = useMemo(() => Object.values(foodsById), [foodsById])
   const fuse = useMemo(() => new Fuse(foods, OPTIONS), [foods])
@@ -36,26 +34,22 @@ function useFilterFoods() {
     foods,
   ])
 
-  function filterFoods(foodsFilter: FoodsFilter): Food[] {
-    const { query, categoryId } = foodsFilter
+  const { query, categoryId } = foodsFilter
 
-    if (!query) {
-      if (categoryId) {
-        return foodsByCategoryId[categoryId]
-      }
-      return foods
+  if (!query) {
+    if (categoryId) {
+      return foodsByCategoryId[categoryId]
     }
-    const results = fuse.search(query, { limit: 5 })
-    const foodsForQuery = results.map(({ item }) => item)
+    return foods
+  }
+  const results = fuse.search(query, { limit: 5 })
+  const foodsForQuery = results.map(({ item }) => item)
 
-    if (!categoryId) {
-      return foodsForQuery
-    }
-
-    return foodsForQuery.filter(food => food.categoryId === categoryId)
+  if (!categoryId) {
+    return foodsForQuery
   }
 
-  return filterFoods
+  return foodsForQuery.filter(food => food.categoryId === categoryId)
 }
 
 export type { FoodsFilter }

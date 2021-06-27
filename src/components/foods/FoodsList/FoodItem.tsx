@@ -17,6 +17,7 @@ function FoodItem({ food, isSelected = false, ...rest }: Props) {
   function onClick(event: MouseEvent<HTMLButtonElement>) {
     event.stopPropagation()
   }
+
   return (
     <Box pb={2} {...rest}>
       <Flex
