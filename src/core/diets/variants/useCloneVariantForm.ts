@@ -1,4 +1,4 @@
-import { useOneTimeCheck } from 'general/OneTimeCheckProvider'
+import { useOneTimeCheck } from 'general/oneTimeCheck'
 import { useUndoRedoMethods } from 'general/undoRedo'
 import { useFormContext } from 'react-hook-form'
 import { VariantsFieldArray } from './useVariantsFieldArray'

@@ -1,4 +1,4 @@
-import { useOneTimeCheck } from 'general/OneTimeCheckProvider'
+import { useOneTimeCheck } from 'general/oneTimeCheck'
 import { useUndoRedoMethods } from 'general/undoRedo'
 import { VariantsFieldArray } from './useVariantsFieldArray'
 import { getVariantForm, getInsertVariantFormAnimationKey } from './variantForm'

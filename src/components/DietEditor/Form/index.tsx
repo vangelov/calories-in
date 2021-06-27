@@ -8,18 +8,26 @@ import {
   IngredientsFormsDndProvider,
 } from 'core/diets'
 import { FormProvider } from 'react-hook-form'
-import { useLayoutEffect, useRef } from 'react'
+import { RefObject, useLayoutEffect, useRef } from 'react'
 import { Watcher } from 'general/undoRedo'
 import VariantsList from './VariantsList'
-import { Page } from 'components/general'
+import Page from 'components/layout/Page'
 
 type Props = {
   dietForm: DietForm
   scrollTop: number
+  scrollLeft: number
   isEditingExistingDiet: boolean
+  horizontalScrollRef: RefObject<HTMLDivElement>
 }
 
-function Form({ dietForm, scrollTop, isEditingExistingDiet }: Props) {
+function Form({
+  dietForm,
+  scrollTop,
+  scrollLeft,
+  isEditingExistingDiet,
+  horizontalScrollRef,
+}: Props) {
   const formMethods = useDietForm(dietForm)
   const onAppendMealRef = useRef<() => void>()
   const { handleSubmit } = formMethods
@@ -44,6 +52,8 @@ function Form({ dietForm, scrollTop, isEditingExistingDiet }: Props) {
 
       <IngredientsFormsDndProvider>
         <Page
+          footerContainerScrollLeft={scrollLeft}
+          footerContainerRef={horizontalScrollRef}
           headerElement={
             <>
               <NameAndStats isEditingExistingDiet={isEditingExistingDiet} />

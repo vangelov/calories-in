@@ -7,6 +7,7 @@ import VariantNameModal from './VariantNameModal'
 import { useRemoveVariantForm, useReorderVariantsForms } from 'core/diets'
 import useVariantActions from './useVariantActions'
 import { useUndoRedoMethods } from 'general/undoRedo'
+import { useRef } from 'react'
 
 type Props = {
   variantsFieldArray: VariantsFieldArray
@@ -16,10 +17,17 @@ function VariantsList({ variantsFieldArray }: Props) {
   const removeVariantForm = useRemoveVariantForm({ variantsFieldArray })
   const variantActions = useVariantActions({ variantsFieldArray })
   const { saveLastChange } = useUndoRedoMethods()
+  const appendButtonRef = useRef<HTMLDivElement>(null)
+  const { variantsFields } = variantsFieldArray
 
   useReorderVariantsForms({ variantsFieldArray })
 
-  const { variantsFields } = variantsFieldArray
+  function onVariantItemFirstAppear() {
+    appendButtonRef.current?.scrollIntoView({
+      block: 'start',
+      behavior: 'smooth',
+    })
+  }
 
   return (
     <Droppable
@@ -47,6 +55,7 @@ function VariantsList({ variantsFieldArray }: Props) {
                   variantsFieldArray.setSelectedVariantFormIndex(index)
                   saveLastChange()
                 }}
+                onFirstAppear={onVariantItemFirstAppear}
               >
                 {variantField.name}
               </VariantItem>
@@ -57,6 +66,7 @@ function VariantsList({ variantsFieldArray }: Props) {
 
           <Flex
             ml={2}
+            ref={appendButtonRef}
             opacity={snapshot.isUsingPlaceholder ? 0 : 1}
             transition="140ms opacity ease-out"
           >

@@ -1,6 +1,6 @@
 import { Diet } from 'core/types'
 import { getDietForm } from 'core/diets'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import {
   UndoRedoMethodsProvider,
   UndoRedoStateProvider,
@@ -11,18 +11,24 @@ import { DietStatsProvider, InitialEnergyProvider } from 'core/stats'
 function DietEditor() {
   const [diet] = useState<Diet | undefined>(undefined)
   const [dietForm] = useState(() => getDietForm(diet))
+  const horizontalScrollRef = useRef<HTMLDivElement>(null)
 
   return (
     <UndoRedoStateProvider key={dietForm.formId}>
       <InitialEnergyProvider>
         <DietStatsProvider>
-          <UndoRedoMethodsProvider dietForm={dietForm}>
-            {(currentDietForm, version, scrollTop) => (
+          <UndoRedoMethodsProvider
+            horizontalScrollRef={horizontalScrollRef}
+            dietForm={dietForm}
+          >
+            {(currentDietForm, version, scrollTop, scrollLeft) => (
               <Form
+                horizontalScrollRef={horizontalScrollRef}
                 isEditingExistingDiet={diet !== undefined}
                 key={version}
                 dietForm={currentDietForm}
                 scrollTop={scrollTop}
+                scrollLeft={scrollLeft}
               />
             )}
           </UndoRedoMethodsProvider>

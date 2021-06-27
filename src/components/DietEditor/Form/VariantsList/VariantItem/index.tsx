@@ -4,7 +4,7 @@ import { ReactNode, useState } from 'react'
 import Menu from './Menu'
 import { Draggable } from 'react-beautiful-dnd'
 import { motion } from 'framer-motion'
-import { useOneTimeCheck } from 'general/OneTimeCheckProvider'
+import { useOneTimeCheck } from 'general/oneTimeCheck'
 import { MouseEvent } from 'react'
 
 type Props = {
@@ -17,6 +17,7 @@ type Props = {
   variantField: VariantField
   canRemove: boolean
   index: number
+  onFirstAppear?: () => void
 } & LayoutProps &
   SpaceProps
 
@@ -39,13 +40,16 @@ function VariantItem({
   variantField,
   canRemove,
   index,
+  onFirstAppear,
   ...rest
 }: Props) {
   const oneTimeCheck = useOneTimeCheck()
   const [isVisible, setIsVisible] = useState(true)
 
   function onAnimationComplete() {
-    if (!isVisible) {
+    if (pendingAnimationForInserted) {
+      onFirstAppear && onFirstAppear()
+    } else if (!isVisible) {
       onDelete(index)
     }
   }
@@ -78,6 +82,7 @@ function VariantItem({
           transition={{ ease: 'easeInOut' }}
           style={{
             opacity: pendingAnimationForInserted ? 0 : 1,
+            flexShrink: 0,
           }}
           initial={pendingAnimationForInserted ? 'collapsed' : false}
           animate={isVisible ? 'open' : 'collapsed'}

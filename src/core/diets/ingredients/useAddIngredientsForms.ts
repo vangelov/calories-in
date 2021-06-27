@@ -3,7 +3,7 @@ import {
   IngredientForm,
   getInsertIngredientFormAnimationKey,
 } from '../ingredients/ingredientForm'
-import { useOneTimeCheck } from 'general/OneTimeCheckProvider'
+import { useOneTimeCheck } from 'general/oneTimeCheck'
 import { useUndoRedoMethods } from 'general/undoRedo'
 import { Food } from 'core/types'
 import { IngredientsFieldArray } from './useIngredientsFieldArray'

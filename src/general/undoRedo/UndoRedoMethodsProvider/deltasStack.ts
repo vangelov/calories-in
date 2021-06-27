@@ -3,18 +3,21 @@ import deepCopy from 'general/deepCopy'
 
 type PatchUnpatchResult = {
   scrollTop: number
+  scrollLeft: number
   delta: Delta
 }
 
 class DeltaNode {
   delta: Delta
   scrollTop: number
+  scrollLeft: number
   nextNode: DeltaNode | undefined
   prevNode: DeltaNode | undefined
 
-  constructor(delta: Delta, scrollTop: number) {
+  constructor(delta: Delta, scrollTop: number, scrollLeft: number) {
     this.delta = delta
     this.scrollTop = scrollTop
+    this.scrollLeft = scrollLeft
   }
 }
 
@@ -38,7 +41,7 @@ class DeltasStack {
     }
 
     if (this.pointerNode) {
-      const { delta, scrollTop } = this.pointerNode
+      const { delta, scrollTop, scrollLeft } = this.pointerNode
       this.canUnpatch = this.pointerNode.nextNode !== undefined
       this.canPatch = true
 
@@ -46,6 +49,7 @@ class DeltasStack {
       return {
         delta: deepCopy(delta),
         scrollTop,
+        scrollLeft,
       }
     }
 
@@ -56,7 +60,7 @@ class DeltasStack {
 
   getNextResultToPatch(): PatchUnpatchResult | null {
     if (this.pointerNode) {
-      const { delta, scrollTop } = this.pointerNode
+      const { delta, scrollTop, scrollLeft } = this.pointerNode
       this.pointerNode = this.pointerNode.prevNode
 
       this.canPatch = this.pointerNode !== undefined
@@ -65,6 +69,7 @@ class DeltasStack {
       return {
         delta: deepCopy(delta),
         scrollTop,
+        scrollLeft,
       }
     }
 
@@ -87,13 +92,13 @@ class DeltasStack {
     }
   }
 
-  push(delta: Delta, scrollTop: number) {
+  push(delta: Delta, scrollTop: number, scrollLeft: number) {
     if (this.pointerNode) {
       this.startNode = this.pointerNode.nextNode
       this.pointerNode = undefined
     }
 
-    const node = new DeltaNode(delta, scrollTop)
+    const node = new DeltaNode(delta, scrollTop, scrollLeft)
 
     if (!this.startNode) {
       this.startNode = node

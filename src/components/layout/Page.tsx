@@ -1,37 +1,32 @@
-import { Box, Flex, Divider, BoxProps } from '@chakra-ui/react'
+import { Box, Flex, Divider } from '@chakra-ui/react'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
-import { ReactElement, ReactNode } from 'react'
-import styled from '@emotion/styled'
+import { ReactElement, RefObject, useLayoutEffect } from 'react'
+import ElementContainer from './ElementContainer'
 
 type Props = {
   headerElement: ReactElement
   bodyElement: ReactElement
   footerElement: ReactElement
+  footerContainerRef?: RefObject<HTMLDivElement>
+  footerContainerScrollLeft?: number
 }
 
-const TestBox = styled(Box)`
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
-`
-
-function ElementContainer({
-  children,
-  ...rest
-}: { children: ReactNode } & BoxProps) {
-  return (
-    <TestBox flex={1} maxWidth="900px" {...rest}>
-      {children}
-    </TestBox>
-  )
-}
-
-function Page({ headerElement, bodyElement, footerElement }: Props) {
+function Page({
+  headerElement,
+  bodyElement,
+  footerElement,
+  footerContainerRef,
+  footerContainerScrollLeft = 0,
+}: Props) {
   const screenSize = useScreenSize()
   const hasSideNavigation = screenSize >= 3
+
+  useLayoutEffect(() => {
+    if (footerContainerRef && footerContainerRef.current) {
+      footerContainerRef.current.scrollLeft = footerContainerScrollLeft
+    }
+  }, [footerContainerScrollLeft, footerContainerRef])
+
   return (
     <>
       <Flex
@@ -59,13 +54,13 @@ function Page({ headerElement, bodyElement, footerElement }: Props) {
         zIndex={2}
       >
         <Flex justifyContent="center" bg="white">
-          <ElementContainer overflowX="scroll">
+          <ElementContainer>
             <Divider />
           </ElementContainer>
         </Flex>
 
         <Flex justifyContent="center" bg="white">
-          <ElementContainer overflowX="scroll">
+          <ElementContainer overflowX="scroll" ref={footerContainerRef}>
             <Box py={3} mx={screenSize > 3 ? 0 : 3}>
               {footerElement}
             </Box>

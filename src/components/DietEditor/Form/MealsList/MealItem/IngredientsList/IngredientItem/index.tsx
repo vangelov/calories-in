@@ -12,7 +12,7 @@ import RightAligned from 'components/general/RightAligned'
 import Menu from './Menu'
 import { useFoodsByIdState } from 'core/foods'
 import { getIngredientStats } from 'core/stats'
-import { useOneTimeCheck } from 'general/OneTimeCheckProvider'
+import { useOneTimeCheck } from 'general/oneTimeCheck'
 import { getInsertIngredientFormAnimationKey } from 'core/diets'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
 

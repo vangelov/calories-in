@@ -1,5 +1,12 @@
 import { DietForm } from 'core/diets'
-import { ReactNode, useCallback, useRef, useMemo, useState } from 'react'
+import {
+  ReactNode,
+  useCallback,
+  useRef,
+  useMemo,
+  useState,
+  RefObject,
+} from 'react'
 import * as jsondiffpatch from 'jsondiffpatch'
 import DeltasStack from './deltasStack'
 import { UndoRedoMethodsContext } from './context'
@@ -11,8 +18,10 @@ type Props = {
   children: (
     currentDietForm: DietForm,
     version: string,
-    scrollTop: number
+    scrollTop: number,
+    scrollLeft: number
   ) => ReactNode
+  horizontalScrollRef: RefObject<HTMLDivElement>
 }
 
 const patcher = jsondiffpatch.create({
@@ -21,7 +30,11 @@ const patcher = jsondiffpatch.create({
 
 const TIMEOUT_IN_MS = 200
 
-function UndoRedoMethodsProvider({ children, dietForm }: Props) {
+function UndoRedoMethodsProvider({
+  children,
+  dietForm,
+  horizontalScrollRef,
+}: Props) {
   const deltasStackRef = useRef(new DeltasStack())
   const lastFormRef = useRef<DietForm>(dietForm)
   const [versionIndex, setVersionIndex] = useState(0)
@@ -29,6 +42,7 @@ function UndoRedoMethodsProvider({ children, dietForm }: Props) {
   const timeoutIdRef = useRef<number>()
   const undoRedoSetState = useUndoRedoSetState()
   const [versionScrollTop, setVersionScrollTop] = useState(0)
+  const [versionScrollLeft, setVersionScrollLeft] = useState(0)
 
   const saveLastChange = useCallback(() => {
     markRef.current = true
@@ -45,10 +59,11 @@ function UndoRedoMethodsProvider({ children, dietForm }: Props) {
     const result = deltasStackRef.current.getNextResultToUnpatch()
 
     if (result) {
-      const { delta, scrollTop } = result
+      const { delta, scrollTop, scrollLeft } = result
       lastFormRef.current = patcher.unpatch(lastFormRef.current, delta)
 
       setVersionScrollTop(scrollTop)
+      setVersionScrollLeft(scrollLeft)
       setVersionIndex(versionIndex => versionIndex + 1)
       updateState()
     }
@@ -58,10 +73,11 @@ function UndoRedoMethodsProvider({ children, dietForm }: Props) {
     const result = deltasStackRef.current.getNextResultToPatch()
 
     if (result) {
-      const { delta, scrollTop } = result
+      const { delta, scrollTop, scrollLeft } = result
       lastFormRef.current = patcher.patch(lastFormRef.current, delta)
 
       setVersionScrollTop(scrollTop)
+      setVersionScrollLeft(scrollLeft)
       setVersionIndex(versionIndex => versionIndex - 1)
       updateState()
     }
@@ -84,13 +100,19 @@ function UndoRedoMethodsProvider({ children, dietForm }: Props) {
             lastFormRef.current = form
             console.log('push', delta)
 
-            deltasStackRef.current.push(delta, window.scrollY)
+            deltasStackRef.current.push(
+              delta,
+              window.scrollY,
+              horizontalScrollRef.current
+                ? horizontalScrollRef.current.scrollLeft
+                : 0
+            )
             updateState()
           }
         }
       }, TIMEOUT_IN_MS)
     },
-    [updateState]
+    [updateState, horizontalScrollRef]
   )
 
   useKeyboard({ undo, redo })
@@ -109,7 +131,12 @@ function UndoRedoMethodsProvider({ children, dietForm }: Props) {
 
   return (
     <UndoRedoMethodsContext.Provider value={methods}>
-      {children(lastFormRef.current, version, versionScrollTop)}
+      {children(
+        lastFormRef.current,
+        version,
+        versionScrollTop,
+        versionScrollLeft
+      )}
     </UndoRedoMethodsContext.Provider>
   )
 }

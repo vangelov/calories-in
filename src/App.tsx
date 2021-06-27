@@ -6,7 +6,7 @@ import builInFoods from 'core/foods/builtIn.json'
 import 'focus-visible/dist/focus-visible'
 import theme from 'components/theme'
 import smoothscroll from 'smoothscroll-polyfill'
-import OneTimeCheckProvider from 'general/OneTimeCheckProvider'
+import { OneTimeCheckProvider } from 'general/oneTimeCheck'
 import ScreenSizeProvider from 'components/general/ScreenSizeProvider'
 import { FoodsByIdProvider } from 'core/foods'
 
