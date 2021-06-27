@@ -1,5 +1,5 @@
 import { Flex, Text } from '@chakra-ui/react'
-import { ResponsiveButton } from 'components/general'
+import ResponsiveButton from 'components/general/ResponsiveButton'
 
 type Props = {
   onAddIngredients: () => void

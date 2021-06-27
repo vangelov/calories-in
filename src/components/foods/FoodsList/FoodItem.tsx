@@ -4,7 +4,7 @@ import { Flex, FlexProps, Box, chakra } from '@chakra-ui/react'
 import { Food } from 'core/types'
 import { Info } from 'react-feather'
 import { MouseEvent } from 'react'
-import { ResponsiveIconButton } from 'components/general'
+import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 
 const InfoStyled = chakra(Info)
 

@@ -1,6 +1,6 @@
 import { Text, Box, HStack, FlexProps, Collapse } from '@chakra-ui/react'
 import { ReactNode } from 'react'
-import RightAligned from './RightAligned'
+import RightAligned from 'components/general/RightAligned'
 
 type StatType =
   | 'ingredient'

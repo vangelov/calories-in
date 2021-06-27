@@ -1,7 +1,7 @@
 import { ButtonProps, chakra } from '@chakra-ui/react'
-import { Menu as MenuBase, MenuItem } from 'components/general'
+import MenuBase, { MenuItem } from 'components/general/Menu'
 import { MoreHorizontal } from 'react-feather'
-import { ResponsiveIconButton } from 'components/general'
+import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 

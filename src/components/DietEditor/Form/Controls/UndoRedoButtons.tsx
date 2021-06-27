@@ -1,7 +1,7 @@
 import { ButtonGroup, chakra } from '@chakra-ui/react'
 import { useUndoRedoMethods, useUndoRedoState } from 'general/undoRedo'
 import { CornerUpLeft, CornerUpRight } from 'react-feather'
-import { ResponsiveIconButton } from 'components/general'
+import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
 
 const CornerUpLeftStyled = chakra(CornerUpLeft)

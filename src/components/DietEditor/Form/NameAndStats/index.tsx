@@ -1,13 +1,13 @@
 import { Flex, Input, chakra } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { useDietStats } from 'core/stats'
-import StatsLayout from 'components/general/StatsLayout'
-import { Stat } from 'components/general'
+import StatsLayout from 'components/stats/StatsLayout'
+import Stat from 'components/stats/Stat'
 import { Info } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
 import Name from './Name'
 import EnergyStat from './EnergyStat'
-import { ResponsiveIconButton } from 'components/general'
+import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 
 const IntoStyled = chakra(Info)
 

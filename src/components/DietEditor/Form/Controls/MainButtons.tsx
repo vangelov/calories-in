@@ -1,7 +1,7 @@
 import { Button, chakra } from '@chakra-ui/react'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
 import { Plus, Share } from 'react-feather'
-import { ResponsiveIconButton } from 'components/general'
+import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 
 const PlusStyled = chakra(Plus)
 

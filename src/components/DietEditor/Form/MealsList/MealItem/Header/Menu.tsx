@@ -1,11 +1,12 @@
 import { ButtonProps, chakra } from '@chakra-ui/react'
 import { MealField } from 'core/diets'
-import { Menu as MenuBase, MenuItem } from 'components/general'
+import MenuBase, { MenuItem } from 'components/general/Menu'
 import { MoreHorizontal } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
-import { ResponsiveIconButton } from 'components/general'
+import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 
 const MoreHorizontalStyled = chakra(MoreHorizontal)
+
 type Props = {
   mealField: MealField
   onRemove: () => void

@@ -1,8 +1,8 @@
 import { chakra } from '@chakra-ui/react'
-import { Menu, MenuItem } from 'components/general'
+import Menu, { MenuItem } from 'components/general/Menu'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
 import { MoreHorizontal, Shuffle, Trash } from 'react-feather'
-import { ResponsiveIconButton } from 'components/general'
+import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 
 const ShuffleStyled = chakra(Shuffle)
 const TrashStyled = chakra(Trash)
