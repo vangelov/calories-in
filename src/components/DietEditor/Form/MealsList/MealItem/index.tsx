@@ -1,6 +1,7 @@
 import {
   getMealsFormsPath,
   MealField,
+  MealsFieldArray,
   useIngredientsFieldArray,
   useRemoveIngredientForm,
 } from 'core/diets'
@@ -24,6 +25,7 @@ type Props = {
   onRemove: (index: number) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
   onFirstAppear: () => void
+  mealsFieldArray: MealsFieldArray
 } & LayoutProps &
   SpaceProps
 
@@ -42,6 +44,7 @@ function MealItem({
   getMealNameInputRefById,
   variantIndex,
   onFirstAppear,
+  mealsFieldArray,
   ...rest
 }: Props) {
   const ingredientsFieldArray = useIngredientsFieldArray({
@@ -55,6 +58,7 @@ function MealItem({
     index,
     variantIndex,
     ingredientsFieldArray,
+    mealsFieldArray,
   })
 
   const { register } = useFormContext()

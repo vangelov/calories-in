@@ -56,6 +56,7 @@ function MealsList({ onAppendMealRef, variantIndex, variantField }: Props) {
           {mealsFieldArray.mealsFields.map((mealField, index) => (
             <MealItem
               key={mealField.fieldId}
+              mealsFieldArray={mealsFieldArray}
               variantIndex={variantIndex}
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}

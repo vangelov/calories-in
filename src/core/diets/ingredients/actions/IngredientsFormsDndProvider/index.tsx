@@ -1,5 +1,5 @@
-import { DietForm } from '../../dietForm'
-import { IngredientForm } from '../../ingredients/ingredientForm'
+import { DietForm } from '../../../dietForm'
+import { IngredientForm } from '../../../ingredients/ingredientForm'
 import { useDragAndDropResponder } from 'general/dndResponders'
 import { ReactNode, useRef } from 'react'
 import { DragStart } from 'react-beautiful-dnd'

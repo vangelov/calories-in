@@ -1,5 +1,5 @@
 import { useUndoRedoMethods } from 'general/undoRedo'
-import { VariantsFieldArray } from './useVariantsFieldArray'
+import { VariantsFieldArray } from '../useVariantsFieldArray'
 
 type Params = {
   variantsFieldArray: VariantsFieldArray

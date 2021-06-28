@@ -37,13 +37,9 @@ function useFilterFoods(foodsFilter: FoodsFilter) {
   const { query, categoryId } = foodsFilter
 
   if (!query) {
-    if (categoryId) {
-      return foodsByCategoryId[categoryId]
-    }
-    return foods
+    return categoryId ? foodsByCategoryId[categoryId] : foods
   }
-  const results = fuse.search(query, { limit: 5 })
-  const foodsForQuery = results.map(({ item }) => item)
+  const foodsForQuery = fuse.search(query, { limit: 5 }).map(({ item }) => item)
 
   if (!categoryId) {
     return foodsForQuery

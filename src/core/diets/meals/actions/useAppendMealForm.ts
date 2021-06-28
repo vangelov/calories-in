@@ -1,8 +1,8 @@
-import { getMealForm, getInsertMealFormAnimationKey } from './mealForm'
+import { getMealForm, getInsertMealFormAnimationKey } from '../mealForm'
 import { useUndoRedoMethods } from 'general/undoRedo'
 import { MutableRefObject } from 'react'
 import { useOneTimeCheck } from 'general/oneTimeCheck'
-import { MealsFieldArray } from './useMealsFieldArray'
+import { MealsFieldArray } from '../useMealsFieldArray'
 
 type Params = {
   mealsFieldArray: MealsFieldArray

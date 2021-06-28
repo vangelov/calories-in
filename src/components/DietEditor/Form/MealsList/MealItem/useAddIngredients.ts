@@ -1,6 +1,9 @@
 import { useDisclosure } from '@chakra-ui/hooks'
-import { IngredientsFieldArray, useAddIngredientsForms } from 'core/diets'
-import useFindMealForm from 'core/diets/meals/useFindMealForm'
+import {
+  IngredientsFieldArray,
+  MealsFieldArray,
+  useAddIngredientsForms,
+} from 'core/diets'
 import { Food } from 'core/types'
 import { useRef, useState } from 'react'
 
@@ -8,21 +11,22 @@ type Params = {
   index: number
   variantIndex: number
   ingredientsFieldArray: IngredientsFieldArray
+  mealsFieldArray: MealsFieldArray
 }
 
 function useAddIngredients({
   index,
   variantIndex,
   ingredientsFieldArray,
+  mealsFieldArray,
 }: Params) {
   const [selectedMealName, setSelectedMealName] = useState('')
   const drawerDisclosure = useDisclosure()
   const onDrawеrSaveRef = useRef<(foods: Food[]) => void>(() => {})
   const addIngredientsForms = useAddIngredientsForms({ ingredientsFieldArray })
-  const findMealForm = useFindMealForm()
 
   function onAdd() {
-    const selectedMealForm = findMealForm(variantIndex, index)
+    const selectedMealForm = mealsFieldArray.getMealFormAt(variantIndex, index)
     setSelectedMealName(selectedMealForm.name)
 
     drawerDisclosure.onOpen()

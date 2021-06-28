@@ -1,4 +1,4 @@
-import { VariantsFieldArray } from './useVariantsFieldArray'
+import { VariantsFieldArray } from '../useVariantsFieldArray'
 import { useDragAndDropResponder } from 'general/dndResponders'
 import { useUndoRedoMethods } from 'general/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'

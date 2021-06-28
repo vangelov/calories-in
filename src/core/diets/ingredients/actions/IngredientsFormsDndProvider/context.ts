@@ -1,5 +1,5 @@
 import { MutableRefObject, createContext, useContext } from 'react'
-import { IngredientForm } from '../../ingredients/ingredientForm'
+import { IngredientForm } from '../../../ingredients/ingredientForm'
 
 type State = MutableRefObject<IngredientForm | undefined>
 

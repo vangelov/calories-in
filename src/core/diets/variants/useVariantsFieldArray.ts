@@ -1,13 +1,15 @@
 import { useFieldArray, UseFormReturn, useWatch } from 'react-hook-form'
 import { DietForm } from '../dietForm'
-import { getVariantsFormsPath, VariantField } from './variantForm'
+import { getVariantsFormsPath, VariantField, VariantForm } from './variantForm'
+import deepCopy from 'general/deepCopy'
+import { v4 as uuidv4 } from 'uuid'
 
 type Params = {
   formMethods: UseFormReturn<DietForm>
 }
 
 function useVariantsFieldArray({ formMethods }: Params) {
-  const { setValue, control } = formMethods
+  const { setValue, control, getValues } = formMethods
 
   const selectedVariantFormIndex =
     useWatch({
@@ -33,6 +35,25 @@ function useVariantsFieldArray({ formMethods }: Params) {
     setValue('selectedVariantFormIndex', index)
   }
 
+  function getVariantFormCopy(index: number, newName: string) {
+    const values = getValues()
+    const originalVariantForm = values.variantsForms[index]
+    const copiedVariantForm = deepCopy(
+      originalVariantForm,
+      (key: string, value: any) => {
+        if (key === 'fieldId') {
+          return uuidv4()
+        }
+
+        return value
+      }
+    ) as VariantForm
+
+    copiedVariantForm.name = newName
+
+    return copiedVariantForm
+  }
+
   return {
     variantsFields,
     setSelectedVariantFormIndex,
@@ -42,6 +63,7 @@ function useVariantsFieldArray({ formMethods }: Params) {
     moveVariantForm,
     selectedVariantFormIndex,
     selectedVariantField,
+    getVariantFormCopy,
   }
 }
 

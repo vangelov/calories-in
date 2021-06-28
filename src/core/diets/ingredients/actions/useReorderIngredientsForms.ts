@@ -1,11 +1,9 @@
-import { IngredientForm } from './ingredientForm'
-import { MealField } from '../meals/mealForm'
+import { MealField } from '../../meals/mealForm'
 import { useDragAndDropResponder } from 'general/dndResponders'
 import { useUndoRedoMethods } from 'general/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'
+import { IngredientsFieldArray } from '../useIngredientsFieldArray'
 import { useIngredientsFormsDndState } from './IngredientsFormsDndProvider'
-import { useLayoutEffect, useState } from 'react'
-import { IngredientsFieldArray } from './useIngredientsFieldArray'
 
 type Params = {
   mealField: MealField
@@ -18,13 +16,6 @@ function useReorderIngredientsForms({
 }: Params) {
   const ingredientFormRef = useIngredientsFormsDndState()
   const { saveLastChange } = useUndoRedoMethods()
-  const [pendingInsert, setPendingInsert] = useState<() => void>()
-
-  useLayoutEffect(() => {
-    if (pendingInsert) {
-      pendingInsert()
-    }
-  }, [pendingInsert])
 
   useDragAndDropResponder('onDragEnd', (result: DropResult) => {
     const { source, destination, type } = result
@@ -39,19 +30,17 @@ function useReorderIngredientsForms({
     ) {
       ingredientsFieldArray.moveIngredientForm(source.index, destination.index)
     } else if (destination.droppableId === mealField.fieldId) {
-      let ingredientForm: IngredientForm | undefined = ingredientFormRef.current
+      const ingredientForm = ingredientFormRef.current
 
-      setPendingInsert(() => {
-        if (ingredientForm) {
-          ingredientsFieldArray.insertIngredientForm(
-            destination.index,
-            ingredientForm,
-            {
-              shouldFocus: false,
-            }
-          )
-        }
-      })
+      if (ingredientForm) {
+        ingredientsFieldArray.insertIngredientForm(
+          destination.index,
+          ingredientForm,
+          {
+            shouldFocus: false,
+          }
+        )
+      }
     } else if (source.droppableId === mealField.fieldId) {
       ingredientsFieldArray.removeIngredientForm(source.index)
     }

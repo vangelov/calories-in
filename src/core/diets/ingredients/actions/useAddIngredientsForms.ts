@@ -1,12 +1,11 @@
 import {
   getIngredientForm,
-  IngredientForm,
   getInsertIngredientFormAnimationKey,
-} from '../ingredients/ingredientForm'
+} from '../ingredientForm'
 import { useOneTimeCheck } from 'general/oneTimeCheck'
 import { useUndoRedoMethods } from 'general/undoRedo'
 import { Food } from 'core/types'
-import { IngredientsFieldArray } from './useIngredientsFieldArray'
+import { IngredientsFieldArray } from '../useIngredientsFieldArray'
 
 type Params = {
   ingredientsFieldArray: IngredientsFieldArray
@@ -19,22 +18,18 @@ function useAddIngredientsForms({ ingredientsFieldArray }: Params) {
   const oneTimeCheck = useOneTimeCheck()
 
   function onAdd(foods: Food[]) {
-    const ingredientForms: IngredientForm[] = []
-
-    for (const food of foods) {
-      const ingredientForm = getIngredientForm({
-        foodId: food.id,
+    const ingredientForms = foods.map(({ id }) =>
+      getIngredientForm({
+        foodId: id,
         amountInGrams: DEFAULT_AMOUNT_IN_GRAMS,
       })
+    )
 
-      oneTimeCheck.set(
-        getInsertIngredientFormAnimationKey(ingredientForm.fieldId)
-      )
-      ingredientForms.push(ingredientForm)
-    }
+    ingredientForms.forEach(({ fieldId }) => {
+      oneTimeCheck.set(getInsertIngredientFormAnimationKey(fieldId))
+    })
 
     ingredientsFieldArray.appendIngredientForms(ingredientForms)
-
     saveLastChange()
   }
 

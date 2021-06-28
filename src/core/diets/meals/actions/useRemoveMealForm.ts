@@ -1,5 +1,5 @@
 import { useUndoRedoMethods } from 'general/undoRedo'
-import { MealsFieldArray } from './useMealsFieldArray'
+import { MealsFieldArray } from '../useMealsFieldArray'
 
 type Params = {
   mealsFieldArray: MealsFieldArray
