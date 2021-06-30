@@ -13,6 +13,7 @@ type Food = {
   id: number
   categoryId: number
   name: string
+  addedByUser?: boolean
 } & NutritionStats
 
 type Ingredient = {

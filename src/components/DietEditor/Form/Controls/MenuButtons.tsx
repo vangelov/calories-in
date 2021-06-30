@@ -20,6 +20,7 @@ function MenuButtons() {
       menuButton={
         <ResponsiveIconButton
           mr={mr}
+          isDisabled={true}
           aria-label="Meal plan actions"
           icon={<MoreHorizontalStyled size={20} pointerEvents="none" />}
           variant="outline"

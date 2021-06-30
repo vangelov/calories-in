@@ -1,18 +1,8 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalFooter,
-  ModalBody,
-  Button,
-} from '@chakra-ui/react'
+import { Modal, ModalOverlay } from '@chakra-ui/react'
 import { Food } from 'core/types'
-import { getFoodForm, useFoodForm, useSubmitFoodForm } from 'core/foods'
-import { FormProvider } from 'react-hook-form'
-import FoodFields from './FoodFields'
+
 import { useRef } from 'react'
+import Content from './Content'
 
 type Props = {
   onClose: () => void
@@ -22,13 +12,7 @@ type Props = {
 }
 
 function FoodModal({ onClose, isOpen, onSave, title }: Props) {
-  const formMethods = useFoodForm(getFoodForm())
   const nameInputRef = useRef<HTMLInputElement>(null)
-
-  const { onSubmit } = useSubmitFoodForm({
-    formMethods,
-    onComplete: (food: Food) => onSave(food),
-  })
 
   return (
     <Modal
@@ -39,27 +23,12 @@ function FoodModal({ onClose, isOpen, onSave, title }: Props) {
       scrollBehavior="inside"
     >
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>{title}</ModalHeader>
-        <ModalCloseButton />
-
-        <ModalBody>
-          <form onSubmit={onSubmit}>
-            <FormProvider {...formMethods}>
-              <FoodFields nameInputRef={nameInputRef} />
-            </FormProvider>
-          </form>
-        </ModalBody>
-
-        <ModalFooter>
-          <Button mr={3} onClick={onClose}>
-            Close
-          </Button>
-          <Button colorScheme="teal" variant="solid" onClick={onSubmit}>
-            Save
-          </Button>
-        </ModalFooter>
-      </ModalContent>
+      <Content
+        nameInputRef={nameInputRef}
+        onSave={onSave}
+        onClose={onClose}
+        title={title}
+      />
     </Modal>
   )
 }

@@ -9,7 +9,7 @@ function EmptyList({ onAddIngredients }: Props) {
   return (
     <Flex py={2} px={3} justifyContent="space-between" alignItems="center">
       <Text fontSize="md" textColor="gray.400">
-        No foods added
+        No ingredients added
       </Text>
 
       <ResponsiveButton
@@ -17,7 +17,7 @@ function EmptyList({ onAddIngredients }: Props) {
         variant="ghost"
         onClick={onAddIngredients}
       >
-        Add foods
+        Add ingredients
       </ResponsiveButton>
     </Flex>
   )

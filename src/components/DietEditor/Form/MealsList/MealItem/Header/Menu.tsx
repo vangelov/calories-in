@@ -1,11 +1,12 @@
-import { ButtonProps, chakra } from '@chakra-ui/react'
+import { ButtonProps, chakra, HStack, Text } from '@chakra-ui/react'
 import { MealField } from 'core/diets'
 import MenuBase, { MenuItem } from 'components/general/Menu'
-import { MoreHorizontal } from 'react-feather'
+import { MoreHorizontal, Plus, Trash2 } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
 import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 
-const MoreHorizontalStyled = chakra(MoreHorizontal)
+const PlusStyled = chakra(Plus)
+const Trash2Styled = chakra(Trash2)
 
 type Props = {
   mealField: MealField
@@ -24,14 +25,20 @@ function Menu({ mealField, index, onRemove, onAddIngredient, ...rest }: Props) {
         menuButton={
           <ResponsiveIconButton
             aria-label="Meal actions"
-            icon={<MoreHorizontalStyled size={20} pointerEvents="none" />}
+            icon={<MoreHorizontal size={20} pointerEvents="none" />}
             variant="outline"
             {...rest}
           />
         }
       >
-        <MenuItem onClick={onAddIngredient}>Add food</MenuItem>
-        <MenuItem onClick={onRemove}>Remove</MenuItem>
+        <MenuItem onClick={onAddIngredient}>
+          <PlusStyled pointerEvents="none" size={20} mr={3} />
+          Add ingredients
+        </MenuItem>
+        <MenuItem onClick={onRemove}>
+          <Trash2Styled pointerEvents="none" size={20} mr={3} />
+          Remove
+        </MenuItem>
       </MenuBase>
     </RightAligned>
   )

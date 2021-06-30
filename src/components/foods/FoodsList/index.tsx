@@ -6,32 +6,17 @@ import {
   Flex,
   Text,
   FlexProps,
-  Button,
-  Checkbox,
-  IconButton,
   HStack,
-  VStack,
+  Box,
 } from '@chakra-ui/react'
 import { Divider } from '@chakra-ui/react'
 import { Search } from 'react-feather'
 import VirtualizedList from './VirtualizedList'
 import { Selection } from 'general/useSelection'
-import { ChangeEvent, RefObject, useRef, useState } from 'react'
+import { ChangeEvent, RefObject, useState } from 'react'
 import { useFilterFoods, FoodsFilter } from 'core/foods'
 import { Food } from 'core/types'
-import { FoodCategoriesSelect } from 'components/foods'
-import { Filter } from 'react-feather'
-
-import {
-  Popover,
-  PopoverTrigger,
-  PopoverContent,
-  PopoverHeader,
-  PopoverBody,
-  PopoverFooter,
-  PopoverArrow,
-  PopoverCloseButton,
-} from '@chakra-ui/react'
+import FilterPopover from './FilterPopover'
 
 const SearchStyled = chakra(Search)
 
@@ -48,52 +33,27 @@ function FoodsList({ selection, searchInputRef, ...rest }: Props) {
     setFilter(filter => ({ ...filter, query: value }))
   }
 
-  function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
-    const { value } = event.target
-    setFilter(filter => ({ ...filter, categoryId: Number(value) }))
+  function onFoodCategoryIdChange(categoryId: number) {
+    setFilter({ ...filter, categoryId })
+  }
+
+  function onOnlyFoodsAddedByUserChange(onlyFoodsAddedbyUser: boolean) {
+    setFilter({ ...filter, onlyFoodsAddedbyUser })
   }
 
   const filteredFoods = useFilterFoods(filter)
 
-  const testRef = useRef<HTMLSelectElement>(null)
-
   return (
     <Flex flexDirection="column" {...rest}>
       <HStack spacing={3}>
-        <Popover placement="left" initialFocusRef={testRef}>
-          <PopoverTrigger>
-            <IconButton
-              size="md"
-              aria-label="Add variant"
-              icon={<Filter size={20} pointerEvents="none" />}
-              variant="outline"
-            />
-          </PopoverTrigger>
-          <PopoverContent boxShadow="lg">
-            <PopoverArrow />
-            <PopoverCloseButton />
-            <PopoverHeader>Filters</PopoverHeader>
-            <PopoverBody>
-              <VStack spacing={3} p={1} alignItems="flex-start">
-                <FoodCategoriesSelect
-                  ref={testRef}
-                  flex={3}
-                  onChange={onSelectChange}
-                >
-                  <option value={undefined}>All categories</option>
-                </FoodCategoriesSelect>
-
-                <Checkbox colorScheme="teal">Only items added by me</Checkbox>
-              </VStack>
-            </PopoverBody>
-            <PopoverFooter border="0">
-              <HStack spacing={3} justifyContent="flex-end">
-                <Button variant="link">Reset</Button>
-                <Button variant="outline">Cose</Button>
-              </HStack>
-            </PopoverFooter>
-          </PopoverContent>
-        </Popover>
+        <Box>
+          <FilterPopover
+            filter={filter}
+            onFoodCategoryIdChange={onFoodCategoryIdChange}
+            onOnlyFoodsAddedByUserChange={onOnlyFoodsAddedByUserChange}
+            onReset={() => {}}
+          />
+        </Box>
 
         <InputGroup size="md" flex={4}>
           <InputLeftElement

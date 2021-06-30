@@ -7,6 +7,7 @@ const OPTIONS = { keys: ['name'] }
 
 type FoodsFilter = {
   categoryId?: number
+  onlyFoodsAddedbyUser?: boolean
   query: string
 }
 
@@ -28,7 +29,16 @@ function groupFoodsByCategoryId(foods: Food[]) {
 
 function useFilterFoods(foodsFilter: FoodsFilter) {
   const foodsById = useFoodsByIdState()
-  const foods = useMemo(() => Object.values(foodsById), [foodsById])
+  const foods = useMemo(() => {
+    const allFoods = Object.values(foodsById)
+
+    if (foodsFilter.onlyFoodsAddedbyUser) {
+      return allFoods.filter(food => food.addedByUser)
+    }
+
+    return allFoods
+  }, [foodsById, foodsFilter.onlyFoodsAddedbyUser])
+
   const fuse = useMemo(() => new Fuse(foods, OPTIONS), [foods])
   const foodsByCategoryId = useMemo(() => groupFoodsByCategoryId(foods), [
     foods,
@@ -37,7 +47,7 @@ function useFilterFoods(foodsFilter: FoodsFilter) {
   const { query, categoryId } = foodsFilter
 
   if (!query) {
-    return categoryId ? foodsByCategoryId[categoryId] : foods
+    return categoryId ? foodsByCategoryId[categoryId] || [] : foods
   }
   const foodsForQuery = fuse.search(query, { limit: 5 }).map(({ item }) => item)
 

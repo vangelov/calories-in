@@ -22,6 +22,7 @@ function MainButtons({ onMealAdd, onSave }: Props) {
           leftIcon={<Share size={20} pointerEvents="none" />}
           variant="outline"
           colorScheme="teal"
+          isDisabled={true}
           mr={mr}
           onClick={onSave}
         >

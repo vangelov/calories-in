@@ -27,6 +27,7 @@ function useSubmitFoodForm({ formMethods, onComplete }: Params) {
       saturatedFat: foodForm.saturatedFat,
       sodium: foodForm.sodium,
       categoryId: foodForm.categoryId,
+      addedByUser: true,
     }
 
     foodsByIdDispatch({ type: 'addFood', food })

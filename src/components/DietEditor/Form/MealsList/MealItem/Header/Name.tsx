@@ -37,7 +37,7 @@ function Name({
     <Input
       {...nameRegister}
       ref={nameInputRef}
-      placeholder="Enter meal name"
+      placeholder="Meal name"
       onChange={onNameChange}
       autoComplete="off"
       bg="white"

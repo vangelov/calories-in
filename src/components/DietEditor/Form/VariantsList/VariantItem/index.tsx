@@ -92,6 +92,7 @@ function VariantItem({
           <Box
             ref={provided.innerRef}
             bg={isSelected ? 'gray.100' : 'white'}
+            _hover={{ bg: isSelected ? 'gray.100' : 'gray.50' }}
             borderRadius="full"
             fontWeight="medium"
             borderWidth="1px"

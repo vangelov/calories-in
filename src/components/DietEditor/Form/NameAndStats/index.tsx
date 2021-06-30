@@ -8,6 +8,9 @@ import RightAligned from 'components/general/RightAligned'
 import Name from './Name'
 import EnergyStat from './EnergyStat'
 import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
+import getMacrosPercentages, {
+  roundedMacroPercentages,
+} from 'core/stats/getMacrosPercentages'
 
 const IntoStyled = chakra(Info)
 
@@ -18,6 +21,12 @@ type Props = {
 function NameAndStats({ isEditingExistingDiet }: Props) {
   const { register } = useFormContext()
   const dietStats = useDietStats()
+
+  const {
+    proteinPercentage,
+    carbsPercentage,
+    fatPercentage,
+  } = roundedMacroPercentages(getMacrosPercentages(dietStats))
 
   return (
     <Flex
@@ -42,7 +51,7 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
             type="diet"
             label="Protein"
             value={dietStats.protein}
-            valueDetail="25%"
+            valueDetail={`${proteinPercentage}%`}
             showsValueDetail={true}
           />
         }
@@ -52,7 +61,7 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
             type="diet"
             label="Carbs"
             value={dietStats.carbs}
-            valueDetail="55%"
+            valueDetail={`${carbsPercentage}%`}
             showsValueDetail={true}
           />
         }
@@ -62,13 +71,14 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
             type="diet"
             label="Fat"
             value={dietStats.fat}
-            valueDetail="20%"
+            valueDetail={`${fatPercentage}%`}
             showsValueDetail={true}
           />
         }
         menuElement={
           <RightAligned>
             <ResponsiveIconButton
+              isDisabled={true}
               aria-label="Nutrition details"
               icon={<IntoStyled size={20} pointerEvents="none" />}
               variant="ghost"
