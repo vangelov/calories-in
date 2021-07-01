@@ -49,6 +49,7 @@ function MainButtons({ onMealAdd, onSave }: Props) {
         variant="outline"
         onClick={onSave}
         colorScheme="teal"
+        isDisabled={true}
         mr={mr}
       />
 

@@ -11,11 +11,13 @@ const InfoStyled = chakra(Info)
 type Props = {
   food: Food
   isSelected?: boolean
+  onPreview: () => void
 } & FlexProps
 
-function FoodItem({ food, isSelected = false, ...rest }: Props) {
+function FoodItem({ food, isSelected = false, onPreview, ...rest }: Props) {
   function onClick(event: MouseEvent<HTMLButtonElement>) {
     event.stopPropagation()
+    onPreview()
   }
 
   return (
@@ -29,7 +31,7 @@ function FoodItem({ food, isSelected = false, ...rest }: Props) {
         }}
         position="relative"
         border="solid"
-        borderColor={isSelected ? 'custom.500' : 'gray.200'}
+        borderColor={isSelected ? 'teal.500' : 'gray.200'}
         backgroundColor={isSelected ? 'gray.50' : 'white'}
         borderWidth="1px"
         borderRadius={4}
@@ -44,6 +46,7 @@ function FoodItem({ food, isSelected = false, ...rest }: Props) {
           nameNoOfLines={1}
           detailText="test"
           food={food}
+          energy={food.energy}
         />
         <ResponsiveIconButton
           aria-label="Food details"

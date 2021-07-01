@@ -33,7 +33,7 @@ function useAddOrEditVariant({ variantsFieldArray }: Params) {
   function onClone(index: number) {
     variantNameModalDisclosure.onOpen()
     const variantField = variantsFields[index]
-    setModalTitle(`Clone ${variantField.name as string}`)
+    setModalTitle(`Copy ${variantField.name as string}`)
 
     onModalSaveRef.current = (name: string) => {
       variantNameModalDisclosure.onClose()

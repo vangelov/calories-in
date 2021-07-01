@@ -5,6 +5,7 @@ import {
   ModalFooter,
   ModalBody,
   Button,
+  VStack,
 } from '@chakra-ui/react'
 import { Food } from 'core/types'
 import { getFoodForm, useFoodForm, useSubmitFoodForm } from 'core/foods'
@@ -17,10 +18,20 @@ type Props = {
   title: string
   onSave: (food: Food) => void
   nameInputRef: RefObject<HTMLInputElement>
+  food?: Food
+  canEdit: boolean
 }
 
-function Content({ onClose, nameInputRef, onSave, title }: Props) {
-  const formMethods = useFoodForm(getFoodForm())
+function Content({
+  onClose,
+  nameInputRef,
+  onSave,
+  title,
+  food,
+  canEdit,
+}: Props) {
+  const foodForm = getFoodForm(food)
+  const formMethods = useFoodForm(foodForm)
 
   const { onSubmit } = useSubmitFoodForm({
     formMethods,
@@ -35,18 +46,20 @@ function Content({ onClose, nameInputRef, onSave, title }: Props) {
       <ModalBody>
         <form onSubmit={onSubmit}>
           <FormProvider {...formMethods}>
-            <FoodFields nameInputRef={nameInputRef} />
+            <FoodFields nameInputRef={nameInputRef} canEdit={canEdit} />
           </FormProvider>
         </form>
       </ModalBody>
 
       <ModalFooter>
-        <Button mr={3} onClick={onClose}>
-          Close
-        </Button>
-        <Button colorScheme="teal" variant="solid" onClick={onSubmit}>
-          Save
-        </Button>
+        <VStack spacing={3}>
+          <Button onClick={onClose}>Close</Button>
+          {canEdit && (
+            <Button colorScheme="teal" variant="solid" onClick={onSubmit}>
+              Save
+            </Button>
+          )}
+        </VStack>
       </ModalFooter>
     </ModalContent>
   )

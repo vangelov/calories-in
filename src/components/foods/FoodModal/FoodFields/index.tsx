@@ -2,9 +2,12 @@ import { Box, Divider, FlexProps, VStack } from '@chakra-ui/react'
 import { RefObject } from 'react'
 import FormField from './FormField'
 
-type Props = { nameInputRef: RefObject<HTMLInputElement> } & FlexProps
+type Props = {
+  nameInputRef: RefObject<HTMLInputElement>
+  canEdit: boolean
+} & FlexProps
 
-function FoodFields({ nameInputRef, ...rest }: Props) {
+function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
   return (
     <Box {...rest} overflowY="scroll" p={4}>
       <VStack spacing={4} alignItems="stretch">

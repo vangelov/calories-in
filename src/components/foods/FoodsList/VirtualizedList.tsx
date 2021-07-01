@@ -23,12 +23,14 @@ type Props = {
   getFood: (index: number) => Food
   isFoodSelected: (food: Food) => boolean
   onFoodSelect: (food: Food) => void
+  onFoodPreview: (food: Food) => void
 }
 
 function VirtualizedList({
   getFood,
   isFoodSelected,
   onFoodSelect,
+  onFoodPreview,
   foodsCount,
 }: Props) {
   const [height, setHeight] = useState(0)
@@ -57,6 +59,7 @@ function VirtualizedList({
               }}
               onClick={() => onFoodSelect(food)}
               isSelected={isFoodSelected(food)}
+              onPreview={() => onFoodPreview(food)}
               food={food}
             />
           )

@@ -3,6 +3,9 @@ import MenuBase, { MenuItem } from 'components/general/Menu'
 import { MoreHorizontal } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
 import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
+import { Trash2 } from 'react-feather'
+
+const Trash2Styled = chakra(Trash2)
 
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 
@@ -26,7 +29,10 @@ function Menu({ onRemove, ...rest }: Props) {
           />
         }
       >
-        <MenuItem onClick={onRemove}>Remove</MenuItem>
+        <MenuItem onClick={onRemove}>
+          <Trash2Styled pointerEvents="none" size={20} mr={3} />
+          Remove ingredient
+        </MenuItem>
       </MenuBase>
     </RightAligned>
   )

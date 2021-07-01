@@ -65,6 +65,7 @@ function Content({ onClose, onSave, mealName, searchInputRef }: Props) {
               searchInputRef={searchInputRef}
               selection={selection}
               flex={1}
+              onFoodPreview={foodActions.onPreview}
             />
           </VStack>
         </Flex>

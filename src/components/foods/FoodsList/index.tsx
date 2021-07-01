@@ -23,9 +23,15 @@ const SearchStyled = chakra(Search)
 type Props = {
   searchInputRef?: RefObject<HTMLInputElement>
   selection: Selection<Food>
+  onFoodPreview: (food: Food) => void
 } & FlexProps
 
-function FoodsList({ selection, searchInputRef, ...rest }: Props) {
+function FoodsList({
+  selection,
+  searchInputRef,
+  onFoodPreview,
+  ...rest
+}: Props) {
   const [filter, setFilter] = useState<FoodsFilter>({ query: '' })
 
   function onInputChange(event: ChangeEvent<HTMLInputElement>) {
@@ -77,6 +83,7 @@ function FoodsList({ selection, searchInputRef, ...rest }: Props) {
           isFoodSelected={food => selection.isIdSelected(food.id)}
           getFood={index => filteredFoods[index]}
           onFoodSelect={food => selection.onToggleItem(food)}
+          onFoodPreview={onFoodPreview}
         />
       ) : (
         <Flex

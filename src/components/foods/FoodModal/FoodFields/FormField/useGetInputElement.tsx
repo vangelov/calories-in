@@ -58,7 +58,9 @@ function useGetInputElement({
   }
 
   if (isInvalid) {
-    return cloneElement(result, { focusBorderColor: 'red.500' })
+    return cloneElement(result, {
+      focusBorderColor: 'red.500',
+    })
   }
 
   return result

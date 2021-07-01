@@ -9,16 +9,25 @@ type Props = {
   isOpen: boolean
   title: string
   onSave: (food: Food) => void
+  food?: Food
+  canEdit?: boolean
 }
 
-function FoodModal({ onClose, isOpen, onSave, title }: Props) {
+function FoodModal({
+  onClose,
+  isOpen,
+  onSave,
+  title,
+  food,
+  canEdit = true,
+}: Props) {
   const nameInputRef = useRef<HTMLInputElement>(null)
 
   return (
     <Modal
       isOpen={isOpen}
       preserveScrollBarGap={true}
-      initialFocusRef={nameInputRef}
+      initialFocusRef={canEdit ? nameInputRef : undefined}
       onClose={onClose}
       scrollBehavior="inside"
     >
@@ -28,6 +37,8 @@ function FoodModal({ onClose, isOpen, onSave, title }: Props) {
         onSave={onSave}
         onClose={onClose}
         title={title}
+        food={food}
+        canEdit={canEdit}
       />
     </Modal>
   )
