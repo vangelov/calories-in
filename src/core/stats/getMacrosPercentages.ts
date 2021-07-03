@@ -41,15 +41,11 @@ function roundedMacroPercentages(
     { value: fatPercentage, type: 'fat' },
   ]
 
-  console.log('v', values)
-
   const diff =
     100 -
     values
       .map(p => ({ ...p, value: Math.floor(p.value) }))
       .reduce((acc, value) => value.value + acc, 0)
-
-  console.log('d', diff)
 
   const roundedPercentages = values
     .sort(x => x.value - Math.floor(x.value))

@@ -1,26 +1,13 @@
 import { DietForm } from 'core/diets'
-import {
-  ReactNode,
-  useCallback,
-  useRef,
-  useMemo,
-  useState,
-  RefObject,
-} from 'react'
+import { useCallback, useRef, useMemo, useState, RefObject } from 'react'
 import * as jsondiffpatch from 'jsondiffpatch'
 import DeltasStack from './deltasStack'
-import { UndoRedoMethodsContext } from './context'
 import useKeyboard from './useKeyboard'
-import { useUndoRedoSetState } from 'general/undoRedo'
+import tuple from 'general/tuple'
+import { useFormChangesCapabilitiesStoreMethods } from './FormChangesCapabilitiesStoreProvider'
 
-type Props = {
+type Params = {
   dietForm: DietForm
-  children: (
-    currentDietForm: DietForm,
-    version: string,
-    scrollTop: number,
-    scrollLeft: number
-  ) => ReactNode
   horizontalScrollRef: RefObject<HTMLDivElement>
 }
 
@@ -30,30 +17,19 @@ const patcher = jsondiffpatch.create({
 
 const TIMEOUT_IN_MS = 200
 
-function UndoRedoMethodsProvider({
-  children,
-  dietForm,
-  horizontalScrollRef,
-}: Props) {
+function useFormChangesStore({ dietForm, horizontalScrollRef }: Params) {
   const deltasStackRef = useRef(new DeltasStack())
   const lastFormRef = useRef<DietForm>(dietForm)
   const [versionIndex, setVersionIndex] = useState(0)
   const markRef = useRef(false)
   const timeoutIdRef = useRef<number>()
-  const undoRedoSetState = useUndoRedoSetState()
   const [versionScrollTop, setVersionScrollTop] = useState(0)
   const [versionScrollLeft, setVersionScrollLeft] = useState(0)
+  const { updateCapabilities } = useFormChangesCapabilitiesStoreMethods()
 
   const saveLastChange = useCallback(() => {
     markRef.current = true
   }, [])
-
-  const updateState = useCallback(() => {
-    undoRedoSetState({
-      canUndo: deltasStackRef.current.canUnpatch,
-      canRedo: deltasStackRef.current.canPatch,
-    })
-  }, [undoRedoSetState])
 
   const undo = useCallback(() => {
     const result = deltasStackRef.current.getNextResultToUnpatch()
@@ -65,9 +41,13 @@ function UndoRedoMethodsProvider({
       setVersionScrollTop(scrollTop)
       setVersionScrollLeft(scrollLeft)
       setVersionIndex(versionIndex => versionIndex + 1)
-      updateState()
+
+      updateCapabilities(
+        deltasStackRef.current.canUnpatch,
+        deltasStackRef.current.canPatch
+      )
     }
-  }, [updateState])
+  }, [updateCapabilities])
 
   const redo = useCallback(() => {
     const result = deltasStackRef.current.getNextResultToPatch()
@@ -79,9 +59,13 @@ function UndoRedoMethodsProvider({
       setVersionScrollTop(scrollTop)
       setVersionScrollLeft(scrollLeft)
       setVersionIndex(versionIndex => versionIndex - 1)
-      updateState()
+
+      updateCapabilities(
+        deltasStackRef.current.canUnpatch,
+        deltasStackRef.current.canPatch
+      )
     }
-  }, [updateState])
+  }, [updateCapabilities])
 
   const pushForm = useCallback(
     form => {
@@ -107,12 +91,16 @@ function UndoRedoMethodsProvider({
                 ? horizontalScrollRef.current.scrollLeft
                 : 0
             )
-            updateState()
+
+            updateCapabilities(
+              deltasStackRef.current.canUnpatch,
+              deltasStackRef.current.canPatch
+            )
           }
         }
       }, TIMEOUT_IN_MS)
     },
-    [updateState, horizontalScrollRef]
+    [updateCapabilities, horizontalScrollRef]
   )
 
   useKeyboard({ undo, redo })
@@ -129,18 +117,21 @@ function UndoRedoMethodsProvider({
 
   const version = `dietForm.${dietForm.formId}.${versionIndex}`
 
-  return (
-    <UndoRedoMethodsContext.Provider value={methods}>
-      {children(
-        lastFormRef.current,
-        version,
-        versionScrollTop,
-        versionScrollLeft
-      )}
-    </UndoRedoMethodsContext.Provider>
+  const state = useMemo(
+    () => ({
+      form: lastFormRef.current,
+      version,
+      versionScrollTop,
+      versionScrollLeft,
+    }),
+    [version, versionScrollTop, versionScrollLeft]
   )
+
+  return tuple(state, methods)
 }
 
-export * from './context'
+type FormChangesStore = ReturnType<typeof useFormChangesStore>
 
-export default UndoRedoMethodsProvider
+export type { FormChangesStore }
+
+export default useFormChangesStore

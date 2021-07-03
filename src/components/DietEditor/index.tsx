@@ -2,8 +2,8 @@ import { Diet } from 'core/types'
 import { getDietForm } from 'core/diets'
 import { useRef, useState } from 'react'
 import {
-  UndoRedoMethodsProvider,
-  UndoRedoStateProvider,
+  FormChangesStoreProvider,
+  FormChangesCapabilitiesStoreProvider,
 } from 'general/undoRedo'
 import Form from './Form'
 import { DietStatsProvider, InitialEnergyProvider } from 'core/stats'
@@ -14,10 +14,10 @@ function DietEditor() {
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
 
   return (
-    <UndoRedoStateProvider key={dietForm.formId}>
+    <FormChangesCapabilitiesStoreProvider key={dietForm.formId}>
       <InitialEnergyProvider>
         <DietStatsProvider>
-          <UndoRedoMethodsProvider
+          <FormChangesStoreProvider
             horizontalScrollRef={horizontalScrollRef}
             dietForm={dietForm}
           >
@@ -31,10 +31,10 @@ function DietEditor() {
                 scrollLeft={scrollLeft}
               />
             )}
-          </UndoRedoMethodsProvider>
+          </FormChangesStoreProvider>
         </DietStatsProvider>
       </InitialEnergyProvider>
-    </UndoRedoStateProvider>
+    </FormChangesCapabilitiesStoreProvider>
   )
 }
 

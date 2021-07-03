@@ -2,7 +2,7 @@ import { Input, Flex } from '@chakra-ui/react'
 import { getIngredientsFormsPath, IngredientField } from 'core/diets'
 import { useFormContext, Controller, useWatch } from 'react-hook-form'
 import { Draggable } from 'react-beautiful-dnd'
-import { useUndoRedoMethods } from 'general/undoRedo'
+import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { FoodInfo } from 'components/foods'
@@ -43,7 +43,7 @@ function IngredientItem({
   onRemove,
 }: Props) {
   const { register, control } = useFormContext()
-  const { saveLastChange } = useUndoRedoMethods()
+  const { saveLastChange } = useFormChangesStoreMethods()
   const [isVisible, setIsVisible] = useState(true)
   const amountName = getIngredientsFormsPath(
     variantIndex,

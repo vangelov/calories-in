@@ -1,9 +1,9 @@
-import { useUndoRedoMethods } from 'general/undoRedo'
+import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { useFormContext } from 'react-hook-form'
 import { VariantForm, getVariantsFormsPath } from '../variantForm'
 
 function useRenameVariantForm() {
-  const { saveLastChange } = useUndoRedoMethods()
+  const { saveLastChange } = useFormChangesStoreMethods()
   const { setValue, getValues } = useFormContext()
 
   function onRename(name: string, indexToRename: number) {

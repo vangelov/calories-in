@@ -1,6 +1,6 @@
 import { DietForm } from '../../../dietForm'
 import { IngredientForm } from '../../../ingredients/ingredientForm'
-import { useDragAndDropResponder } from 'general/dndResponders'
+import { useDndResponder } from 'general/dndResponders'
 import { ReactNode, useRef } from 'react'
 import { DragStart } from 'react-beautiful-dnd'
 import { useFormContext } from 'react-hook-form'
@@ -15,7 +15,7 @@ function IngredientsFormsDndProvider({ children }: Props) {
   const { getValues } = useFormContext<DietForm>()
 
   // We save the form so that after dragging has ended (in useReorderIngredientsForms) we can insert it
-  useDragAndDropResponder('onDragStart', (initial: DragStart) => {
+  useDndResponder('onDragStart', (initial: DragStart) => {
     const { source, type } = initial
 
     if (type !== 'ingredientsList') {

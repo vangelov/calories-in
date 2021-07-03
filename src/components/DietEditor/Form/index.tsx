@@ -42,6 +42,8 @@ function Form({
     onAppendMealRef.current && onAppendMealRef.current()
   }
 
+  console.log('XXX')
+
   const onSubmit = handleSubmit((form: DietForm) => {
     console.log('submit', form)
   })

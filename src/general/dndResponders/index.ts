@@ -1,2 +1,6 @@
-export { default as DragAndDropRespondersProvider } from './DragAndDropRespondersProvider'
-export { default as useDragAndDropResponder } from './useDragAndDropResponder'
+export { default as DndRespondersStoreProvider } from './DndRespondersStoreProvider'
+export * from './DndRespondersStoreProvider'
+
+export { default as DndProvider } from './DndProvider'
+
+export { default as useDndResponder } from './useDndResponder'

@@ -1,5 +1,5 @@
 import { useOneTimeCheck } from 'general/oneTimeCheck'
-import { useUndoRedoMethods } from 'general/undoRedo'
+import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { VariantsFieldArray } from '../useVariantsFieldArray'
 import { getInsertVariantFormAnimationKey } from '../variantForm'
 
@@ -8,7 +8,7 @@ type Props = {
 }
 
 function useCloneVariantForm({ variantsFieldArray }: Props) {
-  const { saveLastChange } = useUndoRedoMethods()
+  const { saveLastChange } = useFormChangesStoreMethods()
   const oneTimeCheck = useOneTimeCheck()
 
   function onClone(name: string, index: number) {

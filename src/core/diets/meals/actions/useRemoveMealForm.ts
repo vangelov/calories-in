@@ -1,4 +1,4 @@
-import { useUndoRedoMethods } from 'general/undoRedo'
+import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { MealsFieldArray } from '../useMealsFieldArray'
 
 type Params = {
@@ -6,7 +6,7 @@ type Params = {
 }
 
 function useRemoveMealForm({ mealsFieldArray }: Params) {
-  const { saveLastChange } = useUndoRedoMethods()
+  const { saveLastChange } = useFormChangesStoreMethods()
 
   function onRemove(index: number) {
     mealsFieldArray.removeMealForm(index)

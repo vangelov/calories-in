@@ -1,6 +1,6 @@
 import { MealField } from '../../meals/mealForm'
-import { useDragAndDropResponder } from 'general/dndResponders'
-import { useUndoRedoMethods } from 'general/undoRedo'
+import { useDndResponder } from 'general/dndResponders'
+import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { DropResult } from 'react-beautiful-dnd'
 import { IngredientsFieldArray } from '../useIngredientsFieldArray'
 import { useIngredientsFormsDndState } from './IngredientsFormsDndProvider'
@@ -15,9 +15,9 @@ function useReorderIngredientsForms({
   ingredientsFieldArray,
 }: Params) {
   const ingredientFormRef = useIngredientsFormsDndState()
-  const { saveLastChange } = useUndoRedoMethods()
+  const { saveLastChange } = useFormChangesStoreMethods()
 
-  useDragAndDropResponder('onDragEnd', (result: DropResult) => {
+  useDndResponder('onDragEnd', (result: DropResult) => {
     const { source, destination, type } = result
 
     if (!destination || type !== 'ingredientsList') {

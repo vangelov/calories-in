@@ -1,6 +1,6 @@
 import { Input, HStack, chakra, VStack, Text } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
-import { useUndoRedoMethods } from 'general/undoRedo'
+import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { useEffect, useRef } from 'react'
 import { useMergeRefs } from '@chakra-ui/react'
 import { useOneTimeCheck } from 'general/oneTimeCheck'
@@ -11,7 +11,7 @@ const AlertCircleStyled = chakra(AlertCircle)
 
 function Name() {
   const { register } = useFormContext()
-  const { saveLastChange } = useUndoRedoMethods()
+  const { saveLastChange } = useFormChangesStoreMethods()
   const nameRegister = register('name')
   const nameInputRef = useRef<HTMLInputElement>(null)
   const oneTimeCheck = useOneTimeCheck()

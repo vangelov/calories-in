@@ -1,7 +1,7 @@
 import { BoxProps, Input } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
 import { MealField, getMealsFormsPath } from 'core/diets'
-import { useUndoRedoMethods } from 'general/undoRedo'
+import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { RefObject } from 'react'
 import { useMergeRefs } from '@chakra-ui/react'
 
@@ -20,7 +20,7 @@ function Name({
   ...rest
 }: Props) {
   const { register } = useFormContext()
-  const { saveLastChange } = useUndoRedoMethods()
+  const { saveLastChange } = useFormChangesStoreMethods()
   const nameRegister = register(getMealsFormsPath(variantIndex, index, 'name'))
 
   const nameInputRef = useMergeRefs(

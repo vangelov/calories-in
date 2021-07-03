@@ -6,7 +6,7 @@ import { Droppable } from 'react-beautiful-dnd'
 import VariantNameModal from './VariantNameModal'
 import { useRemoveVariantForm, useReorderVariantsForms } from 'core/diets'
 import useVariantActions from './useVariantActions'
-import { useUndoRedoMethods } from 'general/undoRedo'
+import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { useRef } from 'react'
 
 type Props = {
@@ -16,7 +16,7 @@ type Props = {
 function VariantsList({ variantsFieldArray }: Props) {
   const removeVariantForm = useRemoveVariantForm({ variantsFieldArray })
   const variantActions = useVariantActions({ variantsFieldArray })
-  const { saveLastChange } = useUndoRedoMethods()
+  const { saveLastChange } = useFormChangesStoreMethods()
   const appendButtonRef = useRef<HTMLDivElement>(null)
   const { variantsFields } = variantsFieldArray
 

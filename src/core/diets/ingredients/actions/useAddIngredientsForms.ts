@@ -3,7 +3,7 @@ import {
   getInsertIngredientFormAnimationKey,
 } from '../ingredientForm'
 import { useOneTimeCheck } from 'general/oneTimeCheck'
-import { useUndoRedoMethods } from 'general/undoRedo'
+import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { Food } from 'core/types'
 import { IngredientsFieldArray } from '../useIngredientsFieldArray'
 
@@ -14,7 +14,7 @@ type Params = {
 export const DEFAULT_AMOUNT_IN_GRAMS = 100
 
 function useAddIngredientsForms({ ingredientsFieldArray }: Params) {
-  const { saveLastChange } = useUndoRedoMethods()
+  const { saveLastChange } = useFormChangesStoreMethods()
   const oneTimeCheck = useOneTimeCheck()
 
   function onAdd(foods: Food[]) {

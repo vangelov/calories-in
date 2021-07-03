@@ -1,5 +1,7 @@
-export * from './UndoRedoMethodsProvider'
-export { default as UndoRedoMethodsProvider } from './UndoRedoMethodsProvider'
-export * from './UndoRedoStateProvider'
-export { default as UndoRedoStateProvider } from './UndoRedoStateProvider'
+export { default as FormChangesStoreProvider } from './FormChangesStoreProvider'
+export * from './FormChangesStoreProvider'
+
+export { default as FormChangesCapabilitiesStoreProvider } from './FormChangesCapabilitiesStoreProvider'
+export * from './FormChangesCapabilitiesStoreProvider'
+
 export { default as Watcher } from './Watcher'
