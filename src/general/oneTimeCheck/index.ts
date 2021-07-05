@@ -1,2 +1,2 @@
-export * from './OneTimeCheckProvider'
-export { default as OneTimeCheckProvider } from './OneTimeCheckProvider'
+export * from './OneTimeCheckStoreProvider'
+export { default as OneTimeCheckStoreProvider } from './OneTimeCheckStoreProvider'

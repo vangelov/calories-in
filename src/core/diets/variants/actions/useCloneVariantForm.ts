@@ -1,4 +1,4 @@
-import { useOneTimeCheck } from 'general/oneTimeCheck'
+import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { VariantsFieldArray } from '../useVariantsFieldArray'
 import { getInsertVariantFormAnimationKey } from '../variantForm'
@@ -9,7 +9,7 @@ type Props = {
 
 function useCloneVariantForm({ variantsFieldArray }: Props) {
   const { saveLastChange } = useFormChangesStoreMethods()
-  const oneTimeCheck = useOneTimeCheck()
+  const oneTimeCheck = useOneTimeCheckStoreMethods()
 
   function onClone(name: string, index: number) {
     const copiedVariantForm = variantsFieldArray.getVariantFormCopy(index, name)

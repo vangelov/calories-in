@@ -4,7 +4,7 @@ import { ReactNode, useState } from 'react'
 import Menu from './Menu'
 import { Draggable } from 'react-beautiful-dnd'
 import { motion } from 'framer-motion'
-import { useOneTimeCheck } from 'general/oneTimeCheck'
+import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 import { MouseEvent } from 'react'
 
 type Props = {
@@ -43,7 +43,7 @@ function VariantItem({
   onFirstAppear,
   ...rest
 }: Props) {
-  const oneTimeCheck = useOneTimeCheck()
+  const oneTimeCheck = useOneTimeCheckStoreMethods()
   const [isVisible, setIsVisible] = useState(true)
 
   function onAnimationComplete() {

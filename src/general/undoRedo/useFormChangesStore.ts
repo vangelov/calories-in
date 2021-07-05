@@ -2,9 +2,7 @@ import { DietForm } from 'core/diets'
 import { useCallback, useRef, useMemo, useState, RefObject } from 'react'
 import * as jsondiffpatch from 'jsondiffpatch'
 import DeltasStack from './deltasStack'
-import useKeyboard from './useKeyboard'
 import tuple from 'general/tuple'
-import { useFormChangesCapabilitiesStoreMethods } from './FormChangesCapabilitiesStoreProvider'
 
 type Params = {
   dietForm: DietForm
@@ -25,7 +23,8 @@ function useFormChangesStore({ dietForm, horizontalScrollRef }: Params) {
   const timeoutIdRef = useRef<number>()
   const [versionScrollTop, setVersionScrollTop] = useState(0)
   const [versionScrollLeft, setVersionScrollLeft] = useState(0)
-  const { updateCapabilities } = useFormChangesCapabilitiesStoreMethods()
+  const [canUndo, setCanUndo] = useState(false)
+  const [canRedo, setCanRedo] = useState(false)
 
   const saveLastChange = useCallback(() => {
     markRef.current = true
@@ -42,12 +41,10 @@ function useFormChangesStore({ dietForm, horizontalScrollRef }: Params) {
       setVersionScrollLeft(scrollLeft)
       setVersionIndex(versionIndex => versionIndex + 1)
 
-      updateCapabilities(
-        deltasStackRef.current.canUnpatch,
-        deltasStackRef.current.canPatch
-      )
+      setCanUndo(deltasStackRef.current.canUnpatch)
+      setCanRedo(deltasStackRef.current.canPatch)
     }
-  }, [updateCapabilities])
+  }, [])
 
   const redo = useCallback(() => {
     const result = deltasStackRef.current.getNextResultToPatch()
@@ -60,12 +57,10 @@ function useFormChangesStore({ dietForm, horizontalScrollRef }: Params) {
       setVersionScrollLeft(scrollLeft)
       setVersionIndex(versionIndex => versionIndex - 1)
 
-      updateCapabilities(
-        deltasStackRef.current.canUnpatch,
-        deltasStackRef.current.canPatch
-      )
+      setCanUndo(deltasStackRef.current.canUnpatch)
+      setCanRedo(deltasStackRef.current.canPatch)
     }
-  }, [updateCapabilities])
+  }, [])
 
   const pushForm = useCallback(
     form => {
@@ -92,18 +87,14 @@ function useFormChangesStore({ dietForm, horizontalScrollRef }: Params) {
                 : 0
             )
 
-            updateCapabilities(
-              deltasStackRef.current.canUnpatch,
-              deltasStackRef.current.canPatch
-            )
+            setCanUndo(deltasStackRef.current.canUnpatch)
+            setCanRedo(deltasStackRef.current.canPatch)
           }
         }
       }, TIMEOUT_IN_MS)
     },
-    [updateCapabilities, horizontalScrollRef]
+    [horizontalScrollRef]
   )
-
-  useKeyboard({ undo, redo })
 
   const methods = useMemo(
     () => ({
@@ -123,8 +114,10 @@ function useFormChangesStore({ dietForm, horizontalScrollRef }: Params) {
       version,
       versionScrollTop,
       versionScrollLeft,
+      canUndo,
+      canRedo,
     }),
-    [version, versionScrollTop, versionScrollLeft]
+    [version, versionScrollTop, versionScrollLeft, canUndo, canRedo]
   )
 
   return tuple(state, methods)

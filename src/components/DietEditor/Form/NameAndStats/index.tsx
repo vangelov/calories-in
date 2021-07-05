@@ -1,6 +1,6 @@
 import { Flex, Input, chakra } from '@chakra-ui/react'
 import { useFormContext } from 'react-hook-form'
-import { useDietStats } from 'core/stats'
+import { useMealsStatsStoreState } from 'core/stats'
 import StatsLayout from 'components/stats/StatsLayout'
 import Stat from 'components/stats/Stat'
 import { Info } from 'react-feather'
@@ -20,13 +20,13 @@ type Props = {
 
 function NameAndStats({ isEditingExistingDiet }: Props) {
   const { register } = useFormContext()
-  const dietStats = useDietStats()
+  const { mealsStatsSum } = useMealsStatsStoreState()
 
   const {
     proteinPercentage,
     carbsPercentage,
     fatPercentage,
-  } = roundedMacroPercentages(getMacrosPercentages(dietStats))
+  } = roundedMacroPercentages(getMacrosPercentages(mealsStatsSum))
 
   return (
     <Flex
@@ -41,7 +41,7 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
         nameElement={<Name />}
         energyElement={
           <EnergyStat
-            energy={dietStats.energy}
+            energy={mealsStatsSum.energy}
             isEditingExistingDiet={isEditingExistingDiet}
           />
         }
@@ -50,7 +50,7 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
             justifyContent="flex-start"
             type="diet"
             label="Protein"
-            value={dietStats.protein}
+            value={mealsStatsSum.protein}
             valueDetail={`${proteinPercentage}%`}
             showsValueDetail={true}
           />
@@ -60,7 +60,7 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
             justifyContent="flex-start"
             type="diet"
             label="Carbs"
-            value={dietStats.carbs}
+            value={mealsStatsSum.carbs}
             valueDetail={`${carbsPercentage}%`}
             showsValueDetail={true}
           />
@@ -70,7 +70,7 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
             justifyContent="flex-start"
             type="diet"
             label="Fat"
-            value={dietStats.fat}
+            value={mealsStatsSum.fat}
             valueDetail={`${fatPercentage}%`}
             showsValueDetail={true}
           />

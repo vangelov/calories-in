@@ -9,34 +9,30 @@ import {
 } from 'core/diets'
 import { FormProvider } from 'react-hook-form'
 import { RefObject, useLayoutEffect, useRef } from 'react'
-import { Watcher } from 'general/undoRedo'
+import { useFormChangesStoreState, Watcher } from 'general/undoRedo'
 import VariantsList from './VariantsList'
 import Page from 'components/layout/Page'
 
 type Props = {
-  dietForm: DietForm
-  scrollTop: number
-  scrollLeft: number
   isEditingExistingDiet: boolean
   horizontalScrollRef: RefObject<HTMLDivElement>
 }
 
-function Form({
-  dietForm,
-  scrollTop,
-  scrollLeft,
-  isEditingExistingDiet,
-  horizontalScrollRef,
-}: Props) {
-  const formMethods = useDietForm(dietForm)
+function Form({ isEditingExistingDiet, horizontalScrollRef }: Props) {
+  const {
+    form,
+    versionScrollLeft,
+    versionScrollTop,
+  } = useFormChangesStoreState()
+  const formMethods = useDietForm(form)
   const onAppendMealRef = useRef<() => void>()
   const { handleSubmit } = formMethods
   const variantsFieldArray = useVariantsFieldArray({ formMethods })
   const { selectedVariantFormIndex, selectedVariantField } = variantsFieldArray
 
   useLayoutEffect(() => {
-    window.scroll({ top: scrollTop })
-  }, [scrollTop])
+    window.scroll({ top: versionScrollTop })
+  }, [versionScrollTop])
 
   function onMealAdd() {
     onAppendMealRef.current && onAppendMealRef.current()
@@ -54,7 +50,7 @@ function Form({
 
       <IngredientsFormsDndProvider>
         <Page
-          footerContainerScrollLeft={scrollLeft}
+          footerContainerScrollLeft={versionScrollLeft}
           footerContainerRef={horizontalScrollRef}
           headerElement={
             <>

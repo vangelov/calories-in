@@ -1,15 +1,10 @@
-import { ReactNode, useMemo, useRef, useCallback } from 'react'
-import { OneTimeCheckContext } from './context'
-
-type Props = {
-  children: ReactNode
-}
+import { useMemo, useRef, useCallback } from 'react'
 
 type KeysMap = {
   [key: string]: boolean | undefined
 }
 
-function OneTimeCheckProvider({ children }: Props) {
+function useOneTimeCheckStore() {
   const keysMapRef = useRef<KeysMap>({})
 
   const checkAndReset = useCallback((key: string) => {
@@ -36,13 +31,11 @@ function OneTimeCheckProvider({ children }: Props) {
     [checkAndReset, set]
   )
 
-  return (
-    <OneTimeCheckContext.Provider value={methods}>
-      {children}
-    </OneTimeCheckContext.Provider>
-  )
+  return methods
 }
 
-export * from './context'
+type OneTimeCheckStore = ReturnType<typeof useOneTimeCheckStore>
 
-export default OneTimeCheckProvider
+export type { OneTimeCheckStore }
+
+export default useOneTimeCheckStore

@@ -3,7 +3,7 @@ import { useFormContext } from 'react-hook-form'
 import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { useEffect, useRef } from 'react'
 import { useMergeRefs } from '@chakra-ui/react'
-import { useOneTimeCheck } from 'general/oneTimeCheck'
+import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 import { ArrowUpCircle, AlertCircle } from 'react-feather'
 
 const ArrowUpCircleStyled = chakra(ArrowUpCircle)
@@ -14,7 +14,7 @@ function Name() {
   const { saveLastChange } = useFormChangesStoreMethods()
   const nameRegister = register('name')
   const nameInputRef = useRef<HTMLInputElement>(null)
-  const oneTimeCheck = useOneTimeCheck()
+  const oneTimeCheck = useOneTimeCheckStoreMethods()
 
   function onNameChange(event: any) {
     nameRegister.onChange(event)

@@ -1,4 +1,4 @@
-import { useOneTimeCheck } from 'general/oneTimeCheck'
+import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { VariantsFieldArray } from '../useVariantsFieldArray'
 import {
@@ -12,7 +12,7 @@ type Props = {
 
 function useAppendVariantForm({ variantsFieldArray }: Props) {
   const { saveLastChange } = useFormChangesStoreMethods()
-  const oneTimeCheck = useOneTimeCheck()
+  const oneTimeCheck = useOneTimeCheckStoreMethods()
 
   function onAppend(name: string) {
     const newVariantForm = getVariantForm(name)

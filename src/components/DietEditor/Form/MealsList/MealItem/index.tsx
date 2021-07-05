@@ -12,11 +12,12 @@ import { useFormContext } from 'react-hook-form'
 import { RefObject, useState } from 'react'
 import SelectFoodsDrawer from './SelectFoodsDrawer'
 import { motion } from 'framer-motion'
-import { useOneTimeCheck } from 'general/oneTimeCheck'
+import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 import { getInsertMealFormAnimationKey } from 'core/diets'
 import { Draggable } from 'react-beautiful-dnd'
 import { useReorderIngredientsForms } from 'core/diets'
 import useAddIngredients from './useAddIngredients'
+import IngredientsStatsStoreProvider from 'core/stats/IngredientsStatsStoreProvider'
 
 type Props = {
   mealField: MealField
@@ -63,7 +64,7 @@ function MealItem({
 
   const { register } = useFormContext()
   const [isVisible, setIsVisible] = useState(true)
-  const oneTimeCheck = useOneTimeCheck()
+  const oneTimeCheck = useOneTimeCheckStoreMethods()
 
   useReorderIngredientsForms({ mealField, ingredientsFieldArray })
 
@@ -120,15 +121,21 @@ function MealItem({
               {...register(getMealsFormsPath(variantIndex, index, 'fieldId'))}
               defaultValue={mealField.fieldId}
             />
-            <Header
-              {...provided.dragHandleProps}
-              variantIndex={variantIndex}
-              getMealNameInputRefById={getMealNameInputRefById}
-              index={index}
+            <IngredientsStatsStoreProvider
               mealField={mealField}
-              onRemove={() => setIsVisible(false)}
-              onAddIngredient={addIngredients.onAdd}
-            />
+              variantIndex={variantIndex}
+              mealIndex={index}
+            >
+              <Header
+                {...provided.dragHandleProps}
+                variantIndex={variantIndex}
+                getMealNameInputRefById={getMealNameInputRefById}
+                index={index}
+                mealField={mealField}
+                onRemove={() => setIsVisible(false)}
+                onAddIngredient={addIngredients.onAdd}
+              />
+            </IngredientsStatsStoreProvider>
 
             <IngredientsList
               mealField={mealField}

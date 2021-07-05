@@ -1,7 +1,7 @@
 import { getMealForm, getInsertMealFormAnimationKey } from '../mealForm'
 import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { MutableRefObject } from 'react'
-import { useOneTimeCheck } from 'general/oneTimeCheck'
+import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 import { MealsFieldArray } from '../useMealsFieldArray'
 
 type Params = {
@@ -11,7 +11,7 @@ type Params = {
 
 function useAppendMealForm({ mealsFieldArray, pendingMealFieldIdRef }: Params) {
   const { saveLastChange } = useFormChangesStoreMethods()
-  const oneTimeCheck = useOneTimeCheck()
+  const oneTimeCheck = useOneTimeCheckStoreMethods()
 
   function onAppend() {
     const mealForm = getMealForm()

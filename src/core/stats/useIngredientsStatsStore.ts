@@ -1,23 +1,26 @@
-import { useFormContext, useWatch } from 'react-hook-form'
+import { useWatch } from 'react-hook-form'
 import { MealField, getIngredientsFormsPath, IngredientForm } from 'core/diets'
 import sumStats from './sumStats'
 import { useFoodsByIdState } from 'core/foods'
 import getIngredientStats from './getIngredientStats'
 
-function useMealStats(
-  variantIndex: number,
-  mealIndex: number,
+type Params = {
+  variantIndex: number
+  mealIndex: number
   mealField: MealField
-) {
-  const { control } = useFormContext()
+}
+
+function useIngredientsStatsStore({
+  variantIndex,
+  mealIndex,
+  mealField,
+}: Params) {
   const ingredientsForms = useWatch({
-    control,
     name: getIngredientsFormsPath(variantIndex, mealIndex),
     defaultValue: mealField.ingredientsForms,
   }) as IngredientForm[]
 
   const foodsByIdState = useFoodsByIdState()
-
   const ingredientsStats = (ingredientsForms || []).map(ingredientsForm => {
     const { amountInGrams } = ingredientsForm
     const food = foodsByIdState[ingredientsForm.foodId]
@@ -25,12 +28,15 @@ function useMealStats(
     return getIngredientStats(amountInGrams, food)
   })
 
-  const mealStats = sumStats(ingredientsStats)
+  const ingredientsStatsSum = sumStats(ingredientsStats)
 
   return {
-    ingredientsStats,
-    mealStats,
+    ingredientsStatsSum,
   }
 }
 
-export default useMealStats
+type IngredientsStatsStore = ReturnType<typeof useIngredientsStatsStore>
+
+export type { IngredientsStatsStore }
+
+export default useIngredientsStatsStore

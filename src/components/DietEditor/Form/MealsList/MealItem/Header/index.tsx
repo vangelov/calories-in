@@ -1,11 +1,12 @@
 import { BoxProps, Flex } from '@chakra-ui/react'
 import { MealField } from 'core/diets'
-import { useMealStats, useUpdateMealStats } from 'core/stats'
+import { useIngredientsStatsStore } from 'core/stats'
 import StatsLayout from 'components/stats/StatsLayout'
 import Stat from 'components/stats/Stat'
 import { RefObject } from 'react'
 import Name from './Name'
 import Menu from './Menu'
+import { useIngredientsStatsStoreState } from 'core/stats/IngredientsStatsStoreProvider'
 
 type Props = {
   mealField: MealField
@@ -25,9 +26,7 @@ function Header({
   getMealNameInputRefById,
   ...rest
 }: Props) {
-  const { mealStats } = useMealStats(variantIndex, index, mealField)
-
-  useUpdateMealStats(index, mealStats)
+  const { ingredientsStatsSum } = useIngredientsStatsStoreState()
 
   return (
     <Flex
@@ -50,18 +49,32 @@ function Header({
           />
         }
         amountElement={
-          <Stat type="meal" label="Amount" value={mealStats.amountInGrams} />
+          <Stat
+            type="meal"
+            label="Amount"
+            value={ingredientsStatsSum.amountInGrams}
+          />
         }
         energyElement={
-          <Stat type="mealEnergy" label="Energy" value={mealStats.energy} />
+          <Stat
+            type="mealEnergy"
+            label="Energy"
+            value={ingredientsStatsSum.energy}
+          />
         }
         proteinElement={
-          <Stat type="meal" label="Protein" value={mealStats.protein} />
+          <Stat
+            type="meal"
+            label="Protein"
+            value={ingredientsStatsSum.protein}
+          />
         }
         carbsElement={
-          <Stat type="meal" label="Carbs" value={mealStats.carbs} />
+          <Stat type="meal" label="Carbs" value={ingredientsStatsSum.carbs} />
         }
-        fatElement={<Stat type="meal" label="Fat" value={mealStats.fat} />}
+        fatElement={
+          <Stat type="meal" label="Fat" value={ingredientsStatsSum.fat} />
+        }
         menuElement={
           <Menu
             mr={3}
