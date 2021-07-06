@@ -56,8 +56,6 @@ function IngredientItem({
   const screenSize = useScreenSize()
   const amountInputSize = screenSize >= 2 ? 'sm' : 'md'
 
-  console.log('ING')
-
   function onAmountChange() {
     saveLastChange()
   }

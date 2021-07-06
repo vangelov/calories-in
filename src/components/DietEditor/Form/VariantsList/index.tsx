@@ -1,26 +1,24 @@
 import { Flex, IconButton, Box } from '@chakra-ui/react'
-import { VariantsFieldArray } from 'core/diets'
 import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
 import VariantNameModal from './VariantNameModal'
-import { useRemoveVariantForm, useReorderVariantsForms } from 'core/diets'
 import useVariantActions from './useVariantActions'
-import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { useRef } from 'react'
+import {
+  useVariantsFormsStoreMethods,
+  useVariantsFormsStoreState,
+} from 'core/diets/variants/VariantsFormsStoreProvider'
 
-type Props = {
-  variantsFieldArray: VariantsFieldArray
-}
-
-function VariantsList({ variantsFieldArray }: Props) {
-  const removeVariantForm = useRemoveVariantForm({ variantsFieldArray })
-  const variantActions = useVariantActions({ variantsFieldArray })
-  const { saveLastChange } = useFormChangesStoreMethods()
+function VariantsList() {
+  const variantActions = useVariantActions()
   const appendButtonRef = useRef<HTMLDivElement>(null)
-  const { variantsFields } = variantsFieldArray
 
-  useReorderVariantsForms({ variantsFieldArray })
+  const variantsFormsStoreMethods = useVariantsFormsStoreMethods()
+  const {
+    variantsFields,
+    selectedVariantFormIndex,
+  } = useVariantsFormsStoreState()
 
   function onVariantItemFirstAppear() {
     appendButtonRef.current?.scrollIntoView({
@@ -43,17 +41,14 @@ function VariantsList({ variantsFieldArray }: Props) {
                 canRemove={variantsFields.length > 1}
                 mr={1}
                 index={index}
-                onDelete={removeVariantForm.onRemove}
+                onDelete={variantsFormsStoreMethods.removeVariantForm}
                 onEditName={variantActions.onRename}
                 onClone={variantActions.onClone}
                 key={variantField.fieldId}
                 variantField={variantField}
-                isSelected={
-                  index === variantsFieldArray.selectedVariantFormIndex
-                }
+                isSelected={index === selectedVariantFormIndex}
                 onSelect={() => {
-                  variantsFieldArray.setSelectedVariantFormIndex(index)
-                  saveLastChange()
+                  variantsFormsStoreMethods.setSelectedVariantFormIndex(index)
                 }}
                 onFirstAppear={onVariantItemFirstAppear}
               >

@@ -13,6 +13,7 @@ type Props = {
   variantIndex: number
   mealIndex: number
   mealField: MealField
+  isDragging: boolean
 }
 
 function IngredientsStatsStoreProvider({
@@ -20,12 +21,14 @@ function IngredientsStatsStoreProvider({
   variantIndex,
   mealIndex,
   mealField,
+  isDragging,
 }: Props) {
   const mealsStatsStoreMethods = useMealsStatsStoreMethods()
   const state = useIngredientsStatsStore({ variantIndex, mealIndex, mealField })
 
   useEffect(() => {
     const { ingredientsStatsSum } = state
+
     mealsStatsStoreMethods.addMealStats(mealIndex, ingredientsStatsSum)
 
     return () => {

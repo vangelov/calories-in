@@ -1,47 +1,42 @@
 import { Box, Input } from '@chakra-ui/react'
 import MealItem from './MealItem'
-import {
-  useMealsFieldArray,
-  useScrollToAndFocusMeal,
-  useRemoveMealForm,
-  useAppendMealForm,
-} from 'core/diets'
+
 import { MutableRefObject, useRef } from 'react'
 import useGetRefForId from 'general/useGetRefForId'
 import { Droppable } from 'react-beautiful-dnd'
-import { useReorderMealsForms } from 'core/diets'
-import { getVariantsFormsPath, VariantField } from 'core/diets'
+import { getVariantsFormsPath } from 'core/diets'
 import { useFormContext } from 'react-hook-form'
+import { useVariantsFormsStoreState } from 'core/diets/variants/VariantsFormsStoreProvider'
+import {
+  useMealsFormsStoreMethods,
+  useMealsFormsStoreState,
+} from 'core/diets/meals/MealsFormsStoreProvider'
+import useScrollToAndFocusMeal from './useScrollToAndFocusMeal'
 
 type Props = {
-  variantIndex: number
-  variantField: VariantField
   onAppendMealRef: MutableRefObject<(() => void) | undefined>
 }
 
-function MealsList({ onAppendMealRef, variantIndex, variantField }: Props) {
+function MealsList({ onAppendMealRef }: Props) {
   const getMealNameInputRefById = useGetRefForId()
   const { register } = useFormContext()
   const scrollTargetRef = useRef<HTMLDivElement>(null)
 
-  const { pendingMealFieldIdRef, onScrollToMeal } = useScrollToAndFocusMeal({
+  const {
+    variantsFields,
+    selectedVariantFormIndex,
+  } = useVariantsFormsStoreState()
+  const selectedVariantField = variantsFields[selectedVariantFormIndex]
+
+  const mealsFields = useMealsFormsStoreState()
+  const mealsFormsStoreMethods = useMealsFormsStoreMethods()
+
+  const { onScrollToMeal } = useScrollToAndFocusMeal({
     scrollTargetRef,
     getMealNameInputRefById,
   })
 
-  const mealsFieldArray = useMealsFieldArray({
-    variantIndex,
-  })
-
-  const removeMealForm = useRemoveMealForm({ mealsFieldArray })
-  const appendMealForm = useAppendMealForm({
-    mealsFieldArray,
-    pendingMealFieldIdRef,
-  })
-
-  useReorderMealsForms({ mealsFieldArray })
-
-  onAppendMealRef.current = appendMealForm.onAppend
+  onAppendMealRef.current = mealsFormsStoreMethods.appendNewMealForm
 
   return (
     <Droppable droppableId="mealsList" type="mealsList">
@@ -49,18 +44,19 @@ function MealsList({ onAppendMealRef, variantIndex, variantField }: Props) {
         <Box pt={3} ref={provided.innerRef}>
           <Input
             type="hidden"
-            {...register(getVariantsFormsPath(variantIndex, 'fieldId'))}
-            defaultValue={variantField.fieldId}
+            {...register(
+              getVariantsFormsPath(selectedVariantFormIndex, 'fieldId')
+            )}
+            defaultValue={selectedVariantField.fieldId}
           />
 
-          {mealsFieldArray.mealsFields.map((mealField, index) => (
+          {mealsFields.map((mealField, index) => (
             <MealItem
               key={mealField.fieldId}
-              mealsFieldArray={mealsFieldArray}
-              variantIndex={variantIndex}
+              variantIndex={selectedVariantFormIndex}
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}
-              onRemove={removeMealForm.onRemove}
+              onRemove={mealsFormsStoreMethods.removeMealFrom}
               mealField={mealField}
               onFirstAppear={onScrollToMeal}
             />

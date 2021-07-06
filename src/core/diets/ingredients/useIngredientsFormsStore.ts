@@ -14,8 +14,8 @@ import { MealField } from '../meals'
 type Params = {
   variantIndex: number
   mealIndex: number
-  onIngredientsFormsAdded: (ingredientForms: IngredientForm[]) => void
-  onChange: () => void
+  onBeforeAddIngredientsForms: (ingredientForms: IngredientForm[]) => void
+  onAfterChange: () => void
 }
 
 export const DEFAULT_AMOUNT_IN_GRAMS = 100
@@ -23,8 +23,8 @@ export const DEFAULT_AMOUNT_IN_GRAMS = 100
 function useIngredientsFormsStore({
   variantIndex,
   mealIndex,
-  onIngredientsFormsAdded,
-  onChange,
+  onBeforeAddIngredientsForms,
+  onAfterChange,
 }: Params) {
   const { fields, insert, append, remove, move } = useFieldArray({
     name: getIngredientsFormsPath(variantIndex, mealIndex),
@@ -41,19 +41,19 @@ function useIngredientsFormsStore({
         })
       )
 
+      onBeforeAddIngredientsForms(ingredientForms)
       append(ingredientForms)
-      onIngredientsFormsAdded(ingredientForms)
-      onChange()
+      onAfterChange()
     },
-    [append, onIngredientsFormsAdded, onChange]
+    [append, onBeforeAddIngredientsForms, onAfterChange]
   )
 
   const removeIngredientFrom = useCallback(
     (index: number) => {
       remove(index)
-      onChange()
+      onAfterChange()
     },
-    [remove, onChange]
+    [remove, onAfterChange]
   )
 
   const reorderIngredientsForms = useCallback(
@@ -78,9 +78,9 @@ function useIngredientsFormsStore({
         remove(source.index)
       }
 
-      onChange()
+      onAfterChange()
     },
-    [move, insert, remove, onChange]
+    [move, insert, remove, onAfterChange]
   )
 
   const methods = useMemo(

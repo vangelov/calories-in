@@ -40,7 +40,7 @@ function IngredientsFormsStoreProvider({
   const formChangesStoreMethods = useFormChangesStoreMethods()
   const ingredientFormRef = useIngredientsFormsDndState()
 
-  const onIngredientsFormsAdded = useCallback(
+  const onBeforeAddIngredientsForms = useCallback(
     (ingredientsForms: IngredientForm[]) => {
       ingredientsForms.forEach(({ fieldId }) => {
         oneTimeCheckStoreMethods.set(
@@ -51,15 +51,15 @@ function IngredientsFormsStoreProvider({
     [oneTimeCheckStoreMethods]
   )
 
-  const onChange = useCallback(() => {
+  const onAfterChange = useCallback(() => {
     formChangesStoreMethods.saveLastChange()
   }, [formChangesStoreMethods])
 
   const [state, methods] = useIngredientsFormStore({
     variantIndex,
     mealIndex,
-    onIngredientsFormsAdded,
-    onChange,
+    onBeforeAddIngredientsForms,
+    onAfterChange,
   })
 
   useDndResponder('onDragEnd', (result: DropResult) => {

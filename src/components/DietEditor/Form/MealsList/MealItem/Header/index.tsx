@@ -1,6 +1,5 @@
 import { BoxProps, Flex } from '@chakra-ui/react'
 import { MealField } from 'core/diets'
-import { useIngredientsStatsStore } from 'core/stats'
 import StatsLayout from 'components/stats/StatsLayout'
 import Stat from 'components/stats/Stat'
 import { RefObject } from 'react'
@@ -26,7 +25,19 @@ function Header({
   getMealNameInputRefById,
   ...rest
 }: Props) {
-  const { ingredientsStatsSum } = useIngredientsStatsStoreState()
+  //const { ingredientsStatsSum } = useIngredientsStatsStoreState()
+
+  const ingredientsStatsSum = {
+    energy: 0,
+    protein: 0,
+    amountInGrams: 0,
+    carbs: 0,
+    fat: 0,
+    saturatedFat: 0,
+    sugar: 0,
+    sodium: 0,
+    fiber: 0,
+  }
 
   return (
     <Flex

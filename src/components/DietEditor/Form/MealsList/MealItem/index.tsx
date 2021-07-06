@@ -25,8 +25,7 @@ type Props = {
   variantIndex: number
   onRemove: (index: number) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
-  onFirstAppear: () => void
-  mealsFieldArray: MealsFieldArray
+  onFirstAppear: (mealField: MealField) => void
 } & LayoutProps &
   SpaceProps
 
@@ -45,7 +44,7 @@ function MealItem({
   getMealNameInputRefById,
   variantIndex,
   onFirstAppear,
-  mealsFieldArray,
+
   ...rest
 }: Props) {
   const ingredientsFieldArray = useIngredientsFieldArray({
@@ -59,7 +58,6 @@ function MealItem({
     index,
     variantIndex,
     ingredientsFieldArray,
-    mealsFieldArray,
   })
 
   const { register } = useFormContext()
@@ -70,7 +68,7 @@ function MealItem({
 
   function onAnimationComplete() {
     if (pendingAnimationForInserted) {
-      onFirstAppear()
+      onFirstAppear(mealField)
     } else if (!isVisible) {
       onRemove(index)
     }
@@ -84,48 +82,52 @@ function MealItem({
     getInsertMealFormAnimationKey(mealField.fieldId)
   )
 
+  console.log('MEAL')
+
   return (
-    <Draggable
-      key={mealField.fieldId}
-      draggableId={mealField.fieldId as string}
-      index={index}
+    <IngredientsStatsStoreProvider
+      mealField={mealField}
+      variantIndex={variantIndex}
+      mealIndex={index}
+      isDragging={false}
     >
-      {(provided, snapshot) => (
-        <motion.div
-          transition={{
-            ease: 'easeInOut',
-            duration: pendingAnimationForInserted ? 0.12 : undefined,
-          }}
-          style={{
-            opacity: pendingAnimationForInserted ? 0 : 1,
-          }}
-          initial={pendingAnimationForInserted ? 'hidden' : false}
-          animate={isVisible ? 'open' : 'collapsed'}
-          onAnimationComplete={onAnimationComplete}
-          variants={variants}
-        >
-          <Flex
-            ref={provided.innerRef}
-            {...provided.draggableProps}
-            style={provided.draggableProps.style}
-            flexDirection="column"
-            borderRadius={10}
-            borderWidth="1px"
-            mb={3}
-            backgroundColor="white"
-            boxShadow={snapshot.isDragging ? 'lg' : undefined}
-            {...rest}
+      <Draggable
+        key={mealField.fieldId}
+        draggableId={mealField.fieldId as string}
+        index={index}
+      >
+        {(provided, snapshot) => (
+          <motion.div
+            transition={{
+              ease: 'easeInOut',
+              duration: pendingAnimationForInserted ? 0.12 : undefined,
+            }}
+            style={{
+              opacity: pendingAnimationForInserted ? 0 : 1,
+            }}
+            initial={pendingAnimationForInserted ? 'hidden' : false}
+            animate={isVisible ? 'open' : 'collapsed'}
+            onAnimationComplete={onAnimationComplete}
+            variants={variants}
           >
-            <Input
-              type="hidden"
-              {...register(getMealsFormsPath(variantIndex, index, 'fieldId'))}
-              defaultValue={mealField.fieldId}
-            />
-            <IngredientsStatsStoreProvider
-              mealField={mealField}
-              variantIndex={variantIndex}
-              mealIndex={index}
+            <Flex
+              ref={provided.innerRef}
+              {...provided.draggableProps}
+              style={provided.draggableProps.style}
+              flexDirection="column"
+              borderRadius={10}
+              borderWidth="1px"
+              mb={3}
+              backgroundColor="white"
+              boxShadow={snapshot.isDragging ? 'lg' : undefined}
+              {...rest}
             >
+              <Input
+                type="hidden"
+                {...register(getMealsFormsPath(variantIndex, index, 'fieldId'))}
+                defaultValue={mealField.fieldId}
+              />
+
               <Header
                 {...provided.dragHandleProps}
                 variantIndex={variantIndex}
@@ -135,22 +137,22 @@ function MealItem({
                 onRemove={() => setIsVisible(false)}
                 onAddIngredient={addIngredients.onAdd}
               />
-            </IngredientsStatsStoreProvider>
 
-            <IngredientsList
-              mealField={mealField}
-              mealIndex={index}
-              variantIndex={variantIndex}
-              ingredientsFields={ingredientsFieldArray.ingredientsFields}
-              onIngredientRemove={removeIngredientForm.onRemove}
-              onAddIngredients={addIngredients.onAdd}
-            />
+              <IngredientsList
+                mealField={mealField}
+                mealIndex={index}
+                variantIndex={variantIndex}
+                ingredientsFields={ingredientsFieldArray.ingredientsFields}
+                onIngredientRemove={removeIngredientForm.onRemove}
+                onAddIngredients={addIngredients.onAdd}
+              />
 
-            <SelectFoodsDrawer {...addIngredients.selectFoodsDrawerProps} />
-          </Flex>
-        </motion.div>
-      )}
-    </Draggable>
+              <SelectFoodsDrawer {...addIngredients.selectFoodsDrawerProps} />
+            </Flex>
+          </motion.div>
+        )}
+      </Draggable>
+    </IngredientsStatsStoreProvider>
   )
 }
 

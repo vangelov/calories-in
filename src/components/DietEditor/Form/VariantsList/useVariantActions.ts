@@ -1,23 +1,17 @@
 import { useDisclosure } from '@chakra-ui/hooks'
 import {
-  useAppendVariantForm,
-  useCloneVariantForm,
-  useRenameVariantForm,
-  VariantsFieldArray,
-} from 'core/diets'
+  useVariantsFormsStoreMethods,
+  useVariantsFormsStoreState,
+} from 'core/diets/variants/VariantsFormsStoreProvider'
 import { useRef, useState } from 'react'
 
-type Params = {
-  variantsFieldArray: VariantsFieldArray
-}
-
-function useAddOrEditVariant({ variantsFieldArray }: Params) {
+function useAddOrEditVariant() {
   const variantNameModalDisclosure = useDisclosure()
   const onModalSaveRef = useRef<(name: string) => void>(() => {})
-  const appendVariantForm = useAppendVariantForm({ variantsFieldArray })
-  const cloneVariantForm = useCloneVariantForm({ variantsFieldArray })
-  const renameVariantForm = useRenameVariantForm()
-  const { variantsFields } = variantsFieldArray
+
+  const variantsFormsStoreMethods = useVariantsFormsStoreMethods()
+  const { variantsFields } = useVariantsFormsStoreState()
+
   const [modalTitle, setModalTitle] = useState('')
 
   function onAppend() {
@@ -26,7 +20,7 @@ function useAddOrEditVariant({ variantsFieldArray }: Params) {
 
     onModalSaveRef.current = (name: string) => {
       variantNameModalDisclosure.onClose()
-      appendVariantForm.onAppend(name)
+      variantsFormsStoreMethods.appendVariantForm(name)
     }
   }
 
@@ -37,7 +31,7 @@ function useAddOrEditVariant({ variantsFieldArray }: Params) {
 
     onModalSaveRef.current = (name: string) => {
       variantNameModalDisclosure.onClose()
-      cloneVariantForm.onClone(name, index)
+      variantsFormsStoreMethods.cloneVariantForm(name, index)
     }
   }
 
@@ -48,7 +42,7 @@ function useAddOrEditVariant({ variantsFieldArray }: Params) {
 
     onModalSaveRef.current = (name: string) => {
       variantNameModalDisclosure.onClose()
-      renameVariantForm.onRename(name, index)
+      variantsFormsStoreMethods.renameVariantForm(name, index)
     }
   }
 
