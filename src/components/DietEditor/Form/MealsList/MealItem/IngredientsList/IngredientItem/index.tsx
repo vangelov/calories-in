@@ -23,7 +23,7 @@ type Props = {
   index: number
   ingredientField: IngredientField
 
-  onRemove: (index: number, mealIndex: number) => void
+  onRemove: (index: number) => void
 }
 
 const variants = {
@@ -62,7 +62,7 @@ function IngredientItem({
 
   function onAnimationComplete() {
     if (!isVisible) {
-      onRemove(index, mealIndex)
+      onRemove(index)
     }
   }
 

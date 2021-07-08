@@ -7,11 +7,10 @@ import Content from './Content'
 type Props = {
   onClose: () => void
   isOpen: boolean
-  onSave: (foods: Food[]) => void
   mealName?: string
 }
 
-function SelectFoodsDrawer({ onClose, isOpen, onSave, mealName }: Props) {
+function SelectFoodsDrawer({ onClose, isOpen, mealName }: Props) {
   const searchInputRef = useRef<HTMLInputElement>(null)
 
   return (
@@ -24,7 +23,6 @@ function SelectFoodsDrawer({ onClose, isOpen, onSave, mealName }: Props) {
     >
       <DrawerOverlay />
       <Content
-        onSave={onSave}
         onClose={onClose}
         mealName={mealName}
         searchInputRef={searchInputRef}

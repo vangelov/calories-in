@@ -8,7 +8,7 @@ import { useRef } from 'react'
 import {
   useVariantsFormsStoreMethods,
   useVariantsFormsStoreState,
-} from 'core/diets/variants/VariantsFormsStoreProvider'
+} from 'core/diets'
 
 function VariantsList() {
   const variantActions = useVariantActions()

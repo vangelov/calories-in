@@ -1,15 +1,17 @@
-import { IngredientField, MealField } from 'core/diets'
 import { Box } from '@chakra-ui/react'
 import IngredientItem from './IngredientItem'
 import { Droppable } from 'react-beautiful-dnd'
 import EmptyList from './EmptyList'
+import {
+  useIngredientsFormsStoreMethods,
+  useIngredientsFormsStoreState,
+  MealField,
+} from 'core/diets'
 
 type Props = {
   mealIndex: number
   variantIndex: number
   mealField: MealField
-  ingredientsFields: IngredientField[]
-  onIngredientRemove: (index: number, mealIndex: number) => void
   onAddIngredients: () => void
 }
 
@@ -17,10 +19,11 @@ function IngredientsList({
   variantIndex,
   mealIndex,
   mealField,
-  onIngredientRemove,
-  ingredientsFields,
   onAddIngredients,
 }: Props) {
+  const ingredientsFormsStoreMethods = useIngredientsFormsStoreMethods()
+  const ingredientsFields = useIngredientsFormsStoreState()
+
   return (
     <Droppable droppableId={mealField.fieldId as string} type="ingredientsList">
       {provided => (
@@ -28,7 +31,7 @@ function IngredientsList({
           {ingredientsFields.map((ingredientField, index) => (
             <IngredientItem
               key={ingredientField.fieldId}
-              onRemove={onIngredientRemove}
+              onRemove={ingredientsFormsStoreMethods.removeIngredientFrom}
               variantIndex={variantIndex}
               mealIndex={mealIndex}
               index={index}

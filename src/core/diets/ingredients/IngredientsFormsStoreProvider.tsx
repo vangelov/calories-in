@@ -1,7 +1,7 @@
 import makeUseContext from 'general/makeUseContext'
 import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 import { useFormChangesStoreMethods } from 'general/undoRedo'
-import { createContext, ReactNode, useCallback } from 'react'
+import { createContext, ReactNode, useCallback, useRef } from 'react'
 import {
   getInsertIngredientFormAnimationKey,
   IngredientForm,
@@ -10,8 +10,7 @@ import useIngredientsFormStore, {
   IngredientsFormsStore,
 } from './useIngredientsFormsStore'
 import { useDndResponder } from 'general/dndResponders'
-import { DropResult } from 'react-beautiful-dnd'
-import { useIngredientsFormsDndState } from './actions/IngredientsFormsDndProvider'
+import { DragStart, DropResult } from 'react-beautiful-dnd'
 import { MealField } from '../meals'
 
 const StateContext = createContext<IngredientsFormsStore[0] | undefined>(
@@ -38,7 +37,6 @@ function IngredientsFormsStoreProvider({
 }: Props) {
   const oneTimeCheckStoreMethods = useOneTimeCheckStoreMethods()
   const formChangesStoreMethods = useFormChangesStoreMethods()
-  const ingredientFormRef = useIngredientsFormsDndState()
 
   const onBeforeAddIngredientsForms = useCallback(
     (ingredientsForms: IngredientForm[]) => {
@@ -62,19 +60,20 @@ function IngredientsFormsStoreProvider({
     onAfterChange,
   })
 
+  useDndResponder('onDragStart', (initial: DragStart) => {
+    const { source, type } = initial
+
+    if (type === 'ingredientsList') {
+      methods.saveIngredientFormForDrag(source.droppableId, source.index)
+    }
+  })
+
   useDndResponder('onDragEnd', (result: DropResult) => {
     const { source, destination, type } = result
 
-    if (!destination || type !== 'ingredientsList') {
-      return
+    if (destination && type === 'ingredientsList') {
+      methods.reorderIngredientsForms(source, destination, mealField)
     }
-
-    methods.reorderIngredientsForms(
-      source,
-      destination,
-      mealField,
-      ingredientFormRef.current
-    )
   })
 
   return (

@@ -1,11 +1,11 @@
+import { getMealsFormsPath, MealField } from 'core/diets'
 import {
-  getMealsFormsPath,
-  MealField,
-  MealsFieldArray,
-  useIngredientsFieldArray,
-  useRemoveIngredientForm,
-} from 'core/diets'
-import { Flex, LayoutProps, SpaceProps, Input } from '@chakra-ui/react'
+  Flex,
+  LayoutProps,
+  SpaceProps,
+  Input,
+  useDisclosure,
+} from '@chakra-ui/react'
 import IngredientsList from './IngredientsList'
 import Header from './Header'
 import { useFormContext } from 'react-hook-form'
@@ -15,9 +15,11 @@ import { motion } from 'framer-motion'
 import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 import { getInsertMealFormAnimationKey } from 'core/diets'
 import { Draggable } from 'react-beautiful-dnd'
-import { useReorderIngredientsForms } from 'core/diets'
-import useAddIngredients from './useAddIngredients'
 import IngredientsStatsStoreProvider from 'core/stats/IngredientsStatsStoreProvider'
+import {
+  useMealsFormsStoreMethods,
+  IngredientsFormsStoreProvider,
+} from 'core/diets'
 
 type Props = {
   mealField: MealField
@@ -47,24 +49,12 @@ function MealItem({
 
   ...rest
 }: Props) {
-  const ingredientsFieldArray = useIngredientsFieldArray({
-    mealIndex: index,
-    variantIndex,
-  })
-  const removeIngredientForm = useRemoveIngredientForm({
-    ingredientsFieldArray,
-  })
-  const addIngredients = useAddIngredients({
-    index,
-    variantIndex,
-    ingredientsFieldArray,
-  })
-
   const { register } = useFormContext()
   const [isVisible, setIsVisible] = useState(true)
   const oneTimeCheck = useOneTimeCheckStoreMethods()
-
-  useReorderIngredientsForms({ mealField, ingredientsFieldArray })
+  const [selectedMealName, setSelectedMealName] = useState('')
+  const drawerDisclosure = useDisclosure()
+  const { getLatestMealFormAt } = useMealsFormsStoreMethods()
 
   function onAnimationComplete() {
     if (pendingAnimationForInserted) {
@@ -74,12 +64,14 @@ function MealItem({
     }
   }
 
-  if (!mealField.fieldId) {
-    throw new Error('Meal id is missing')
+  function onAddIngredients() {
+    const selectedMealForm = getLatestMealFormAt(variantIndex, index)
+    setSelectedMealName(selectedMealForm.name)
+    drawerDisclosure.onOpen()
   }
 
   const pendingAnimationForInserted = oneTimeCheck.checkAndReset(
-    getInsertMealFormAnimationKey(mealField.fieldId)
+    getInsertMealFormAnimationKey(mealField.fieldId as string)
   )
 
   console.log('MEAL')
@@ -135,19 +127,26 @@ function MealItem({
                 index={index}
                 mealField={mealField}
                 onRemove={() => setIsVisible(false)}
-                onAddIngredient={addIngredients.onAdd}
+                onAddIngredient={onAddIngredients}
               />
-
-              <IngredientsList
-                mealField={mealField}
-                mealIndex={index}
+              <IngredientsFormsStoreProvider
                 variantIndex={variantIndex}
-                ingredientsFields={ingredientsFieldArray.ingredientsFields}
-                onIngredientRemove={removeIngredientForm.onRemove}
-                onAddIngredients={addIngredients.onAdd}
-              />
+                mealIndex={index}
+                mealField={mealField}
+              >
+                <IngredientsList
+                  mealField={mealField}
+                  mealIndex={index}
+                  variantIndex={variantIndex}
+                  onAddIngredients={onAddIngredients}
+                />
 
-              <SelectFoodsDrawer {...addIngredients.selectFoodsDrawerProps} />
+                <SelectFoodsDrawer
+                  isOpen={drawerDisclosure.isOpen}
+                  onClose={drawerDisclosure.onClose}
+                  mealName={selectedMealName}
+                />
+              </IngredientsFormsStoreProvider>
             </Flex>
           </motion.div>
         )}

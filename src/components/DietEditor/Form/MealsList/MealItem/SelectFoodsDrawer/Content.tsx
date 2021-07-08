@@ -16,21 +16,22 @@ import SelectedFoodsList from './SelectedFoodsList'
 import FoodModal from 'components/foods/FoodModal'
 import useFoodActions from 'components/foods/useFoodActions'
 import Header from './Header'
+import { useIngredientsFormsStoreMethods } from 'core/diets'
 
 type Props = {
   onClose: () => void
-
-  onSave: (foods: Food[]) => void
   mealName?: string
   searchInputRef: RefObject<HTMLInputElement>
 }
 
-function Content({ onClose, onSave, mealName, searchInputRef }: Props) {
+function Content({ onClose, mealName, searchInputRef }: Props) {
   const selection = useSelection<Food>()
   const foodActions = useFoodActions()
+  const ingredientsFormsStoreMethods = useIngredientsFormsStoreMethods()
 
   function onSaveButtonClick() {
-    onSave(selection.selectedItems)
+    ingredientsFormsStoreMethods.addIngredientsForms(selection.selectedItems)
+    onClose()
   }
 
   return (

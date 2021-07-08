@@ -3,9 +3,9 @@ import {
   IngredientField,
   IngredientForm,
 } from './ingredientForm'
-import { useFieldArray } from 'react-hook-form'
+import { useFieldArray, useFormContext } from 'react-hook-form'
 import tuple from 'general/tuple'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import { getIngredientForm } from './ingredientForm'
 import { Food } from 'core/types'
 import { DraggableLocation } from 'react-beautiful-dnd'
@@ -26,6 +26,8 @@ function useIngredientsFormsStore({
   onBeforeAddIngredientsForms,
   onAfterChange,
 }: Params) {
+  const savedIngredientFormForDrag = useRef<IngredientForm>()
+  const { getValues } = useFormContext()
   const { fields, insert, append, remove, move } = useFieldArray({
     name: getIngredientsFormsPath(variantIndex, mealIndex),
   })
@@ -56,12 +58,33 @@ function useIngredientsFormsStore({
     [remove, onAfterChange]
   )
 
+  const saveIngredientFormForDrag = useCallback(
+    (mealFieldId: string, index: number) => {
+      const values = getValues()
+
+      let sourceMealForm = null
+
+      for (const variantForm of values.variantsForms) {
+        for (const mealForm of variantForm.mealsForms) {
+          if (mealForm.fieldId === mealFieldId) {
+            sourceMealForm = mealForm
+          }
+        }
+      }
+
+      if (sourceMealForm) {
+        const ingredientForm = sourceMealForm.ingredientsForms[index]
+        savedIngredientFormForDrag.current = ingredientForm
+      }
+    },
+    [getValues]
+  )
+
   const reorderIngredientsForms = useCallback(
     (
       source: DraggableLocation,
       destination: DraggableLocation,
-      mealField: MealField,
-      sourceIngredientForm?: IngredientForm
+      mealField: MealField
     ) => {
       if (
         destination.droppableId === source.droppableId &&
@@ -69,8 +92,8 @@ function useIngredientsFormsStore({
       ) {
         move(source.index, destination.index)
       } else if (destination.droppableId === mealField.fieldId) {
-        if (sourceIngredientForm) {
-          insert(destination.index, sourceIngredientForm, {
+        if (savedIngredientFormForDrag.current) {
+          insert(destination.index, savedIngredientFormForDrag.current, {
             shouldFocus: false,
           })
         }
@@ -88,8 +111,14 @@ function useIngredientsFormsStore({
       addIngredientsForms,
       removeIngredientFrom,
       reorderIngredientsForms,
+      saveIngredientFormForDrag,
     }),
-    [addIngredientsForms, removeIngredientFrom, reorderIngredientsForms]
+    [
+      addIngredientsForms,
+      removeIngredientFrom,
+      reorderIngredientsForms,
+      saveIngredientFormForDrag,
+    ]
   )
 
   return tuple(ingredientsFields, methods)

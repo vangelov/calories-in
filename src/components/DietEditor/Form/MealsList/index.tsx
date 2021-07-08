@@ -4,13 +4,13 @@ import MealItem from './MealItem'
 import { MutableRefObject, useRef } from 'react'
 import useGetRefForId from 'general/useGetRefForId'
 import { Droppable } from 'react-beautiful-dnd'
-import { getVariantsFormsPath } from 'core/diets'
 import { useFormContext } from 'react-hook-form'
-import { useVariantsFormsStoreState } from 'core/diets/variants/VariantsFormsStoreProvider'
 import {
+  useVariantsFormsStoreState,
   useMealsFormsStoreMethods,
   useMealsFormsStoreState,
-} from 'core/diets/meals/MealsFormsStoreProvider'
+  getVariantsFormsPath,
+} from 'core/diets'
 import useScrollToAndFocusMeal from './useScrollToAndFocusMeal'
 
 type Props = {

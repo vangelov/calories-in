@@ -2,7 +2,7 @@ import { useDisclosure } from '@chakra-ui/hooks'
 import {
   useVariantsFormsStoreMethods,
   useVariantsFormsStoreState,
-} from 'core/diets/variants/VariantsFormsStoreProvider'
+} from 'core/diets'
 import { useRef, useState } from 'react'
 
 function useAddOrEditVariant() {

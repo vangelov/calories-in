@@ -1,19 +1,13 @@
 import NameAndStats from './NameAndStats'
 import MealsList from './MealsList'
 import Controls from './Controls'
-import {
-  DietForm,
-  useDietForm,
-  useVariantsFieldArray,
-  IngredientsFormsDndProvider,
-} from 'core/diets'
+import { DietForm, useDietForm } from 'core/diets'
 import { FormProvider } from 'react-hook-form'
 import { RefObject, useLayoutEffect, useRef } from 'react'
 import { useFormChangesStoreState, Watcher } from 'general/undoRedo'
 import VariantsList from './VariantsList'
 import Page from 'components/layout/Page'
-import VariantsFormsStoreProvider from 'core/diets/variants/VariantsFormsStoreProvider'
-import MealsFormsStoreProvider from 'core/diets/meals/MealsFormsStoreProvider'
+import { VariantsFormsStoreProvider, MealsFormsStoreProvider } from 'core/diets'
 
 type Props = {
   isEditingExistingDiet: boolean
@@ -48,26 +42,24 @@ function Form({ isEditingExistingDiet, horizontalScrollRef }: Props) {
     <FormProvider {...formMethods}>
       <Watcher />
 
-      <IngredientsFormsDndProvider>
-        <VariantsFormsStoreProvider>
-          <Page
-            footerContainerScrollLeft={versionScrollLeft}
-            footerContainerRef={horizontalScrollRef}
-            headerElement={
-              <>
-                <NameAndStats isEditingExistingDiet={isEditingExistingDiet} />
-                <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
-              </>
-            }
-            bodyElement={
-              <MealsFormsStoreProvider>
-                <MealsList onAppendMealRef={onAppendMealRef} />
-              </MealsFormsStoreProvider>
-            }
-            footerElement={<VariantsList />}
-          />
-        </VariantsFormsStoreProvider>
-      </IngredientsFormsDndProvider>
+      <VariantsFormsStoreProvider>
+        <Page
+          footerContainerScrollLeft={versionScrollLeft}
+          footerContainerRef={horizontalScrollRef}
+          headerElement={
+            <>
+              <NameAndStats isEditingExistingDiet={isEditingExistingDiet} />
+              <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
+            </>
+          }
+          bodyElement={
+            <MealsFormsStoreProvider>
+              <MealsList onAppendMealRef={onAppendMealRef} />
+            </MealsFormsStoreProvider>
+          }
+          footerElement={<VariantsList />}
+        />
+      </VariantsFormsStoreProvider>
     </FormProvider>
   )
 }
