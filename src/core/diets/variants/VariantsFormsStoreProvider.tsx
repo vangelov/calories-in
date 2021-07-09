@@ -17,7 +17,7 @@ const useVariantsFormsStoreState = makeUseContext(StateContext)
 const useVariantsFormsStoreMethods = makeUseContext(MethodsContext)
 
 type Props = {
-  children: ReactNode
+  children: (key: string) => ReactNode
 }
 
 function VariantsFormsStoreProvider({ children }: Props) {
@@ -58,11 +58,9 @@ function VariantsFormsStoreProvider({ children }: Props) {
   return (
     <MethodsContext.Provider value={methods}>
       <StateContext.Provider value={state}>
-        <Fragment
-          key={`${selectedVariantFormIndex}-${selectedVariantField.fieldId}`}
-        >
-          {children}
-        </Fragment>
+        {children(
+          `${selectedVariantFormIndex}-${selectedVariantField.fieldId}`
+        )}
       </StateContext.Provider>
     </MethodsContext.Provider>
   )

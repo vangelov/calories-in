@@ -7,7 +7,7 @@ import {
 } from './variantForm'
 import deepCopy from 'general/deepCopy'
 import { v4 as uuidv4 } from 'uuid'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import tuple from 'general/tuple'
 
 type Params = {
@@ -22,6 +22,7 @@ function useVariantsFormsStore({
   onAfterChange,
 }: Params) {
   const { setValue, control, getValues } = useFormContext()
+  const prevSelectedVariantFormIndexRef = useRef<number>(0)
 
   const selectedVariantFormIndex =
     useWatch({
@@ -60,10 +61,11 @@ function useVariantsFormsStore({
 
   const setSelectedVariantFormIndex = useCallback(
     (index: number) => {
+      prevSelectedVariantFormIndexRef.current = selectedVariantFormIndex
       setValue('selectedVariantFormIndex', index)
       onAfterChange()
     },
-    [setValue, onAfterChange]
+    [setValue, onAfterChange, selectedVariantFormIndex]
   )
 
   const appendVariantForm = useCallback(
@@ -93,8 +95,8 @@ function useVariantsFormsStore({
 
       onBeforeInsertClonedVariantForm(copiedVariantForm)
 
-      insert(index + 1, copiedVariantForm)
-      setSelectedVariantFormIndex(index + 1)
+      insert(variantsFields.length, copiedVariantForm)
+      setSelectedVariantFormIndex(variantsFields.length)
 
       onAfterChange()
     },
@@ -103,26 +105,28 @@ function useVariantsFormsStore({
       insert,
       setSelectedVariantFormIndex,
       onAfterChange,
+      variantsFields,
       getVariantFormCopy,
     ]
   )
 
   const removeVariantForm = useCallback(
-    (index: number) => {
-      let nextVariantFieldIndex = 0
-
-      if (index <= selectedVariantFormIndex) {
-        nextVariantFieldIndex = Math.max(selectedVariantFormIndex - 1, 0)
+    (indexToRemove: number) => {
+      if (indexToRemove < selectedVariantFormIndex) {
+        setSelectedVariantFormIndex(selectedVariantFormIndex - 1)
+      } else if (
+        indexToRemove === selectedVariantFormIndex &&
+        indexToRemove > 0
+      ) {
+        setSelectedVariantFormIndex(indexToRemove - 1)
       }
-      setSelectedVariantFormIndex(nextVariantFieldIndex)
-      remove(index)
-
+      remove(indexToRemove)
       onAfterChange()
     },
     [
       remove,
-      selectedVariantFormIndex,
       setSelectedVariantFormIndex,
+      selectedVariantFormIndex,
       onAfterChange,
     ]
   )
@@ -155,9 +159,10 @@ function useVariantsFormsStore({
   const reorderVariantsForms = useCallback(
     (sourceIndex: number, destinationIndex: number) => {
       move(sourceIndex, destinationIndex)
+      setSelectedVariantFormIndex(destinationIndex)
       onAfterChange()
     },
-    [move, onAfterChange]
+    [move, onAfterChange, setSelectedVariantFormIndex]
   )
 
   const methods = useMemo(

@@ -1,17 +1,21 @@
-import { Flex, IconButton, Box } from '@chakra-ui/react'
+import { Flex, IconButton, Box, useDisclosure } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
-import VariantNameModal from './VariantNameModal'
-import useVariantActions from './useVariantActions'
-import { useRef } from 'react'
+import VariantNameModal, { Action } from './VariantNameModal'
+import { useRef, useState } from 'react'
 import {
   useVariantsFormsStoreMethods,
   useVariantsFormsStoreState,
 } from 'core/diets'
 
 function VariantsList() {
-  const variantActions = useVariantActions()
+  const modalDisclosure = useDisclosure()
+  const [action, setAction] = useState<Action>('append')
+  const [
+    selectedVariantFieldIndex,
+    setSelectedVariantFieldIndex,
+  ] = useState<number>()
   const appendButtonRef = useRef<HTMLDivElement>(null)
 
   const variantsFormsStoreMethods = useVariantsFormsStoreMethods()
@@ -25,6 +29,24 @@ function VariantsList() {
       block: 'start',
       behavior: 'smooth',
     })
+  }
+
+  function onRename(index: number) {
+    modalDisclosure.onOpen()
+    setAction('rename')
+    setSelectedVariantFieldIndex(index)
+  }
+
+  function onCopy(index: number) {
+    setAction('copy')
+    setSelectedVariantFieldIndex(index)
+    modalDisclosure.onOpen()
+  }
+
+  function onAppend() {
+    setAction('append')
+    setSelectedVariantFieldIndex(undefined)
+    modalDisclosure.onOpen()
   }
 
   return (
@@ -42,8 +64,8 @@ function VariantsList() {
                 mr={1}
                 index={index}
                 onDelete={variantsFormsStoreMethods.removeVariantForm}
-                onEditName={variantActions.onRename}
-                onClone={variantActions.onClone}
+                onEditName={onRename}
+                onClone={onCopy}
                 key={variantField.fieldId}
                 variantField={variantField}
                 isSelected={index === selectedVariantFormIndex}
@@ -71,17 +93,17 @@ function VariantsList() {
               aria-label="Add variant"
               icon={<Plus size={20} pointerEvents="none" />}
               variant="outline"
-              onClick={variantActions.onAppend}
+              onClick={onAppend}
             />
             <Box width={3} height={3} />
           </Flex>
 
           <VariantNameModal
-            title={variantActions.modalTitle}
-            isOpen={variantActions.isModalOpen}
-            onClose={variantActions.onModalClose}
-            onSave={variantActions.onModalSave}
-            existingVariantsNames={variantActions.existingVariantsNames}
+            isOpen={modalDisclosure.isOpen}
+            selectedVariantFieldIndex={selectedVariantFieldIndex}
+            onClose={modalDisclosure.onClose}
+            variantsFields={variantsFields}
+            action={action}
           />
         </Flex>
       )}

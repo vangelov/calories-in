@@ -35,7 +35,7 @@ function Menu({ onDelete, onClone, onEditName, canRemove, ...rest }: Props) {
     >
       <MenuItem onClick={onClone}>
         <CopyStyled pointerEvents="none" size={20} mr={3} />
-        Copy ingredient
+        Copy variant
       </MenuItem>
 
       <MenuItem onClick={onEditName}>

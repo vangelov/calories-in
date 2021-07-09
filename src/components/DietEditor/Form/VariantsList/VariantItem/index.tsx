@@ -65,7 +65,10 @@ function VariantItem({
   function onClick(event: MouseEvent<HTMLDivElement>) {
     const anyTarget: any = event.target
 
-    if (anyTarget.type !== 'button') {
+    if (
+      anyTarget.type !== 'button' &&
+      anyTarget.getAttribute('role') !== 'menuitem'
+    ) {
       onSelect(variantField)
     }
   }
@@ -103,8 +106,13 @@ function VariantItem({
             {...provided.draggableProps}
             {...provided.dragHandleProps}
           >
-            <HStack spacing={1} height={8}>
-              <Text fontWeight="medium" noOfLines={1} fontSize="sm">
+            <HStack spacing={1} height={8} overflow="hidden">
+              <Text
+                fontWeight="medium"
+                noOfLines={1}
+                flexShrink={0}
+                fontSize="sm"
+              >
                 {children}
               </Text>
 

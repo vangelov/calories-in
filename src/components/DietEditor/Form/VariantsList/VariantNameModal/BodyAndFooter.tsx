@@ -8,50 +8,54 @@ import {
   FormErrorMessage,
 } from '@chakra-ui/react'
 import { RefObject } from 'react'
-import { useForm } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { useMergeRefs } from '@chakra-ui/react'
+import {
+  useVariantsFormsStoreMethods,
+  VariantField,
+  VariantNameForm,
+} from 'core/diets'
+import { Action } from './types'
 
 type Props = {
   onClose: () => void
   initialRef: RefObject<HTMLInputElement>
-  onSave: (name: string) => void
-  existingVariantsNames: string[]
-}
-
-type VariantNameForm = {
-  name: string
+  variantsFields: VariantField[]
+  selectedVariantFieldIndex?: number
+  action: Action
 }
 
 function BodyAndFooter({
   onClose,
   initialRef,
-  existingVariantsNames,
-  onSave,
+  variantsFields,
+  action,
+  selectedVariantFieldIndex,
 }: Props) {
-  const formMethods = useForm<VariantNameForm>({
-    defaultValues: { name: '' },
-    mode: 'onChange',
-  })
-  const { register, handleSubmit, formState } = formMethods
-  const nameRegister = register('name', {
-    required: 'Please enter a name',
-    validate: {
-      isUnique: (value: string) => {
-        if (existingVariantsNames.includes(value)) {
-          return 'This name has already been used'
-        }
+  const variantsFormsStoreMethods = useVariantsFormsStoreMethods()
 
-        return true
-      },
-    },
-  })
+  const { register, handleSubmit, formState } = useFormContext()
+  const nameRegister = register('name')
   const nameInputRef = useMergeRefs(nameRegister.ref, initialRef)
   const { errors } = formState
 
   const onSubmit = handleSubmit((form: VariantNameForm) => {
     console.log('submit', form)
+    onClose()
 
-    onSave(form.name)
+    if (action === 'append') {
+      variantsFormsStoreMethods.appendVariantForm(form.name)
+    } else if (action === 'copy') {
+      variantsFormsStoreMethods.cloneVariantForm(
+        form.name,
+        selectedVariantFieldIndex as number
+      )
+    } else if (action === 'rename') {
+      variantsFormsStoreMethods.renameVariantForm(
+        form.name,
+        selectedVariantFieldIndex as number
+      )
+    }
   })
 
   const isInvalid = errors['name'] !== undefined

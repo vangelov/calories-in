@@ -43,22 +43,24 @@ function Form({ isEditingExistingDiet, horizontalScrollRef }: Props) {
       <Watcher />
 
       <VariantsFormsStoreProvider>
-        <Page
-          footerContainerScrollLeft={versionScrollLeft}
-          footerContainerRef={horizontalScrollRef}
-          headerElement={
-            <>
-              <NameAndStats isEditingExistingDiet={isEditingExistingDiet} />
-              <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
-            </>
-          }
-          bodyElement={
-            <MealsFormsStoreProvider>
-              <MealsList onAppendMealRef={onAppendMealRef} />
-            </MealsFormsStoreProvider>
-          }
-          footerElement={<VariantsList />}
-        />
+        {key => (
+          <Page
+            footerContainerScrollLeft={versionScrollLeft}
+            footerContainerRef={horizontalScrollRef}
+            headerElement={
+              <>
+                <NameAndStats isEditingExistingDiet={isEditingExistingDiet} />
+                <Controls onMealAdd={onMealAdd} onSave={onSubmit} />
+              </>
+            }
+            bodyElement={
+              <MealsFormsStoreProvider key={key}>
+                <MealsList onAppendMealRef={onAppendMealRef} />
+              </MealsFormsStoreProvider>
+            }
+            footerElement={<VariantsList />}
+          />
+        )}
       </VariantsFormsStoreProvider>
     </FormProvider>
   )
