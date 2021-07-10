@@ -24,7 +24,10 @@ function FoodAmountInput({
       event.preventDefault()
       const length = input.value.length
       input.focus()
+
+      input.type = 'text'
       input.setSelectionRange(length, length)
+      input.type = 'number'
     }
   }
 
@@ -43,14 +46,15 @@ function FoodAmountInput({
             bg="white"
             maxWidth="74px"
             size={size}
+            type="number"
+            pattern="\d*"
             borderRadius={6}
             {...rest}
             onChange={event => {
-              const value = event.target.value
-              const valueAsNumber = Number(value)
+              const { value } = event.target
 
-              if (valueAsNumber < MAX_AMOUNT_EXCLUDING) {
-                field.onChange(valueAsNumber)
+              if (Number(value) < MAX_AMOUNT_EXCLUDING) {
+                field.onChange(value)
                 onChange && onChange(event)
               }
             }}

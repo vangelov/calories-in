@@ -9,7 +9,7 @@ type Props = {
 
 function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
   return (
-    <Box {...rest} overflowY="scroll" p={4}>
+    <Box {...rest} p={4}>
       <VStack spacing={4} alignItems="stretch">
         <FormField
           textInputRef={nameInputRef}

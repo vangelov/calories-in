@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 type IngredientForm = {
   fieldId: string
   foodId: number
-  amountInGrams: number
+  amountInGrams: string
 }
 
 function getIngredientForm(ingredient: Ingredient): IngredientForm {
@@ -15,7 +15,7 @@ function getIngredientForm(ingredient: Ingredient): IngredientForm {
   return {
     fieldId,
     foodId: ingredient.foodId,
-    amountInGrams: ingredient.amountInGrams,
+    amountInGrams: ingredient.amountInGrams.toString(),
   }
 }
 

@@ -5,7 +5,7 @@ import { useFoodsStoreMethods, useFoodsStoreState } from './FoodsStoreProvider'
 
 type Params = {
   formMethods: UseFormReturn<FoodForm>
-  onComplete: (food: Food) => void
+  onComplete: () => void
 }
 function useSubmitFoodForm({ formMethods, onComplete }: Params) {
   const { handleSubmit } = formMethods
@@ -18,22 +18,20 @@ function useSubmitFoodForm({ formMethods, onComplete }: Params) {
     const food: Food = {
       id,
       name: foodForm.name,
-      energy: foodForm.energy,
-      protein: foodForm.protein,
-      carbs: foodForm.categoryId,
-      sugar: foodForm.sugar,
-      fiber: foodForm.fiber,
-      fat: foodForm.fat,
-      saturatedFat: foodForm.saturatedFat,
-      sodium: foodForm.sodium,
+      energy: Number(foodForm.energy),
+      protein: Number(foodForm.protein),
+      carbs: Number(foodForm.categoryId),
+      sugar: Number(foodForm.sugar),
+      fiber: Number(foodForm.fiber),
+      fat: Number(foodForm.fat),
+      saturatedFat: Number(foodForm.saturatedFat),
+      sodium: Number(foodForm.sodium),
       categoryId: foodForm.categoryId,
       addedByUser: true,
     }
 
     foodsStoreMethods.addFood(food)
-    onComplete(food)
-
-    return food
+    onComplete()
   })
 
   return {

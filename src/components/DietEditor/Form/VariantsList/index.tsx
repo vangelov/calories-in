@@ -2,21 +2,26 @@ import { Flex, IconButton, Box, useDisclosure } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
-import VariantNameModal, { Action } from './VariantNameModal'
+import VariantNameModal from './VariantNameModal'
 import { useRef, useState } from 'react'
 import {
   useVariantsFormsStoreMethods,
   useVariantsFormsStoreState,
+  VariantField,
+  VariantNameFormSubmitAction,
 } from 'core/diets'
 
 function VariantsList() {
   const modalDisclosure = useDisclosure()
-  const [action, setAction] = useState<Action>('append')
+  const [submitAction, setSubmitAction] = useState<VariantNameFormSubmitAction>(
+    'append'
+  )
   const [
     selectedVariantFieldIndex,
     setSelectedVariantFieldIndex,
   ] = useState<number>()
   const appendButtonRef = useRef<HTMLDivElement>(null)
+  const [variantField, setVariantField] = useState<VariantField>()
 
   const variantsFormsStoreMethods = useVariantsFormsStoreMethods()
   const {
@@ -33,19 +38,24 @@ function VariantsList() {
 
   function onRename(index: number) {
     modalDisclosure.onOpen()
-    setAction('rename')
+    setSubmitAction('rename')
     setSelectedVariantFieldIndex(index)
+    setVariantField(variantsFields[index])
   }
 
   function onCopy(index: number) {
-    setAction('copy')
+    setSubmitAction('copy')
     setSelectedVariantFieldIndex(index)
+    setVariantField(variantsFields[index])
+
     modalDisclosure.onOpen()
   }
 
   function onAppend() {
-    setAction('append')
+    setSubmitAction('append')
     setSelectedVariantFieldIndex(undefined)
+    setVariantField(undefined)
+
     modalDisclosure.onOpen()
   }
 
@@ -103,7 +113,8 @@ function VariantsList() {
             selectedVariantFieldIndex={selectedVariantFieldIndex}
             onClose={modalDisclosure.onClose}
             variantsFields={variantsFields}
-            action={action}
+            submitAction={submitAction}
+            variantField={variantField}
           />
         </Flex>
       )}

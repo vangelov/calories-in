@@ -25,7 +25,7 @@ function useIngredientsStatsStore({
     const { amountInGrams } = ingredientsForm
     const food = getFoodById(ingredientsForm.foodId)
 
-    return getIngredientStats(amountInGrams, food)
+    return getIngredientStats(Math.round(Number(amountInGrams)), food)
   })
 
   const ingredientsStatsSum = sumStats(ingredientsStats)

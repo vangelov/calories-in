@@ -1,27 +1,18 @@
 import { Modal, ModalOverlay } from '@chakra-ui/react'
 import { Food } from 'core/types'
-
 import { useRef } from 'react'
 import Content from './Content'
 
 type Props = {
   onClose: () => void
   isOpen: boolean
-  title: string
-  onSave: (food: Food) => void
   food?: Food
   canEdit?: boolean
 }
 
-function FoodModal({
-  onClose,
-  isOpen,
-  onSave,
-  title,
-  food,
-  canEdit = true,
-}: Props) {
+function FoodModal({ onClose, isOpen, food, canEdit = true }: Props) {
   const nameInputRef = useRef<HTMLInputElement>(null)
+  const title = food ? (canEdit ? 'Edit food' : 'Food details') : 'Create food'
 
   return (
     <Modal
@@ -34,7 +25,6 @@ function FoodModal({
       <ModalOverlay />
       <Content
         nameInputRef={nameInputRef}
-        onSave={onSave}
         onClose={onClose}
         title={title}
         food={food}

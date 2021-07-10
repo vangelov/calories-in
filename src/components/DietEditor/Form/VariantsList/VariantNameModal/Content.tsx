@@ -6,62 +6,58 @@ import {
   Input,
   FormLabel,
   FormErrorMessage,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
 } from '@chakra-ui/react'
-import { RefObject } from 'react'
+import { RefObject, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useMergeRefs } from '@chakra-ui/react'
 import {
-  useVariantsFormsStoreMethods,
   VariantField,
-  VariantNameForm,
+  VariantNameFormSubmitAction,
+  useSubmitVariantNameForm,
 } from 'core/diets'
-import { Action } from './types'
 
 type Props = {
+  title: string
   onClose: () => void
   initialRef: RefObject<HTMLInputElement>
-  variantsFields: VariantField[]
-  selectedVariantFieldIndex?: number
-  action: Action
+  variantField?: VariantField
+  submitAction: VariantNameFormSubmitAction
 }
 
-function BodyAndFooter({
+function Content({
+  title,
   onClose,
   initialRef,
-  variantsFields,
-  action,
-  selectedVariantFieldIndex,
+  submitAction,
+  variantField,
 }: Props) {
-  const variantsFormsStoreMethods = useVariantsFormsStoreMethods()
-
-  const { register, handleSubmit, formState } = useFormContext()
+  const { register, formState } = useFormContext()
   const nameRegister = register('name')
   const nameInputRef = useMergeRefs(nameRegister.ref, initialRef)
-  const { errors } = formState
+  const { errors, touchedFields } = formState
 
-  const onSubmit = handleSubmit((form: VariantNameForm) => {
-    console.log('submit', form)
-    onClose()
-
-    if (action === 'append') {
-      variantsFormsStoreMethods.appendVariantForm(form.name)
-    } else if (action === 'copy') {
-      variantsFormsStoreMethods.cloneVariantForm(
-        form.name,
-        selectedVariantFieldIndex as number
-      )
-    } else if (action === 'rename') {
-      variantsFormsStoreMethods.renameVariantForm(
-        form.name,
-        selectedVariantFieldIndex as number
-      )
-    }
+  const onSubmit = useSubmitVariantNameForm({
+    variantField,
+    submitAction,
+    onComplete: onClose,
   })
 
-  const isInvalid = errors['name'] !== undefined
+  useEffect(() => {
+    if (initialRef.current) {
+      initialRef.current.setSelectionRange(0, initialRef.current.value.length)
+    }
+  }, [initialRef])
+
+  const isInvalid = errors['name'] !== undefined && touchedFields['name']
 
   return (
-    <>
+    <ModalContent>
+      <ModalHeader>{title}</ModalHeader>
+      <ModalCloseButton />
+
       <ModalBody>
         <form onSubmit={onSubmit}>
           <FormControl isInvalid={isInvalid}>
@@ -86,8 +82,8 @@ function BodyAndFooter({
           Save
         </Button>
       </ModalFooter>
-    </>
+    </ModalContent>
   )
 }
 
-export default BodyAndFooter
+export default Content

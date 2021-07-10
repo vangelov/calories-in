@@ -5,6 +5,18 @@ type VariantNameForm = {
   name: string
 }
 
+function getVariantNameForm(variantField?: VariantField) {
+  if (variantField) {
+    return {
+      name: variantField.name,
+    }
+  }
+
+  return {
+    name: '',
+  }
+}
+
 const variantNameFormSchema = object().shape({
   name: string()
     .required('Please add a name')
@@ -22,6 +34,6 @@ const variantNameFormSchema = object().shape({
     }),
 })
 
-export { variantNameFormSchema }
+export { variantNameFormSchema, getVariantNameForm }
 
 export type { VariantNameForm }

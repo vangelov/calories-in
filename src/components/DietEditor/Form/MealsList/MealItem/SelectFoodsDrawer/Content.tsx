@@ -7,14 +7,14 @@ import {
   Button,
   VStack,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { Food } from 'core/types'
-import { RefObject } from 'react'
+import { RefObject, useState } from 'react'
 import { FoodsList } from 'components/foods'
 import useSelection from 'general/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
 import FoodModal from 'components/foods/FoodModal'
-import useFoodActions from 'components/foods/useFoodActions'
 import Header from './Header'
 import { useIngredientsFormsStoreMethods } from 'core/diets'
 
@@ -26,12 +26,26 @@ type Props = {
 
 function Content({ onClose, mealName, searchInputRef }: Props) {
   const selection = useSelection<Food>()
-  const foodActions = useFoodActions()
+  const foodModalDisclosure = useDisclosure()
+  const [food, setFood] = useState<Food>()
+  const [canEdit, setCanEdit] = useState(false)
   const ingredientsFormsStoreMethods = useIngredientsFormsStoreMethods()
 
   function onSaveButtonClick() {
     ingredientsFormsStoreMethods.addIngredientsForms(selection.selectedItems)
     onClose()
+  }
+
+  function onCreateFood() {
+    setFood(undefined)
+    setCanEdit(true)
+    foodModalDisclosure.onOpen()
+  }
+
+  function onPreviewFood(food: Food) {
+    setFood(food)
+    setCanEdit(false)
+    foodModalDisclosure.onOpen()
   }
 
   return (
@@ -45,11 +59,7 @@ function Content({ onClose, mealName, searchInputRef }: Props) {
             <Text textColor="gray.500" mr={1}>
               Foods missing?
             </Text>
-            <Button
-              variant="link"
-              colorScheme="teal"
-              onClick={foodActions.onCreate}
-            >
+            <Button variant="link" colorScheme="teal" onClick={onCreateFood}>
               Create new food
             </Button>
           </Flex>
@@ -66,7 +76,7 @@ function Content({ onClose, mealName, searchInputRef }: Props) {
               searchInputRef={searchInputRef}
               selection={selection}
               flex={1}
-              onFoodPreview={foodActions.onPreview}
+              onFoodPreview={onPreviewFood}
             />
           </VStack>
         </Flex>
@@ -81,7 +91,12 @@ function Content({ onClose, mealName, searchInputRef }: Props) {
         </Button>
       </DrawerFooter>
 
-      <FoodModal {...foodActions.foodModalProps} />
+      <FoodModal
+        isOpen={foodModalDisclosure.isOpen}
+        onClose={foodModalDisclosure.onClose}
+        canEdit={canEdit}
+        food={food}
+      />
     </DrawerContent>
   )
 }

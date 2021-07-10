@@ -1,39 +1,30 @@
-import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-} from '@chakra-ui/react'
+import { Modal, ModalOverlay } from '@chakra-ui/react'
 import { VariantField, VariantNameFormProvider } from 'core/diets'
 import { useRef } from 'react'
-import BodyAndFooter from './BodyAndFooter'
-import { Action } from './types'
+import Content from './Content'
+import { VariantNameFormSubmitAction } from 'core/diets'
 
 type Props = {
   onClose: () => void
   isOpen: boolean
   selectedVariantFieldIndex?: number
   variantsFields: VariantField[]
-  action: Action
+  variantField?: VariantField
+  submitAction: VariantNameFormSubmitAction
 }
 
 function VariantNameModal({
   onClose,
   isOpen,
-  variantsFields,
-  selectedVariantFieldIndex,
-  action,
+  variantField,
+  submitAction,
 }: Props) {
   const initialRef = useRef<HTMLInputElement>(null)
-
-  let title = 'Add Variant'
-
-  if (action === 'copy') {
-    title = 'Copy'
-  } else if (action === 'rename') {
-    title = 'Rename'
-  }
+  const title = variantField
+    ? submitAction === 'rename'
+      ? 'Rename Variant'
+      : 'Copy Variant'
+    : 'Add Variant'
 
   return (
     <Modal
@@ -43,23 +34,17 @@ function VariantNameModal({
       initialFocusRef={initialRef}
     >
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader>{title}</ModalHeader>
-        <ModalCloseButton />
-        <VariantNameFormProvider>
-          <BodyAndFooter
-            onClose={onClose}
-            initialRef={initialRef}
-            variantsFields={variantsFields}
-            selectedVariantFieldIndex={selectedVariantFieldIndex}
-            action={action}
-          />
-        </VariantNameFormProvider>
-      </ModalContent>
+      <VariantNameFormProvider variantField={variantField}>
+        <Content
+          title={title}
+          onClose={onClose}
+          initialRef={initialRef}
+          variantField={variantField}
+          submitAction={submitAction}
+        />
+      </VariantNameFormProvider>
     </Modal>
   )
 }
-
-export type { Action }
 
 export default VariantNameModal

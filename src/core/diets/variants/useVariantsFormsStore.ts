@@ -74,8 +74,13 @@ function useVariantsFormsStore({
     onAfterChange()
   }
 
-  function cloneVariantForm(name: string, index: number) {
-    const copiedVariantForm = getVariantFormCopy(index, name)
+  function indexOf(fieldId: string) {
+    return variantsFields.map(({ fieldId }) => fieldId).indexOf(fieldId)
+  }
+
+  function cloneVariantForm(name: string, fieldId: string) {
+    const indexToClone = indexOf(fieldId)
+    const copiedVariantForm = getVariantFormCopy(indexToClone, name)
 
     onBeforeInsertClonedVariantForm(copiedVariantForm)
 
@@ -98,7 +103,8 @@ function useVariantsFormsStore({
     onAfterChange()
   }
 
-  function renameVariantForm(name: string, indexToRename: number) {
+  function renameVariantForm(name: string, fieldId: string) {
+    const indexToRename = indexOf(fieldId)
     const values = getValues()
 
     const updatedVariantsForms = values.variantsForms.map(
