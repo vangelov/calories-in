@@ -4,10 +4,10 @@ import { useState, useCallback, useMemo } from 'react'
 import sumStats from './sumStats'
 
 function useMealsStatsStore() {
-  const [state, setState] = useState<Record<number, Stats>>({})
+  const [mealStats, setMealsStats] = useState<Record<number, Stats>>({})
 
   const addMealStats = useCallback((index: number, stats: Stats) => {
-    setState(state => {
+    setMealsStats(state => {
       return {
         ...state,
         [index]: stats,
@@ -16,7 +16,7 @@ function useMealsStatsStore() {
   }, [])
 
   const deleteMealStats = useCallback((index: number) => {
-    setState(state => {
+    setMealsStats(state => {
       const newState = { ...state }
       delete newState[index]
       return newState
@@ -31,15 +31,16 @@ function useMealsStatsStore() {
     [addMealStats, deleteMealStats]
   )
 
-  const derivedState = useMemo(() => {
-    const mealsStats = Object.values(state)
+  const state = useMemo(() => {
+    const mealsStats = Object.values(mealStats)
 
     return {
+      mealStats,
       mealsStatsSum: sumStats(mealsStats),
     }
-  }, [state])
+  }, [mealStats])
 
-  return tuple(derivedState, methods)
+  return tuple(state, methods)
 }
 
 type MealsStatsStore = ReturnType<typeof useMealsStatsStore>

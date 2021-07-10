@@ -1,7 +1,7 @@
-import { useFoodsByIdDispatch, useFoodsByIdState } from 'core/foods'
 import { Food } from 'core/types'
 import { UseFormReturn } from 'react-hook-form'
 import { FoodForm } from './foodForm'
+import { useFoodsStoreMethods, useFoodsStoreState } from './FoodsStoreProvider'
 
 type Params = {
   formMethods: UseFormReturn<FoodForm>
@@ -9,11 +9,11 @@ type Params = {
 }
 function useSubmitFoodForm({ formMethods, onComplete }: Params) {
   const { handleSubmit } = formMethods
-  const foodsByIdDispatch = useFoodsByIdDispatch()
-  const foodsByIdState = useFoodsByIdState()
+  const foodsStoreMethods = useFoodsStoreMethods()
+  const { foodsById } = useFoodsStoreState()
 
   const onSubmit = handleSubmit((foodForm: FoodForm) => {
-    const id = Object.keys(foodsByIdState).length + 1
+    const id = Object.keys(foodsById).length + 1
 
     const food: Food = {
       id,
@@ -30,7 +30,7 @@ function useSubmitFoodForm({ formMethods, onComplete }: Params) {
       addedByUser: true,
     }
 
-    foodsByIdDispatch({ type: 'addFood', food })
+    foodsStoreMethods.addFood(food)
     onComplete(food)
 
     return food

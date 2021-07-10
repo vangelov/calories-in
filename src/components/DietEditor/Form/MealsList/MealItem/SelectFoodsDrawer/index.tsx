@@ -1,5 +1,4 @@
 import { Drawer, DrawerOverlay } from '@chakra-ui/react'
-import { Food } from 'core/types'
 import { useRef } from 'react'
 import { isMobile } from 'react-device-detect'
 import Content from './Content'

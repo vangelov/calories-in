@@ -1,4 +1,4 @@
-import { ButtonProps, chakra, HStack, Text } from '@chakra-ui/react'
+import { ButtonProps, chakra } from '@chakra-ui/react'
 import { MealField } from 'core/diets'
 import MenuBase, { MenuItem } from 'components/general/Menu'
 import { MoreHorizontal, Plus, Trash2 } from 'react-feather'

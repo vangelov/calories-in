@@ -5,7 +5,9 @@ import { useIngredientsStatsStore } from '.'
 import { useMealsStatsStoreMethods } from './MealsStatsStoreProvider'
 import { IngredientsStatsStore } from './useIngredientsStatsStore'
 
-const StateContext = createContext<IngredientsStatsStore | undefined>(undefined)
+const StateContext = createContext<IngredientsStatsStore[0] | undefined>(
+  undefined
+)
 const useIngredientsStatsStoreState = makeUseContext(StateContext)
 
 type Props = {
@@ -13,7 +15,6 @@ type Props = {
   variantIndex: number
   mealIndex: number
   mealField: MealField
-  isDragging: boolean
 }
 
 function IngredientsStatsStoreProvider({
@@ -21,10 +22,13 @@ function IngredientsStatsStoreProvider({
   variantIndex,
   mealIndex,
   mealField,
-  isDragging,
 }: Props) {
   const mealsStatsStoreMethods = useMealsStatsStoreMethods()
-  const state = useIngredientsStatsStore({ variantIndex, mealIndex, mealField })
+  const [state] = useIngredientsStatsStore({
+    variantIndex,
+    mealIndex,
+    mealField,
+  })
 
   useEffect(() => {
     const { ingredientsStatsSum } = state

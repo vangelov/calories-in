@@ -1,39 +1,39 @@
 import { getMealForm, getMealsFormsPath, MealField, MealForm } from './mealForm'
-import { useFieldArray, useFormContext } from 'react-hook-form'
-import { useCallback, useMemo } from 'react'
+import { useFieldArray, UseFormReturn } from 'react-hook-form'
 import tuple from 'general/tuple'
+import { DietForm } from '../dietForm'
 
 type Params = {
   variantIndex: number
   onBeforeMealFormAppend: (mealForm: MealForm) => void
   onAfterChange: () => void
+  dietFormMethods: UseFormReturn<DietForm>
 }
 
 function useMealsFormsStore({
   variantIndex,
   onBeforeMealFormAppend,
   onAfterChange,
+  dietFormMethods,
 }: Params) {
-  const { getValues } = useFormContext()
+  const { getValues, control } = dietFormMethods
 
   const { fields, append, remove, move } = useFieldArray({
-    name: getMealsFormsPath(variantIndex),
+    name: getMealsFormsPath(variantIndex) as any,
+    control,
   })
 
   const mealsFields = fields as MealField[]
 
-  const getLatestMealFormAt = useCallback(
-    (variantIndex: number, mealIndex: number) => {
-      const dietForm = getValues()
-      const { variantsForms } = dietForm
-      const mealForm = variantsForms[variantIndex].mealsForms[mealIndex]
+  function getLatestMealFormAt(variantIndex: number, mealIndex: number) {
+    const dietForm = getValues()
+    const { variantsForms } = dietForm
+    const mealForm = variantsForms[variantIndex].mealsForms[mealIndex]
 
-      return mealForm
-    },
-    [getValues]
-  )
+    return mealForm
+  }
 
-  const appendNewMealForm = useCallback(() => {
+  function appendNewMealForm() {
     const mealForm = getMealForm()
 
     onBeforeMealFormAppend(mealForm)
@@ -41,33 +41,24 @@ function useMealsFormsStore({
     onAfterChange()
 
     return mealForm.fieldId
-  }, [append, onBeforeMealFormAppend, onAfterChange])
+  }
 
-  const removeMealFrom = useCallback(
-    (index: number) => {
-      remove(index)
-      onAfterChange()
-    },
-    [remove, onAfterChange]
-  )
+  function removeMealFrom(index: number) {
+    remove(index)
+    onAfterChange()
+  }
 
-  const reorderMealsForms = useCallback(
-    (sourceIndex: number, destinationIndex: number) => {
-      move(sourceIndex, destinationIndex)
-      onAfterChange()
-    },
-    [move, onAfterChange]
-  )
+  function reorderMealsForms(sourceIndex: number, destinationIndex: number) {
+    move(sourceIndex, destinationIndex)
+    onAfterChange()
+  }
 
-  const methods = useMemo(
-    () => ({
-      getLatestMealFormAt,
-      appendNewMealForm,
-      removeMealFrom,
-      reorderMealsForms,
-    }),
-    [getLatestMealFormAt, appendNewMealForm, removeMealFrom, reorderMealsForms]
-  )
+  const methods = {
+    getLatestMealFormAt,
+    appendNewMealForm,
+    removeMealFrom,
+    reorderMealsForms,
+  }
 
   return tuple(mealsFields, methods)
 }

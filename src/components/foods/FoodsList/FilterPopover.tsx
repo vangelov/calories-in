@@ -69,7 +69,7 @@ function FiltersPopover({
                     onChange={onSelectChange}
                     value={filter.categoryId}
                   >
-                    <option value={undefined}>All categories</option>
+                    <option value={0}>All categories</option>
                   </FoodCategoriesSelect>
 
                   <Checkbox

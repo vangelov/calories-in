@@ -1,13 +1,15 @@
 import makeUseContext from 'general/makeUseContext'
 import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 import { useFormChangesStoreMethods } from 'general/undoRedo'
-import { createContext, Fragment, ReactNode, useCallback } from 'react'
+import { createContext, ReactNode, useCallback } from 'react'
 import { getInsertVariantFormAnimationKey, VariantForm } from './variantForm'
 import useVariantsFormsStore, {
   VariantsFormsStore,
 } from './useVariantsFormsStore'
 import { useDndResponder } from 'general/dndResponders'
 import { DropResult } from 'react-beautiful-dnd'
+import { useFormContext } from 'react-hook-form'
+import { DietForm } from '../dietForm'
 
 const StateContext = createContext<VariantsFormsStore[0] | undefined>(undefined)
 const MethodsContext = createContext<VariantsFormsStore[1] | undefined>(
@@ -23,6 +25,7 @@ type Props = {
 function VariantsFormsStoreProvider({ children }: Props) {
   const oneTimeCheckStoreMethods = useOneTimeCheckStoreMethods()
   const formChangesStoreMethods = useFormChangesStoreMethods()
+  const dietFormMethods = useFormContext<DietForm>()
 
   const onVariantFormBeforeAppendOrClone = useCallback(
     (variantForm: VariantForm) => {
@@ -41,6 +44,7 @@ function VariantsFormsStoreProvider({ children }: Props) {
     onBeforeVariantFormAppend: onVariantFormBeforeAppendOrClone,
     onBeforeInsertClonedVariantForm: onVariantFormBeforeAppendOrClone,
     onAfterChange,
+    dietFormMethods,
   })
 
   useDndResponder('onDragEnd', (result: DropResult) => {

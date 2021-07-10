@@ -1,7 +1,7 @@
 import makeUseContext from 'general/makeUseContext'
 import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 import { useFormChangesStoreMethods } from 'general/undoRedo'
-import { createContext, ReactNode, useCallback, useRef } from 'react'
+import { createContext, ReactNode, useCallback } from 'react'
 import {
   getInsertIngredientFormAnimationKey,
   IngredientForm,
@@ -12,6 +12,8 @@ import useIngredientsFormStore, {
 import { useDndResponder } from 'general/dndResponders'
 import { DragStart, DropResult } from 'react-beautiful-dnd'
 import { MealField } from '../meals'
+import { useFormContext } from 'react-hook-form'
+import { DietForm } from '../dietForm'
 
 const StateContext = createContext<IngredientsFormsStore[0] | undefined>(
   undefined
@@ -37,6 +39,7 @@ function IngredientsFormsStoreProvider({
 }: Props) {
   const oneTimeCheckStoreMethods = useOneTimeCheckStoreMethods()
   const formChangesStoreMethods = useFormChangesStoreMethods()
+  const dietFormMethods = useFormContext<DietForm>()
 
   const onBeforeAddIngredientsForms = useCallback(
     (ingredientsForms: IngredientForm[]) => {
@@ -58,6 +61,7 @@ function IngredientsFormsStoreProvider({
     mealIndex,
     onBeforeAddIngredientsForms,
     onAfterChange,
+    dietFormMethods,
   })
 
   useDndResponder('onDragStart', (initial: DragStart) => {

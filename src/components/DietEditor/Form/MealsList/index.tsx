@@ -1,7 +1,7 @@
 import { Box, Input } from '@chakra-ui/react'
 import MealItem from './MealItem'
 
-import { MutableRefObject, useRef } from 'react'
+import { useRef } from 'react'
 import useGetRefForId from 'general/useGetRefForId'
 import { Droppable } from 'react-beautiful-dnd'
 import { useFormContext } from 'react-hook-form'
@@ -13,11 +13,7 @@ import {
 } from 'core/diets'
 import useScrollToAndFocusMeal from './useScrollToAndFocusMeal'
 
-type Props = {
-  onAppendMealRef: MutableRefObject<(() => void) | undefined>
-}
-
-function MealsList({ onAppendMealRef }: Props) {
+function MealsList() {
   const getMealNameInputRefById = useGetRefForId()
   const { register } = useFormContext()
   const scrollTargetRef = useRef<HTMLDivElement>(null)
@@ -35,8 +31,6 @@ function MealsList({ onAppendMealRef }: Props) {
     scrollTargetRef,
     getMealNameInputRefById,
   })
-
-  onAppendMealRef.current = mealsFormsStoreMethods.appendNewMealForm
 
   return (
     <Droppable droppableId="mealsList" type="mealsList">

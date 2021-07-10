@@ -14,7 +14,7 @@ import { Search } from 'react-feather'
 import VirtualizedList from './VirtualizedList'
 import { Selection } from 'general/useSelection'
 import { ChangeEvent, RefObject, useState } from 'react'
-import { useFilterFoods, FoodsFilter } from 'core/foods'
+import { useFilterFoods, FoodsFilter, useFoodsStoreState } from 'core/foods'
 import { Food } from 'core/types'
 import FilterPopover from './FilterPopover'
 
@@ -47,7 +47,8 @@ function FoodsList({
     setFilter({ ...filter, onlyFoodsAddedbyUser })
   }
 
-  const filteredFoods = useFilterFoods(filter)
+  const { foods } = useFoodsStoreState()
+  const filteredFoods = useFilterFoods(foods, filter)
 
   return (
     <Flex flexDirection="column" {...rest}>

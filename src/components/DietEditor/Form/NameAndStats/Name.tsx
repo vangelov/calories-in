@@ -30,12 +30,7 @@ function Name() {
   }, [oneTimeCheck])
 
   return (
-    <VStack
-      height="100%"
-      alignItems="flex-start"
-      justifyContent="center"
-      spacing={1}
-    >
+    <VStack height="100%" alignItems="flex-start" spacing={1}>
       <Input
         placeholder="Meal plan name"
         {...nameRegister}
@@ -47,7 +42,7 @@ function Name() {
         bg="white"
       />
 
-      {/*<HStack display={{ base: 'none', md: 'flex' }} width="100%" spacing={4}>
+      <HStack display={{ base: 'none', md: 'flex' }} width="100%" spacing={4}>
         <HStack spacing={1}>
           <AlertCircleStyled color="gray.400" size="16px" />
           <Text fontSize="xs" textColor="gray.400">
@@ -61,7 +56,7 @@ function Name() {
             250kcal
           </Text>
         </HStack>
-  </HStack>*/}
+      </HStack>
     </VStack>
   )
 }

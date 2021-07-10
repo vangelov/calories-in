@@ -81,7 +81,6 @@ function MealItem({
       mealField={mealField}
       variantIndex={variantIndex}
       mealIndex={index}
-      isDragging={false}
     >
       <Draggable
         key={mealField.fieldId}

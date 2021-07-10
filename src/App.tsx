@@ -7,7 +7,7 @@ import 'focus-visible/dist/focus-visible'
 import theme from 'components/theme'
 import smoothscroll from 'smoothscroll-polyfill'
 import ScreenSizeProvider from 'components/general/ScreenSizeProvider'
-import { FoodsByIdProvider } from 'core/foods'
+import { FoodsStoreProvider } from 'core/foods'
 import { OneTimeCheckStoreProvider } from 'general/oneTimeCheck'
 
 smoothscroll.polyfill()
@@ -17,13 +17,13 @@ function App() {
     <ChakraProvider theme={theme}>
       <ScreenSizeProvider>
         <DndRespondersStoreProvider>
-          <FoodsByIdProvider initialFoods={builInFoods}>
+          <FoodsStoreProvider initialFoods={builInFoods}>
             <OneTimeCheckStoreProvider>
               <MainLayout>
                 <DietEditor />
               </MainLayout>
             </OneTimeCheckStoreProvider>
-          </FoodsByIdProvider>
+          </FoodsStoreProvider>
         </DndRespondersStoreProvider>
       </ScreenSizeProvider>
     </ChakraProvider>

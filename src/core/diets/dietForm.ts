@@ -1,5 +1,4 @@
 import { Diet } from 'core/types'
-import { useForm } from 'react-hook-form'
 import { getVariantForm, VariantForm } from './variants'
 
 type DietForm = {
@@ -29,14 +28,6 @@ function getDietForm(diet?: Diet): DietForm {
   }
 }
 
-function useDietForm(dietForm: DietForm) {
-  const formMethods = useForm<DietForm>({
-    defaultValues: dietForm,
-  })
-
-  return formMethods
-}
-
 export type { DietForm }
 
-export { getDietForm, useDietForm }
+export { getDietForm }

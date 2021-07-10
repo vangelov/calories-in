@@ -7,6 +7,8 @@ import useMealsFormsStore, { MealsFormsStore } from './useMealsFormsStore'
 import { useDndResponder } from 'general/dndResponders'
 import { DropResult } from 'react-beautiful-dnd'
 import { useVariantsFormsStoreState } from '../variants/VariantsFormsStoreProvider'
+import { useFormContext } from 'react-hook-form'
+import { DietForm } from '../dietForm'
 
 const StateContext = createContext<MealsFormsStore[0] | undefined>(undefined)
 const MethodsContext = createContext<MealsFormsStore[1] | undefined>(undefined)
@@ -21,6 +23,7 @@ function MealsFormsStoreProvider({ children }: Props) {
   const { selectedVariantFormIndex } = useVariantsFormsStoreState()
   const oneTimeCheckStoreMethods = useOneTimeCheckStoreMethods()
   const formChangesStoreMethods = useFormChangesStoreMethods()
+  const dietFormMethods = useFormContext<DietForm>()
 
   const onBeforeMealFormAppend = useCallback(
     (mealForm: MealForm) => {
@@ -39,6 +42,7 @@ function MealsFormsStoreProvider({ children }: Props) {
     variantIndex: selectedVariantFormIndex,
     onBeforeMealFormAppend,
     onAfterChange,
+    dietFormMethods,
   })
 
   useDndResponder('onDragEnd', (result: DropResult) => {
