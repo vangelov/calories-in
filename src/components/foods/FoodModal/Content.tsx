@@ -18,11 +18,22 @@ type Props = {
   nameInputRef: RefObject<HTMLInputElement>
   food?: Food
   canEdit: boolean
+  onFoodCreated: (food: Food) => void
 }
 
-function Content({ onClose, nameInputRef, title, food, canEdit }: Props) {
+function Content({
+  onClose,
+  nameInputRef,
+  title,
+  food,
+  canEdit,
+  onFoodCreated,
+}: Props) {
   const { onSubmit } = useSubmitFoodForm({
-    onComplete: onClose,
+    onComplete: (food: Food) => {
+      onFoodCreated(food)
+      onClose()
+    },
   })
 
   return (

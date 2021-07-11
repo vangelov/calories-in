@@ -4,7 +4,7 @@ import { FoodForm } from './foodForm'
 import { useFoodsStoreMethods, useFoodsStoreState } from './FoodsStoreProvider'
 
 type Params = {
-  onComplete: () => void
+  onComplete: (food: Food) => void
 }
 function useSubmitFoodForm({ onComplete }: Params) {
   const { handleSubmit } = useFormContext()
@@ -30,7 +30,7 @@ function useSubmitFoodForm({ onComplete }: Params) {
     }
 
     foodsStoreMethods.addFood(food)
-    onComplete()
+    onComplete(food)
   })
 
   return {

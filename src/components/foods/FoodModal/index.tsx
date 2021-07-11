@@ -9,9 +9,16 @@ type Props = {
   isOpen: boolean
   food?: Food
   canEdit?: boolean
+  onFoodCreated: (food: Food) => void
 }
 
-function FoodModal({ onClose, isOpen, food, canEdit = true }: Props) {
+function FoodModal({
+  onClose,
+  isOpen,
+  food,
+  canEdit = true,
+  onFoodCreated,
+}: Props) {
   const nameInputRef = useRef<HTMLInputElement>(null)
   const title = food ? (canEdit ? 'Edit Food' : 'Food Details') : 'Create Food'
 
@@ -31,6 +38,7 @@ function FoodModal({ onClose, isOpen, food, canEdit = true }: Props) {
           title={title}
           food={food}
           canEdit={canEdit}
+          onFoodCreated={onFoodCreated}
         />
       </FoodFormProvider>
     </Modal>

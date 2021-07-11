@@ -10,8 +10,8 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { Food } from 'core/types'
-import { RefObject, useState } from 'react'
-import { FoodsList } from 'components/foods'
+import { RefObject, useState, useRef } from 'react'
+import FoodsList, { FoodsListMethods } from 'components/foods/FoodsList'
 import useSelection from 'general/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
 import FoodModal from 'components/foods/FoodModal'
@@ -30,6 +30,7 @@ function Content({ onClose, mealName, searchInputRef }: Props) {
   const [food, setFood] = useState<Food>()
   const [canEdit, setCanEdit] = useState(false)
   const ingredientsFormsStoreMethods = useIngredientsFormsStoreMethods()
+  const listRef = useRef<FoodsListMethods>(null)
 
   function onSaveButtonClick() {
     ingredientsFormsStoreMethods.addIngredientsForms(selection.selectedItems)
@@ -46,6 +47,16 @@ function Content({ onClose, mealName, searchInputRef }: Props) {
     setFood(food)
     setCanEdit(false)
     foodModalDisclosure.onOpen()
+  }
+
+  function onFoodCreated(food: Food) {
+    if (listRef.current) {
+      listRef.current.scrollToFood(food)
+
+      setTimeout(() => {
+        selection.onToggleItem(food)
+      }, 500)
+    }
   }
 
   return (
@@ -73,6 +84,7 @@ function Content({ onClose, mealName, searchInputRef }: Props) {
             <SelectedFoodsList selection={selection} />
 
             <FoodsList
+              ref={listRef}
               searchInputRef={searchInputRef}
               selection={selection}
               flex={1}
@@ -94,6 +106,7 @@ function Content({ onClose, mealName, searchInputRef }: Props) {
       <FoodModal
         isOpen={foodModalDisclosure.isOpen}
         onClose={foodModalDisclosure.onClose}
+        onFoodCreated={onFoodCreated}
         canEdit={canEdit}
         food={food}
       />

@@ -47,11 +47,21 @@ function filterFoods(
 
 function useFilterFoods(foods: Food[], filter: FoodsFilter) {
   const { onlyFoodsAddedbyUser } = filter
-  const foodsToFilter = useMemo(
-    () =>
-      onlyFoodsAddedbyUser ? foods.filter(food => food.addedByUser) : foods,
-    [foods, onlyFoodsAddedbyUser]
-  )
+  const foodsToFilter = useMemo(() => {
+    const t = onlyFoodsAddedbyUser
+      ? foods.filter(food => food.addedByUser)
+      : [...foods]
+
+    t.sort((x, y) => {
+      if (x.categoryId === y.categoryId) {
+        return y.id - x.id
+      }
+
+      return x.categoryId - y.categoryId
+    })
+
+    return t
+  }, [foods, onlyFoodsAddedbyUser])
 
   const fuse = useMemo(() => new Fuse(foodsToFilter, OPTIONS), [foodsToFilter])
   const foodsByCategoryId = useMemo(

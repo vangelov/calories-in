@@ -47,6 +47,23 @@ function useFoodsStore({ initialFoods }: Params) {
 
   const foods = useMemo(() => Object.values(foodsById), [foodsById])
 
+  const indexOfFood = useCallback(
+    (food: Food) => {
+      const t = [...foods]
+
+      t.sort((x, y) => {
+        if (x.categoryId === y.categoryId) {
+          return y.id - x.id
+        }
+
+        return x.categoryId - y.categoryId
+      })
+
+      return t.map(({ id }) => id).indexOf(food.id)
+    },
+    [foods]
+  )
+
   const methods = useMemo(() => ({ addFood, removeFood, replaceFood }), [
     addFood,
     removeFood,
@@ -57,10 +74,10 @@ function useFoodsStore({ initialFoods }: Params) {
     () => ({
       foods,
       getFoodById,
-
+      indexOfFood,
       foodsById,
     }),
-    [getFoodById, foodsById, foods]
+    [getFoodById, foodsById, foods, indexOfFood]
   )
 
   return tuple(state, methods)

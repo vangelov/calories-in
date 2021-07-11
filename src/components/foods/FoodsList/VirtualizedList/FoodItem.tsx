@@ -1,5 +1,4 @@
 import { FoodInfo } from 'components/foods'
-import { transparentize } from '@chakra-ui/theme-tools'
 import { Flex, FlexProps, Box, chakra } from '@chakra-ui/react'
 import { Food } from 'core/types'
 import { Info } from 'react-feather'
@@ -21,16 +20,14 @@ function FoodItem({ food, isSelected = false, onPreview, ...rest }: Props) {
   }
 
   return (
-    <Box pb={2} {...rest}>
+    <Box pb={2} {...rest} transition="all 2s linear">
       <Flex
         cursor="pointer"
         _hover={{
-          backgroundColor: !isSelected
-            ? transparentize('gray.50', 0.35)
-            : undefined,
+          backgroundColor: !isSelected ? 'gray.50' : undefined,
         }}
         position="relative"
-        border="solid"
+        transition="border 150ms ease-out"
         borderColor={isSelected ? 'teal.500' : 'gray.200'}
         backgroundColor={isSelected ? 'gray.50' : 'white'}
         borderWidth="1px"
