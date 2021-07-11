@@ -3,28 +3,40 @@ import { FoodAmountInput } from 'components/foods'
 import { cloneElement, ReactElement, RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { FoodCategoriesSelect } from 'components/foods'
-
-type InputType = 'text' | 'nutritionValue' | 'foodCategory'
+import { InputType } from './types'
+import ReadOnlyInput from './ReadOnlyInput'
 
 type Params = {
   name: string
   inputType: InputType
   isInvalid: boolean
   textInputRef?: RefObject<HTMLInputElement>
+  nutritionValueUnit: string
+  isReadOnly: boolean
 }
 
 function useGetInputElement({
   inputType,
   name,
   isInvalid,
+  nutritionValueUnit,
+  isReadOnly,
   textInputRef,
 }: Params) {
   const { register } = useFormContext()
   let result: ReactElement | null = null
-  const textInputRegister = register(name, { required: 'Please enter a name' })
+  const textInputRegister = register(name)
   const finalTextInputRef = useMergeRefs(textInputRegister.ref, textInputRef)
 
-  if (inputType === 'text') {
+  if (isReadOnly) {
+    result = (
+      <ReadOnlyInput
+        name={name}
+        inputType={inputType}
+        nutritionValueUnit={nutritionValueUnit}
+      />
+    )
+  } else if (inputType === 'text') {
     result = (
       <Input
         autoComplete="off"
@@ -32,14 +44,11 @@ function useGetInputElement({
         ref={finalTextInputRef}
       />
     )
-  }
-
-  if (inputType === 'foodCategory') {
+  } else if (inputType === 'foodCategory') {
     result = (
       <FoodCategoriesSelect
         {...register(name, {
           valueAsNumber: true,
-          required: 'Please select a category',
         })}
       >
         <option disabled value={undefined}>
@@ -47,9 +56,7 @@ function useGetInputElement({
         </option>
       </FoodCategoriesSelect>
     )
-  }
-
-  if (inputType === 'nutritionValue') {
+  } else if (inputType === 'nutritionValue') {
     result = <FoodAmountInput name={name} unit="" />
   }
 

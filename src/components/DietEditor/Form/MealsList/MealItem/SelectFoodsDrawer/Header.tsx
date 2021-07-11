@@ -6,7 +6,7 @@ type Props = {
 
 function Header({ mealName }: Props) {
   const fontWeight = mealName ? 'normal' : 'bold'
-  const titlePrefix = mealName ? 'Add Ingredients to ' : 'Add Ingredients'
+  const titlePrefix = mealName ? 'Add Foods to ' : 'Add Foods'
 
   return (
     <DrawerHeader fontWeight={fontWeight}>

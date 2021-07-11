@@ -19,6 +19,7 @@ type Props = {
   nutritionValueUnit?: string
   isIdented?: boolean
   textInputRef?: RefObject<HTMLInputElement>
+  isReadOnly?: boolean
 } & FormControlProps
 
 function FormField(props: Props) {
@@ -29,6 +30,7 @@ function FormField(props: Props) {
     isIdented = false,
     nutritionValueUnit = 'g',
     textInputRef,
+    isReadOnly = false,
     ...rest
   } = props
   const { formState } = useFormContext()
@@ -39,6 +41,8 @@ function FormField(props: Props) {
     name,
     inputType,
     textInputRef,
+    isReadOnly,
+    nutritionValueUnit,
   })
 
   return (
@@ -58,7 +62,7 @@ function FormField(props: Props) {
           <Flex width="60%" justifyContent="flex-end">
             {inputElement}
 
-            {inputType === 'nutritionValue' && (
+            {!isReadOnly && inputType === 'nutritionValue' && (
               <Flex
                 width={9}
                 flexShrink={0}

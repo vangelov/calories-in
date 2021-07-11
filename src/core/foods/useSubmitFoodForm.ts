@@ -1,14 +1,13 @@
 import { Food } from 'core/types'
-import { UseFormReturn } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { FoodForm } from './foodForm'
 import { useFoodsStoreMethods, useFoodsStoreState } from './FoodsStoreProvider'
 
 type Params = {
-  formMethods: UseFormReturn<FoodForm>
   onComplete: () => void
 }
-function useSubmitFoodForm({ formMethods, onComplete }: Params) {
-  const { handleSubmit } = formMethods
+function useSubmitFoodForm({ onComplete }: Params) {
+  const { handleSubmit } = useFormContext()
   const foodsStoreMethods = useFoodsStoreMethods()
   const { foodsById } = useFoodsStoreState()
 

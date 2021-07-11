@@ -18,6 +18,7 @@ import { Filter } from 'react-feather'
 import { ChangeEvent } from 'react'
 import { FoodsFilter } from 'core/foods'
 import { useRef } from 'react'
+import { useScreenSize } from 'components/general/ScreenSizeProvider'
 
 type Props = {
   filter: FoodsFilter
@@ -44,8 +45,13 @@ function FiltersPopover({
     onOnlyFoodsAddedByUserChange(checked)
   }
 
+  const screenSize = useScreenSize()
+
   return (
-    <Popover placement="left" initialFocusRef={selectRef}>
+    <Popover
+      placement={screenSize >= 2 ? 'left' : 'bottom'}
+      initialFocusRef={selectRef}
+    >
       {({ onClose }) => {
         return (
           <>
@@ -62,7 +68,7 @@ function FiltersPopover({
               <PopoverCloseButton />
               <PopoverHeader>Filters</PopoverHeader>
               <PopoverBody>
-                <VStack spacing={3} p={1} alignItems="flex-start">
+                <VStack spacing={5} p={1} alignItems="flex-start">
                   <FoodCategoriesSelect
                     ref={selectRef}
                     flex={3}

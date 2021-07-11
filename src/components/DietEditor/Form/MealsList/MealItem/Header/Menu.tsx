@@ -33,7 +33,7 @@ function Menu({ mealField, index, onRemove, onAddIngredient, ...rest }: Props) {
       >
         <MenuItem onClick={onAddIngredient}>
           <PlusStyled pointerEvents="none" size={20} mr={3} />
-          Add ingredients
+          Add foods
         </MenuItem>
         <MenuItem onClick={onRemove}>
           <Trash2Styled pointerEvents="none" size={20} mr={3} />

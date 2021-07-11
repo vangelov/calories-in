@@ -17,7 +17,7 @@ function EmptyList({ onAddIngredients }: Props) {
         variant="ghost"
         onClick={onAddIngredients}
       >
-        Add ingredients
+        Add foods
       </ResponsiveButton>
     </Flex>
   )

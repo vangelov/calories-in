@@ -16,9 +16,10 @@ type Props = {
 
 function VariantNameFormProvider({ children, variantField }: Props) {
   const variantsFormsState = useVariantsFormsStoreState()
+  const defaultValues = getVariantNameForm(variantField)
 
   const formMethods = useForm<VariantNameForm, VariantField[]>({
-    defaultValues: getVariantNameForm(variantField),
+    defaultValues,
     mode: 'onChange',
     context: variantsFormsState.variantsFields,
     resolver: yupResolver(variantNameFormSchema),

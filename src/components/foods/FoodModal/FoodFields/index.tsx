@@ -17,12 +17,14 @@ function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
           label="Name"
           inputType="text"
           isRequired={true}
+          isReadOnly={!canEdit}
         />
         <FormField
           name="categoryId"
           label="Category"
           inputType="foodCategory"
           isRequired={true}
+          isReadOnly={!canEdit}
         />
 
         <VStack spacing={2}>
@@ -32,6 +34,7 @@ function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
             name="servingSizeInGrams"
             label="Nutrition info per"
             inputType="nutritionValue"
+            isReadOnly={!canEdit}
           />
           <Divider />
 
@@ -40,36 +43,56 @@ function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
             label="Energy"
             inputType="nutritionValue"
             nutritionValueUnit="kcal"
+            isRequired={true}
+            isReadOnly={!canEdit}
           />
 
           <Divider />
 
-          <FormField name="fat" label="Fat" inputType="nutritionValue" />
+          <FormField
+            name="fat"
+            label="Fat"
+            inputType="nutritionValue"
+            isReadOnly={!canEdit}
+          />
           <FormField
             isIdented={true}
             name="saturatedFat"
             label="Saturated fat"
             inputType="nutritionValue"
+            isReadOnly={!canEdit}
           />
 
           <Divider />
 
-          <FormField name="sodium" label="Sodium" inputType="nutritionValue" />
+          <FormField
+            name="sodium"
+            label="Sodium"
+            inputType="nutritionValue"
+            isReadOnly={!canEdit}
+          />
 
           <Divider />
 
-          <FormField name="carbs" label="Carbs" inputType="nutritionValue" />
+          <FormField
+            name="carbs"
+            label="Carbs"
+            inputType="nutritionValue"
+            isReadOnly={!canEdit}
+          />
           <FormField
             isIdented={true}
             name="sugar"
             label="Sugar"
             inputType="nutritionValue"
+            isReadOnly={!canEdit}
           />
           <FormField
             isIdented={true}
             name="fiber"
             label="Fiber"
             inputType="nutritionValue"
+            isReadOnly={!canEdit}
           />
 
           <Divider />
@@ -78,6 +101,7 @@ function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
             name="protein"
             label="Protein"
             inputType="nutritionValue"
+            isReadOnly={!canEdit}
           />
         </VStack>
       </VStack>
