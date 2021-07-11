@@ -21,11 +21,17 @@ import {
   useState,
   useImperativeHandle,
   forwardRef,
+  useEffect,
 } from 'react'
-import { useFilterFoods, FoodsFilter, useFoodsStoreState } from 'core/foods'
+import {
+  useFilterFoods,
+  FoodsFilter,
+  useFoodsStoreState,
+  useFoodsFilterStoreMethods,
+} from 'core/foods'
 import { Food } from 'core/types'
 import FilterPopover from './FilterPopover'
-import { FixedSizeList, VariableSizeList } from 'react-window'
+import { FixedSizeList } from 'react-window'
 
 const SearchStyled = chakra(Search)
 
@@ -38,6 +44,7 @@ type Props = {
   selection: Selection<Food>
   onFoodPreview: (food: Food) => void
   forwardedRef?: ForwardedRef<FoodsListMethods>
+  initialFilter: FoodsFilter
 } & FlexProps
 
 function FoodsList({
@@ -45,11 +52,13 @@ function FoodsList({
   searchInputRef,
   onFoodPreview,
   forwardedRef,
+  initialFilter,
   ...rest
 }: Props) {
-  const [filter, setFilter] = useState<FoodsFilter>({ query: '' })
-  const { foods, indexOfFood } = useFoodsStoreState()
-  const filteredFoods = useFilterFoods(foods, filter)
+  const [filter, setFilter] = useState<FoodsFilter>(initialFilter)
+  const { allFoods, userFoods, indexOfFood } = useFoodsStoreState()
+  const filteredFoods = useFilterFoods(allFoods, userFoods, filter)
+  const foodsFilterStoreMethods = useFoodsFilterStoreMethods()
 
   function onInputChange(event: ChangeEvent<HTMLInputElement>) {
     const { value } = event.target
@@ -64,17 +73,23 @@ function FoodsList({
     setFilter({ ...filter, onlyFoodsAddedbyUser })
   }
 
-  const listRef = useRef<VariableSizeList>(null)
+  const listRef = useRef<FixedSizeList>(null)
 
   useImperativeHandle(forwardedRef, () => ({
     scrollToFood: (food: Food) => {
+      setFilter({ ...filter, query: '', categoryId: 0 })
+
       if (listRef.current) {
-        setFilter({ ...filter, categoryId: 0 })
-        const index = indexOfFood(food)
+        const foods = filter.onlyFoodsAddedbyUser ? userFoods : allFoods
+        const index = indexOfFood(food, foods)
         listRef.current.scrollToItem(index, 'center')
       }
     },
   }))
+
+  useEffect(() => {
+    foodsFilterStoreMethods.saveFilter(filter)
+  }, [filter, foodsFilterStoreMethods])
 
   return (
     <Flex flexDirection="column" {...rest}>

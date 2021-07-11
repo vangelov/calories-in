@@ -6,6 +6,16 @@ type Params = {
   initialFoods: Food[]
 }
 
+function sortedFoods(foods: Food[]) {
+  return [...foods].sort((food1, food2) => {
+    if (food1.categoryId === food2.categoryId) {
+      return food2.id - food1.id
+    }
+
+    return food1.categoryId - food2.categoryId
+  })
+}
+
 function useFoodsStore({ initialFoods }: Params) {
   const [foodsById, setFoodsById] = useState<Record<number, Food>>(() => {
     const initialMap: Record<number, Food> = {}
@@ -45,24 +55,18 @@ function useFoodsStore({ initialFoods }: Params) {
 
   const getFoodById = useCallback((id: number) => foodsById[id], [foodsById])
 
-  const foods = useMemo(() => Object.values(foodsById), [foodsById])
+  const allFoods = useMemo(() => sortedFoods(Object.values(foodsById)), [
+    foodsById,
+  ])
 
-  const indexOfFood = useCallback(
-    (food: Food) => {
-      const t = [...foods]
-
-      t.sort((x, y) => {
-        if (x.categoryId === y.categoryId) {
-          return y.id - x.id
-        }
-
-        return x.categoryId - y.categoryId
-      })
-
-      return t.map(({ id }) => id).indexOf(food.id)
-    },
-    [foods]
+  const userFoods = useMemo(
+    () => sortedFoods(allFoods.filter(food => food.addedByUser)),
+    [allFoods]
   )
+
+  const indexOfFood = useCallback((food: Food, foods: Food[]) => {
+    return foods.map(({ id }) => id).indexOf(food.id)
+  }, [])
 
   const methods = useMemo(() => ({ addFood, removeFood, replaceFood }), [
     addFood,
@@ -72,12 +76,13 @@ function useFoodsStore({ initialFoods }: Params) {
 
   const state = useMemo(
     () => ({
-      foods,
+      allFoods,
+      userFoods,
       getFoodById,
       indexOfFood,
       foodsById,
     }),
-    [getFoodById, foodsById, foods, indexOfFood]
+    [getFoodById, foodsById, allFoods, indexOfFood, userFoods]
   )
 
   return tuple(state, methods)

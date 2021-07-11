@@ -26,12 +26,19 @@ function groupFoodsByCategoryId(foods: Food[]) {
   return foodsByCategoryIdMap
 }
 
-function filterFoods(
-  foodsToFilter: Food[],
-  filter: FoodsFilter,
-  foodsByCategoryId: Record<number, Food[]>,
-  fuse: Fuse<Food>
+function useFilterFoods(
+  allFoods: Food[],
+  userFoods: Food[],
+  filter: FoodsFilter
 ) {
+  const foodsToFilter = filter.onlyFoodsAddedbyUser ? userFoods : allFoods
+
+  const fuse = useMemo(() => new Fuse(foodsToFilter, OPTIONS), [foodsToFilter])
+  const foodsByCategoryId = useMemo(
+    () => groupFoodsByCategoryId(foodsToFilter),
+    [foodsToFilter]
+  )
+
   const { query, categoryId } = filter
   if (!query) {
     return categoryId ? foodsByCategoryId[categoryId] || [] : foodsToFilter
@@ -43,33 +50,6 @@ function filterFoods(
   }
 
   return foodsForQuery.filter(food => food.categoryId === categoryId)
-}
-
-function useFilterFoods(foods: Food[], filter: FoodsFilter) {
-  const { onlyFoodsAddedbyUser } = filter
-  const foodsToFilter = useMemo(() => {
-    const t = onlyFoodsAddedbyUser
-      ? foods.filter(food => food.addedByUser)
-      : [...foods]
-
-    t.sort((x, y) => {
-      if (x.categoryId === y.categoryId) {
-        return y.id - x.id
-      }
-
-      return x.categoryId - y.categoryId
-    })
-
-    return t
-  }, [foods, onlyFoodsAddedbyUser])
-
-  const fuse = useMemo(() => new Fuse(foodsToFilter, OPTIONS), [foodsToFilter])
-  const foodsByCategoryId = useMemo(
-    () => groupFoodsByCategoryId(foodsToFilter),
-    [foodsToFilter]
-  )
-
-  return filterFoods(foodsToFilter, filter, foodsByCategoryId, fuse)
 }
 
 export type { FoodsFilter }

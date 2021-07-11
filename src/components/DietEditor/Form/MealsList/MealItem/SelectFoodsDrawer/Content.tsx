@@ -17,6 +17,7 @@ import SelectedFoodsList from './SelectedFoodsList'
 import FoodModal from 'components/foods/FoodModal'
 import Header from './Header'
 import { useIngredientsFormsStoreMethods } from 'core/diets'
+import { useFoodsFilterStoreState } from 'core/foods'
 
 type Props = {
   onClose: () => void
@@ -31,6 +32,9 @@ function Content({ onClose, mealName, searchInputRef }: Props) {
   const [canEdit, setCanEdit] = useState(false)
   const ingredientsFormsStoreMethods = useIngredientsFormsStoreMethods()
   const listRef = useRef<FoodsListMethods>(null)
+  const initialFilter = useFoodsFilterStoreState()
+
+  console.log('render')
 
   function onSaveButtonClick() {
     ingredientsFormsStoreMethods.addIngredientsForms(selection.selectedItems)
@@ -84,6 +88,7 @@ function Content({ onClose, mealName, searchInputRef }: Props) {
             <SelectedFoodsList selection={selection} />
 
             <FoodsList
+              initialFilter={initialFilter}
               ref={listRef}
               searchInputRef={searchInputRef}
               selection={selection}

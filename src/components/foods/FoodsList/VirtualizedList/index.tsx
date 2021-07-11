@@ -1,11 +1,10 @@
 import { Box } from '@chakra-ui/react'
-import { FixedSizeList, VariableSizeList } from 'react-window'
+import { FixedSizeList } from 'react-window'
 import useResizeObserver from '@react-hook/resize-observer'
-import { forwardRef, useRef, useState, ForwardedRef, useEffect } from 'react'
+import { forwardRef, useRef, useState, ForwardedRef } from 'react'
 import { Food } from 'core/types'
 import Inner from './Inner'
 import FoodItemRenderer from './FoodItemRenderer'
-import { setSyntheticTrailingComments } from 'typescript'
 
 type Props = {
   foodsCount: number
@@ -13,7 +12,7 @@ type Props = {
   isFoodSelected: (food: Food) => boolean
   onFoodSelect: (food: Food) => void
   onFoodPreview: (food: Food) => void
-  forwardRef?: ForwardedRef<VariableSizeList>
+  forwardRef?: ForwardedRef<FixedSizeList>
 }
 
 function VirtualizedList({
@@ -26,37 +25,27 @@ function VirtualizedList({
 }: Props) {
   const [height, setHeight] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
-  const [test, setTest] = useState(0)
-
-  const t = useRef<any>(null)
 
   useResizeObserver(ref, entry => setHeight(entry.contentRect.height))
 
-  useEffect(() => {
-    setTimeout(() => {
-      setTest(72)
-      t.current.resetAfterIndex(0)
-    }, 2000)
-  }, [])
-
   return (
     <Box position="relative" ref={ref} flex={1}>
-      <VariableSizeList
+      <FixedSizeList
         style={{ position: 'absolute', top: 0 }}
         innerElementType={Inner}
         height={height}
         itemCount={foodsCount}
         itemData={{ getFood, onFoodSelect, onFoodPreview, isFoodSelected }}
-        itemSize={index => (index === 0 ? test : 72)}
+        itemSize={72}
         width="100%"
-        ref={t}
+        ref={forwardRef}
       >
         {FoodItemRenderer}
-      </VariableSizeList>
+      </FixedSizeList>
     </Box>
   )
 }
 
-export default forwardRef<VariableSizeList, Props>((props, ref) => (
+export default forwardRef<FixedSizeList, Props>((props, ref) => (
   <VirtualizedList {...props} forwardRef={ref} />
 ))
