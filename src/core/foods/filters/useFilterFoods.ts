@@ -1,14 +1,9 @@
 import Fuse from 'fuse.js'
 import { useMemo } from 'react'
 import { Food } from 'core/types'
+import { FoodsFilter } from './foodsFilter'
 
 const OPTIONS = { keys: ['name'] }
-
-type FoodsFilter = {
-  categoryId?: number
-  onlyFoodsAddedbyUser?: boolean
-  query: string
-}
 
 function groupFoodsByCategoryId(foods: Food[]) {
   const foodsByCategoryIdMap: Record<number, Food[]> = {}

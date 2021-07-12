@@ -16,9 +16,10 @@ import {
 import { FoodCategoriesSelect } from 'components/foods'
 import { Filter } from 'react-feather'
 import { ChangeEvent } from 'react'
-import { FoodsFilter } from 'core/foods'
+import { FoodsFilter, nonQueryChangesCount } from 'core/foods'
 import { useRef } from 'react'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
+import Badge from 'components/general/Badge'
 
 type Props = {
   filter: FoodsFilter
@@ -46,6 +47,7 @@ function FiltersPopover({
   }
 
   const screenSize = useScreenSize()
+  const changesCount = nonQueryChangesCount(filter)
 
   return (
     <Popover
@@ -56,12 +58,14 @@ function FiltersPopover({
         return (
           <>
             <PopoverTrigger>
-              <IconButton
-                size="md"
-                aria-label="Add variant"
-                icon={<Filter size={20} pointerEvents="none" />}
-                variant="outline"
-              />
+              <Badge count={changesCount}>
+                <IconButton
+                  size="md"
+                  aria-label="Add variant"
+                  icon={<Filter size={20} pointerEvents="none" />}
+                  variant="outline"
+                />
+              </Badge>
             </PopoverTrigger>
             <PopoverContent boxShadow="lg">
               <PopoverArrow />
@@ -81,7 +85,7 @@ function FiltersPopover({
                   <Checkbox
                     onChange={onCheckboxChange}
                     colorScheme="teal"
-                    defaultIsChecked={Boolean(filter.onlyFoodsAddedbyUser)}
+                    isChecked={Boolean(filter.onlyFoodsAddedbyUser)}
                   >
                     Only items added by me
                   </Checkbox>
@@ -89,8 +93,17 @@ function FiltersPopover({
               </PopoverBody>
               <PopoverFooter border="0">
                 <HStack spacing={3} justifyContent="flex-end">
-                  <Button variant="link">Reset</Button>
-                  <Button variant="outline" onClick={() => onClose()}>
+                  <Button
+                    variant="link"
+                    isDisabled={changesCount === 0}
+                    onClick={() => {
+                      onReset()
+                      onClose()
+                    }}
+                  >
+                    Reset
+                  </Button>
+                  <Button variant="outline" onClick={onClose}>
                     Close
                   </Button>
                 </HStack>

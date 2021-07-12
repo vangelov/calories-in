@@ -1,12 +1,6 @@
 import tuple from 'general/tuple'
 import { useCallback, useState, useMemo, useRef, useEffect } from 'react'
-import { FoodsFilter } from './useFilterFoods'
-
-const DEFAULT_FILTER: FoodsFilter = {
-  query: '',
-  onlyFoodsAddedbyUser: false,
-  categoryId: 0,
-}
+import { FoodsFilter, DEFAULT_FILTER } from './foodsFilter'
 
 function useFoodsFilterStore() {
   const [filter, setFilter] = useState<FoodsFilter>(DEFAULT_FILTER)

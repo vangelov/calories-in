@@ -28,6 +28,7 @@ import {
   FoodsFilter,
   useFoodsStoreState,
   useFoodsFilterStoreMethods,
+  DEFAULT_FILTER,
 } from 'core/foods'
 import { Food } from 'core/types'
 import FilterPopover from './FilterPopover'
@@ -73,6 +74,10 @@ function FoodsList({
     setFilter({ ...filter, onlyFoodsAddedbyUser })
   }
 
+  function onReset() {
+    setFilter({ ...DEFAULT_FILTER })
+  }
+
   const listRef = useRef<FixedSizeList>(null)
 
   useImperativeHandle(forwardedRef, () => ({
@@ -99,7 +104,7 @@ function FoodsList({
             filter={filter}
             onFoodCategoryIdChange={onFoodCategoryIdChange}
             onOnlyFoodsAddedByUserChange={onOnlyFoodsAddedByUserChange}
-            onReset={() => {}}
+            onReset={onReset}
           />
         </Box>
 
