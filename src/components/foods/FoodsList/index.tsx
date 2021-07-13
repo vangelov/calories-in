@@ -14,25 +14,18 @@ import { Search } from 'react-feather'
 import VirtualizedList from './VirtualizedList'
 import { Selection } from 'general/useSelection'
 import {
-  ChangeEvent,
   ForwardedRef,
   RefObject,
   useRef,
-  useState,
   useImperativeHandle,
   forwardRef,
-  useEffect,
+  ChangeEvent,
 } from 'react'
-import {
-  useFilterFoods,
-  FoodsFilter,
-  useFoodsStoreState,
-  useFoodsFilterStoreMethods,
-  DEFAULT_FILTER,
-} from 'core/foods'
+import { useFilterFoods, useFoodsStoreState } from 'core/foods'
 import { Food } from 'core/types'
 import FilterPopover from './FilterPopover'
 import { FixedSizeList } from 'react-window'
+import useFoodsFilterStore from 'core/foods/filters/useFoodsFilterStore'
 
 const SearchStyled = chakra(Search)
 
@@ -45,7 +38,6 @@ type Props = {
   selection: Selection<Food>
   onFoodPreview: (food: Food) => void
   forwardedRef?: ForwardedRef<FoodsListMethods>
-  initialFilter: FoodsFilter
 } & FlexProps
 
 function FoodsList({
@@ -53,36 +45,16 @@ function FoodsList({
   searchInputRef,
   onFoodPreview,
   forwardedRef,
-  initialFilter,
   ...rest
 }: Props) {
-  const [filter, setFilter] = useState<FoodsFilter>(initialFilter)
   const { allFoods, userFoods, indexOfFood } = useFoodsStoreState()
-  const filteredFoods = useFilterFoods(allFoods, userFoods, filter)
-  const foodsFilterStoreMethods = useFoodsFilterStoreMethods()
-
-  function onInputChange(event: ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target
-    setFilter(filter => ({ ...filter, query: value }))
-  }
-
-  function onFoodCategoryIdChange(categoryId: number) {
-    setFilter({ ...filter, categoryId })
-  }
-
-  function onOnlyFoodsAddedByUserChange(onlyFoodsAddedbyUser: boolean) {
-    setFilter({ ...filter, onlyFoodsAddedbyUser })
-  }
-
-  function onReset() {
-    setFilter({ ...DEFAULT_FILTER })
-  }
-
   const listRef = useRef<FixedSizeList>(null)
+  const [filter, foodsFilterStoreMethods] = useFoodsFilterStore()
+  const filteredFoods = useFilterFoods(allFoods, userFoods, filter)
 
   useImperativeHandle(forwardedRef, () => ({
     scrollToFood: (food: Food) => {
-      setFilter({ ...filter, query: '', categoryId: 0 })
+      foodsFilterStoreMethods.resetCategoryIdAndQuery()
 
       if (listRef.current) {
         const foods = filter.onlyFoodsAddedbyUser ? userFoods : allFoods
@@ -92,19 +64,17 @@ function FoodsList({
     },
   }))
 
-  useEffect(() => {
-    foodsFilterStoreMethods.saveFilter(filter)
-  }, [filter, foodsFilterStoreMethods])
-
   return (
     <Flex flexDirection="column" {...rest}>
       <HStack spacing={3}>
         <Box>
           <FilterPopover
             filter={filter}
-            onFoodCategoryIdChange={onFoodCategoryIdChange}
-            onOnlyFoodsAddedByUserChange={onOnlyFoodsAddedByUserChange}
-            onReset={onReset}
+            onFoodCategoryIdChange={foodsFilterStoreMethods.updateCategoryId}
+            onOnlyFoodsAddedByUserChange={
+              foodsFilterStoreMethods.updateOnlyFoodsAddedByUser
+            }
+            onReset={foodsFilterStoreMethods.resetFilter}
           />
         </Box>
 
@@ -116,7 +86,9 @@ function FoodsList({
           <Input
             ref={searchInputRef}
             value={filter.query}
-            onChange={onInputChange}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              foodsFilterStoreMethods.updateQuery(event.target.value)
+            }
             placeholder="Search"
           />
         </InputGroup>
