@@ -32,6 +32,8 @@ function MealsList() {
     getMealNameInputRefById,
   })
 
+  console.log('Variant', selectedVariantFormIndex)
+
   return (
     <Droppable droppableId="mealsList" type="mealsList">
       {provided => (

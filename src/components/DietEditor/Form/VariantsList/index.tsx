@@ -10,6 +10,7 @@ import {
   VariantField,
   VariantNameFormSubmitAction,
 } from 'core/diets'
+import { isSafari } from 'react-device-detect'
 
 function VariantsList() {
   const modalDisclosure = useDisclosure()
@@ -30,10 +31,15 @@ function VariantsList() {
   } = useVariantsFormsStoreState()
 
   function onVariantItemFirstAppear() {
-    appendButtonRef.current?.scrollIntoView({
-      block: 'start',
-      behavior: 'smooth',
-    })
+    // Safari also scrolls the meals list if behaviour is 'smooth'
+    appendButtonRef.current?.scrollIntoView(
+      isSafari
+        ? undefined
+        : {
+            block: 'start',
+            behavior: 'smooth',
+          }
+    )
   }
 
   function onRename(index: number) {

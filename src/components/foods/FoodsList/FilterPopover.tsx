@@ -67,10 +67,12 @@ function FiltersPopover({
                 />
               </Badge>
             </PopoverTrigger>
+
             <PopoverContent boxShadow="lg">
               <PopoverArrow />
               <PopoverCloseButton />
               <PopoverHeader>Filters</PopoverHeader>
+
               <PopoverBody>
                 <VStack spacing={5} p={1} alignItems="flex-start">
                   <FoodCategoriesSelect
@@ -91,6 +93,7 @@ function FiltersPopover({
                   </Checkbox>
                 </VStack>
               </PopoverBody>
+
               <PopoverFooter border="0">
                 <HStack spacing={3} justifyContent="flex-end">
                   <Button
