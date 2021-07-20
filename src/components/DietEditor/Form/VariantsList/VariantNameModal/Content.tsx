@@ -14,16 +14,18 @@ import { RefObject, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useMergeRefs } from '@chakra-ui/react'
 import {
-  VariantField,
+  getInsertVariantFormAnimationKey,
+  VariantForm,
   VariantNameFormSubmitAction,
-  useSubmitVariantNameForm,
 } from 'core/diets'
+import useSubmitVariantForm from 'core/diets/variantForm/useSubmitVariantForm'
+import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 
 type Props = {
   title: string
   onClose: () => void
   initialRef: RefObject<HTMLInputElement>
-  variantField?: VariantField
+  variantFormIndex?: number
   submitAction: VariantNameFormSubmitAction
 }
 
@@ -32,17 +34,19 @@ function Content({
   onClose,
   initialRef,
   submitAction,
-  variantField,
+  variantFormIndex,
 }: Props) {
   const { register, formState } = useFormContext()
   const nameRegister = register('name')
   const nameInputRef = useMergeRefs(nameRegister.ref, initialRef)
   const { errors, touchedFields } = formState
 
-  const onSubmit = useSubmitVariantNameForm({
-    variantField,
+  const onSubmit = useSubmitVariantForm({
+    variantFormIndex,
     submitAction,
-    onComplete: onClose,
+    onComplete: (variantForm: VariantForm) => {
+      onClose()
+    },
   })
 
   useEffect(() => {
@@ -51,7 +55,11 @@ function Content({
     }
   }, [initialRef])
 
-  const isInvalid = errors['name'] !== undefined && touchedFields['name']
+  console.log('e', errors, formState.isSubmitting)
+
+  const isInvalid =
+    errors['name'] !== undefined &&
+    (touchedFields['name'] || formState.isSubmitted)
 
   return (
     <ModalContent>

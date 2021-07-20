@@ -1,9 +1,9 @@
 import { MealField } from 'core/diets'
 import useScrollTo from 'general/useScrollTo'
-import { RefObject } from 'react'
+import { RefObject, useCallback } from 'react'
 
 type Params = {
-  getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
+  getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
   scrollTargetRef: RefObject<HTMLDivElement>
 }
 
@@ -13,20 +13,23 @@ function useScrollToAndFocusMeal({
 }: Params) {
   const scrollTo = useScrollTo()
 
-  async function onScrollToMeal(mealField: MealField) {
-    if (!mealField.fieldId) {
-      return
-    }
-    const mealNameInputRef = getMealNameInputRefById(mealField.fieldId)
+  const onScrollToMeal = useCallback(
+    async (mealField: MealField) => {
+      if (!mealField.fieldId) {
+        return
+      }
+      const mealNameInputRef = getMealNameInputRefById(mealField.fieldId)
 
-    if (scrollTargetRef.current) {
-      await scrollTo(scrollTargetRef.current)
-    }
+      if (scrollTargetRef.current) {
+        await scrollTo(scrollTargetRef.current)
+      }
 
-    if (mealNameInputRef.current) {
-      mealNameInputRef.current.focus()
-    }
-  }
+      if (mealNameInputRef.current) {
+        mealNameInputRef.current.focus()
+      }
+    },
+    [getMealNameInputRefById, scrollTo, scrollTargetRef]
+  )
 
   return { onScrollToMeal }
 }

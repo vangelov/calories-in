@@ -32,8 +32,6 @@ function Content({ onClose, mealName, searchInputRef }: Props) {
   const ingredientsFormsStoreMethods = useIngredientsFormsStoreMethods()
   const listRef = useRef<FoodsListMethods>(null)
 
-  console.log('render')
-
   function onSaveButtonClick() {
     ingredientsFormsStoreMethods.addIngredientsForms(selection.selectedItems)
     onClose()

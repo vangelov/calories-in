@@ -3,34 +3,24 @@ import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
 import VariantNameModal from './VariantNameModal'
-import { useRef, useState } from 'react'
-import {
-  useVariantsFormsStoreMethods,
-  useVariantsFormsStoreState,
-  VariantField,
-  VariantNameFormSubmitAction,
-} from 'core/diets'
+import { useEffect, useRef, useState, useCallback } from 'react'
+import { VariantNameFormSubmitAction } from 'core/diets'
 import { isSafari } from 'react-device-detect'
+import { useDietForm, useDietFormActions } from 'core/diets'
 
 function VariantsList() {
   const modalDisclosure = useDisclosure()
   const [submitAction, setSubmitAction] = useState<VariantNameFormSubmitAction>(
     'append'
   )
-  const [
-    selectedVariantFieldIndex,
-    setSelectedVariantFieldIndex,
-  ] = useState<number>()
   const appendButtonRef = useRef<HTMLDivElement>(null)
-  const [variantField, setVariantField] = useState<VariantField>()
+  const [variantFormIndex, setVariantFormIndex] = useState<number>()
+  const dietFormActions = useDietFormActions()
+  const dietForm = useDietForm()
 
-  const variantsFormsStoreMethods = useVariantsFormsStoreMethods()
-  const {
-    variantsFields,
-    selectedVariantFormIndex,
-  } = useVariantsFormsStoreState()
+  console.log('DIET', dietForm)
 
-  function onVariantItemFirstAppear() {
+  const onVariantItemFirstAppear = useCallback(() => {
     // Safari also scrolls the meals list if behaviour is 'smooth'
     appendButtonRef.current?.scrollIntoView(
       isSafari
@@ -40,30 +30,33 @@ function VariantsList() {
             behavior: 'smooth',
           }
     )
-  }
+  }, [])
 
-  function onRename(index: number) {
-    modalDisclosure.onOpen()
-    setSubmitAction('rename')
-    setSelectedVariantFieldIndex(index)
-    setVariantField(variantsFields[index])
-  }
+  const { onOpen } = modalDisclosure
 
-  function onCopy(index: number) {
-    setSubmitAction('copy')
-    setSelectedVariantFieldIndex(index)
-    setVariantField(variantsFields[index])
+  const onRename = useCallback(
+    (index: number) => {
+      setSubmitAction('rename')
+      setVariantFormIndex(index)
+      onOpen()
+    },
+    [onOpen]
+  )
 
-    modalDisclosure.onOpen()
-  }
+  const onCopy = useCallback(
+    (index: number) => {
+      setSubmitAction('copy')
+      setVariantFormIndex(index)
+      onOpen()
+    },
+    [onOpen]
+  )
 
-  function onAppend() {
+  const onAppend = useCallback(() => {
     setSubmitAction('append')
-    setSelectedVariantFieldIndex(undefined)
-    setVariantField(undefined)
-
-    modalDisclosure.onOpen()
-  }
+    setVariantFormIndex(undefined)
+    onOpen()
+  }, [onOpen])
 
   return (
     <Droppable
@@ -73,21 +66,19 @@ function VariantsList() {
     >
       {(provided, snapshot) => (
         <Flex ref={provided.innerRef}>
-          {variantsFields.map((variantField, index) => {
+          {dietForm.variantsForms.map((variantField, index) => {
             return (
               <VariantItem
-                canRemove={variantsFields.length > 1}
+                canRemove={dietForm.variantsForms.length > 1}
                 mr={1}
                 index={index}
-                onDelete={variantsFormsStoreMethods.removeVariantForm}
+                onDelete={dietFormActions.removeVariantForm}
                 onEditName={onRename}
                 onClone={onCopy}
                 key={variantField.fieldId}
                 variantField={variantField}
-                isSelected={index === selectedVariantFormIndex}
-                onSelect={() => {
-                  variantsFormsStoreMethods.setSelectedVariantFormIndex(index)
-                }}
+                isSelected={index === dietForm.selectedVariantFormIndex}
+                onSelect={dietFormActions.setSelectedVariantFormIndex}
                 onFirstAppear={onVariantItemFirstAppear}
               >
                 {variantField.name}
@@ -116,11 +107,9 @@ function VariantsList() {
 
           <VariantNameModal
             isOpen={modalDisclosure.isOpen}
-            selectedVariantFieldIndex={selectedVariantFieldIndex}
             onClose={modalDisclosure.onClose}
-            variantsFields={variantsFields}
             submitAction={submitAction}
-            variantField={variantField}
+            variantFormIndex={variantFormIndex}
           />
         </Flex>
       )}

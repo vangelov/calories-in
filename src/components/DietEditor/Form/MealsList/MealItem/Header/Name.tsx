@@ -1,15 +1,12 @@
 import { BoxProps, Input } from '@chakra-ui/react'
-import { useFormContext } from 'react-hook-form'
-import { MealField, getMealsFormsPath } from 'core/diets'
-import { useFormChangesStoreMethods } from 'general/undoRedo'
-import { RefObject } from 'react'
-import { useMergeRefs } from '@chakra-ui/react'
+import { MealField, useDietFormActions } from 'core/diets'
+import { RefObject, ChangeEvent } from 'react'
 
 type Props = {
   variantIndex: number
   mealField: MealField
   index: number
-  getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
+  getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
 } & BoxProps
 
 function Name({
@@ -19,24 +16,19 @@ function Name({
   getMealNameInputRefById,
   ...rest
 }: Props) {
-  const { register } = useFormContext()
-  const { saveLastChange } = useFormChangesStoreMethods()
-  const nameRegister = register(getMealsFormsPath(variantIndex, index, 'name'))
+  const dietFormActions = useDietFormActions()
 
-  const nameInputRef = useMergeRefs(
-    nameRegister.ref,
-    getMealNameInputRefById(mealField.fieldId as string)
-  )
+  function onNameChange(event: ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target
 
-  function onNameChange(event: any) {
-    nameRegister.onChange(event)
-    saveLastChange()
+    dietFormActions.updateMealForm(variantIndex, index, {
+      name: value,
+    })
   }
 
   return (
     <Input
-      {...nameRegister}
-      ref={nameInputRef}
+      ref={getMealNameInputRefById(mealField.fieldId as string)}
       placeholder="Meal name"
       onChange={onNameChange}
       autoComplete="off"
@@ -46,7 +38,7 @@ function Name({
       fontSize="md"
       fontWeight="medium"
       size="md"
-      defaultValue={mealField.name}
+      value={mealField.name}
       {...rest}
     />
   )

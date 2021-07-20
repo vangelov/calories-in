@@ -55,8 +55,6 @@ function roundedMacroPercentages(
         : { ...x, value: Math.floor(x.value) }
     )
 
-  console.log('r', roundedPercentages)
-
   let p = 0,
     c = 0,
     f = 0

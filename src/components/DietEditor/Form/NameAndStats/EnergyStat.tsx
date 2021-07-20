@@ -13,7 +13,7 @@ type Props = {
 }
 
 function EnergyStat({ isEditingExistingDiet, energy }: Props) {
-  const initialEnergy = useInitialEnergyState()
+  const initialEnergy = { current: 0 } // useInitialEnergyState()
   const energyDelta = isEditingExistingDiet ? energy - initialEnergy.current : 0
   const energyValueDetail = `${Math.abs(energyDelta)}kcal`
   const previousOrSameEnergyValueDetail = useSameOrPreviousValue(

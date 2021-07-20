@@ -1,30 +1,30 @@
 import { Modal, ModalOverlay } from '@chakra-ui/react'
-import { VariantField, VariantNameFormProvider } from 'core/diets'
+import { VariantForm } from 'core/diets'
 import { useRef } from 'react'
 import Content from './Content'
 import { VariantNameFormSubmitAction } from 'core/diets'
+import VariantFormMethodsProvider from 'core/diets/variantForm/VariantFormMethodsProvider'
 
 type Props = {
   onClose: () => void
   isOpen: boolean
-  selectedVariantFieldIndex?: number
-  variantsFields: VariantField[]
-  variantField?: VariantField
+  variantFormIndex?: number
   submitAction: VariantNameFormSubmitAction
 }
 
 function VariantNameModal({
   onClose,
   isOpen,
-  variantField,
+  variantFormIndex,
   submitAction,
 }: Props) {
   const initialRef = useRef<HTMLInputElement>(null)
-  const title = variantField
-    ? submitAction === 'rename'
-      ? 'Rename Variant'
-      : 'Copy Variant'
-    : 'Add Variant'
+  const title =
+    variantFormIndex !== undefined
+      ? submitAction === 'rename'
+        ? 'Rename Variant'
+        : 'Copy Variant'
+      : 'Add Variant'
 
   return (
     <Modal
@@ -34,15 +34,15 @@ function VariantNameModal({
       initialFocusRef={initialRef}
     >
       <ModalOverlay />
-      <VariantNameFormProvider variantField={variantField}>
+      <VariantFormMethodsProvider variantFormIndex={variantFormIndex}>
         <Content
           title={title}
           onClose={onClose}
           initialRef={initialRef}
-          variantField={variantField}
+          variantFormIndex={variantFormIndex}
           submitAction={submitAction}
         />
-      </VariantNameFormProvider>
+      </VariantFormMethodsProvider>
     </Modal>
   )
 }

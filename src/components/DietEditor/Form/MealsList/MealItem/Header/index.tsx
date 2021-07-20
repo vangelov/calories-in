@@ -13,7 +13,7 @@ type Props = {
   index: number
   onAddIngredient: (index: number) => void
   onRemove: (index: number) => void
-  getMealNameInputRefById: (id: string) => RefObject<HTMLDivElement>
+  getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
 } & BoxProps
 
 function Header({
@@ -25,7 +25,15 @@ function Header({
   getMealNameInputRefById,
   ...rest
 }: Props) {
-  const { ingredientsStatsSum } = useIngredientsStatsStoreState()
+  //const { ingredientsStatsSum } = useIngredientsStatsStoreState()
+
+  const ingredientsStatsSum = {
+    protein: 0,
+    energy: 0,
+    fat: 0,
+    carbs: 0,
+    amountInGrams: 0,
+  }
 
   return (
     <Flex

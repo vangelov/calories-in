@@ -1,6 +1,15 @@
 import { DietForm } from 'core/diets'
+import { useDietForm, useDietFormActions } from 'core/diets'
+import deepCopy from 'general/deepCopy'
 import makeUseContext from 'general/makeUseContext'
-import React, { createContext, ReactNode, RefObject, Fragment } from 'react'
+import React, {
+  createContext,
+  ReactNode,
+  RefObject,
+  Fragment,
+  useEffect,
+  useCallback,
+} from 'react'
 import useFormChangesStore, { FormChangesStore } from './useFormChangesStore'
 import useKeyboard from './useKeyboard'
 
@@ -10,20 +19,36 @@ const useFormChangesStoreState = makeUseContext(StateContext)
 const useFormChangesStoreMethods = makeUseContext(MethodsContext)
 
 type Props = {
-  dietForm: DietForm
+  initialDietForm: DietForm
   horizontalScrollRef: RefObject<HTMLDivElement>
   children: ReactNode
 }
 
 function FormChangesStoreProvider({
   children,
-  dietForm,
+  initialDietForm,
   horizontalScrollRef,
 }: Props) {
+  const dietForm = useDietForm()
+  const dietFormActions = useDietFormActions()
+
+  const onUndoOrRedo = useCallback(
+    (form: DietForm) => {
+      dietFormActions.setDietForm(deepCopy(form))
+    },
+    [dietFormActions]
+  )
+
   const [state, methods] = useFormChangesStore({
-    dietForm,
+    dietForm: initialDietForm,
     horizontalScrollRef,
+    onUndo: onUndoOrRedo,
+    onRedo: onUndoOrRedo,
   })
+
+  useEffect(() => {
+    methods.pushForm(dietForm)
+  }, [dietForm, methods])
 
   const { undo, redo } = methods
 
@@ -31,9 +56,7 @@ function FormChangesStoreProvider({
 
   return (
     <MethodsContext.Provider value={methods}>
-      <StateContext.Provider value={state}>
-        <Fragment key={state.version}>{children}</Fragment>
-      </StateContext.Provider>
+      <StateContext.Provider value={state}>{children}</StateContext.Provider>
     </MethodsContext.Provider>
   )
 }

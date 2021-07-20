@@ -9,6 +9,7 @@ import {
   VariantsFormsStoreProvider,
   MealsFormsStoreProvider,
   DietFormProvider,
+  useDietForm,
 } from 'core/diets'
 
 type Props = {
@@ -17,48 +18,32 @@ type Props = {
 }
 
 function Form({ isEditingExistingDiet, horizontalScrollRef }: Props) {
-  const {
-    form,
-    versionScrollLeft,
-    versionScrollTop,
-  } = useFormChangesStoreState()
+  const { versionScrollLeft, versionScrollTop } = useFormChangesStoreState()
 
   useLayoutEffect(() => {
     window.scroll({ top: versionScrollTop })
   }, [versionScrollTop])
 
-  console.log('XXX')
-
   return (
-    <DietFormProvider dietForm={form}>
-      <Watcher />
+    <Page>
+      <PageHeader>
+        <>
+          <NameAndStats isEditingExistingDiet={isEditingExistingDiet} />
+          <Controls />
+        </>
+      </PageHeader>
 
-      <VariantsFormsStoreProvider>
-        {key => (
-          <Page>
-            <MealsFormsStoreProvider key={key}>
-              <PageHeader>
-                <>
-                  <NameAndStats isEditingExistingDiet={isEditingExistingDiet} />
-                  <Controls />
-                </>
-              </PageHeader>
+      <PageBody>
+        <MealsList />
+      </PageBody>
 
-              <PageBody>
-                <MealsList />
-              </PageBody>
-            </MealsFormsStoreProvider>
-
-            <PageFooter
-              footerContainerScrollLeft={versionScrollLeft}
-              footerContainerRef={horizontalScrollRef}
-            >
-              <VariantsList />
-            </PageFooter>
-          </Page>
-        )}
-      </VariantsFormsStoreProvider>
-    </DietFormProvider>
+      <PageFooter
+        footerContainerScrollLeft={versionScrollLeft}
+        footerContainerRef={horizontalScrollRef}
+      >
+        <VariantsList />
+      </PageFooter>
+    </Page>
   )
 }
 

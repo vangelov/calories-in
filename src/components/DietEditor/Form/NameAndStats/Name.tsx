@@ -1,40 +1,18 @@
 import { Input, HStack, chakra, VStack, Text } from '@chakra-ui/react'
-import { useFormContext } from 'react-hook-form'
-import { useFormChangesStoreMethods } from 'general/undoRedo'
-import { useEffect, useRef } from 'react'
-import { useMergeRefs } from '@chakra-ui/react'
-import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
 import { ArrowUpCircle, AlertCircle } from 'react-feather'
 
 const ArrowUpCircleStyled = chakra(ArrowUpCircle)
 const AlertCircleStyled = chakra(AlertCircle)
 
 function Name() {
-  const { register } = useFormContext()
-  const { saveLastChange } = useFormChangesStoreMethods()
-  const nameRegister = register('name')
-  const nameInputRef = useRef<HTMLInputElement>(null)
-  const oneTimeCheck = useOneTimeCheckStoreMethods()
-
   function onNameChange(event: any) {
-    nameRegister.onChange(event)
-    saveLastChange()
+    //nameRegister.onChange(event)
   }
-
-  const finalNameInputRef = useMergeRefs(nameInputRef, nameRegister.ref)
-
-  useEffect(() => {
-    if (oneTimeCheck.checkAndReset('name') && nameInputRef.current) {
-      nameInputRef.current.focus()
-    }
-  }, [oneTimeCheck])
 
   return (
     <VStack height="100%" alignItems="flex-start" spacing={1}>
       <Input
         placeholder="Meal plan name"
-        {...nameRegister}
-        ref={finalNameInputRef}
         size="md"
         fontSize="md"
         autoComplete="off"

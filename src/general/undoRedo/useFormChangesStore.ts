@@ -3,10 +3,13 @@ import { useCallback, useRef, useMemo, useState, RefObject } from 'react'
 import * as jsondiffpatch from 'jsondiffpatch'
 import DeltasStack from './deltasStack'
 import tuple from 'general/tuple'
+import deepCopy from 'general/deepCopy'
 
 type Params = {
   dietForm: DietForm
   horizontalScrollRef: RefObject<HTMLDivElement>
+  onUndo: (form: DietForm) => void
+  onRedo: (form: DietForm) => void
 }
 
 const patcher = jsondiffpatch.create({
@@ -15,7 +18,12 @@ const patcher = jsondiffpatch.create({
 
 const TIMEOUT_IN_MS = 200
 
-function useFormChangesStore({ dietForm, horizontalScrollRef }: Params) {
+function useFormChangesStore({
+  dietForm,
+  horizontalScrollRef,
+  onUndo,
+  onRedo,
+}: Params) {
   const deltasStackRef = useRef(new DeltasStack())
   const lastFormRef = useRef<DietForm>(dietForm)
   const [versionIndex, setVersionIndex] = useState(0)
@@ -35,6 +43,7 @@ function useFormChangesStore({ dietForm, horizontalScrollRef }: Params) {
 
     if (result) {
       const { delta, scrollTop, scrollLeft } = result
+      console.log('undo', lastFormRef.current, delta)
       lastFormRef.current = patcher.unpatch(lastFormRef.current, delta)
 
       setVersionScrollTop(scrollTop)
@@ -43,8 +52,10 @@ function useFormChangesStore({ dietForm, horizontalScrollRef }: Params) {
 
       setCanUndo(deltasStackRef.current.canUnpatch)
       setCanRedo(deltasStackRef.current.canPatch)
+
+      onUndo(lastFormRef.current)
     }
-  }, [])
+  }, [onUndo])
 
   const redo = useCallback(() => {
     const result = deltasStackRef.current.getNextResultToPatch()
@@ -59,8 +70,10 @@ function useFormChangesStore({ dietForm, horizontalScrollRef }: Params) {
 
       setCanUndo(deltasStackRef.current.canUnpatch)
       setCanRedo(deltasStackRef.current.canPatch)
+
+      onRedo(lastFormRef.current)
     }
-  }, [])
+  }, [onRedo])
 
   const pushForm = useCallback(
     form => {
@@ -69,16 +82,17 @@ function useFormChangesStore({ dietForm, horizontalScrollRef }: Params) {
       }
 
       timeoutIdRef.current = window.setTimeout(() => {
-        if (markRef.current) {
-          markRef.current = false
+        if (form !== lastFormRef.current) {
           const delta = patcher.diff(lastFormRef.current, form)
           //console.log('comp1', lastFormRef.current)
           //console.log('comp2', form)
 
-          if (delta) {
-            lastFormRef.current = form
-            console.log('push', delta)
+          console.log('push')
 
+          if (delta) {
+            lastFormRef.current = deepCopy(form)
+            //console.log('push', delta)
+            //console.log('l,', lastFormRef.current)
             deltasStackRef.current.push(
               delta,
               window.scrollY,

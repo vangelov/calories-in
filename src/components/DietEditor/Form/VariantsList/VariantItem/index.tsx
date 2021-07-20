@@ -5,7 +5,7 @@ import Menu from './Menu'
 import { Draggable } from 'react-beautiful-dnd'
 import { motion } from 'framer-motion'
 import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
-import { MouseEvent } from 'react'
+import { MouseEvent, memo } from 'react'
 
 type Props = {
   children: ReactNode
@@ -13,7 +13,7 @@ type Props = {
   onClone: (index: number) => void
   onEditName: (index: number) => void
   isSelected: boolean
-  onSelect: (variantField: VariantField) => void
+  onSelect: (index: number) => void
   variantField: VariantField
   canRemove: boolean
   index: number
@@ -46,6 +46,8 @@ function VariantItem({
   const oneTimeCheck = useOneTimeCheckStoreMethods()
   const [isVisible, setIsVisible] = useState(true)
 
+  console.log('VARIANT ITEM')
+
   function onAnimationComplete() {
     if (pendingAnimationForInserted) {
       onFirstAppear && onFirstAppear()
@@ -69,7 +71,7 @@ function VariantItem({
       anyTarget.type !== 'button' &&
       anyTarget.getAttribute('role') !== 'menuitem'
     ) {
-      onSelect(variantField)
+      onSelect(index)
     }
   }
 
@@ -130,4 +132,4 @@ function VariantItem({
   )
 }
 
-export default VariantItem
+export default memo(VariantItem)

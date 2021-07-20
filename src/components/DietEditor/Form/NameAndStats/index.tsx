@@ -19,8 +19,20 @@ type Props = {
 }
 
 function NameAndStats({ isEditingExistingDiet }: Props) {
-  const { register } = useFormContext()
-  const { mealsStatsSum } = useMealsStatsStoreState()
+  //const { register } = useFormContext()
+  //const { mealsStatsSum } = useMealsStatsStoreState()
+
+  const mealsStatsSum = {
+    protein: 0,
+    carbs: 0,
+    fat: 0,
+    energy: 0,
+    amountInGrams: 0,
+    saturatedFat: 0,
+    sugar: 0,
+    sodium: 0,
+    fiber: 0,
+  }
 
   const {
     proteinPercentage,
@@ -35,8 +47,6 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
       borderBottomColor="gray.100"
       width="100%"
     >
-      <Input type="hidden" {...register('formId')} />
-
       <StatsLayout
         nameElement={<Name />}
         energyElement={
