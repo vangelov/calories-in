@@ -6,7 +6,7 @@ import {
 } from '../variants/variantForm'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ReactNode } from 'react'
-import { useDietForm } from '../DietFormStoreProvider'
+import { useDietForm } from '../useDietFormStore'
 import deepCopy from 'general/deepCopy'
 
 type Props = {

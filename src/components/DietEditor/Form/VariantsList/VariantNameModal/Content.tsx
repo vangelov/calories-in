@@ -55,8 +55,6 @@ function Content({
     }
   }, [initialRef])
 
-  console.log('e', errors, formState.isSubmitting)
-
   const isInvalid =
     errors['name'] !== undefined &&
     (touchedFields['name'] || formState.isSubmitted)

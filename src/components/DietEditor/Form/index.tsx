@@ -24,6 +24,12 @@ function Form({ isEditingExistingDiet, horizontalScrollRef }: Props) {
     window.scroll({ top: versionScrollTop })
   }, [versionScrollTop])
 
+  const dietForm = useDietForm()
+  const { selectedVariantFormIndex } = dietForm
+  const { mealsForms } = dietForm.variantsForms[
+    dietForm.selectedVariantFormIndex
+  ]
+
   return (
     <Page>
       <PageHeader>
@@ -34,7 +40,10 @@ function Form({ isEditingExistingDiet, horizontalScrollRef }: Props) {
       </PageHeader>
 
       <PageBody>
-        <MealsList />
+        <MealsList
+          mealsForms={mealsForms}
+          selectedVariantFormIndex={selectedVariantFormIndex}
+        />
       </PageBody>
 
       <PageFooter

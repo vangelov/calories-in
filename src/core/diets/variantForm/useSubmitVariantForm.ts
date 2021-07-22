@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form'
 import { VariantForm } from '../variants'
-import { useDietFormActions } from '../DietFormStoreProvider'
+import { useDietFormActions } from '../useDietFormStore'
 
 type VariantNameFormSubmitAction = 'rename' | 'copy' | 'append'
 
@@ -19,11 +19,10 @@ function useSubmitVariantForm({
   const { handleSubmit } = useFormContext()
 
   const onSubmit = handleSubmit((form: VariantForm) => {
-    console.log('submit', form, submitAction)
     onComplete(form)
 
     if (submitAction === 'append') {
-      dietFormActions.appendVariantForm(form)
+      dietFormActions.appendVariantForm({ name: form.name })
     } else if (variantFormIndex !== undefined) {
       if (submitAction === 'copy') {
         dietFormActions.duplicateVariantForm(variantFormIndex, {

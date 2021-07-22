@@ -1,12 +1,18 @@
 import { Input, HStack, chakra, VStack, Text } from '@chakra-ui/react'
+import { useDietForm, useDietFormActions } from 'core/diets'
+import { ChangeEvent } from 'react'
 import { ArrowUpCircle, AlertCircle } from 'react-feather'
 
 const ArrowUpCircleStyled = chakra(ArrowUpCircle)
 const AlertCircleStyled = chakra(AlertCircle)
 
 function Name() {
-  function onNameChange(event: any) {
-    //nameRegister.onChange(event)
+  const dietForm = useDietForm()
+  const dietFormActions = useDietFormActions()
+
+  function onNameChange(event: ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target
+    dietFormActions.updateDietForm({ name: value })
   }
 
   return (
@@ -18,6 +24,7 @@ function Name() {
         autoComplete="off"
         onChange={onNameChange}
         bg="white"
+        value={dietForm.name}
       />
 
       <HStack display={{ base: 'none', md: 'flex' }} width="100%" spacing={4}>

@@ -46,8 +46,6 @@ function VariantItem({
   const oneTimeCheck = useOneTimeCheckStoreMethods()
   const [isVisible, setIsVisible] = useState(true)
 
-  console.log('VARIANT ITEM')
-
   function onAnimationComplete() {
     if (pendingAnimationForInserted) {
       onFirstAppear && onFirstAppear()

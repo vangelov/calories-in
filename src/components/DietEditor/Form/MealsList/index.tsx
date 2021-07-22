@@ -1,14 +1,18 @@
 import { Box } from '@chakra-ui/react'
 import MealItem from './MealItem'
 
-import { useRef } from 'react'
+import { useRef, memo } from 'react'
 import useGetRefForId from 'general/useGetRefForId'
 import { Droppable } from 'react-beautiful-dnd'
-import { useDietFormActions } from 'core/diets'
+import { MealForm, useDietFormActions } from 'core/diets'
 import useScrollToAndFocusMeal from './useScrollToAndFocusMeal'
-import { useDietForm } from 'core/diets'
 
-function MealsList() {
+type Props = {
+  mealsForms: MealForm[]
+  selectedVariantFormIndex: number
+}
+
+function MealsList({ mealsForms, selectedVariantFormIndex }: Props) {
   const getMealNameInputRefById = useGetRefForId()
   const scrollTargetRef = useRef<HTMLDivElement>(null)
 
@@ -16,11 +20,8 @@ function MealsList() {
     scrollTargetRef,
     getMealNameInputRefById,
   })
-  const dietForm = useDietForm()
-  console.log('D', dietForm)
+
   const dietFormActions = useDietFormActions()
-  const mealsForms =
-    dietForm.variantsForms[dietForm.selectedVariantFormIndex].mealsForms
 
   return (
     <Droppable droppableId="mealsList" type="mealsList">
@@ -29,11 +30,11 @@ function MealsList() {
           {mealsForms.map((mealForm, index) => (
             <MealItem
               key={mealForm.fieldId}
-              variantIndex={dietForm.selectedVariantFormIndex}
+              variantIndex={selectedVariantFormIndex}
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}
               onRemove={dietFormActions.removeMealForm}
-              mealField={mealForm}
+              mealForm={mealForm}
               onFirstAppear={onScrollToMeal}
             />
           ))}
@@ -46,4 +47,4 @@ function MealsList() {
   )
 }
 
-export default MealsList
+export default memo(MealsList)

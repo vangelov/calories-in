@@ -1,6 +1,4 @@
-import { Flex, Input, chakra } from '@chakra-ui/react'
-import { useFormContext } from 'react-hook-form'
-import { useMealsStatsStoreState } from 'core/stats'
+import { Flex, chakra } from '@chakra-ui/react'
 import StatsLayout from 'components/stats/StatsLayout'
 import Stat from 'components/stats/Stat'
 import { Info } from 'react-feather'
@@ -11,6 +9,7 @@ import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 import getMacrosPercentages, {
   roundedMacroPercentages,
 } from 'core/stats/getMacrosPercentages'
+import { memo } from 'react'
 
 const IntoStyled = chakra(Info)
 
@@ -100,4 +99,4 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
   )
 }
 
-export default NameAndStats
+export default memo(NameAndStats)

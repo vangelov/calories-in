@@ -1,36 +1,48 @@
 import { useCallback, SetStateAction } from 'react'
 import { DietForm } from '../../dietForm'
 import produce from 'immer'
-import { VariantForm } from '../../variants'
+import {
+  getInsertVariantFormAnimationKey,
+  getVariantForm,
+  VariantForm,
+} from '../../variants'
 import getIndexAfterRemove from './getIndexAfterRemove'
 import duplicate from './duplicate'
+import { AnimationsStoreActions } from 'general/oneTimeCheck/useOneTimeCheckStore'
 
 type Params = {
   setDietForm: (action: SetStateAction<DietForm>) => void
-  onBeforeAppendVariantForm: (variantForm: VariantForm) => void
+  animationsStoreActions: AnimationsStoreActions
 }
 
 function useVariantsFormsActions({
   setDietForm,
-  onBeforeAppendVariantForm,
+  animationsStoreActions,
 }: Params) {
   const appendVariantForm = useCallback(
-    (variantForm: VariantForm) => {
-      setDietForm(dietForm =>
-        produce(dietForm, draftDietForm => {
-          onBeforeAppendVariantForm(variantForm)
+    (partialVariantForm: Partial<VariantForm>) =>
+      setDietForm(
+        produce(draftDietForm => {
+          const variantForm = {
+            ...getVariantForm(''),
+            ...partialVariantForm,
+          }
+
+          animationsStoreActions.set(
+            getInsertVariantFormAnimationKey(variantForm.fieldId)
+          )
+
           draftDietForm.variantsForms.push(variantForm)
 
           draftDietForm.selectedVariantFormIndex =
             draftDietForm.variantsForms.length - 1
         })
-      )
-    },
-    [setDietForm, onBeforeAppendVariantForm]
+      ),
+    [setDietForm, animationsStoreActions]
   )
 
   const removeVariantForm = useCallback(
-    (indexToRemove: number) => {
+    (indexToRemove: number) =>
       setDietForm(dietForm =>
         produce(dietForm, draftDietForm => {
           const { selectedVariantFormIndex } = draftDietForm
@@ -41,20 +53,21 @@ function useVariantsFormsActions({
           )
           draftDietForm.variantsForms.splice(indexToRemove, 1)
         })
-      )
-    },
+      ),
     [setDietForm]
   )
 
   const duplicateVariantForm = useCallback(
-    (variantFormIndex: number, partialVariantForm: Partial<VariantForm>) => {
-      setDietForm(dietForm =>
-        produce(dietForm, draftDietForm => {
+    (variantFormIndex: number, partialVariantForm: Partial<VariantForm>) =>
+      setDietForm(
+        produce(draftDietForm => {
           const { variantsForms } = draftDietForm
           const variantForm = variantsForms[variantFormIndex]
 
           const copiedVariantForm = duplicate(variantForm)
-          onBeforeAppendVariantForm(copiedVariantForm)
+          animationsStoreActions.set(
+            getInsertVariantFormAnimationKey(copiedVariantForm.fieldId)
+          )
           variantsForms.push({
             ...copiedVariantForm,
             ...partialVariantForm,
@@ -62,15 +75,14 @@ function useVariantsFormsActions({
 
           draftDietForm.selectedVariantFormIndex = variantsForms.length - 1
         })
-      )
-    },
-    [setDietForm, onBeforeAppendVariantForm]
+      ),
+    [setDietForm, animationsStoreActions]
   )
 
   const moveVariantForm = useCallback(
-    (fromIndex: number, toIndex: number) => {
-      setDietForm(dietForm =>
-        produce(dietForm, draftDietForm => {
+    (fromIndex: number, toIndex: number) =>
+      setDietForm(
+        produce(draftDietForm => {
           const { variantsForms } = draftDietForm
 
           const variantForm = variantsForms[fromIndex]
@@ -79,34 +91,31 @@ function useVariantsFormsActions({
 
           draftDietForm.selectedVariantFormIndex = toIndex
         })
-      )
-    },
+      ),
     [setDietForm]
   )
 
   const updateVariantForm = useCallback(
-    (variantFormIndex: number, partialVariantForm: Partial<VariantForm>) => {
-      setDietForm(dietForm =>
-        produce(dietForm, draftDietForm => {
+    (variantFormIndex: number, partialVariantForm: Partial<VariantForm>) =>
+      setDietForm(
+        produce(draftDietForm => {
           const variantForm = draftDietForm.variantsForms[variantFormIndex]
           draftDietForm.variantsForms[variantFormIndex] = {
             ...variantForm,
             ...partialVariantForm,
           }
         })
-      )
-    },
+      ),
     [setDietForm]
   )
 
   const setSelectedVariantFormIndex = useCallback(
-    (index: number) => {
-      setDietForm(dietForm =>
-        produce(dietForm, draftDietForm => {
+    (index: number) =>
+      setDietForm(
+        produce(draftDietForm => {
           draftDietForm.selectedVariantFormIndex = index
         })
-      )
-    },
+      ),
     [setDietForm]
   )
 

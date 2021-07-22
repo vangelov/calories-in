@@ -18,8 +18,6 @@ function VariantsList() {
   const dietFormActions = useDietFormActions()
   const dietForm = useDietForm()
 
-  console.log('DIET', dietForm)
-
   const onVariantItemFirstAppear = useCallback(() => {
     // Safari also scrolls the meals list if behaviour is 'smooth'
     appendButtonRef.current?.scrollIntoView(

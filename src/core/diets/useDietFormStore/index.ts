@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import { DietForm } from '../dietForm'
 import useVariantsFormsActions, {
   VariantsFormsActions,
@@ -8,13 +8,14 @@ import { useCallbacksMemo } from 'general/stores'
 import useIngredientsFormsActions, {
   IngredientsFormsActions,
 } from './useIngredientsFormsActions'
-import { VariantForm } from '../variants'
-import { MealForm } from '../meals'
+import { DndRespondersActions } from 'general/dndResponders/useDndRespondersStore'
+import { AnimationsStoreActions } from 'general/oneTimeCheck/useOneTimeCheckStore'
+import { makeStoreProvider } from 'general/stores'
 
 export type Params = {
   initialDietForm: DietForm
-  onBeforeAppendVariantForm: (variantForm: VariantForm) => void
-  onBeforeAppendMealForm: (mealForm: MealForm) => void
+  dndRespondersActions: DndRespondersActions
+  animationsStoreActions: AnimationsStoreActions
 }
 
 type Actions = VariantsFormsActions &
@@ -23,27 +24,41 @@ type Actions = VariantsFormsActions &
 
 function useDietFormStore({
   initialDietForm,
-  onBeforeAppendVariantForm,
-  onBeforeAppendMealForm,
+  dndRespondersActions,
+  animationsStoreActions,
 }: Params) {
   const [dietForm, setDietForm] = useState(initialDietForm)
 
   const variantsFormsActions = useVariantsFormsActions({
     setDietForm,
-    onBeforeAppendVariantForm,
+    animationsStoreActions,
   })
 
   const mealsFormsActions = useMealsFormsActions({
     setDietForm,
-    onBeforeAppendMealForm,
+    animationsStoreActions,
+    dndRespondersActions,
   })
 
   const ingredientsFormsActions = useIngredientsFormsActions({
     setDietForm,
   })
 
+  const updateDietForm = useCallback(
+    (partialDietForm: Partial<DietForm>) => {
+      setDietForm(dietForm => {
+        return {
+          ...dietForm,
+          ...partialDietForm,
+        }
+      })
+    },
+    [setDietForm]
+  )
+
   const ownActions = {
     setDietForm,
+    updateDietForm,
   }
 
   const actions: Actions & typeof ownActions = useCallbacksMemo({
@@ -55,5 +70,13 @@ function useDietFormStore({
 
   return [dietForm, actions] as const
 }
+
+const [
+  DietFormStoreProvider,
+  useDietForm,
+  useDietFormActions,
+] = makeStoreProvider(useDietFormStore)
+
+export { DietFormStoreProvider, useDietForm, useDietFormActions }
 
 export default useDietFormStore

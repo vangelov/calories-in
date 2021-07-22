@@ -35,7 +35,8 @@ function useOneTimeCheckStore() {
 }
 
 type OneTimeCheckStore = ReturnType<typeof useOneTimeCheckStore>
+type AnimationsStoreActions = OneTimeCheckStore
 
-export type { OneTimeCheckStore }
+export type { OneTimeCheckStore, AnimationsStoreActions }
 
 export default useOneTimeCheckStore

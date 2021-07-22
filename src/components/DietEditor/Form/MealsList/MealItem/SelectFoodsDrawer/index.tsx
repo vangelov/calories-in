@@ -7,9 +7,17 @@ type Props = {
   onClose: () => void
   isOpen: boolean
   mealName?: string
+  variantFormIndex: number
+  mealFormIndex: number
 }
 
-function SelectFoodsDrawer({ onClose, isOpen, mealName }: Props) {
+function SelectFoodsDrawer({
+  onClose,
+  isOpen,
+  mealName,
+  variantFormIndex,
+  mealFormIndex,
+}: Props) {
   const searchInputRef = useRef<HTMLInputElement>(null)
 
   return (
@@ -24,6 +32,8 @@ function SelectFoodsDrawer({ onClose, isOpen, mealName }: Props) {
       <Content
         onClose={onClose}
         mealName={mealName}
+        variantFormIndex={variantFormIndex}
+        mealFormIndex={mealFormIndex}
         searchInputRef={searchInputRef}
       />
     </Drawer>

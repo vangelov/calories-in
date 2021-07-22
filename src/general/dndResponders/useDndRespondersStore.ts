@@ -51,7 +51,8 @@ function useDndRespondersStore() {
 }
 
 type DndRespondersStore = ReturnType<typeof useDndRespondersStore>
+type DndRespondersActions = DndRespondersStore[1]
 
-export type { DndRespondersStore, Responder, Event }
+export type { DndRespondersStore, Responder, Event, DndRespondersActions }
 
 export default useDndRespondersStore

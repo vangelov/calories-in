@@ -16,24 +16,36 @@ import useSelection from 'general/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
 import FoodModal from 'components/foods/FoodModal'
 import Header from './Header'
-import { useIngredientsFormsStoreMethods } from 'core/diets'
+import { useDietFormActions } from 'core/diets'
 
 type Props = {
   onClose: () => void
   mealName?: string
   searchInputRef: RefObject<HTMLInputElement>
+  variantFormIndex: number
+  mealFormIndex: number
 }
 
-function Content({ onClose, mealName, searchInputRef }: Props) {
+function Content({
+  onClose,
+  mealName,
+  searchInputRef,
+  variantFormIndex,
+  mealFormIndex,
+}: Props) {
   const selection = useSelection<Food>()
   const foodModalDisclosure = useDisclosure()
   const [food, setFood] = useState<Food>()
   const [canEdit, setCanEdit] = useState(false)
-  const ingredientsFormsStoreMethods = useIngredientsFormsStoreMethods()
+  const dietFormActions = useDietFormActions()
   const listRef = useRef<FoodsListMethods>(null)
 
   function onSaveButtonClick() {
-    ingredientsFormsStoreMethods.addIngredientsForms(selection.selectedItems)
+    dietFormActions.appendIngredientsForms(
+      variantFormIndex,
+      mealFormIndex,
+      selection.selectedItems
+    )
     onClose()
   }
 

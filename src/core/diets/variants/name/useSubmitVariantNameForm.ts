@@ -22,7 +22,6 @@ function useSubmitVariantNameForm({
   const { handleSubmit } = useFormContext()
 
   const onSubmit = handleSubmit((form: VariantNameForm) => {
-    console.log('submit', form)
     onComplete()
 
     if (submitAction === 'append') {
