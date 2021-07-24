@@ -1,5 +1,5 @@
 import { Diet } from 'core/types'
-import { getVariantForm, VariantForm } from './variants'
+import { getVariantForm, VariantForm } from './variantForm'
 
 type DietForm = {
   formId: string

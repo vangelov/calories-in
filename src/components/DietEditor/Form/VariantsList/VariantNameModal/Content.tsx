@@ -13,13 +13,8 @@ import {
 import { RefObject, useEffect } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useMergeRefs } from '@chakra-ui/react'
-import {
-  getInsertVariantFormAnimationKey,
-  VariantForm,
-  VariantNameFormSubmitAction,
-} from 'core/diets'
 import useSubmitVariantForm from 'core/diets/variantForm/useSubmitVariantForm'
-import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
+import { VariantNameFormSubmitAction } from 'core/diets/variantForm/useSubmitVariantForm'
 
 type Props = {
   title: string
@@ -44,9 +39,7 @@ function Content({
   const onSubmit = useSubmitVariantForm({
     variantFormIndex,
     submitAction,
-    onComplete: (variantForm: VariantForm) => {
-      onClose()
-    },
+    onComplete: onClose,
   })
 
   useEffect(() => {

@@ -1,36 +1,33 @@
-import { useCallback, SetStateAction, useEffect } from 'react'
+import { useCallback, SetStateAction } from 'react'
 import { DietForm } from '../dietForm'
 import produce from 'immer'
-import { getInsertMealFormAnimationKey, getMealForm, MealForm } from '../meals'
-import { AnimationsStoreActions } from 'general/oneTimeCheck/useOneTimeCheckStore'
-import { DndRespondersActions } from 'general/dndResponders/useDndRespondersStore'
-import { DropResult } from 'react-beautiful-dnd'
+import {
+  getInsertMealFormAnimationKey,
+  getMealForm,
+  MealForm,
+} from '../mealForm'
+import { OneTimeCheckActions } from 'general/oneTimeCheck'
 
 type Params = {
   setDietForm: (action: SetStateAction<DietForm>) => void
-  animationsStoreActions: AnimationsStoreActions
-  dndRespondersActions: DndRespondersActions
+  oneTimeCheckActions: OneTimeCheckActions
 }
 
-function useMealsFormsActions({
-  setDietForm,
-  animationsStoreActions,
-  dndRespondersActions,
-}: Params) {
+function useMealsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
   const appendMealForm = useCallback(
     (variantIndex: number) =>
       setDietForm(
         produce(draftDietForm => {
           const mealForm = getMealForm()
 
-          animationsStoreActions.set(
+          oneTimeCheckActions.set(
             getInsertMealFormAnimationKey(mealForm.fieldId)
           )
 
           draftDietForm.variantsForms[variantIndex].mealsForms.push(mealForm)
         })
       ),
-    [setDietForm, animationsStoreActions]
+    [setDietForm, oneTimeCheckActions]
   )
 
   const removeMealForm = useCallback(
@@ -92,21 +89,6 @@ function useMealsFormsActions({
     },
     [setDietForm]
   )
-
-  useEffect(() => {
-    const responder = (result: DropResult) => {
-      const { source, destination, type } = result
-
-      if (destination && type === 'mealsList') {
-        moveMealForm(source.index, destination.index)
-      }
-    }
-    dndRespondersActions.pushResponder(responder, 'onDragEnd')
-
-    return () => {
-      dndRespondersActions.removeResponder(responder, 'onDragEnd')
-    }
-  }, [dndRespondersActions, moveMealForm])
 
   return {
     appendMealForm,

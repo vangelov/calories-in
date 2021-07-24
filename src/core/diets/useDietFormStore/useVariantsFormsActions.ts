@@ -1,24 +1,32 @@
 import { useCallback, SetStateAction } from 'react'
-import { DietForm } from '../../dietForm'
+import { DietForm } from '../dietForm'
 import produce from 'immer'
 import {
   getInsertVariantFormAnimationKey,
   getVariantForm,
   VariantForm,
-} from '../../variants'
-import getIndexAfterRemove from './getIndexAfterRemove'
-import duplicate from './duplicate'
-import { AnimationsStoreActions } from 'general/oneTimeCheck/useOneTimeCheckStore'
+  duplicate,
+} from '../variantForm'
+import { OneTimeCheckActions } from 'general/oneTimeCheck'
 
 type Params = {
   setDietForm: (action: SetStateAction<DietForm>) => void
-  animationsStoreActions: AnimationsStoreActions
+  oneTimeCheckActions: OneTimeCheckActions
 }
 
-function useVariantsFormsActions({
-  setDietForm,
-  animationsStoreActions,
-}: Params) {
+function getIndexAfterRemove(selectedIndex: number, indexToRemove: number) {
+  if (indexToRemove < selectedIndex) {
+    return selectedIndex - 1
+  }
+
+  if (indexToRemove === selectedIndex && indexToRemove > 0) {
+    return indexToRemove - 1
+  }
+
+  return selectedIndex
+}
+
+function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
   const appendVariantForm = useCallback(
     (partialVariantForm: Partial<VariantForm>) =>
       setDietForm(
@@ -28,7 +36,7 @@ function useVariantsFormsActions({
             ...partialVariantForm,
           }
 
-          animationsStoreActions.set(
+          oneTimeCheckActions.set(
             getInsertVariantFormAnimationKey(variantForm.fieldId)
           )
 
@@ -38,7 +46,7 @@ function useVariantsFormsActions({
             draftDietForm.variantsForms.length - 1
         })
       ),
-    [setDietForm, animationsStoreActions]
+    [setDietForm, oneTimeCheckActions]
   )
 
   const removeVariantForm = useCallback(
@@ -65,7 +73,7 @@ function useVariantsFormsActions({
           const variantForm = variantsForms[variantFormIndex]
 
           const copiedVariantForm = duplicate(variantForm)
-          animationsStoreActions.set(
+          oneTimeCheckActions.set(
             getInsertVariantFormAnimationKey(copiedVariantForm.fieldId)
           )
           variantsForms.push({
@@ -76,7 +84,7 @@ function useVariantsFormsActions({
           draftDietForm.selectedVariantFormIndex = variantsForms.length - 1
         })
       ),
-    [setDietForm, animationsStoreActions]
+    [setDietForm, oneTimeCheckActions]
   )
 
   const moveVariantForm = useCallback(

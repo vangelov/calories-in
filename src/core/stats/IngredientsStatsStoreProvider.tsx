@@ -1,4 +1,4 @@
-import { MealField } from 'core/diets'
+import { MealForm } from 'core/diets'
 import makeUseContext from 'general/makeUseContext'
 import { createContext, ReactNode, useEffect } from 'react'
 import { useIngredientsStatsStore } from '.'
@@ -14,20 +14,20 @@ type Props = {
   children: ReactNode
   variantIndex: number
   mealIndex: number
-  mealField: MealField
+  mealForm: MealForm
 }
 
 function IngredientsStatsStoreProvider({
   children,
   variantIndex,
   mealIndex,
-  mealField,
+  mealForm,
 }: Props) {
   const mealsStatsStoreMethods = useMealsStatsStoreMethods()
   const [state] = useIngredientsStatsStore({
     variantIndex,
     mealIndex,
-    mealField,
+    mealForm,
   })
 
   useEffect(() => {

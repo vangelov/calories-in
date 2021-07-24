@@ -1,9 +1,8 @@
 import { Modal, ModalOverlay } from '@chakra-ui/react'
-import { VariantForm } from 'core/diets'
 import { useRef } from 'react'
 import Content from './Content'
-import { VariantNameFormSubmitAction } from 'core/diets'
 import VariantFormMethodsProvider from 'core/diets/variantForm/VariantFormMethodsProvider'
+import { VariantNameFormSubmitAction } from 'core/diets/variantForm/useSubmitVariantForm'
 
 type Props = {
   onClose: () => void

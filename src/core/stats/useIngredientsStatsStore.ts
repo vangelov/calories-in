@@ -1,5 +1,4 @@
-import { useWatch } from 'react-hook-form'
-import { MealField, getIngredientsFormsPath, IngredientForm } from 'core/diets'
+import { MealForm, IngredientForm } from 'core/diets'
 import sumStats from './sumStats'
 import { useFoodsStoreState } from 'core/foods'
 import getIngredientStats from './getIngredientStats'
@@ -7,18 +6,18 @@ import getIngredientStats from './getIngredientStats'
 type Params = {
   variantIndex: number
   mealIndex: number
-  mealField: MealField
+  mealForm: MealForm
 }
 
 function useIngredientsStatsStore({
   variantIndex,
   mealIndex,
-  mealField,
+  mealForm,
 }: Params) {
-  const ingredientsForms = useWatch({
+  const ingredientsForms = [] as IngredientForm[] /*useWatch({
     name: getIngredientsFormsPath(variantIndex, mealIndex),
-    defaultValue: mealField.ingredientsForms,
-  }) as IngredientForm[]
+    defaultValue: mealForm.ingredientsForms,
+  }) as IngredientForm[]*/
 
   const { getFoodById } = useFoodsStoreState()
   const ingredientsStats = (ingredientsForms || []).map(ingredientsForm => {

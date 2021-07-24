@@ -3,30 +3,30 @@ import { useRef } from 'react'
 import { FormChangesStoreProvider } from 'general/undoRedo'
 import Form from './Form'
 import { DietFormStoreProvider } from 'core/diets'
-import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
-import { useDndRespondersStoreMethods } from 'general/dndResponders'
+import { useOneTimeCheckActions } from 'general/oneTimeCheck'
+import DndContextProvider from './DndContextProvider'
 
 function DietEditor() {
   const dietForm = getDietForm()
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
-  const animationsStoreActions = useOneTimeCheckStoreMethods()
-  const dndRespondersActions = useDndRespondersStoreMethods()
+  const oneTimeCheckActions = useOneTimeCheckActions()
 
   return (
     <DietFormStoreProvider
       initialDietForm={dietForm}
-      animationsStoreActions={animationsStoreActions}
-      dndRespondersActions={dndRespondersActions}
+      oneTimeCheckActions={oneTimeCheckActions}
     >
-      <FormChangesStoreProvider
-        horizontalScrollRef={horizontalScrollRef}
-        initialDietForm={dietForm}
-      >
-        <Form
+      <DndContextProvider>
+        <FormChangesStoreProvider
           horizontalScrollRef={horizontalScrollRef}
-          isEditingExistingDiet={false}
-        />
-      </FormChangesStoreProvider>
+          initialDietForm={dietForm}
+        >
+          <Form
+            horizontalScrollRef={horizontalScrollRef}
+            isEditingExistingDiet={false}
+          />
+        </FormChangesStoreProvider>
+      </DndContextProvider>
     </DietFormStoreProvider>
   )
 }

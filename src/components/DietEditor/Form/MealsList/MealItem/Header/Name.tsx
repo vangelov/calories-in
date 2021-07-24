@@ -1,17 +1,17 @@
 import { BoxProps, Input } from '@chakra-ui/react'
-import { MealField, useDietFormActions } from 'core/diets'
+import { MealForm, useDietFormActions } from 'core/diets'
 import { RefObject, ChangeEvent } from 'react'
 
 type Props = {
   variantIndex: number
-  mealField: MealField
+  mealForm: MealForm
   index: number
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
 } & BoxProps
 
 function Name({
   variantIndex,
-  mealField,
+  mealForm,
   index,
   getMealNameInputRefById,
   ...rest
@@ -28,7 +28,7 @@ function Name({
 
   return (
     <Input
-      ref={getMealNameInputRefById(mealField.fieldId as string)}
+      ref={getMealNameInputRefById(mealForm.fieldId)}
       placeholder="Meal name"
       onChange={onNameChange}
       autoComplete="off"
@@ -38,7 +38,7 @@ function Name({
       fontSize="md"
       fontWeight="medium"
       size="md"
-      value={mealField.name}
+      value={mealForm.name}
       {...rest}
     />
   )

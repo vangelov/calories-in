@@ -1,7 +1,6 @@
 import { chakra } from '@chakra-ui/react'
 import Stat from 'components/stats/Stat'
 import { ArrowUpCircle, ArrowDownCircle } from 'react-feather'
-import { useInitialEnergyState } from 'core/stats/InitialEnergyProvider'
 import useSameOrPreviousValue from 'general/useSameOrPreviousValue'
 
 const ArrowUpCircleStyled = chakra(ArrowUpCircle)

@@ -3,8 +3,8 @@ import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
 import VariantNameModal from './VariantNameModal'
-import { useEffect, useRef, useState, useCallback } from 'react'
-import { VariantNameFormSubmitAction } from 'core/diets'
+import { useRef, useState, useCallback } from 'react'
+import { VariantNameFormSubmitAction } from 'core/diets/variantForm/useSubmitVariantForm'
 import { isSafari } from 'react-device-detect'
 import { useDietForm, useDietFormActions } from 'core/diets'
 
@@ -64,7 +64,7 @@ function VariantsList() {
     >
       {(provided, snapshot) => (
         <Flex ref={provided.innerRef}>
-          {dietForm.variantsForms.map((variantField, index) => {
+          {dietForm.variantsForms.map((variantForm, index) => {
             return (
               <VariantItem
                 canRemove={dietForm.variantsForms.length > 1}
@@ -73,13 +73,13 @@ function VariantsList() {
                 onDelete={dietFormActions.removeVariantForm}
                 onEditName={onRename}
                 onClone={onCopy}
-                key={variantField.fieldId}
-                variantField={variantField}
+                key={variantForm.fieldId}
+                variantForm={variantForm}
                 isSelected={index === dietForm.selectedVariantFormIndex}
                 onSelect={dietFormActions.setSelectedVariantFormIndex}
                 onFirstAppear={onVariantItemFirstAppear}
               >
-                {variantField.name}
+                {variantForm.name}
               </VariantItem>
             )
           })}

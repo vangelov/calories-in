@@ -1,9 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form'
-import {
-  getVariantForm,
-  VariantForm,
-  variantFormSchema,
-} from '../variants/variantForm'
+import { getVariantForm, VariantForm, variantFormSchema } from '../variantForm'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ReactNode } from 'react'
 import { useDietForm } from '../useDietFormStore'

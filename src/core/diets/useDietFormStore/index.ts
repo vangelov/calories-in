@@ -8,14 +8,12 @@ import { useCallbacksMemo } from 'general/stores'
 import useIngredientsFormsActions, {
   IngredientsFormsActions,
 } from './useIngredientsFormsActions'
-import { DndRespondersActions } from 'general/dndResponders/useDndRespondersStore'
-import { AnimationsStoreActions } from 'general/oneTimeCheck/useOneTimeCheckStore'
+import { OneTimeCheckActions } from 'general/oneTimeCheck'
 import { makeStoreProvider } from 'general/stores'
 
 export type Params = {
   initialDietForm: DietForm
-  dndRespondersActions: DndRespondersActions
-  animationsStoreActions: AnimationsStoreActions
+  oneTimeCheckActions: OneTimeCheckActions
 }
 
 type Actions = VariantsFormsActions &
@@ -24,24 +22,24 @@ type Actions = VariantsFormsActions &
 
 function useDietFormStore({
   initialDietForm,
-  dndRespondersActions,
-  animationsStoreActions,
+
+  oneTimeCheckActions,
 }: Params) {
   const [dietForm, setDietForm] = useState(initialDietForm)
 
   const variantsFormsActions = useVariantsFormsActions({
     setDietForm,
-    animationsStoreActions,
+    oneTimeCheckActions,
   })
 
   const mealsFormsActions = useMealsFormsActions({
     setDietForm,
-    animationsStoreActions,
-    dndRespondersActions,
+    oneTimeCheckActions,
   })
 
   const ingredientsFormsActions = useIngredientsFormsActions({
     setDietForm,
+    oneTimeCheckActions,
   })
 
   const updateDietForm = useCallback(

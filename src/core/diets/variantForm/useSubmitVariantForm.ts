@@ -1,5 +1,5 @@
 import { useFormContext } from 'react-hook-form'
-import { VariantForm } from '../variants'
+import { VariantForm } from './index'
 import { useDietFormActions } from '../useDietFormStore'
 
 type VariantNameFormSubmitAction = 'rename' | 'copy' | 'append'

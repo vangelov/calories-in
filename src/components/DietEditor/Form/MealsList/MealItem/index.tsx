@@ -1,9 +1,9 @@
-import { MealField, MealForm } from 'core/diets'
+import { MealForm } from 'core/diets'
 import { Flex, LayoutProps, SpaceProps, useDisclosure } from '@chakra-ui/react'
 import Header from './Header'
 import { RefObject, useState, memo } from 'react'
 import { motion } from 'framer-motion'
-import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
+import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import { getInsertMealFormAnimationKey } from 'core/diets'
 import { Draggable } from 'react-beautiful-dnd'
 import IngredientsList from './IngredientsList'
@@ -15,7 +15,7 @@ type Props = {
   variantIndex: number
   onRemove: (variantIndex: number, index: number) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
-  onFirstAppear: (mealField: MealField) => void
+  onFirstAppear: (mealForm: MealForm) => void
 } & LayoutProps &
   SpaceProps
 
@@ -38,7 +38,7 @@ function MealItem({
   ...rest
 }: Props) {
   const [isVisible, setIsVisible] = useState(true)
-  const oneTimeCheck = useOneTimeCheckStoreMethods()
+  const oneTimeCheckActions = useOneTimeCheckActions()
   const drawerDisclosure = useDisclosure()
 
   function onAnimationComplete() {
@@ -49,7 +49,7 @@ function MealItem({
     }
   }
 
-  const pendingAnimationForInserted = oneTimeCheck.checkAndReset(
+  const pendingAnimationForInserted = oneTimeCheckActions.checkAndReset(
     getInsertMealFormAnimationKey(mealForm.fieldId as string)
   )
 
@@ -90,14 +90,14 @@ function MealItem({
               variantIndex={variantIndex}
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}
-              mealField={mealForm}
+              mealForm={mealForm}
               onRemove={() => setIsVisible(false)}
               onAddIngredient={drawerDisclosure.onOpen}
             />
 
             <IngredientsList
               ingredientsForms={mealForm.ingredientsForms}
-              mealField={mealForm}
+              mealForm={mealForm}
               mealIndex={index}
               variantIndex={variantIndex}
               onAddIngredients={drawerDisclosure.onOpen}

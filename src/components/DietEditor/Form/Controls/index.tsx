@@ -2,13 +2,9 @@ import { Flex } from '@chakra-ui/react'
 import UndoRedoButtons from './UndoRedoButtons'
 import MenuButtons from './MenuButtons'
 import MainButtons from './MainButtons'
-import { useMealsFormsStoreMethods } from 'core/diets'
 import { useDietFormActions } from 'core/diets'
-import { useFormChangesStoreMethods } from 'general/undoRedo'
 
 function Controls() {
-  //const mealsStoreMethods = useMealsFormsStoreMethods()
-
   const dietFormStoreActions = useDietFormActions()
 
   return (
@@ -23,7 +19,6 @@ function Controls() {
         <MainButtons
           onMealAdd={() => {
             dietFormStoreActions.appendMealForm(0)
-            //fuck.saveLastChange()
           }}
           onSave={() => {}}
         />

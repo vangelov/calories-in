@@ -1,10 +1,8 @@
-import { Input, Flex } from '@chakra-ui/react'
-import { getIngredientsFormsPath, IngredientField } from 'core/diets'
-import { useFormContext, Controller, useWatch } from 'react-hook-form'
+import { Flex } from '@chakra-ui/react'
+import { IngredientForm, useDietFormActions } from 'core/diets'
 import { Draggable } from 'react-beautiful-dnd'
-import { useFormChangesStoreMethods } from 'general/undoRedo'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useState, memo, ChangeEvent } from 'react'
 import { FoodInfo } from 'components/foods'
 import { FoodAmountInput } from 'components/foods'
 import StatsLayout from 'components/stats/StatsLayout'
@@ -12,8 +10,7 @@ import Stat from 'components/stats/Stat'
 import RightAligned from 'components/general/RightAligned'
 import Menu from './Menu'
 import { useFoodsStoreState } from 'core/foods'
-import { getIngredientStats } from 'core/stats'
-import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
+import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import { getInsertIngredientFormAnimationKey } from 'core/diets'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
 
@@ -21,7 +18,7 @@ type Props = {
   variantIndex: number
   mealIndex: number
   index: number
-  ingredientField: IngredientField
+  ingredientForm: IngredientForm
 
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
 }
@@ -39,25 +36,22 @@ function IngredientItem({
   variantIndex,
   mealIndex,
   index,
-  ingredientField,
+  ingredientForm,
   onRemove,
 }: Props) {
-  const { register, control } = useFormContext()
-  const { saveLastChange } = useFormChangesStoreMethods()
   const [isVisible, setIsVisible] = useState(true)
-  const amountName = getIngredientsFormsPath(
-    variantIndex,
-    mealIndex,
-    index,
-    'amountInGrams'
-  )
-  const amountInGrams = useWatch({ name: amountName })
-  const oneTimeCheck = useOneTimeCheckStoreMethods()
+
+  const oneTimeCheckActions = useOneTimeCheckActions()
+  const dietFormActions = useDietFormActions()
   const screenSize = useScreenSize()
   const amountInputSize = screenSize >= 2 ? 'sm' : 'md'
 
-  function onAmountChange() {
-    saveLastChange()
+  function onAmountChange(event: ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target
+
+    dietFormActions.updateIngredientForm(variantIndex, mealIndex, index, {
+      amountInGrams: value,
+    })
   }
 
   function onAnimationComplete() {
@@ -66,22 +60,26 @@ function IngredientItem({
     }
   }
 
-  if (!ingredientField.foodId || !ingredientField.fieldId) {
-    throw new Error('Food id is missing')
-  }
-
-  const pendingAnimationForInserted = oneTimeCheck.checkAndReset(
-    getInsertIngredientFormAnimationKey(ingredientField.fieldId)
+  const pendingAnimationForInserted = oneTimeCheckActions.checkAndReset(
+    getInsertIngredientFormAnimationKey(ingredientForm.fieldId)
   )
 
   const { getFoodById } = useFoodsStoreState()
-  const food = getFoodById(ingredientField.foodId)
-  const ingredientStats = getIngredientStats(amountInGrams, food)
+  const food = getFoodById(ingredientForm.foodId)
+  //const ingredientStats = getIngredientStats(amountInGrams, food)
+
+  const ingredientStats = {
+    protein: 0,
+    energy: 0,
+    fat: 0,
+    carbs: 0,
+    amountInGrams: 0,
+  }
 
   return (
     <Draggable
-      key={ingredientField.fieldId}
-      draggableId={ingredientField.fieldId as string}
+      key={ingredientForm.fieldId}
+      draggableId={ingredientForm.fieldId as string}
       index={index}
     >
       {(provided, snapshot) => (
@@ -107,32 +105,6 @@ function IngredientItem({
             py={2}
             _hover={{ backgroundColor: 'gray.50' }}
           >
-            <Input
-              fontSize="md"
-              type="hidden"
-              {...register(
-                getIngredientsFormsPath(
-                  variantIndex,
-                  mealIndex,
-                  index,
-                  'fieldId'
-                )
-              )}
-              defaultValue={ingredientField.fieldId}
-            />
-
-            <Controller
-              render={() => <div />}
-              name={getIngredientsFormsPath(
-                variantIndex,
-                mealIndex,
-                index,
-                'foodId'
-              )}
-              control={control}
-              defaultValue={ingredientField.foodId}
-            />
-
             <StatsLayout
               prefersAmount={true}
               nameElement={
@@ -146,9 +118,8 @@ function IngredientItem({
                 <RightAligned>
                   <FoodAmountInput
                     size={amountInputSize}
-                    name={amountName}
                     onChange={onAmountChange}
-                    defaultValue={ingredientField.amountInGrams}
+                    value={ingredientForm.amountInGrams}
                   />
                 </RightAligned>
               }
@@ -173,4 +144,4 @@ function IngredientItem({
   )
 }
 
-export default IngredientItem
+export default memo(IngredientItem)

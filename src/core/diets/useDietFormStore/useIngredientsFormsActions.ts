@@ -2,15 +2,25 @@ import { useCallback, SetStateAction } from 'react'
 import { DietForm } from '../dietForm'
 import produce from 'immer'
 import { Food } from 'core/types'
-import { getIngredientForm, IngredientForm } from '../ingredients'
+import {
+  getIngredientForm,
+  getInsertIngredientFormAnimationKey,
+  IngredientForm,
+} from '../ingredientForm'
+import { OneTimeCheckActions } from 'general/oneTimeCheck'
 
 type Params = {
   setDietForm: (action: SetStateAction<DietForm>) => void
+  oneTimeCheckActions: OneTimeCheckActions
 }
 
 const DEFAULT_AMOUNT_IN_GRAMS = 100
 
-function useIngredientsFormsActions({ setDietForm }: Params) {
+function useIngredientsFormsActions({
+  setDietForm,
+
+  oneTimeCheckActions,
+}: Params) {
   const appendIngredientsForms = useCallback(
     (variantFormIndex: number, mealFormIndex: number, foods: Food[]) => {
       setDietForm(dietForm =>
@@ -21,6 +31,11 @@ function useIngredientsFormsActions({ setDietForm }: Params) {
               amountInGrams: DEFAULT_AMOUNT_IN_GRAMS,
             })
           )
+          ingredientForms.forEach(({ fieldId }) => {
+            oneTimeCheckActions.set(
+              getInsertIngredientFormAnimationKey(fieldId)
+            )
+          })
           const { variantsForms } = draftDietForm
           const { mealsForms } = variantsForms[variantFormIndex]
           const { ingredientsForms } = mealsForms[mealFormIndex]
@@ -28,7 +43,7 @@ function useIngredientsFormsActions({ setDietForm }: Params) {
         })
       )
     },
-    [setDietForm]
+    [setDietForm, oneTimeCheckActions]
   )
 
   const removeIngredientForm = useCallback(
@@ -50,7 +65,7 @@ function useIngredientsFormsActions({ setDietForm }: Params) {
     [setDietForm]
   )
 
-  const setIngredientForm = useCallback(
+  const updateIngredientForm = useCallback(
     (
       variantFormIndex: number,
       mealFormIndex: number,
@@ -76,7 +91,6 @@ function useIngredientsFormsActions({ setDietForm }: Params) {
 
   const moveIngredientForm = useCallback(
     (
-      variantFormIndex: number,
       sourceMealFormId: string,
       sourceIngredientFormIndex: number,
       destinationMealFormId: string,
@@ -84,7 +98,11 @@ function useIngredientsFormsActions({ setDietForm }: Params) {
     ) => {
       setDietForm(dietForm =>
         produce(dietForm, draftDietForm => {
-          const { mealsForms } = draftDietForm.variantsForms[variantFormIndex]
+          const { selectedVariantFormIndex } = dietForm
+
+          const { mealsForms } = draftDietForm.variantsForms[
+            selectedVariantFormIndex
+          ]
           const sourceMealForm = mealsForms.find(
             ({ fieldId }) => fieldId === sourceMealFormId
           )
@@ -116,7 +134,7 @@ function useIngredientsFormsActions({ setDietForm }: Params) {
   return {
     appendIngredientsForms,
     removeIngredientForm,
-    setIngredientForm,
+    updateIngredientForm,
     moveIngredientForm,
   }
 }

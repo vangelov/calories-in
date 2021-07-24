@@ -1,14 +1,13 @@
 import { BoxProps, Flex } from '@chakra-ui/react'
-import { MealField } from 'core/diets'
+import { MealForm } from 'core/diets'
 import StatsLayout from 'components/stats/StatsLayout'
 import Stat from 'components/stats/Stat'
 import { RefObject } from 'react'
 import Name from './Name'
 import Menu from './Menu'
-import { useIngredientsStatsStoreState } from 'core/stats/IngredientsStatsStoreProvider'
 
 type Props = {
-  mealField: MealField
+  mealForm: MealForm
   variantIndex: number
   index: number
   onAddIngredient: (index: number) => void
@@ -17,7 +16,7 @@ type Props = {
 } & BoxProps
 
 function Header({
-  mealField,
+  mealForm,
   variantIndex,
   index,
   onRemove,
@@ -50,7 +49,7 @@ function Header({
           <Name
             variantIndex={variantIndex}
             ml={3}
-            mealField={mealField}
+            mealForm={mealForm}
             getMealNameInputRefById={getMealNameInputRefById}
             index={index}
           />
@@ -85,7 +84,7 @@ function Header({
         menuElement={
           <Menu
             mr={3}
-            mealField={mealField}
+            mealForm={mealForm}
             index={index}
             onAddIngredient={() => onAddIngredient(index)}
             onRemove={() => onRemove(index)}

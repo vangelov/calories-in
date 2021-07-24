@@ -1,4 +1,5 @@
-import { useMemo, useRef, useCallback } from 'react'
+import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
+import { useRef, useCallback } from 'react'
 
 type KeysMap = {
   [key: string]: boolean | undefined
@@ -23,20 +24,24 @@ function useOneTimeCheckStore() {
     keysMapRef.current[key] = true
   }, [])
 
-  const methods = useMemo(
-    () => ({
-      checkAndReset,
-      set,
-    }),
-    [checkAndReset, set]
-  )
+  const actions = useCallbacksMemo({
+    checkAndReset,
+    set,
+  })
 
-  return methods
+  return [keysMapRef, actions] as const
 }
 
-type OneTimeCheckStore = ReturnType<typeof useOneTimeCheckStore>
-type AnimationsStoreActions = OneTimeCheckStore
+const [
+  OneTimeCheckStoreProvider,
+  useOneTimeCheck,
+  useOneTimeCheckActions,
+] = makeStoreProvider(useOneTimeCheckStore)
 
-export type { OneTimeCheckStore, AnimationsStoreActions }
+type OneTimeCheckActions = ReturnType<typeof useOneTimeCheckActions>
+
+export { OneTimeCheckStoreProvider, useOneTimeCheck, useOneTimeCheckActions }
+
+export type { OneTimeCheckActions }
 
 export default useOneTimeCheckStore

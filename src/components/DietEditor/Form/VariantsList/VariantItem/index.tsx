@@ -1,10 +1,10 @@
 import { Box, Text, HStack, LayoutProps, SpaceProps } from '@chakra-ui/react'
-import { getInsertVariantFormAnimationKey, VariantField } from 'core/diets'
+import { getInsertVariantFormAnimationKey, VariantForm } from 'core/diets'
 import { ReactNode, useState } from 'react'
 import Menu from './Menu'
 import { Draggable } from 'react-beautiful-dnd'
 import { motion } from 'framer-motion'
-import { useOneTimeCheckStoreMethods } from 'general/oneTimeCheck'
+import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import { MouseEvent, memo } from 'react'
 
 type Props = {
@@ -14,7 +14,7 @@ type Props = {
   onEditName: (index: number) => void
   isSelected: boolean
   onSelect: (index: number) => void
-  variantField: VariantField
+  variantForm: VariantForm
   canRemove: boolean
   index: number
   onFirstAppear?: () => void
@@ -37,13 +37,13 @@ function VariantItem({
   children,
   isSelected,
   onSelect,
-  variantField,
+  variantForm,
   canRemove,
   index,
   onFirstAppear,
   ...rest
 }: Props) {
-  const oneTimeCheck = useOneTimeCheckStoreMethods()
+  const oneTimeCheckActions = useOneTimeCheckActions()
   const [isVisible, setIsVisible] = useState(true)
 
   function onAnimationComplete() {
@@ -54,12 +54,8 @@ function VariantItem({
     }
   }
 
-  if (!variantField.fieldId) {
-    throw new Error()
-  }
-
-  const pendingAnimationForInserted = oneTimeCheck.checkAndReset(
-    getInsertVariantFormAnimationKey(variantField.fieldId)
+  const pendingAnimationForInserted = oneTimeCheckActions.checkAndReset(
+    getInsertVariantFormAnimationKey(variantForm.fieldId)
   )
 
   function onClick(event: MouseEvent<HTMLDivElement>) {
@@ -75,8 +71,8 @@ function VariantItem({
 
   return (
     <Draggable
-      key={variantField.fieldId}
-      draggableId={variantField.fieldId as string}
+      key={variantForm.fieldId}
+      draggableId={variantForm.fieldId}
       index={index}
       isDragDisabled={!isSelected}
     >

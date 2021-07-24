@@ -1,5 +1,5 @@
 import { ButtonProps, chakra } from '@chakra-ui/react'
-import { MealField } from 'core/diets'
+import { MealForm } from 'core/diets'
 import MenuBase, { MenuItem } from 'components/general/Menu'
 import { MoreHorizontal, Plus, Trash2 } from 'react-feather'
 import RightAligned from 'components/general/RightAligned'
@@ -9,13 +9,13 @@ const PlusStyled = chakra(Plus)
 const Trash2Styled = chakra(Trash2)
 
 type Props = {
-  mealField: MealField
+  mealForm: MealForm
   onRemove: () => void
   onAddIngredient: () => void
   index: number
 } & ButtonProps
 
-function Menu({ mealField, index, onRemove, onAddIngredient, ...rest }: Props) {
+function Menu({ mealForm, index, onRemove, onAddIngredient, ...rest }: Props) {
   return (
     <RightAligned>
       <MenuBase
