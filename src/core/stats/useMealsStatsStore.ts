@@ -1,50 +1,42 @@
-import tuple from 'general/tuple'
 import { Stats } from './types'
-import { useState, useCallback, useMemo } from 'react'
-import sumStats from './sumStats'
+import { useState, useCallback } from 'react'
+import produce from 'immer'
+import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
 
 function useMealsStatsStore() {
-  const [mealStats, setMealsStats] = useState<Record<number, Stats>>({})
+  const [mealsStats, setMealsStats] = useState<Record<number, Stats>>({})
 
-  const addMealStats = useCallback((index: number, stats: Stats) => {
-    setMealsStats(state => {
-      return {
-        ...state,
-        [index]: stats,
-      }
-    })
-  }, [])
-
-  const deleteMealStats = useCallback((index: number) => {
-    setMealsStats(state => {
-      const newState = { ...state }
-      delete newState[index]
-      return newState
-    })
-  }, [])
-
-  const methods = useMemo(
-    () => ({
-      addMealStats,
-      deleteMealStats,
-    }),
-    [addMealStats, deleteMealStats]
+  const setMealStats = useCallback(
+    (index: number, stats: Stats) =>
+      setMealsStats(
+        produce(draftMealsStats => {
+          draftMealsStats[index] = stats
+        })
+      ),
+    []
   )
 
-  const state = useMemo(() => {
-    const mealsStats = Object.values(mealStats)
+  const deleteMealStats = useCallback(
+    (index: number) =>
+      setMealsStats(
+        produce(draftMealsStats => {
+          delete draftMealsStats[index]
+        })
+      ),
+    []
+  )
 
-    return {
-      mealStats,
-      mealsStatsSum: sumStats(mealsStats),
-    }
-  }, [mealStats])
+  const actions = useCallbacksMemo({ setMealStats, deleteMealStats })
 
-  return tuple(state, methods)
+  return [mealsStats, actions] as const
 }
 
-type MealsStatsStore = ReturnType<typeof useMealsStatsStore>
+const [
+  MealsStatsStoreProvider,
+  useMealsStats,
+  useMealsStatsActions,
+] = makeStoreProvider(useMealsStatsStore)
 
-export type { MealsStatsStore }
+export { MealsStatsStoreProvider, useMealsStatsActions, useMealsStats }
 
 export default useMealsStatsStore

@@ -4,6 +4,7 @@ import { Droppable } from 'react-beautiful-dnd'
 import EmptyList from './EmptyList'
 import { MealForm, IngredientForm, useDietFormActions } from 'core/diets'
 import { memo } from 'react'
+import { Stats } from 'core/stats'
 
 type Props = {
   mealIndex: number
@@ -11,6 +12,7 @@ type Props = {
   mealForm: MealForm
   onAddIngredients: () => void
   ingredientsForms: IngredientForm[]
+  ingredientsStats: Stats[]
 }
 
 function IngredientsList({
@@ -19,6 +21,7 @@ function IngredientsList({
   mealForm,
   onAddIngredients,
   ingredientsForms,
+  ingredientsStats,
 }: Props) {
   const dietFormActions = useDietFormActions()
 
@@ -34,6 +37,7 @@ function IngredientsList({
               mealIndex={mealIndex}
               index={index}
               ingredientForm={ingredientForm}
+              ingredientStats={ingredientsStats[index]}
             />
           ))}
           {ingredientsForms.length > 0 && provided.placeholder}

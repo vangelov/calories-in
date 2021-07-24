@@ -6,10 +6,8 @@ import RightAligned from 'components/general/RightAligned'
 import Name from './Name'
 import EnergyStat from './EnergyStat'
 import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
-import getMacrosPercentages, {
-  roundedMacroPercentages,
-} from 'core/stats/getMacrosPercentages'
 import { memo } from 'react'
+import { useDerivedMealsStats } from 'core/stats'
 
 const IntoStyled = chakra(Info)
 
@@ -18,26 +16,12 @@ type Props = {
 }
 
 function NameAndStats({ isEditingExistingDiet }: Props) {
-  //const { register } = useFormContext()
-  //const { mealsStatsSum } = useMealsStatsStoreState()
-
-  const mealsStatsSum = {
-    protein: 0,
-    carbs: 0,
-    fat: 0,
-    energy: 0,
-    amountInGrams: 0,
-    saturatedFat: 0,
-    sugar: 0,
-    sodium: 0,
-    fiber: 0,
-  }
-
   const {
+    mealsStatsSum,
     proteinPercentage,
     carbsPercentage,
     fatPercentage,
-  } = roundedMacroPercentages(getMacrosPercentages(mealsStatsSum))
+  } = useDerivedMealsStats()
 
   return (
     <Flex

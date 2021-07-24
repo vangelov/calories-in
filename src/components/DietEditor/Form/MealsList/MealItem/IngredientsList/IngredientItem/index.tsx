@@ -13,13 +13,14 @@ import { useFoodsStoreState } from 'core/foods'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import { getInsertIngredientFormAnimationKey } from 'core/diets'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
+import { Stats } from 'core/stats'
 
 type Props = {
   variantIndex: number
   mealIndex: number
   index: number
   ingredientForm: IngredientForm
-
+  ingredientStats: Stats
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
 }
 
@@ -37,6 +38,7 @@ function IngredientItem({
   mealIndex,
   index,
   ingredientForm,
+  ingredientStats,
   onRemove,
 }: Props) {
   const [isVisible, setIsVisible] = useState(true)
@@ -66,15 +68,6 @@ function IngredientItem({
 
   const { getFoodById } = useFoodsStoreState()
   const food = getFoodById(ingredientForm.foodId)
-  //const ingredientStats = getIngredientStats(amountInGrams, food)
-
-  const ingredientStats = {
-    protein: 0,
-    energy: 0,
-    fat: 0,
-    carbs: 0,
-    amountInGrams: 0,
-  }
 
   return (
     <Draggable

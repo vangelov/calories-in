@@ -5,6 +5,7 @@ import Stat from 'components/stats/Stat'
 import { RefObject } from 'react'
 import Name from './Name'
 import Menu from './Menu'
+import { Stats } from 'core/stats'
 
 type Props = {
   mealForm: MealForm
@@ -13,6 +14,7 @@ type Props = {
   onAddIngredient: (index: number) => void
   onRemove: (index: number) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
+  ingredientsStatsSum: Stats
 } & BoxProps
 
 function Header({
@@ -22,18 +24,9 @@ function Header({
   onRemove,
   onAddIngredient,
   getMealNameInputRefById,
+  ingredientsStatsSum,
   ...rest
 }: Props) {
-  //const { ingredientsStatsSum } = useIngredientsStatsStoreState()
-
-  const ingredientsStatsSum = {
-    protein: 0,
-    energy: 0,
-    fat: 0,
-    carbs: 0,
-    amountInGrams: 0,
-  }
-
   return (
     <Flex
       bg="gray.50"

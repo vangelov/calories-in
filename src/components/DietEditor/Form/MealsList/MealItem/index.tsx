@@ -8,6 +8,8 @@ import { getInsertMealFormAnimationKey } from 'core/diets'
 import { Draggable } from 'react-beautiful-dnd'
 import IngredientsList from './IngredientsList'
 import SelectFoodsDrawer from './SelectFoodsDrawer'
+import { useFoodsStoreState } from 'core/foods'
+import { useIngredientsStats, useUpdateMealStats } from 'core/stats'
 
 type Props = {
   mealForm: MealForm
@@ -34,12 +36,12 @@ function MealItem({
   getMealNameInputRefById,
   variantIndex,
   onFirstAppear,
-
   ...rest
 }: Props) {
   const [isVisible, setIsVisible] = useState(true)
   const oneTimeCheckActions = useOneTimeCheckActions()
   const drawerDisclosure = useDisclosure()
+  const { foodsById } = useFoodsStoreState()
 
   function onAnimationComplete() {
     if (pendingAnimationForInserted) {
@@ -50,13 +52,20 @@ function MealItem({
   }
 
   const pendingAnimationForInserted = oneTimeCheckActions.checkAndReset(
-    getInsertMealFormAnimationKey(mealForm.fieldId as string)
+    getInsertMealFormAnimationKey(mealForm.fieldId)
   )
+
+  const { ingredientsStats, ingredientsStatsSum } = useIngredientsStats(
+    mealForm.ingredientsForms,
+    foodsById
+  )
+
+  useUpdateMealStats(ingredientsStatsSum, index)
 
   return (
     <Draggable
       key={mealForm.fieldId}
-      draggableId={mealForm.fieldId as string}
+      draggableId={mealForm.fieldId}
       index={index}
     >
       {(provided, snapshot) => (
@@ -88,6 +97,7 @@ function MealItem({
             <Header
               {...provided.dragHandleProps}
               variantIndex={variantIndex}
+              ingredientsStatsSum={ingredientsStatsSum}
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}
               mealForm={mealForm}
@@ -97,6 +107,7 @@ function MealItem({
 
             <IngredientsList
               ingredientsForms={mealForm.ingredientsForms}
+              ingredientsStats={ingredientsStats}
               mealForm={mealForm}
               mealIndex={index}
               variantIndex={variantIndex}

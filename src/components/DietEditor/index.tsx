@@ -5,6 +5,7 @@ import Form from './Form'
 import { DietFormStoreProvider } from 'core/diets'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import DndContextProvider from './DndContextProvider'
+import { MealsStatsStoreProvider } from 'core/stats'
 
 function DietEditor() {
   const dietForm = getDietForm()
@@ -16,17 +17,19 @@ function DietEditor() {
       initialDietForm={dietForm}
       oneTimeCheckActions={oneTimeCheckActions}
     >
-      <DndContextProvider>
-        <FormChangesStoreProvider
-          horizontalScrollRef={horizontalScrollRef}
-          initialDietForm={dietForm}
-        >
-          <Form
+      <MealsStatsStoreProvider>
+        <DndContextProvider>
+          <FormChangesStoreProvider
             horizontalScrollRef={horizontalScrollRef}
-            isEditingExistingDiet={false}
-          />
-        </FormChangesStoreProvider>
-      </DndContextProvider>
+            initialDietForm={dietForm}
+          >
+            <Form
+              horizontalScrollRef={horizontalScrollRef}
+              isEditingExistingDiet={false}
+            />
+          </FormChangesStoreProvider>
+        </DndContextProvider>
+      </MealsStatsStoreProvider>
     </DietFormStoreProvider>
   )
 }
