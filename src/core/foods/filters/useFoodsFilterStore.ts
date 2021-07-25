@@ -1,6 +1,6 @@
-import tuple from 'general/tuple'
-import { useCallback, useState, useMemo, useRef } from 'react'
+import { useCallback, useState, useRef } from 'react'
 import { FoodsFilter, DEFAULT_FILTER } from './foodsFilter'
+import { useCallbacksMemo } from 'general/stores'
 
 let savedFilter = DEFAULT_FILTER
 
@@ -9,42 +9,33 @@ function useFoodsFilterStore() {
   const timeoutRef = useRef<number>()
 
   const saveFilter = useCallback((filter: FoodsFilter) => {
-    const filterToSave: FoodsFilter = { ...DEFAULT_FILTER }
-
-    filterToSave.onlyFoodsAddedbyUser = filter.onlyFoodsAddedbyUser
     window.clearTimeout(timeoutRef.current)
 
     timeoutRef.current = window.setTimeout(() => {
+      const filterToSave: FoodsFilter = {
+        ...DEFAULT_FILTER,
+        onlyFoodsAddedbyUser: filter.onlyFoodsAddedbyUser,
+      }
+
       savedFilter = filterToSave
     }, 500)
   }, [])
 
-  const updateQuery = useCallback((query: string) => {
-    setFilter(filter => {
-      return { ...filter, query }
-    })
-  }, [])
-
-  const updateCategoryId = useCallback((categoryId: number) => {
-    setFilter(filter => {
-      return { ...filter, categoryId }
-    })
-  }, [])
-
-  const updateOnlyFoodsAddedByUser = useCallback(
-    (onlyFoodsAddedbyUser: boolean) => {
+  const updateFilter = useCallback(
+    (partialFilter: Partial<FoodsFilter>) =>
       setFilter(filter => {
-        const newFilter = { ...filter, onlyFoodsAddedbyUser }
-        saveFilter(newFilter)
+        const newFilter = { ...filter, ...partialFilter }
 
+        if (partialFilter.onlyFoodsAddedbyUser !== undefined) {
+          saveFilter(newFilter)
+        }
         return newFilter
-      })
-    },
+      }),
     [saveFilter]
   )
 
   const resetFilter = useCallback(() => {
-    setFilter(filter => {
+    setFilter(() => {
       const newFilter = { ...DEFAULT_FILTER }
       saveFilter(newFilter)
 
@@ -59,30 +50,13 @@ function useFoodsFilterStore() {
     }))
   }, [])
 
-  const methods = useMemo(
-    () => ({
-      updateQuery,
-      updateCategoryId,
-      updateOnlyFoodsAddedByUser,
-      saveFilter,
-      resetFilter,
-      resetCategoryIdAndQuery,
-    }),
-    [
-      updateQuery,
-      updateCategoryId,
-      updateOnlyFoodsAddedByUser,
-      saveFilter,
-      resetFilter,
-      resetCategoryIdAndQuery,
-    ]
-  )
+  const actions = useCallbacksMemo({
+    updateFilter,
+    resetFilter,
+    resetCategoryIdAndQuery,
+  })
 
-  return tuple(filter, methods)
+  return [filter, actions] as const
 }
-
-type FoodsFilterStore = ReturnType<typeof useFoodsFilterStore>
-
-export type { FoodsFilterStore }
 
 export default useFoodsFilterStore

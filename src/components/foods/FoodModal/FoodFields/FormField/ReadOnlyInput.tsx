@@ -9,6 +9,16 @@ type Props = {
   nutritionValueUnit: string
 }
 
+function formatNutritionValue(value: string) {
+  const number = Number(value)
+
+  if (Number.isInteger(number)) {
+    return value
+  }
+
+  return number.toFixed(2)
+}
+
 function ReadOnlyInput({ name, inputType, nutritionValueUnit }: Props) {
   return (
     <Controller
@@ -25,8 +35,9 @@ function ReadOnlyInput({ name, inputType, nutritionValueUnit }: Props) {
 
         return (
           <Text textColor="gray.500" fontSize="lg">
-            {value}
-            {inputType === 'nutritionValue' ? nutritionValueUnit : ''}
+            {inputType === 'nutritionValue'
+              ? `${formatNutritionValue(value)}${nutritionValueUnit}`
+              : value}
           </Text>
         )
       }}

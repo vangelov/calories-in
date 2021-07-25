@@ -1,7 +1,6 @@
 export * from './types'
 export { default as InitialEnergyProvider } from './InitialEnergyProvider'
 export * from './InitialEnergyProvider'
-export { default as getIngredientStats } from './getIngredientStats'
 
 export * from './useMealsStatsStore'
 export { default as useIngredientsStats } from './useIngredientsStats'

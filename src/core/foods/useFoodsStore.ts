@@ -1,6 +1,7 @@
 import { Food } from 'core/types'
-import tuple from 'general/tuple'
 import { useState, useCallback, useMemo } from 'react'
+import produce from 'immer'
+import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
 
 type Params = {
   initialFoods: Food[]
@@ -27,33 +28,25 @@ function useFoodsStore({ initialFoods }: Params) {
     return initialMap
   })
 
-  const addFood = useCallback(
+  const setFood = useCallback(
     (food: Food) =>
-      setFoodsById(foodsById => ({
-        ...foodsById,
-        [food.id]: food,
-      })),
+      setFoodsById(
+        produce(draftFoodsById => {
+          draftFoodsById[food.id] = food
+        })
+      ),
     []
   )
 
-  const removeFood = useCallback((foodId: number) => {
-    setFoodsById(foodsById => {
-      const newState = { ...foodsById }
-      delete newState[foodId]
-      return newState
-    })
-  }, [])
-
-  const replaceFood = useCallback((foodId: number, food: Food) => {
-    setFoodsById(foodsById => {
-      return {
-        ...foodsById,
-        [foodId]: food,
-      }
-    })
-  }, [])
-
-  const getFoodById = useCallback((id: number) => foodsById[id], [foodsById])
+  const removeFood = useCallback(
+    (foodId: number) =>
+      setFoodsById(
+        produce(draftFoodsById => {
+          delete draftFoodsById[foodId]
+        })
+      ),
+    []
+  )
 
   const allFoods = useMemo(() => sortedFoods(Object.values(foodsById)), [
     foodsById,
@@ -64,32 +57,21 @@ function useFoodsStore({ initialFoods }: Params) {
     [allFoods]
   )
 
-  const indexOfFood = useCallback((food: Food, foods: Food[]) => {
-    return foods.map(({ id }) => id).indexOf(food.id)
-  }, [])
+  const actions = useCallbacksMemo({ setFood, removeFood })
 
-  const methods = useMemo(() => ({ addFood, removeFood, replaceFood }), [
-    addFood,
-    removeFood,
-    replaceFood,
-  ])
+  const state = useCallbacksMemo({
+    allFoods,
+    userFoods,
+    foodsById,
+  })
 
-  const state = useMemo(
-    () => ({
-      allFoods,
-      userFoods,
-      getFoodById,
-      indexOfFood,
-      foodsById,
-    }),
-    [getFoodById, foodsById, allFoods, indexOfFood, userFoods]
-  )
-
-  return tuple(state, methods)
+  return [state, actions] as const
 }
 
-type FoodsStore = ReturnType<typeof useFoodsStore>
+const [FoodsStoreProvider, useFoods, useFoodsActions] = makeStoreProvider(
+  useFoodsStore
+)
 
-export type { FoodsStore }
+export { FoodsStoreProvider, useFoods, useFoodsActions }
 
 export default useFoodsStore

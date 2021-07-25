@@ -21,11 +21,10 @@ import {
   forwardRef,
   ChangeEvent,
 } from 'react'
-import { useFilterFoods, useFoodsStoreState } from 'core/foods'
+import { useFilterFoods, useFoods, useFoodsFilterStore } from 'core/foods'
 import { Food } from 'core/types'
 import FilterPopover from './FilterPopover'
 import { FixedSizeList } from 'react-window'
-import useFoodsFilterStore from 'core/foods/filters/useFoodsFilterStore'
 
 const SearchStyled = chakra(Search)
 
@@ -47,18 +46,18 @@ function FoodsList({
   forwardedRef,
   ...rest
 }: Props) {
-  const { allFoods, userFoods, indexOfFood } = useFoodsStoreState()
+  const { allFoods, userFoods } = useFoods()
   const listRef = useRef<FixedSizeList>(null)
-  const [filter, foodsFilterStoreMethods] = useFoodsFilterStore()
+  const [filter, foodsFilterActions] = useFoodsFilterStore()
   const filteredFoods = useFilterFoods(allFoods, userFoods, filter)
 
   useImperativeHandle(forwardedRef, () => ({
     scrollToFood: (food: Food) => {
-      foodsFilterStoreMethods.resetCategoryIdAndQuery()
+      foodsFilterActions.resetCategoryIdAndQuery()
 
       if (listRef.current) {
         const foods = filter.onlyFoodsAddedbyUser ? userFoods : allFoods
-        const index = indexOfFood(food, foods)
+        const index = foods.map(({ id }) => id).indexOf(food.id)
         listRef.current.scrollToItem(index, 'center')
       }
     },
@@ -70,11 +69,13 @@ function FoodsList({
         <Box>
           <FilterPopover
             filter={filter}
-            onFoodCategoryIdChange={foodsFilterStoreMethods.updateCategoryId}
-            onOnlyFoodsAddedByUserChange={
-              foodsFilterStoreMethods.updateOnlyFoodsAddedByUser
+            onFoodCategoryIdChange={categoryId =>
+              foodsFilterActions.updateFilter({ categoryId })
             }
-            onReset={foodsFilterStoreMethods.resetFilter}
+            onOnlyFoodsAddedByUserChange={onlyFoodsAddedbyUser =>
+              foodsFilterActions.updateFilter({ onlyFoodsAddedbyUser })
+            }
+            onReset={foodsFilterActions.resetFilter}
           />
         </Box>
 
@@ -87,7 +88,7 @@ function FoodsList({
             ref={searchInputRef}
             value={filter.query}
             onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              foodsFilterStoreMethods.updateQuery(event.target.value)
+              foodsFilterActions.updateFilter({ query: event.target.value })
             }
             placeholder="Search"
           />

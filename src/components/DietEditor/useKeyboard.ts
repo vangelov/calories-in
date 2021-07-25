@@ -11,6 +11,7 @@ function useKeyboard({ undo, redo }: Params) {
       const { ctrlKey, metaKey, shiftKey, code } = event
 
       if (code === 'KeyZ' && (ctrlKey || metaKey)) {
+        event.preventDefault()
         if (shiftKey) {
           redo()
         } else {

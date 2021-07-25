@@ -15,16 +15,17 @@ type Params = {
 
 function useMealsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
   const appendMealForm = useCallback(
-    (variantIndex: number) =>
+    () =>
       setDietForm(
         produce(draftDietForm => {
           const mealForm = getMealForm()
+          const { selectedVariantFormIndex, variantsForms } = draftDietForm
 
           oneTimeCheckActions.set(
             getInsertMealFormAnimationKey(mealForm.fieldId)
           )
 
-          draftDietForm.variantsForms[variantIndex].mealsForms.push(mealForm)
+          variantsForms[selectedVariantFormIndex].mealsForms.push(mealForm)
         })
       ),
     [setDietForm, oneTimeCheckActions]
@@ -38,18 +39,6 @@ function useMealsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
             mealFormIndex,
             1
           )
-        })
-      ),
-    [setDietForm]
-  )
-
-  const setMealFormName = useCallback(
-    (variantFormIndex: number, mealFormIndex: number, value: string) =>
-      setDietForm(
-        produce(draftDietForm => {
-          const { variantsForms } = draftDietForm
-          const { mealsForms } = variantsForms[variantFormIndex]
-          mealsForms[mealFormIndex].name = value
         })
       ),
     [setDietForm]
@@ -94,7 +83,6 @@ function useMealsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
     appendMealForm,
     removeMealForm,
     moveMealForm,
-    setMealFormName,
     updateMealForm,
   }
 }

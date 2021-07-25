@@ -23,18 +23,25 @@ function getVariantForm(name: string): VariantForm {
 const variantFormSchema = object().shape({
   name: string()
     .required('Please add a name')
-    .test('uniq', 'This name has alredy been used', (name, meta) => {
-      const variantsForms = meta.options.context as VariantForm[]
+    .test(
+      'uniqueName',
+      'This name has alredy been used',
+      (name, { options }) => {
+        const variantsForms = options.context as VariantForm[]
 
-      if (variantsForms) {
-        const variantsNames = variantsForms.map(({ name }) =>
-          name.toLocaleLowerCase()
-        )
-        return name !== undefined && !variantsNames.includes(name)
+        if (variantsForms) {
+          const variantsNames = variantsForms.map(({ name }) =>
+            name.toLocaleLowerCase()
+          )
+          return (
+            name !== undefined &&
+            !variantsNames.includes(name.toLocaleLowerCase())
+          )
+        }
+
+        return true
       }
-
-      return true
-    }),
+    ),
 })
 
 function getInsertVariantFormAnimationKey(fieldId: string) {

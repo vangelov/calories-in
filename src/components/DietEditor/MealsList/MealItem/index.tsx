@@ -8,7 +8,7 @@ import { getInsertMealFormAnimationKey } from 'core/diets'
 import { Draggable } from 'react-beautiful-dnd'
 import IngredientsList from './IngredientsList'
 import SelectFoodsDrawer from './SelectFoodsDrawer'
-import { useFoodsStoreState } from 'core/foods'
+import { useFoods } from 'core/foods'
 import { useIngredientsStats, useUpdateMealStats } from 'core/stats'
 
 type Props = {
@@ -41,7 +41,7 @@ function MealItem({
   const [isVisible, setIsVisible] = useState(true)
   const oneTimeCheckActions = useOneTimeCheckActions()
   const drawerDisclosure = useDisclosure()
-  const { foodsById } = useFoodsStoreState()
+  const { foodsById } = useFoods()
 
   function onAnimationComplete() {
     if (pendingAnimationForInserted) {

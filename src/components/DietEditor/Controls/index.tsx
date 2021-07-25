@@ -17,9 +17,7 @@ function Controls() {
         <MenuButtons />
 
         <MainButtons
-          onMealAdd={() => {
-            dietFormStoreActions.appendMealForm(0)
-          }}
+          onMealAdd={dietFormStoreActions.appendMealForm}
           onSave={() => {}}
         />
       </Flex>

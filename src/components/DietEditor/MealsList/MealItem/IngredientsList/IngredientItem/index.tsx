@@ -9,7 +9,7 @@ import StatsLayout from 'components/stats/StatsLayout'
 import Stat from 'components/stats/Stat'
 import RightAligned from 'components/general/RightAligned'
 import Menu from './Menu'
-import { useFoodsStoreState } from 'core/foods'
+import { useFoods } from 'core/foods'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import { getInsertIngredientFormAnimationKey } from 'core/diets'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
@@ -66,8 +66,8 @@ function IngredientItem({
     getInsertIngredientFormAnimationKey(ingredientForm.fieldId)
   )
 
-  const { getFoodById } = useFoodsStoreState()
-  const food = getFoodById(ingredientForm.foodId)
+  const { foodsById } = useFoods()
+  const food = foodsById[ingredientForm.foodId]
 
   return (
     <Draggable

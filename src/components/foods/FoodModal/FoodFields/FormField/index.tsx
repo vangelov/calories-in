@@ -31,6 +31,7 @@ function FormField(props: Props) {
     nutritionValueUnit = 'g',
     textInputRef,
     isReadOnly = false,
+    isRequired,
     ...rest
   } = props
   const { formState } = useFormContext()
@@ -50,6 +51,7 @@ function FormField(props: Props) {
       isInvalid={isInvalid}
       id={name}
       pl={isIdented ? 10 : 0}
+      isRequired={!isReadOnly && isRequired}
       {...rest}
     >
       <VStack spacing={2} alignItems="stretch">

@@ -50,7 +50,9 @@ function getFoodForm(food?: Food) {
 
 const foodFormSchema = object().shape({
   name: string().required('Please add a name'),
-  categoryId: number().notOneOf([0], 'Please selecet a category id'),
+  categoryId: number()
+    .notOneOf([0], 'Please select category')
+    .typeError('Please select category'),
   energy: string().required('Please enter energy'),
 })
 
