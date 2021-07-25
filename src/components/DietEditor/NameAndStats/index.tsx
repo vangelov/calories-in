@@ -8,20 +8,23 @@ import EnergyStat from './EnergyStat'
 import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 import { memo } from 'react'
 import { useDerivedMealsStats } from 'core/stats'
+import { VariantForm } from 'core/diets'
 
 const IntoStyled = chakra(Info)
 
 type Props = {
   isEditingExistingDiet: boolean
+  selectedVariantForm: VariantForm
 }
 
-function NameAndStats({ isEditingExistingDiet }: Props) {
+function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
   const {
     mealsStatsSum,
     proteinPercentage,
     carbsPercentage,
     fatPercentage,
-  } = useDerivedMealsStats()
+    diff,
+  } = useDerivedMealsStats({ selectedVariantForm })
 
   return (
     <Flex
@@ -31,7 +34,7 @@ function NameAndStats({ isEditingExistingDiet }: Props) {
       width="100%"
     >
       <StatsLayout
-        nameElement={<Name />}
+        nameElement={<Name diff={diff} />}
         energyElement={
           <EnergyStat
             energy={mealsStatsSum.energy}

@@ -24,6 +24,13 @@ const patcher = jsondiffpatch.create({
 
 const TIMEOUT_IN_MS = 200
 
+type UndoRedoState = {
+  versionScrollTop: number
+  versionScrollLeft: number
+  canUndo: boolean
+  canRedo: boolean
+}
+
 function useFormChangesStore({
   form,
   horizontalScrollRef,
@@ -33,10 +40,12 @@ function useFormChangesStore({
   const deltasStackRef = useRef(new DeltasStack())
   const lastFormRef = useRef<object>(form)
   const timeoutIdRef = useRef<number>()
-  const [versionScrollTop, setVersionScrollTop] = useState(0)
-  const [versionScrollLeft, setVersionScrollLeft] = useState(0)
-  const [canUndo, setCanUndo] = useState(false)
-  const [canRedo, setCanRedo] = useState(false)
+  const [state, setState] = useState<UndoRedoState>({
+    versionScrollTop: 0,
+    versionScrollLeft: 0,
+    canUndo: false,
+    canRedo: false,
+  })
 
   const undo = useCallback(() => {
     const result = deltasStackRef.current.getNextResultToUnpatch()
@@ -46,11 +55,12 @@ function useFormChangesStore({
       console.log('undo', lastFormRef.current, delta)
       lastFormRef.current = patcher.unpatch(lastFormRef.current, delta)
 
-      setVersionScrollTop(scrollTop)
-      setVersionScrollLeft(scrollLeft)
-
-      setCanUndo(deltasStackRef.current.canUnpatch)
-      setCanRedo(deltasStackRef.current.canPatch)
+      setState({
+        versionScrollTop: scrollTop,
+        versionScrollLeft: scrollLeft,
+        canUndo: deltasStackRef.current.canUnpatch,
+        canRedo: deltasStackRef.current.canPatch,
+      })
 
       onUndo(lastFormRef.current)
     }
@@ -64,11 +74,12 @@ function useFormChangesStore({
       lastFormRef.current = patcher.patch(lastFormRef.current, delta)
       console.log('redo', lastFormRef.current, delta)
 
-      setVersionScrollTop(scrollTop)
-      setVersionScrollLeft(scrollLeft)
-
-      setCanUndo(deltasStackRef.current.canUnpatch)
-      setCanRedo(deltasStackRef.current.canPatch)
+      setState({
+        versionScrollTop: scrollTop,
+        versionScrollLeft: scrollLeft,
+        canUndo: deltasStackRef.current.canUnpatch,
+        canRedo: deltasStackRef.current.canPatch,
+      })
 
       onRedo(lastFormRef.current)
     }
@@ -100,8 +111,11 @@ function useFormChangesStore({
                 : 0
             )
 
-            setCanUndo(deltasStackRef.current.canUnpatch)
-            setCanRedo(deltasStackRef.current.canPatch)
+            setState(state => ({
+              ...state,
+              canUndo: deltasStackRef.current.canUnpatch,
+              canRedo: deltasStackRef.current.canPatch,
+            }))
           }
         }
       }, TIMEOUT_IN_MS)
@@ -121,15 +135,7 @@ function useFormChangesStore({
     [undo, redo]
   )
 
-  const state = useMemo(
-    () => ({
-      versionScrollTop,
-      versionScrollLeft,
-      canUndo,
-      canRedo,
-    }),
-    [versionScrollTop, versionScrollLeft, canUndo, canRedo]
-  )
+  console.log('s', state)
 
   return [state, methods] as const
 }

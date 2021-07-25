@@ -1,7 +1,7 @@
 import NameAndStats from './NameAndStats'
 import MealsList from './MealsList'
 import Controls from './Controls'
-import { useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useRef, useEffect } from 'react'
 import { useFormChangesStoreState } from 'general/undoRedo'
 import VariantsList from './VariantsList'
 import PageBase, {
@@ -17,40 +17,65 @@ type Props = {
 }
 
 function Page({ isEditingExistingDiet }: Props) {
-  const { versionScrollLeft, versionScrollTop } = useFormChangesStoreState()
+  const state = useFormChangesStoreState()
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
-
-  useLayoutEffect(() => {
-    window.scroll({ top: versionScrollTop })
-  }, [versionScrollTop])
+  const ref = useRef<Record<number, number | undefined>>({})
 
   const dietForm = useDietForm()
   const { selectedVariantFormIndex } = dietForm
-
-  const { mealsForms } = dietForm.variantsForms[
-    dietForm.selectedVariantFormIndex
-  ]
+  const selectedVariantForm =
+    dietForm.variantsForms[dietForm.selectedVariantFormIndex]
 
   useKeyboard()
+
+  useEffect(() => {
+    function onScroll() {
+      ref.current[selectedVariantFormIndex] = window.scrollY
+    }
+    window.addEventListener('scroll', onScroll)
+
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+    }
+  }, [selectedVariantFormIndex])
+
+  useEffect(() => {
+    if (ref.current[selectedVariantFormIndex] !== undefined) {
+      console.log(
+        'set',
+        ref.current[selectedVariantFormIndex],
+        selectedVariantFormIndex
+      )
+      window.scroll({ top: ref.current[selectedVariantFormIndex] })
+    }
+  }, [selectedVariantFormIndex])
+
+  useEffect(() => {
+    console.log('set2', state.versionScrollTop)
+    window.scroll({ top: state.versionScrollTop })
+  }, [state.versionScrollTop])
 
   return (
     <PageBase>
       <PageHeader>
         <>
-          <NameAndStats isEditingExistingDiet={isEditingExistingDiet} />
+          <NameAndStats
+            selectedVariantForm={selectedVariantForm}
+            isEditingExistingDiet={isEditingExistingDiet}
+          />
           <Controls />
         </>
       </PageHeader>
 
       <PageBody>
         <MealsList
-          mealsForms={mealsForms}
+          mealsForms={selectedVariantForm.mealsForms}
           selectedVariantFormIndex={selectedVariantFormIndex}
         />
       </PageBody>
 
       <PageFooter
-        footerContainerScrollLeft={versionScrollLeft}
+        footerContainerScrollLeft={state.versionScrollLeft}
         footerContainerRef={horizontalScrollRef}
       >
         <VariantsList />

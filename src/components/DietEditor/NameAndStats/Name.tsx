@@ -6,7 +6,11 @@ import { ArrowUpCircle, AlertCircle } from 'react-feather'
 const ArrowUpCircleStyled = chakra(ArrowUpCircle)
 const AlertCircleStyled = chakra(AlertCircle)
 
-function Name() {
+type Props = {
+  diff: number
+}
+
+function Name({ diff }: Props) {
   const dietForm = useDietForm()
   const dietFormActions = useDietFormActions()
 
@@ -35,12 +39,14 @@ function Name() {
           </Text>
         </HStack>
 
-        <HStack spacing={1}>
-          <ArrowUpCircleStyled color="gray.400" size="16px" />
-          <Text fontSize="xs" textColor="gray.400">
-            250kcal
-          </Text>
-        </HStack>
+        {diff !== 0 && (
+          <HStack spacing={1}>
+            <ArrowUpCircleStyled color="gray.400" size="16px" />
+            <Text fontSize="xs" textColor="gray.400">
+              {diff}kcal
+            </Text>
+          </HStack>
+        )}
       </HStack>
     </VStack>
   )
