@@ -2,10 +2,7 @@ import NameAndStats from './NameAndStats'
 import MealsList from './MealsList'
 import Controls from './Controls'
 import { useLayoutEffect, useRef } from 'react'
-import {
-  useFormChangesStoreMethods,
-  useFormChangesStoreState,
-} from 'general/undoRedo'
+import { useFormChangesStoreState } from 'general/undoRedo'
 import VariantsList from './VariantsList'
 import PageBase, {
   PageHeader,
@@ -22,7 +19,6 @@ type Props = {
 function Page({ isEditingExistingDiet }: Props) {
   const { versionScrollLeft, versionScrollTop } = useFormChangesStoreState()
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
-  const formChangesActions = useFormChangesStoreMethods()
 
   useLayoutEffect(() => {
     window.scroll({ top: versionScrollTop })
@@ -35,7 +31,7 @@ function Page({ isEditingExistingDiet }: Props) {
     dietForm.selectedVariantFormIndex
   ]
 
-  useKeyboard({ undo: formChangesActions.undo, redo: formChangesActions.redo })
+  useKeyboard()
 
   return (
     <PageBase>

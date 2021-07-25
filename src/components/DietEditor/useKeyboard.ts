@@ -1,31 +1,44 @@
-import { useEffect } from 'react'
+import { useContext, useEffect } from 'react'
+import { ContentBoxRefContext } from 'components/layout/MainLayout'
+import { useFormChangesStoreMethods } from 'general/undoRedo'
 
-type Params = {
-  undo: () => void
-  redo: () => void
-}
+function useKeyboard() {
+  const formChangesActions = useFormChangesStoreMethods()
+  const contentBoxRef = useContext(ContentBoxRefContext)
+  const node = contentBoxRef.current
 
-function useKeyboard({ undo, redo }: Params) {
   useEffect(() => {
-    function onKeyDown(event: KeyboardEvent) {
+    if (!node) {
+      return
+    }
+
+    function onNodeKeyDown(event: KeyboardEvent) {
       const { ctrlKey, metaKey, shiftKey, code } = event
 
       if (code === 'KeyZ' && (ctrlKey || metaKey)) {
         event.preventDefault()
         if (shiftKey) {
-          redo()
+          formChangesActions.redo()
         } else {
-          undo()
+          formChangesActions.undo()
         }
       }
     }
 
-    document.addEventListener('keydown', onKeyDown)
+    function onBodyKeyDown(event: KeyboardEvent) {
+      if (event.target === document.body) {
+        onNodeKeyDown(event)
+      }
+    }
+
+    node.addEventListener('keydown', onNodeKeyDown)
+    document.body.addEventListener('keydown', onBodyKeyDown)
 
     return () => {
-      document.removeEventListener('keydown', onKeyDown)
+      node.removeEventListener('keydown', onNodeKeyDown)
+      document.body.removeEventListener('keydown', onBodyKeyDown)
     }
-  }, [undo, redo])
+  }, [formChangesActions, node])
 }
 
 export default useKeyboard
