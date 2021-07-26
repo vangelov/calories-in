@@ -6,9 +6,11 @@ import VariantNameModal from './VariantNameModal'
 import { useRef, useState, useCallback } from 'react'
 import { VariantNameFormSubmitAction } from 'core/diets/variantForm/useSubmitVariantForm'
 import { isSafari } from 'react-device-detect'
-import { useDietForm, useDietFormActions } from 'core/diets'
+import { useDietForm, useDietFormActions, VariantForm } from 'core/diets'
 
-function VariantsList() {
+type Props = { onVariantFormSelect: (variantForm: VariantForm) => void }
+
+function VariantsList({ onVariantFormSelect }: Props) {
   const modalDisclosure = useDisclosure()
   const [submitAction, setSubmitAction] = useState<VariantNameFormSubmitAction>(
     'append'
@@ -76,7 +78,10 @@ function VariantsList() {
                 key={variantForm.fieldId}
                 variantForm={variantForm}
                 isSelected={index === dietForm.selectedVariantFormIndex}
-                onSelect={dietFormActions.setSelectedVariantFormIndex}
+                onSelect={index => {
+                  dietFormActions.setSelectedVariantFormIndex(index)
+                  onVariantFormSelect(dietForm.variantsForms[index])
+                }}
                 onFirstAppear={onVariantItemFirstAppear}
               >
                 {variantForm.name}

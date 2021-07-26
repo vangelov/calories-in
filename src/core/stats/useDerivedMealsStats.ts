@@ -25,19 +25,16 @@ function useDerivedMealsStats({ selectedVariantForm }: Params) {
 
   const t = ref.current[selectedVariantForm.fieldId]
 
-  useEffect(() => {
-    if (t === undefined) {
-      ref.current[selectedVariantForm.fieldId] = mealsStatsSum.energy
-    }
-  }, [mealsStatsSum.energy, t, selectedVariantForm])
+  if (t === undefined) {
+    ref.current[selectedVariantForm.fieldId] = mealsStatsSum.energy
+  }
 
+  console.log('E', mealsStatsSum.energy)
   let diff = 0
 
   if (t !== undefined && t > 0) {
     diff = mealsStatsSum.energy - t
   }
-
-  console.log('d', diff)
 
   return {
     mealsStatsSum,

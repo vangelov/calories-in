@@ -3,9 +3,12 @@ import UndoRedoButtons from './UndoRedoButtons'
 import MenuButtons from './MenuButtons'
 import MainButtons from './MainButtons'
 import { useDietFormActions } from 'core/diets'
+import useKeyboard from './useKeyboard'
 
 function Controls() {
   const dietFormStoreActions = useDietFormActions()
+
+  useKeyboard()
 
   return (
     <Flex width="100%" pt={3} alignItems="center">

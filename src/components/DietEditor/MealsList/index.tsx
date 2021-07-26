@@ -1,12 +1,11 @@
 import { Box } from '@chakra-ui/react'
 import MealItem from './MealItem'
 
-import { useRef, memo, useEffect } from 'react'
+import { useRef, memo } from 'react'
 import useGetRefForId from 'general/useGetRefForId'
 import { Droppable } from 'react-beautiful-dnd'
 import { MealForm, useDietFormActions } from 'core/diets'
 import useScrollToAndFocusMeal from './useScrollToAndFocusMeal'
-import useSameOrPreviousValue from 'general/useSameOrPreviousValue'
 
 type Props = {
   mealsForms: MealForm[]

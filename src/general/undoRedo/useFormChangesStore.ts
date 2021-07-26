@@ -14,8 +14,8 @@ import { makeStoreProvider } from 'general/stores'
 type Params = {
   form: object
   horizontalScrollRef: RefObject<HTMLDivElement>
-  onUndo: (form: object) => void
-  onRedo: (form: object) => void
+  onUndo: (form: object, scrollTop: number, scrollLeft: number) => void
+  onRedo: (form: object, scrollTop: number, scrollLeft: number) => void
 }
 
 const patcher = jsondiffpatch.create({
@@ -25,8 +25,6 @@ const patcher = jsondiffpatch.create({
 const TIMEOUT_IN_MS = 200
 
 type UndoRedoState = {
-  versionScrollTop: number
-  versionScrollLeft: number
   canUndo: boolean
   canRedo: boolean
 }
@@ -41,8 +39,6 @@ function useFormChangesStore({
   const lastFormRef = useRef<object>(form)
   const timeoutIdRef = useRef<number>()
   const [state, setState] = useState<UndoRedoState>({
-    versionScrollTop: 0,
-    versionScrollLeft: 0,
     canUndo: false,
     canRedo: false,
   })
@@ -52,17 +48,14 @@ function useFormChangesStore({
 
     if (result) {
       const { delta, scrollTop, scrollLeft } = result
-      console.log('undo', lastFormRef.current, delta)
       lastFormRef.current = patcher.unpatch(lastFormRef.current, delta)
 
       setState({
-        versionScrollTop: scrollTop,
-        versionScrollLeft: scrollLeft,
         canUndo: deltasStackRef.current.canUnpatch,
         canRedo: deltasStackRef.current.canPatch,
       })
 
-      onUndo(lastFormRef.current)
+      onUndo(lastFormRef.current, scrollTop, scrollLeft)
     }
   }, [onUndo])
 
@@ -72,16 +65,13 @@ function useFormChangesStore({
     if (result) {
       const { delta, scrollTop, scrollLeft } = result
       lastFormRef.current = patcher.patch(lastFormRef.current, delta)
-      console.log('redo', lastFormRef.current, delta)
 
       setState({
-        versionScrollTop: scrollTop,
-        versionScrollLeft: scrollLeft,
         canUndo: deltasStackRef.current.canUnpatch,
         canRedo: deltasStackRef.current.canPatch,
       })
 
-      onRedo(lastFormRef.current)
+      onRedo(lastFormRef.current, scrollTop, scrollLeft)
     }
   }, [onRedo])
 
@@ -97,9 +87,15 @@ function useFormChangesStore({
           //console.log('comp1', lastFormRef.current)
           //console.log('comp2', form)
 
-          if (delta) {
+          if (
+            delta &&
+            !(
+              Object.keys(delta).length === 1 &&
+              delta.selectedVariantFormIndex !== undefined
+            )
+          ) {
             console.log('push', delta)
-
+            console.log('push scroll', horizontalScrollRef.current?.scrollLeft)
             lastFormRef.current = deepCopy(form)
             //console.log('push', delta)
             //console.log('l,', lastFormRef.current)
@@ -111,11 +107,10 @@ function useFormChangesStore({
                 : 0
             )
 
-            setState(state => ({
-              ...state,
+            setState({
               canUndo: deltasStackRef.current.canUnpatch,
               canRedo: deltasStackRef.current.canPatch,
-            }))
+            })
           }
         }
       }, TIMEOUT_IN_MS)
@@ -134,8 +129,6 @@ function useFormChangesStore({
     }),
     [undo, redo]
   )
-
-  console.log('s', state)
 
   return [state, methods] as const
 }

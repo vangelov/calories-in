@@ -1,6 +1,6 @@
 import { Box, Flex, Divider } from '@chakra-ui/react'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
-import { ReactNode, RefObject, useLayoutEffect } from 'react'
+import { ReactNode, RefObject } from 'react'
 import ElementContainer from './ElementContainer'
 
 type PageHeaderProps = {
@@ -39,22 +39,11 @@ function PageBody({ children }: PageBodyProps) {
 type PageFooterProps = {
   children: ReactNode
   footerContainerRef?: RefObject<HTMLDivElement>
-  footerContainerScrollLeft?: number
 }
 
-function PageFooter({
-  children,
-  footerContainerRef,
-  footerContainerScrollLeft = 0,
-}: PageFooterProps) {
+function PageFooter({ children, footerContainerRef }: PageFooterProps) {
   const screenSize = useScreenSize()
   const hasSideNavigation = screenSize >= 3
-
-  useLayoutEffect(() => {
-    if (footerContainerRef && footerContainerRef.current) {
-      footerContainerRef.current.scrollLeft = footerContainerScrollLeft
-    }
-  }, [footerContainerScrollLeft, footerContainerRef])
 
   return (
     <Box
