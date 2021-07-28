@@ -10,9 +10,14 @@ import useScrollToAndFocusMeal from './useScrollToAndFocusMeal'
 type Props = {
   mealsForms: MealForm[]
   selectedVariantFormIndex: number
+  selectedVariantFormFieldId: string
 }
 
-function MealsList({ mealsForms, selectedVariantFormIndex }: Props) {
+function MealsList({
+  mealsForms,
+  selectedVariantFormIndex,
+  selectedVariantFormFieldId,
+}: Props) {
   const getMealNameInputRefById = useGetRefForId()
   const scrollTargetRef = useRef<HTMLDivElement>(null)
 
@@ -36,6 +41,7 @@ function MealsList({ mealsForms, selectedVariantFormIndex }: Props) {
               onRemove={dietFormActions.removeMealForm}
               mealForm={mealForm}
               onFirstAppear={onScrollToMeal}
+              selectedVariantFormFieldId={selectedVariantFormFieldId}
             />
           ))}
 

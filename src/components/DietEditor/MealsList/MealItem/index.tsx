@@ -18,6 +18,7 @@ type Props = {
   onRemove: (variantIndex: number, index: number) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
   onFirstAppear: (mealForm: MealForm) => void
+  selectedVariantFormFieldId: string
 } & LayoutProps &
   SpaceProps
 
@@ -35,6 +36,7 @@ function MealItem({
   onRemove,
   getMealNameInputRefById,
   variantIndex,
+  selectedVariantFormFieldId,
   onFirstAppear,
   ...rest
 }: Props) {
@@ -60,7 +62,7 @@ function MealItem({
     foodsById
   )
 
-  useUpdateMealStats(ingredientsStatsSum, index)
+  useUpdateMealStats({ ingredientsStatsSum, selectedVariantFormFieldId, index })
 
   return (
     <Draggable

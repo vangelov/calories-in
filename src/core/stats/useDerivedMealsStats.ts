@@ -1,5 +1,5 @@
 import { VariantForm } from 'core/diets'
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import getMacrosPercentages, {
   roundedMacroPercentages,
 } from './getMacrosPercentages'
@@ -12,29 +12,31 @@ type Params = {
 
 function useDerivedMealsStats({ selectedVariantForm }: Params) {
   const mealsStats = useMealsStats()
-  const ref = useRef<Record<string, number | undefined>>({})
+  const energyCacheRef = useRef<Record<string, number | undefined>>({})
+  const { fieldId } = selectedVariantForm
 
-  const mealsStatsSum = useMemo(() => sumStats(Object.values(mealsStats)), [
-    mealsStats,
-  ])
+  const mealsStatsSum = useMemo(() => {
+    const variantStats = mealsStats[fieldId]
+    const stats = variantStats ? Object.values(variantStats) : []
+    const statsSum = sumStats(stats)
+
+    if (variantStats && energyCacheRef.current[fieldId] === undefined) {
+      energyCacheRef.current[fieldId] = statsSum.energy
+    }
+
+    return statsSum
+  }, [mealsStats, fieldId])
 
   const { proteinPercentage, carbsPercentage, fatPercentage } = useMemo(
     () => roundedMacroPercentages(getMacrosPercentages(mealsStatsSum)),
     [mealsStatsSum]
   )
 
-  const t = ref.current[selectedVariantForm.fieldId]
-
-  if (t === undefined) {
-    ref.current[selectedVariantForm.fieldId] = mealsStatsSum.energy
-  }
-
-  console.log('E', mealsStatsSum.energy)
-  let diff = 0
-
-  if (t !== undefined && t > 0) {
-    diff = mealsStatsSum.energy - t
-  }
+  const cachedEnergy = energyCacheRef.current[selectedVariantForm.fieldId]
+  const diff =
+    cachedEnergy !== undefined && cachedEnergy > 0
+      ? mealsStatsSum.energy - cachedEnergy
+      : 0
 
   return {
     mealsStatsSum,

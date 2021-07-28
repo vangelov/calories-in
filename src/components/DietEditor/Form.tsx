@@ -1,12 +1,13 @@
 import { useDietForm, useDietFormActions, VariantForm } from 'core/diets'
 import { FormChangesStoreProvider } from 'general/undoRedo'
 import deepCopy from 'general/deepCopy'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useCallback } from 'react'
 import Page, { PageHeader, PageBody, PageFooter } from 'components/layout/Page'
 import NameAndStats from './NameAndStats'
 import MealsList from './MealsList'
 import Controls from './Controls'
 import VariantsList from './VariantsList'
+import useScrollState from './useScrollState'
 
 type Props = {
   isEditingExistingDiet: boolean
@@ -16,43 +17,28 @@ function Form({ isEditingExistingDiet }: Props) {
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
   const dietForm = useDietForm()
   const dietFormActions = useDietFormActions()
-  const ref = useRef<Record<string, number | undefined>>({})
   const selectedVariantForm =
     dietForm.variantsForms[dietForm.selectedVariantFormIndex]
-
-  const [t, setT] = useState(0)
-  const [h, setH] = useState(0)
+  const { setScrollState, getCachedScrollTop } = useScrollState({
+    selectedVariantForm,
+    horizontalScrollRef,
+  })
 
   function onUndoOrRedo(form: object, scrollTop: number, scrollLeft: number) {
     dietFormActions.setDietForm(deepCopy(form))
-    setT(scrollTop)
-    setH(scrollLeft)
+    setScrollState({ top: scrollTop, left: scrollLeft })
   }
 
-  function onVariantFormSelect(variantForm: VariantForm) {
-    setT(ref.current[variantForm.fieldId] || 0)
-  }
+  const onVariantFormSelect = useCallback(
+    (variantForm: VariantForm) => {
+      setScrollState({ top: getCachedScrollTop(variantForm.fieldId) })
+    },
+    [setScrollState, getCachedScrollTop]
+  )
 
-  useEffect(() => {
-    function onScroll() {
-      ref.current[selectedVariantForm.fieldId] = window.scrollY
-    }
-    window.addEventListener('scroll', onScroll)
-
-    return () => {
-      window.removeEventListener('scroll', onScroll)
-    }
-  }, [selectedVariantForm.fieldId])
-
-  useEffect(() => {
-    window.scroll({ top: t })
-  }, [t])
-
-  useEffect(() => {
-    if (horizontalScrollRef.current) {
-      horizontalScrollRef.current.scrollLeft = h
-    }
-  }, [h])
+  const onVariantFormCopy = useCallback(() => {
+    setScrollState({ top: 0 })
+  }, [setScrollState])
 
   return (
     <FormChangesStoreProvider
@@ -74,13 +60,17 @@ function Form({ isEditingExistingDiet }: Props) {
 
         <PageBody>
           <MealsList
+            selectedVariantFormFieldId={selectedVariantForm.fieldId}
             mealsForms={selectedVariantForm.mealsForms}
             selectedVariantFormIndex={dietForm.selectedVariantFormIndex}
           />
         </PageBody>
 
         <PageFooter footerContainerRef={horizontalScrollRef}>
-          <VariantsList onVariantFormSelect={onVariantFormSelect} />
+          <VariantsList
+            onVariantFormCopy={onVariantFormCopy}
+            onVariantFormSelect={onVariantFormSelect}
+          />
         </PageFooter>
       </Page>
     </FormChangesStoreProvider>

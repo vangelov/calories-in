@@ -8,9 +8,12 @@ import { VariantNameFormSubmitAction } from 'core/diets/variantForm/useSubmitVar
 import { isSafari } from 'react-device-detect'
 import { useDietForm, useDietFormActions, VariantForm } from 'core/diets'
 
-type Props = { onVariantFormSelect: (variantForm: VariantForm) => void }
+type Props = {
+  onVariantFormSelect: (variantForm: VariantForm) => void
+  onVariantFormCopy: () => void
+}
 
-function VariantsList({ onVariantFormSelect }: Props) {
+function VariantsList({ onVariantFormSelect, onVariantFormCopy }: Props) {
   const modalDisclosure = useDisclosure()
   const [submitAction, setSubmitAction] = useState<VariantNameFormSubmitAction>(
     'append'
@@ -57,6 +60,14 @@ function VariantsList({ onVariantFormSelect }: Props) {
     setVariantFormIndex(undefined)
     onOpen()
   }, [onOpen])
+
+  const onVariantModalClose = () => {
+    modalDisclosure.onClose()
+
+    if (submitAction === 'copy') {
+      onVariantFormCopy()
+    }
+  }
 
   return (
     <Droppable
@@ -110,7 +121,7 @@ function VariantsList({ onVariantFormSelect }: Props) {
 
           <VariantNameModal
             isOpen={modalDisclosure.isOpen}
-            onClose={modalDisclosure.onClose}
+            onClose={onVariantModalClose}
             submitAction={submitAction}
             variantFormIndex={variantFormIndex}
           />

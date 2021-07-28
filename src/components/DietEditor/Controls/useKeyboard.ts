@@ -1,7 +1,6 @@
 import { useContext, useEffect } from 'react'
 import { ContentBoxRefContext } from 'components/layout/MainLayout'
 import { useFormChangesStoreMethods } from 'general/undoRedo'
-import ReactDOM from 'react-dom'
 
 function useKeyboard() {
   const formChangesActions = useFormChangesStoreMethods()
@@ -19,13 +18,11 @@ function useKeyboard() {
       if (code === 'KeyZ' && (ctrlKey || metaKey)) {
         event.preventDefault()
 
-        ReactDOM.unstable_batchedUpdates(() => {
-          if (shiftKey) {
-            formChangesActions.redo()
-          } else {
-            formChangesActions.undo()
-          }
-        })
+        if (shiftKey) {
+          formChangesActions.redo()
+        } else {
+          formChangesActions.undo()
+        }
       }
     }
 

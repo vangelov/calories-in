@@ -1,9 +1,10 @@
 import { Input, HStack, chakra, VStack, Text } from '@chakra-ui/react'
 import { useDietForm, useDietFormActions } from 'core/diets'
 import { ChangeEvent } from 'react'
-import { ArrowUpCircle, AlertCircle } from 'react-feather'
+import { ArrowUpCircle, ArrowDownCircle, AlertCircle } from 'react-feather'
 
 const ArrowUpCircleStyled = chakra(ArrowUpCircle)
+const ArrowDownCircleStyled = chakra(ArrowDownCircle)
 const AlertCircleStyled = chakra(AlertCircle)
 
 type Props = {
@@ -41,7 +42,9 @@ function Name({ diff }: Props) {
 
         {diff !== 0 && (
           <HStack spacing={1}>
-            <ArrowUpCircleStyled color="gray.400" size="16px" />
+            {diff < 0 && <ArrowDownCircleStyled color="gray.400" size="16px" />}
+            {diff > 0 && <ArrowUpCircleStyled color="gray.400" size="16px" />}
+
             <Text fontSize="xs" textColor="gray.400">
               {diff}kcal
             </Text>

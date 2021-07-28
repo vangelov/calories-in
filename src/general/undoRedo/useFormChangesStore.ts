@@ -94,8 +94,6 @@ function useFormChangesStore({
               delta.selectedVariantFormIndex !== undefined
             )
           ) {
-            console.log('push', delta)
-            console.log('push scroll', horizontalScrollRef.current?.scrollLeft)
             lastFormRef.current = deepCopy(form)
             //console.log('push', delta)
             //console.log('l,', lastFormRef.current)

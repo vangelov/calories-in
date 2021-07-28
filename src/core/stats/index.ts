@@ -1,6 +1,4 @@
 export * from './types'
-export { default as InitialEnergyProvider } from './InitialEnergyProvider'
-export * from './InitialEnergyProvider'
 
 export * from './useMealsStatsStore'
 export { default as useIngredientsStats } from './useIngredientsStats'

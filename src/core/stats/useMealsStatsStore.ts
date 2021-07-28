@@ -3,24 +3,34 @@ import { useState, useCallback } from 'react'
 import produce from 'immer'
 import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
 
+type MealsStats = Record<string, Record<number, Stats> | undefined>
+
 function useMealsStatsStore() {
-  const [mealsStats, setMealsStats] = useState<Record<number, Stats>>({})
+  const [mealsStats, setMealsStats] = useState<MealsStats>({})
 
   const setMealStats = useCallback(
-    (index: number, stats: Stats) =>
+    (variantFormFieldId: string, index: number, stats: Stats) =>
       setMealsStats(
         produce(draftMealsStats => {
-          draftMealsStats[index] = stats
+          let t = draftMealsStats[variantFormFieldId]
+          if (!t) {
+            t = {}
+            draftMealsStats[variantFormFieldId] = t
+          }
+          t[index] = stats
         })
       ),
     []
   )
 
   const deleteMealStats = useCallback(
-    (index: number) =>
+    (variantFormFieldId: string, index: number) =>
       setMealsStats(
         produce(draftMealsStats => {
-          delete draftMealsStats[index]
+          let t = draftMealsStats[variantFormFieldId]
+          if (t) {
+            delete t[index]
+          }
         })
       ),
     []
