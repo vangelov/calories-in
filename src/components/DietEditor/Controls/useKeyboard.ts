@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react'
 import { ContentBoxRefContext } from 'components/layout/MainLayout'
-import { useFormChangesStoreMethods } from 'general/undoRedo'
+import { useFormVersionsActions } from 'general/formVersions'
 
 function useKeyboard() {
-  const formChangesActions = useFormChangesStoreMethods()
+  const formVersionsActions = useFormVersionsActions()
   const contentBoxRef = useContext(ContentBoxRefContext)
   const node = contentBoxRef.current
 
@@ -19,9 +19,9 @@ function useKeyboard() {
         event.preventDefault()
 
         if (shiftKey) {
-          formChangesActions.redo()
+          formVersionsActions.redo()
         } else {
-          formChangesActions.undo()
+          formVersionsActions.undo()
         }
       }
     }
@@ -39,7 +39,7 @@ function useKeyboard() {
       node.removeEventListener('keydown', onNodeKeyDown)
       document.body.removeEventListener('keydown', onBodyKeyDown)
     }
-  }, [formChangesActions, node])
+  }, [formVersionsActions, node])
 }
 
 export default useKeyboard

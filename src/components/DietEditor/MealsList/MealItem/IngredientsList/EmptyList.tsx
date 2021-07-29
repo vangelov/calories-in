@@ -9,7 +9,7 @@ function EmptyList({ onAddIngredients }: Props) {
   return (
     <Flex py={2} px={3} justifyContent="space-between" alignItems="center">
       <Text fontSize="md" textColor="gray.400">
-        No ingredients added
+        No foods added
       </Text>
 
       <ResponsiveButton

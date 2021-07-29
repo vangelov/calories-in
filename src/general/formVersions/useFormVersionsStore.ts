@@ -1,21 +1,16 @@
-import {
-  useCallback,
-  useRef,
-  useMemo,
-  useState,
-  RefObject,
-  useEffect,
-} from 'react'
+import { useCallback, useRef, useState, RefObject, useEffect } from 'react'
 import * as jsondiffpatch from 'jsondiffpatch'
+import { Delta } from 'jsondiffpatch'
 import DeltasStack from './deltasStack'
 import deepCopy from 'general/deepCopy'
-import { makeStoreProvider } from 'general/stores'
+import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
 
 type Params = {
   form: object
   horizontalScrollRef: RefObject<HTMLDivElement>
   onUndo: (form: object, scrollTop: number, scrollLeft: number) => void
   onRedo: (form: object, scrollTop: number, scrollLeft: number) => void
+  shouldSaveDelta?: (delta: jsondiffpatch.Delta) => boolean
 }
 
 const patcher = jsondiffpatch.create({
@@ -29,11 +24,12 @@ type UndoRedoState = {
   canRedo: boolean
 }
 
-function useFormChangesStore({
+function useFormVersionsStore({
   form,
   horizontalScrollRef,
   onUndo,
   onRedo,
+  shouldSaveDelta = () => true,
 }: Params) {
   const deltasStackRef = useRef(new DeltasStack())
   const lastFormRef = useRef<object>(form)
@@ -44,34 +40,37 @@ function useFormChangesStore({
   })
 
   const undo = useCallback(() => {
-    const result = deltasStackRef.current.getNextResultToUnpatch()
+    const result = deltasStackRef.current.getNextNodeToUnpatch()
 
     if (result) {
       const { delta, scrollTop, scrollLeft } = result
-      lastFormRef.current = patcher.unpatch(lastFormRef.current, delta)
+      lastFormRef.current = patcher.unpatch(
+        lastFormRef.current,
+        deepCopy(delta)
+      )
 
       setState({
         canUndo: deltasStackRef.current.canUnpatch,
         canRedo: deltasStackRef.current.canPatch,
       })
 
-      onUndo(lastFormRef.current, scrollTop, scrollLeft)
+      onUndo(deepCopy(lastFormRef.current), scrollTop, scrollLeft)
     }
   }, [onUndo])
 
   const redo = useCallback(() => {
-    const result = deltasStackRef.current.getNextResultToPatch()
+    const result = deltasStackRef.current.getNextNodeToPatch()
 
     if (result) {
       const { delta, scrollTop, scrollLeft } = result
-      lastFormRef.current = patcher.patch(lastFormRef.current, delta)
+      lastFormRef.current = patcher.patch(lastFormRef.current, deepCopy(delta))
 
       setState({
         canUndo: deltasStackRef.current.canUnpatch,
         canRedo: deltasStackRef.current.canPatch,
       })
 
-      onRedo(lastFormRef.current, scrollTop, scrollLeft)
+      onRedo(deepCopy(lastFormRef.current), scrollTop, scrollLeft)
     }
   }, [onRedo])
 
@@ -84,19 +83,10 @@ function useFormChangesStore({
       timeoutIdRef.current = window.setTimeout(() => {
         if (form !== lastFormRef.current) {
           const delta = patcher.diff(lastFormRef.current, form)
-          //console.log('comp1', lastFormRef.current)
-          //console.log('comp2', form)
 
-          if (
-            delta &&
-            !(
-              Object.keys(delta).length === 1 &&
-              delta.selectedVariantFormIndex !== undefined
-            )
-          ) {
+          if (delta && shouldSaveDelta(delta)) {
             lastFormRef.current = deepCopy(form)
-            //console.log('push', delta)
-            //console.log('l,', lastFormRef.current)
+
             deltasStackRef.current.push(
               delta,
               window.scrollY,
@@ -113,38 +103,24 @@ function useFormChangesStore({
         }
       }, TIMEOUT_IN_MS)
     },
-    [horizontalScrollRef]
+    [horizontalScrollRef, shouldSaveDelta]
   )
 
   useEffect(() => {
     pushForm(form)
   }, [pushForm, form])
 
-  const methods = useMemo(
-    () => ({
-      undo,
-      redo,
-    }),
-    [undo, redo]
-  )
+  const methods = useCallbacksMemo({ undo, redo })
 
   return [state, methods] as const
 }
 
-type FormChangesStore = ReturnType<typeof useFormChangesStore>
-
-export type { FormChangesStore }
-
 const [
-  FormChangesStoreProvider,
-  useFormChangesStoreState,
-  useFormChangesStoreMethods,
-] = makeStoreProvider(useFormChangesStore)
+  FormVersionsStoreProvider,
+  useFormVersions,
+  useFormVersionsActions,
+] = makeStoreProvider(useFormVersionsStore)
 
-export {
-  FormChangesStoreProvider,
-  useFormChangesStoreState,
-  useFormChangesStoreMethods,
-}
+export { FormVersionsStoreProvider, useFormVersions, useFormVersionsActions }
 
-export default useFormChangesStore
+export default useFormVersionsStore

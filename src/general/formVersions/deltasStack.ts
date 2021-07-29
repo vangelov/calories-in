@@ -1,11 +1,4 @@
 import { Delta } from 'jsondiffpatch'
-import deepCopy from 'general/deepCopy'
-
-type PatchUnpatchResult = {
-  scrollTop: number
-  scrollLeft: number
-  delta: Delta
-}
 
 class DeltaNode {
   delta: Delta
@@ -29,7 +22,7 @@ class DeltasStack {
   canUnpatch: boolean = false
   canPatch: boolean = false
 
-  getNextResultToUnpatch(): PatchUnpatchResult | null {
+  getNextNodeToUnpatch(): DeltaNode | null {
     if (!this.canUnpatch) {
       return null
     }
@@ -41,16 +34,11 @@ class DeltasStack {
     }
 
     if (this.pointerNode) {
-      const { delta, scrollTop, scrollLeft } = this.pointerNode
       this.canUnpatch = this.pointerNode.nextNode !== undefined
       this.canPatch = true
 
       // jsondiffpatch sometimes modifies this delta for some reason
-      return {
-        delta: deepCopy(delta),
-        scrollTop,
-        scrollLeft,
-      }
+      return this.pointerNode
     }
 
     this.canUnpatch = false
@@ -58,19 +46,15 @@ class DeltasStack {
     return null
   }
 
-  getNextResultToPatch(): PatchUnpatchResult | null {
+  getNextNodeToPatch(): DeltaNode | null {
     if (this.pointerNode) {
-      const { delta, scrollTop, scrollLeft } = this.pointerNode
+      const result = this.pointerNode
       this.pointerNode = this.pointerNode.prevNode
 
       this.canPatch = this.pointerNode !== undefined
       this.canUnpatch = true
 
-      return {
-        delta: deepCopy(delta),
-        scrollTop,
-        scrollLeft,
-      }
+      return result
     }
 
     return null

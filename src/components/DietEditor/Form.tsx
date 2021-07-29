@@ -1,6 +1,10 @@
-import { useDietForm, useDietFormActions, VariantForm } from 'core/diets'
-import { FormChangesStoreProvider } from 'general/undoRedo'
-import deepCopy from 'general/deepCopy'
+import {
+  DietForm,
+  useDietForm,
+  useDietFormActions,
+  VariantForm,
+} from 'core/diets'
+import { FormVersionsStoreProvider } from 'general/formVersions'
 import { useRef, useCallback } from 'react'
 import Page, { PageHeader, PageBody, PageFooter } from 'components/layout/Page'
 import NameAndStats from './NameAndStats'
@@ -8,6 +12,7 @@ import MealsList from './MealsList'
 import Controls from './Controls'
 import VariantsList from './VariantsList'
 import useScrollState from './useScrollState'
+import { Delta } from 'jsondiffpatch'
 
 type Props = {
   isEditingExistingDiet: boolean
@@ -25,7 +30,7 @@ function Form({ isEditingExistingDiet }: Props) {
   })
 
   function onUndoOrRedo(form: object, scrollTop: number, scrollLeft: number) {
-    dietFormActions.setDietForm(deepCopy(form))
+    dietFormActions.setDietForm(form as DietForm)
     setScrollState({ top: scrollTop, left: scrollLeft })
   }
 
@@ -40,12 +45,21 @@ function Form({ isEditingExistingDiet }: Props) {
     setScrollState({ top: 0 })
   }, [setScrollState])
 
+  const shouldSaveDelta = useCallback((delta: Delta) => {
+    const onlySelectedFormIndexChanged =
+      Object.keys(delta).length === 1 &&
+      delta.selectedVariantFormIndex !== undefined
+
+    return false === onlySelectedFormIndexChanged
+  }, [])
+
   return (
-    <FormChangesStoreProvider
+    <FormVersionsStoreProvider
       horizontalScrollRef={horizontalScrollRef}
       form={dietForm}
       onUndo={onUndoOrRedo}
       onRedo={onUndoOrRedo}
+      shouldSaveDelta={shouldSaveDelta}
     >
       <Page>
         <PageHeader>
@@ -73,7 +87,7 @@ function Form({ isEditingExistingDiet }: Props) {
           />
         </PageFooter>
       </Page>
-    </FormChangesStoreProvider>
+    </FormVersionsStoreProvider>
   )
 }
 

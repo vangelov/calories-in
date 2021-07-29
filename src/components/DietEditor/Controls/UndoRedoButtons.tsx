@@ -1,8 +1,5 @@
 import { ButtonGroup, chakra } from '@chakra-ui/react'
-import {
-  useFormChangesStoreMethods,
-  useFormChangesStoreState,
-} from 'general/undoRedo'
+import { useFormVersionsActions, useFormVersions } from 'general/formVersions'
 import { CornerUpLeft, CornerUpRight } from 'react-feather'
 import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
@@ -11,8 +8,8 @@ const CornerUpLeftStyled = chakra(CornerUpLeft)
 const CornerUpRightStyled = chakra(CornerUpRight)
 
 function UndoRedoButtons() {
-  const { undo, redo } = useFormChangesStoreMethods()
-  const { canUndo, canRedo } = useFormChangesStoreState()
+  const { undo, redo } = useFormVersionsActions()
+  const { canUndo, canRedo } = useFormVersions()
   const screenSize = useScreenSize()
   const spacing = screenSize >= 2 ? 1 : 2
 
