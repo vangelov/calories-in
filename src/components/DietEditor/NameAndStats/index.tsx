@@ -20,10 +20,10 @@ type Props = {
 function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
   const {
     mealsStatsSum,
-    proteinPercentage,
-    carbsPercentage,
-    fatPercentage,
-    diff,
+    proteinPercent,
+    carbsPercent,
+    fatPercent,
+    energyDiff,
   } = useDerivedMealsStats({ selectedVariantForm })
 
   return (
@@ -34,7 +34,7 @@ function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
       width="100%"
     >
       <StatsLayout
-        nameElement={<Name diff={diff} />}
+        nameElement={<Name energyDiff={energyDiff} />}
         energyElement={
           <EnergyStat
             energy={mealsStatsSum.energy}
@@ -47,7 +47,7 @@ function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
             type="diet"
             label="Protein"
             value={mealsStatsSum.protein}
-            valueDetail={`${proteinPercentage}%`}
+            valueDetail={`${proteinPercent}%`}
             showsValueDetail={true}
           />
         }
@@ -57,7 +57,7 @@ function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
             type="diet"
             label="Carbs"
             value={mealsStatsSum.carbs}
-            valueDetail={`${carbsPercentage}%`}
+            valueDetail={`${carbsPercent}%`}
             showsValueDetail={true}
           />
         }
@@ -67,7 +67,7 @@ function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
             type="diet"
             label="Fat"
             value={mealsStatsSum.fat}
-            valueDetail={`${fatPercentage}%`}
+            valueDetail={`${fatPercent}%`}
             showsValueDetail={true}
           />
         }

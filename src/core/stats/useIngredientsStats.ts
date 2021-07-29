@@ -1,7 +1,7 @@
 import { IngredientForm } from 'core/diets'
 import { Food } from 'core/types'
 import { useMemo } from 'react'
-import sumStats from './sumStats'
+import sumStats from './calculations/sumStats'
 import { Stats } from './types'
 
 function getIngredientFormStats(

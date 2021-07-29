@@ -1,9 +1,7 @@
 import { VariantForm } from 'core/diets'
 import { useMemo, useRef } from 'react'
-import getMacrosPercentages, {
-  roundedMacroPercentages,
-} from './getMacrosPercentages'
-import sumStats from './sumStats'
+import { getMacrosPercents, roundMacrosPercents } from './calculations'
+import sumStats from './calculations/sumStats'
 import { useMealsStats } from './useMealsStatsStore'
 
 type Params = {
@@ -27,23 +25,23 @@ function useDerivedMealsStats({ selectedVariantForm }: Params) {
     return statsSum
   }, [mealsStats, fieldId])
 
-  const { proteinPercentage, carbsPercentage, fatPercentage } = useMemo(
-    () => roundedMacroPercentages(getMacrosPercentages(mealsStatsSum)),
+  const { proteinPercent, carbsPercent, fatPercent } = useMemo(
+    () => roundMacrosPercents(getMacrosPercents(mealsStatsSum)),
     [mealsStatsSum]
   )
 
   const cachedEnergy = energyCacheRef.current[selectedVariantForm.fieldId]
-  const diff =
+  const energyDiff =
     cachedEnergy !== undefined && cachedEnergy > 0
       ? mealsStatsSum.energy - cachedEnergy
       : 0
 
   return {
     mealsStatsSum,
-    proteinPercentage,
-    carbsPercentage,
-    fatPercentage,
-    diff,
+    proteinPercent,
+    carbsPercent,
+    fatPercent,
+    energyDiff,
   }
 }
 

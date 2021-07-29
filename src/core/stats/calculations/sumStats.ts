@@ -1,4 +1,4 @@
-import { Stats } from './types'
+import { Stats } from '../types'
 
 function sumStats(stats: Stats[]): Stats {
   const result: Stats = {

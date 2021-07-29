@@ -12,12 +12,14 @@ function useMealsStatsStore() {
     (variantFormFieldId: string, index: number, stats: Stats) =>
       setMealsStats(
         produce(draftMealsStats => {
-          let t = draftMealsStats[variantFormFieldId]
-          if (!t) {
-            t = {}
-            draftMealsStats[variantFormFieldId] = t
+          let variantMealsStats = draftMealsStats[variantFormFieldId]
+
+          if (!variantMealsStats) {
+            variantMealsStats = {}
+            draftMealsStats[variantFormFieldId] = variantMealsStats
           }
-          t[index] = stats
+
+          variantMealsStats[index] = stats
         })
       ),
     []
@@ -27,9 +29,10 @@ function useMealsStatsStore() {
     (variantFormFieldId: string, index: number) =>
       setMealsStats(
         produce(draftMealsStats => {
-          let t = draftMealsStats[variantFormFieldId]
-          if (t) {
-            delete t[index]
+          let variantMealsStats = draftMealsStats[variantFormFieldId]
+
+          if (variantMealsStats) {
+            delete variantMealsStats[index]
           }
         })
       ),

@@ -8,10 +8,10 @@ const ArrowDownCircleStyled = chakra(ArrowDownCircle)
 const AlertCircleStyled = chakra(AlertCircle)
 
 type Props = {
-  diff: number
+  energyDiff: number
 }
 
-function Name({ diff }: Props) {
+function Name({ energyDiff }: Props) {
   const dietForm = useDietForm()
   const dietFormActions = useDietFormActions()
 
@@ -40,13 +40,17 @@ function Name({ diff }: Props) {
           </Text>
         </HStack>
 
-        {diff !== 0 && (
+        {energyDiff !== 0 && (
           <HStack spacing={1}>
-            {diff < 0 && <ArrowDownCircleStyled color="gray.400" size="16px" />}
-            {diff > 0 && <ArrowUpCircleStyled color="gray.400" size="16px" />}
+            {energyDiff < 0 && (
+              <ArrowDownCircleStyled color="gray.400" size="16px" />
+            )}
+            {energyDiff > 0 && (
+              <ArrowUpCircleStyled color="gray.400" size="16px" />
+            )}
 
             <Text fontSize="xs" textColor="gray.400">
-              {diff}kcal
+              {energyDiff}kcal
             </Text>
           </HStack>
         )}
