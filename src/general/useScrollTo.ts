@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useCallback } from 'react'
 import isElementInViewport from './isElementInViewport'
 
 function useScrollTo() {
@@ -10,7 +10,7 @@ function useScrollTo() {
     }
   }, [])
 
-  function scrollTo(node: HTMLElement) {
+  const scrollTo = useCallback((node: HTMLElement) => {
     if (isElementInViewport(node)) {
       return Promise.resolve()
     }
@@ -32,7 +32,7 @@ function useScrollTo() {
         block: 'start',
       })
     })
-  }
+  }, [])
 
   return scrollTo
 }

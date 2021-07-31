@@ -5,44 +5,80 @@ import {
   chakra,
   Flex,
   Text,
-  Stack,
   FlexProps,
+  HStack,
+  Box,
 } from '@chakra-ui/react'
 import { Divider } from '@chakra-ui/react'
 import { Search } from 'react-feather'
 import VirtualizedList from './VirtualizedList'
 import { Selection } from 'general/useSelection'
-import { ChangeEvent, RefObject, useState } from 'react'
-import { useFilterFoods, FoodsFilter } from 'core/foods'
+import {
+  ForwardedRef,
+  RefObject,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+  ChangeEvent,
+} from 'react'
+import { useFilterFoods, useFoods, useFoodsFilterStore } from 'core/foods'
 import { Food } from 'core/types'
-import { FoodCategoriesSelect } from 'components/foods'
+import FilterPopover from './FilterPopover'
+import { FixedSizeList } from 'react-window'
 
 const SearchStyled = chakra(Search)
+
+type FoodsListMethods = {
+  scrollToFood: (food: Food) => void
+}
 
 type Props = {
   searchInputRef?: RefObject<HTMLInputElement>
   selection: Selection<Food>
+  onFoodPreview: (food: Food) => void
+  forwardedRef?: ForwardedRef<FoodsListMethods>
 } & FlexProps
 
-function FoodsList({ selection, searchInputRef, ...rest }: Props) {
-  const [filter, setFilter] = useState<FoodsFilter>({ query: '' })
+function FoodsList({
+  selection,
+  searchInputRef,
+  onFoodPreview,
+  forwardedRef,
+  ...rest
+}: Props) {
+  const { allFoods, userFoods } = useFoods()
+  const listRef = useRef<FixedSizeList>(null)
+  const [filter, foodsFilterActions] = useFoodsFilterStore()
+  const filteredFoods = useFilterFoods(allFoods, userFoods, filter)
 
-  function onInputChange(event: ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target
-    setFilter(filter => ({ ...filter, query: value }))
-  }
+  useImperativeHandle(forwardedRef, () => ({
+    scrollToFood: (food: Food) => {
+      foodsFilterActions.resetCategoryIdAndQuery()
 
-  function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
-    const { value } = event.target
-    setFilter(filter => ({ ...filter, categoryId: Number(value) }))
-  }
-
-  const filterFoods = useFilterFoods()
-  const filteredFoods = filterFoods(filter)
+      if (listRef.current) {
+        const foods = filter.onlyFoodsAddedbyUser ? userFoods : allFoods
+        const index = foods.map(({ id }) => id).indexOf(food.id)
+        listRef.current.scrollToItem(index, 'center')
+      }
+    },
+  }))
 
   return (
     <Flex flexDirection="column" {...rest}>
-      <Stack spacing={3} direction={{ base: 'column', md: 'row' }}>
+      <HStack spacing={3}>
+        <Box>
+          <FilterPopover
+            filter={filter}
+            onFoodCategoryIdChange={categoryId =>
+              foodsFilterActions.updateFilter({ categoryId })
+            }
+            onOnlyFoodsAddedByUserChange={onlyFoodsAddedbyUser =>
+              foodsFilterActions.updateFilter({ onlyFoodsAddedbyUser })
+            }
+            onReset={foodsFilterActions.resetFilter}
+          />
+        </Box>
+
         <InputGroup size="md" flex={4}>
           <InputLeftElement
             pointerEvents="none"
@@ -51,24 +87,24 @@ function FoodsList({ selection, searchInputRef, ...rest }: Props) {
           <Input
             ref={searchInputRef}
             value={filter.query}
-            onChange={onInputChange}
+            onChange={(event: ChangeEvent<HTMLInputElement>) =>
+              foodsFilterActions.updateFilter({ query: event.target.value })
+            }
             placeholder="Search"
           />
         </InputGroup>
-
-        <FoodCategoriesSelect flex={3} onChange={onSelectChange}>
-          <option value={undefined}>All categories</option>
-        </FoodCategoriesSelect>
-      </Stack>
+      </HStack>
 
       <Divider mt={3} width="100%" />
 
       {filteredFoods.length > 0 ? (
         <VirtualizedList
+          ref={listRef}
           foodsCount={filteredFoods.length}
           isFoodSelected={food => selection.isIdSelected(food.id)}
           getFood={index => filteredFoods[index]}
           onFoodSelect={food => selection.onToggleItem(food)}
+          onFoodPreview={onFoodPreview}
         />
       ) : (
         <Flex
@@ -84,4 +120,8 @@ function FoodsList({ selection, searchInputRef, ...rest }: Props) {
   )
 }
 
-export default FoodsList
+export type { FoodsListMethods }
+
+export default forwardRef<any, Props>((props, ref) => (
+  <FoodsList {...props} forwardedRef={ref} />
+))

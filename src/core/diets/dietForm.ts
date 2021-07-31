@@ -1,6 +1,5 @@
 import { Diet } from 'core/types'
-import { useForm } from 'react-hook-form'
-import { getVariantForm, VariantForm } from './variants'
+import { getVariantForm, VariantForm } from './variantForm'
 
 type DietForm = {
   formId: string
@@ -10,7 +9,7 @@ type DietForm = {
 }
 
 function getDietForm(diet?: Diet): DietForm {
-  const variantsForms = [getVariantForm('Every day')]
+  const variantsForms = [getVariantForm('Variant 1')]
 
   if (diet) {
     return {
@@ -29,14 +28,6 @@ function getDietForm(diet?: Diet): DietForm {
   }
 }
 
-function useDietForm(dietForm: DietForm) {
-  const formMethods = useForm<DietForm>({
-    defaultValues: dietForm,
-  })
-
-  return formMethods
-}
-
 export type { DietForm }
 
-export { getDietForm, useDietForm }
+export { getDietForm }

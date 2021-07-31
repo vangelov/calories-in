@@ -6,12 +6,7 @@ type Props = { forwardedRef?: ForwardedRef<HTMLSelectElement> } & SelectProps
 
 function FoodCategoriesSelect({ children, forwardedRef, ...rest }: Props) {
   return (
-    <Select
-      focusBorderColor="custom.500"
-      size="md"
-      ref={forwardedRef}
-      {...rest}
-    >
+    <Select focusBorderColor="teal.500" size="md" ref={forwardedRef} {...rest}>
       {children}
       {foodCategories.map(category => (
         <option key={category.id} value={category.id}>

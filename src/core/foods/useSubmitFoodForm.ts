@@ -1,38 +1,36 @@
-import { useFoodsByIdDispatch, useFoodsByIdState } from 'core/foods'
 import { Food } from 'core/types'
-import { UseFormReturn } from 'react-hook-form'
+import { useFormContext } from 'react-hook-form'
 import { FoodForm } from './foodForm'
+import { useFoodsActions, useFoods } from './useFoodsStore'
 
 type Params = {
-  formMethods: UseFormReturn<FoodForm>
   onComplete: (food: Food) => void
 }
-function useSubmitFoodForm({ formMethods, onComplete }: Params) {
-  const { handleSubmit } = formMethods
-  const foodsByIdDispatch = useFoodsByIdDispatch()
-  const foodsByIdState = useFoodsByIdState()
+function useSubmitFoodForm({ onComplete }: Params) {
+  const { handleSubmit } = useFormContext()
+  const foodsActions = useFoodsActions()
+  const { foodsById } = useFoods()
 
   const onSubmit = handleSubmit((foodForm: FoodForm) => {
-    const id = Object.keys(foodsByIdState).length + 1
+    const id = Object.keys(foodsById).length + 1
 
     const food: Food = {
       id,
       name: foodForm.name,
-      energy: foodForm.energy,
-      protein: foodForm.protein,
-      carbs: foodForm.categoryId,
-      sugar: foodForm.sugar,
-      fiber: foodForm.fiber,
-      fat: foodForm.fat,
-      saturatedFat: foodForm.saturatedFat,
-      sodium: foodForm.sodium,
+      energy: Number(foodForm.energy),
+      protein: Number(foodForm.protein),
+      carbs: Number(foodForm.carbs),
+      sugar: Number(foodForm.sugar),
+      fiber: Number(foodForm.fiber),
+      fat: Number(foodForm.fat),
+      saturatedFat: Number(foodForm.saturatedFat),
+      sodium: Number(foodForm.sodium),
       categoryId: foodForm.categoryId,
+      addedByUser: true,
     }
 
-    foodsByIdDispatch({ type: 'addFood', food })
+    foodsActions.setFood(food)
     onComplete(food)
-
-    return food
   })
 
   return {

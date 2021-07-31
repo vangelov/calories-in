@@ -6,6 +6,7 @@ type Props = {
   nameNoOfLines?: number
   detailText?: string
   fontSize: TypographyProps['fontSize']
+  energy?: number
 } & BoxProps
 
 function FoodInfo({
@@ -13,6 +14,7 @@ function FoodInfo({
   detailText,
   fontSize,
   nameNoOfLines,
+  energy,
   ...rest
 }: Props) {
   return (
@@ -25,7 +27,7 @@ function FoodInfo({
         {detailText && (
           <Text fontSize="xs" textColor="gray.400">
             <Text as="span" fontWeight="bold" fontSize="xs">
-              200kcal
+              {`${Math.round(energy as number)}kcal`}
             </Text>{' '}
             / 100g
           </Text>

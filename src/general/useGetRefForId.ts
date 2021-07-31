@@ -1,20 +1,20 @@
-import { createRef, RefObject, useRef } from 'react'
+import { createRef, RefObject, useCallback, useRef } from 'react'
 
 type RefsCache = {
-  [id: number]: RefObject<HTMLDivElement>
-  [id: string]: RefObject<HTMLDivElement>
+  [id: number]: RefObject<HTMLInputElement>
+  [id: string]: RefObject<HTMLInputElement>
 }
 
 function useGetRefForId() {
   const cacheRef = useRef<RefsCache>({})
 
-  function getRef(id: number | string) {
+  const getRef = useCallback((id: number | string) => {
     if (!cacheRef.current[id]) {
       cacheRef.current[id] = createRef()
     }
 
     return cacheRef.current[id]
-  }
+  }, [])
 
   return getRef
 }

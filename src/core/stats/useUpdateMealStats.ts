@@ -1,17 +1,36 @@
-import { useDietStatsDispatch } from './DietStatsProvider'
-import { useEffect } from 'react'
 import { Stats } from './types'
+import { useEffect } from 'react'
+import { useMealsStatsActions } from './useMealsStatsStore'
 
-function useUpdateMealStats(mealIndex: number, stats: Stats) {
-  const dispatch = useDietStatsDispatch()
+type Params = {
+  ingredientsStatsSum: Stats
+  selectedVariantFormFieldId: string
+  index: number
+}
+
+function useUpdateMealStats({
+  ingredientsStatsSum,
+  selectedVariantFormFieldId,
+  index,
+}: Params) {
+  const mealsStatsActions = useMealsStatsActions()
 
   useEffect(() => {
-    dispatch({ type: 'updateStats', mealIndex, stats })
+    mealsStatsActions.setMealStats(
+      selectedVariantFormFieldId,
+      index,
+      ingredientsStatsSum
+    )
 
     return () => {
-      dispatch({ type: 'deleteStats', mealIndex })
+      mealsStatsActions.deleteMealStats(selectedVariantFormFieldId, index)
     }
-  })
+  }, [
+    ingredientsStatsSum,
+    mealsStatsActions,
+    index,
+    selectedVariantFormFieldId,
+  ])
 }
 
 export default useUpdateMealStats

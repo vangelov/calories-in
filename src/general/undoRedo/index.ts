@@ -1,5 +1,0 @@
-export * from './UndoRedoMethodsProvider'
-export { default as UndoRedoMethodsProvider } from './UndoRedoMethodsProvider'
-export * from './UndoRedoStateProvider'
-export { default as UndoRedoStateProvider } from './UndoRedoStateProvider'
-export { default as Watcher } from './Watcher'

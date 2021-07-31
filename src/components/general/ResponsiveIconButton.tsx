@@ -6,11 +6,12 @@ import { isMobile } from 'react-device-detect'
 type Props = {
   withoutTooltip?: boolean
   forwardedRef?: ForwardedRef<HTMLButtonElement>
+  tooltip?: string
 } & IconButtonProps
 
 function ResponsiveIconButton({
   forwardedRef,
-  withoutTooltip = false,
+  withoutTooltip = true,
   ...rest
 }: Props) {
   const screenSize = useScreenSize()
@@ -22,7 +23,7 @@ function ResponsiveIconButton({
   }
 
   return (
-    <Tooltip isLaz hasArrow label={rest['aria-label']}>
+    <Tooltip hasArrow label={rest['aria-label']}>
       {buttonElement}
     </Tooltip>
   )

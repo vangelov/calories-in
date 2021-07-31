@@ -1,4 +1,10 @@
-import { ReactElement, ReactNode } from 'react'
+import {
+  createContext,
+  ReactElement,
+  ReactNode,
+  RefObject,
+  useRef,
+} from 'react'
 import { Box } from '@chakra-ui/react'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
 
@@ -7,9 +13,14 @@ export type MainLayoutProps = {
   children: ReactNode
 }
 
+const ContentBoxRefContext = createContext<RefObject<HTMLDivElement | null>>({
+  current: null,
+})
+
 function MainLayout({ children }: MainLayoutProps) {
   const screenSize = useScreenSize()
   const hasSideNavigation = screenSize >= 3
+  const contentBoxRef = useRef<HTMLDivElement>(null)
 
   return (
     <Box>
@@ -23,10 +34,15 @@ function MainLayout({ children }: MainLayoutProps) {
         />
       )}
 
-      <Box px={3} ml={hasSideNavigation ? '200px' : 0}>
-        {children}
-      </Box>
+      <ContentBoxRefContext.Provider value={contentBoxRef}>
+        <Box ref={contentBoxRef} px={3} ml={hasSideNavigation ? '200px' : 0}>
+          {children}
+        </Box>
+      </ContentBoxRefContext.Provider>
     </Box>
   )
 }
+
+export { ContentBoxRefContext }
+
 export default MainLayout
