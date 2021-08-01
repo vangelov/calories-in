@@ -11,7 +11,10 @@ type Params = {
   horizontalScrollRef: RefObject<HTMLDivElement>
 }
 
-function useScrollState({ selectedVariantForm, horizontalScrollRef }: Params) {
+function useScrollManager({
+  selectedVariantForm,
+  horizontalScrollRef,
+}: Params) {
   const scrollTopCacheRef = useRef<Record<string, number | undefined>>({})
   const [scrollState, setScrollState] = useState<ScrollState>({
     top: 0,
@@ -51,4 +54,8 @@ function useScrollState({ selectedVariantForm, horizontalScrollRef }: Params) {
   }
 }
 
-export default useScrollState
+type ScrollManager = ReturnType<typeof useScrollManager>
+
+export type { ScrollManager }
+
+export default useScrollManager

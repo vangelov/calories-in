@@ -1,8 +1,7 @@
 import { Flex } from '@chakra-ui/react'
-import { IngredientForm, useDietFormActions } from 'core/diets'
+import { IngredientForm } from 'core/diets'
 import { Draggable } from 'react-beautiful-dnd'
-import { motion } from 'framer-motion'
-import { useState, memo, ChangeEvent } from 'react'
+import { memo } from 'react'
 import { FoodInfo } from 'components/foods'
 import { FoodAmountInput } from 'components/foods'
 import StatsLayout from 'components/stats/StatsLayout'
@@ -10,10 +9,10 @@ import Stat from 'components/stats/Stat'
 import RightAligned from 'components/general/RightAligned'
 import Menu from './Menu'
 import { useFoods } from 'core/foods'
-import { useOneTimeCheckActions } from 'general/oneTimeCheck'
-import { getInsertIngredientFormAnimationKey } from 'core/diets'
 import { useScreenSize } from 'components/general/ScreenSizeProvider'
 import { Stats } from 'core/stats'
+import PresenceAnimation from './PresenceAnimation'
+import useActions from './useActions'
 
 type Props = {
   variantIndex: number
@@ -24,15 +23,6 @@ type Props = {
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
 }
 
-const variants = {
-  open: {
-    opacity: 1,
-    height: 'auto',
-    x: 0,
-  },
-  collapsed: { opacity: 0, height: 0, x: 0 },
-}
-
 function IngredientItem({
   variantIndex,
   mealIndex,
@@ -41,31 +31,14 @@ function IngredientItem({
   ingredientStats,
   onRemove,
 }: Props) {
-  const [isVisible, setIsVisible] = useState(true)
-
-  const oneTimeCheckActions = useOneTimeCheckActions()
-  const dietFormActions = useDietFormActions()
-  const screenSize = useScreenSize()
-  const amountInputSize = screenSize >= 2 ? 'sm' : 'md'
-
-  function onAmountChange(event: ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target
-
-    dietFormActions.updateIngredientForm(variantIndex, mealIndex, index, {
-      amountInGrams: value,
-    })
-  }
-
-  function onAnimationComplete() {
-    if (!isVisible) {
-      onRemove(variantIndex, mealIndex, index)
-    }
-  }
-
-  const pendingAnimationForInserted = oneTimeCheckActions.checkAndReset(
-    getInsertIngredientFormAnimationKey(ingredientForm.fieldId)
-  )
-
+  const actions = useActions({
+    variantIndex,
+    mealIndex,
+    index,
+    onRemove,
+    ingredientForm,
+  })
+  const amountInputSize = useScreenSize() >= 2 ? 'sm' : 'md'
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
 
@@ -76,15 +49,10 @@ function IngredientItem({
       index={index}
     >
       {(provided, snapshot) => (
-        <motion.div
-          transition={{ ease: 'easeInOut' }}
-          style={{
-            opacity: pendingAnimationForInserted ? 0 : 1,
-          }}
-          initial={pendingAnimationForInserted ? 'collapsed' : false}
-          animate={isVisible ? 'open' : 'collapsed'}
-          onAnimationComplete={onAnimationComplete}
-          variants={variants}
+        <PresenceAnimation
+          shouldAnimate={actions.shouldAnimate}
+          onAnimationComplete={actions.onAnimationComplete}
+          isVisible={actions.isVisible}
         >
           <Flex
             ref={provided.innerRef}
@@ -111,7 +79,7 @@ function IngredientItem({
                 <RightAligned>
                   <FoodAmountInput
                     size={amountInputSize}
-                    onChange={onAmountChange}
+                    onChange={actions.onAmountChange}
                     value={ingredientForm.amountInGrams}
                   />
                 </RightAligned>
@@ -128,10 +96,10 @@ function IngredientItem({
               fatElement={
                 <Stat type="ingredient" value={ingredientStats.fat} />
               }
-              menuElement={<Menu mr={3} onRemove={() => setIsVisible(false)} />}
+              menuElement={<Menu mr={3} onRemove={actions.onRemoveRequest} />}
             />
           </Flex>
-        </motion.div>
+        </PresenceAnimation>
       )}
     </Draggable>
   )

@@ -1,4 +1,4 @@
-import { Flex, Text, HStack, Box } from '@chakra-ui/react'
+import { Flex, Text, Wrap } from '@chakra-ui/react'
 import { Selection } from 'general/useSelection'
 import { Food } from 'core/types'
 import SelectedFoodItem from './SelectedFoodItem'
@@ -15,9 +15,9 @@ function SelectedFoods({ selection }: Props) {
   }
 
   return (
-    <Box overflowX="scroll" mb={3} py={3}>
+    <Flex alignItems="center" minHeight="56px">
       {selectedFoods.length > 0 ? (
-        <HStack spacing={2}>
+        <Wrap spacing={2}>
           {selectedFoods.map(food => (
             <SelectedFoodItem
               key={food.id}
@@ -25,13 +25,11 @@ function SelectedFoods({ selection }: Props) {
               onUnselect={onFoodUnselect}
             />
           ))}
-        </HStack>
+        </Wrap>
       ) : (
-        <Flex alignItems="center">
-          <Text textColor="gray.400">No foods selected</Text>
-        </Flex>
+        <Text textColor="gray.400">No foods selected</Text>
       )}
-    </Box>
+    </Flex>
   )
 }
 

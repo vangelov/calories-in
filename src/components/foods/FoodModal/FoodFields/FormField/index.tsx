@@ -20,6 +20,10 @@ type Props = {
   isIdented?: boolean
   textInputRef?: RefObject<HTMLInputElement>
   isReadOnly?: boolean
+  isEmphasized?: Boolean
+  isCaption?: boolean
+
+  isValueBold?: boolean
 } & FormControlProps
 
 function FormField(props: Props) {
@@ -31,7 +35,11 @@ function FormField(props: Props) {
     nutritionValueUnit = 'g',
     textInputRef,
     isReadOnly = false,
+    isEmphasized = false,
+    isValueBold = false,
+    isCaption = false,
     isRequired,
+
     ...rest
   } = props
   const { formState } = useFormContext()
@@ -44,6 +52,7 @@ function FormField(props: Props) {
     textInputRef,
     isReadOnly,
     nutritionValueUnit,
+    isBold: isValueBold,
   })
 
   return (
@@ -56,12 +65,27 @@ function FormField(props: Props) {
     >
       <VStack spacing={2} alignItems="stretch">
         {isIdented ? <Divider /> : null}
-        <Flex justifyContent="space-between" alignItems="center">
-          <FormLabel fontWeight={isIdented ? 'normal' : 'medium'} mt={2}>
+        <Flex
+          justifyContent={
+            isReadOnly && !isCaption ? undefined : 'space-between'
+          }
+          alignItems="center"
+        >
+          <FormLabel
+            fontWeight={
+              isIdented ? 'normal' : isEmphasized ? 'semibold' : 'medium'
+            }
+            flexShrink={0}
+            fontSize={isCaption ? 'lg' : 'md'}
+            mt={2}
+          >
             {label}
           </FormLabel>
 
-          <Flex width="60%" justifyContent="flex-end">
+          <Flex
+            width={isReadOnly && !isCaption ? undefined : '60%'}
+            justifyContent="flex-end"
+          >
             {inputElement}
 
             {!isReadOnly && inputType === 'nutritionValue' && (

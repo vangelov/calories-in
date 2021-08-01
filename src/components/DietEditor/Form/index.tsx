@@ -1,9 +1,4 @@
-import {
-  DietForm,
-  useDietForm,
-  useDietFormActions,
-  VariantForm,
-} from 'core/diets'
+import { useDietForm } from 'core/diets'
 import { FormVersionsStoreProvider } from 'general/formVersions'
 import { useRef, useCallback } from 'react'
 import Page, { PageHeader, PageBody, PageFooter } from 'components/layout/Page'
@@ -11,8 +6,9 @@ import NameAndStats from './NameAndStats'
 import MealsList from './MealsList'
 import Controls from './Controls'
 import VariantsList from './VariantsList'
-import useScrollState from './useScrollState'
+import useScrollManager from './useScrollManager'
 import { Delta } from 'jsondiffpatch'
+import useActions from './useActions'
 
 type Props = {
   isEditingExistingDiet: boolean
@@ -20,30 +16,16 @@ type Props = {
 
 function Form({ isEditingExistingDiet }: Props) {
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
+
   const dietForm = useDietForm()
-  const dietFormActions = useDietFormActions()
-  const selectedVariantForm =
-    dietForm.variantsForms[dietForm.selectedVariantFormIndex]
-  const { setScrollState, getCachedScrollTop } = useScrollState({
+  const { variantsForms } = dietForm
+  const selectedVariantForm = variantsForms[dietForm.selectedVariantFormIndex]
+
+  const scrollManager = useScrollManager({
     selectedVariantForm,
     horizontalScrollRef,
   })
-
-  function onUndoOrRedo(form: object, scrollTop: number, scrollLeft: number) {
-    dietFormActions.setDietForm(form as DietForm)
-    setScrollState({ top: scrollTop, left: scrollLeft })
-  }
-
-  const onVariantFormSelect = useCallback(
-    (variantForm: VariantForm) => {
-      setScrollState({ top: getCachedScrollTop(variantForm.fieldId) })
-    },
-    [setScrollState, getCachedScrollTop]
-  )
-
-  const onVariantFormCopy = useCallback(() => {
-    setScrollState({ top: 0 })
-  }, [setScrollState])
+  const actions = useActions({ scrollManager })
 
   const shouldSaveDelta = useCallback((delta: Delta) => {
     const onlySelectedFormIndexChanged =
@@ -57,8 +39,8 @@ function Form({ isEditingExistingDiet }: Props) {
     <FormVersionsStoreProvider
       horizontalScrollRef={horizontalScrollRef}
       form={dietForm}
-      onUndo={onUndoOrRedo}
-      onRedo={onUndoOrRedo}
+      onUndo={actions.onUndoOrRedo}
+      onRedo={actions.onUndoOrRedo}
       shouldSaveDelta={shouldSaveDelta}
     >
       <Page>
@@ -82,8 +64,8 @@ function Form({ isEditingExistingDiet }: Props) {
 
         <PageFooter footerContainerRef={horizontalScrollRef}>
           <VariantsList
-            onVariantFormCopy={onVariantFormCopy}
-            onVariantFormSelect={onVariantFormSelect}
+            onVariantFormCopy={actions.onVariantFormCopy}
+            onVariantFormSelect={actions.onVariantFormSelect}
           />
         </PageFooter>
       </Page>

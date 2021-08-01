@@ -11,6 +11,7 @@ import { Food } from 'core/types'
 import { useSubmitFoodForm } from 'core/foods'
 import FoodFields from './FoodFields'
 import { RefObject } from 'react'
+import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 
 type Props = {
   onClose: () => void

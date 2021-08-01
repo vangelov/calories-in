@@ -1,6 +1,5 @@
 import { InputProps, Input, Text, HStack } from '@chakra-ui/react'
 import { MouseEvent } from 'react'
-import { useFormContext } from 'react-hook-form'
 
 type Props = {
   unit?: string
@@ -9,13 +8,7 @@ type Props = {
 const MAX_AMOUNT_EXCLUDING = 10000
 
 function FoodAmountInput({ unit = 'g', size, name, ...rest }: Props) {
-  const formContext = useFormContext()
-
   let register = {}
-
-  if (formContext && name) {
-    register = formContext.register(name)
-  }
 
   const props = {
     ...rest,
@@ -53,8 +46,9 @@ function FoodAmountInput({ unit = 'g', size, name, ...rest }: Props) {
         {...props}
         onChange={event => {
           const { value } = event.target
+          const valueAsNumber = Number(value)
 
-          if (Number(value) < MAX_AMOUNT_EXCLUDING) {
+          if (valueAsNumber >= 0 && valueAsNumber < MAX_AMOUNT_EXCLUDING) {
             props.onChange && props.onChange(event)
           }
         }}

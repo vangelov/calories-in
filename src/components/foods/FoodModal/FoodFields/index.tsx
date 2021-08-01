@@ -28,9 +28,10 @@ function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
         />
 
         <VStack spacing={2}>
-          <Divider />
-
           <FormField
+            isCaption={true}
+            isEmphasized={true}
+            mt={5}
             name="servingSizeInGrams"
             label="Nutrition info per"
             inputType="nutritionValue"
@@ -40,6 +41,8 @@ function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
 
           <FormField
             name="energy"
+            isCaption={true}
+            isValueBold={true}
             label="Energy"
             inputType="nutritionValue"
             nutritionValueUnit="kcal"

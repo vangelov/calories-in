@@ -1,7 +1,7 @@
 import { Input, useMergeRefs } from '@chakra-ui/react'
 import { FoodAmountInput } from 'components/foods'
 import { cloneElement, ReactElement, RefObject } from 'react'
-import { useFormContext } from 'react-hook-form'
+import { useFormContext, Controller } from 'react-hook-form'
 import { FoodCategoriesSelect } from 'components/foods'
 import { InputType } from './types'
 import ReadOnlyInput from './ReadOnlyInput'
@@ -13,6 +13,7 @@ type Params = {
   textInputRef?: RefObject<HTMLInputElement>
   nutritionValueUnit: string
   isReadOnly: boolean
+  isBold?: boolean
 }
 
 function useGetInputElement({
@@ -22,6 +23,7 @@ function useGetInputElement({
   nutritionValueUnit,
   isReadOnly,
   textInputRef,
+  isBold = false,
 }: Params) {
   const { register } = useFormContext()
   let result: ReactElement | null = null
@@ -34,6 +36,7 @@ function useGetInputElement({
         name={name}
         inputType={inputType}
         nutritionValueUnit={nutritionValueUnit}
+        isBold={isBold}
       />
     )
   } else if (inputType === 'text') {
@@ -42,6 +45,7 @@ function useGetInputElement({
         autoComplete="off"
         {...textInputRegister}
         ref={finalTextInputRef}
+        fontWeight={isBold ? 'semibold' : 'normal'}
       />
     )
   } else if (inputType === 'foodCategory') {
@@ -57,7 +61,18 @@ function useGetInputElement({
       </FoodCategoriesSelect>
     )
   } else if (inputType === 'nutritionValue') {
-    result = <FoodAmountInput name={name} unit="" />
+    result = (
+      <Controller
+        name={name}
+        render={({ field }) => (
+          <FoodAmountInput
+            value={field.value}
+            onChange={field.onChange}
+            unit=""
+          />
+        )}
+      />
+    )
   }
 
   if (!result) {

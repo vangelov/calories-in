@@ -1,15 +1,14 @@
 import { MealForm } from 'core/diets'
 import { Flex, LayoutProps, SpaceProps, useDisclosure } from '@chakra-ui/react'
 import Header from './Header'
-import { RefObject, useState, memo } from 'react'
-import { motion } from 'framer-motion'
-import { useOneTimeCheckActions } from 'general/oneTimeCheck'
-import { getInsertMealFormAnimationKey } from 'core/diets'
+import { RefObject, memo } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import IngredientsList from './IngredientsList'
 import SelectFoodsDrawer from './SelectFoodsDrawer'
 import { useFoods } from 'core/foods'
 import { useIngredientsStats, useUpdateMealStats } from 'core/stats'
+import PresenceAnimation from './PresenceAnimation'
+import useActions from './useActions'
 
 type Props = {
   mealForm: MealForm
@@ -22,14 +21,6 @@ type Props = {
 } & LayoutProps &
   SpaceProps
 
-const variants = {
-  open: {
-    opacity: 1,
-  },
-  hidden: { opacity: 0 },
-  collapsed: { opacity: 0, height: 0, x: 0 },
-}
-
 function MealItem({
   mealForm,
   index,
@@ -40,22 +31,15 @@ function MealItem({
   onFirstAppear,
   ...rest
 }: Props) {
-  const [isVisible, setIsVisible] = useState(true)
-  const oneTimeCheckActions = useOneTimeCheckActions()
   const drawerDisclosure = useDisclosure()
   const { foodsById } = useFoods()
-
-  function onAnimationComplete() {
-    if (pendingAnimationForInserted) {
-      onFirstAppear(mealForm)
-    } else if (!isVisible) {
-      onRemove(variantIndex, index)
-    }
-  }
-
-  const pendingAnimationForInserted = oneTimeCheckActions.checkAndReset(
-    getInsertMealFormAnimationKey(mealForm.fieldId)
-  )
+  const actions = useActions({
+    mealForm,
+    variantIndex,
+    index,
+    onFirstAppear,
+    onRemove,
+  })
 
   const { ingredientsStats, ingredientsStatsSum } = useIngredientsStats(
     mealForm.ingredientsForms,
@@ -71,18 +55,10 @@ function MealItem({
       index={index}
     >
       {(provided, snapshot) => (
-        <motion.div
-          transition={{
-            ease: 'easeInOut',
-            duration: pendingAnimationForInserted ? 0.12 : undefined,
-          }}
-          style={{
-            opacity: pendingAnimationForInserted ? 0 : 1,
-          }}
-          initial={pendingAnimationForInserted ? 'hidden' : false}
-          animate={isVisible ? 'open' : 'collapsed'}
-          onAnimationComplete={onAnimationComplete}
-          variants={variants}
+        <PresenceAnimation
+          shouldAnimate={actions.shouldAnimate}
+          isVisible={actions.isVisible}
+          onAnimationComplete={actions.onAnimationComplete}
         >
           <Flex
             ref={provided.innerRef}
@@ -103,7 +79,7 @@ function MealItem({
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}
               mealForm={mealForm}
-              onRemove={() => setIsVisible(false)}
+              onRemove={actions.onRemoveRequest}
               onAddIngredient={drawerDisclosure.onOpen}
             />
 
@@ -124,7 +100,7 @@ function MealItem({
               variantFormIndex={variantIndex}
             />
           </Flex>
-        </motion.div>
+        </PresenceAnimation>
       )}
     </Draggable>
   )

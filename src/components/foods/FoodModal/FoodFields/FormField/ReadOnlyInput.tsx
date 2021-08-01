@@ -7,6 +7,7 @@ type Props = {
   name: string
   inputType: InputType
   nutritionValueUnit: string
+  isBold?: boolean
 }
 
 function formatNutritionValue(value: string) {
@@ -19,7 +20,12 @@ function formatNutritionValue(value: string) {
   return number.toFixed(2)
 }
 
-function ReadOnlyInput({ name, inputType, nutritionValueUnit }: Props) {
+function ReadOnlyInput({
+  name,
+  inputType,
+  nutritionValueUnit,
+  isBold = false,
+}: Props) {
   return (
     <Controller
       name={name}
@@ -34,7 +40,11 @@ function ReadOnlyInput({ name, inputType, nutritionValueUnit }: Props) {
         }
 
         return (
-          <Text textColor="gray.500" fontSize="lg">
+          <Text
+            textColor="gray.500"
+            fontWeight={isBold ? 'semibold' : 'normal'}
+            fontSize={isBold ? 'lg' : 'md'}
+          >
             {inputType === 'nutritionValue'
               ? `${formatNutritionValue(value)}${nutritionValueUnit}`
               : value}
