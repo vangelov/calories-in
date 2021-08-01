@@ -86,8 +86,7 @@ function Content({
       <FoodModal
         isOpen={actions.foodModalDisclosure.isOpen}
         onClose={actions.foodModalDisclosure.onClose}
-        onFoodCreated={actions.onFoodCreated}
-        canEdit={actions.canEdit}
+        onFoodCreatedOrUpdated={actions.onFoodCreatedOrUpdated}
         food={actions.food}
       />
     </DrawerContent>

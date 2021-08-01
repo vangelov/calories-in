@@ -11,7 +11,7 @@ type Props = {
 
 function ResponsiveIconButton({
   forwardedRef,
-  withoutTooltip = true,
+  withoutTooltip = false,
   ...rest
 }: Props) {
   const screenSize = useScreenSize()
@@ -23,7 +23,12 @@ function ResponsiveIconButton({
   }
 
   return (
-    <Tooltip hasArrow label={rest['aria-label']}>
+    <Tooltip
+      hasArrow
+      label={rest['aria-label']}
+      openDelay={1000}
+      closeOnMouseDown={true}
+    >
       {buttonElement}
     </Tooltip>
   )

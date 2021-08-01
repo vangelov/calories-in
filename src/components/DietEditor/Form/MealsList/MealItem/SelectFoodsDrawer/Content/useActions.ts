@@ -22,7 +22,6 @@ function useActions({
 }: Params) {
   const foodModalDisclosure = useDisclosure()
   const [food, setFood] = useState<Food>()
-  const [canEdit, setCanEdit] = useState(false)
   const dietFormActions = useDietFormActions()
 
   function onSave() {
@@ -36,29 +35,32 @@ function useActions({
 
   function onCreateFood() {
     setFood(undefined)
-    setCanEdit(true)
+
     foodModalDisclosure.onOpen()
   }
 
   function onPreviewFood(food: Food) {
     setFood(food)
-    setCanEdit(false)
+
     foodModalDisclosure.onOpen()
   }
 
-  function onFoodCreated(food: Food) {
-    if (listRef.current) {
-      listRef.current.scrollToFood(food)
+  function onFoodCreatedOrUpdated(newFood: Food, oldFood?: Food) {
+    if (!listRef.current) {
+      return
+    }
+
+    if (!oldFood || (oldFood && newFood.categoryId !== oldFood.categoryId)) {
+      listRef.current.scrollToFood(newFood)
     }
   }
 
   return {
     onCreateFood,
     onPreviewFood,
-    onFoodCreated,
+    onFoodCreatedOrUpdated,
     onSave,
     food,
-    canEdit,
     foodModalDisclosure,
   }
 }

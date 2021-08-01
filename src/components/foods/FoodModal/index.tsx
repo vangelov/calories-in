@@ -8,25 +8,18 @@ type Props = {
   onClose: () => void
   isOpen: boolean
   food?: Food
-  canEdit?: boolean
-  onFoodCreated: (food: Food) => void
+  onFoodCreatedOrUpdated: (newFood: Food, oldFood?: Food) => void
 }
 
-function FoodModal({
-  onClose,
-  isOpen,
-  food,
-  canEdit = true,
-  onFoodCreated,
-}: Props) {
+function FoodModal({ onClose, isOpen, food, onFoodCreatedOrUpdated }: Props) {
   const nameInputRef = useRef<HTMLInputElement>(null)
-  const title = food ? (canEdit ? 'Edit Food' : 'Food Details') : 'Create Food'
+  const title = food ? 'Food Details' : 'Create Food'
 
   return (
     <Modal
       isOpen={isOpen}
       preserveScrollBarGap={true}
-      initialFocusRef={canEdit ? nameInputRef : undefined}
+      initialFocusRef={!food ? nameInputRef : undefined}
       onClose={onClose}
       scrollBehavior="inside"
     >
@@ -37,8 +30,7 @@ function FoodModal({
           onClose={onClose}
           title={title}
           food={food}
-          canEdit={canEdit}
-          onFoodCreated={onFoodCreated}
+          onFoodCreatedOrUpdated={onFoodCreatedOrUpdated}
         />
       </FoodFormProvider>
     </Modal>

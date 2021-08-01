@@ -24,6 +24,7 @@ function FoodItem({ food, isSelected = false, onPreview, ...rest }: Props) {
 
   const one = useOneTimeCheckActions()
   const shouldAnimate = one.checkAndReset(`test-${food.id}`)
+  const shouldAnimate2 = one.checkAndReset(`test2-${food.id}`)
 
   return (
     <Box pb={2} {...rest}>
@@ -45,7 +46,7 @@ function FoodItem({ food, isSelected = false, onPreview, ...rest }: Props) {
           p={3}
           height="64px"
         >
-          <DisappearingBox shouldAnimate={shouldAnimate} />
+          {shouldAnimate2 && <DisappearingBox shouldAnimate={shouldAnimate2} />}
 
           <FoodInfo
             fontSize="md"

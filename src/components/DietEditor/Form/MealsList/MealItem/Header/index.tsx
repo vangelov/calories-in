@@ -77,7 +77,6 @@ function Header({
         menuElement={
           <Menu
             mr={3}
-            mealForm={mealForm}
             index={index}
             onAddIngredient={() => onAddIngredient(index)}
             onRemove={() => onRemove(index)}

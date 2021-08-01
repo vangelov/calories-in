@@ -14,7 +14,10 @@ function useSubmitFoodForm({ onComplete }: Params) {
   const oneTimeCheckActions = useOneTimeCheckActions()
 
   const onSubmit = handleSubmit((foodForm: FoodForm) => {
-    const id = Object.keys(foodsById).length + 1
+    const id =
+      foodForm.id !== undefined
+        ? foodForm.id
+        : Object.keys(foodsById).length + 1
 
     const food: Food = {
       id,
@@ -30,7 +33,11 @@ function useSubmitFoodForm({ onComplete }: Params) {
       categoryId: foodForm.categoryId,
       addedByUser: true,
     }
-    oneTimeCheckActions.set(`test-${food.id}`)
+    if (foodForm.id === undefined) {
+      oneTimeCheckActions.set(`test-${food.id}`)
+    }
+    oneTimeCheckActions.set(`test2-${food.id}`)
+
     foodsActions.setFood(food)
     onComplete(food)
   })

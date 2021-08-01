@@ -1,4 +1,4 @@
-import { Flex, IconButton, Box } from '@chakra-ui/react'
+import { Flex, IconButton, Box, Tooltip } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
@@ -57,14 +57,22 @@ function VariantsList({ onVariantFormSelect, onVariantFormCopy }: Props) {
             opacity={snapshot.isUsingPlaceholder ? 0 : 1}
             transition="140ms opacity ease-out"
           >
-            <IconButton
-              borderRadius="full"
-              size="sm"
-              aria-label="Add variant"
-              icon={<Plus size={20} pointerEvents="none" />}
-              variant="outline"
-              onClick={actions.onAppend}
-            />
+            <Tooltip
+              label="Add variant"
+              hasArrow
+              openDelay={1000}
+              closeOnMouseDown={true}
+            >
+              <IconButton
+                borderRadius="full"
+                size="sm"
+                aria-label="Add variant"
+                icon={<Plus size={20} pointerEvents="none" />}
+                variant="outline"
+                onClick={actions.onAppend}
+              />
+            </Tooltip>
+
             <Box width={3} height={3} />
           </Flex>
 
