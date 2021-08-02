@@ -10,9 +10,10 @@ import {
   Box,
 } from '@chakra-ui/react'
 import { Food } from 'core/types'
-import { useSubmitFoodForm } from 'core/foods'
 import FoodFields from './FoodFields'
-import { RefObject, useState } from 'react'
+import { RefObject } from 'react'
+import DeleteConfirmationModal from 'components/general/DeleteConfirmationModal'
+import useActions from './useActions'
 
 type Props = {
   onClose: () => void
@@ -29,15 +30,8 @@ function Content({
   food,
   onFoodCreatedOrUpdated,
 }: Props) {
-  const { onSubmit } = useSubmitFoodForm({
-    onComplete: (newOrUpdatedFood: Food) => {
-      onFoodCreatedOrUpdated(newOrUpdatedFood, food)
-      onClose()
-    },
-  })
-
+  const actions = useActions({ food, onFoodCreatedOrUpdated, onClose })
   const canEdit = Boolean(food && food.addedByUser)
-  const [isEditing, setIsEditing] = useState(!food)
 
   return (
     <ModalContent>
@@ -48,38 +42,49 @@ function Content({
             ml={3}
             variant="link"
             colorScheme="teal"
-            onClick={() => setIsEditing(!isEditing)}
+            onClick={actions.onToggleEdit}
           >
-            {isEditing ? 'Back to preview' : 'Edit food'}
+            {actions.isEditing ? 'Back to preview' : 'Edit food'}
           </Button>
         )}
       </ModalHeader>
       <ModalCloseButton />
 
       <ModalBody>
-        <form onSubmit={onSubmit}>
-          <FoodFields nameInputRef={nameInputRef} canEdit={isEditing} />
+        <form onSubmit={actions.onSubmit}>
+          <FoodFields nameInputRef={nameInputRef} canEdit={actions.isEditing} />
         </form>
 
-        {isEditing && (
+        {actions.isEditing && (
           <Box>
             <Divider />
-            <Button width="100%" my={3} colorScheme="red" onClick={onClose}>
+            <Button
+              width="100%"
+              my={3}
+              colorScheme="red"
+              onClick={actions.onDelete}
+            >
               Delete
             </Button>
           </Box>
         )}
+
+        <DeleteConfirmationModal
+          isOpen={actions.deleteConfirmationDisclosure.isOpen}
+          onCancel={actions.deleteConfirmationDisclosure.onClose}
+          onConfirm={actions.onConfirmDelete}
+        />
       </ModalBody>
 
       <ModalFooter>
         <HStack spacing={3}>
           <Button onClick={onClose}>Close</Button>
-          {isEditing && (
+          {actions.isEditing && (
             <Button
               colorScheme="teal"
               type="submit"
               variant="solid"
-              onClick={onSubmit}
+              onClick={actions.onSubmit}
             >
               Save
             </Button>
