@@ -10,7 +10,7 @@ import {
   ModalHeader,
   ModalCloseButton,
 } from '@chakra-ui/react'
-import { RefObject, useEffect } from 'react'
+import { RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useMergeRefs } from '@chakra-ui/react'
 import useSubmitVariantForm from 'core/diets/variantForm/useSubmitVariantForm'
@@ -41,12 +41,6 @@ function Content({
     submitAction,
     onComplete: onClose,
   })
-
-  useEffect(() => {
-    if (initialRef.current) {
-      initialRef.current.setSelectionRange(0, initialRef.current.value.length)
-    }
-  }, [initialRef])
 
   const isInvalid =
     errors['name'] !== undefined &&

@@ -20,7 +20,7 @@ function Menu({ onRemove, ...rest }: Props) {
         viewScroll="close"
         menuButton={
           <ResponsiveIconButton
-            aria-label="Ingredient actions"
+            aria-label="Food actions"
             icon={<MoreHorizontal size={20} pointerEvents="none" />}
             variant="ghost"
             {...rest}

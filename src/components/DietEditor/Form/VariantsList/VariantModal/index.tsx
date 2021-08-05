@@ -25,12 +25,15 @@ function VariantNameModal({
         : 'Copy Variant'
       : 'Add Variant'
 
+  const finalFocusRef = useRef(null)
+
   return (
     <Modal
       isOpen={isOpen}
       preserveScrollBarGap={true}
       onClose={onClose}
       initialFocusRef={initialRef}
+      finalFocusRef={finalFocusRef}
     >
       <ModalOverlay />
       <VariantFormMethodsProvider variantFormIndex={variantFormIndex}>

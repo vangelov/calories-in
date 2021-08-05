@@ -23,8 +23,8 @@ function Menu({ onDelete, onClone, onEditName, canRemove, ...rest }: Props) {
       viewScroll="close"
       menuButton={
         <ResponsiveIconButton
-          withoutTooltip={true}
-          aria-label="Ingredient actions"
+          isResponsive={false}
+          aria-label="Variant actions"
           icon={<MoreHorizontalStyled size={20} pointerEvents="none" />}
           variant="ghost"
           {...rest}

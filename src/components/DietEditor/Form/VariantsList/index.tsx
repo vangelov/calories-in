@@ -1,4 +1,4 @@
-import { Flex, IconButton, Box, Tooltip } from '@chakra-ui/react'
+import { Flex, Box } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
@@ -6,6 +6,7 @@ import VariantModal from './VariantModal'
 import { useRef } from 'react'
 import { useDietForm, VariantForm } from 'core/diets'
 import useActions from './useActions'
+import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
 
 type Props = {
   onVariantFormSelect: (variantForm: VariantForm) => void
@@ -57,21 +58,15 @@ function VariantsList({ onVariantFormSelect, onVariantFormCopy }: Props) {
             opacity={snapshot.isUsingPlaceholder ? 0 : 1}
             transition="140ms opacity ease-out"
           >
-            <Tooltip
-              label="Add variant"
-              hasArrow
-              openDelay={1000}
-              closeOnMouseDown={true}
-            >
-              <IconButton
-                borderRadius="full"
-                size="sm"
-                aria-label="Add variant"
-                icon={<Plus size={20} pointerEvents="none" />}
-                variant="outline"
-                onClick={actions.onAppend}
-              />
-            </Tooltip>
+            <ResponsiveIconButton
+              borderRadius="full"
+              size="sm"
+              aria-label="Add variant"
+              icon={<Plus size={20} pointerEvents="none" />}
+              variant="outline"
+              onClick={actions.onAppend}
+              isResponsive={false}
+            />
 
             <Box width={3} height={3} />
           </Flex>
