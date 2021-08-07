@@ -35,6 +35,7 @@ function Form({ isEditingExistingDiet }: Props) {
     return false === onlySelectedFormIndexChanged
   }, [])
 
+  console.log('render')
   return (
     <FormVersionsStoreProvider
       horizontalScrollRef={horizontalScrollRef}
@@ -62,10 +63,11 @@ function Form({ isEditingExistingDiet }: Props) {
           />
         </PageBody>
 
-        <PageFooter footerContainerRef={horizontalScrollRef}>
+        <PageFooter>
           <VariantsList
             onVariantFormCopy={actions.onVariantFormCopy}
             onVariantFormSelect={actions.onVariantFormSelect}
+            ref={horizontalScrollRef}
           />
         </PageFooter>
       </Page>

@@ -18,9 +18,9 @@ const HiddenScrollbarsBox = styled(Box)`
 
 function ElementContainer({ children, forwardedRef, ...rest }: Props) {
   return (
-    <HiddenScrollbarsBox flex={1} ref={forwardedRef} maxWidth="900px" {...rest}>
+    <Box flex={1} ref={forwardedRef} maxWidth="900px" {...rest}>
       {children}
-    </HiddenScrollbarsBox>
+    </Box>
   )
 }
 

@@ -1,86 +1,88 @@
-import { Flex, Box } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
 import VariantModal from './VariantModal'
-import { useRef } from 'react'
+import { ForwardedRef, createRef, forwardRef } from 'react'
 import { useDietForm, VariantForm } from 'core/diets'
 import useActions from './useActions'
 import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
+import HScroll from 'components/general/HScroll'
+import mergeRefs from 'react-merge-refs'
 
 type Props = {
-  onVariantFormSelect: (variantForm: VariantForm) => void
+  onVariantFormSelect: (variantForm: VariantForm, index: number) => void
   onVariantFormCopy: () => void
+  forwardedRef?: ForwardedRef<HTMLDivElement>
 }
 
-function VariantsList({ onVariantFormSelect, onVariantFormCopy }: Props) {
-  const appendButtonRef = useRef<HTMLDivElement>(null)
+function VariantsList({
+  onVariantFormSelect,
+  onVariantFormCopy,
+  forwardedRef = createRef(),
+}: Props) {
   const actions = useActions({
     onVariantFormSelect,
     onVariantFormCopy,
-    appendButtonRef,
   })
   const dietForm = useDietForm()
 
   return (
-    <Droppable
-      droppableId="variantsList"
-      type="variantsList"
-      direction="horizontal"
-    >
-      {(provided, snapshot) => (
-        <Flex ref={provided.innerRef}>
-          {dietForm.variantsForms.map((variantForm, index) => {
-            return (
-              <VariantItem
-                canRemove={dietForm.variantsForms.length > 1}
-                mr={1}
-                index={index}
-                onDelete={actions.onRemove}
-                onEditName={actions.onRename}
-                onClone={actions.onCopy}
-                key={variantForm.fieldId}
-                variantForm={variantForm}
-                isSelected={index === dietForm.selectedVariantFormIndex}
-                onSelect={actions.onSelect}
-                onFirstAppear={actions.onVariantItemFirstAppear}
-              >
-                {variantForm.name}
-              </VariantItem>
-            )
-          })}
+    <Flex>
+      <ResponsiveIconButton
+        borderRadius="full"
+        size="sm"
+        aria-label="Add variant"
+        icon={<Plus size={20} pointerEvents="none" />}
+        variant="outline"
+        onClick={actions.onAppend}
+        isResponsive={false}
+        mr={3}
+        ml={3}
+        flexShrink={0}
+      />
 
-          {provided.placeholder}
+      <Droppable
+        droppableId="variantsList"
+        type="variantsList"
+        direction="horizontal"
+      >
+        {(provided, snapshot) => (
+          <HScroll ref={mergeRefs([provided.innerRef, forwardedRef])}>
+            {dietForm.variantsForms.map((variantForm, index) => {
+              return (
+                <VariantItem
+                  canRemove={dietForm.variantsForms.length > 1}
+                  mr={1}
+                  index={index}
+                  onDelete={actions.onRemove}
+                  onEditName={actions.onRename}
+                  onClone={actions.onCopy}
+                  key={variantForm.fieldId}
+                  variantForm={variantForm}
+                  isSelected={index === dietForm.selectedVariantFormIndex}
+                  onSelect={actions.onSelect}
+                >
+                  {variantForm.name}
+                </VariantItem>
+              )
+            })}
 
-          <Flex
-            ml={2}
-            ref={appendButtonRef}
-            opacity={snapshot.isUsingPlaceholder ? 0 : 1}
-            transition="140ms opacity ease-out"
-          >
-            <ResponsiveIconButton
-              borderRadius="full"
-              size="sm"
-              aria-label="Add variant"
-              icon={<Plus size={20} pointerEvents="none" />}
-              variant="outline"
-              onClick={actions.onAppend}
-              isResponsive={false}
-            />
+            {provided.placeholder}
+          </HScroll>
+        )}
+      </Droppable>
 
-            <Box width={3} height={3} />
-          </Flex>
-
-          <VariantModal
-            isOpen={actions.modalDisclosure.isOpen}
-            onClose={actions.onVariantModalClose}
-            submitAction={actions.submitAction}
-            variantFormIndex={actions.variantFormIndex}
-          />
-        </Flex>
-      )}
-    </Droppable>
+      <VariantModal
+        isOpen={actions.modalDisclosure.isOpen}
+        onClose={actions.onVariantModalClose}
+        submitAction={actions.submitAction}
+        variantFormIndex={actions.variantFormIndex}
+      />
+    </Flex>
   )
 }
 
-export default VariantsList
+export default forwardRef<HTMLDivElement, Props>((props, ref) => (
+  <VariantsList {...props} forwardedRef={ref} />
+))

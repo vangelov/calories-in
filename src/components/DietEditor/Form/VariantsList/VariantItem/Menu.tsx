@@ -13,9 +13,17 @@ type Props = {
   onEditName: () => void
   onDelete: () => void
   canRemove: boolean
+  isSelected: boolean
 } & ButtonProps
 
-function Menu({ onDelete, onClone, onEditName, canRemove, ...rest }: Props) {
+function Menu({
+  onDelete,
+  onClone,
+  onEditName,
+  canRemove,
+  isSelected,
+  ...rest
+}: Props) {
   return (
     <MenuBase
       arrow
@@ -30,6 +38,7 @@ function Menu({ onDelete, onClone, onEditName, canRemove, ...rest }: Props) {
           {...rest}
           size="xs"
           borderRadius="full"
+          _hover={{ backgroundColor: isSelected ? 'gray.200' : 'gray.100' }}
         />
       }
     >

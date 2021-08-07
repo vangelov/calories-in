@@ -1,11 +1,12 @@
 import { Box, Text, HStack, LayoutProps, SpaceProps } from '@chakra-ui/react'
 import { VariantForm } from 'core/diets'
-import { ReactNode } from 'react'
+import { ReactNode, useRef } from 'react'
 import Menu from './Menu'
 import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
 import PresenceAnimation from './PresenceAnimation'
 import useActions from './useActions'
+import mergeRefs from 'react-merge-refs'
 
 type Props = {
   children: ReactNode
@@ -13,11 +14,10 @@ type Props = {
   onClone: (index: number) => void
   onEditName: (index: number) => void
   isSelected: boolean
-  onSelect: (index: number) => void
+  onSelect: (variantForm: VariantForm, index: number) => void
   variantForm: VariantForm
   canRemove: boolean
   index: number
-  onFirstAppear?: () => void
 } & LayoutProps &
   SpaceProps
 
@@ -31,15 +31,17 @@ function VariantItem({
   variantForm,
   canRemove,
   index,
-  onFirstAppear,
+
   ...rest
 }: Props) {
+  const ref = useRef<HTMLDivElement>(null)
   const actions = useActions({
     onSelect,
     onDelete,
     variantForm,
-    onFirstAppear,
+
     index,
+    ref,
   })
 
   return (
@@ -56,7 +58,7 @@ function VariantItem({
           onAnimationComplete={actions.onAnimationComplete}
         >
           <Box
-            ref={provided.innerRef}
+            ref={mergeRefs([provided.innerRef, ref])}
             bg={isSelected ? 'gray.100' : 'white'}
             _hover={{ bg: isSelected ? 'gray.100' : 'gray.50' }}
             borderRadius="full"
@@ -84,6 +86,7 @@ function VariantItem({
                 onClone={() => onClone(index)}
                 onEditName={() => onEditName(index)}
                 onDelete={actions.onRemoveRequest}
+                isSelected={isSelected}
               />
             </HStack>
           </Box>

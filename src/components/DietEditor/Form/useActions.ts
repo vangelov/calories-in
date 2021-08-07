@@ -1,4 +1,5 @@
 import { DietForm, useDietFormActions, VariantForm } from 'core/diets'
+import { AppLocation } from 'general/formVersions/appLocation'
 import { useCallback } from 'react'
 import { ScrollManager } from './useScrollManager'
 
@@ -10,8 +11,14 @@ function useActions({ scrollManager }: Params) {
   const dietFormActions = useDietFormActions()
   const { setScrollState, getCachedScrollTop } = scrollManager
 
-  function onUndoOrRedo(form: object, scrollTop: number, scrollLeft: number) {
-    dietFormActions.setDietForm(form as DietForm)
+  function onUndoOrRedo(
+    form: DietForm,
+    { scrollTop, scrollLeft, variantIndex }: AppLocation
+  ) {
+    dietFormActions.updateDietForm({
+      ...form,
+      selectedVariantFormIndex: variantIndex,
+    })
     setScrollState({ top: scrollTop, left: scrollLeft })
   }
 

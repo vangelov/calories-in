@@ -1,30 +1,32 @@
 import { getInsertVariantFormAnimationKey, VariantForm } from 'core/diets'
-import { useState } from 'react'
+import { RefObject, useState } from 'react'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import { MouseEvent } from 'react'
+import { isSafari } from 'react-device-detect'
 
 type Params = {
   onDelete: (index: number) => void
-  onSelect: (index: number) => void
+  onSelect: (variantForm: VariantForm, index: number) => void
   variantForm: VariantForm
   index: number
-  onFirstAppear?: () => void
+
+  ref: RefObject<HTMLDivElement>
 }
 
-function useActions({
-  onDelete,
-  onSelect,
-  variantForm,
-
-  index,
-  onFirstAppear,
-}: Params) {
+function useActions({ onDelete, onSelect, variantForm, ref, index }: Params) {
   const oneTimeCheckActions = useOneTimeCheckActions()
   const [isVisible, setIsVisible] = useState(true)
 
   function onAnimationComplete() {
     if (shouldAnimate) {
-      onFirstAppear && onFirstAppear()
+      ref.current?.scrollIntoView(
+        isSafari
+          ? undefined
+          : {
+              block: 'end',
+              behavior: 'smooth',
+            }
+      )
     } else if (!isVisible) {
       onDelete(index)
     }
@@ -41,7 +43,7 @@ function useActions({
       anyTarget.type !== 'button' &&
       anyTarget.getAttribute('role') !== 'menuitem'
     ) {
-      onSelect(index)
+      onSelect(variantForm, index)
     }
   }
 

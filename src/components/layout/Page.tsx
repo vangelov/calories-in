@@ -31,7 +31,7 @@ type PageBodyProps = {
 function PageBody({ children }: PageBodyProps) {
   return (
     <Flex justifyContent="center">
-      <ElementContainer>{children}</ElementContainer>
+      <ElementContainer mx="auto">{children}</ElementContainer>
     </Flex>
   )
 }
@@ -53,19 +53,10 @@ function PageFooter({ children, footerContainerRef }: PageFooterProps) {
       right={0}
       zIndex={2}
     >
-      <Flex justifyContent="center" bg="white">
-        <ElementContainer>
-          <Divider />
-        </ElementContainer>
-      </Flex>
-
-      <Flex justifyContent="center" bg="white">
-        <ElementContainer overflowX="scroll" ref={footerContainerRef}>
-          <Box py={3} mx={screenSize > 3 ? 0 : 3}>
-            {children}
-          </Box>
-        </ElementContainer>
-      </Flex>
+      <ElementContainer bg="white" mx="auto" ref={footerContainerRef}>
+        <Divider />
+        <Box py={3}>{children}</Box>
+      </ElementContainer>
     </Box>
   )
 }

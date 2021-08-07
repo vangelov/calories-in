@@ -1,17 +1,11 @@
 import { Delta } from 'jsondiffpatch'
+import { AppLocation } from './appLocation'
 
-class DeltaNode {
+type DeltaNode = {
   delta: Delta
-  scrollTop: number
-  scrollLeft: number
-  nextNode: DeltaNode | undefined
-  prevNode: DeltaNode | undefined
-
-  constructor(delta: Delta, scrollTop: number, scrollLeft: number) {
-    this.delta = delta
-    this.scrollTop = scrollTop
-    this.scrollLeft = scrollLeft
-  }
+  appLocation: AppLocation
+  nextNode?: DeltaNode
+  prevNode?: DeltaNode
 }
 
 const MAX_SIZE = 100
@@ -76,13 +70,16 @@ class DeltasStack {
     }
   }
 
-  push(delta: Delta, scrollTop: number, scrollLeft: number) {
+  push(delta: Delta, appLocation: AppLocation) {
     if (this.pointerNode) {
       this.startNode = this.pointerNode.nextNode
       this.pointerNode = undefined
     }
 
-    const node = new DeltaNode(delta, scrollTop, scrollLeft)
+    const node: DeltaNode = {
+      delta,
+      appLocation,
+    }
 
     if (!this.startNode) {
       this.startNode = node

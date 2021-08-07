@@ -1,39 +1,20 @@
-import { useState, useCallback, RefObject } from 'react'
+import { useState, useCallback } from 'react'
 import { VariantNameFormSubmitAction } from 'core/diets/variantForm/useSubmitVariantForm'
-import { isSafari } from 'react-device-detect'
-import { useDietForm, useDietFormActions, VariantForm } from 'core/diets'
+import { useDietFormActions, VariantForm } from 'core/diets'
 import { useDisclosure } from '@chakra-ui/hooks'
 
 type Props = {
-  onVariantFormSelect: (variantForm: VariantForm) => void
+  onVariantFormSelect: (variantForm: VariantForm, index: number) => void
   onVariantFormCopy: () => void
-  appendButtonRef: RefObject<HTMLDivElement>
 }
 
-function useActions({
-  onVariantFormSelect,
-  onVariantFormCopy,
-  appendButtonRef,
-}: Props) {
+function useActions({ onVariantFormSelect, onVariantFormCopy }: Props) {
   const modalDisclosure = useDisclosure()
   const [submitAction, setSubmitAction] = useState<VariantNameFormSubmitAction>(
     'append'
   )
   const [variantFormIndex, setVariantFormIndex] = useState<number>()
   const dietFormActions = useDietFormActions()
-  const dietForm = useDietForm()
-
-  const onVariantItemFirstAppear = useCallback(() => {
-    // Safari also scrolls the meals list if behaviour is 'smooth'
-    appendButtonRef.current?.scrollIntoView(
-      isSafari
-        ? undefined
-        : {
-            block: 'start',
-            behavior: 'smooth',
-          }
-    )
-  }, [appendButtonRef])
 
   const { onOpen } = modalDisclosure
 
@@ -62,11 +43,11 @@ function useActions({
   }, [onOpen])
 
   const onSelect = useCallback(
-    (index: number) => {
+    (variantForm: VariantForm, index: number) => {
       dietFormActions.setSelectedVariantFormIndex(index)
-      onVariantFormSelect(dietForm.variantsForms[index])
+      onVariantFormSelect(variantForm, index)
     },
-    [dietFormActions, onVariantFormSelect, dietForm.variantsForms]
+    [dietFormActions, onVariantFormSelect]
   )
 
   const onRemove = useCallback(
@@ -89,7 +70,7 @@ function useActions({
     onAppend,
     onCopy,
     onRename,
-    onVariantItemFirstAppear,
+
     onSelect,
     variantFormIndex,
     submitAction,

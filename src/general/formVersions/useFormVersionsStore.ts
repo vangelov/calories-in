@@ -4,12 +4,14 @@ import { Delta } from 'jsondiffpatch'
 import DeltasStack from './deltasStack'
 import deepCopy from 'general/deepCopy'
 import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
+import { DietForm } from 'core/diets'
+import getAppLocation, { AppLocation } from './appLocation'
 
 type Params = {
-  form: object
+  form: DietForm
   horizontalScrollRef: RefObject<HTMLDivElement>
-  onUndo: (form: object, scrollTop: number, scrollLeft: number) => void
-  onRedo: (form: object, scrollTop: number, scrollLeft: number) => void
+  onUndo: (form: DietForm, appLocation: AppLocation) => void
+  onRedo: (form: DietForm, appLocation: AppLocation) => void
   shouldSaveDelta?: (delta: jsondiffpatch.Delta) => boolean
 }
 
@@ -43,7 +45,7 @@ function useFormVersionsStore({
     const result = deltasStackRef.current.getNextNodeToUnpatch()
 
     if (result) {
-      const { delta, scrollTop, scrollLeft } = result
+      const { delta, appLocation } = result
       lastFormRef.current = patcher.unpatch(
         lastFormRef.current,
         deepCopy(delta)
@@ -54,7 +56,7 @@ function useFormVersionsStore({
         canRedo: deltasStackRef.current.canPatch,
       })
 
-      onUndo(deepCopy(lastFormRef.current), scrollTop, scrollLeft)
+      onUndo(deepCopy(lastFormRef.current), appLocation)
     }
   }, [onUndo])
 
@@ -62,7 +64,7 @@ function useFormVersionsStore({
     const result = deltasStackRef.current.getNextNodeToPatch()
 
     if (result) {
-      const { delta, scrollTop, scrollLeft } = result
+      const { delta, appLocation } = result
       lastFormRef.current = patcher.patch(lastFormRef.current, deepCopy(delta))
 
       setState({
@@ -70,7 +72,7 @@ function useFormVersionsStore({
         canRedo: deltasStackRef.current.canPatch,
       })
 
-      onRedo(deepCopy(lastFormRef.current), scrollTop, scrollLeft)
+      onRedo(deepCopy(lastFormRef.current), appLocation)
     }
   }, [onRedo])
 
@@ -89,10 +91,7 @@ function useFormVersionsStore({
 
             deltasStackRef.current.push(
               delta,
-              window.scrollY,
-              horizontalScrollRef.current
-                ? horizontalScrollRef.current.scrollLeft
-                : 0
+              getAppLocation({ horizontalScrollRef, dietForm: form })
             )
 
             setState({
