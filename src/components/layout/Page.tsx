@@ -55,7 +55,9 @@ function PageFooter({ children, footerContainerRef }: PageFooterProps) {
     >
       <ElementContainer bg="white" mx="auto" ref={footerContainerRef}>
         <Divider />
-        <Box py={3}>{children}</Box>
+        <Box py={3} px={screenSize > 3 ? 0 : 3}>
+          {children}
+        </Box>
       </ElementContainer>
     </Box>
   )

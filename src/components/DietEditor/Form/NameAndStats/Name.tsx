@@ -33,12 +33,12 @@ function Name({ energyDiff }: Props) {
       />
 
       <HStack display={{ base: 'none', md: 'flex' }} width="100%" spacing={4}>
-        <HStack spacing={1}>
+        {/*<HStack spacing={1}>
           <AlertCircleStyled color="gray.400" size="16px" />
           <Text fontSize="xs" textColor="gray.400">
             Unsaved changes
           </Text>
-        </HStack>
+  </HStack>*/}
 
         {energyDiff !== 0 && (
           <HStack spacing={1}>

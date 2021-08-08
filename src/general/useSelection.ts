@@ -47,6 +47,6 @@ function useSelection<T extends Item>(): Selection<T> {
   }
 }
 
-export type { Selection }
+export type { Selection, Item }
 
 export default useSelection

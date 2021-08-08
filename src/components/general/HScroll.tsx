@@ -1,62 +1,60 @@
-import React, { ForwardedRef, ReactNode, forwardRef, useRef } from 'react'
+import React, {
+  ForwardedRef,
+  ReactNode,
+  forwardRef,
+  useRef,
+  useEffect,
+} from 'react'
 import styled from '@emotion/styled'
-import { css } from '@emotion/react'
 import { useMergeRefs } from '@chakra-ui/hooks'
+import { Flex, Box } from '@chakra-ui/react'
 
 type ShadowProps = {
   showStart: boolean
   showEnd: boolean
+  children: ReactNode
 }
 
-const Shadow = styled.div<ShadowProps>`
-  position: relative;
-  flex: 1;
-  overflow: hidden;
+function getLinearGradient(direction: 'left' | 'right') {
+  return `linear-gradient(to ${direction},rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))`
+}
 
-  ${props =>
-    props.showStart
-      ? css`
-          ::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            background: linear-gradient(
-              to right,
-              rgba(255, 255, 255, 1),
-              rgba(255, 255, 255, 0)
-            );
-            z-index: 1;
-          }
-        `
-      : ''}
-  ${props =>
-    props.showEnd
-      ? css`
-          ::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            right: 0;
-            width: 50px;
-            background: linear-gradient(
-              to left,
-              rgba(255, 255, 255, 1),
-              rgba(255, 255, 255, 0)
-            );
-            z-index: 1;
-          }
-        `
-      : ''}
-`
+const shadowElementBase = {
+  content: '""',
+  position: 'absolute',
+  top: 0,
+  bottom: 0,
+  width: '50px',
+  zIndex: 1,
+}
 
-const Container = styled.div`
-  display: flex;
-  overflow: auto;
+function ShadowBox2({ showStart, showEnd, children }: ShadowProps) {
+  const before = {
+    ...shadowElementBase,
+    left: 0,
+    background: getLinearGradient('right'),
+  }
 
+  const after = {
+    ...shadowElementBase,
+    right: 0,
+    background: getLinearGradient('left'),
+  }
+
+  return (
+    <Box
+      position="relative"
+      flex={1}
+      overflow="hidden"
+      _before={showStart ? before : undefined}
+      _after={showEnd ? after : undefined}
+    >
+      {children}
+    </Box>
+  )
+}
+
+const ScrollFlex = styled(Flex)`
   -ms-overflow-style: none;
   scrollbar-width: none;
 
@@ -68,9 +66,14 @@ const Container = styled.div`
 type Props = {
   children: ReactNode
   forwardRef?: ForwardedRef<HTMLDivElement>
+  onScrollStateChange: (
+    isScrollable: boolean,
+    canScrollLeft: boolean,
+    canScrollRight: boolean
+  ) => void
 }
 
-const HScroll = ({ children, forwardRef }: Props) => {
+const HScroll = ({ children, forwardRef, onScrollStateChange }: Props) => {
   const [showStart, setShowStart] = React.useState(false)
   const [showEnd, setShowEnd] = React.useState(false)
   const ref = React.useRef<HTMLDivElement>(null)
@@ -113,12 +116,20 @@ const HScroll = ({ children, forwardRef }: Props) => {
     }
   })
 
-  const m = useMergeRefs(ref, forwardRef)
+  useEffect(() => {
+    const { scrollWidth = 0, offsetWidth = 0 } = ref.current || {}
+
+    onScrollStateChange(offsetWidth < scrollWidth, showStart, showEnd)
+  })
+
+  const finalRef = useMergeRefs(ref, forwardRef)
 
   return (
-    <Shadow showEnd={showEnd} showStart={showStart}>
-      <Container ref={m}>{children}</Container>
-    </Shadow>
+    <ShadowBox2 showEnd={showEnd} showStart={showStart}>
+      <ScrollFlex overflowY="scroll" ref={finalRef}>
+        {children}
+      </ScrollFlex>
+    </ShadowBox2>
   )
 }
 

@@ -12,7 +12,7 @@ import {
 import { Divider } from '@chakra-ui/react'
 import { Search } from 'react-feather'
 import VirtualizedList from './VirtualizedList'
-import { Selection } from 'general/useSelection'
+import { Selection, Item } from 'general/useSelection'
 import {
   ForwardedRef,
   RefObject,
@@ -34,7 +34,7 @@ type FoodsListMethods = {
 
 type Props = {
   searchInputRef?: RefObject<HTMLInputElement>
-  selection: Selection<Food>
+  selection: Selection<Item>
   onFoodPreview: (food: Food) => void
   forwardedRef?: ForwardedRef<FoodsListMethods>
 } & FlexProps

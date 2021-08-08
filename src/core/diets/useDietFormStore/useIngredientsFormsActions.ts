@@ -1,7 +1,6 @@
 import { useCallback, SetStateAction } from 'react'
 import { DietForm } from '../dietForm'
 import produce from 'immer'
-import { Food } from 'core/types'
 import {
   getIngredientForm,
   getInsertIngredientFormAnimationKey,
@@ -22,10 +21,10 @@ function useIngredientsFormsActions({
   oneTimeCheckActions,
 }: Params) {
   const appendIngredientsForms = useCallback(
-    (variantFormIndex: number, mealFormIndex: number, foods: Food[]) => {
+    (variantFormIndex: number, mealFormIndex: number, foodsIds: number[]) => {
       setDietForm(dietForm =>
         produce(dietForm, draftDietForm => {
-          const ingredientForms = foods.map(({ id }) =>
+          const ingredientForms = foodsIds.map(id =>
             getIngredientForm({
               foodId: id,
               amountInGrams: DEFAULT_AMOUNT_IN_GRAMS,

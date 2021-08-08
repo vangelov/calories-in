@@ -15,10 +15,15 @@ function useActions({ scrollManager }: Params) {
     form: DietForm,
     { scrollTop, scrollLeft, variantIndex }: AppLocation
   ) {
+    const finalVaraintIndex = form.variantsForms[variantIndex]
+      ? variantIndex
+      : form.selectedVariantFormIndex
+
     dietFormActions.updateDietForm({
       ...form,
-      selectedVariantFormIndex: variantIndex,
+      selectedVariantFormIndex: finalVaraintIndex,
     })
+
     setScrollState({ top: scrollTop, left: scrollLeft })
   }
 

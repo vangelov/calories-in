@@ -15,6 +15,9 @@ function useActions({ onVariantFormSelect, onVariantFormCopy }: Props) {
   )
   const [variantFormIndex, setVariantFormIndex] = useState<number>()
   const dietFormActions = useDietFormActions()
+  const [showsScrollButtons, setShowsScrollButtons] = useState(false)
+  const [canScrollLeft, setCanScrollLeft] = useState(false)
+  const [canScrollRight, setCanScrollRight] = useState(false)
 
   const { onOpen } = modalDisclosure
 
@@ -65,17 +68,30 @@ function useActions({ onVariantFormSelect, onVariantFormCopy }: Props) {
     }
   }
 
+  function onScrollStateChange(
+    isScrollable: boolean,
+    canScrollLeft: boolean,
+    canScrollRight: boolean
+  ) {
+    setCanScrollLeft(canScrollLeft)
+    setCanScrollRight(canScrollRight)
+    setShowsScrollButtons(isScrollable)
+  }
+
   return {
     onVariantModalClose,
     onAppend,
     onCopy,
     onRename,
-
     onSelect,
     variantFormIndex,
     submitAction,
     onRemove,
     modalDisclosure,
+    showsScrollButtons,
+    canScrollLeft,
+    canScrollRight,
+    onScrollStateChange,
   }
 }
 

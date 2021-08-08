@@ -35,7 +35,6 @@ function Form({ isEditingExistingDiet }: Props) {
     return false === onlySelectedFormIndexChanged
   }, [])
 
-  console.log('render')
   return (
     <FormVersionsStoreProvider
       horizontalScrollRef={horizontalScrollRef}

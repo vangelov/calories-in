@@ -3,12 +3,13 @@ import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
 import VariantModal from './VariantModal'
-import { ForwardedRef, createRef, forwardRef } from 'react'
+import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
 import { useDietForm, VariantForm } from 'core/diets'
 import useActions from './useActions'
 import ResponsiveIconButton from 'components/general/ResponsiveIconButton'
-import HScroll from 'components/general/HScroll'
+import HFadeScroll from 'components/general/HFadeScroll'
 import mergeRefs from 'react-merge-refs'
+import ScrollButtons from './ScrollButtons'
 
 type Props = {
   onVariantFormSelect: (variantForm: VariantForm, index: number) => void
@@ -21,10 +22,13 @@ function VariantsList({
   onVariantFormCopy,
   forwardedRef = createRef(),
 }: Props) {
+  const scrollNodeRef = useRef<HTMLDivElement>(null)
+
   const actions = useActions({
     onVariantFormSelect,
     onVariantFormCopy,
   })
+
   const dietForm = useDietForm()
 
   return (
@@ -38,7 +42,6 @@ function VariantsList({
         onClick={actions.onAppend}
         isResponsive={false}
         mr={3}
-        ml={3}
         flexShrink={0}
       />
 
@@ -47,13 +50,16 @@ function VariantsList({
         type="variantsList"
         direction="horizontal"
       >
-        {(provided, snapshot) => (
-          <HScroll ref={mergeRefs([provided.innerRef, forwardedRef])}>
+        {provided => (
+          <HFadeScroll
+            onScrollStateChange={actions.onScrollStateChange}
+            ref={mergeRefs([provided.innerRef, scrollNodeRef, forwardedRef])}
+          >
             {dietForm.variantsForms.map((variantForm, index) => {
               return (
                 <VariantItem
                   canRemove={dietForm.variantsForms.length > 1}
-                  mr={1}
+                  mr={index === dietForm.variantsForms.length - 1 ? 0 : 1}
                   index={index}
                   onDelete={actions.onRemove}
                   onEditName={actions.onRename}
@@ -69,9 +75,16 @@ function VariantsList({
             })}
 
             {provided.placeholder}
-          </HScroll>
+          </HFadeScroll>
         )}
       </Droppable>
+
+      <ScrollButtons
+        scrollNodeRef={scrollNodeRef}
+        showsButtons={actions.showsScrollButtons}
+        canScrollLeft={actions.canScrollLeft}
+        canScrollRight={actions.canScrollRight}
+      />
 
       <VariantModal
         isOpen={actions.modalDisclosure.isOpen}

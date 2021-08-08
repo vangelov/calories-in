@@ -2,14 +2,14 @@ import { useDisclosure } from '@chakra-ui/react'
 import { Food } from 'core/types'
 import { useState, RefObject } from 'react'
 import { FoodsListMethods } from 'components/foods/FoodsList'
-import { Selection } from 'general/useSelection'
+import { Selection, Item } from 'general/useSelection'
 import { useDietFormActions } from 'core/diets'
 
 type Params = {
   onClose: () => void
   variantFormIndex: number
   mealFormIndex: number
-  selection: Selection<Food>
+  selection: Selection<Item>
   listRef: RefObject<FoodsListMethods>
 }
 
@@ -28,7 +28,7 @@ function useActions({
     dietFormActions.appendIngredientsForms(
       variantFormIndex,
       mealFormIndex,
-      selection.selectedItems
+      selection.selectedItems.map(({ id }) => id)
     )
     onClose()
   }

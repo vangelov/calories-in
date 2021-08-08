@@ -8,10 +8,9 @@ import {
   VStack,
   Text,
 } from '@chakra-ui/react'
-import { Food } from 'core/types'
 import { RefObject, useRef } from 'react'
 import FoodsList, { FoodsListMethods } from 'components/foods/FoodsList'
-import useSelection from 'general/useSelection'
+import useSelection, { Item } from 'general/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
 import FoodModal from 'components/foods/FoodModal'
 import Header from './Header'
@@ -32,7 +31,7 @@ function Content({
   variantFormIndex,
   mealFormIndex,
 }: Props) {
-  const selection = useSelection<Food>()
+  const selection = useSelection<Item>()
   const listRef = useRef<FoodsListMethods>(null)
   const actions = useActions({
     selection,
