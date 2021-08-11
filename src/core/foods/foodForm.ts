@@ -1,17 +1,15 @@
-import { Food, NutritionStats } from 'core/types'
+import { Food } from 'core/types'
 import { useForm } from 'react-hook-form'
 import { object, string, number } from 'yup'
-
-type NutritionStatsAsStrings = {
-  [k in keyof NutritionStats]: string
-}
+import objectFromNutritionStatsKeys from 'core/objectFromNutritionStatsKeys'
+import { MappedNutritionStats } from 'core/objectFromNutritionStatsKeys'
 
 type FoodForm = {
   id?: number
   name: string
   categoryId: number
   servingSizeInGrams: string
-} & NutritionStatsAsStrings
+} & MappedNutritionStats<string>
 
 function getFoodForm(food?: Food) {
   const servingSizeInGrams = '100'
@@ -22,14 +20,7 @@ function getFoodForm(food?: Food) {
       name: food.name,
       categoryId: food.categoryId,
       servingSizeInGrams,
-      energy: food.energy.toString(),
-      fat: food.fat.toString(),
-      saturatedFat: food.saturatedFat.toString(),
-      sodium: food.sodium.toString(),
-      carbs: food.carbs.toString(),
-      sugar: food.sugar.toString(),
-      fiber: food.fiber.toString(),
-      protein: food.protein.toString(),
+      ...objectFromNutritionStatsKeys(key => food[key].toString()),
     }
   }
 
@@ -37,14 +28,8 @@ function getFoodForm(food?: Food) {
     name: '',
     categoryId: 0,
     servingSizeInGrams,
+    ...objectFromNutritionStatsKeys(key => '0'),
     energy: '',
-    fat: '0',
-    saturatedFat: '0',
-    sodium: '0',
-    carbs: '0',
-    sugar: '0',
-    fiber: '0',
-    protein: '0',
   }
 }
 

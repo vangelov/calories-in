@@ -1,3 +1,4 @@
+import objectFromNutritionStatsKeys from 'core/objectFromNutritionStatsKeys'
 import { Food } from 'core/types'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import { useFormContext } from 'react-hook-form'
@@ -22,17 +23,11 @@ function useSubmitFoodForm({ onComplete }: Params) {
     const food: Food = {
       id,
       name: foodForm.name,
-      energy: Number(foodForm.energy),
-      protein: Number(foodForm.protein),
-      carbs: Number(foodForm.carbs),
-      sugar: Number(foodForm.sugar),
-      fiber: Number(foodForm.fiber),
-      fat: Number(foodForm.fat),
-      saturatedFat: Number(foodForm.saturatedFat),
-      sodium: Number(foodForm.sodium),
       categoryId: foodForm.categoryId,
       addedByUser: true,
+      ...objectFromNutritionStatsKeys(key => Number(foodForm[key])),
     }
+
     if (foodForm.id === undefined) {
       oneTimeCheckActions.set(`test-${food.id}`)
     }

@@ -12,7 +12,6 @@ type Params = {
   horizontalScrollRef: RefObject<HTMLDivElement>
   onUndo: (form: DietForm, appLocation: AppLocation) => void
   onRedo: (form: DietForm, appLocation: AppLocation) => void
-  shouldSaveDelta?: (delta: jsondiffpatch.Delta) => boolean
 }
 
 const patcher = jsondiffpatch.create({
@@ -26,12 +25,19 @@ type UndoRedoState = {
   canRedo: boolean
 }
 
+function shouldSaveDelta(delta: Delta) {
+  const onlySelectedFormIndexChanged =
+    Object.keys(delta).length === 1 &&
+    delta.selectedVariantFormIndex !== undefined
+
+  return false === onlySelectedFormIndexChanged
+}
+
 function useFormVersionsStore({
   form,
   horizontalScrollRef,
   onUndo,
   onRedo,
-  shouldSaveDelta = () => true,
 }: Params) {
   const deltasStackRef = useRef(new DeltasStack())
   const lastFormRef = useRef<object>(form)
@@ -102,7 +108,7 @@ function useFormVersionsStore({
         }
       }, TIMEOUT_IN_MS)
     },
-    [horizontalScrollRef, shouldSaveDelta]
+    [horizontalScrollRef]
   )
 
   useEffect(() => {

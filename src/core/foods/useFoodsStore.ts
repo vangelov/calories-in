@@ -2,9 +2,10 @@ import { Food } from 'core/types'
 import { useState, useCallback, useMemo } from 'react'
 import produce from 'immer'
 import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
+import objectFromNutritionStatsKeys from 'core/objectFromNutritionStatsKeys'
 
 type Params = {
-  initialFoods: Food[]
+  initialFoods: any[]
 }
 
 function sortedFoods(foods: Food[]) {
@@ -22,7 +23,10 @@ function useFoodsStore({ initialFoods }: Params) {
     const initialMap: Record<number, Food> = {}
 
     for (const food of initialFoods) {
-      initialMap[food.id] = food
+      initialMap[food.id] = {
+        ...objectFromNutritionStatsKeys(key => 0),
+        ...food,
+      }
     }
 
     return initialMap

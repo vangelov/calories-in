@@ -1,13 +1,12 @@
 import { useDietForm } from 'core/diets'
 import { FormVersionsStoreProvider } from 'general/formVersions'
-import { useRef, useCallback } from 'react'
+import { useRef } from 'react'
 import Page, { PageHeader, PageBody, PageFooter } from 'components/layout/Page'
 import NameAndStats from './NameAndStats'
 import MealsList from './MealsList'
 import Controls from './Controls'
 import VariantsList from './VariantsList'
 import useScrollManager from './useScrollManager'
-import { Delta } from 'jsondiffpatch'
 import useActions from './useActions'
 
 type Props = {
@@ -27,21 +26,12 @@ function Form({ isEditingExistingDiet }: Props) {
   })
   const actions = useActions({ scrollManager })
 
-  const shouldSaveDelta = useCallback((delta: Delta) => {
-    const onlySelectedFormIndexChanged =
-      Object.keys(delta).length === 1 &&
-      delta.selectedVariantFormIndex !== undefined
-
-    return false === onlySelectedFormIndexChanged
-  }, [])
-
   return (
     <FormVersionsStoreProvider
       horizontalScrollRef={horizontalScrollRef}
       form={dietForm}
       onUndo={actions.onUndoOrRedo}
       onRedo={actions.onUndoOrRedo}
-      shouldSaveDelta={shouldSaveDelta}
     >
       <Page>
         <PageHeader>

@@ -8,7 +8,7 @@ import {
   FormErrorMessage,
   FormControlProps,
 } from '@chakra-ui/react'
-import { RefObject } from 'react'
+import { ReactNode, RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
 import useGetInputElement, { InputType } from './useGetInputElement'
 
@@ -22,7 +22,7 @@ type Props = {
   isReadOnly?: boolean
   isEmphasized?: Boolean
   isCaption?: boolean
-
+  children?: ReactNode
   isValueBold?: boolean
 } & FormControlProps
 
@@ -39,7 +39,7 @@ function FormField(props: Props) {
     isValueBold = false,
     isCaption = false,
     isRequired,
-
+    children,
     ...rest
   } = props
   const { formState } = useFormContext()
@@ -67,7 +67,9 @@ function FormField(props: Props) {
         {isIdented ? <Divider /> : null}
         <Flex
           justifyContent={
-            isReadOnly && !isCaption ? undefined : 'space-between'
+            isReadOnly && !(isCaption || isEmphasized)
+              ? undefined
+              : 'space-between'
           }
           alignItems="center"
         >
@@ -94,8 +96,9 @@ function FormField(props: Props) {
                 flexShrink={0}
                 justifyContent="flex-start"
                 alignItems="center"
+                ml={1}
               >
-                <Text fontSize="lg" textColor="gray.500" ml={1}>
+                <Text fontSize="lg" textColor="gray.500">
                   {nutritionValueUnit}
                 </Text>
               </Flex>
@@ -104,6 +107,8 @@ function FormField(props: Props) {
         </Flex>
         <FormErrorMessage>{errors[name]?.message}</FormErrorMessage>
       </VStack>
+
+      {children}
     </FormControl>
   )
 }

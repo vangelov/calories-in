@@ -55,7 +55,7 @@ function Content({
           <FoodFields nameInputRef={nameInputRef} canEdit={actions.isEditing} />
         </form>
 
-        {actions.isEditing && (
+        {actions.isEditing && food && (
           <Box>
             <Divider />
             <Button
