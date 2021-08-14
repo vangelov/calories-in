@@ -1,13 +1,13 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import MainLayout from 'components/layout/MainLayout'
-import DietEditor from 'components/DietEditor'
-import builInFoods from 'core/foods/builtIn.json'
+import { MainLayout } from 'layout'
+import builInFoods from 'foods/builtIn.json'
 import 'focus-visible/dist/focus-visible'
-import theme from 'components/theme'
+import theme from 'theme'
 import smoothscroll from 'smoothscroll-polyfill'
-import ScreenSizeProvider from 'components/general/ScreenSizeProvider'
-import { FoodsStoreProvider } from 'core/foods'
+import { ScreenSizeProvider } from 'general'
+import { FoodsStoreProvider } from 'foods'
 import { OneTimeCheckStoreProvider } from 'general/oneTimeCheck'
+import { DietEditor } from 'diets'
 
 smoothscroll.polyfill()
 

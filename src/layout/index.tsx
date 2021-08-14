@@ -1,0 +1,5 @@
+export { default as Page } from './Page'
+export * from './Page'
+export { default as MainLayout } from './MainLayout'
+export * from './MainLayout'
+export { default as RightAligned } from './RightAligned'

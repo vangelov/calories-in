@@ -4,7 +4,7 @@ import { Delta } from 'jsondiffpatch'
 import DeltasStack from './deltasStack'
 import deepCopy from 'general/deepCopy'
 import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
-import { DietForm } from 'core/diets'
+import { DietForm } from 'diets'
 import getAppLocation, { AppLocation } from './appLocation'
 
 type Params = {

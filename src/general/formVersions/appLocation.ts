@@ -1,4 +1,4 @@
-import { DietForm } from 'core/diets'
+import { DietForm } from 'diets'
 import { RefObject } from 'react'
 
 type AppLocation = {
