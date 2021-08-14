@@ -8,5 +8,5 @@ export * from './calculations'
 
 export { default as Stat } from './Stat'
 export { default as StatsLayout } from './StatsLayout'
-export { default as objectFromNutritionStatsKeys } from './objectFromNutritionStatsKeys'
-export * from './objectFromNutritionStatsKeys'
+export { default as objectFromNutritionDataKeys } from './objectFromNutritionDataKeys'
+export * from './objectFromNutritionDataKeys'

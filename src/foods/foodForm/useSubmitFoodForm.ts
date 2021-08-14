@@ -1,4 +1,4 @@
-import { objectFromNutritionStatsKeys } from 'stats'
+import { objectFromNutritionDataKeys } from 'stats'
 import { Food } from 'foods'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import { useFormContext } from 'react-hook-form'
@@ -25,7 +25,8 @@ function useSubmitFoodForm({ onComplete }: Params) {
       name: foodForm.name,
       categoryId: foodForm.categoryId,
       addedByUser: true,
-      ...objectFromNutritionStatsKeys(key => Number(foodForm[key])),
+      servingSizeInGrams: Number(foodForm.servingSizeInGrams),
+      ...objectFromNutritionDataKeys(key => Number(foodForm[key])),
     }
 
     if (foodForm.id === undefined) {

@@ -1,33 +1,36 @@
 import { Food } from 'foods'
 import { useForm } from 'react-hook-form'
 import { object, string, number } from 'yup'
-import { objectFromNutritionStatsKeys, MappedNutritionStats } from 'stats'
+import { objectFromNutritionDataKeys, MappedNutritionData } from 'stats'
 
 type FoodForm = {
   id?: number
   name: string
   categoryId: number
   servingSizeInGrams: string
-} & MappedNutritionStats<string>
+} & MappedNutritionData<string>
+
+const DEFAULT_SERVING_SIZE_IN_GRAMS = 100
 
 function getFoodForm(food?: Food) {
-  const servingSizeInGrams = '100'
-
   if (food) {
+    const servingSizeInGrams =
+      food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS
+
     return {
       id: food.id,
       name: food.name,
       categoryId: food.categoryId,
-      servingSizeInGrams,
-      ...objectFromNutritionStatsKeys(key => food[key].toString()),
+      servingSizeInGrams: servingSizeInGrams.toString(),
+      ...objectFromNutritionDataKeys(key => food[key].toString()),
     }
   }
 
   return {
     name: '',
     categoryId: 0,
-    servingSizeInGrams,
-    ...objectFromNutritionStatsKeys(key => '0'),
+    servingSizeInGrams: DEFAULT_SERVING_SIZE_IN_GRAMS.toString(),
+    ...objectFromNutritionDataKeys(key => '0'),
     energy: '',
   }
 }
@@ -50,6 +53,11 @@ function useFoodForm(foodForm: FoodForm) {
 
 export type { FoodForm }
 
-export { useFoodForm, getFoodForm, foodFormSchema }
+export {
+  useFoodForm,
+  getFoodForm,
+  foodFormSchema,
+  DEFAULT_SERVING_SIZE_IN_GRAMS,
+}
 export { default as useSubmitFoodForm } from './useSubmitFoodForm'
 export { default as FoodFormProvider } from './FoodFormProvider'

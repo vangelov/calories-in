@@ -15,8 +15,6 @@ function FoodModal({ onClose, isOpen, food, onFoodCreatedOrUpdated }: Props) {
   const nameInputRef = useRef<HTMLInputElement>(null)
   const title = food ? 'Food Details' : 'Create Food'
 
-  console.log('food', food)
-
   return (
     <Modal
       isOpen={isOpen}

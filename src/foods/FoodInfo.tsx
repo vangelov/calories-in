@@ -1,5 +1,6 @@
 import { Text, Box, Flex, BoxProps, TypographyProps } from '@chakra-ui/react'
 import { Food } from 'foods'
+import { DEFAULT_SERVING_SIZE_IN_GRAMS } from './foodForm'
 
 type Props = {
   food: Food
@@ -29,7 +30,7 @@ function FoodInfo({
             <Text as="span" fontWeight="bold" fontSize="xs">
               {`${Math.round(energy as number)}kcal`}
             </Text>{' '}
-            / 100g
+            / {food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS}g
           </Text>
         )}
       </Box>

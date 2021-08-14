@@ -1,8 +1,8 @@
-import { NutritionStats } from 'foods'
+import { NutritionData } from './types'
 
-type MappedNutritionStats<T> = { [k in keyof NutritionStats]: T }
+type MappedNutritionData<T> = { [k in keyof NutritionData]: T }
 
-const NUTRITION_STATS_KEYS: (keyof NutritionStats)[] = [
+const NUTRITION_STATS_KEYS: (keyof NutritionData)[] = [
   'protein',
   'carbs',
   'fat',
@@ -36,9 +36,9 @@ const NUTRITION_STATS_KEYS: (keyof NutritionStats)[] = [
   'iodine',
 ]
 
-function objectFromNutritionStatsKeys<T>(
-  f: (key: keyof NutritionStats) => T
-): MappedNutritionStats<T> {
+function objectFromNutritionDataKeys<T>(
+  f: (key: keyof NutritionData) => T
+): MappedNutritionData<T> {
   const entries = NUTRITION_STATS_KEYS.map(key => {
     return [key, f(key)]
   })
@@ -48,6 +48,6 @@ function objectFromNutritionStatsKeys<T>(
 
 export { NUTRITION_STATS_KEYS }
 
-export type { MappedNutritionStats }
+export type { MappedNutritionData }
 
-export default objectFromNutritionStatsKeys
+export default objectFromNutritionDataKeys

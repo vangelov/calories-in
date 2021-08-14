@@ -1,6 +1,6 @@
 import { IngredientForm } from 'ingredients'
-import objectFromNutritionStatsKeys from './objectFromNutritionStatsKeys'
-import { Food } from 'foods'
+import objectFromNutritionDataKeys from './objectFromNutritionDataKeys'
+import { DEFAULT_SERVING_SIZE_IN_GRAMS, Food } from 'foods'
 import { useMemo } from 'react'
 import sumStats from './calculations/sumStats'
 import { Stats } from './types'
@@ -10,12 +10,13 @@ function getIngredientFormStats(
   food: Food
 ): Stats {
   const amountInGrams = Math.round(Number(ingredientForm.amountInGrams))
-
-  const scale = amountInGrams / 100
+  const servingSizeInGrams =
+    food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS
+  const scale = amountInGrams / servingSizeInGrams
 
   return {
     amountInGrams,
-    ...objectFromNutritionStatsKeys(key => Math.round(scale * food[key])),
+    ...objectFromNutritionDataKeys(key => Math.round(scale * food[key])),
   }
 }
 

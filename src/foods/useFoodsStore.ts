@@ -2,7 +2,7 @@ import { Food } from 'foods'
 import { useState, useCallback, useMemo } from 'react'
 import produce from 'immer'
 import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
-import { objectFromNutritionStatsKeys } from 'stats'
+import { objectFromNutritionDataKeys } from 'stats'
 
 type Params = {
   initialFoods: any[]
@@ -24,7 +24,7 @@ function useFoodsStore({ initialFoods }: Params) {
 
     for (const food of initialFoods) {
       initialMap[food.id] = {
-        ...objectFromNutritionStatsKeys(key => 0),
+        ...objectFromNutritionDataKeys(key => 0),
         ...food,
       }
     }
