@@ -21,7 +21,8 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <FormField
         name="vitaminB1"
-        label="Vitamin B1 (thiamine)"
+        label="Vitamin B1"
+        labelDetail="(thiamine)"
         inputType="nutritionValue"
         nutritionValueUnit="mcg"
         isReadOnly={!canEdit}
@@ -31,7 +32,8 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <FormField
         name="vitaminB2"
-        label="Vitamin B2 (riboflavin)"
+        label="Vitamin B2"
+        labelDetail="(riboflavin)"
         inputType="nutritionValue"
         nutritionValueUnit="mg"
         isReadOnly={!canEdit}
@@ -41,7 +43,8 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <FormField
         name="vitaminB3"
-        label="Vitamin B3 (niacin)"
+        label="Vitamin B3"
+        labelDetail="(niacin)"
         inputType="nutritionValue"
         nutritionValueUnit="mg"
         isReadOnly={!canEdit}
@@ -51,7 +54,8 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <FormField
         name="vitaminB5"
-        label="Vitamin B5 (pantothenic acid)"
+        label="Vitamin B5"
+        labelDetail="(pantothenic acid)"
         inputType="nutritionValue"
         nutritionValueUnit="mg"
         isReadOnly={!canEdit}
@@ -71,7 +75,8 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <FormField
         name="vitaminB9"
-        label="Vitamin B9 (folate)"
+        label="Vitamin B9"
+        labelDetail="(folate)"
         inputType="nutritionValue"
         nutritionValueUnit="mcg"
         isReadOnly={!canEdit}

@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
-import { Plus } from 'react-feather'
+import { Plus, Menu } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
 import { VariantModal } from 'variants'
 import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
@@ -33,6 +33,17 @@ function VariantsList({
 
   return (
     <Flex>
+      {/*<ResponsiveIconButton
+        borderRadius="full"
+        size="sm"
+        aria-label="Add variant"
+        icon={<Menu size={20} pointerEvents="none" />}
+        variant="outline"
+        onClick={actions.onAppend}
+        isResponsive={false}
+        mr={3}
+        flexShrink={0}
+      />*/}
       <ResponsiveIconButton
         borderRadius="full"
         size="sm"

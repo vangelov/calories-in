@@ -7,6 +7,7 @@ import {
   Divider,
   FormErrorMessage,
   FormControlProps,
+  Box,
 } from '@chakra-ui/react'
 import { ReactNode, RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -15,6 +16,7 @@ import useGetInputElement, { InputType } from './useGetInputElement'
 type Props = {
   name: string
   label: string
+  labelDetail?: string
   inputType: InputType
   nutritionValueUnit?: string
   isIdented?: boolean
@@ -40,6 +42,7 @@ function FormField(props: Props) {
     isCaption = false,
     isRequired,
     children,
+    labelDetail,
     ...rest
   } = props
   const { formState } = useFormContext()
@@ -73,21 +76,23 @@ function FormField(props: Props) {
           }
           alignItems="center"
         >
-          <FormLabel
-            fontWeight={
-              isIdented ? 'normal' : isEmphasized ? 'semibold' : 'medium'
-            }
-            flexShrink={0}
-            fontSize={isCaption ? 'lg' : 'md'}
-            mt={2}
-          >
-            {label}
-          </FormLabel>
+          <Box>
+            <FormLabel
+              fontWeight={
+                isIdented ? 'normal' : isEmphasized ? 'semibold' : 'medium'
+              }
+              flexShrink={0}
+              fontSize={isCaption ? 'lg' : 'md'}
+              m={0}
+            >
+              {label}
+            </FormLabel>
+            <Text fontSize="sm" textColor="gray.400">
+              {labelDetail}
+            </Text>
+          </Box>
 
-          <Flex
-            width={isReadOnly && !isCaption ? undefined : '60%'}
-            justifyContent="flex-end"
-          >
+          <Flex justifyContent="flex-end">
             {inputElement}
 
             {!isReadOnly && inputType === 'nutritionValue' && (

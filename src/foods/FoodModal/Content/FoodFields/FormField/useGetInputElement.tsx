@@ -46,6 +46,7 @@ function useGetInputElement({
         {...textInputRegister}
         ref={finalTextInputRef}
         fontWeight={isBold ? 'semibold' : 'normal'}
+        width={{ base: '150px', md: '200px' }}
       />
     )
   } else if (inputType === 'foodCategory') {
@@ -54,6 +55,7 @@ function useGetInputElement({
         {...register(name, {
           valueAsNumber: true,
         })}
+        width={{ base: '150px', md: '200px' }}
       >
         <option disabled value={undefined}>
           Select category

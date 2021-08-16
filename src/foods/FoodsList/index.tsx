@@ -22,10 +22,14 @@ import {
   ChangeEvent,
 } from 'react'
 import { useFoods } from 'foods'
-import { useFilterFoods, useFoodsFilterStore } from 'foods-filters'
+import {
+  useFilterFoods,
+  useFoodsFilter,
+  useFoodsFilterActions,
+} from 'foods-filters'
 import { Food } from 'foods'
-import FilterPopover from './FilterPopover'
 import { FixedSizeList } from 'react-window'
+import { FoodsFilterPopoverOrModal } from 'foods-filters'
 
 const SearchStyled = chakra(Search)
 
@@ -49,7 +53,9 @@ function FoodsList({
 }: Props) {
   const { allFoods, userFoods } = useFoods()
   const listRef = useRef<FixedSizeList>(null)
-  const [filter, foodsFilterActions] = useFoodsFilterStore()
+
+  const filter = useFoodsFilter()
+  const foodsFilterActions = useFoodsFilterActions()
   const filteredFoods = useFilterFoods(allFoods, userFoods, filter)
 
   useImperativeHandle(forwardedRef, () => ({
@@ -68,16 +74,7 @@ function FoodsList({
     <Flex flexDirection="column" {...rest}>
       <HStack spacing={3}>
         <Box>
-          <FilterPopover
-            filter={filter}
-            onFoodCategoryIdChange={categoryId =>
-              foodsFilterActions.updateFilter({ categoryId })
-            }
-            onOnlyFoodsAddedByUserChange={onlyFoodsAddedbyUser =>
-              foodsFilterActions.updateFilter({ onlyFoodsAddedbyUser })
-            }
-            onReset={foodsFilterActions.resetFilter}
-          />
+          <FoodsFilterPopoverOrModal />
         </Box>
 
         <InputGroup size="md" flex={4}>

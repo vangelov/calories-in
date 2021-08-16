@@ -14,6 +14,7 @@ import useSelection, { Item } from 'general/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
 import Header from './Header'
 import useActions from './useActions'
+import { FoodsFilterStoreProvider } from 'foods-filters'
 
 type Props = {
   onClose: () => void
@@ -62,13 +63,15 @@ function Content({
 
           <SelectedFoodsList selection={selection} />
 
-          <FoodsList
-            ref={listRef}
-            searchInputRef={searchInputRef}
-            selection={selection}
-            flex={1}
-            onFoodPreview={actions.onPreviewFood}
-          />
+          <FoodsFilterStoreProvider>
+            <FoodsList
+              ref={listRef}
+              searchInputRef={searchInputRef}
+              selection={selection}
+              flex={1}
+              onFoodPreview={actions.onPreviewFood}
+            />
+          </FoodsFilterStoreProvider>
         </VStack>
       </DrawerBody>
 

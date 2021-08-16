@@ -1,6 +1,6 @@
 import { useCallback, useState, useRef } from 'react'
 import { FoodsFilter, DEFAULT_FILTER } from './foodsFilter'
-import { useCallbacksMemo } from 'general/stores'
+import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
 
 let savedFilter = DEFAULT_FILTER
 
@@ -58,5 +58,13 @@ function useFoodsFilterStore() {
 
   return [filter, actions] as const
 }
+
+const [
+  FoodsFilterStoreProvider,
+  useFoodsFilter,
+  useFoodsFilterActions,
+] = makeStoreProvider(useFoodsFilterStore)
+
+export { FoodsFilterStoreProvider, useFoodsFilter, useFoodsFilterActions }
 
 export default useFoodsFilterStore
