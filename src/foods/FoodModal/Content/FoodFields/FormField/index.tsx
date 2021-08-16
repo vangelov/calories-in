@@ -58,6 +58,17 @@ function FormField(props: Props) {
     isBold: isValueBold,
   })
 
+  const labelDetailElement = labelDetail ? (
+    <Text
+      as={isReadOnly ? 'span' : undefined}
+      fontSize="sm"
+      textColor="gray.400"
+      ml={isReadOnly ? 1 : 0}
+    >
+      {labelDetail}
+    </Text>
+  ) : null
+
   return (
     <FormControl
       isInvalid={isInvalid}
@@ -86,13 +97,12 @@ function FormField(props: Props) {
               m={0}
             >
               {label}
+              {isReadOnly && labelDetailElement}
             </FormLabel>
-            <Text fontSize="sm" textColor="gray.400">
-              {labelDetail}
-            </Text>
+            {!isReadOnly && labelDetailElement}
           </Box>
 
-          <Flex justifyContent="flex-end">
+          <Flex ml={2} justifyContent="flex-end">
             {inputElement}
 
             {!isReadOnly && inputType === 'nutritionValue' && (
