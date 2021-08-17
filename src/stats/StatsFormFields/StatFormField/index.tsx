@@ -8,6 +8,7 @@ import {
   FormErrorMessage,
   FormControlProps,
   Box,
+  Fade,
 } from '@chakra-ui/react'
 import { ReactNode, RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -69,6 +70,8 @@ function StatFormField(props: Props) {
     </Text>
   ) : null
 
+  const errorMessage = errors[name]?.message
+
   return (
     <FormControl
       isInvalid={isInvalid}
@@ -120,7 +123,9 @@ function StatFormField(props: Props) {
             )}
           </Flex>
         </Flex>
-        <FormErrorMessage>{errors[name]?.message}</FormErrorMessage>
+        <Fade in={Boolean(errorMessage)}>
+          <FormErrorMessage>{errorMessage}</FormErrorMessage>
+        </Fade>
       </VStack>
 
       {children}

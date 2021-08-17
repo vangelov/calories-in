@@ -9,6 +9,7 @@ import {
   ModalContent,
   ModalHeader,
   ModalCloseButton,
+  Fade,
 } from '@chakra-ui/react'
 import { RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -45,6 +46,8 @@ function Content({
     errors['name'] !== undefined &&
     (touchedFields['name'] || formState.isSubmitted)
 
+  const errorMessage = errors['name']?.message
+
   return (
     <ModalContent>
       <ModalHeader>{title}</ModalHeader>
@@ -61,7 +64,9 @@ function Content({
               focusBorderColor={isInvalid ? 'red.500' : undefined}
               placeholder="Enter variant name"
             />
-            <FormErrorMessage>{errors['name']?.message}</FormErrorMessage>
+            <Fade in={Boolean(errorMessage)}>
+              <FormErrorMessage>{errorMessage}</FormErrorMessage>{' '}
+            </Fade>
           </FormControl>
         </form>
       </ModalBody>
