@@ -91,6 +91,96 @@ function VitaminsAndMinerals({ canEdit }: Props) {
         nutritionValueUnit="mcg"
         isReadOnly={!canEdit}
       />
+
+      <Divider />
+
+      <StatFormField
+        name="magnesium"
+        label="Magnesium"
+        inputType="nutritionValue"
+        nutritionValueUnit="mg"
+        isReadOnly={!canEdit}
+      />
+
+      <Divider />
+
+      <StatFormField
+        name="calcium"
+        label="Calcium"
+        inputType="nutritionValue"
+        nutritionValueUnit="mg"
+        isReadOnly={!canEdit}
+      />
+
+      <Divider />
+
+      <StatFormField
+        name="phosphorus"
+        label="Phosphorus"
+        inputType="nutritionValue"
+        nutritionValueUnit="mg"
+        isReadOnly={!canEdit}
+      />
+
+      <Divider />
+
+      <StatFormField
+        name="potassium"
+        label="Potassium"
+        inputType="nutritionValue"
+        nutritionValueUnit="mg"
+        isReadOnly={!canEdit}
+      />
+
+      <Divider />
+
+      <StatFormField
+        name="iron"
+        label="Iron"
+        inputType="nutritionValue"
+        nutritionValueUnit="mg"
+        isReadOnly={!canEdit}
+      />
+
+      <Divider />
+
+      <StatFormField
+        name="selenium"
+        label="Selenium"
+        inputType="nutritionValue"
+        nutritionValueUnit="mcg"
+        isReadOnly={!canEdit}
+      />
+
+      <Divider />
+
+      <StatFormField
+        name="zinc"
+        label="Zinc"
+        inputType="nutritionValue"
+        nutritionValueUnit="mcg"
+        isReadOnly={!canEdit}
+      />
+
+      <Divider />
+
+      <StatFormField
+        name="manganese"
+        label="Manganese"
+        inputType="nutritionValue"
+        nutritionValueUnit="mg"
+        isReadOnly={!canEdit}
+      />
+
+      <Divider />
+
+      <StatFormField
+        name="copper"
+        label="Copper"
+        inputType="nutritionValue"
+        nutritionValueUnit="mg"
+        isReadOnly={!canEdit}
+      />
     </VStack>
   )
 }

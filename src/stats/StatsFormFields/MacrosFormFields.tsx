@@ -41,16 +41,16 @@ function Macros({ canEdit }: Props) {
         <VStack spacing={2} alignItems="flex-start">
           <StatFormField
             isIdented={true}
-            name="saturatedFat"
-            label="Saturated fat"
+            name="polyunsaturatedFat"
+            label="Polyunsaturated fat"
             inputType="nutritionValue"
             isReadOnly={!canEdit}
             width="100%"
           />
           <StatFormField
             isIdented={true}
-            name="saturatedFat"
-            label="Saturated fat"
+            name="monounsaturatedFat"
+            label="Monounsaturated fat"
             inputType="nutritionValue"
             isReadOnly={!canEdit}
           />
@@ -70,10 +70,21 @@ function Macros({ canEdit }: Props) {
       <Divider />
 
       <StatFormField
+        name="cholesterol"
+        label="Cholesterol"
+        inputType="nutritionValue"
+        isReadOnly={!canEdit}
+        nutritionValueUnit="mg"
+      />
+
+      <Divider />
+
+      <StatFormField
         name="sodium"
         label="Sodium"
         inputType="nutritionValue"
         isReadOnly={!canEdit}
+        nutritionValueUnit="mg"
       />
 
       <Divider />

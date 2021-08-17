@@ -1,11 +1,17 @@
 type NutritionData = {
-  protein: number
-  carbs: number
-  fat: number
   energy: number
+
+  fat: number
   saturatedFat: number
+  monounsaturatedFat: number
+  polyunsaturatedFat: number
+
+  carbs: number
   sugar: number
   fiber: number
+
+  protein: number
+
   sodium: number
   cholesterol: number
 
@@ -31,7 +37,6 @@ type NutritionData = {
   zinc: number
   manganese: number
   copper: number
-  iodine: number
 }
 
 type Stats = {

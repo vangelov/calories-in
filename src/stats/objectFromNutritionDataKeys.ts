@@ -7,6 +7,8 @@ const NUTRITION_STATS_KEYS: (keyof NutritionData)[] = [
   'carbs',
   'fat',
   'saturatedFat',
+  'monounsaturatedFat',
+  'polyunsaturatedFat',
   'energy',
   'sugar',
   'fiber',
@@ -33,7 +35,6 @@ const NUTRITION_STATS_KEYS: (keyof NutritionData)[] = [
   'zinc',
   'manganese',
   'copper',
-  'iodine',
 ]
 
 function objectFromNutritionDataKeys<T>(
