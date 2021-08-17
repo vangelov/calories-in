@@ -28,7 +28,7 @@ type Props = {
   isValueBold?: boolean
 } & FormControlProps
 
-function FormField(props: Props) {
+function StatFormField(props: Props) {
   const {
     name,
     label,
@@ -128,4 +128,4 @@ function FormField(props: Props) {
   )
 }
 
-export default FormField
+export default StatFormField

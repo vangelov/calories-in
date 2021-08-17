@@ -1,5 +1,5 @@
 import { VStack, Divider } from '@chakra-ui/layout'
-import FormField from './FormField'
+import StatFormField from './StatFormField'
 
 type Props = {
   canEdit: boolean
@@ -9,7 +9,7 @@ function VitaminsAndMinerals({ canEdit }: Props) {
   return (
     <VStack spacing={2} alignItems="flex-start">
       <Divider borderBottomWidth="8px" />
-      <FormField
+      <StatFormField
         name="vitaminA"
         label="Vitamin A"
         inputType="nutritionValue"
@@ -19,7 +19,7 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <Divider />
 
-      <FormField
+      <StatFormField
         name="vitaminB1"
         label="Vitamin B1"
         labelDetail="(thiamine)"
@@ -30,7 +30,7 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <Divider />
 
-      <FormField
+      <StatFormField
         name="vitaminB2"
         label="Vitamin B2"
         labelDetail="(riboflavin)"
@@ -41,7 +41,7 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <Divider />
 
-      <FormField
+      <StatFormField
         name="vitaminB3"
         label="Vitamin B3"
         labelDetail="(niacin)"
@@ -52,7 +52,7 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <Divider />
 
-      <FormField
+      <StatFormField
         name="vitaminB5"
         label="Vitamin B5"
         labelDetail="(pantothenic acid)"
@@ -63,7 +63,7 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <Divider />
 
-      <FormField
+      <StatFormField
         name="vitaminB6"
         label="Vitamin B6"
         inputType="nutritionValue"
@@ -73,7 +73,7 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <Divider />
 
-      <FormField
+      <StatFormField
         name="vitaminB9"
         label="Vitamin B9"
         labelDetail="(folate)"
@@ -84,7 +84,7 @@ function VitaminsAndMinerals({ canEdit }: Props) {
 
       <Divider />
 
-      <FormField
+      <StatFormField
         name="vitaminB12"
         label="Vitamin B12"
         inputType="nutritionValue"

@@ -7,7 +7,7 @@ type Props = {
 
 const MAX_AMOUNT_EXCLUDING = 10000
 
-function FoodAmountInput({ unit = 'g', size, name, ...rest }: Props) {
+function AmountInput({ unit = 'g', size, name, ...rest }: Props) {
   let register = {}
 
   const props = {
@@ -64,4 +64,4 @@ function FoodAmountInput({ unit = 'g', size, name, ...rest }: Props) {
   )
 }
 
-export default FoodAmountInput
+export default AmountInput

@@ -1,10 +1,10 @@
 import { Input, useMergeRefs } from '@chakra-ui/react'
 import { cloneElement, ReactElement, RefObject } from 'react'
 import { useFormContext, Controller } from 'react-hook-form'
-import { FoodAmountInput } from 'foods'
 import { FoodCategoriesSelect } from 'foods-categories'
 import { InputType } from './types'
 import ReadOnlyInput from './ReadOnlyInput'
+import { AmountInput } from 'stats'
 
 type Params = {
   name: string
@@ -67,11 +67,7 @@ function useGetInputElement({
       <Controller
         name={name}
         render={({ field }) => (
-          <FoodAmountInput
-            value={field.value}
-            onChange={field.onChange}
-            unit=""
-          />
+          <AmountInput value={field.value} onChange={field.onChange} unit="" />
         )}
       />
     )

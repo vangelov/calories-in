@@ -1,6 +1,6 @@
 import { Divider, VStack, Box, Collapse } from '@chakra-ui/react'
 import { useState } from 'react'
-import FormField from './FormField'
+import StatFormField from './StatFormField'
 import styled from '@emotion/styled'
 import RevealButton from './ReavealButton'
 
@@ -22,14 +22,14 @@ function Macros({ canEdit }: Props) {
     <VStack spacing={2} alignItems="flex-start">
       <Divider />
 
-      <FormField
+      <StatFormField
         name="fat"
         label="Fat"
         inputType="nutritionValue"
         isReadOnly={!canEdit}
       />
 
-      <FormField
+      <StatFormField
         isIdented={true}
         name="saturatedFat"
         label="Saturated fat"
@@ -39,7 +39,7 @@ function Macros({ canEdit }: Props) {
 
       <StyledCollapse in={showsAllFatTypes} animateOpacity>
         <VStack spacing={2} alignItems="flex-start">
-          <FormField
+          <StatFormField
             isIdented={true}
             name="saturatedFat"
             label="Saturated fat"
@@ -47,7 +47,7 @@ function Macros({ canEdit }: Props) {
             isReadOnly={!canEdit}
             width="100%"
           />
-          <FormField
+          <StatFormField
             isIdented={true}
             name="saturatedFat"
             label="Saturated fat"
@@ -69,7 +69,7 @@ function Macros({ canEdit }: Props) {
 
       <Divider />
 
-      <FormField
+      <StatFormField
         name="sodium"
         label="Sodium"
         inputType="nutritionValue"
@@ -78,20 +78,20 @@ function Macros({ canEdit }: Props) {
 
       <Divider />
 
-      <FormField
+      <StatFormField
         name="carbs"
         label="Carbs"
         inputType="nutritionValue"
         isReadOnly={!canEdit}
       />
-      <FormField
+      <StatFormField
         isIdented={true}
         name="sugar"
         label="Sugar"
         inputType="nutritionValue"
         isReadOnly={!canEdit}
       />
-      <FormField
+      <StatFormField
         isIdented={true}
         name="fiber"
         label="Fiber"
@@ -101,7 +101,7 @@ function Macros({ canEdit }: Props) {
 
       <Divider />
 
-      <FormField
+      <StatFormField
         name="protein"
         label="Protein"
         inputType="nutritionValue"

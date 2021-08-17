@@ -2,8 +2,8 @@ import { Flex } from '@chakra-ui/react'
 import { IngredientForm } from 'ingredients'
 import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
-import { FoodInfo, FoodAmountInput } from 'foods'
-import { StatsLayout, Stat } from 'stats'
+import { FoodInfo } from 'foods'
+import { StatsLayout, Stat, AmountInput } from 'stats'
 import { RightAligned } from 'layout'
 import Menu from './Menu'
 import { useFoods } from 'foods'
@@ -75,7 +75,7 @@ function IngredientItem({
               }
               amountElement={
                 <RightAligned>
-                  <FoodAmountInput
+                  <AmountInput
                     size={amountInputSize}
                     onChange={actions.onAmountChange}
                     value={ingredientForm.amountInGrams}

@@ -1,7 +1,6 @@
 export * from './foodForm'
 export * from './useFoodsStore'
 export { default as FoodInfo } from './FoodInfo'
-export { default as FoodAmountInput } from './FoodAmountInput'
 export { default as FoodModal } from './FoodModal'
 export { default as FoodsList } from './FoodsList'
 export * from './FoodsList'

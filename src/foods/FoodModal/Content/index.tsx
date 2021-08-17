@@ -10,7 +10,7 @@ import {
   Box,
 } from '@chakra-ui/react'
 import { Food } from 'foods'
-import FoodFields from './FoodFields'
+import FormFields from './FormFields'
 import { RefObject } from 'react'
 import { DeleteConfirmationModal } from 'general'
 import useActions from './useActions'
@@ -52,7 +52,7 @@ function Content({
 
       <ModalBody>
         <form onSubmit={actions.onSubmit}>
-          <FoodFields nameInputRef={nameInputRef} canEdit={actions.isEditing} />
+          <FormFields nameInputRef={nameInputRef} canEdit={actions.isEditing} />
         </form>
 
         {actions.isEditing && food && (

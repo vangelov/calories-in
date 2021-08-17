@@ -1,29 +1,18 @@
-import { Box, FlexProps, VStack, Collapse, Divider } from '@chakra-ui/react'
-import { RefObject, useState } from 'react'
-import FormField from './FormField'
-import Macros from './Macros'
-import VitaminsAndMinerals from './VitaminsAndMinerals'
-import RevealButton from './ReavealButton'
+import { Box, FlexProps, VStack, Divider } from '@chakra-ui/react'
+import { RefObject } from 'react'
+import { StatsFormFields, StatFormField } from 'stats'
 
 type Props = {
   nameInputRef: RefObject<HTMLInputElement>
   canEdit: boolean
 } & FlexProps
 
-function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
-  const [showsVitaminsAndMinerals, setShowsVitaminsAndMinerals] = useState(
-    false
-  )
-
-  function onShowVitaminsAndMineralsToggle() {
-    setShowsVitaminsAndMinerals(!showsVitaminsAndMinerals)
-  }
-
+function FormFields({ nameInputRef, canEdit, ...rest }: Props) {
   return (
     <Box {...rest} p={4}>
       <VStack spacing={2} alignItems="stretch">
         <VStack spacing={4} alignItems="stretch">
-          <FormField
+          <StatFormField
             textInputRef={nameInputRef}
             name="name"
             label="Name"
@@ -31,7 +20,7 @@ function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
             isRequired={true}
             isReadOnly={!canEdit}
           />
-          <FormField
+          <StatFormField
             name="categoryId"
             label="Category"
             inputType="foodCategory"
@@ -40,7 +29,7 @@ function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
           />
 
           <VStack spacing={2}>
-            <FormField
+            <StatFormField
               isEmphasized={true}
               name="servingSizeInGrams"
               label="Nutrition info per"
@@ -49,7 +38,7 @@ function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
             />
             <Divider />
 
-            <FormField
+            <StatFormField
               name="energy"
               isCaption={true}
               isValueBold={true}
@@ -63,22 +52,10 @@ function FoodFields({ nameInputRef, canEdit, ...rest }: Props) {
           </VStack>
         </VStack>
 
-        <Macros canEdit={canEdit} />
-
-        <Collapse in={showsVitaminsAndMinerals} animateOpacity>
-          <VitaminsAndMinerals canEdit={canEdit} />
-        </Collapse>
-
-        <RevealButton
-          alignSelf="flex-start"
-          isContentShown={showsVitaminsAndMinerals}
-          onClick={onShowVitaminsAndMineralsToggle}
-          showContentLabel="Show  vitamins and minerals"
-          hideContentLabel="Hide  vitamins and minerals"
-        />
+        <StatsFormFields canEdit={canEdit} />
       </VStack>
     </Box>
   )
 }
 
-export default FoodFields
+export default FormFields
