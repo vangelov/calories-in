@@ -1,4 +1,4 @@
-export * from './foodForm'
+export * from './food-form'
 export * from './useFoodsStore'
 export { default as FoodInfo } from './FoodInfo'
 export { default as FoodModal } from './FoodModal'

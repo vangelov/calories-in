@@ -36,7 +36,19 @@ function getFoodForm(food?: Food) {
 }
 
 const foodFormSchema = object().shape({
-  name: string().required('Please add a name'),
+  name: string()
+    .required('Please add a name')
+    .test(
+      'uniqueName',
+      'This name has alredy been used',
+      (name, { options }) => {
+        const foodsNames = options.context as string[]
+
+        return (
+          name !== undefined && !foodsNames.includes(name.toLocaleLowerCase())
+        )
+      }
+    ),
   categoryId: number()
     .notOneOf([0], 'Please select category')
     .typeError('Please select category'),
@@ -60,4 +72,4 @@ export {
   DEFAULT_SERVING_SIZE_IN_GRAMS,
 }
 export { default as useSubmitFoodForm } from './useSubmitFoodForm'
-export { default as FoodFormProvider } from './FoodFormProvider'
+export { default as FoodFormMethodsProvider } from './FoodFormMethodsProvider'

@@ -27,19 +27,12 @@ const variantFormSchema = object().shape({
       'uniqueName',
       'This name has alredy been used',
       (name, { options }) => {
-        const variantsForms = options.context as VariantForm[]
+        const variantsFormsNames = options.context as string[]
 
-        if (variantsForms) {
-          const variantsNames = variantsForms.map(({ name }) =>
-            name.toLocaleLowerCase()
-          )
-          return (
-            name !== undefined &&
-            !variantsNames.includes(name.toLocaleLowerCase())
-          )
-        }
-
-        return true
+        return (
+          name !== undefined &&
+          !variantsFormsNames.includes(name.toLocaleLowerCase())
+        )
       }
     ),
 })
@@ -73,3 +66,5 @@ export {
 }
 
 export { default as VariantFormMethodsProvider } from './VariantFormMethodsProvider'
+export { default as useSubmitVariantForm } from './useSubmitVariantForm'
+export * from './useSubmitVariantForm'
