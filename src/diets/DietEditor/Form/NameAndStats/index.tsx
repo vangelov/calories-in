@@ -1,4 +1,4 @@
-import { Flex, chakra } from '@chakra-ui/react'
+import { Flex, chakra, useDisclosure } from '@chakra-ui/react'
 import { StatsLayout, Stat } from 'stats'
 import { Info } from 'react-feather'
 import { RightAligned } from 'layout'
@@ -7,7 +7,7 @@ import EnergyStat from './EnergyStat'
 import { ResponsiveIconButton } from 'general'
 import { memo } from 'react'
 import { useDerivedMealsStats } from 'stats'
-import { VariantForm } from 'variants'
+import { VariantForm, VariantsDetailsModal } from 'variants'
 
 const IntoStyled = chakra(Info)
 
@@ -23,7 +23,9 @@ function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
     carbsPercent,
     fatPercent,
     energyDiff,
-  } = useDerivedMealsStats({ selectedVariantForm })
+  } = useDerivedMealsStats({ variantFormFieldId: selectedVariantForm.fieldId })
+
+  const modalDisclosure = useDisclosure()
 
   return (
     <Flex
@@ -73,13 +75,19 @@ function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
         menuElement={
           <RightAligned>
             <ResponsiveIconButton
-              isDisabled={true}
               aria-label="Nutrition details"
               icon={<IntoStyled size={20} pointerEvents="none" />}
               variant="ghost"
+              onClick={modalDisclosure.onOpen}
             />
           </RightAligned>
         }
+      />
+
+      <VariantsDetailsModal
+        isOpen={modalDisclosure.isOpen}
+        onClose={modalDisclosure.onClose}
+        initialVariantForm={selectedVariantForm}
       />
     </Flex>
   )

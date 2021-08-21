@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
 import { Plus, Menu } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
-import { VariantModal } from 'variants'
+import { VariantNameModal } from 'variants'
 import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
 import { useDietForm } from 'diets'
 import { VariantForm } from 'variants'
@@ -97,7 +97,7 @@ function VariantsList({
         canScrollRight={actions.canScrollRight}
       />
 
-      <VariantModal
+      <VariantNameModal
         isOpen={actions.modalDisclosure.isOpen}
         onClose={actions.onVariantModalClose}
         submitAction={actions.submitAction}

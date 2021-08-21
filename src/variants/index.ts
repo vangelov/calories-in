@@ -4,4 +4,5 @@ export { default as useVariantsFormsActions } from './useVariantsFormsActions'
 export * from './useVariantsFormsActions'
 export * from './variant-form'
 
-export { default as VariantModal } from './VariantModal'
+export { default as VariantNameModal } from './VariantNameModal'
+export { default as VariantsDetailsModal } from './VariantsDetailsModal'

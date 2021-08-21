@@ -41,7 +41,6 @@ function ReadOnlyInput({
 
         return (
           <Text
-            textColor="gray.500"
             fontWeight={isBold ? 'semibold' : 'normal'}
             fontSize={isBold ? 'lg' : 'md'}
           >
