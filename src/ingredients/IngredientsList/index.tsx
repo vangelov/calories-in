@@ -1,4 +1,4 @@
-import { Box } from '@chakra-ui/react'
+import { Box, Fade } from '@chakra-ui/react'
 import IngredientItem from './IngredientItem'
 import { Droppable } from 'react-beautiful-dnd'
 import EmptyList from './EmptyList'
@@ -44,7 +44,9 @@ function IngredientsList({
           ))}
           {ingredientsForms.length > 0 && provided.placeholder}
           {ingredientsForms.length === 0 && (
-            <EmptyList onAddIngredients={onAddIngredients} />
+            <Fade initial={false} in={true}>
+              <EmptyList onAddIngredients={onAddIngredients} />
+            </Fade>
           )}
         </Box>
       )}

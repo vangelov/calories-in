@@ -6,7 +6,7 @@ import Name from './Name'
 import EnergyStat from './EnergyStat'
 import { ResponsiveIconButton } from 'general'
 import { memo } from 'react'
-import { useDerivedMealsStats } from 'stats'
+import { useVariantStats } from 'stats'
 import { VariantForm, VariantsDetailsModal } from 'variants'
 
 const IntoStyled = chakra(Info)
@@ -16,14 +16,14 @@ type Props = {
   selectedVariantForm: VariantForm
 }
 
-function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
+function NameAndStats({ selectedVariantForm }: Props) {
   const {
-    mealsStatsSum,
+    variantStats,
     proteinPercent,
     carbsPercent,
     fatPercent,
     energyDiff,
-  } = useDerivedMealsStats({ variantFormFieldId: selectedVariantForm.fieldId })
+  } = useVariantStats({ variantFormFieldId: selectedVariantForm.fieldId })
 
   const modalDisclosure = useDisclosure()
 
@@ -35,19 +35,16 @@ function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
       width="100%"
     >
       <StatsLayout
-        nameElement={<Name energyDiff={energyDiff} />}
+        nameElement={<Name />}
         energyElement={
-          <EnergyStat
-            energy={mealsStatsSum.energy}
-            isEditingExistingDiet={isEditingExistingDiet}
-          />
+          <EnergyStat energy={variantStats.energy} energyDiff={energyDiff} />
         }
         proteinElement={
           <Stat
             justifyContent="flex-start"
             type="diet"
             label="Protein"
-            value={mealsStatsSum.protein}
+            value={variantStats.protein}
             valueDetail={`${proteinPercent}%`}
             showsValueDetail={true}
           />
@@ -57,7 +54,7 @@ function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
             justifyContent="flex-start"
             type="diet"
             label="Carbs"
-            value={mealsStatsSum.carbs}
+            value={variantStats.carbs}
             valueDetail={`${carbsPercent}%`}
             showsValueDetail={true}
           />
@@ -67,7 +64,7 @@ function NameAndStats({ isEditingExistingDiet, selectedVariantForm }: Props) {
             justifyContent="flex-start"
             type="diet"
             label="Fat"
-            value={mealsStatsSum.fat}
+            value={variantStats.fat}
             valueDetail={`${fatPercent}%`}
             showsValueDetail={true}
           />

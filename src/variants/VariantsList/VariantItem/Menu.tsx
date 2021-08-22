@@ -1,6 +1,6 @@
-import { ButtonProps, chakra } from '@chakra-ui/react'
+import { ButtonProps, chakra, IconButton } from '@chakra-ui/react'
 import { MoreHorizontal, Trash2, Edit, Copy } from 'react-feather'
-import { ResponsiveIconButton, Menu as MenuBase, MenuItem } from 'general'
+import { Menu as MenuBase, MenuItem } from 'general'
 
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 const Trash2Styled = chakra(Trash2)
@@ -29,8 +29,7 @@ function Menu({
       portal={true}
       viewScroll="close"
       menuButton={
-        <ResponsiveIconButton
-          isResponsive={false}
+        <IconButton
           aria-label="Variant actions"
           icon={<MoreHorizontalStyled size={20} pointerEvents="none" />}
           variant="ghost"

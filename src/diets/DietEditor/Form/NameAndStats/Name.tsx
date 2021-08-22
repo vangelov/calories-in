@@ -1,17 +1,8 @@
-import { Input, HStack, chakra, VStack, Text } from '@chakra-ui/react'
+import { Input, HStack, VStack } from '@chakra-ui/react'
 import { useDietForm, useDietFormActions } from 'diets'
 import { ChangeEvent } from 'react'
-import { ArrowUpCircle, ArrowDownCircle, AlertCircle } from 'react-feather'
 
-const ArrowUpCircleStyled = chakra(ArrowUpCircle)
-const ArrowDownCircleStyled = chakra(ArrowDownCircle)
-const AlertCircleStyled = chakra(AlertCircle)
-
-type Props = {
-  energyDiff: number
-}
-
-function Name({ energyDiff }: Props) {
+function Name() {
   const dietForm = useDietForm()
   const dietFormActions = useDietFormActions()
 
@@ -39,21 +30,6 @@ function Name({ energyDiff }: Props) {
             Unsaved changes
           </Text>
   </HStack>*/}
-
-        {energyDiff !== 0 && (
-          <HStack spacing={1}>
-            {energyDiff < 0 && (
-              <ArrowDownCircleStyled color="gray.400" size="16px" />
-            )}
-            {energyDiff > 0 && (
-              <ArrowUpCircleStyled color="gray.400" size="16px" />
-            )}
-
-            <Text fontSize="xs" textColor="gray.400">
-              {energyDiff}kcal
-            </Text>
-          </HStack>
-        )}
       </HStack>
     </VStack>
   )

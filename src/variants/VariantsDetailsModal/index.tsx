@@ -15,7 +15,6 @@ type Props = {
 
 function VariantsDetailsModal({ onClose, isOpen, initialVariantForm }: Props) {
   const selectInputRef = useRef<HTMLSelectElement>(null)
-  const title = 'Variants Details'
   const { foodsById } = useFoods()
   const dietForm = useDietForm()
   const variantsFormsExtendedStats = getVariantsFormsExtendedStats(
@@ -31,16 +30,16 @@ function VariantsDetailsModal({ onClose, isOpen, initialVariantForm }: Props) {
       initialFocusRef={selectInputRef}
       onClose={onClose}
       scrollBehavior="inside"
+      size="lg"
     >
       <ModalOverlay />
       <VariantsDetailsFormProvider
         initialVariantForm={initialVariantForm}
-        initialMealsStatsSum={variantsFormsStatsMap[initialVariantForm.fieldId]}
+        initialVariantStats={variantsFormsStatsMap[initialVariantForm.fieldId]}
       >
         <Content
           selectInputRef={selectInputRef}
           onClose={onClose}
-          title={title}
           initialVariantForm={initialVariantForm}
           variantsForms={dietForm.variantsForms}
           variantsFormsExtendedStats={variantsFormsExtendedStats}

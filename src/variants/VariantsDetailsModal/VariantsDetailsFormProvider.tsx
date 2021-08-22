@@ -10,17 +10,17 @@ import { Stats } from 'stats'
 type Props = {
   children: ReactNode
   initialVariantForm: VariantForm
-  initialMealsStatsSum: Stats
+  initialVariantStats: Stats
 }
 
 function VariantsDetailsFormProvider({
   children,
   initialVariantForm,
-  initialMealsStatsSum,
+  initialVariantStats,
 }: Props) {
   const defaultValues = getVariantsDetailsForm(
     initialVariantForm.fieldId,
-    initialMealsStatsSum
+    initialVariantStats
   )
 
   const formMethods = useForm<VariantsDetailsForm>({

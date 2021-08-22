@@ -1,24 +1,22 @@
 import { Box, FlexProps, VStack, Select } from '@chakra-ui/react'
-import { RefObject, ChangeEvent } from 'react'
-import { useFormContext } from 'react-hook-form'
-import { StatsFormFields, VariantsFormsExtendedStats } from 'stats'
-import { VariantForm } from 'variants/variant-form'
-
+import { RefObject, ChangeEvent, useMemo } from 'react'
 import {
-  Stat,
-  StatLabel,
-  StatNumber,
-  StatHelpText,
-  Flex,
-  HStack,
-} from '@chakra-ui/react'
+  getMacrosPercents,
+  roundMacrosPercents,
+  Stats,
+  StatsFormFields,
+} from 'stats'
+import { VariantForm } from 'variants/variant-form'
+import { Stat } from 'stats'
+import { Flex } from '@chakra-ui/react'
+import { useScreenSize } from 'general'
 
 type Props = {
   selectInputRef: RefObject<HTMLSelectElement>
   canEdit: boolean
   initialVariantForm: VariantForm
   variantsForms: VariantForm[]
-  variantsFormsExtendedStats: VariantsFormsExtendedStats
+  variantStats: Stats
   onVariantFormFieldIdChange: (value: string) => void
 } & FlexProps
 
@@ -27,7 +25,7 @@ function FormFields({
   canEdit,
   variantsForms,
   initialVariantForm,
-  variantsFormsExtendedStats,
+  variantStats,
   onVariantFormFieldIdChange,
   ...rest
 }: Props) {
@@ -36,51 +34,78 @@ function FormFields({
     onVariantFormFieldIdChange(value)
   }
 
+  const { proteinPercent, carbsPercent, fatPercent } = useMemo(
+    () => roundMacrosPercents(getMacrosPercents(variantStats)),
+    [variantStats]
+  )
+
+  const screenSize = useScreenSize()
+  const isLarge = screenSize >= 2
+
   return (
     <Box {...rest} p={4}>
       <VStack spacing={6} alignItems="stretch">
-        <Select
-          focusBorderColor="teal.500"
-          size="md"
-          defaultValue={initialVariantForm.fieldId}
-          onChange={onSelectChange}
-          ref={selectInputRef}
-        >
-          <option key="avg" value={''}>
-            Average for all variants
-          </option>
-          {variantsForms.map(variantForm => (
-            <option key={variantForm.fieldId} value={variantForm.fieldId}>
-              {variantForm.name}
+        {variantsForms.length > 1 && (
+          <Select
+            focusBorderColor="teal.500"
+            size="md"
+            defaultValue={initialVariantForm.fieldId}
+            onChange={onSelectChange}
+            ref={selectInputRef}
+          >
+            <option key="avg" value={''}>
+              Average for all variants
             </option>
-          ))}
-        </Select>
+            {variantsForms.map(variantForm => (
+              <option key={variantForm.fieldId} value={variantForm.fieldId}>
+                {variantForm.name}
+              </option>
+            ))}
+          </Select>
+        )}
 
-        <Flex justifyContent="space-between">
-          <Stat>
-            <StatLabel>Energy</StatLabel>
-            <StatNumber fontSize="lg" fontWeight="bold">
-              2900kcal
-            </StatNumber>
-          </Stat>
+        <Flex width="97%" justifyContent="space-between">
+          <Flex alignItems="stretch">
+            <Stat
+              type="dietEnergy"
+              label="Energy"
+              value={variantStats.energy}
+              isLarge={isLarge}
+              justifyContent="flex-start"
+            />
+          </Flex>
 
-          <HStack spacing={8}>
-            <Stat flex={undefined}>
-              <StatLabel>Protein</StatLabel>
-              <StatNumber fontSize="lg">190g</StatNumber>
-              <StatHelpText mb={0}>40%</StatHelpText>
-            </Stat>
-            <Stat flex={undefined}>
-              <StatLabel>Carbs</StatLabel>
-              <StatNumber fontSize="lg">160g</StatNumber>
-              <StatHelpText mb={0}>40%</StatHelpText>
-            </Stat>
-            <Stat flex={undefined}>
-              <StatLabel>Carbs</StatLabel>
-              <StatNumber fontSize="lg">160g</StatNumber>
-              <StatHelpText mb={0}>40%</StatHelpText>
-            </Stat>
-          </HStack>
+          <Flex width="70%" justifyContent="space-between">
+            <Stat
+              type="diet"
+              label="Protein"
+              value={variantStats.protein}
+              valueDetail={`${proteinPercent}%`}
+              showsValueDetail={true}
+              isLarge={isLarge}
+              justifyContent="flex-start"
+            />
+
+            <Stat
+              justifyContent="flex-start"
+              type="diet"
+              label="Carbs"
+              value={variantStats.carbs}
+              valueDetail={`${carbsPercent}%`}
+              showsValueDetail={true}
+              isLarge={isLarge}
+            />
+
+            <Stat
+              justifyContent="flex-start"
+              type="diet"
+              label="Fat"
+              value={variantStats.fat}
+              valueDetail={`${fatPercent}%`}
+              showsValueDetail={true}
+              isLarge={isLarge}
+            />
+          </Flex>
         </Flex>
 
         <StatsFormFields canEdit={canEdit} />

@@ -1,16 +1,16 @@
 import { MappedNutritionData, objectFromNutritionDataKeys, Stats } from 'stats'
 
 type VariantsDetailsForm = {
-  variantFormFieldId?: string
+  variantFormFieldId: string
 } & MappedNutritionData<string>
 
 function getVariantsDetailsForm(
-  variantFormFieldId: string | undefined,
-  mealsStatsSum: Stats
+  variantFormFieldId: string,
+  variantStats: Stats
 ) {
   return {
     variantFormFieldId,
-    ...objectFromNutritionDataKeys(key => mealsStatsSum[key].toString()),
+    ...objectFromNutritionDataKeys(key => variantStats[key].toString()),
   }
 }
 

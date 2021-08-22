@@ -1,6 +1,5 @@
-import { Fade } from '@chakra-ui/react'
+import { Fade, IconButton } from '@chakra-ui/react'
 import { ArrowLeft, ArrowRight } from 'react-feather'
-import { ResponsiveIconButton } from 'general'
 import { animateScrollLeft } from 'dom'
 import { RefObject } from 'react'
 
@@ -29,7 +28,7 @@ function ScrollButtons({
 
   return (
     <Fade in={showsButtons} unmountOnExit={true}>
-      <ResponsiveIconButton
+      <IconButton
         borderTopLeftRadius="full"
         borderBottomLeftRadius="full"
         size="sm"
@@ -37,12 +36,11 @@ function ScrollButtons({
         icon={<ArrowLeft size={20} pointerEvents="none" />}
         variant="outline"
         onClick={onTest2}
-        isResponsive={false}
         ml={3}
         flexShrink={0}
         isDisabled={!canScrollLeft}
       />
-      <ResponsiveIconButton
+      <IconButton
         borderTopRightRadius="full"
         borderBottomRightRadius="full"
         size="sm"
@@ -50,7 +48,6 @@ function ScrollButtons({
         icon={<ArrowRight size={20} pointerEvents="none" />}
         variant="outline"
         onClick={onTest}
-        isResponsive={false}
         flexShrink={0}
         isDisabled={!canScrollRight}
       />

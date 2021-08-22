@@ -1,4 +1,4 @@
-import { Text, Box, HStack, FlexProps, Collapse } from '@chakra-ui/react'
+import { Text, Box, HStack, FlexProps, Fade } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 import { RightAligned } from 'layout'
 
@@ -17,6 +17,7 @@ type Props = {
   label?: string
   type: StatType
   showsValueDetail?: boolean
+  isLarge?: boolean
 } & FlexProps
 
 function getValueTextColor(statType: StatType) {
@@ -28,7 +29,7 @@ function getValueTextColor(statType: StatType) {
     return 'gray.500'
   }
 
-  return 'gray.600'
+  return undefined
 }
 
 function Stat({
@@ -38,11 +39,11 @@ function Stat({
   type,
   valueDetailLeftIcon,
   showsValueDetail = false,
+  isLarge = false,
   ...rest
 }: Props) {
   const isForDiet = type.startsWith('diet')
   const isEnergy = type.endsWith('Energy')
-  const isBold = type !== 'ingredientEnergy' && isEnergy
 
   return (
     <RightAligned position="relative" {...rest}>
@@ -50,7 +51,7 @@ function Stat({
         <Box
           position="absolute"
           top="2px"
-          bottom="5px"
+          bottom="2px"
           right="-10px"
           width="1px"
           bg="gray.300"
@@ -58,36 +59,40 @@ function Stat({
       )}
 
       {label && (
-        <Text fontSize="xs" textColor="gray.400">
+        <Text
+          fontSize={isLarge ? 'md' : 'xs'}
+          fontWeight={isLarge ? 'medium' : undefined}
+          textColor={isForDiet ? undefined : 'gray.400'}
+        >
           {label}
         </Text>
       )}
 
       <Text
         lineHeight={5}
-        fontSize={{ base: 'sm', md: 'md' }}
-        fontWeight={isBold ? 'bold' : undefined}
+        fontSize={isLarge ? 'xl' : { base: 'sm', md: 'md' }}
+        fontWeight={
+          type === 'dietEnergy'
+            ? 'bold'
+            : isForDiet || type === 'mealEnergy'
+            ? 'semibold'
+            : undefined
+        }
         textColor={getValueTextColor(type)}
       >
         {value}
-        <Text as="span" fontSize="sm">
+        <Text as="span" fontSize={isLarge ? 'md' : 'sm'}>
           {isEnergy ? 'kcal' : 'g'}
         </Text>
       </Text>
 
-      <Collapse
-        transition={{ ease: 'easeInOut', duration: 2 }}
-        style={{ overflow: 'hidden' }}
-        in={showsValueDetail}
-      >
+      <Fade in={showsValueDetail}>
         <HStack alignItems="center" spacing={1}>
           {valueDetail && valueDetailLeftIcon}
 
-          <Text fontSize={{ base: 'sm', md: 'md' }} textColor="gray.400">
-            {valueDetail}
-          </Text>
+          <Text fontSize={isLarge ? 'md' : 'sm'}>{valueDetail}</Text>
         </HStack>
-      </Collapse>
+      </Fade>
     </RightAligned>
   )
 }

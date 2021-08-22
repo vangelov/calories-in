@@ -1,17 +1,17 @@
 import { useMemo, useRef } from 'react'
 import { getMacrosPercents, roundMacrosPercents } from './calculations'
-import sumStats from './calculations/sumStats'
+import { sumStats } from 'stats'
 import { useMealsStats } from './useMealsStatsStore'
 
 type Params = {
   variantFormFieldId: string
 }
 
-function useDerivedMealsStats({ variantFormFieldId }: Params) {
+function useVariantStats({ variantFormFieldId }: Params) {
   const mealsStats = useMealsStats()
   const energyCacheRef = useRef<Record<string, number | undefined>>({})
 
-  const mealsStatsSum = useMemo(() => {
+  const variantStats = useMemo(() => {
     const mealsStatsForVariant = mealsStats[variantFormFieldId]
     const finalStats = mealsStatsForVariant
       ? Object.values(mealsStatsForVariant)
@@ -29,18 +29,18 @@ function useDerivedMealsStats({ variantFormFieldId }: Params) {
   }, [mealsStats, variantFormFieldId])
 
   const { proteinPercent, carbsPercent, fatPercent } = useMemo(
-    () => roundMacrosPercents(getMacrosPercents(mealsStatsSum)),
-    [mealsStatsSum]
+    () => roundMacrosPercents(getMacrosPercents(variantStats)),
+    [variantStats]
   )
 
   const cachedEnergy = energyCacheRef.current[variantFormFieldId]
   const energyDiff =
     cachedEnergy !== undefined && cachedEnergy > 0
-      ? mealsStatsSum.energy - cachedEnergy
+      ? variantStats.energy - cachedEnergy
       : 0
 
   return {
-    mealsStatsSum,
+    variantStats,
     proteinPercent,
     carbsPercent,
     fatPercent,
@@ -48,4 +48,4 @@ function useDerivedMealsStats({ variantFormFieldId }: Params) {
   }
 }
 
-export default useDerivedMealsStats
+export default useVariantStats

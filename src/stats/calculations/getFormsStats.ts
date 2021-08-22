@@ -3,23 +3,23 @@ import { VariantForm } from 'variants'
 import { IngredientForm } from 'ingredients'
 import objectFromNutritionDataKeys from '../objectFromNutritionDataKeys'
 import { DEFAULT_SERVING_SIZE_IN_GRAMS } from 'foods'
-import sumStats from './sumStats'
+import { sumStats, avgStats } from './aggregateStats'
 import { Stats } from '../types'
 import { MealForm } from 'meals'
-import avgStats from './avgStats'
 
 function getIngredientFormStats(
   ingredientForm: IngredientForm,
-  food: Food
+  food: Food,
+  round: (x: number) => number = Math.round
 ): Stats {
-  const amountInGrams = Math.round(Number(ingredientForm.amountInGrams))
+  const amountInGrams = round(Number(ingredientForm.amountInGrams))
   const servingSizeInGrams =
     food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS
   const scale = amountInGrams / servingSizeInGrams
 
   return {
     amountInGrams,
-    ...objectFromNutritionDataKeys(key => Math.round(scale * food[key])),
+    ...objectFromNutritionDataKeys(key => round(scale * food[key])),
   }
 }
 

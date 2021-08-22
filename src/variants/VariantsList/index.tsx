@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex, IconButton } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
 import { Plus, Menu } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
@@ -7,7 +7,7 @@ import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
 import { useDietForm } from 'diets'
 import { VariantForm } from 'variants'
 import useActions from './useActions'
-import { HFadeScroll, ResponsiveIconButton } from 'general'
+import { HFadeScroll } from 'general'
 import mergeRefs from 'react-merge-refs'
 import ScrollButtons from './ScrollButtons'
 
@@ -33,25 +33,24 @@ function VariantsList({
 
   return (
     <Flex>
-      {/*<ResponsiveIconButton
+      {/*<IconButton
         borderRadius="full"
         size="sm"
         aria-label="Add variant"
         icon={<Menu size={20} pointerEvents="none" />}
         variant="outline"
         onClick={actions.onAppend}
-        isResponsive={false}
+      
         mr={3}
         flexShrink={0}
       />*/}
-      <ResponsiveIconButton
+      <IconButton
         borderRadius="full"
         size="sm"
         aria-label="Add variant"
         icon={<Plus size={20} pointerEvents="none" />}
         variant="outline"
         onClick={actions.onAppend}
-        isResponsive={false}
         mr={3}
         flexShrink={0}
       />

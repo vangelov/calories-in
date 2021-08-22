@@ -1,20 +1,14 @@
-import { chakra } from '@chakra-ui/react'
 import { Stat } from 'stats'
 import { ArrowUpCircle, ArrowDownCircle } from 'react-feather'
-import useSameOrPreviousValue from 'general/useSameOrPreviousValue'
-
-const ArrowUpCircleStyled = chakra(ArrowUpCircle)
-const ArrowDownCircleStyled = chakra(ArrowDownCircle)
+import { useSameOrPreviousValue } from 'general'
 
 type Props = {
   energy: number
-  isEditingExistingDiet: boolean
+  energyDiff: number
 }
 
-function EnergyStat({ isEditingExistingDiet, energy }: Props) {
-  const initialEnergy = { current: 0 } // useInitialEnergyState()
-  const energyDelta = isEditingExistingDiet ? energy - initialEnergy.current : 0
-  const energyValueDetail = `${Math.abs(energyDelta)}kcal`
+function EnergyStat({ energy, energyDiff }: Props) {
+  const energyValueDetail = `${Math.abs(energyDiff)}kcal`
   const previousOrSameEnergyValueDetail = useSameOrPreviousValue(
     energyValueDetail
   )
@@ -26,16 +20,16 @@ function EnergyStat({ isEditingExistingDiet, energy }: Props) {
       label="Energy"
       value={energy}
       valueDetail={
-        energyDelta !== 0 ? energyValueDetail : previousOrSameEnergyValueDetail
+        energyDiff !== 0 ? energyValueDetail : previousOrSameEnergyValueDetail
       }
       valueDetailLeftIcon={
-        energyDelta > 0 ? (
-          <ArrowUpCircleStyled color="gray.400" width="15px" height="15px" />
+        energyDiff > 0 ? (
+          <ArrowUpCircle width="15px" height="15px" />
         ) : (
-          <ArrowDownCircleStyled color="gray.400" width="15px" height="15px" />
+          <ArrowDownCircle width="15px" height="15px" />
         )
       }
-      showsValueDetail={energyDelta !== 0}
+      showsValueDetail={energyDiff !== 0}
     />
   )
 }

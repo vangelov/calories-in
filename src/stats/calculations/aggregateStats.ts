@@ -18,4 +18,18 @@ function sumStats(stats: Stats[]): Stats {
   return result
 }
 
-export default sumStats
+function avgStats(
+  stats: Stats[],
+  round: (x: number) => number = Math.round
+): Stats {
+  const result = sumStats(stats)
+  let key: keyof typeof result
+
+  for (key in result) {
+    result[key] = round(result[key] / stats.length)
+  }
+
+  return result
+}
+
+export { sumStats, avgStats }
