@@ -1,4 +1,4 @@
-import { Stat } from 'stats'
+import Stat from './Stat'
 import { ArrowUpCircle, ArrowDownCircle } from 'react-feather'
 import { useSameOrPreviousValue } from 'general'
 

@@ -1,12 +1,10 @@
 import { Flex, chakra, useDisclosure } from '@chakra-ui/react'
-import { StatsLayout, Stat } from 'stats'
 import { Info } from 'react-feather'
 import { RightAligned } from 'layout'
 import Name from './Name'
-import EnergyStat from './EnergyStat'
 import { ResponsiveIconButton } from 'general'
 import { memo } from 'react'
-import { useVariantStats } from 'stats'
+import { useVariantStats, EnergyStat, StatsLayout, Stat } from 'stats'
 import { VariantForm, VariantsDetailsModal } from 'variants'
 
 const IntoStyled = chakra(Info)

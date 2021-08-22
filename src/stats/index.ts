@@ -15,3 +15,4 @@ export { default as StatsFormFields } from './StatsFormFields'
 export * from './StatsFormFields'
 
 export { default as AmountInput } from './AmountInput'
+export { default as EnergyStat } from './EnergyStat'
