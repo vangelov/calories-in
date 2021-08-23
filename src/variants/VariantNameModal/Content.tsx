@@ -51,12 +51,12 @@ function Content({
   const errorMessage = errors['name']?.message
 
   return (
-    <ModalContent>
-      <ModalHeader>{title}</ModalHeader>
-      <ModalCloseButton />
+    <form onSubmit={onSubmit}>
+      <ModalContent>
+        <ModalHeader>{title}</ModalHeader>
+        <ModalCloseButton />
 
-      <ModalBody>
-        <form onSubmit={onSubmit}>
+        <ModalBody>
           <FormControl isInvalid={isInvalid}>
             <FormLabel>Variant name</FormLabel>
             <Input
@@ -70,18 +70,23 @@ function Content({
               <FormErrorMessage>{errorMessage}</FormErrorMessage>{' '}
             </Fade>
           </FormControl>
-        </form>
-      </ModalBody>
+        </ModalBody>
 
-      <ModalFooter>
-        <Button mr={3} onClick={onClose}>
-          Close
-        </Button>
-        <Button colorScheme="teal" variant="solid" onClick={onSubmit}>
-          Save
-        </Button>
-      </ModalFooter>
-    </ModalContent>
+        <ModalFooter>
+          <Button mr={3} onClick={onClose}>
+            Close
+          </Button>
+          <Button
+            type="submit"
+            colorScheme="teal"
+            variant="solid"
+            onClick={onSubmit}
+          >
+            Save
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </form>
   )
 }
 

@@ -34,64 +34,64 @@ function Content({
   const canEdit = Boolean(food && food.addedByUser)
 
   return (
-    <ModalContent>
-      <ModalHeader>
-        {title}
-        {canEdit && (
-          <Button
-            ml={3}
-            variant="link"
-            colorScheme="teal"
-            onClick={actions.onToggleEdit}
-          >
-            {actions.isEditing ? 'Back to preview' : 'Edit food'}
-          </Button>
-        )}
-      </ModalHeader>
-      <ModalCloseButton />
-
-      <ModalBody>
-        <form onSubmit={actions.onSubmit}>
-          <FormFields nameInputRef={nameInputRef} canEdit={actions.isEditing} />
-        </form>
-
-        {actions.isEditing && food && (
-          <Box>
-            <Divider />
+    <form onSubmit={actions.onSubmit}>
+      <ModalContent>
+        <ModalHeader>
+          {title}
+          {canEdit && (
             <Button
-              width="100%"
-              my={3}
-              colorScheme="red"
-              onClick={actions.onDelete}
-            >
-              Delete
-            </Button>
-          </Box>
-        )}
-
-        <DeleteConfirmationModal
-          isOpen={actions.deleteConfirmationDisclosure.isOpen}
-          onCancel={actions.deleteConfirmationDisclosure.onClose}
-          onConfirm={actions.onConfirmDelete}
-        />
-      </ModalBody>
-
-      <ModalFooter>
-        <HStack spacing={3}>
-          <Button onClick={onClose}>Close</Button>
-          {actions.isEditing && (
-            <Button
+              ml={3}
+              variant="link"
               colorScheme="teal"
-              type="submit"
-              variant="solid"
-              onClick={actions.onSubmit}
+              onClick={actions.onToggleEdit}
             >
-              Save
+              {actions.isEditing ? 'Back to preview' : 'Edit food'}
             </Button>
           )}
-        </HStack>
-      </ModalFooter>
-    </ModalContent>
+        </ModalHeader>
+        <ModalCloseButton />
+
+        <ModalBody>
+          <FormFields nameInputRef={nameInputRef} canEdit={actions.isEditing} />
+
+          {actions.isEditing && food && (
+            <Box>
+              <Divider />
+              <Button
+                width="100%"
+                my={3}
+                colorScheme="red"
+                onClick={actions.onDelete}
+              >
+                Delete
+              </Button>
+            </Box>
+          )}
+
+          <DeleteConfirmationModal
+            isOpen={actions.deleteConfirmationDisclosure.isOpen}
+            onCancel={actions.deleteConfirmationDisclosure.onClose}
+            onConfirm={actions.onConfirmDelete}
+          />
+        </ModalBody>
+
+        <ModalFooter>
+          <HStack spacing={3}>
+            <Button onClick={onClose}>Close</Button>
+            {actions.isEditing && (
+              <Button
+                colorScheme="teal"
+                type="submit"
+                variant="solid"
+                onClick={actions.onSubmit}
+              >
+                Save
+              </Button>
+            )}
+          </HStack>
+        </ModalFooter>
+      </ModalContent>
+    </form>
   )
 }
 

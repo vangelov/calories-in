@@ -80,7 +80,7 @@ function Content({
           Cancel
         </Button>
         <Button size="md" colorScheme="teal" onClick={actions.onSave}>
-          Save
+          Add
         </Button>
       </DrawerFooter>
 
