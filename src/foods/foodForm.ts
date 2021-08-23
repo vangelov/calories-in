@@ -71,5 +71,3 @@ export {
   foodFormSchema,
   DEFAULT_SERVING_SIZE_IN_GRAMS,
 }
-export { default as useSubmitFoodForm } from './useSubmitFoodForm'
-export { default as FoodFormMethodsProvider } from './FoodFormMethodsProvider'

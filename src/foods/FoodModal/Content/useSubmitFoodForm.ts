@@ -1,13 +1,13 @@
 import { objectFromNutritionDataKeys } from 'stats'
-import { Food } from 'foods'
+import { Food, FoodForm } from 'foods'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import { useFormContext } from 'react-hook-form'
-import { FoodForm } from './index'
-import { useFoodsActions, useFoods } from '../useFoodsStore'
+import { useFoodsActions, useFoods } from 'foods'
 
 type Params = {
   onComplete: (food: Food) => void
 }
+
 function useSubmitFoodForm({ onComplete }: Params) {
   const { handleSubmit } = useFormContext()
   const foodsActions = useFoodsActions()

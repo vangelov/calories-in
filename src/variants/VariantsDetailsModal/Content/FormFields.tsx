@@ -6,7 +6,7 @@ import {
   Stats,
   StatsFormFields,
 } from 'stats'
-import { VariantForm } from 'variants/variant-form'
+import { VariantForm } from 'variants'
 import { Stat } from 'stats'
 import { Flex } from '@chakra-ui/react'
 import { useScreenSize } from 'general'

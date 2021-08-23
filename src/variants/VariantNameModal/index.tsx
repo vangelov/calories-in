@@ -1,10 +1,8 @@
 import { Modal, ModalOverlay } from '@chakra-ui/react'
 import { useRef } from 'react'
 import Content from './Content'
-import {
-  VariantNameFormSubmitAction,
-  VariantFormMethodsProvider,
-} from 'variants'
+import { VariantNameFormSubmitAction } from './useSubmitVariantNameForm'
+import VariantFormMethodsProvider from './VariantNameFormProvider'
 
 type Props = {
   onClose: () => void
@@ -50,5 +48,8 @@ function VariantNameModal({
     </Modal>
   )
 }
+
+export * from './variantNameForm'
+export * from './useSubmitVariantNameForm'
 
 export default VariantNameModal

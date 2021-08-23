@@ -1,5 +1,5 @@
 import { Modal, ModalOverlay } from '@chakra-ui/react'
-import { FoodFormMethodsProvider } from 'foods'
+import FoodFormProvider from './FoodFormProvider'
 import { Food } from 'foods'
 import { useRef } from 'react'
 import Content from './Content'
@@ -24,7 +24,7 @@ function FoodModal({ onClose, isOpen, food, onFoodCreatedOrUpdated }: Props) {
       scrollBehavior="inside"
     >
       <ModalOverlay />
-      <FoodFormMethodsProvider food={food}>
+      <FoodFormProvider food={food}>
         <Content
           nameInputRef={nameInputRef}
           onClose={onClose}
@@ -32,7 +32,7 @@ function FoodModal({ onClose, isOpen, food, onFoodCreatedOrUpdated }: Props) {
           food={food}
           onFoodCreatedOrUpdated={onFoodCreatedOrUpdated}
         />
-      </FoodFormMethodsProvider>
+      </FoodFormProvider>
     </Modal>
   )
 }

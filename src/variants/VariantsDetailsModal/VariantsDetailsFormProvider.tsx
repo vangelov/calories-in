@@ -4,7 +4,7 @@ import {
   getVariantsDetailsForm,
   VariantsDetailsForm,
 } from './variantsDetailsForm'
-import { VariantForm } from 'variants/variant-form'
+import { VariantForm } from 'variants'
 import { Stats } from 'stats'
 
 type Props = {

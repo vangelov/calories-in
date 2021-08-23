@@ -64,7 +64,3 @@ export {
   variantFormSchema,
   duplicate,
 }
-
-export { default as VariantFormMethodsProvider } from './VariantFormMethodsProvider'
-export { default as useSubmitVariantForm } from './useSubmitVariantForm'
-export * from './useSubmitVariantForm'

@@ -1,6 +1,6 @@
 import { Text, Box, Flex, BoxProps, TypographyProps } from '@chakra-ui/react'
 import { Food } from 'foods'
-import { DEFAULT_SERVING_SIZE_IN_GRAMS } from './food-form'
+import { DEFAULT_SERVING_SIZE_IN_GRAMS } from './foodForm'
 
 type Props = {
   food: Food

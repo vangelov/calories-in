@@ -1,4 +1,4 @@
-import { Text, Box, HStack, FlexProps, Fade } from '@chakra-ui/react'
+import { Text, Box, HStack, FlexProps } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 import { RightAligned } from 'layout'
 
@@ -78,6 +78,7 @@ function Stat({
             ? 'semibold'
             : undefined
         }
+        css={{ fontVariantNumeric: 'tabular-nums' }}
         textColor={getValueTextColor(type)}
       >
         {value}
@@ -86,13 +87,13 @@ function Stat({
         </Text>
       </Text>
 
-      <Fade in={showsValueDetail}>
+      {showsValueDetail && (
         <HStack alignItems="center" spacing={1}>
           {valueDetail && valueDetailLeftIcon}
 
           <Text fontSize={isLarge ? 'md' : 'sm'}>{valueDetail}</Text>
         </HStack>
-      </Fade>
+      )}
     </RightAligned>
   )
 }

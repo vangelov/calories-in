@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
-import { VariantNameFormSubmitAction, VariantForm } from 'variants'
+import { VariantForm } from 'variants'
+import { VariantNameFormSubmitAction } from 'variants'
 import { useDietFormActions } from 'diets'
 import { useDisclosure } from '@chakra-ui/hooks'
 

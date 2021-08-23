@@ -1,8 +1,9 @@
 import { useDisclosure } from '@chakra-ui/hooks'
-import { useFoodsActions, useSubmitFoodForm } from 'foods'
+import { useFoodsActions } from 'foods'
 import { Food } from 'foods'
 import { useState } from 'react'
 import { useToast } from '@chakra-ui/react'
+import useSubmitFoodForm from './useSubmitFoodForm'
 
 type Params = {
   food?: Food

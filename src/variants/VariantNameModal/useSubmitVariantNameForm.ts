@@ -1,16 +1,16 @@
 import { useFormContext } from 'react-hook-form'
-import { VariantForm } from './index'
+import { VariantNameForm } from './variantNameForm'
 import { useDietFormActions } from 'diets'
 
 type VariantNameFormSubmitAction = 'rename' | 'copy' | 'append'
 
 type Params = {
-  onComplete: (variantForm: VariantForm) => void
+  onComplete: (variantNameForm: VariantNameForm) => void
   variantFormIndex?: number
   submitAction: VariantNameFormSubmitAction
 }
 
-function useSubmitVariantForm({
+function useSubmitVariantNameForm({
   onComplete,
   variantFormIndex,
   submitAction,
@@ -18,7 +18,7 @@ function useSubmitVariantForm({
   const dietFormActions = useDietFormActions()
   const { handleSubmit } = useFormContext()
 
-  const onSubmit = handleSubmit((form: VariantForm) => {
+  const onSubmit = handleSubmit((form: VariantNameForm) => {
     onComplete(form)
 
     if (submitAction === 'append') {
@@ -39,4 +39,4 @@ function useSubmitVariantForm({
 
 export type { VariantNameFormSubmitAction }
 
-export default useSubmitVariantForm
+export default useSubmitVariantNameForm
