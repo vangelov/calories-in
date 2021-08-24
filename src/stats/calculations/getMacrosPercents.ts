@@ -1,4 +1,5 @@
 import { Stats } from '../types'
+import { getStatsEnergiesEstimates } from './getEnergiesEstimates'
 
 type MacrosPercents = {
   proteinPercent: number
@@ -6,29 +7,30 @@ type MacrosPercents = {
   fatPercent: number
 }
 
-const CALORIES_PER_GRAM_PROTEIN = 4
-const CALORIES_PER_GRAM_CARBS = 4
-const CALORIES_PER_GRAM_FAT = 9
-
 function getMacroEnergyPercent(energyFromMacro: number, energyTotal: number) {
   return energyFromMacro === 0 ? 0 : (energyFromMacro / energyTotal) * 100
 }
 
 function getMacrosPercents(stats: Stats): MacrosPercents {
-  const { protein, carbs, fat } = stats
-
-  const energyFromProtein = protein * CALORIES_PER_GRAM_PROTEIN
-  const energyFromCarbs = carbs * CALORIES_PER_GRAM_CARBS
-  const energyFromFat = fat * CALORIES_PER_GRAM_FAT
-  const energyTotal = energyFromProtein + energyFromCarbs + energyFromFat
+  const {
+    energyEstimate,
+    proteinEnergyEstimate,
+    carbsEnergyEstimate,
+    fatEnergyEstimate,
+  } = getStatsEnergiesEstimates(stats)
 
   return {
-    proteinPercent: getMacroEnergyPercent(energyFromProtein, energyTotal),
-    carbsPercent: getMacroEnergyPercent(energyFromCarbs, energyTotal),
-    fatPercent: getMacroEnergyPercent(energyFromFat, energyTotal),
+    proteinPercent: getMacroEnergyPercent(
+      proteinEnergyEstimate,
+      energyEstimate
+    ),
+    carbsPercent: getMacroEnergyPercent(carbsEnergyEstimate, energyEstimate),
+    fatPercent: getMacroEnergyPercent(fatEnergyEstimate, energyEstimate),
   }
 }
 
 export type { MacrosPercents }
+
+export { getMacroEnergyPercent }
 
 export default getMacrosPercents

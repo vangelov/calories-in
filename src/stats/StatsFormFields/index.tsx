@@ -6,9 +6,10 @@ import RevealButton from './ReavealButton'
 
 type Props = {
   canEdit: boolean
+  showsEnergyPrecentFromFat?: boolean
 } & FlexProps
 
-function StatsList({ canEdit }: Props) {
+function StatsList({ canEdit, showsEnergyPrecentFromFat = false }: Props) {
   const [showsVitaminsAndMinerals, setShowsVitaminsAndMinerals] = useState(
     false
   )
@@ -19,7 +20,10 @@ function StatsList({ canEdit }: Props) {
 
   return (
     <>
-      <MacrosFormFields canEdit={canEdit} />
+      <MacrosFormFields
+        canEdit={canEdit}
+        showsEnergyPercentFromFats={showsEnergyPrecentFromFat}
+      />
 
       <Collapse in={showsVitaminsAndMinerals} animateOpacity>
         <VitaminsAndMineralsFormFields canEdit={canEdit} />

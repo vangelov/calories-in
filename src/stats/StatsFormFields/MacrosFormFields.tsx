@@ -10,8 +10,10 @@ const StyledCollapse = styled(Collapse)`
 
 type Props = {
   canEdit: boolean
+  showsEnergyPercentFromFats?: boolean
 }
-function Macros({ canEdit }: Props) {
+
+function Macros({ canEdit, showsEnergyPercentFromFats = false }: Props) {
   const [showsAllFatTypes, setShowsAllFatTypes] = useState(false)
 
   function onShowAllFatTypesToggle() {
@@ -36,6 +38,17 @@ function Macros({ canEdit }: Props) {
         inputType="nutritionValue"
         isReadOnly={!canEdit}
       />
+
+      {showsEnergyPercentFromFats && (
+        <StatFormField
+          isIdented={true}
+          name="saturatedFatEnergyPercent"
+          label="Energy from saturated fat"
+          inputType="nutritionValue"
+          nutritionValueUnit="%"
+          isReadOnly={!canEdit}
+        />
+      )}
 
       <StyledCollapse in={showsAllFatTypes} animateOpacity>
         <VStack spacing={2} alignItems="flex-start">

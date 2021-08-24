@@ -108,7 +108,7 @@ function FormFields({
           </Flex>
         </Flex>
 
-        <StatsFormFields canEdit={canEdit} />
+        <StatsFormFields canEdit={canEdit} showsEnergyPrecentFromFat={true} />
       </VStack>
     </Box>
   )
