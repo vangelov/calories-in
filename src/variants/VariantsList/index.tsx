@@ -1,6 +1,6 @@
 import { Flex, IconButton } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
-import { Plus, Menu } from 'react-feather'
+import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
 import { VariantNameModal } from 'variants'
 import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
@@ -10,6 +10,7 @@ import useActions from './useActions'
 import { HFadeScroll } from 'general'
 import mergeRefs from 'react-merge-refs'
 import ScrollButtons from './ScrollButtons'
+import VariantsMenuOrDrawer from '../VariantsMenuOrDrawer'
 
 type Props = {
   onVariantFormSelect: (variantForm: VariantForm, index: number) => void
@@ -33,17 +34,6 @@ function VariantsList({
 
   return (
     <Flex>
-      {/*<IconButton
-        borderRadius="full"
-        size="sm"
-        aria-label="Add variant"
-        icon={<Menu size={20} pointerEvents="none" />}
-        variant="outline"
-        onClick={actions.onAppend}
-      
-        mr={3}
-        flexShrink={0}
-      />*/}
       <IconButton
         borderRadius="full"
         size="sm"
@@ -54,6 +44,7 @@ function VariantsList({
         mr={3}
         flexShrink={0}
       />
+      <VariantsMenuOrDrawer />
 
       <Droppable
         droppableId="variantsList"
