@@ -1,4 +1,3 @@
-import { Flex } from '@chakra-ui/react'
 import { IngredientForm } from 'ingredients'
 import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
@@ -7,10 +6,11 @@ import { StatsLayout, Stat, AmountInput } from 'stats'
 import { RightAligned } from 'layout'
 import Menu from './Menu'
 import { useFoods } from 'foods'
-import { useScreenSize } from 'general'
+import { useScreenSize, ContextMenuFlex } from 'general'
 import { Stats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
 import useActions from './useActions'
+import getMenuItems from './getMenuItems'
 
 type Props = {
   variantIndex: number
@@ -36,6 +36,7 @@ function IngredientItem({
     onRemove,
     ingredientForm,
   })
+  const menuItems = getMenuItems({ onRemove: actions.onRemoveRequest })
   const amountInputSize = useScreenSize() >= 2 ? 'sm' : 'md'
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
@@ -52,7 +53,7 @@ function IngredientItem({
           onAnimationComplete={actions.onAnimationComplete}
           isVisible={actions.isVisible}
         >
-          <Flex
+          <ContextMenuFlex
             ref={provided.innerRef}
             {...provided.draggableProps}
             {...provided.dragHandleProps}
@@ -63,6 +64,7 @@ function IngredientItem({
             position="relative"
             py={2}
             _hover={{ backgroundColor: 'gray.50' }}
+            menuItems={menuItems}
           >
             <StatsLayout
               prefersAmount={true}
@@ -96,7 +98,7 @@ function IngredientItem({
               }
               menuElement={<Menu mr={3} onRemove={actions.onRemoveRequest} />}
             />
-          </Flex>
+          </ContextMenuFlex>
         </PresenceAnimation>
       )}
     </Draggable>

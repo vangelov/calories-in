@@ -1,11 +1,9 @@
 import { ButtonProps, chakra, IconButton } from '@chakra-ui/react'
-import { MoreHorizontal, Trash2, Edit, Copy } from 'react-feather'
-import { Menu as MenuBase, MenuItem } from 'general'
+import { MoreHorizontal } from 'react-feather'
+import { Menu as MenuBase } from 'general'
+import getMenuItems from './getMenuItems'
 
 const MoreHorizontalStyled = chakra(MoreHorizontal)
-const Trash2Styled = chakra(Trash2)
-const EditStyled = chakra(Edit)
-const CopyStyled = chakra(Copy)
 
 type Props = {
   onClone: () => void
@@ -40,20 +38,7 @@ function Menu({
         />
       }
     >
-      <MenuItem onClick={onClone}>
-        <CopyStyled pointerEvents="none" size={20} mr={3} />
-        Copy variant
-      </MenuItem>
-
-      <MenuItem onClick={onEditName}>
-        <EditStyled pointerEvents="none" size={20} mr={3} />
-        Rename variant
-      </MenuItem>
-
-      <MenuItem disabled={!canRemove} onClick={onDelete}>
-        <Trash2Styled pointerEvents="none" size={20} mr={3} />
-        Remove variant
-      </MenuItem>
+      {getMenuItems({ onDelete, onClone, onEditName, canRemove })}
     </MenuBase>
   )
 }

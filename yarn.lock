@@ -2346,10 +2346,12 @@
     "@svgr/plugin-svgo" "^5.5.0"
     loader-utils "^2.0.0"
 
-"@szhsin/react-menu@^1.9.1":
-  version "1.9.1"
-  resolved "https://registry.yarnpkg.com/@szhsin/react-menu/-/react-menu-1.9.1.tgz#e09f4bb8c15c681d4954063f30b4a5a8dc5513f2"
-  integrity sha512-Ib3zAarWocSbZ8N5I4k5EMVwQf3Tlc/WLvUdwB4U+c/1kTse5o7l6vBHRjCKC0N53JWl/N0yzGeNlBzN6fNzWg==
+"@szhsin/react-menu@1.11.0":
+  version "1.11.0"
+  resolved "https://registry.yarnpkg.com/@szhsin/react-menu/-/react-menu-1.11.0.tgz#3b4929d5cf5bb676eac3dc962da3029080b82bc2"
+  integrity sha512-kaW/IpcokmyVwX7WGe6ijQI/xQDw5nQXUKyiioy40dm5gt45+Lo7cqGVUoy7Qj8275Q9tgN6hcazWX/DCcYUfQ==
+  dependencies:
+    prop-types "^15.7.2"
 
 "@testing-library/dom@^7.28.1":
   version "7.29.6"

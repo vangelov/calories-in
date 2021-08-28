@@ -1,10 +1,8 @@
-import { ButtonProps, chakra } from '@chakra-ui/react'
-import { MoreHorizontal, Plus, Trash2 } from 'react-feather'
+import { ButtonProps } from '@chakra-ui/react'
+import { MoreHorizontal } from 'react-feather'
 import { RightAligned } from 'layout'
-import { ResponsiveIconButton, Menu as MenuBase, MenuItem } from 'general'
-
-const PlusStyled = chakra(Plus)
-const Trash2Styled = chakra(Trash2)
+import { ResponsiveIconButton, Menu as MenuBase } from 'general'
+import getMenuItems from './getMenuItems'
 
 type Props = {
   onRemove: () => void
@@ -29,14 +27,7 @@ function Menu({ index, onRemove, onAddIngredient, ...rest }: Props) {
           />
         }
       >
-        <MenuItem onClick={onAddIngredient}>
-          <PlusStyled pointerEvents="none" size={20} mr={3} />
-          Add foods
-        </MenuItem>
-        <MenuItem onClick={onRemove}>
-          <Trash2Styled pointerEvents="none" size={20} mr={3} />
-          Remove meal
-        </MenuItem>
+        {getMenuItems({ onRemove, onAddIngredient })}
       </MenuBase>
     </RightAligned>
   )

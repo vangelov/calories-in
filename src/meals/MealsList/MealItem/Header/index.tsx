@@ -1,10 +1,12 @@
-import { BoxProps, Flex } from '@chakra-ui/react'
+import { BoxProps } from '@chakra-ui/react'
 import { MealForm } from 'meals'
 import { Stat, StatsLayout } from 'stats'
 import { RefObject } from 'react'
 import Name from './Name'
 import Menu from './Menu'
 import { Stats } from 'stats'
+import { ContextMenuFlex } from 'general'
+import getMenuItems from './getMenuItems'
 
 type Props = {
   mealForm: MealForm
@@ -26,14 +28,20 @@ function Header({
   ingredientsStatsSum,
   ...rest
 }: Props) {
+  const menuItems = getMenuItems({
+    onAddIngredient: () => onAddIngredient(index),
+    onRemove: () => onRemove(index),
+  })
+
   return (
-    <Flex
+    <ContextMenuFlex
       bg="gray.50"
       py={3}
       borderTopRadius={10}
       borderBottomWidth={1}
       justifyContent="space-between"
       _hover={{ backgroundColor: 'gray.100' }}
+      menuItems={menuItems}
       {...rest}
     >
       <StatsLayout
@@ -82,7 +90,7 @@ function Header({
           />
         }
       />
-    </Flex>
+    </ContextMenuFlex>
   )
 }
 

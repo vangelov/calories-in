@@ -1,4 +1,4 @@
-import { Box, Text, HStack, LayoutProps, SpaceProps } from '@chakra-ui/react'
+import { Text, HStack, LayoutProps, SpaceProps } from '@chakra-ui/react'
 import { VariantForm } from 'variants'
 import { ForwardedRef, forwardRef, ReactNode, useRef } from 'react'
 import Menu from './Menu'
@@ -7,6 +7,8 @@ import { memo } from 'react'
 import PresenceAnimation from './PresenceAnimation'
 import useActions from './useActions'
 import mergeRefs from 'react-merge-refs'
+import { ContextMenuFlex } from 'general'
+import getMenuItems from './getMenuItems'
 
 type Props = {
   children: ReactNode
@@ -33,7 +35,6 @@ function VariantItem({
   canRemove,
   index,
   forwardedRef,
-
   ...rest
 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
@@ -45,7 +46,12 @@ function VariantItem({
     ref,
   })
 
-  console.log('f', variantForm.name)
+  const menuItems = getMenuItems({
+    canRemove,
+    onClone: () => onClone(index),
+    onEditName: () => onEditName(index),
+    onDelete: actions.onRemoveRequest,
+  })
 
   return (
     <Draggable
@@ -67,7 +73,7 @@ function VariantItem({
             isVisible={actions.isVisible}
             onAnimationComplete={actions.onAnimationComplete}
           >
-            <Box
+            <ContextMenuFlex
               ref={mergeRefs(refs)}
               bg={isSelected ? 'gray.100' : 'white'}
               _hover={{ bg: isSelected ? 'gray.100' : 'gray.50' }}
@@ -77,6 +83,7 @@ function VariantItem({
               onClick={actions.onClick}
               px={3}
               cursor="pointer"
+              menuItems={menuItems}
               {...rest}
               {...provided.draggableProps}
               {...provided.dragHandleProps}
@@ -99,7 +106,7 @@ function VariantItem({
                   isSelected={isSelected}
                 />
               </HStack>
-            </Box>
+            </ContextMenuFlex>
           </PresenceAnimation>
         )
       }}
