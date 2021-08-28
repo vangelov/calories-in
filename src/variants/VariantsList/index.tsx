@@ -11,6 +11,7 @@ import { HFadeScroll } from 'general'
 import mergeRefs from 'react-merge-refs'
 import ScrollButtons from './ScrollButtons'
 import VariantsMenuOrDrawer from '../VariantsMenuOrDrawer'
+import { useGetRefForId } from 'dom'
 
 type Props = {
   onVariantFormSelect: (variantForm: VariantForm, index: number) => void
@@ -31,6 +32,7 @@ function VariantsList({
   })
 
   const dietForm = useDietForm()
+  const getVariantItemRefById = useGetRefForId<HTMLDivElement>()
 
   return (
     <Flex>
@@ -44,14 +46,14 @@ function VariantsList({
         mr={3}
         flexShrink={0}
       />
-      <VariantsMenuOrDrawer />
+      <VariantsMenuOrDrawer getVariantItemRefById={getVariantItemRefById} />
 
       <Droppable
         droppableId="variantsList"
         type="variantsList"
         direction="horizontal"
       >
-        {(provided, snapshot) => (
+        {provided => (
           <HFadeScroll
             onScrollStateChange={actions.onScrollStateChange}
             ref={mergeRefs([provided.innerRef, scrollNodeRef, forwardedRef])}
@@ -69,6 +71,7 @@ function VariantsList({
                   variantForm={variantForm}
                   isSelected={index === dietForm.selectedVariantFormIndex}
                   onSelect={actions.onSelect}
+                  ref={getVariantItemRefById(variantForm.fieldId)}
                 >
                   {variantForm.name}
                 </VariantItem>

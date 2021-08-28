@@ -76,12 +76,13 @@ function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
           oneTimeCheckActions.set(
             getInsertVariantFormAnimationKey(copiedVariantForm.fieldId)
           )
-          variantsForms.push({
+          const newVariantFormForm = {
             ...copiedVariantForm,
             ...partialVariantForm,
-          })
+          }
 
-          draftDietForm.selectedVariantFormIndex = variantsForms.length - 1
+          variantsForms.splice(variantFormIndex + 1, 0, newVariantFormForm)
+          draftDietForm.selectedVariantFormIndex = variantFormIndex + 1
         })
       ),
     [setDietForm, oneTimeCheckActions]

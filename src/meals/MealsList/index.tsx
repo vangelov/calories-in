@@ -19,7 +19,7 @@ function MealsList({
   selectedVariantFormIndex,
   selectedVariantFormFieldId,
 }: Props) {
-  const getMealNameInputRefById = useGetRefForId()
+  const getMealNameInputRefById = useGetRefForId<HTMLInputElement>()
   const scrollTargetRef = useRef<HTMLDivElement>(null)
 
   const { onScrollToMeal } = useScrollToAndFocusMeal({

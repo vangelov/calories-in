@@ -17,6 +17,10 @@ function useActions({ onDelete, onSelect, variantForm, ref, index }: Params) {
   const oneTimeCheckActions = useOneTimeCheckActions()
   const [isVisible, setIsVisible] = useState(true)
 
+  const shouldAnimate = oneTimeCheckActions.checkAndReset(
+    getInsertVariantFormAnimationKey(variantForm.fieldId)
+  )
+
   function onAnimationComplete() {
     if (shouldAnimate) {
       ref.current?.scrollIntoView(
@@ -31,10 +35,6 @@ function useActions({ onDelete, onSelect, variantForm, ref, index }: Params) {
       onDelete(index)
     }
   }
-
-  const shouldAnimate = oneTimeCheckActions.checkAndReset(
-    getInsertVariantFormAnimationKey(variantForm.fieldId)
-  )
 
   function onClick(event: MouseEvent<HTMLDivElement>) {
     const anyTarget: any = event.target

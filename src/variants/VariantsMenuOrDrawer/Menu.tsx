@@ -7,7 +7,7 @@ import { useDietForm } from 'diets'
 const CheckStyled = chakra(Check)
 
 type Props = {
-  onSelect: (index: number) => void
+  onSelect: (fieldId: string, index: number) => void
 }
 
 function Menu({ onSelect }: Props) {
@@ -15,11 +15,11 @@ function Menu({ onSelect }: Props) {
 
   return (
     <MenuBase arrow portal={true} viewScroll="close" menuButton={<Trigger />}>
-      {variantsForms.map(({ name }, index) => {
+      {variantsForms.map(({ name, fieldId }, index) => {
         const isSelected = index === selectedVariantFormIndex
 
         return (
-          <MenuItem onClick={() => onSelect(index)}>
+          <MenuItem key={fieldId} onClick={() => onSelect(fieldId, index)}>
             <CheckStyled
               color={isSelected ? 'teal' : 'transparent'}
               pointerEvents="none"

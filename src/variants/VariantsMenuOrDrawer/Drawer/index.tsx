@@ -12,7 +12,7 @@ import VariantItem from './VariantItem'
 type Props = {
   isOpen: boolean
   onClose: () => void
-  onSelect: (index: number) => void
+  onSelect: (fieldId: string, index: number) => void
 }
 
 function Drawer({ isOpen, onClose, onSelect }: Props) {
@@ -26,16 +26,17 @@ function Drawer({ isOpen, onClose, onSelect }: Props) {
         <DrawerHeader fontSize="md">Variants</DrawerHeader>
 
         <DrawerBody>
-          {variantsForms.map(({ name }, index) => {
+          {variantsForms.map(({ name, fieldId }, index) => {
             const isSelected = index === selectedVariantFormIndex
 
             return (
               <VariantItem
+                key={fieldId}
                 name={name}
                 isSelected={isSelected}
                 onClick={() => {
                   onClose()
-                  onSelect(index)
+                  onSelect(fieldId, index)
                 }}
               />
             )

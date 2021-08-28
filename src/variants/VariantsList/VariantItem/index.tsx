@@ -1,6 +1,6 @@
 import { Box, Text, HStack, LayoutProps, SpaceProps } from '@chakra-ui/react'
 import { VariantForm } from 'variants'
-import { ReactNode, useRef } from 'react'
+import { ForwardedRef, forwardRef, ReactNode, useRef } from 'react'
 import Menu from './Menu'
 import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
@@ -18,6 +18,7 @@ type Props = {
   variantForm: VariantForm
   canRemove: boolean
   index: number
+  forwardedRef?: ForwardedRef<HTMLDivElement>
 } & LayoutProps &
   SpaceProps
 
@@ -31,6 +32,7 @@ function VariantItem({
   variantForm,
   canRemove,
   index,
+  forwardedRef,
 
   ...rest
 }: Props) {
@@ -39,10 +41,11 @@ function VariantItem({
     onSelect,
     onDelete,
     variantForm,
-
     index,
     ref,
   })
+
+  console.log('f', variantForm.name)
 
   return (
     <Draggable
@@ -51,49 +54,61 @@ function VariantItem({
       index={index}
       isDragDisabled={!isSelected}
     >
-      {provided => (
-        <PresenceAnimation
-          shouldAnimate={actions.shouldAnimate}
-          isVisible={actions.isVisible}
-          onAnimationComplete={actions.onAnimationComplete}
-        >
-          <Box
-            ref={mergeRefs([provided.innerRef, ref])}
-            bg={isSelected ? 'gray.100' : 'white'}
-            _hover={{ bg: isSelected ? 'gray.100' : 'gray.50' }}
-            borderRadius="full"
-            fontWeight="medium"
-            borderWidth="1px"
-            onClick={actions.onClick}
-            px={3}
-            cursor="pointer"
-            {...rest}
-            {...provided.draggableProps}
-            {...provided.dragHandleProps}
-          >
-            <HStack spacing={1} height={8} overflow="hidden">
-              <Text
-                fontWeight="medium"
-                noOfLines={1}
-                flexShrink={0}
-                fontSize="sm"
-              >
-                {children}
-              </Text>
+      {provided => {
+        const refs = [provided.innerRef, ref]
 
-              <Menu
-                canRemove={canRemove}
-                onClone={() => onClone(index)}
-                onEditName={() => onEditName(index)}
-                onDelete={actions.onRemoveRequest}
-                isSelected={isSelected}
-              />
-            </HStack>
-          </Box>
-        </PresenceAnimation>
-      )}
+        if (forwardedRef) {
+          refs.push(forwardedRef)
+        }
+
+        return (
+          <PresenceAnimation
+            shouldAnimate={actions.shouldAnimate}
+            isVisible={actions.isVisible}
+            onAnimationComplete={actions.onAnimationComplete}
+          >
+            <Box
+              ref={mergeRefs(refs)}
+              bg={isSelected ? 'gray.100' : 'white'}
+              _hover={{ bg: isSelected ? 'gray.100' : 'gray.50' }}
+              borderRadius="full"
+              fontWeight="medium"
+              borderWidth="1px"
+              onClick={actions.onClick}
+              px={3}
+              cursor="pointer"
+              {...rest}
+              {...provided.draggableProps}
+              {...provided.dragHandleProps}
+            >
+              <HStack spacing={1} height={8} overflow="hidden">
+                <Text
+                  fontWeight="medium"
+                  noOfLines={1}
+                  flexShrink={0}
+                  fontSize="sm"
+                >
+                  {children}
+                </Text>
+
+                <Menu
+                  canRemove={canRemove}
+                  onClone={() => onClone(index)}
+                  onEditName={() => onEditName(index)}
+                  onDelete={actions.onRemoveRequest}
+                  isSelected={isSelected}
+                />
+              </HStack>
+            </Box>
+          </PresenceAnimation>
+        )
+      }}
     </Draggable>
   )
 }
 
-export default memo(VariantItem)
+export default memo(
+  forwardRef<HTMLDivElement, Props>((props, ref) => (
+    <VariantItem {...props} forwardedRef={ref} />
+  ))
+)
