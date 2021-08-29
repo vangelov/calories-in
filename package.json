@@ -9,6 +9,7 @@
     "@emotion/styled": "^11.1.5",
     "@hookform/resolvers": "^2.6.0",
     "@react-hook/resize-observer": "^1.2.0",
+    "@react-pdf/renderer": "^2.0.19",
     "@szhsin/react-menu": "1.11.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
