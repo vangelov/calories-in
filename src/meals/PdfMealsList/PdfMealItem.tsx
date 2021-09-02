@@ -1,32 +1,67 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
-import { IngredientForm } from 'ingredients/ingredientForm'
-import PdfIngredientsList from 'ingredients/PdfIngredientsList'
-import { MealForm } from 'meals/mealForm'
-import PdfStat from 'stats/PdfStat'
-import PdfStatsLayout from 'stats/PdfStatsLayout'
+import { PdfIngredientsList } from 'ingredients'
+import { MealForm } from 'meals'
 import { Style } from '@react-pdf/types/style'
+import { getComputedColorFromChakra } from 'theme'
+import { Stats, PdfStat, PdfStatsLayout } from 'stats'
 
 type Props = {
   mealForm: MealForm
   style?: Style
+  stats: Stats
+  ingredientsFormsStats: Stats[]
 }
 
-function PdfMealItem({ mealForm, style = {} }: Props) {
+function PdfMealItem({
+  mealForm,
+  stats,
+  ingredientsFormsStats,
+  style = {},
+}: Props) {
   const { ingredientsForms } = mealForm
 
   return (
-    <View style={[styles.root, style]}>
-      <View style={styles.header}>
+    <View
+      style={[
+        styles.root,
+        style,
+        { borderColor: getComputedColorFromChakra('gray.200') },
+      ]}
+    >
+      <View
+        style={[
+          styles.header,
+          {
+            backgroundColor: getComputedColorFromChakra('gray.50'),
+            borderBottomColor: getComputedColorFromChakra('gray.200'),
+          },
+        ]}
+      >
         <PdfStatsLayout
-          nameElement={<Text style={styles.name}>Meal name</Text>}
-          amountElement={<PdfStat label="Amount" value={100} />}
-          energyElement={<PdfStat label="Energy" value={100} />}
-          proteinElement={<PdfStat label="Protein" value={100} />}
-          carbsElement={<PdfStat label="Carbs" value={100} />}
-          fatElement={<PdfStat label="Fat" value={100} />}
+          nameElement={<Text style={styles.name}>{mealForm.name}</Text>}
+          amountElement={
+            <PdfStat
+              variant="meal"
+              label="Amount"
+              value={stats.amountInGrams}
+            />
+          }
+          energyElement={
+            <PdfStat variant="mealEnergy" label="Energy" value={stats.energy} />
+          }
+          proteinElement={
+            <PdfStat variant="meal" label="Protein" value={stats.protein} />
+          }
+          carbsElement={
+            <PdfStat variant="meal" label="Carbs" value={stats.carbs} />
+          }
+          fatElement={<PdfStat variant="meal" label="Fat" value={stats.fat} />}
         />
       </View>
-      <PdfIngredientsList ingredientsForms={ingredientsForms} />
+      <PdfIngredientsList
+        ingredientsForms={ingredientsForms}
+        ingredientsFormsStats={ingredientsFormsStats}
+      />
     </View>
   )
 }
@@ -34,20 +69,18 @@ function PdfMealItem({ mealForm, style = {} }: Props) {
 const styles = StyleSheet.create({
   root: {
     borderWidth: 1,
-    borderColor: 'gray',
     borderRadius: 8,
   },
   name: {
     fontSize: 14,
     marginLeft: 10,
-    fontWeight: 'medium',
   },
   header: {
-    backgroundColor: 'lightgray',
     borderTopLeftRadius: 7,
     borderTopRightRadius: 7,
     paddingTop: 10,
     paddingBottom: 10,
+    borderBottomWidth: 1,
   },
 })
 

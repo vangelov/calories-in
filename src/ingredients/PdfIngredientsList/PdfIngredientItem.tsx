@@ -1,22 +1,29 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
-import { IngredientForm } from 'ingredients/ingredientForm'
-import PdfStat from 'stats/PdfStat'
-import PdfStatsLayout from 'stats/PdfStatsLayout'
+import { IngredientForm } from 'ingredients'
+import { PdfStat, PdfStatsLayout, Stats } from 'stats'
 
 type Props = {
   ingredientForm: IngredientForm
+  stats: Stats
 }
 
-function PdfIngredientItem({ ingredientForm }: Props) {
+function PdfIngredientItem({ ingredientForm, stats }: Props) {
   return (
     <View style={styles.root}>
       <PdfStatsLayout
-        nameElement={<Text style={styles.name}>ТестЖ</Text>}
-        amountElement={<PdfStat value={Number(ingredientForm.amountInGrams)} />}
-        energyElement={<PdfStat value={100} />}
-        proteinElement={<PdfStat value={100} />}
-        carbsElement={<PdfStat value={100} />}
-        fatElement={<PdfStat value={100} />}
+        nameElement={<Text style={styles.name}>{ingredientForm.foodId}</Text>}
+        amountElement={
+          <PdfStat
+            variant="ingredient"
+            value={Number(ingredientForm.amountInGrams)}
+          />
+        }
+        energyElement={
+          <PdfStat variant="ingredientEnergy" value={stats.energy} />
+        }
+        proteinElement={<PdfStat variant="ingredient" value={stats.protein} />}
+        carbsElement={<PdfStat variant="ingredient" value={stats.carbs} />}
+        fatElement={<PdfStat variant="ingredient" value={stats.fat} />}
       />
     </View>
   )

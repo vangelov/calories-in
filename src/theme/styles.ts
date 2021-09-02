@@ -2,6 +2,7 @@ const styles = {
   global: {
     body: {
       overflowX: 'hidden',
+      fontFamily: 'Roboto',
     },
     '.js-focus-visible :focus:not([data-focus-visible-added])': {
       outline: 'none',

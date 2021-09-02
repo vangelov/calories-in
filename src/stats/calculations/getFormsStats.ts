@@ -6,6 +6,13 @@ import { DEFAULT_SERVING_SIZE_IN_GRAMS } from 'foods'
 import { sumStats, avgStats } from './aggregateStats'
 import { Stats } from '../types'
 import { MealForm } from 'meals'
+import { DietForm } from 'diets'
+
+type StatsTree = {
+  sum: Stats
+  avg?: Stats
+  parts: Stats[] | StatsTree[]
+}
 
 function getIngredientFormStats(
   ingredientForm: IngredientForm,
@@ -23,23 +30,46 @@ function getIngredientFormStats(
   }
 }
 
-function getMealFormStats(mealForm: MealForm, foodsById: Record<number, Food>) {
+function getMealFormStatsTree(
+  mealForm: MealForm,
+  foodsById: Record<number, Food>
+): StatsTree {
   const ingredientsStats = mealForm.ingredientsForms.map(ingredientForm =>
     getIngredientFormStats(ingredientForm, foodsById[ingredientForm.foodId])
   )
 
-  return sumStats(ingredientsStats)
+  return {
+    sum: sumStats(ingredientsStats),
+    parts: ingredientsStats,
+  }
 }
 
-function getVariantFormStats(
+function getVariantFormStatsTree(
   variantForm: VariantForm,
   foodsById: Record<number, Food>
-) {
-  const mealsFormsStats = variantForm.mealsForms.map(mealForm =>
-    getMealFormStats(mealForm, foodsById)
+): StatsTree {
+  const mealsFormsStatsTrees = variantForm.mealsForms.map(mealForm =>
+    getMealFormStatsTree(mealForm, foodsById)
   )
 
-  return sumStats(mealsFormsStats)
+  return {
+    sum: sumStats(mealsFormsStatsTrees.map(({ sum }) => sum)),
+    parts: mealsFormsStatsTrees,
+  }
+}
+
+function getDietFormStatsTree(
+  dietForm: DietForm,
+  foodsById: Record<number, Food>
+): StatsTree {
+  const variantsFormsStatsTrees = dietForm.variantsForms.map(variantForm =>
+    getVariantFormStatsTree(variantForm, foodsById)
+  )
+
+  return {
+    sum: sumStats(variantsFormsStatsTrees.map(({ sum }) => sum)),
+    parts: variantsFormsStatsTrees,
+  }
 }
 
 type VariantsFormsExtendedStats = {
@@ -51,8 +81,8 @@ function getVariantsFormsExtendedStats(
   variantsForms: VariantForm[],
   foodsById: Record<number, Food>
 ): VariantsFormsExtendedStats {
-  const variantsFormsStats = variantsForms.map(variantForm =>
-    getVariantFormStats(variantForm, foodsById)
+  const variantsFormsStats = variantsForms.map(
+    variantForm => getVariantFormStatsTree(variantForm, foodsById).sum
   )
   const variantsFormsStatsMap = Object.fromEntries(
     variantsForms.map(({ fieldId }, index) => [
@@ -65,11 +95,12 @@ function getVariantsFormsExtendedStats(
   return { variantsFormsStatsMap, avgVariantsFormsStats }
 }
 
-export type { VariantsFormsExtendedStats }
+export type { VariantsFormsExtendedStats, StatsTree }
 
 export {
   getVariantsFormsExtendedStats,
-  getVariantFormStats,
-  getMealFormStats,
+  getVariantFormStatsTree,
+  getMealFormStatsTree,
+  getDietFormStatsTree,
   getIngredientFormStats,
 }

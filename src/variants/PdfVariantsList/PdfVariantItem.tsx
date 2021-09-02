@@ -1,29 +1,44 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
-import PdfStat from 'stats/PdfStat'
-import PdfStatsLayout from 'stats/PdfStatsLayout'
+import { PdfStat, Stats, StatsTree, PdfStatsLayout } from 'stats'
 import { Style } from '@react-pdf/types/style'
-import PdfMealsList from 'meals/PdfMealsList'
-import { VariantForm } from 'variants/variantForm'
+import { PdfMealsList } from 'meals'
+import { VariantForm } from 'variants'
 
 type Props = {
   variantForm: VariantForm
+  stats: Stats
+  mealsFormsStatsTrees: StatsTree[]
   style?: Style
 }
 
-function PdfVariantItem({ variantForm, style = {} }: Props) {
+function PdfVariantItem({
+  variantForm,
+  stats,
+  mealsFormsStatsTrees,
+  style = {},
+}: Props) {
   const { mealsForms } = variantForm
 
   return (
     <View style={[style]}>
       <PdfStatsLayout
         nameElement={<Text style={styles.name}>Variant Name</Text>}
-        energyElement={<PdfStat label="Energy" value={100} />}
-        proteinElement={<PdfStat label="Protein" value={100} />}
-        carbsElement={<PdfStat label="Carbs" value={100} />}
-        fatElement={<PdfStat label="Fat" value={100} />}
+        energyElement={
+          <PdfStat variant="dietEnergy" label="Energy" value={stats.energy} />
+        }
+        proteinElement={
+          <PdfStat variant="diet" label="Protein" value={stats.protein} />
+        }
+        carbsElement={
+          <PdfStat variant="diet" label="Carbs" value={stats.carbs} />
+        }
+        fatElement={<PdfStat variant="diet" label="Fat" value={stats.fat} />}
       />
 
-      <PdfMealsList mealsForms={mealsForms} />
+      <PdfMealsList
+        mealsForms={mealsForms}
+        mealsFormsStatsTrees={mealsFormsStatsTrees}
+      />
     </View>
   )
 }

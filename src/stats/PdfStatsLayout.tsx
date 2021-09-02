@@ -1,8 +1,5 @@
 import { View, StyleSheet } from '@react-pdf/renderer'
-import { cloneElement } from 'react'
 import { ReactElement } from 'react'
-import { Style } from '@react-pdf/types/style'
-import PdfStat from './PdfStat'
 
 type Props = {
   nameElement: ReactElement
@@ -13,17 +10,9 @@ type Props = {
   fatElement: ReactElement
 }
 
-function cloneElementWithStyle(element: ReactElement, style: Style) {
-  const { props } = element
-
-  return cloneElement(element, {
-    style: { ...props.style, ...style },
-  })
-}
-
 function PdfStatsLayout({
   nameElement,
-  amountElement = <View style={{ textAlign: 'right' }} />,
+  amountElement = <View />,
   energyElement,
   proteinElement,
   carbsElement,

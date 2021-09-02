@@ -14,7 +14,7 @@ function Menu({ onSelect }: Props) {
   const { variantsForms, selectedVariantFormIndex } = useDietForm()
 
   return (
-    <MenuBase arrow portal={true} viewScroll="close" menuButton={<Trigger />}>
+    <MenuBase arrow menuButton={<Trigger />}>
       {variantsForms.map(({ name, fieldId }, index) => {
         const isSelected = index === selectedVariantFormIndex
 
