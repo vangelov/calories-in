@@ -1,11 +1,11 @@
 import { Modal, ModalOverlay } from '@chakra-ui/react'
 import { useRef } from 'react'
-import { getVariantsFormsExtendedStats } from 'stats'
+import { StatsTree } from 'stats'
 import { VariantForm } from 'variants'
 import VariantsDetailsFormProvider from './VariantsDetailsFormProvider'
 import Content from './Content'
 import { useFoods } from 'foods'
-import { useDietForm } from 'diets'
+import { useDietForm, getDietFormStatsTree } from 'diets'
 
 type Props = {
   onClose: () => void
@@ -17,11 +17,14 @@ function VariantsDetailsModal({ onClose, isOpen, initialVariantForm }: Props) {
   const selectInputRef = useRef<HTMLSelectElement>(null)
   const { foodsById } = useFoods()
   const dietForm = useDietForm()
-  const variantsFormsExtendedStats = getVariantsFormsExtendedStats(
-    dietForm.variantsForms,
-    foodsById
+  const dietFormStatsTree = getDietFormStatsTree(dietForm, foodsById)
+  const initialVariantStatsTree = dietFormStatsTree.subtrees.find(
+    (statsTree: StatsTree) => statsTree.id === initialVariantForm.fieldId
   )
-  const { variantsFormsStatsMap } = variantsFormsExtendedStats
+
+  if (!initialVariantStatsTree) {
+    throw new Error()
+  }
 
   return (
     <Modal
@@ -35,14 +38,14 @@ function VariantsDetailsModal({ onClose, isOpen, initialVariantForm }: Props) {
       <ModalOverlay />
       <VariantsDetailsFormProvider
         initialVariantForm={initialVariantForm}
-        initialVariantStats={variantsFormsStatsMap[initialVariantForm.fieldId]}
+        initialVariantStats={initialVariantStatsTree.stats}
       >
         <Content
           selectInputRef={selectInputRef}
           onClose={onClose}
           initialVariantForm={initialVariantForm}
           variantsForms={dietForm.variantsForms}
-          variantsFormsExtendedStats={variantsFormsExtendedStats}
+          dietFormStatsTree={dietFormStatsTree}
         />
       </VariantsDetailsFormProvider>
     </Modal>

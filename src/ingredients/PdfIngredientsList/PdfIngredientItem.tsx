@@ -1,20 +1,34 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
+import { Food } from 'foods'
 import { IngredientForm } from 'ingredients'
 import { PdfStat, PdfStatsLayout, Stats } from 'stats'
+import { getComputedColorFromChakra } from 'theme'
 
 type Props = {
   ingredientForm: IngredientForm
   stats: Stats
+  foodsById: Record<number, Food>
 }
 
-function PdfIngredientItem({ ingredientForm, stats }: Props) {
+function PdfIngredientItem({ ingredientForm, stats, foodsById }: Props) {
+  const food = foodsById[ingredientForm.foodId]
+
   return (
     <View style={styles.root}>
       <PdfStatsLayout
-        nameElement={<Text style={styles.name}>{ingredientForm.foodId}</Text>}
+        nameElement={
+          <Text
+            style={[
+              styles.name,
+              { color: getComputedColorFromChakra('gray.600') },
+            ]}
+          >
+            {food.name}
+          </Text>
+        }
         amountElement={
           <PdfStat
-            variant="ingredient"
+            variant="ingredientAmount"
             value={Number(ingredientForm.amountInGrams)}
           />
         }

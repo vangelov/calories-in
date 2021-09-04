@@ -1,12 +1,14 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex, useDisclosure } from '@chakra-ui/react'
 import UndoRedoButtons from './UndoRedoButtons'
 import MenuButtons from './MenuButtons'
 import MainButtons from './MainButtons'
 import { useDietFormActions } from 'diets'
 import useKeyboard from './useKeyboard'
+import PreviewAndDownloadModal from 'export/PreviewAndDownloadModal'
 
 function Controls() {
   const dietFormStoreActions = useDietFormActions()
+  const modalDisclosure = useDisclosure()
 
   useKeyboard()
 
@@ -22,6 +24,12 @@ function Controls() {
         <MainButtons
           onMealAdd={dietFormStoreActions.appendMealForm}
           onSave={() => {}}
+          onExport={modalDisclosure.onOpen}
+        />
+
+        <PreviewAndDownloadModal
+          isOpen={modalDisclosure.isOpen}
+          onClose={modalDisclosure.onClose}
         />
       </Flex>
     </Flex>

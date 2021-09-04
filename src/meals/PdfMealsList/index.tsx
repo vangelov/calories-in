@@ -1,26 +1,29 @@
 import { View } from '@react-pdf/renderer'
+import { Food } from 'foods'
 import { MealForm } from 'meals/mealForm'
-import { StatsTree, Stats } from 'stats'
+import { StatsTree } from 'stats'
 import PdfMealItem from './PdfMealItem'
 
 type Props = {
   mealsForms: MealForm[]
   mealsFormsStatsTrees: StatsTree[]
+  foodsById: Record<number, Food>
 }
 
-function PdfMealsList({ mealsForms, mealsFormsStatsTrees }: Props) {
+function PdfMealsList({ mealsForms, mealsFormsStatsTrees, foodsById }: Props) {
   return (
     <View>
       {mealsForms.map((mealForm, index) => {
-        const { sum, parts } = mealsFormsStatsTrees[index]
+        const { stats, subtrees } = mealsFormsStatsTrees[index]
 
         return (
           <PdfMealItem
             style={{ marginTop: 20 }}
             key={mealForm.fieldId}
             mealForm={mealForm}
-            stats={sum}
-            ingredientsFormsStats={parts as Stats[]}
+            stats={stats}
+            ingredientsFormsStats={subtrees.map(({ stats }) => stats)}
+            foodsById={foodsById}
           />
         )
       })}

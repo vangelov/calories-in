@@ -9,7 +9,7 @@ import {
 import FormFields from './FormFields'
 import { RefObject } from 'react'
 import { VariantForm } from 'variants'
-import { VariantsFormsExtendedStats } from 'stats'
+import { StatsTree } from 'stats'
 import useActions from './useActions'
 
 type Props = {
@@ -17,7 +17,7 @@ type Props = {
   selectInputRef: RefObject<HTMLSelectElement>
   initialVariantForm: VariantForm
   variantsForms: VariantForm[]
-  variantsFormsExtendedStats: VariantsFormsExtendedStats
+  dietFormStatsTree: StatsTree
 }
 
 function Content({
@@ -25,9 +25,9 @@ function Content({
   selectInputRef,
   initialVariantForm,
   variantsForms,
-  variantsFormsExtendedStats,
+  dietFormStatsTree,
 }: Props) {
-  const actions = useActions({ variantsFormsExtendedStats })
+  const actions = useActions({ dietFormStatsTree })
 
   return (
     <ModalContent>

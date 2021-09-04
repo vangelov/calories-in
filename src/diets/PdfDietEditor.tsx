@@ -1,24 +1,25 @@
-import { Document, Page, Font, StyleSheet } from '@react-pdf/renderer'
+import ReactPDF, { Document, Page, Font, StyleSheet } from '@react-pdf/renderer'
 import { Food } from 'foods'
-import { getDietFormStatsTree, StatsTree } from 'stats'
 import { PdfVariantsList } from 'variants'
 import { DietForm } from './dietForm'
+import getDietFormStatsTree from './getDietFormStatsTree'
 
 type Props = {
   dietForm: DietForm
   foodsById: Record<number, Food>
-}
+} & ReactPDF.DocumentProps
 
-function PdfDietEditor({ dietForm, foodsById }: Props) {
+function PdfDietEditor({ dietForm, foodsById, ...rest }: Props) {
   const { variantsForms } = dietForm
   const dietFormStatsTree = getDietFormStatsTree(dietForm, foodsById)
 
   return (
-    <Document>
+    <Document {...rest}>
       <Page style={styles.page}>
         <PdfVariantsList
           variantsForms={variantsForms}
-          variantsFormsStatsTrees={dietFormStatsTree.parts as StatsTree[]}
+          variantsFormsStatsTrees={dietFormStatsTree.subtrees}
+          foodsById={foodsById}
         />
       </Page>
     </Document>

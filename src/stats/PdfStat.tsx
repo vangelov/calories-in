@@ -5,6 +5,7 @@ import {
   getLabelColor,
   getValueFontWeight,
   getValueTextColor,
+  isForDiet,
   isForEnergy,
   StatVariant,
 } from './statsVariants'
@@ -12,13 +13,22 @@ import {
 type Props = {
   label?: string
   value: number
+  valueDetail?: string
   style?: Style
   variant: StatVariant
 }
 
-function PdfStat({ label, value, variant, style = {} }: Props) {
+function PdfStat({ label, value, variant, valueDetail, style = {} }: Props) {
   return (
     <View style={[styles.root, style]}>
+      {isForDiet(variant) && (
+        <View
+          style={[
+            styles.line,
+            { backgroundColor: getComputedColorFromChakra('gray.300') },
+          ]}
+        />
+      )}
       {label && (
         <Text
           style={[
@@ -41,6 +51,8 @@ function PdfStat({ label, value, variant, style = {} }: Props) {
         {value}
         <Text style={styles.unit}>{isForEnergy(variant) ? 'kcal' : 'g'}</Text>
       </Text>
+
+      {valueDetail && <Text style={[styles.valueDetail]}>{valueDetail}</Text>}
     </View>
   )
 }
@@ -48,6 +60,7 @@ function PdfStat({ label, value, variant, style = {} }: Props) {
 const styles = StyleSheet.create({
   root: {
     textAlign: 'right',
+    flex: 1,
   },
   label: {
     fontSize: 10,
@@ -58,6 +71,17 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: 14,
+  },
+  valueDetail: {
+    marginTop: '2px',
+    fontSize: 12,
+  },
+  line: {
+    position: 'absolute',
+    top: '2px',
+    bottom: '2px',
+    right: '-10px',
+    width: '1px',
   },
 })
 

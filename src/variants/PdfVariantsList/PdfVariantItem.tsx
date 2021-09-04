@@ -3,18 +3,22 @@ import { PdfStat, Stats, StatsTree, PdfStatsLayout } from 'stats'
 import { Style } from '@react-pdf/types/style'
 import { PdfMealsList } from 'meals'
 import { VariantForm } from 'variants'
+import { Food } from 'foods'
+import { getComputedColorFromChakra } from 'theme'
 
 type Props = {
   variantForm: VariantForm
   stats: Stats
   mealsFormsStatsTrees: StatsTree[]
   style?: Style
+  foodsById: Record<number, Food>
 }
 
 function PdfVariantItem({
   variantForm,
   stats,
   mealsFormsStatsTrees,
+  foodsById,
   style = {},
 }: Props) {
   const { mealsForms } = variantForm
@@ -22,22 +26,49 @@ function PdfVariantItem({
   return (
     <View style={[style]}>
       <PdfStatsLayout
-        nameElement={<Text style={styles.name}>Variant Name</Text>}
+        nameElement={
+          <Text
+            style={[
+              styles.name,
+              { color: getComputedColorFromChakra('gray.600') },
+            ]}
+          >
+            {variantForm.name}
+          </Text>
+        }
         energyElement={
           <PdfStat variant="dietEnergy" label="Energy" value={stats.energy} />
         }
         proteinElement={
-          <PdfStat variant="diet" label="Protein" value={stats.protein} />
+          <PdfStat
+            variant="diet"
+            label="Protein"
+            value={stats.protein}
+            valueDetail="50%"
+          />
         }
         carbsElement={
-          <PdfStat variant="diet" label="Carbs" value={stats.carbs} />
+          <PdfStat
+            variant="diet"
+            label="Carbs"
+            value={stats.carbs}
+            valueDetail="50%"
+          />
         }
-        fatElement={<PdfStat variant="diet" label="Fat" value={stats.fat} />}
+        fatElement={
+          <PdfStat
+            variant="diet"
+            label="Fat"
+            value={stats.fat}
+            valueDetail="50%"
+          />
+        }
       />
 
       <PdfMealsList
         mealsForms={mealsForms}
         mealsFormsStatsTrees={mealsFormsStatsTrees}
+        foodsById={foodsById}
       />
     </View>
   )
@@ -46,6 +77,7 @@ function PdfVariantItem({
 const styles = StyleSheet.create({
   name: {
     fontSize: 14,
+    fontWeight: 'semibold',
   },
 })
 

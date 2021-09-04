@@ -4,12 +4,14 @@ import { MealForm } from 'meals'
 import { Style } from '@react-pdf/types/style'
 import { getComputedColorFromChakra } from 'theme'
 import { Stats, PdfStat, PdfStatsLayout } from 'stats'
+import { Food } from 'foods'
 
 type Props = {
   mealForm: MealForm
   style?: Style
   stats: Stats
   ingredientsFormsStats: Stats[]
+  foodsById: Record<number, Food>
 }
 
 function PdfMealItem({
@@ -17,6 +19,7 @@ function PdfMealItem({
   stats,
   ingredientsFormsStats,
   style = {},
+  foodsById,
 }: Props) {
   const { ingredientsForms } = mealForm
 
@@ -38,7 +41,16 @@ function PdfMealItem({
         ]}
       >
         <PdfStatsLayout
-          nameElement={<Text style={styles.name}>{mealForm.name}</Text>}
+          nameElement={
+            <Text
+              style={[
+                styles.name,
+                { color: getComputedColorFromChakra('gray.600') },
+              ]}
+            >
+              {mealForm.name}
+            </Text>
+          }
           amountElement={
             <PdfStat
               variant="meal"
@@ -61,6 +73,7 @@ function PdfMealItem({
       <PdfIngredientsList
         ingredientsForms={ingredientsForms}
         ingredientsFormsStats={ingredientsFormsStats}
+        foodsById={foodsById}
       />
     </View>
   )
@@ -73,6 +86,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 14,
+    fontWeight: 'medium',
     marginLeft: 10,
   },
   header: {

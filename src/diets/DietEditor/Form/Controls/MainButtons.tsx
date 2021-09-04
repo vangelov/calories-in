@@ -7,9 +7,10 @@ const PlusStyled = chakra(Plus)
 type Props = {
   onMealAdd: () => void
   onSave: () => void
+  onExport: () => void
 }
 
-function MainButtons({ onMealAdd, onSave }: Props) {
+function MainButtons({ onMealAdd, onSave, onExport }: Props) {
   const screenSize = useScreenSize()
   const mr = screenSize >= 2 ? 1 : 2
 
@@ -21,9 +22,8 @@ function MainButtons({ onMealAdd, onSave }: Props) {
           leftIcon={<Share size={20} pointerEvents="none" />}
           variant="outline"
           colorScheme="teal"
-          isDisabled={true}
           mr={mr}
-          onClick={onSave}
+          onClick={onExport}
         >
           Export
         </Button>
@@ -46,9 +46,8 @@ function MainButtons({ onMealAdd, onSave }: Props) {
         aria-label="Export"
         icon={<Share size={20} pointerEvents="none" />}
         variant="outline"
-        onClick={onSave}
+        onClick={onExport}
         colorScheme="teal"
-        isDisabled={true}
         mr={mr}
       />
 

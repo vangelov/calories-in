@@ -1,22 +1,27 @@
 import { useFormContext, useWatch } from 'react-hook-form'
 import { getVariantsDetailsForm } from '../variantsDetailsForm'
-import { VariantsFormsExtendedStats } from 'stats'
+import { Stats, StatsTree } from 'stats'
 
 type Params = {
-  variantsFormsExtendedStats: VariantsFormsExtendedStats
+  dietFormStatsTree: StatsTree
 }
 
-function useActions({ variantsFormsExtendedStats }: Params) {
+function useActions({ dietFormStatsTree }: Params) {
   const { reset } = useFormContext()
   const variantFormFieldId = useWatch({ name: 'variantFormFieldId' })
 
   function getVariantStatsForForFieldId(value: string) {
-    const {
-      avgVariantsFormsStats,
-      variantsFormsStatsMap,
-    } = variantsFormsExtendedStats
+    if (value) {
+      const stats = dietFormStatsTree.subtrees.find(({ id }) => id === value)
 
-    return value ? variantsFormsStatsMap[value] : avgVariantsFormsStats
+      if (!stats) {
+        throw new Error()
+      }
+
+      return stats.stats
+    }
+
+    return dietFormStatsTree.avg as Stats
   }
 
   const variantStats = getVariantStatsForForFieldId(variantFormFieldId)

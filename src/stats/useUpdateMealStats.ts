@@ -3,34 +3,25 @@ import { useEffect } from 'react'
 import { useMealsStatsActions } from './useMealsStatsStore'
 
 type Params = {
-  ingredientsStatsSum: Stats
+  stats: Stats
   selectedVariantFormFieldId: string
   index: number
 }
 
 function useUpdateMealStats({
-  ingredientsStatsSum,
+  stats,
   selectedVariantFormFieldId,
   index,
 }: Params) {
   const mealsStatsActions = useMealsStatsActions()
 
   useEffect(() => {
-    mealsStatsActions.setMealStats(
-      selectedVariantFormFieldId,
-      index,
-      ingredientsStatsSum
-    )
+    mealsStatsActions.setMealStats(selectedVariantFormFieldId, index, stats)
 
     return () => {
       mealsStatsActions.deleteMealStats(selectedVariantFormFieldId, index)
     }
-  }, [
-    ingredientsStatsSum,
-    mealsStatsActions,
-    index,
-    selectedVariantFormFieldId,
-  ])
+  }, [stats, mealsStatsActions, index, selectedVariantFormFieldId])
 }
 
 export default useUpdateMealStats

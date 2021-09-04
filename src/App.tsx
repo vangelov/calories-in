@@ -1,4 +1,4 @@
-import { Box, ChakraProvider } from '@chakra-ui/react'
+/*import { Box, ChakraProvider } from '@chakra-ui/react'
 import { MainLayout } from 'layout'
 import builInFoods from 'foods/builtIn.json'
 import 'focus-visible/dist/focus-visible'
@@ -100,8 +100,8 @@ const App = () => {
   )
 }
 
-export default App
-/*
+export default App*/
+
 import { ChakraProvider } from '@chakra-ui/react'
 import { MainLayout } from 'layout'
 import builInFoods from 'foods/builtIn.json'
@@ -131,4 +131,4 @@ function App() {
   )
 }
 
-export default App*/
+export default App

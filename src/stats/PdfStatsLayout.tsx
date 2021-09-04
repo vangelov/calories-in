@@ -30,18 +30,20 @@ function PdfStatsLayout({
   )
 }
 
+const NAME_WIDTH = '35%'
+const MACROS_COUNT = 5
+const MACRO_WIDTH = `${(100 - parseInt(NAME_WIDTH, 10)) / MACROS_COUNT}%`
+
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'row',
   },
   name: {
-    width: '30%',
-
-    justifyContent: 'flex-end',
+    width: NAME_WIDTH,
+    justifyContent: 'center',
   },
   macro: {
-    width: '14%',
-
+    width: MACRO_WIDTH,
     marginRight: 10,
   },
 })

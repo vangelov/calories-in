@@ -1,5 +1,6 @@
 type StatVariant =
   | 'ingredient'
+  | 'ingredientAmount'
   | 'ingredientEnergy'
   | 'meal'
   | 'mealEnergy'
@@ -23,12 +24,12 @@ function isForMeal(statVaraint: StatVariant) {
 }
 
 function getValueTextColor(statVariant: StatVariant) {
-  if (isForIngredient(statVariant)) {
-    return 'gray.400'
+  if (isForMeal(statVariant) || statVariant === 'ingredientAmount') {
+    return 'gray.500'
   }
 
-  if (isForMeal(statVariant)) {
-    return 'gray.500'
+  if (isForIngredient(statVariant)) {
+    return 'gray.400'
   }
 
   return 'gray.800'
