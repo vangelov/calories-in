@@ -1,7 +1,8 @@
-import { View } from '@react-pdf/renderer'
+import { View, Text, StyleSheet } from '@react-pdf/renderer'
 import { Food } from 'foods'
 import { IngredientForm } from 'ingredients'
 import { Stats } from 'stats'
+import { getComputedColorFromChakra } from 'theme'
 import PdfIngredientItem from './PdfIngredientItem'
 
 type Props = {
@@ -29,8 +30,27 @@ function PdfIngredientsList({
           />
         )
       })}
+      {ingredientsForms.length === 0 && (
+        <Text
+          style={[
+            styles.emptyListText,
+            {
+              color: getComputedColorFromChakra('gray.400'),
+            },
+          ]}
+        >
+          No foods added
+        </Text>
+      )}
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  emptyListText: {
+    padding: 10,
+    fontSize: 12,
+  },
+})
 
 export default PdfIngredientsList

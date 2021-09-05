@@ -1,5 +1,12 @@
-import ReactPDF, { Document, Page, Font, StyleSheet } from '@react-pdf/renderer'
+import ReactPDF, {
+  Document,
+  Page,
+  Font,
+  StyleSheet,
+  Text,
+} from '@react-pdf/renderer'
 import { Food } from 'foods'
+import { getComputedColorFromChakra } from 'theme'
 import { PdfVariantsList } from 'variants'
 import { DietForm } from './dietForm'
 import getDietFormStatsTree from './getDietFormStatsTree'
@@ -16,7 +23,20 @@ function PdfDietEditor({ dietForm, foodsById, ...rest }: Props) {
   return (
     <Document {...rest}>
       <Page style={styles.page}>
+        {variantsForms.length > 1 && (
+          <Text
+            style={[
+              styles.title,
+              {
+                color: getComputedColorFromChakra('gray.600'),
+              },
+            ]}
+          >
+            {dietForm.name}
+          </Text>
+        )}
         <PdfVariantsList
+          dietForm={dietForm}
           variantsForms={variantsForms}
           variantsFormsStatsTrees={dietFormStatsTree.subtrees}
           foodsById={foodsById}
@@ -30,6 +50,11 @@ const styles = StyleSheet.create({
   page: {
     padding: 20,
     fontFamily: 'Roboto',
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
 })
 

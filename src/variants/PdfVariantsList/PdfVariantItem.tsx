@@ -7,6 +7,7 @@ import { Food } from 'foods'
 import { getComputedColorFromChakra } from 'theme'
 
 type Props = {
+  name?: string
   variantForm: VariantForm
   stats: Stats
   mealsFormsStatsTrees: StatsTree[]
@@ -15,6 +16,7 @@ type Props = {
 }
 
 function PdfVariantItem({
+  name,
   variantForm,
   stats,
   mealsFormsStatsTrees,
@@ -33,7 +35,7 @@ function PdfVariantItem({
               { color: getComputedColorFromChakra('gray.600') },
             ]}
           >
-            {variantForm.name}
+            {name || variantForm.name}
           </Text>
         }
         energyElement={

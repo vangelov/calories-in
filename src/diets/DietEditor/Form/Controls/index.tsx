@@ -4,7 +4,7 @@ import MenuButtons from './MenuButtons'
 import MainButtons from './MainButtons'
 import { useDietFormActions } from 'diets'
 import useKeyboard from './useKeyboard'
-import PreviewAndDownloadModal from 'export/PreviewAndDownloadModal'
+import { ExportModal } from 'export'
 
 function Controls() {
   const dietFormStoreActions = useDietFormActions()
@@ -27,7 +27,7 @@ function Controls() {
           onExport={modalDisclosure.onOpen}
         />
 
-        <PreviewAndDownloadModal
+        <ExportModal
           isOpen={modalDisclosure.isOpen}
           onClose={modalDisclosure.onClose}
         />
