@@ -1,10 +1,12 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
-import { PdfIngredientsList } from 'ingredients'
 import { MealForm } from 'meals'
 import { Style } from '@react-pdf/types/style'
 import { getComputedColorFromChakra } from 'theme'
-import { Stats, PdfStat, PdfStatsLayout } from 'stats'
+import { Stats } from 'stats'
+import PdfStat from 'stats/PdfStat'
+import PdfStatsLayout from 'stats/PdfStatsLayout'
 import { Food } from 'foods'
+import PdfIngredientsList from 'ingredients/PdfIngredientsList'
 
 type Props = {
   mealForm: MealForm

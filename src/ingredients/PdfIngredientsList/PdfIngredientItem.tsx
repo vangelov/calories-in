@@ -1,7 +1,9 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
 import { Food } from 'foods'
 import { IngredientForm } from 'ingredients'
-import { PdfStat, PdfStatsLayout, Stats } from 'stats'
+import { Stats } from 'stats'
+import PdfStat from 'stats/PdfStat'
+import PdfStatsLayout from 'stats/PdfStatsLayout'
 import { getComputedColorFromChakra } from 'theme'
 
 type Props = {

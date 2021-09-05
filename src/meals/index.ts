@@ -1,6 +1,5 @@
 export { default as MealsList } from './MealsList'
 export { default as useMealsFormsActions } from './useMealsFormsActions'
-export { default as PdfMealsList } from './PdfMealsList'
 export * from './useMealsFormsActions'
 export * from './mealForm'
 export * from './types'

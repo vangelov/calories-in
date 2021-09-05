@@ -6,33 +6,48 @@ import {
   ModalCloseButton,
   Button,
 } from '@chakra-ui/react'
-import 'focus-visible/dist/focus-visible'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Suspense, lazy } from 'react'
+import Loader from './Loader'
 
 type Props = {
   onClose: () => void
 }
 
-const Preview = lazy(() => import('./Preview'))
+//const Preview = lazy(() => import('./Preview'))
+
+const Exporter = lazy(() => {
+  return new Promise<any>(resolve => {
+    setTimeout(() => resolve(import('./Exporter')), 3000)
+  })
+})
 
 function Content({ onClose }: Props) {
   const [url, setUrl] = useState<string>()
+  const [hasInitialLoader, setHasInitialLoader] = useState(true)
 
-  function onUrlUpdate(newUrl: string) {
-    if (!url) {
-      setUrl(newUrl)
+  useEffect(() => {
+    const timeoutId = window.setTimeout(() => {
+      setHasInitialLoader(false)
+    }, 500)
+
+    return () => {
+      window.clearTimeout(timeoutId)
     }
-  }
+  }, [])
 
   return (
     <ModalContent>
-      <ModalHeader>Modal Title</ModalHeader>
+      <ModalHeader>Export</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
-        <Suspense fallback={<div>Loading...</div>}>
-          <Preview onUrlUpdate={onUrlUpdate} />
-        </Suspense>
+        {hasInitialLoader ? (
+          <Loader />
+        ) : (
+          <Suspense fallback={<Loader />}>
+            <Exporter onUrlUpdate={setUrl} />
+          </Suspense>
+        )}
       </ModalBody>
 
       <ModalFooter>
@@ -41,6 +56,8 @@ function Content({ onClose }: Props) {
         </Button>
         <Button
           as="a"
+          download="test"
+          target="_blank"
           href={url}
           isDisabled={!url}
           colorScheme="teal"

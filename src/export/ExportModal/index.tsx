@@ -1,5 +1,4 @@
 import { Modal, ModalOverlay } from '@chakra-ui/react'
-import 'focus-visible/dist/focus-visible'
 import Content from './Content'
 
 type Props = {
@@ -9,7 +8,7 @@ type Props = {
 
 function ExportModal({ isOpen, onClose }: Props) {
   return (
-    <Modal size="2xl" isOpen={isOpen} onClose={onClose}>
+    <Modal size="lg" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <Content onClose={onClose} />
     </Modal>

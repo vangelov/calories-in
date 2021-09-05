@@ -15,5 +15,3 @@ export * from './StatsFormFields'
 
 export { default as AmountInput } from './AmountInput'
 export { default as EnergyStat } from './EnergyStat'
-export { default as PdfStat } from './PdfStat'
-export { default as PdfStatsLayout } from './PdfStatsLayout'

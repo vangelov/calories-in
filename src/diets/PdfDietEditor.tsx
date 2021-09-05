@@ -7,7 +7,7 @@ import ReactPDF, {
 } from '@react-pdf/renderer'
 import { Food } from 'foods'
 import { getComputedColorFromChakra } from 'theme'
-import { PdfVariantsList } from 'variants'
+import PdfVariantsList from 'variants/PdfVariantsList'
 import { DietForm } from './dietForm'
 import getDietFormStatsTree from './getDietFormStatsTree'
 
