@@ -14,13 +14,7 @@ type Props = {
   onClose: () => void
 }
 
-//const Preview = lazy(() => import('./Preview'))
-
-const Exporter = lazy(() => {
-  return new Promise<any>(resolve => {
-    setTimeout(() => resolve(import('./Exporter')), 3000)
-  })
-})
+const Exporter = lazy(() => import('./Exporter'))
 
 function Content({ onClose }: Props) {
   const [url, setUrl] = useState<string>()
@@ -29,7 +23,7 @@ function Content({ onClose }: Props) {
   useEffect(() => {
     const timeoutId = window.setTimeout(() => {
       setHasInitialLoader(false)
-    }, 500)
+    }, 300)
 
     return () => {
       window.clearTimeout(timeoutId)

@@ -1,16 +1,35 @@
-import { getDietForm, DietFormStoreProvider } from 'diets'
+import { DietFormStoreProvider } from 'diets'
 import Form from './Form'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import DndContextProvider from './DndContextProvider'
 import { MealsStatsStoreProvider } from 'stats'
-import { useTheme } from '@chakra-ui/react'
+import { useLoadDietForm } from 'persistence'
+import { Center, HStack, Spinner, Text } from '@chakra-ui/react'
 
 function DietEditor() {
-  const dietForm = getDietForm()
   const oneTimeCheckActions = useOneTimeCheckActions()
 
-  const t = useTheme()
-  console.log('t', t)
+  const {
+    onLoadFromFile,
+    dietForm,
+    isLoading: isImporting,
+    error,
+  } = useLoadDietForm()
+
+  if (error) {
+    return <div>Error on import</div>
+  }
+
+  if (isImporting) {
+    return (
+      <Center height="100vh">
+        <HStack spacing={2}>
+          <Spinner color="teal" size="lg" />
+          <Text fontSize="lg">Importing...</Text>
+        </HStack>
+      </Center>
+    )
+  }
 
   return (
     <DietFormStoreProvider
@@ -19,7 +38,7 @@ function DietEditor() {
     >
       <MealsStatsStoreProvider>
         <DndContextProvider>
-          <Form isEditingExistingDiet={false} />
+          <Form onImport={onLoadFromFile} isEditingExistingDiet={false} />
         </DndContextProvider>
       </MealsStatsStoreProvider>
     </DietFormStoreProvider>

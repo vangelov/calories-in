@@ -8,14 +8,15 @@ import Controls from './Controls'
 import { VariantsList } from 'variants'
 import useScrollManager from './useScrollManager'
 import useActions from './useActions'
+import { useSaveValue } from 'persistence'
 
 type Props = {
   isEditingExistingDiet: boolean
+  onImport: () => void
 }
 
-function Form({ isEditingExistingDiet }: Props) {
+function Form({ isEditingExistingDiet, onImport }: Props) {
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
-
   const dietForm = useDietForm()
   const { variantsForms } = dietForm
   const selectedVariantForm = variantsForms[dietForm.selectedVariantFormIndex]
@@ -25,6 +26,8 @@ function Form({ isEditingExistingDiet }: Props) {
     horizontalScrollRef,
   })
   const actions = useActions({ scrollManager })
+
+  useSaveValue({ value: dietForm, key: 'lastDietForm' })
 
   return (
     <FormVersionsStoreProvider
@@ -40,7 +43,7 @@ function Form({ isEditingExistingDiet }: Props) {
               selectedVariantForm={selectedVariantForm}
               isEditingExistingDiet={isEditingExistingDiet}
             />
-            <Controls />
+            <Controls onImport={onImport} />
           </>
         </PageHeader>
 

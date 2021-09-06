@@ -1,12 +1,16 @@
 import { chakra } from '@chakra-ui/react'
-import { MoreHorizontal, Shuffle, Trash } from 'react-feather'
+import { MoreHorizontal, Trash, File } from 'react-feather'
 import { Menu, MenuItem, ResponsiveIconButton, useScreenSize } from 'general'
 
-const ShuffleStyled = chakra(Shuffle)
+const FileStyled = chakra(File)
 const TrashStyled = chakra(Trash)
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 
-function MenuButtons() {
+type Props = {
+  onImport: () => void
+}
+
+function MenuButtons({ onImport }: Props) {
   const screenSize = useScreenSize()
   const mr = screenSize >= 2 ? 1 : 2
 
@@ -18,19 +22,18 @@ function MenuButtons() {
       menuButton={
         <ResponsiveIconButton
           mr={mr}
-          isDisabled={true}
           aria-label="Meal plan actions"
           icon={<MoreHorizontalStyled size={20} pointerEvents="none" />}
           variant="outline"
         />
       }
     >
-      <MenuItem>
-        <ShuffleStyled color="gray.400" pointerEvents="none" mr={3} />
-        Re-arrange meals
+      <MenuItem onClick={onImport}>
+        <FileStyled pointerEvents="none" mr={3} />
+        Import
       </MenuItem>
       <MenuItem>
-        <TrashStyled color="gray.400" pointerEvents="none" mr={3} />
+        <TrashStyled pointerEvents="none" mr={3} />
         Delete meal plan
       </MenuItem>
     </Menu>

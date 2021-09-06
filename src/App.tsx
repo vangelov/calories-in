@@ -1,6 +1,5 @@
 import { ChakraProvider } from '@chakra-ui/react'
 import { MainLayout } from 'layout'
-import builInFoods from 'foods/builtIn.json'
 import 'focus-visible/dist/focus-visible'
 import theme from 'theme'
 import smoothscroll from 'smoothscroll-polyfill'
@@ -8,20 +7,23 @@ import { ScreenSizeProvider } from 'general'
 import { FoodsStoreProvider } from 'foods'
 import { OneTimeCheckStoreProvider } from 'general/oneTimeCheck'
 import { DietEditor } from 'diets'
+import { useLoadFoods } from 'persistence'
 
 smoothscroll.polyfill()
 
 function App() {
+  const foods = useLoadFoods()
+
   return (
     <ChakraProvider theme={theme}>
       <ScreenSizeProvider>
-        <FoodsStoreProvider initialFoods={builInFoods}>
-          <OneTimeCheckStoreProvider>
+        <OneTimeCheckStoreProvider>
+          <FoodsStoreProvider initialFoods={foods}>
             <MainLayout>
               <DietEditor />
             </MainLayout>
-          </OneTimeCheckStoreProvider>
-        </FoodsStoreProvider>
+          </FoodsStoreProvider>
+        </OneTimeCheckStoreProvider>
       </ScreenSizeProvider>
     </ChakraProvider>
   )

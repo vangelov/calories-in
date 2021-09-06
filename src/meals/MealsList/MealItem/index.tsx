@@ -75,6 +75,7 @@ function MealItem({
             mb={3}
             backgroundColor="white"
             boxShadow={snapshot.isDragging ? 'lg' : undefined}
+            overflow="hidden"
             {...rest}
           >
             <Header

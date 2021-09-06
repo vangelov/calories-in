@@ -11,6 +11,7 @@ import { Stats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
 import useActions from './useActions'
 import getMenuItems from './getMenuItems'
+import { Text } from '@chakra-ui/react'
 
 type Props = {
   variantIndex: number
@@ -66,38 +67,51 @@ function IngredientItem({
             _hover={{ backgroundColor: 'gray.50' }}
             menuItems={menuItems}
           >
-            <StatsLayout
-              prefersAmount={true}
-              nameElement={
-                <FoodInfo
-                  ml={3}
-                  fontSize={{ base: 'sm', md: 'md' }}
-                  food={food}
-                />
-              }
-              amountElement={
-                <RightAligned>
-                  <AmountInput
-                    size={amountInputSize}
-                    onChange={actions.onAmountChange}
-                    value={ingredientForm.amountInGrams}
+            {food ? (
+              <StatsLayout
+                prefersAmount={true}
+                nameElement={
+                  <FoodInfo
+                    ml={3}
+                    fontSize={{ base: 'sm', md: 'md' }}
+                    food={food}
                   />
-                </RightAligned>
-              }
-              energyElement={
-                <Stat type="ingredientEnergy" value={ingredientStats.energy} />
-              }
-              proteinElement={
-                <Stat type="ingredient" value={ingredientStats.protein} />
-              }
-              carbsElement={
-                <Stat type="ingredient" value={ingredientStats.carbs} />
-              }
-              fatElement={
-                <Stat type="ingredient" value={ingredientStats.fat} />
-              }
-              menuElement={<Menu mr={3} onRemove={actions.onRemoveRequest} />}
-            />
+                }
+                amountElement={
+                  <RightAligned>
+                    <AmountInput
+                      size={amountInputSize}
+                      onChange={actions.onAmountChange}
+                      value={ingredientForm.amountInGrams}
+                    />
+                  </RightAligned>
+                }
+                energyElement={
+                  <Stat
+                    type="ingredientEnergy"
+                    value={ingredientStats.energy}
+                  />
+                }
+                proteinElement={
+                  <Stat type="ingredient" value={ingredientStats.protein} />
+                }
+                carbsElement={
+                  <Stat type="ingredient" value={ingredientStats.carbs} />
+                }
+                fatElement={
+                  <Stat type="ingredient" value={ingredientStats.fat} />
+                }
+                menuElement={<Menu mr={3} onRemove={actions.onRemoveRequest} />}
+              />
+            ) : (
+              <Text
+                fontSize={{ base: 'sm', md: 'md' }}
+                textColor="gray.400"
+                ml={3}
+              >
+                Food not found
+              </Text>
+            )}
           </ContextMenuFlex>
         </PresenceAnimation>
       )}
