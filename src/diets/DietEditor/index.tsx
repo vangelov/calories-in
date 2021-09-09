@@ -4,7 +4,8 @@ import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import DndContextProvider from './DndContextProvider'
 import { MealsStatsStoreProvider } from 'stats'
 import { useLoadDietForm } from 'persistence'
-import { Center, HStack, Spinner, Text } from '@chakra-ui/react'
+import { Center } from '@chakra-ui/react'
+import { Loader } from 'general'
 
 function DietEditor() {
   const oneTimeCheckActions = useOneTimeCheckActions()
@@ -23,10 +24,7 @@ function DietEditor() {
   if (isImporting) {
     return (
       <Center height="100vh">
-        <HStack spacing={2}>
-          <Spinner color="teal" size="lg" />
-          <Text fontSize="lg">Importing...</Text>
-        </HStack>
+        <Loader size="lg" label="Importing..." />
       </Center>
     )
   }

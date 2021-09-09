@@ -26,10 +26,11 @@ function useLoadDietForm() {
   async function onLoadFromFile() {
     try {
       const file = await loadFile('*.pdf')
+      console.log('file', file.name)
       setIsLoading(true)
       const text = await readFile(file)
       await delay(300)
-      setDietForm(parseDietForm(text))
+      setDietForm(parseDietForm(text, file.name))
     } catch (error) {
       setError(error)
     } finally {

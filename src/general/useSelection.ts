@@ -9,7 +9,6 @@ type Selection<T extends Item> = {
   onToggleItem: (item: T) => void
   selectedItems: T[]
   selectionMap: SelectionMap
-  reset: () => void
 }
 
 function useSelection<T extends Item>(): Selection<T> {
@@ -33,17 +32,11 @@ function useSelection<T extends Item>(): Selection<T> {
     return isSelected
   }
 
-  function reset() {
-    setSelectedItems([])
-    setSelectionMap({})
-  }
-
   return {
     isIdSelected,
     onToggleItem,
     selectionMap,
     selectedItems,
-    reset,
   }
 }
 

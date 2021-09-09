@@ -14,11 +14,14 @@ function getData(location: string, text: string) {
   return text.slice(startIndex + location.length + 2, endIndex - 2)
 }
 
-function parseDietForm(text: string) {
+function parseDietForm(text: string, fileName: string) {
   const location = getLocation(text)
   const data = getData(location, text)
 
-  return JSON.parse(data) as DietForm
+  const dietForm = JSON.parse(data) as DietForm
+  dietForm.fileName = fileName
+
+  return dietForm
 }
 
 export default parseDietForm

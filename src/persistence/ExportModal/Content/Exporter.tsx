@@ -2,30 +2,27 @@ import ReactPDF, { PDFViewer, BlobProvider } from '@react-pdf/renderer'
 import PdfDietEditor from 'diets/PdfDietEditor'
 import { useDietForm } from 'diets'
 import { useFoods } from 'foods'
-import { useScreenSize } from 'general'
+import { useScreenSize, Loader } from 'general'
 import { useRef } from 'react'
-import Loader from './Loader'
 import { HStack, Text, chakra } from '@chakra-ui/react'
 import { Check } from 'react-feather'
 
 const CheckStyled = chakra(Check)
 
 type Props = {
-  onUrlUpdate: (url: string) => void
+  onBlobUpdate: (blob: Blob) => void
 }
 
-function Exporter({ onUrlUpdate }: Props) {
+function Exporter({ onBlobUpdate }: Props) {
   const dietForm = useDietForm()
   const { foodsById } = useFoods()
   const screenSize = useScreenSize()
   const isUrlUpdatedRef = useRef(false)
 
   function onRender({ blob }: ReactPDF.OnRenderProps) {
-    if (false === isUrlUpdatedRef.current) {
+    if (false === isUrlUpdatedRef.current && blob) {
       isUrlUpdatedRef.current = true
-
-      const url = URL.createObjectURL(blob)
-      onUrlUpdate(url)
+      onBlobUpdate(blob)
     }
   }
 
@@ -43,7 +40,7 @@ function Exporter({ onUrlUpdate }: Props) {
       <BlobProvider document={document}>
         {({ loading }) => {
           if (loading) {
-            return <Loader />
+            return <Loader label="Exporting..." />
           }
 
           return (

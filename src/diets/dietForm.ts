@@ -3,6 +3,7 @@ import { getVariantForm, VariantForm } from 'variants'
 
 type DietForm = {
   formId: string
+  fileName?: string
   name: string
   selectedVariantFormIndex: number
   variantsForms: VariantForm[]
