@@ -7,12 +7,13 @@ import { ScreenSizeProvider } from 'general'
 import { FoodsStoreProvider } from 'foods'
 import { OneTimeCheckStoreProvider } from 'general/oneTimeCheck'
 import { DietEditor } from 'diets'
-import { useLoadFoods } from 'persistence'
+import { loadFoods } from 'persistence'
+import { useState } from 'react'
 
 smoothscroll.polyfill()
 
 function App() {
-  const foods = useLoadFoods()
+  const [foods] = useState(loadFoods)
 
   return (
     <ChakraProvider theme={theme}>
