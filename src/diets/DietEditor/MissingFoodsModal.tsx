@@ -13,31 +13,32 @@ import {
 type Props = {
   isOpen: boolean
   onCancel: () => void
-  onConfirm: () => void
 }
 
-function MissingFoodsModal({ isOpen, onCancel, onConfirm }: Props) {
+function MissingFoodsModal({ isOpen, onCancel }: Props) {
   return (
-    <Modal isOpen={isOpen} onClose={onCancel} size="xs" isCentered>
+    <Modal isOpen={isOpen} onClose={onCancel} size="lg" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Missing foods</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text>
-            The meal plan you are trying to import contains foods that are not
-            part of your list.
+          <Text fontWeight="medium">
+            The meal plan you contains foods that are not part of your list.
           </Text>
           <br />
-          <Text fontWeight="medium">This action cannot be undone.</Text>
+          <Text>
+            You can try to import the missing foods or continue without them.
+          </Text>
         </ModalBody>
 
         <ModalFooter>
-          <Button variant="outline" onClick={onCancel}>
-            Cancel
+          <Button variant="outline" onClick={onCancel} mr={3}>
+            Import foods
           </Button>
-          <Button colorScheme="red" ml={3} onClick={onConfirm}>
-            Delete food
+
+          <Button variant="solid" colorScheme="teal" onClick={onCancel}>
+            Continue
           </Button>
         </ModalFooter>
       </ModalContent>

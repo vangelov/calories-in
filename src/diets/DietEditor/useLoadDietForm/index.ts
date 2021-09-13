@@ -5,10 +5,9 @@ import {
   loadLastOrDefaultDietForm,
   hasMissingFoods,
 } from 'persistence'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { delay } from 'general'
 import { useDisclosure } from '@chakra-ui/hooks'
-import { DietForm } from 'diets'
 import { useFoods } from 'foods'
 import useToasts from './useToasts'
 
@@ -16,7 +15,6 @@ function useLoadDietForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [dietForm, setDietForm] = useState(loadLastOrDefaultDietForm)
   const missingFoodsModal = useDisclosure()
-  const pendingDietFormRef = useRef<DietForm>()
   const { foodsById } = useFoods()
   const toasts = useToasts()
 
@@ -32,18 +30,19 @@ function useLoadDietForm() {
 
   async function onLoadFromFile() {
     try {
-      pendingDietFormRef.current = undefined
       const [file, text] = await loadAndReadFile()
       const dietForm = parseDietForm(text, file.name)
 
       if (hasMissingFoods(dietForm, foodsById)) {
-        pendingDietFormRef.current = dietForm
+        toasts.showFileImportedToast({
+          status: 'warning',
+          description: 'Contains missing foods',
+        })
         missingFoodsModal.onOpen()
       } else {
-        setDietForm(dietForm)
-
         toasts.showFileImportedToast()
       }
+      setDietForm(dietForm)
     } catch (error) {
       if (error instanceof DOMException) {
         toasts.showCouldNotLoadFileToast()
@@ -51,25 +50,8 @@ function useLoadDietForm() {
         toasts.showCouldNotParseFileToast()
       }
     } finally {
-      if (!pendingDietFormRef.current) {
-        setIsLoading(false)
-      }
+      setIsLoading(false)
     }
-  }
-
-  function onMissingFoodsModalConfirm() {
-    setIsLoading(false)
-    missingFoodsModal.onClose()
-
-    if (pendingDietFormRef.current) {
-      setDietForm(pendingDietFormRef.current)
-      toasts.showFileImportedToast()
-    }
-  }
-
-  function onMissingFoodsModalCancel() {
-    setIsLoading(false)
-    missingFoodsModal.onClose()
   }
 
   return {
@@ -77,8 +59,6 @@ function useLoadDietForm() {
     isLoading,
     dietForm,
     missingFoodsModal,
-    onMissingFoodsModalConfirm,
-    onMissingFoodsModalCancel,
   }
 }
 

@@ -16,8 +16,6 @@ function DietEditor() {
     dietForm,
     isLoading: isImporting,
     missingFoodsModal,
-    onMissingFoodsModalConfirm,
-    onMissingFoodsModalCancel,
   } = useLoadDietForm()
 
   return (
@@ -41,8 +39,7 @@ function DietEditor() {
 
       <MissingFoodsModal
         isOpen={missingFoodsModal.isOpen}
-        onCancel={onMissingFoodsModalCancel}
-        onConfirm={onMissingFoodsModalConfirm}
+        onCancel={missingFoodsModal.onClose}
       />
     </>
   )

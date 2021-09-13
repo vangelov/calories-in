@@ -1,21 +1,30 @@
 import { Food } from 'foods'
 import { IngredientForm } from './ingredientForm'
-import { StatsTree, objectFromNutritionDataKeys } from 'stats'
+import { StatsTree, objectFromNutritionDataKeys, Stats } from 'stats'
 import { DEFAULT_SERVING_SIZE_IN_GRAMS } from 'foods'
 
 function getIngredientFormStatsTree(
   ingredientForm: IngredientForm,
-  food: Food,
+  food?: Food,
   round: (x: number) => number = Math.round
 ): StatsTree {
-  const amountInGrams = round(Number(ingredientForm.amountInGrams))
-  const servingSizeInGrams =
-    food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS
-  const scale = amountInGrams / servingSizeInGrams
+  let stats: Stats
 
-  const stats = {
-    amountInGrams,
-    ...objectFromNutritionDataKeys(key => round(scale * food[key])),
+  if (food) {
+    const amountInGrams = round(Number(ingredientForm.amountInGrams))
+    const servingSizeInGrams =
+      food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS
+    const scale = amountInGrams / servingSizeInGrams
+
+    stats = {
+      amountInGrams,
+      ...objectFromNutritionDataKeys(key => round(scale * food[key])),
+    }
+  } else {
+    stats = {
+      amountInGrams: 0,
+      ...objectFromNutritionDataKeys(() => 0),
+    }
   }
 
   return {

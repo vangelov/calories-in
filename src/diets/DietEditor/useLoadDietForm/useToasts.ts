@@ -9,11 +9,12 @@ const COMMON_TOAST_OPTIONS: UseToastOptions = {
 function useToasts() {
   const toast = useToast()
 
-  function showFileImportedToast() {
+  function showFileImportedToast(options: UseToastOptions = {}) {
     toast({
       ...COMMON_TOAST_OPTIONS,
       title: 'File imported',
       status: 'success',
+      ...options,
     })
   }
 

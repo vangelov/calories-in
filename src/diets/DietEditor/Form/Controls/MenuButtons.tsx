@@ -1,8 +1,8 @@
 import { chakra } from '@chakra-ui/react'
-import { MoreHorizontal, Trash, File } from 'react-feather'
+import { MoreHorizontal, Trash, Download } from 'react-feather'
 import { Menu, MenuItem, ResponsiveIconButton, useScreenSize } from 'general'
 
-const FileStyled = chakra(File)
+const DownloadStyled = chakra(Download)
 const TrashStyled = chakra(Trash)
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 
@@ -29,7 +29,7 @@ function MenuButtons({ onImport }: Props) {
       }
     >
       <MenuItem onClick={onImport}>
-        <FileStyled pointerEvents="none" mr={3} />
+        <DownloadStyled pointerEvents="none" mr={3} />
         Import
       </MenuItem>
       <MenuItem>
