@@ -47,10 +47,14 @@ function PdfMealItem({
             <Text
               style={[
                 styles.name,
-                { color: getComputedColorFromChakra('gray.600') },
+                {
+                  color: getComputedColorFromChakra(
+                    mealForm.name ? 'gray.600' : 'gray.400'
+                  ),
+                },
               ]}
             >
-              {mealForm.name}
+              {mealForm.name || 'Empty meal name'}
             </Text>
           }
           amountElement={

@@ -16,9 +16,13 @@ function PdfIngredientsList({
   ingredientsFormsStats,
   foodsById,
 }: Props) {
+  const filteredIngredientsForms = ingredientsForms.filter(
+    ({ foodId }) => foodsById[foodId]
+  )
+
   return (
     <View>
-      {ingredientsForms.map((ingredientForm, index) => {
+      {filteredIngredientsForms.map((ingredientForm, index) => {
         const stats = ingredientsFormsStats[index]
 
         return (
@@ -49,7 +53,7 @@ function PdfIngredientsList({
 const styles = StyleSheet.create({
   emptyListText: {
     padding: 10,
-    fontSize: 12,
+    fontSize: 14,
   },
 })
 

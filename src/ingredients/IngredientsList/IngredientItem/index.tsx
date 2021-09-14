@@ -11,7 +11,7 @@ import { Stats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
 import useActions from './useActions'
 import getMenuItems from './getMenuItems'
-import { Text } from '@chakra-ui/react'
+import { Text, Button, Flex } from '@chakra-ui/react'
 
 type Props = {
   variantIndex: number
@@ -104,13 +104,43 @@ function IngredientItem({
                 menuElement={<Menu mr={3} onRemove={actions.onRemoveRequest} />}
               />
             ) : (
-              <Text
-                fontSize={{ base: 'sm', md: 'md' }}
-                textColor="gray.400"
-                ml={3}
-              >
-                Food not found
-              </Text>
+              <StatsLayout
+                prefersAmount={true}
+                nameElement={
+                  <Flex
+                    height="100%"
+                    justifyContent="center"
+                    flexDirection="column"
+                  >
+                    <Text
+                      fontSize={{ base: 'sm', md: 'md' }}
+                      textColor="red.400"
+                      ml={3}
+                    >
+                      Food not found
+                    </Text>
+                  </Flex>
+                }
+                amountElement={<div />}
+                energyElement={<div />}
+                proteinElement={<div />}
+                carbsElement={<div />}
+                fatElement={<div />}
+                menuElement={
+                  <RightAligned>
+                    <Button
+                      mr={3}
+                      alignSelf="flex-end"
+                      variant="outline"
+                      size="sm"
+                      colorScheme="red"
+                      onClick={actions.onRemoveRequest}
+                    >
+                      Remove
+                    </Button>
+                  </RightAligned>
+                }
+              />
             )}
           </ContextMenuFlex>
         </PresenceAnimation>

@@ -7,16 +7,14 @@ import {
 } from 'persistence'
 import { useState } from 'react'
 import { delay } from 'general'
-import { useDisclosure } from '@chakra-ui/hooks'
 import { useFoods } from 'foods'
 import useToasts from './useToasts'
 
 function useLoadDietForm() {
   const [isLoading, setIsLoading] = useState(false)
   const [dietForm, setDietForm] = useState(loadLastOrDefaultDietForm)
-  const missingFoodsModal = useDisclosure()
   const { foodsById } = useFoods()
-  const toasts = useToasts()
+  const { missingFoodsModalDisclosure, ...toasts } = useToasts()
 
   async function loadAndReadFile() {
     const file = await loadFile('application/pdf')
@@ -34,11 +32,7 @@ function useLoadDietForm() {
       const dietForm = parseDietForm(text, file.name)
 
       if (hasMissingFoods(dietForm, foodsById)) {
-        toasts.showFileImportedToast({
-          status: 'warning',
-          description: 'Contains missing foods',
-        })
-        missingFoodsModal.onOpen()
+        toasts.showFileImportedWithMissingFoodsToast()
       } else {
         toasts.showFileImportedToast()
       }
@@ -58,7 +52,7 @@ function useLoadDietForm() {
     onLoadFromFile,
     isLoading,
     dietForm,
-    missingFoodsModal,
+    missingFoodsModalDisclosure,
   }
 }
 

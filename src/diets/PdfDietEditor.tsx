@@ -28,11 +28,13 @@ function PdfDietEditor({ dietForm, foodsById, ...rest }: Props) {
             style={[
               styles.title,
               {
-                color: getComputedColorFromChakra('gray.600'),
+                color: getComputedColorFromChakra(
+                  dietForm.name ? 'gray.600' : 'gray.400'
+                ),
               },
             ]}
           >
-            {dietForm.name}
+            {dietForm.name || 'Empty meal plan name'}
           </Text>
         )}
         <PdfVariantsList
