@@ -17,6 +17,7 @@ type Props = {
   ingredientForm: IngredientForm
   ingredientStats: Stats
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
+  isLast: boolean
 }
 
 function IngredientItem({
@@ -26,6 +27,7 @@ function IngredientItem({
   ingredientForm,
   ingredientStats,
   onRemove,
+  isLast,
 }: Props) {
   const actions = useActions({
     variantIndex,
@@ -61,6 +63,8 @@ function IngredientItem({
             position="relative"
             py={2}
             _hover={{ backgroundColor: 'gray.50' }}
+            borderBottomRadius={isLast ? 10 : 0}
+            overflow="hidden"
             menuItems={menuItems}
           >
             {food ? (

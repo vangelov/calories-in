@@ -15,7 +15,7 @@ function DownloadButton({ blob, onClose }: Props) {
   return (
     <Button
       as="a"
-      download={dietForm.fileName || dietForm.name || 'Untitled'}
+      download={dietForm.name || 'Untitled'}
       target="_blank"
       href={url}
       isDisabled={!url}

@@ -1,57 +1,44 @@
-import {
-  loadFile,
-  readFile,
-  parseDietForm,
-  loadLastOrDefaultDietForm,
-  hasMissingFoods,
-} from 'persistence'
-import { useState } from 'react'
-import { delay } from 'general'
+import { loadFile, readFile, parseDietForm, hasMissingFoods } from 'persistence'
 import { useFoods } from 'foods'
 import useToasts from './useToasts'
+import { useDietFormActions } from 'diets'
 
 function useLoadDietForm() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [dietForm, setDietForm] = useState(loadLastOrDefaultDietForm)
   const { foodsById } = useFoods()
   const { missingFoodsModalDisclosure, ...toasts } = useToasts()
+  const dietFormActions = useDietFormActions()
 
   async function loadAndReadFile() {
     const file = await loadFile('application/pdf')
-    setIsLoading(true)
-
     const text = await readFile(file)
-    await delay(300)
 
     return [file, text] as const
   }
 
   async function onLoadFromFile() {
     try {
-      const [file, text] = await loadAndReadFile()
-      const dietForm = parseDietForm(text, file.name)
+      const [, text] = await loadAndReadFile()
+      const dietForm = parseDietForm(text)
 
       if (hasMissingFoods(dietForm, foodsById)) {
         toasts.showFileImportedWithMissingFoodsToast()
       } else {
         toasts.showFileImportedToast()
       }
-      setDietForm(dietForm)
+
+      dietFormActions.setDietForm(dietForm)
     } catch (error) {
       if (error instanceof DOMException) {
         toasts.showCouldNotLoadFileToast()
       } else if (error instanceof SyntaxError) {
         toasts.showCouldNotParseFileToast()
       }
-    } finally {
-      setIsLoading(false)
     }
   }
 
   return {
     onLoadFromFile,
-    isLoading,
-    dietForm,
+
     missingFoodsModalDisclosure,
   }
 }

@@ -5,6 +5,8 @@ import MainButtons from './MainButtons'
 import { useDietFormActions } from 'diets'
 import useKeyboard from './useKeyboard'
 import { ExportModal } from 'persistence'
+import useLoadDietForm from './useLoadDietForm'
+import { MissingFoodsModal } from 'foods'
 
 type Props = {
   onImport: () => void
@@ -13,27 +15,9 @@ type Props = {
 function Controls({ onImport }: Props) {
   const dietFormStoreActions = useDietFormActions()
   const modalDisclosure = useDisclosure()
+  const { onLoadFromFile, missingFoodsModalDisclosure } = useLoadDietForm()
 
   useKeyboard()
-
-  /*if (filesContent.length > 0 && !loading) {
-    const subject = '/Subject'
-    const index = filesContent[0].content.indexOf('/Subject')
-    const index2 = filesContent[0].content.indexOf('R', index)
-    const location = filesContent[0].content
-      .slice(index + subject.length, index2)
-      .trim()
-    const locationName = `${location} obj`
-    const objIndex = filesContent[0].content.indexOf(locationName)
-    const objEnd = filesContent[0].content.indexOf('endobj', objIndex)
-
-    const data = filesContent[0].content.slice(
-      objIndex + locationName.length + 2,
-      objEnd - 2
-    )
-
-    console.log('i', JSON.parse(data))
-  }*/
 
   return (
     <Flex width="100%" pt={3} alignItems="center">
@@ -42,7 +26,7 @@ function Controls({ onImport }: Props) {
       </Flex>
 
       <Flex flex="6" justifyContent="flex-end">
-        <MenuButtons onImport={onImport} />
+        <MenuButtons onImport={onLoadFromFile} />
 
         <MainButtons
           onMealAdd={dietFormStoreActions.appendMealForm}
@@ -53,6 +37,11 @@ function Controls({ onImport }: Props) {
         <ExportModal
           isOpen={modalDisclosure.isOpen}
           onClose={modalDisclosure.onClose}
+        />
+
+        <MissingFoodsModal
+          isOpen={missingFoodsModalDisclosure.isOpen}
+          onCancel={missingFoodsModalDisclosure.onClose}
         />
       </Flex>
     </Flex>

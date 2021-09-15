@@ -3,44 +3,25 @@ import Form from './Form'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import DndContextProvider from './DndContextProvider'
 import { MealsStatsStoreProvider } from 'stats'
-import { Center } from '@chakra-ui/react'
-import { Loader } from 'general'
-import useLoadDietForm from './useLoadDietForm'
-import MissingFoodsModal from './MissingFoodsModal'
+import { useState } from 'react'
+import { loadLastOrDefaultDietForm } from 'persistence'
 
 function DietEditor() {
   const oneTimeCheckActions = useOneTimeCheckActions()
-
-  const {
-    onLoadFromFile,
-    dietForm,
-    isLoading: isImporting,
-    missingFoodsModalDisclosure,
-  } = useLoadDietForm()
+  const [dietForm] = useState(loadLastOrDefaultDietForm)
 
   return (
     <>
-      {isImporting ? (
-        <Center height="100vh">
-          <Loader size="lg" label="Importing..." />
-        </Center>
-      ) : (
-        <DietFormStoreProvider
-          initialDietForm={dietForm}
-          oneTimeCheckActions={oneTimeCheckActions}
-        >
-          <MealsStatsStoreProvider>
-            <DndContextProvider>
-              <Form onImport={onLoadFromFile} isEditingExistingDiet={false} />
-            </DndContextProvider>
-          </MealsStatsStoreProvider>
-        </DietFormStoreProvider>
-      )}
-
-      <MissingFoodsModal
-        isOpen={missingFoodsModalDisclosure.isOpen}
-        onCancel={missingFoodsModalDisclosure.onClose}
-      />
+      <DietFormStoreProvider
+        initialDietForm={dietForm}
+        oneTimeCheckActions={oneTimeCheckActions}
+      >
+        <MealsStatsStoreProvider>
+          <DndContextProvider>
+            <Form onImport={() => {}} isEditingExistingDiet={false} />
+          </DndContextProvider>
+        </MealsStatsStoreProvider>
+      </DietFormStoreProvider>
     </>
   )
 }
