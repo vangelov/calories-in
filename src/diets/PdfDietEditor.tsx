@@ -34,7 +34,7 @@ function PdfDietEditor({ dietForm, foodsById, ...rest }: Props) {
               },
             ]}
           >
-            {dietForm.name || 'Empty meal plan name'}
+            {dietForm.name || 'No name provided'}
           </Text>
         )}
         <PdfVariantsList

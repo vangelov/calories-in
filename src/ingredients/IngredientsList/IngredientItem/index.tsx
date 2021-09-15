@@ -1,17 +1,14 @@
 import { IngredientForm } from 'ingredients'
 import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
-import { FoodInfo } from 'foods'
-import { StatsLayout, Stat, AmountInput } from 'stats'
-import { RightAligned } from 'layout'
-import Menu from './Menu'
 import { useFoods } from 'foods'
-import { useScreenSize, ContextMenuFlex } from 'general'
+import { ContextMenuFlex } from 'general'
 import { Stats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
 import useActions from './useActions'
 import getMenuItems from './getMenuItems'
-import { Text, Button, Flex } from '@chakra-ui/react'
+import StatsLayout from './StatsLayout'
+import MissingStatsLayout from './MissingStatsLayout'
 
 type Props = {
   variantIndex: number
@@ -38,7 +35,6 @@ function IngredientItem({
     ingredientForm,
   })
   const menuItems = getMenuItems({ onRemove: actions.onRemoveRequest })
-  const amountInputSize = useScreenSize() >= 2 ? 'sm' : 'md'
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
 
@@ -69,78 +65,13 @@ function IngredientItem({
           >
             {food ? (
               <StatsLayout
-                prefersAmount={true}
-                nameElement={
-                  <FoodInfo
-                    ml={3}
-                    fontSize={{ base: 'sm', md: 'md' }}
-                    food={food}
-                  />
-                }
-                amountElement={
-                  <RightAligned>
-                    <AmountInput
-                      size={amountInputSize}
-                      onChange={actions.onAmountChange}
-                      value={ingredientForm.amountInGrams}
-                    />
-                  </RightAligned>
-                }
-                energyElement={
-                  <Stat
-                    type="ingredientEnergy"
-                    value={ingredientStats.energy}
-                  />
-                }
-                proteinElement={
-                  <Stat type="ingredient" value={ingredientStats.protein} />
-                }
-                carbsElement={
-                  <Stat type="ingredient" value={ingredientStats.carbs} />
-                }
-                fatElement={
-                  <Stat type="ingredient" value={ingredientStats.fat} />
-                }
-                menuElement={<Menu mr={3} onRemove={actions.onRemoveRequest} />}
+                ingredientForm={ingredientForm}
+                ingredientStats={ingredientStats}
+                onRemoveRequest={actions.onRemoveRequest}
+                onAmountChange={actions.onAmountChange}
               />
             ) : (
-              <StatsLayout
-                prefersAmount={true}
-                nameElement={
-                  <Flex
-                    height="100%"
-                    justifyContent="center"
-                    flexDirection="column"
-                  >
-                    <Text
-                      fontSize={{ base: 'sm', md: 'md' }}
-                      textColor="red.400"
-                      ml={3}
-                    >
-                      Food not found
-                    </Text>
-                  </Flex>
-                }
-                amountElement={<div />}
-                energyElement={<div />}
-                proteinElement={<div />}
-                carbsElement={<div />}
-                fatElement={<div />}
-                menuElement={
-                  <RightAligned>
-                    <Button
-                      mr={3}
-                      alignSelf="flex-end"
-                      variant="outline"
-                      size="sm"
-                      colorScheme="red"
-                      onClick={actions.onRemoveRequest}
-                    >
-                      Remove
-                    </Button>
-                  </RightAligned>
-                }
-              />
+              <MissingStatsLayout onRemoveRequest={actions.onRemoveRequest} />
             )}
           </ContextMenuFlex>
         </PresenceAnimation>

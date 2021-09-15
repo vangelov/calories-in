@@ -54,7 +54,7 @@ function PdfMealItem({
                 },
               ]}
             >
-              {mealForm.name || 'Empty meal name'}
+              {mealForm.name || 'No name provided'}
             </Text>
           }
           amountElement={

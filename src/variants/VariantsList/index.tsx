@@ -18,7 +18,6 @@ type Props = {
   onVariantFormCopy: () => void
   forwardedRef?: ForwardedRef<HTMLDivElement>
 }
-
 function VariantsList({
   onVariantFormSelect,
   onVariantFormCopy,
