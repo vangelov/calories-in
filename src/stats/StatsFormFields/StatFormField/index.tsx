@@ -63,7 +63,7 @@ function StatFormField(props: Props) {
     <Text
       as={isReadOnly ? 'span' : undefined}
       fontSize="sm"
-      textColor="gray.400"
+      fontWeight="thin"
       ml={isReadOnly ? 1 : 0}
     >
       {labelDetail}

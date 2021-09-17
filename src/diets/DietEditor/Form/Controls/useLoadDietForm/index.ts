@@ -11,7 +11,6 @@ function useLoadDietForm() {
   async function loadAndReadFile() {
     const file = await loadFile('application/pdf')
     const text = await readFile(file)
-
     return [file, text] as const
   }
 

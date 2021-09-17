@@ -44,11 +44,7 @@ function Stat({
       )}
 
       {label && (
-        <Text
-          fontSize={isLarge ? 'md' : 'xs'}
-          fontWeight={isLarge ? 'medium' : undefined}
-          textColor={getLabelColor(type)}
-        >
+        <Text fontSize={isLarge ? 'md' : 'xs'} textColor={getLabelColor(type)}>
           {label}
         </Text>
       )}

@@ -7,7 +7,7 @@ import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
 import { useDietForm } from 'diets'
 import { VariantForm } from 'variants'
 import useActions from './useActions'
-import { HFadeScroll } from 'general'
+import { HFadeScroll, useScreenSize } from 'general'
 import mergeRefs from 'react-merge-refs'
 import ScrollButtons from './ScrollButtons'
 import VariantsMenuOrDrawer from '../VariantsMenuOrDrawer'
@@ -24,6 +24,8 @@ function VariantsList({
   forwardedRef = createRef(),
 }: Props) {
   const scrollNodeRef = useRef<HTMLDivElement>(null)
+  const screenSize = useScreenSize()
+  const isPhone = screenSize <= 1
 
   const actions = useActions({
     onVariantFormSelect,
@@ -45,7 +47,9 @@ function VariantsList({
         mr={3}
         flexShrink={0}
       />
-      <VariantsMenuOrDrawer getVariantItemRefById={getVariantItemRefById} />
+      {!isPhone && (
+        <VariantsMenuOrDrawer getVariantItemRefById={getVariantItemRefById} />
+      )}
 
       <Droppable
         droppableId="variantsList"
@@ -82,12 +86,16 @@ function VariantsList({
         )}
       </Droppable>
 
-      <ScrollButtons
-        scrollNodeRef={scrollNodeRef}
-        showsButtons={actions.showsScrollButtons}
-        canScrollLeft={actions.canScrollLeft}
-        canScrollRight={actions.canScrollRight}
-      />
+      {isPhone ? (
+        <VariantsMenuOrDrawer getVariantItemRefById={getVariantItemRefById} />
+      ) : (
+        <ScrollButtons
+          scrollNodeRef={scrollNodeRef}
+          showsButtons={actions.showsScrollButtons}
+          canScrollLeft={actions.canScrollLeft}
+          canScrollRight={actions.canScrollRight}
+        />
+      )}
 
       <VariantNameModal
         isOpen={actions.modalDisclosure.isOpen}
