@@ -30,6 +30,7 @@ import {
 import { Food } from 'foods'
 import { FixedSizeList } from 'react-window'
 import { FoodsFilterPopoverOrModal } from 'foods-filters'
+import { useSaveValue } from 'persistence'
 
 const SearchStyled = chakra(Search)
 
@@ -69,6 +70,8 @@ function FoodsList({
       }
     },
   }))
+
+  useSaveValue({ value: userFoods, key: 'userFoods' })
 
   return (
     <Flex flexDirection="column" {...rest}>

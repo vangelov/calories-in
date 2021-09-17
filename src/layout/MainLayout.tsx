@@ -6,7 +6,7 @@ import {
   useRef,
 } from 'react'
 import { Box } from '@chakra-ui/react'
-import { useScreenSize } from 'general'
+import useHasSideNavigation from './useHasSideNavigation'
 
 export type MainLayoutProps = {
   sidebarElement?: ReactElement
@@ -18,8 +18,7 @@ const ContentBoxRefContext = createContext<RefObject<HTMLDivElement | null>>({
 })
 
 function MainLayout({ children }: MainLayoutProps) {
-  const screenSize = useScreenSize()
-  const hasSideNavigation = screenSize >= 3
+  const hasSideNavigation = useHasSideNavigation()
   const contentBoxRef = useRef<HTMLDivElement>(null)
 
   return (

@@ -1,24 +1,28 @@
-import { getDietForm, DietFormStoreProvider } from 'diets'
+import { DietFormStoreProvider } from 'diets'
 import Form from './Form'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import DndContextProvider from './DndContextProvider'
 import { MealsStatsStoreProvider } from 'stats'
+import { useState } from 'react'
+import { loadLastOrDefaultDietForm } from 'persistence'
 
 function DietEditor() {
-  const dietForm = getDietForm()
   const oneTimeCheckActions = useOneTimeCheckActions()
+  const [dietForm] = useState(loadLastOrDefaultDietForm)
 
   return (
-    <DietFormStoreProvider
-      initialDietForm={dietForm}
-      oneTimeCheckActions={oneTimeCheckActions}
-    >
-      <MealsStatsStoreProvider>
-        <DndContextProvider>
-          <Form isEditingExistingDiet={false} />
-        </DndContextProvider>
-      </MealsStatsStoreProvider>
-    </DietFormStoreProvider>
+    <>
+      <DietFormStoreProvider
+        initialDietForm={dietForm}
+        oneTimeCheckActions={oneTimeCheckActions}
+      >
+        <MealsStatsStoreProvider>
+          <DndContextProvider>
+            <Form onImport={() => {}} isEditingExistingDiet={false} />
+          </DndContextProvider>
+        </MealsStatsStoreProvider>
+      </DietFormStoreProvider>
+    </>
   )
 }
 

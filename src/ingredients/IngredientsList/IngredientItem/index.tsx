@@ -1,16 +1,14 @@
 import { IngredientForm } from 'ingredients'
 import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
-import { FoodInfo } from 'foods'
-import { StatsLayout, Stat, AmountInput } from 'stats'
-import { RightAligned } from 'layout'
-import Menu from './Menu'
 import { useFoods } from 'foods'
-import { useScreenSize, ContextMenuFlex } from 'general'
+import { ContextMenuFlex } from 'general'
 import { Stats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
 import useActions from './useActions'
 import getMenuItems from './getMenuItems'
+import StatsLayout from './StatsLayout'
+import MissingStatsLayout from './MissingStatsLayout'
 
 type Props = {
   variantIndex: number
@@ -19,6 +17,7 @@ type Props = {
   ingredientForm: IngredientForm
   ingredientStats: Stats
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
+  isLast: boolean
 }
 
 function IngredientItem({
@@ -28,6 +27,7 @@ function IngredientItem({
   ingredientForm,
   ingredientStats,
   onRemove,
+  isLast,
 }: Props) {
   const actions = useActions({
     variantIndex,
@@ -37,7 +37,6 @@ function IngredientItem({
     ingredientForm,
   })
   const menuItems = getMenuItems({ onRemove: actions.onRemoveRequest })
-  const amountInputSize = useScreenSize() >= 2 ? 'sm' : 'md'
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
 
@@ -64,40 +63,20 @@ function IngredientItem({
             position="relative"
             py={2}
             _hover={{ backgroundColor: 'gray.50' }}
+            borderBottomRadius={isLast ? 10 : 0}
+            overflow="hidden"
             menuItems={menuItems}
           >
-            <StatsLayout
-              prefersAmount={true}
-              nameElement={
-                <FoodInfo
-                  ml={3}
-                  fontSize={{ base: 'sm', md: 'md' }}
-                  food={food}
-                />
-              }
-              amountElement={
-                <RightAligned>
-                  <AmountInput
-                    size={amountInputSize}
-                    onChange={actions.onAmountChange}
-                    value={ingredientForm.amountInGrams}
-                  />
-                </RightAligned>
-              }
-              energyElement={
-                <Stat type="ingredientEnergy" value={ingredientStats.energy} />
-              }
-              proteinElement={
-                <Stat type="ingredient" value={ingredientStats.protein} />
-              }
-              carbsElement={
-                <Stat type="ingredient" value={ingredientStats.carbs} />
-              }
-              fatElement={
-                <Stat type="ingredient" value={ingredientStats.fat} />
-              }
-              menuElement={<Menu mr={3} onRemove={actions.onRemoveRequest} />}
-            />
+            {food ? (
+              <StatsLayout
+                ingredientForm={ingredientForm}
+                ingredientStats={ingredientStats}
+                onRemoveRequest={actions.onRemoveRequest}
+                onAmountChange={actions.onAmountChange}
+              />
+            ) : (
+              <MissingStatsLayout onRemoveRequest={actions.onRemoveRequest} />
+            )}
           </ContextMenuFlex>
         </PresenceAnimation>
       )}

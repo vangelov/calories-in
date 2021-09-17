@@ -12,4 +12,6 @@ const theme = extendTheme({
   },
 })
 
+export { default as getComputedColorFromChakra } from './getComputedColorFromChakra'
+
 export default theme

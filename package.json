@@ -9,6 +9,7 @@
     "@emotion/styled": "^11.1.5",
     "@hookform/resolvers": "^2.6.0",
     "@react-hook/resize-observer": "^1.2.0",
+    "@react-pdf/renderer": "^2.0.19",
     "@szhsin/react-menu": "1.11.0",
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -25,6 +26,7 @@
     "fuse.js": "^6.4.6",
     "immer": "^9.0.5",
     "jsondiffpatch": "^0.4.1",
+    "pretty-bytes": "^5.6.0",
     "react": "^17.0.1",
     "react-beautiful-dnd": "13.0.0",
     "react-device-detect": "^1.17.0",
@@ -35,6 +37,7 @@
     "react-scripts": "4.0.3",
     "react-window": "^1.8.6",
     "smoothscroll-polyfill": "^0.4.4",
+    "source-map-explorer": "^2.5.2",
     "typescript": "^4.1.2",
     "uuid": "^8.3.2",
     "web-vitals": "^1.0.1",
@@ -47,7 +50,8 @@
     "eject": "react-scripts eject",
     "format": "prettier --write src/**/*.{ts,tsx}",
     "lint": "tsc --noEmit && eslint src/**/*.{ts,tsx}",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "analyze": "source-map-explorer 'build/static/js/*.js'"
   },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [

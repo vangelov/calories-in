@@ -17,7 +17,9 @@ function Name() {
         placeholder="Meal plan name"
         size="md"
         fontSize="md"
+        fontWeight="semibold"
         autoComplete="off"
+        textColor="gray.600"
         onChange={onNameChange}
         bg="white"
         value={dietForm.name}

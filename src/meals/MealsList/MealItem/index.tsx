@@ -1,4 +1,4 @@
-import { MealForm } from 'meals'
+import { MealForm, getMealFormStatsTree } from 'meals'
 import { Flex, LayoutProps, SpaceProps, useDisclosure } from '@chakra-ui/react'
 import Header from './Header'
 import { RefObject, memo } from 'react'
@@ -6,9 +6,10 @@ import { Draggable } from 'react-beautiful-dnd'
 import { IngredientsList } from 'ingredients'
 import { SelectFoodsDrawer } from 'foods'
 import { useFoods } from 'foods'
-import { useIngredientsStats, useUpdateMealStats } from 'stats'
+import { useUpdateMealStats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
 import useActions from './useActions'
+import { useMemo } from 'react'
 
 type Props = {
   mealForm: MealForm
@@ -41,12 +42,16 @@ function MealItem({
     onRemove,
   })
 
-  const { ingredientsStats, ingredientsStatsSum } = useIngredientsStats(
-    mealForm.ingredientsForms,
-    foodsById
+  const mealFormStatsTree = useMemo(
+    () => getMealFormStatsTree(mealForm, foodsById),
+    [mealForm, foodsById]
   )
 
-  useUpdateMealStats({ ingredientsStatsSum, selectedVariantFormFieldId, index })
+  useUpdateMealStats({
+    stats: mealFormStatsTree.stats,
+    selectedVariantFormFieldId,
+    index,
+  })
 
   return (
     <Draggable
@@ -75,7 +80,7 @@ function MealItem({
             <Header
               {...provided.dragHandleProps}
               variantIndex={variantIndex}
-              ingredientsStatsSum={ingredientsStatsSum}
+              ingredientsStatsSum={mealFormStatsTree.stats}
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}
               mealForm={mealForm}
@@ -85,7 +90,9 @@ function MealItem({
 
             <IngredientsList
               ingredientsForms={mealForm.ingredientsForms}
-              ingredientsStats={ingredientsStats}
+              ingredientsStats={mealFormStatsTree.subtrees.map(
+                ({ stats }) => stats
+              )}
               mealForm={mealForm}
               mealIndex={index}
               variantIndex={variantIndex}

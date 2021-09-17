@@ -2,6 +2,7 @@ import { Box, Flex, Divider } from '@chakra-ui/react'
 import { useScreenSize } from 'general'
 import { ReactNode, RefObject } from 'react'
 import ElementContainer from './ElementContainer'
+import useHasSideNavigation from './useHasSideNavigation'
 
 type PageHeaderProps = {
   children: ReactNode
@@ -43,7 +44,7 @@ type PageFooterProps = {
 
 function PageFooter({ children, footerContainerRef }: PageFooterProps) {
   const screenSize = useScreenSize()
-  const hasSideNavigation = screenSize >= 3
+  const hasSideNavigation = useHasSideNavigation()
 
   return (
     <Box

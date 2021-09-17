@@ -40,6 +40,7 @@ function IngredientsList({
               index={index}
               ingredientForm={ingredientForm}
               ingredientStats={ingredientsStats[index]}
+              isLast={index === ingredientsForms.length - 1}
             />
           ))}
           {ingredientsForms.length > 0 && provided.placeholder}

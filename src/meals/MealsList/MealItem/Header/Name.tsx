@@ -34,9 +34,10 @@ function Name({
       onChange={onNameChange}
       autoComplete="off"
       bg="white"
-      textColor="gray.600"
       width="85%"
       fontSize="md"
+      textColor="gray.600"
+      fontWeight="medium"
       size="md"
       value={mealForm.name}
       {...rest}

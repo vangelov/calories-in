@@ -1,36 +1,24 @@
 import { Text, Box, HStack, FlexProps } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 import { RightAligned } from 'layout'
-
-type StatType =
-  | 'ingredient'
-  | 'ingredientEnergy'
-  | 'meal'
-  | 'mealEnergy'
-  | 'diet'
-  | 'dietEnergy'
+import {
+  isForDiet,
+  isForEnergy,
+  StatVariant,
+  getValueFontWeight,
+  getValueTextColor,
+  getLabelColor,
+} from './statsVariants'
 
 type Props = {
   value: number
   valueDetail?: string
   valueDetailLeftIcon?: ReactNode
   label?: string
-  type: StatType
+  type: StatVariant
   showsValueDetail?: boolean
   isLarge?: boolean
 } & FlexProps
-
-function getValueTextColor(statType: StatType) {
-  if (statType.startsWith('ingredient')) {
-    return 'gray.400'
-  }
-
-  if (statType.startsWith('meal')) {
-    return 'gray.500'
-  }
-
-  return undefined
-}
 
 function Stat({
   value,
@@ -42,12 +30,9 @@ function Stat({
   isLarge = false,
   ...rest
 }: Props) {
-  const isForDiet = type.startsWith('diet')
-  const isEnergy = type.endsWith('Energy')
-
   return (
     <RightAligned position="relative" {...rest}>
-      {isForDiet && (
+      {isForDiet(type) && (
         <Box
           position="absolute"
           top="2px"
@@ -59,11 +44,7 @@ function Stat({
       )}
 
       {label && (
-        <Text
-          fontSize={isLarge ? 'md' : 'xs'}
-          fontWeight={isLarge ? 'medium' : undefined}
-          textColor={isForDiet ? undefined : 'gray.400'}
-        >
+        <Text fontSize={isLarge ? 'md' : 'xs'} textColor={getLabelColor(type)}>
           {label}
         </Text>
       )}
@@ -71,19 +52,12 @@ function Stat({
       <Text
         lineHeight={5}
         fontSize={isLarge ? 'xl' : { base: 'sm', md: 'md' }}
-        fontWeight={
-          type === 'dietEnergy'
-            ? 'bold'
-            : isForDiet || type === 'mealEnergy'
-            ? 'semibold'
-            : undefined
-        }
-        css={{ fontVariantNumeric: 'tabular-nums' }}
+        fontWeight={getValueFontWeight(type)}
         textColor={getValueTextColor(type)}
       >
         {value}
         <Text as="span" fontSize={isLarge ? 'md' : 'sm'}>
-          {isEnergy ? 'kcal' : 'g'}
+          {isForEnergy(type) ? 'kcal' : 'g'}
         </Text>
       </Text>
 

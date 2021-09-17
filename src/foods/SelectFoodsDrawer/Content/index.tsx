@@ -7,6 +7,7 @@ import {
   Button,
   VStack,
   Text,
+  HStack,
 } from '@chakra-ui/react'
 import { RefObject, useRef } from 'react'
 import { FoodsList, FoodsListMethods, FoodModal } from 'foods'
@@ -15,6 +16,7 @@ import SelectedFoodsList from './SelectedFoodsList'
 import Header from './Header'
 import useActions from './useActions'
 import { FoodsFilterStoreProvider } from 'foods-filters'
+import MenuButtons from './MenuButtons'
 
 type Props = {
   onClose: () => void
@@ -75,13 +77,17 @@ function Content({
         </VStack>
       </DrawerBody>
 
-      <DrawerFooter>
-        <Button variant="outline" size="md" mr={3} onClick={onClose}>
-          Cancel
-        </Button>
-        <Button size="md" colorScheme="teal" onClick={actions.onSave}>
-          Add
-        </Button>
+      <DrawerFooter justifyContent="space-between">
+        <MenuButtons onImport={() => {}} onExport={() => {}} />
+
+        <HStack spacing={3}>
+          <Button variant="outline" size="md" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button size="md" colorScheme="teal" onClick={actions.onSave}>
+            Add
+          </Button>
+        </HStack>
       </DrawerFooter>
 
       <FoodModal

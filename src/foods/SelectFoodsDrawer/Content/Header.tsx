@@ -13,7 +13,7 @@ function Header({ mealName }: Props) {
       {titlePrefix}
 
       {mealName && (
-        <Text as="span" fontSize="xl" fontWeight="bold">
+        <Text as="span" fontSize="xl" mr={3} fontWeight="bold">
           {mealName}
         </Text>
       )}
