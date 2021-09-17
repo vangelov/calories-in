@@ -51,6 +51,7 @@ function useActions({
     }
 
     if (!oldFood || (oldFood && newFood.categoryId !== oldFood.categoryId)) {
+      listRef.current.scrollToFood(newFood)
     }
   }
 

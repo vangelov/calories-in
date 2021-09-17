@@ -7,6 +7,7 @@ import { IngredientForm } from 'ingredients'
 import { MealForm } from 'meals'
 import { memo } from 'react'
 import { Stats } from 'stats'
+import { Food } from 'foods'
 
 type Props = {
   mealIndex: number
@@ -15,6 +16,7 @@ type Props = {
   onAddIngredients: () => void
   ingredientsForms: IngredientForm[]
   ingredientsStats: Stats[]
+  onViewFoodDetails: (food: Food) => void
 }
 
 function IngredientsList({
@@ -24,6 +26,7 @@ function IngredientsList({
   onAddIngredients,
   ingredientsForms,
   ingredientsStats,
+  onViewFoodDetails,
 }: Props) {
   const dietFormActions = useDietFormActions()
 
@@ -41,6 +44,7 @@ function IngredientsList({
               ingredientForm={ingredientForm}
               ingredientStats={ingredientsStats[index]}
               isLast={index === ingredientsForms.length - 1}
+              onViewFoodDetails={onViewFoodDetails}
             />
           ))}
           {ingredientsForms.length > 0 && provided.placeholder}

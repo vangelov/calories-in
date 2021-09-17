@@ -4,7 +4,7 @@ import Header from './Header'
 import { RefObject, memo } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { IngredientsList } from 'ingredients'
-import { SelectFoodsDrawer } from 'foods'
+import { Food, SelectFoodsDrawer } from 'foods'
 import { useFoods } from 'foods'
 import { useUpdateMealStats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
@@ -16,6 +16,7 @@ type Props = {
   index: number
   variantIndex: number
   onRemove: (variantIndex: number, index: number) => void
+  onViewFoodDetails: (food: Food) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
   onFirstAppear: (mealForm: MealForm) => void
   selectedVariantFormFieldId: string
@@ -30,6 +31,7 @@ function MealItem({
   variantIndex,
   selectedVariantFormFieldId,
   onFirstAppear,
+  onViewFoodDetails,
   ...rest
 }: Props) {
   const drawerDisclosure = useDisclosure()
@@ -97,6 +99,7 @@ function MealItem({
               mealIndex={index}
               variantIndex={variantIndex}
               onAddIngredients={drawerDisclosure.onOpen}
+              onViewFoodDetails={onViewFoodDetails}
             />
 
             <SelectFoodsDrawer

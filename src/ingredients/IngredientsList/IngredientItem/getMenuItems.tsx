@@ -7,15 +7,16 @@ const Trash2Styled = chakra(Trash2)
 
 type Props = {
   onRemove: () => void
+  onViewFoodDetails: () => void
 }
 
-function getMenuItems({ onRemove }: Props) {
+function getMenuItems({ onRemove, onViewFoodDetails }: Props) {
   return [
     <MenuItem key="remove" onClick={onRemove}>
       <Trash2Styled pointerEvents="none" size={20} mr={3} />
       Remove
     </MenuItem>,
-    <MenuItem key="viewDetails" onClick={() => {}}>
+    <MenuItem key="viewDetails" onClick={onViewFoodDetails}>
       <InfoStyled pointerEvents="none" size={20} mr={3} />
       View details
     </MenuItem>,

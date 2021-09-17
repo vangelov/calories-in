@@ -2,15 +2,14 @@ import { ButtonProps } from '@chakra-ui/react'
 import { MoreHorizontal } from 'react-feather'
 import { RightAligned } from 'layout'
 import { ResponsiveIconButton, Menu as MenuBase } from 'general'
-import getMenuItems from './getMenuItems'
+import { MenuItem } from 'general'
+import { ReactElement } from 'react'
 
 type Props = {
-  onRemove: () => void
-  onAddIngredient: () => void
-  index: number
+  items: ReactElement<typeof MenuItem>[]
 } & ButtonProps
 
-function Menu({ index, onRemove, onAddIngredient, ...rest }: Props) {
+function Menu({ items, ...rest }: Props) {
   return (
     <RightAligned>
       <MenuBase
@@ -27,7 +26,7 @@ function Menu({ index, onRemove, onAddIngredient, ...rest }: Props) {
           />
         }
       >
-        {getMenuItems({ onRemove, onAddIngredient })}
+        {items}
       </MenuBase>
     </RightAligned>
   )

@@ -81,14 +81,7 @@ function Header({
         fatElement={
           <Stat type="meal" label="Fat" value={ingredientsStatsSum.fat} />
         }
-        menuElement={
-          <Menu
-            mr={3}
-            index={index}
-            onAddIngredient={() => onAddIngredient(index)}
-            onRemove={() => onRemove(index)}
-          />
-        }
+        menuElement={<Menu mr={3} items={menuItems} />}
       />
     </ContextMenuFlex>
   )

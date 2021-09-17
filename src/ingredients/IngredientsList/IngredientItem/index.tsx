@@ -1,7 +1,7 @@
 import { IngredientForm } from 'ingredients'
 import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
-import { useFoods } from 'foods'
+import { Food, useFoods } from 'foods'
 import { ContextMenuFlex } from 'general'
 import { Stats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
@@ -9,6 +9,7 @@ import useActions from './useActions'
 import getMenuItems from './getMenuItems'
 import StatsLayout from './StatsLayout'
 import MissingStatsLayout from './MissingStatsLayout'
+import Menu from './Menu'
 
 type Props = {
   variantIndex: number
@@ -17,6 +18,7 @@ type Props = {
   ingredientForm: IngredientForm
   ingredientStats: Stats
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
+  onViewFoodDetails: (food: Food) => void
   isLast: boolean
 }
 
@@ -28,6 +30,7 @@ function IngredientItem({
   ingredientStats,
   onRemove,
   isLast,
+  onViewFoodDetails,
 }: Props) {
   const actions = useActions({
     variantIndex,
@@ -36,9 +39,14 @@ function IngredientItem({
     onRemove,
     ingredientForm,
   })
-  const menuItems = getMenuItems({ onRemove: actions.onRemoveRequest })
+
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
+
+  const menuItems = getMenuItems({
+    onRemove: actions.onRemoveRequest,
+    onViewFoodDetails: () => onViewFoodDetails(food),
+  })
 
   return (
     <Draggable
@@ -71,8 +79,8 @@ function IngredientItem({
               <StatsLayout
                 ingredientForm={ingredientForm}
                 ingredientStats={ingredientStats}
-                onRemoveRequest={actions.onRemoveRequest}
                 onAmountChange={actions.onAmountChange}
+                menuElement={<Menu mr={3} items={menuItems} />}
               />
             ) : (
               <MissingStatsLayout onRemoveRequest={actions.onRemoveRequest} />
