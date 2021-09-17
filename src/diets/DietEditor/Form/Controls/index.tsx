@@ -2,22 +2,22 @@ import { Flex, useDisclosure } from '@chakra-ui/react'
 import UndoRedoButtons from './UndoRedoButtons'
 import MenuButtons from './MenuButtons'
 import MainButtons from './MainButtons'
-import { useDietFormActions } from 'diets'
+import { getDietForm, useDietFormActions } from 'diets'
 import useKeyboard from './useKeyboard'
 import { ExportModal } from 'persistence'
 import useLoadDietForm from './useLoadDietForm'
 import { MissingFoodsModal } from 'foods'
 
-type Props = {
-  onImport: () => void
-}
-
-function Controls({ onImport }: Props) {
-  const dietFormStoreActions = useDietFormActions()
+function Controls() {
+  const dietFormActions = useDietFormActions()
   const modalDisclosure = useDisclosure()
   const { onLoadFromFile, missingFoodsModalDisclosure } = useLoadDietForm()
 
   useKeyboard()
+
+  function onClear() {
+    dietFormActions.setDietForm(getDietForm())
+  }
 
   return (
     <Flex width="100%" pt={3} alignItems="center">
@@ -26,10 +26,10 @@ function Controls({ onImport }: Props) {
       </Flex>
 
       <Flex flex="6" justifyContent="flex-end">
-        <MenuButtons onImport={onLoadFromFile} />
+        <MenuButtons onImport={onLoadFromFile} onClear={onClear} />
 
         <MainButtons
-          onMealAdd={dietFormStoreActions.appendMealForm}
+          onMealAdd={dietFormActions.appendMealForm}
           onSave={() => {}}
           onExport={modalDisclosure.onOpen}
         />

@@ -18,7 +18,7 @@ function DietEditor() {
       >
         <MealsStatsStoreProvider>
           <DndContextProvider>
-            <Form onImport={() => {}} isEditingExistingDiet={false} />
+            <Form isEditingExistingDiet={false} />
           </DndContextProvider>
         </MealsStatsStoreProvider>
       </DietFormStoreProvider>

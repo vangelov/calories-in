@@ -8,9 +8,10 @@ const MoreHorizontalStyled = chakra(MoreHorizontal)
 
 type Props = {
   onImport: () => void
+  onClear: () => void
 }
 
-function MenuButtons({ onImport }: Props) {
+function MenuButtons({ onImport, onClear }: Props) {
   const screenSize = useScreenSize()
   const mr = screenSize >= 2 ? 1 : 2
 
@@ -32,9 +33,9 @@ function MenuButtons({ onImport }: Props) {
         <DownloadStyled pointerEvents="none" mr={3} />
         Import
       </MenuItem>
-      <MenuItem>
+      <MenuItem onClick={onClear}>
         <TrashStyled pointerEvents="none" mr={3} />
-        Delete meal plan
+        Clear data
       </MenuItem>
     </Menu>
   )

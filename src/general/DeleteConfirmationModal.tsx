@@ -14,9 +14,17 @@ type Props = {
   isOpen: boolean
   onCancel: () => void
   onConfirm: () => void
+  text: string
+  confirmButtonLabel: String
 }
 
-function DeleteConfirmationModal({ isOpen, onCancel, onConfirm }: Props) {
+function DeleteConfirmationModal({
+  isOpen,
+  onCancel,
+  onConfirm,
+  text,
+  confirmButtonLabel,
+}: Props) {
   return (
     <Modal isOpen={isOpen} onClose={onCancel} size="xs" isCentered>
       <ModalOverlay />
@@ -24,10 +32,7 @@ function DeleteConfirmationModal({ isOpen, onCancel, onConfirm }: Props) {
         <ModalHeader>Delete food</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          <Text>
-            Deleting this food will remove it from all meal plans where it's
-            being used.
-          </Text>
+          <Text>{text}</Text>
           <br />
           <Text fontWeight="medium">This action cannot be undone.</Text>
         </ModalBody>
@@ -37,7 +42,7 @@ function DeleteConfirmationModal({ isOpen, onCancel, onConfirm }: Props) {
             Cancel
           </Button>
           <Button colorScheme="red" ml={3} onClick={onConfirm}>
-            Delete food
+            {confirmButtonLabel}
           </Button>
         </ModalFooter>
       </ModalContent>

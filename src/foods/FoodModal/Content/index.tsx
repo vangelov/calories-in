@@ -69,6 +69,8 @@ function Content({
           )}
 
           <DeleteConfirmationModal
+            text="Deleting this food will remove it from all meal plans where it's being used."
+            confirmButtonLabel="Delete food"
             isOpen={actions.deleteConfirmationDisclosure.isOpen}
             onCancel={actions.deleteConfirmationDisclosure.onClose}
             onConfirm={actions.onConfirmDelete}

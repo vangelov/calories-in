@@ -12,10 +12,9 @@ import { useSaveValue } from 'persistence'
 
 type Props = {
   isEditingExistingDiet: boolean
-  onImport: () => void
 }
 
-function Form({ isEditingExistingDiet, onImport }: Props) {
+function Form({ isEditingExistingDiet }: Props) {
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
   const dietForm = useDietForm()
   const { variantsForms } = dietForm
@@ -43,7 +42,7 @@ function Form({ isEditingExistingDiet, onImport }: Props) {
               selectedVariantForm={selectedVariantForm}
               isEditingExistingDiet={isEditingExistingDiet}
             />
-            <Controls onImport={onImport} />
+            <Controls />
           </>
         </PageHeader>
 
