@@ -1,30 +1,16 @@
 import { Modal, ModalOverlay } from '@chakra-ui/react'
 import { useRef } from 'react'
 import Content from './Content'
-import { VariantNameFormSubmitAction } from './useSubmitVariantNameForm'
 import VariantFormMethodsProvider from './VariantNameFormProvider'
 
 type Props = {
   onClose: () => void
   isOpen: boolean
-  variantFormIndex?: number
-  submitAction: VariantNameFormSubmitAction
+  variantFormIndex: number
 }
 
-function VariantNameModal({
-  onClose,
-  isOpen,
-  variantFormIndex,
-  submitAction,
-}: Props) {
+function VariantNameModal({ onClose, isOpen, variantFormIndex }: Props) {
   const initialRef = useRef<HTMLInputElement>(null)
-  const title =
-    variantFormIndex !== undefined
-      ? submitAction === 'rename'
-        ? 'Rename Variant'
-        : 'Copy Variant'
-      : 'Add Variant'
-
   const finalFocusRef = useRef(null)
 
   return (
@@ -38,11 +24,10 @@ function VariantNameModal({
       <ModalOverlay />
       <VariantFormMethodsProvider variantFormIndex={variantFormIndex}>
         <Content
-          title={title}
+          title="Rename Variant"
           onClose={onClose}
           initialRef={initialRef}
           variantFormIndex={variantFormIndex}
-          submitAction={submitAction}
         />
       </VariantFormMethodsProvider>
     </Modal>

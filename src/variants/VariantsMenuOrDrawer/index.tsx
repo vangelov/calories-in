@@ -6,18 +6,23 @@ import Menu from './Menu'
 import { useDietFormActions } from 'diets'
 import { RefObject } from 'react'
 import { isSafari } from 'react-device-detect'
+import { VariantForm } from 'variants'
 
 type Props = {
   getVariantItemRefById: (field: string) => RefObject<HTMLDivElement>
+  onVariantFormSelect: (variantForm: VariantForm, index: number) => void
 }
 
-function VariantsMenuOrDrawer({ getVariantItemRefById }: Props) {
+function VariantsMenuOrDrawer({
+  getVariantItemRefById,
+  onVariantFormSelect,
+}: Props) {
   const screenSize = useScreenSize()
   const modalDisclosure = useDisclosure()
   const dietActions = useDietFormActions()
 
-  function onSelect(fieldId: string, index: number) {
-    const variantRef = getVariantItemRefById(fieldId)
+  function onSelect(variantForm: VariantForm, index: number) {
+    const variantRef = getVariantItemRefById(variantForm.fieldId)
 
     setTimeout(() => {
       variantRef.current?.scrollIntoView(
@@ -30,7 +35,8 @@ function VariantsMenuOrDrawer({ getVariantItemRefById }: Props) {
       )
     }, 200)
 
-    dietActions.updateDietForm({ selectedVariantFormIndex: index })
+    dietActions.setSelectedVariantFormIndex(index)
+    onVariantFormSelect(variantForm, index)
   }
 
   if (screenSize < 2) {

@@ -3,11 +3,12 @@ import { Check } from 'react-feather'
 import { Menu as MenuBase, MenuItem } from 'general'
 import Trigger from './Trigger'
 import { useDietForm } from 'diets'
+import { VariantForm } from 'variants'
 
 const CheckStyled = chakra(Check)
 
 type Props = {
-  onSelect: (fieldId: string, index: number) => void
+  onSelect: (variantForm: VariantForm, index: number) => void
 }
 
 function Menu({ onSelect }: Props) {
@@ -15,11 +16,12 @@ function Menu({ onSelect }: Props) {
 
   return (
     <MenuBase arrow menuButton={<Trigger />}>
-      {variantsForms.map(({ name, fieldId }, index) => {
+      {variantsForms.map((variantForm, index) => {
+        const { fieldId, name } = variantForm
         const isSelected = index === selectedVariantFormIndex
 
         return (
-          <MenuItem key={fieldId} onClick={() => onSelect(fieldId, index)}>
+          <MenuItem key={fieldId} onClick={() => onSelect(variantForm, index)}>
             <CheckStyled
               color={isSelected ? 'teal' : 'transparent'}
               pointerEvents="none"

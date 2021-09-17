@@ -17,17 +17,17 @@ function getMenuItems({ onClone, onEditName, canRemove, onDelete }: Props) {
   return [
     <MenuItem key="copy" onClick={onClone}>
       <CopyStyled pointerEvents="none" size={20} mr={3} />
-      Copy variant
+      Copy
     </MenuItem>,
 
     <MenuItem key="rename" onClick={onEditName}>
       <EditStyled pointerEvents="none" size={20} mr={3} />
-      Rename variant
+      Rename
     </MenuItem>,
 
     <MenuItem key="remove" disabled={!canRemove} onClick={onDelete}>
       <Trash2Styled pointerEvents="none" size={20} mr={3} />
-      Remove variant
+      Remove
     </MenuItem>,
   ]
 }

@@ -1,6 +1,5 @@
 import { useState, useCallback } from 'react'
 import { VariantForm } from 'variants'
-import { VariantNameFormSubmitAction } from 'variants'
 import { useDietFormActions } from 'diets'
 import { useDisclosure } from '@chakra-ui/hooks'
 
@@ -11,10 +10,8 @@ type Props = {
 
 function useActions({ onVariantFormSelect, onVariantFormCopy }: Props) {
   const modalDisclosure = useDisclosure()
-  const [submitAction, setSubmitAction] = useState<VariantNameFormSubmitAction>(
-    'append'
-  )
-  const [variantFormIndex, setVariantFormIndex] = useState<number>()
+
+  const [variantFormIndex, setVariantFormIndex] = useState<number>(0)
   const dietFormActions = useDietFormActions()
   const [showsScrollButtons, setShowsScrollButtons] = useState(false)
   const [canScrollLeft, setCanScrollLeft] = useState(false)
@@ -24,7 +21,6 @@ function useActions({ onVariantFormSelect, onVariantFormCopy }: Props) {
 
   const onRename = useCallback(
     (index: number) => {
-      setSubmitAction('rename')
       setVariantFormIndex(index)
       onOpen()
     },
@@ -33,18 +29,15 @@ function useActions({ onVariantFormSelect, onVariantFormCopy }: Props) {
 
   const onCopy = useCallback(
     (index: number) => {
-      setSubmitAction('copy')
-      setVariantFormIndex(index)
-      onOpen()
+      dietFormActions.duplicateVariantForm(index)
+      onVariantFormCopy()
     },
-    [onOpen]
+    [dietFormActions, onVariantFormCopy]
   )
 
   const onAppend = useCallback(() => {
-    setSubmitAction('append')
-    setVariantFormIndex(undefined)
-    onOpen()
-  }, [onOpen])
+    dietFormActions.appendVariantForm()
+  }, [dietFormActions])
 
   const onSelect = useCallback(
     (variantForm: VariantForm, index: number) => {
@@ -61,14 +54,6 @@ function useActions({ onVariantFormSelect, onVariantFormCopy }: Props) {
     [dietFormActions]
   )
 
-  const onVariantModalClose = () => {
-    modalDisclosure.onClose()
-
-    if (submitAction === 'copy') {
-      onVariantFormCopy()
-    }
-  }
-
   function onScrollStateChange(
     isScrollable: boolean,
     canScrollLeft: boolean,
@@ -80,13 +65,11 @@ function useActions({ onVariantFormSelect, onVariantFormCopy }: Props) {
   }
 
   return {
-    onVariantModalClose,
     onAppend,
     onCopy,
     onRename,
     onSelect,
     variantFormIndex,
-    submitAction,
     onRemove,
     modalDisclosure,
     showsScrollButtons,

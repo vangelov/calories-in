@@ -26,15 +26,37 @@ function getIndexAfterRemove(selectedIndex: number, indexToRemove: number) {
   return selectedIndex
 }
 
+function getAppendedVariantFormName(variantForms: VariantForm[]) {
+  return enumeratedName(`Day ${variantForms.length + 1}`, variantForms)
+}
+
+function getDuplicatedVariantFormName(
+  index: number,
+  variantForms: VariantForm[]
+) {
+  const variantForm = variantForms[index]
+  return enumeratedName(`Copy of ${variantForm.name}`, variantForms)
+}
+
+function enumeratedName(currentName: string, variantForms: VariantForm[]) {
+  const presentCount = variantForms.filter(({ name }) => name === currentName)
+    .length
+
+  if (presentCount > 0) {
+    return `${currentName} (${presentCount})`
+  }
+
+  return currentName
+}
+
 function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
   const appendVariantForm = useCallback(
-    (partialVariantForm: Partial<VariantForm>) =>
+    () =>
       setDietForm(
         produce(draftDietForm => {
-          const variantForm = {
-            ...getVariantForm(''),
-            ...partialVariantForm,
-          }
+          const variantForm = getVariantForm(
+            getAppendedVariantFormName(draftDietForm.variantsForms)
+          )
 
           oneTimeCheckActions.set(
             getInsertVariantFormAnimationKey(variantForm.fieldId)
@@ -66,7 +88,7 @@ function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
   )
 
   const duplicateVariantForm = useCallback(
-    (variantFormIndex: number, partialVariantForm: Partial<VariantForm>) =>
+    (variantFormIndex: number) =>
       setDietForm(
         produce(draftDietForm => {
           const { variantsForms } = draftDietForm
@@ -78,7 +100,7 @@ function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
           )
           const newVariantFormForm = {
             ...copiedVariantForm,
-            ...partialVariantForm,
+            name: getDuplicatedVariantFormName(variantFormIndex, variantsForms),
           }
 
           variantsForms.splice(variantFormIndex + 1, 0, newVariantFormForm)

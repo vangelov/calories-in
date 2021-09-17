@@ -7,12 +7,13 @@ import {
   DrawerCloseButton,
 } from '@chakra-ui/react'
 import { useDietForm } from 'diets'
+import { VariantForm } from 'variants'
 import VariantItem from './VariantItem'
 
 type Props = {
   isOpen: boolean
   onClose: () => void
-  onSelect: (fieldId: string, index: number) => void
+  onSelect: (variantForm: VariantForm, index: number) => void
 }
 
 function Drawer({ isOpen, onClose, onSelect }: Props) {
@@ -26,7 +27,8 @@ function Drawer({ isOpen, onClose, onSelect }: Props) {
         <DrawerHeader fontSize="md">Variants</DrawerHeader>
 
         <DrawerBody>
-          {variantsForms.map(({ name, fieldId }, index) => {
+          {variantsForms.map((variantForm, index) => {
+            const { fieldId, name } = variantForm
             const isSelected = index === selectedVariantFormIndex
 
             return (
@@ -36,7 +38,7 @@ function Drawer({ isOpen, onClose, onSelect }: Props) {
                 isSelected={isSelected}
                 onClick={() => {
                   onClose()
-                  onSelect(fieldId, index)
+                  onSelect(variantForm, index)
                 }}
               />
             )

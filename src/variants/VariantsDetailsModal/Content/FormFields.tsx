@@ -54,7 +54,7 @@ function FormFields({
             ref={selectInputRef}
           >
             <option key="avg" value={''}>
-              Average for across all days
+              Average across all days
             </option>
             {variantsForms.map(variantForm => (
               <option key={variantForm.fieldId} value={variantForm.fieldId}>

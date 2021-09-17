@@ -14,23 +14,20 @@ import {
 import { RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useMergeRefs } from '@chakra-ui/react'
-import useSubmitVariantNameForm, {
-  VariantNameFormSubmitAction,
-} from './useSubmitVariantNameForm'
+import useSubmitVariantNameForm from './useSubmitVariantNameForm'
 
 type Props = {
   title: string
   onClose: () => void
   initialRef: RefObject<HTMLInputElement>
-  variantFormIndex?: number
-  submitAction: VariantNameFormSubmitAction
+  variantFormIndex: number
 }
 
 function Content({
   title,
   onClose,
   initialRef,
-  submitAction,
+
   variantFormIndex,
 }: Props) {
   const { register, formState } = useFormContext()
@@ -40,7 +37,7 @@ function Content({
 
   const onSubmit = useSubmitVariantNameForm({
     variantFormIndex,
-    submitAction,
+
     onComplete: onClose,
   })
 

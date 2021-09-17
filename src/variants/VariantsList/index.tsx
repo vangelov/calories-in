@@ -2,7 +2,7 @@ import { Flex, IconButton } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
-import { VariantNameModal } from 'variants'
+import VariantNameModal from './VariantNameModal'
 import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
 import { useDietForm } from 'diets'
 import { VariantForm } from 'variants'
@@ -48,7 +48,10 @@ function VariantsList({
         flexShrink={0}
       />
       {!isPhone && (
-        <VariantsMenuOrDrawer getVariantItemRefById={getVariantItemRefById} />
+        <VariantsMenuOrDrawer
+          getVariantItemRefById={getVariantItemRefById}
+          onVariantFormSelect={onVariantFormSelect}
+        />
       )}
 
       <Droppable
@@ -87,7 +90,10 @@ function VariantsList({
       </Droppable>
 
       {isPhone ? (
-        <VariantsMenuOrDrawer getVariantItemRefById={getVariantItemRefById} />
+        <VariantsMenuOrDrawer
+          getVariantItemRefById={getVariantItemRefById}
+          onVariantFormSelect={onVariantFormSelect}
+        />
       ) : (
         <ScrollButtons
           scrollNodeRef={scrollNodeRef}
@@ -99,8 +105,7 @@ function VariantsList({
 
       <VariantNameModal
         isOpen={actions.modalDisclosure.isOpen}
-        onClose={actions.onVariantModalClose}
-        submitAction={actions.submitAction}
+        onClose={actions.modalDisclosure.onClose}
         variantFormIndex={actions.variantFormIndex}
       />
     </Flex>
