@@ -1,5 +1,5 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
-import { Stats, StatsTree } from 'stats'
+import { roundMacrosPercents, Stats, StatsTree, getMacrosPercents } from 'stats'
 import PdfStat from 'stats/PdfStat'
 import PdfStatsLayout from 'stats/PdfStatsLayout'
 import { Style } from '@react-pdf/types/style'
@@ -7,6 +7,7 @@ import { VariantForm } from 'variants'
 import { Food } from 'foods'
 import { getComputedColorFromChakra } from 'theme'
 import PdfMealsList from 'meals/PdfMealsList'
+import { useMemo } from 'react'
 
 type Props = {
   name?: string
@@ -26,6 +27,11 @@ function PdfVariantItem({
   style = {},
 }: Props) {
   const { mealsForms } = variantForm
+
+  const { proteinPercent, carbsPercent, fatPercent } = useMemo(
+    () => roundMacrosPercents(getMacrosPercents(stats)),
+    [stats]
+  )
 
   return (
     <View style={[style]}>
@@ -48,7 +54,7 @@ function PdfVariantItem({
             variant="diet"
             label="Protein"
             value={stats.protein}
-            valueDetail="50%"
+            valueDetail={`${proteinPercent}%`}
           />
         }
         carbsElement={
@@ -56,7 +62,7 @@ function PdfVariantItem({
             variant="diet"
             label="Carbs"
             value={stats.carbs}
-            valueDetail="50%"
+            valueDetail={`${carbsPercent}%`}
           />
         }
         fatElement={
@@ -64,7 +70,7 @@ function PdfVariantItem({
             variant="diet"
             label="Fat"
             value={stats.fat}
-            valueDetail="50%"
+            valueDetail={`${fatPercent}%`}
           />
         }
       />

@@ -4,7 +4,7 @@ import { Text, Button, useDisclosure } from '@chakra-ui/react'
 const COMMON_TOAST_OPTIONS: UseToastOptions = {
   isClosable: true,
   position: 'top',
-  duration: 2500,
+  duration: 2000,
 }
 
 function useToasts() {
@@ -50,6 +50,7 @@ function useToasts() {
       ...COMMON_TOAST_OPTIONS,
       title: 'Could not load file',
       status: 'error',
+      duration: null,
     })
   }
 
@@ -58,6 +59,7 @@ function useToasts() {
       ...COMMON_TOAST_OPTIONS,
       title: 'Could not parse file data',
       status: 'error',
+      duration: null,
     })
   }
 

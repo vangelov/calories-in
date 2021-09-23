@@ -35,7 +35,7 @@ function Name({
       autoComplete="off"
       bg="white"
       width="85%"
-      fontSize="md"
+      fontSize={{ base: 'sm', md: 'md' }}
       textColor="gray.600"
       fontWeight="medium"
       size="md"
