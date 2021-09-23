@@ -13,10 +13,17 @@ const InfoStyled = chakra(Info)
 type Props = {
   food: Food
   isSelected?: boolean
+  isInteractive?: boolean
   onPreview: () => void
 } & FlexProps
 
-function FoodItem({ food, isSelected = false, onPreview, ...rest }: Props) {
+function FoodItem({
+  food,
+  isSelected = false,
+  onPreview,
+  isInteractive = true,
+  ...rest
+}: Props) {
   function onClick(event: MouseEvent<HTMLButtonElement>) {
     event.stopPropagation()
     onPreview()
@@ -30,10 +37,14 @@ function FoodItem({ food, isSelected = false, onPreview, ...rest }: Props) {
     <Box pb={2} {...rest}>
       <AnimateAppear shouldAnimate={shouldAnimate}>
         <Flex
-          cursor="pointer"
-          _hover={{
-            backgroundColor: !isSelected ? 'gray.50' : undefined,
-          }}
+          cursor={isInteractive ? 'pointer' : undefined}
+          _hover={
+            isInteractive
+              ? {
+                  backgroundColor: !isSelected ? 'gray.50' : undefined,
+                }
+              : undefined
+          }
           position="relative"
           transition="border 150ms ease-out"
           borderColor={isSelected ? 'teal.500' : 'gray.200'}
@@ -57,14 +68,16 @@ function FoodItem({ food, isSelected = false, onPreview, ...rest }: Props) {
             position="relative"
             zIndex={1}
           />
-          <ResponsiveIconButton
-            aria-label="Food details"
-            icon={<InfoStyled color="gray.400" pointerEvents="none" />}
-            variant="ghost"
-            onClick={onClick}
-            position="relative"
-            zIndex={1}
-          />
+          {isInteractive && (
+            <ResponsiveIconButton
+              aria-label="Food details"
+              icon={<InfoStyled color="gray.400" pointerEvents="none" />}
+              variant="ghost"
+              onClick={onClick}
+              position="relative"
+              zIndex={1}
+            />
+          )}
         </Flex>
       </AnimateAppear>
     </Box>

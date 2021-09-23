@@ -15,8 +15,10 @@ import useSelection, { Item } from 'general/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
 import Header from './Header'
 import useActions from './useActions'
-import { FoodsFilterStoreProvider } from 'foods-filters'
 import MenuButtons from './MenuButtons'
+import FoodsListModal, {
+  useFoodsListModalDisclosure,
+} from 'foods/FoodsListModal'
 
 type Props = {
   onClose: () => void
@@ -43,6 +45,8 @@ function Content({
     onClose,
   })
 
+  const foodsListModalDisclosure = useFoodsListModalDisclosure()
+
   return (
     <DrawerContent>
       <DrawerCloseButton />
@@ -65,20 +69,21 @@ function Content({
 
           <SelectedFoodsList selection={selection} />
 
-          <FoodsFilterStoreProvider>
-            <FoodsList
-              ref={listRef}
-              searchInputRef={searchInputRef}
-              selection={selection}
-              flex={1}
-              onFoodPreview={actions.onPreviewFood}
-            />
-          </FoodsFilterStoreProvider>
+          <FoodsList
+            ref={listRef}
+            searchInputRef={searchInputRef}
+            selection={selection}
+            flex={1}
+            onFoodPreview={actions.onPreviewFood}
+          />
         </VStack>
       </DrawerBody>
 
       <DrawerFooter justifyContent="space-between">
-        <MenuButtons onImport={() => {}} onExport={() => {}} />
+        <MenuButtons
+          onImport={() => foodsListModalDisclosure.onOpen('import')}
+          onExport={() => foodsListModalDisclosure.onOpen('export')}
+        />
 
         <HStack spacing={3}>
           <Button variant="outline" size="md" onClick={onClose}>
@@ -95,6 +100,12 @@ function Content({
         onClose={actions.foodModalDisclosure.onClose}
         onFoodCreatedOrUpdated={actions.onFoodCreatedOrUpdated}
         food={actions.food}
+      />
+
+      <FoodsListModal
+        isOpen={foodsListModalDisclosure.isOpen}
+        onClose={foodsListModalDisclosure.onClose}
+        action={foodsListModalDisclosure.action}
       />
     </DrawerContent>
   )

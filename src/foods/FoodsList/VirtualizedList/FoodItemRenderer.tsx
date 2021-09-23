@@ -7,6 +7,7 @@ type Data = {
   isFoodSelected: (food: Food) => boolean
   onFoodSelect: (food: Food) => void
   onFoodPreview: (food: Food) => void
+  isInteractive: boolean
 }
 
 type Props = {
@@ -16,7 +17,13 @@ type Props = {
 }
 
 function FoodItemRenderer({ style, index, data }: Props) {
-  const { getFood, onFoodSelect, onFoodPreview, isFoodSelected } = data
+  const {
+    getFood,
+    onFoodSelect,
+    onFoodPreview,
+    isFoodSelected,
+    isInteractive,
+  } = data
   const food = getFood(index)
 
   return (
@@ -30,6 +37,7 @@ function FoodItemRenderer({ style, index, data }: Props) {
       isSelected={isFoodSelected(food)}
       onPreview={() => onFoodPreview(food)}
       food={food}
+      isInteractive={isInteractive}
     />
   )
 }

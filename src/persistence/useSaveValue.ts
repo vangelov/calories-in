@@ -5,23 +5,26 @@ const TIMEOUT = 150
 type Params = {
   value: any
   key: string
+  isEnabled?: boolean
 }
 
-function useSaveValue({ value, key }: Params) {
+function useSaveValue({ value, key, isEnabled = true }: Params) {
   useEffect(() => {
-    const timeoutId = window.setTimeout(() => {
-      try {
-        const valueString = JSON.stringify(value)
-        localStorage.setItem(key, valueString)
-      } catch (error) {
-        // Do nothing
-      }
-    }, TIMEOUT)
+    if (isEnabled) {
+      const timeoutId = window.setTimeout(() => {
+        try {
+          const valueString = JSON.stringify(value)
+          localStorage.setItem(key, valueString)
+        } catch (error) {
+          // Do nothing
+        }
+      }, TIMEOUT)
 
-    return () => {
-      window.clearTimeout(timeoutId)
+      return () => {
+        window.clearTimeout(timeoutId)
+      }
     }
-  }, [value, key])
+  }, [value, key, isEnabled])
 }
 
 export default useSaveValue

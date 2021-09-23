@@ -1,21 +1,21 @@
 import { Button } from '@chakra-ui/react'
-import { useDietForm } from 'diets'
 import { useBlobUrl } from 'persistence'
 import prettyBytes from 'pretty-bytes'
 
 type Props = {
   blob?: Blob
   onClose: () => void
+  fileName: string
+  label: string
 }
 
-function DownloadButton({ blob, onClose }: Props) {
-  const dietForm = useDietForm()
+function DownloadButton({ blob, onClose, fileName, label }: Props) {
   const { url } = useBlobUrl({ blob })
 
   return (
     <Button
       as="a"
-      download={dietForm.name || 'Untitled'}
+      download={fileName}
       target="_blank"
       href={url}
       isDisabled={!url}
@@ -23,9 +23,7 @@ function DownloadButton({ blob, onClose }: Props) {
       variant="solid"
       onClick={onClose}
     >
-      {blob === undefined
-        ? 'Download PDF'
-        : `Download PDF (${prettyBytes(blob.size)})`}
+      {blob === undefined ? label : `${label} (${prettyBytes(blob.size)})`}
     </Button>
   )
 }

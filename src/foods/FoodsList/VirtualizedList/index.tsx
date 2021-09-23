@@ -13,6 +13,7 @@ type Props = {
   onFoodSelect: (food: Food) => void
   onFoodPreview: (food: Food) => void
   forwardRef?: ForwardedRef<FixedSizeList>
+  areItemsInteractive?: boolean
 }
 
 function VirtualizedList({
@@ -22,6 +23,7 @@ function VirtualizedList({
   onFoodPreview,
   foodsCount,
   forwardRef,
+  areItemsInteractive = true,
 }: Props) {
   const [height, setHeight] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
@@ -35,7 +37,13 @@ function VirtualizedList({
         innerElementType={Inner}
         height={height}
         itemCount={foodsCount}
-        itemData={{ getFood, onFoodSelect, onFoodPreview, isFoodSelected }}
+        itemData={{
+          getFood,
+          onFoodSelect,
+          onFoodPreview,
+          isFoodSelected,
+          isInteractive: areItemsInteractive,
+        }}
         itemSize={72}
         width="100%"
         ref={forwardRef}

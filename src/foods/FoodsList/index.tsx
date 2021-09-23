@@ -40,9 +40,11 @@ type FoodsListMethods = {
 
 type Props = {
   searchInputRef?: RefObject<HTMLInputElement>
-  selection: Selection<Item>
+  selection?: Selection<Item>
   onFoodPreview: (food: Food) => void
   forwardedRef?: ForwardedRef<FoodsListMethods>
+  allowsFiltering?: boolean
+  areItemsInteractive?: boolean
 } & FlexProps
 
 function FoodsList({
@@ -50,6 +52,8 @@ function FoodsList({
   searchInputRef,
   onFoodPreview,
   forwardedRef,
+  allowsFiltering = true,
+  areItemsInteractive = true,
   ...rest
 }: Props) {
   const { allFoods, userFoods } = useFoods()
@@ -76,9 +80,11 @@ function FoodsList({
   return (
     <Flex flexDirection="column" {...rest}>
       <HStack spacing={3}>
-        <Box>
-          <FoodsFilterPopoverOrModal />
-        </Box>
+        {allowsFiltering && (
+          <Box>
+            <FoodsFilterPopoverOrModal />
+          </Box>
+        )}
 
         <InputGroup size="md" flex={4}>
           <InputLeftElement
@@ -102,10 +108,15 @@ function FoodsList({
         <VirtualizedList
           ref={listRef}
           foodsCount={filteredFoods.length}
-          isFoodSelected={food => selection.isIdSelected(food.id)}
+          isFoodSelected={food =>
+            selection ? selection.isIdSelected(food.id) : false
+          }
           getFood={index => filteredFoods[index]}
-          onFoodSelect={food => selection.onToggleItem(food)}
+          onFoodSelect={food =>
+            selection ? selection.onToggleItem(food) : () => {}
+          }
           onFoodPreview={onFoodPreview}
+          areItemsInteractive={areItemsInteractive}
         />
       ) : (
         <Flex
