@@ -45,19 +45,31 @@ function useToasts() {
     })
   }
 
-  function showCouldNotLoadFileToast() {
+  function showCouldNotLoadFileToast(file: File) {
     toast({
       ...COMMON_TOAST_OPTIONS,
-      title: 'Could not load file',
+      title: `File ${file.name} could not be loaded`,
       status: 'error',
       duration: null,
     })
   }
 
-  function showCouldNotParseFileToast() {
+  function showCouldNotParseFileToast(file: File) {
     toast({
       ...COMMON_TOAST_OPTIONS,
-      title: 'Could not parse file data',
+      title: `File ${file.name} does is not a meal plan`,
+      status: 'error',
+      duration: null,
+    })
+  }
+
+  function showGeneralError(error: any) {
+    const { message } = error
+    const prefix = 'Something went wrong'
+
+    toast({
+      ...COMMON_TOAST_OPTIONS,
+      title: message ? `${prefix}: ${message}` : prefix,
       status: 'error',
       duration: null,
     })
@@ -69,6 +81,7 @@ function useToasts() {
     showCouldNotParseFileToast,
     showFileImportedWithMissingFoodsToast,
     missingFoodsModalDisclosure,
+    showGeneralError,
   }
 }
 

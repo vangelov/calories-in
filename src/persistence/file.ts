@@ -7,12 +7,13 @@ function createInput(accept: string) {
   return input
 }
 
-function loadFile(accept: string) {
+function selectFile(accept: string) {
   return new Promise<File>((resolve, reject) => {
     const input = createInput(accept)
 
     input.addEventListener('change', function onChange(this: HTMLInputElement) {
       const { files } = this
+      console.log('here')
 
       if (files && files.length > 0) {
         resolve(files[0])
@@ -41,4 +42,4 @@ function readFile(file: File) {
   })
 }
 
-export { loadFile, readFile }
+export { selectFile, readFile }
