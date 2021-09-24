@@ -26,7 +26,7 @@ function useFilterFoods(
   userFoods: Food[],
   filter: FoodsFilter
 ) {
-  const foodsToFilter = filter.onlyFoodsAddedbyUser ? userFoods : allFoods
+  const foodsToFilter = filter.onlyFoodsAddedByUser ? userFoods : allFoods
 
   const fuse = useMemo(() => new Fuse(foodsToFilter, OPTIONS), [foodsToFilter])
   const foodsByCategoryId = useMemo(

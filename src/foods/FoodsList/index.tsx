@@ -68,7 +68,7 @@ function FoodsList({
       foodsFilterActions.resetCategoryIdAndQuery()
 
       if (listRef.current) {
-        const foods = filter.onlyFoodsAddedbyUser ? userFoods : allFoods
+        const foods = filter.onlyFoodsAddedByUser ? userFoods : allFoods
         const index = foods.map(({ id }) => id).indexOf(food.id)
         listRef.current.scrollToItem(index, 'center')
       }

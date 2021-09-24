@@ -36,6 +36,7 @@ function useActions({ food, onFoodCreatedOrUpdated, onClose }: Params) {
     if (food) {
       foodsActions.removeFood(food.id)
       toast({
+        position: 'top',
         title: 'Food deleted',
         status: 'success',
         duration: 2000,

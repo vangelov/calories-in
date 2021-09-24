@@ -34,7 +34,7 @@ function useSubmitFoodForm({ onComplete }: Params) {
     }
     oneTimeCheckActions.set(`test2-${food.id}`)
 
-    foodsActions.setFood(food)
+    foodsActions.setFoods([food])
     onComplete(food)
   })
 

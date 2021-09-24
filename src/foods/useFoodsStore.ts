@@ -32,11 +32,31 @@ function useFoodsStore({ initialFoods }: Params) {
     return initialMap
   })
 
-  const setFood = useCallback(
-    (food: Food) =>
+  const setFoods = useCallback(
+    (foods: Food[]) =>
       setFoodsById(
         produce(draftFoodsById => {
-          draftFoodsById[food.id] = food
+          for (const food of foods) {
+            draftFoodsById[food.id] = food
+          }
+        })
+      ),
+    []
+  )
+
+  const importFoods = useCallback(
+    (foodsToImport: Food[]) =>
+      setFoodsById(
+        produce(draftFoodsById => {
+          const foods = Object.values(draftFoodsById)
+          const finalFoodsToImport = foodsToImport.map((food, index) => ({
+            ...food,
+            id: 1 + foods.length + index,
+          }))
+
+          for (const foodToImport of finalFoodsToImport) {
+            draftFoodsById[foodToImport.id] = foodToImport
+          }
         })
       ),
     []
@@ -61,7 +81,7 @@ function useFoodsStore({ initialFoods }: Params) {
     [allFoods]
   )
 
-  const actions = useCallbacksMemo({ setFood, removeFood })
+  const actions = useCallbacksMemo({ setFoods, removeFood, importFoods })
 
   const state = useCallbacksMemo({
     allFoods,

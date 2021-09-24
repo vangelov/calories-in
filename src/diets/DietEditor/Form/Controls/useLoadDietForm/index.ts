@@ -33,7 +33,7 @@ function useLoadDietForm() {
       } else if (error instanceof SyntaxError) {
         toasts.showCouldNotParseFileToast(file)
       } else {
-        toasts.showGeneralError(error)
+        toasts.showErrorToast(error)
       }
     }
   }

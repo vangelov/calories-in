@@ -1,4 +1,4 @@
-import { Button } from '@chakra-ui/react'
+import { Button, ButtonProps } from '@chakra-ui/react'
 import { useBlobUrl } from 'persistence'
 import prettyBytes from 'pretty-bytes'
 
@@ -7,9 +7,9 @@ type Props = {
   onClose: () => void
   fileName: string
   label: string
-}
+} & ButtonProps
 
-function DownloadButton({ blob, onClose, fileName, label }: Props) {
+function DownloadButton({ blob, onClose, fileName, label, ...rest }: Props) {
   const { url } = useBlobUrl({ blob })
 
   return (
@@ -22,8 +22,11 @@ function DownloadButton({ blob, onClose, fileName, label }: Props) {
       colorScheme="teal"
       variant="solid"
       onClick={onClose}
+      {...rest}
     >
-      {blob === undefined ? label : `${label} (${prettyBytes(blob.size)})`}
+      {blob === undefined || rest.isDisabled
+        ? label
+        : `${label} (${prettyBytes(blob.size)})`}
     </Button>
   )
 }

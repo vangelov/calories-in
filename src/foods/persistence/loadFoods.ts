@@ -11,4 +11,4 @@ function loadFoods() {
   return builInFoods
 }
 
-export { loadFoods }
+export default loadFoods

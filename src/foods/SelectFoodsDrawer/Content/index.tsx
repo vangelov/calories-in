@@ -16,9 +16,11 @@ import SelectedFoodsList from './SelectedFoodsList'
 import Header from './Header'
 import useActions from './useActions'
 import MenuButtons from './MenuButtons'
-import FoodsListModal, {
+import {
+  useImportFoods,
+  FoodsListModal,
   useFoodsListModalDisclosure,
-} from 'foods/FoodsListModal'
+} from 'foods/persistence'
 
 type Props = {
   onClose: () => void
@@ -46,6 +48,7 @@ function Content({
   })
 
   const foodsListModalDisclosure = useFoodsListModalDisclosure()
+  const importFoods = useImportFoods({ foodsListModalDisclosure })
 
   return (
     <DrawerContent>
@@ -81,8 +84,8 @@ function Content({
 
       <DrawerFooter justifyContent="space-between">
         <MenuButtons
-          onImport={() => foodsListModalDisclosure.onOpen('import')}
-          onExport={() => foodsListModalDisclosure.onOpen('export')}
+          onImport={importFoods.onImport}
+          onExport={foodsListModalDisclosure.onOpen}
         />
 
         <HStack spacing={3}>
@@ -105,7 +108,7 @@ function Content({
       <FoodsListModal
         isOpen={foodsListModalDisclosure.isOpen}
         onClose={foodsListModalDisclosure.onClose}
-        action={foodsListModalDisclosure.action}
+        foodsToImport={foodsListModalDisclosure.foodsToImport}
       />
     </DrawerContent>
   )

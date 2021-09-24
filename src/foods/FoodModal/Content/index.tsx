@@ -12,7 +12,7 @@ import {
 import { Food } from 'foods'
 import FormFields from './FormFields'
 import { RefObject } from 'react'
-import { DeleteConfirmationModal } from 'general'
+import DeleteConfirmationModal from './DeleteConfirmationModal'
 import useActions from './useActions'
 
 type Props = {

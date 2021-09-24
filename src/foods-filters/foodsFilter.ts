@@ -1,24 +1,24 @@
 const DEFAULT_FILTER: FoodsFilter = {
   query: '',
-  onlyFoodsAddedbyUser: false,
+  onlyFoodsAddedByUser: false,
   categoryId: 0,
 }
 
 type FoodsFilter = {
   categoryId?: number
-  onlyFoodsAddedbyUser?: boolean
+  onlyFoodsAddedByUser?: boolean
   query: string
 }
 
 function nonQueryChangesCount(filter: FoodsFilter) {
   let count = 0
-  const { categoryId, onlyFoodsAddedbyUser } = filter
+  const { categoryId, onlyFoodsAddedByUser } = filter
 
   if (categoryId !== DEFAULT_FILTER.categoryId) {
     count++
   }
 
-  if (onlyFoodsAddedbyUser !== DEFAULT_FILTER.onlyFoodsAddedbyUser) {
+  if (onlyFoodsAddedByUser !== DEFAULT_FILTER.onlyFoodsAddedByUser) {
     count++
   }
 

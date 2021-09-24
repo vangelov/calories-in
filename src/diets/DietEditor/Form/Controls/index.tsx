@@ -6,7 +6,7 @@ import { getDietForm, useDietFormActions } from 'diets'
 import useKeyboard from './useKeyboard'
 import { ExportModal } from 'persistence'
 import useLoadDietForm from './useLoadDietForm'
-import { MissingFoodsModal } from 'foods'
+import { MissingFoodsModal } from 'foods/persistence'
 
 function Controls() {
   const dietFormActions = useDietFormActions()
