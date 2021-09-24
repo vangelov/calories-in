@@ -4,7 +4,7 @@ import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import DndContextProvider from './DndContextProvider'
 import { MealsStatsStoreProvider } from 'stats'
 import { useState } from 'react'
-import { loadLastOrDefaultDietForm } from 'persistence'
+import { loadLastOrDefaultDietForm } from 'diets/persistence'
 
 function DietEditor() {
   const oneTimeCheckActions = useOneTimeCheckActions()

@@ -8,7 +8,7 @@ import { FoodsStoreProvider } from 'foods'
 import { loadFoods } from 'foods/persistence'
 import { OneTimeCheckStoreProvider } from 'general/oneTimeCheck'
 import { DietEditor } from 'diets'
-import { loadFoodsFilter } from 'persistence'
+import { loadFoodsFilter } from 'foods-filters/persistence'
 import { useState } from 'react'
 import { FoodsFilterStoreProvider } from 'foods-filters'
 

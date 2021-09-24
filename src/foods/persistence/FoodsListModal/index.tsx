@@ -1,7 +1,6 @@
-import { Modal, ModalOverlay } from '@chakra-ui/react'
+import { Modal, ModalOverlay, useToast } from '@chakra-ui/react'
 import { Food, FoodsStoreProvider, useFoods, useFoodsActions } from 'foods'
 import { DEFAULT_FILTER, FoodsFilterStoreProvider } from 'foods-filters'
-import { useImportToasts } from 'persistence'
 import Content from './Content'
 
 type Props = {
@@ -14,13 +13,18 @@ function FoodsListModal({ onClose, isOpen, foodsToImport }: Props) {
   const title = foodsToImport ? 'Import Foods' : 'Export Foods'
   const { userFoods } = useFoods()
   const foodsActions = useFoodsActions()
-  const importToasts = useImportToasts()
+  const toast = useToast()
   const foods = foodsToImport || userFoods
 
   function onImport() {
     if (foodsToImport) {
       foodsActions.importFoods(foodsToImport)
-      importToasts.showFileImportedToast()
+      toast({
+        position: 'top',
+        variant: 'success',
+        title: 'Foods imported',
+        isClosable: true,
+      })
       onClose()
     }
   }

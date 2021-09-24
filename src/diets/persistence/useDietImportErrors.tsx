@@ -1,16 +1,8 @@
-import { useToast, UseToastOptions } from '@chakra-ui/toast'
+import { useToast } from '@chakra-ui/toast'
 import { Text, Button, useDisclosure } from '@chakra-ui/react'
-import { useImportToasts } from 'persistence'
 
-const COMMON_TOAST_OPTIONS: UseToastOptions = {
-  isClosable: true,
-  position: 'top',
-  duration: 2000,
-}
-
-function useToasts() {
+function useDietImportErrors() {
   const toast = useToast()
-  const importToasts = useImportToasts()
   const missingFoodsModalDisclosure = useDisclosure()
 
   function onLearnAboutMissingFoods() {
@@ -18,9 +10,10 @@ function useToasts() {
     missingFoodsModalDisclosure.onOpen()
   }
 
-  function showFileImportedWithMissingFoodsToast() {
+  function onMissingFoods() {
     toast({
-      ...COMMON_TOAST_OPTIONS,
+      isClosable: true,
+      position: 'top',
       title: 'File imported',
       description: (
         <Text>
@@ -40,10 +33,9 @@ function useToasts() {
   }
 
   return {
-    showFileImportedWithMissingFoodsToast,
+    onMissingFoods,
     missingFoodsModalDisclosure,
-    ...importToasts,
   }
 }
 
-export default useToasts
+export default useDietImportErrors

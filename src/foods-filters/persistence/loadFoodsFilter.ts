@@ -11,4 +11,4 @@ function loadFoodsFilter() {
   return DEFAULT_FILTER
 }
 
-export { loadFoodsFilter }
+export default loadFoodsFilter

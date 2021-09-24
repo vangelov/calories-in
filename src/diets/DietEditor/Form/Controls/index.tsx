@@ -4,14 +4,13 @@ import MenuButtons from './MenuButtons'
 import MainButtons from './MainButtons'
 import { getDietForm, useDietFormActions } from 'diets'
 import useKeyboard from './useKeyboard'
-import { ExportModal } from 'persistence'
-import useLoadDietForm from './useLoadDietForm'
+import { ExportModal, useImportDietForm } from 'diets/persistence'
 import { MissingFoodsModal } from 'foods/persistence'
 
 function Controls() {
   const dietFormActions = useDietFormActions()
   const modalDisclosure = useDisclosure()
-  const { onLoadFromFile, missingFoodsModalDisclosure } = useLoadDietForm()
+  const { onLoadFromFile, missingFoodsModalDisclosure } = useImportDietForm()
 
   useKeyboard()
 
