@@ -1,9 +1,12 @@
 import { useToast } from '@chakra-ui/toast'
-import { Text, Button, useDisclosure } from '@chakra-ui/react'
+import { Text, Button, UseDisclosureReturn } from '@chakra-ui/react'
 
-function useDietImportErrors() {
+type Params = {
+  missingFoodsModalDisclosure: UseDisclosureReturn
+}
+
+function useDietImportErrors({ missingFoodsModalDisclosure }: Params) {
   const toast = useToast()
-  const missingFoodsModalDisclosure = useDisclosure()
 
   function onLearnAboutMissingFoods() {
     toast.closeAll()

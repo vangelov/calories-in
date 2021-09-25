@@ -41,7 +41,7 @@ type FoodsListMethods = {
 type Props = {
   searchInputRef?: RefObject<HTMLInputElement>
   selection?: Selection<Item>
-  onFoodPreview: (food: Food) => void
+  onFoodPreview?: (food: Food) => void
   forwardedRef?: ForwardedRef<FoodsListMethods>
   allowsFiltering?: boolean
   areItemsInteractive?: boolean
@@ -115,7 +115,7 @@ function FoodsList({
           onFoodSelect={food =>
             selection ? selection.onToggleItem(food) : () => {}
           }
-          onFoodPreview={onFoodPreview}
+          onFoodPreview={onFoodPreview || (() => {})}
           areItemsInteractive={areItemsInteractive}
         />
       ) : (

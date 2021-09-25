@@ -5,12 +5,19 @@ import MainButtons from './MainButtons'
 import { getDietForm, useDietFormActions } from 'diets'
 import useKeyboard from './useKeyboard'
 import { ExportModal, useImportDietForm } from 'diets/persistence'
-import { MissingFoodsModal } from 'foods/persistence'
+import {
+  FoodsListModal,
+  MissingFoodsModal,
+  useImportFoods,
+} from 'foods/persistence'
 
 function Controls() {
   const dietFormActions = useDietFormActions()
-  const modalDisclosure = useDisclosure()
-  const { onLoadFromFile, missingFoodsModalDisclosure } = useImportDietForm()
+  const exportModalDisclosure = useDisclosure()
+  const missingFoodsModalDisclosure = useDisclosure()
+  const { onLoadFromFile } = useImportDietForm({ missingFoodsModalDisclosure })
+  const foodsListModalDisclosure = useDisclosure()
+  const importFoods = useImportFoods({ foodsListModalDisclosure })
 
   useKeyboard()
 
@@ -29,18 +36,24 @@ function Controls() {
 
         <MainButtons
           onMealAdd={dietFormActions.appendMealForm}
-          onSave={() => {}}
-          onExport={modalDisclosure.onOpen}
+          onExport={exportModalDisclosure.onOpen}
         />
 
         <ExportModal
-          isOpen={modalDisclosure.isOpen}
-          onClose={modalDisclosure.onClose}
+          isOpen={exportModalDisclosure.isOpen}
+          onClose={exportModalDisclosure.onClose}
         />
 
         <MissingFoodsModal
           isOpen={missingFoodsModalDisclosure.isOpen}
-          onCancel={missingFoodsModalDisclosure.onClose}
+          onClose={missingFoodsModalDisclosure.onClose}
+          onImport={importFoods.onImport}
+        />
+
+        <FoodsListModal
+          isOpen={foodsListModalDisclosure.isOpen}
+          onClose={foodsListModalDisclosure.onClose}
+          foodsToImport={importFoods.foodsToImport}
         />
       </Flex>
     </Flex>

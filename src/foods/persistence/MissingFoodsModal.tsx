@@ -12,12 +12,13 @@ import {
 
 type Props = {
   isOpen: boolean
-  onCancel: () => void
+  onClose: () => void
+  onImport: () => void
 }
 
-function MissingFoodsModal({ isOpen, onCancel }: Props) {
+function MissingFoodsModal({ isOpen, onClose, onImport }: Props) {
   return (
-    <Modal isOpen={isOpen} onClose={onCancel} size="lg" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Missing foods</ModalHeader>
@@ -33,12 +34,19 @@ function MissingFoodsModal({ isOpen, onCancel }: Props) {
         </ModalBody>
 
         <ModalFooter>
-          <Button variant="outline" onClick={onCancel} mr={3}>
-            Import foods
+          <Button onClick={onClose} mr={3}>
+            Continue
           </Button>
 
-          <Button variant="solid" colorScheme="teal" onClick={onCancel}>
-            Continue
+          <Button
+            variant="solid"
+            colorScheme="teal"
+            onClick={() => {
+              onImport()
+              onClose()
+            }}
+          >
+            Import foods
           </Button>
         </ModalFooter>
       </ModalContent>

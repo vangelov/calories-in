@@ -8,6 +8,7 @@ import {
   VStack,
   Text,
   HStack,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { RefObject, useRef, useState } from 'react'
 import { FoodsList, FoodsListMethods, FoodModal } from 'foods'
@@ -16,11 +17,7 @@ import SelectedFoodsList from './SelectedFoodsList'
 import Header from './Header'
 import useActions from './useActions'
 import MenuButtons from './MenuButtons'
-import {
-  useImportFoods,
-  FoodsListModal,
-  useFoodsListModalDisclosure,
-} from 'foods/persistence'
+import { useImportFoods, FoodsListModal } from 'foods/persistence'
 import { FoodsFilterStoreProvider } from 'foods-filters'
 import { loadFoodsFilter } from 'foods-filters/persistence'
 
@@ -49,7 +46,7 @@ function Content({
     onClose,
   })
 
-  const foodsListModalDisclosure = useFoodsListModalDisclosure()
+  const foodsListModalDisclosure = useDisclosure()
   const importFoods = useImportFoods({ foodsListModalDisclosure })
   const [foodsFilter] = useState(loadFoodsFilter)
 
@@ -113,7 +110,7 @@ function Content({
       <FoodsListModal
         isOpen={foodsListModalDisclosure.isOpen}
         onClose={foodsListModalDisclosure.onClose}
-        foodsToImport={foodsListModalDisclosure.foodsToImport}
+        foodsToImport={importFoods.foodsToImport}
       />
     </DrawerContent>
   )

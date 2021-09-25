@@ -5,12 +5,17 @@ import { hasMissingFoods, parseDietForm } from 'diets/persistence'
 import useFileImportError from 'persistence/useImportFileError'
 import { useToast } from '@chakra-ui/toast'
 import useDietImportErrors from './useDietImportErrors'
+import { UseDisclosureReturn } from '@chakra-ui/hooks'
 
-function useImportDietForm() {
+type Params = {
+  missingFoodsModalDisclosure: UseDisclosureReturn
+}
+
+function useImportDietForm({ missingFoodsModalDisclosure }: Params) {
   const { foodsById } = useFoods()
   const dietFormActions = useDietFormActions()
   const fileImportError = useFileImportError()
-  const dietImportErrors = useDietImportErrors()
+  const dietImportErrors = useDietImportErrors({ missingFoodsModalDisclosure })
   const toast = useToast()
 
   async function onLoadFromFile() {

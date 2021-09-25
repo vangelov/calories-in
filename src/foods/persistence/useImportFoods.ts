@@ -1,13 +1,15 @@
+import { UseDisclosureReturn } from '@chakra-ui/hooks'
 import { Food } from 'foods'
 import { selectFile, readFile, useFileImportError } from 'persistence'
-import { FoodsListModalDisclosure } from './FoodsListModal'
+import { useState } from 'react'
 
 type Params = {
-  foodsListModalDisclosure: FoodsListModalDisclosure
+  foodsListModalDisclosure: UseDisclosureReturn
 }
 
 function useImportFoods({ foodsListModalDisclosure }: Params) {
   const fileImportError = useFileImportError()
+  const [foodsToImport, setFoodsToImport] = useState<Food[]>()
 
   async function onImport() {
     const file = await selectFile('text/json')
@@ -15,8 +17,8 @@ function useImportFoods({ foodsListModalDisclosure }: Params) {
     try {
       const text = await readFile(file)
       const foodsToImport = JSON.parse(text) as Food[]
-
-      foodsListModalDisclosure.onOpen({ foodsToImport })
+      setFoodsToImport(foodsToImport)
+      foodsListModalDisclosure.onOpen()
     } catch (error: any) {
       fileImportError.onError({ error, file })
     }
@@ -24,6 +26,7 @@ function useImportFoods({ foodsListModalDisclosure }: Params) {
 
   return {
     onImport,
+    foodsToImport,
   }
 }
 

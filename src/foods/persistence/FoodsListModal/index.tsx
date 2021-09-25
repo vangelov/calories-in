@@ -57,7 +57,4 @@ function FoodsListModal({ onClose, isOpen, foodsToImport }: Props) {
 
 export type { Props }
 
-export { default as useFoodsListModalDisclosure } from './useFoodsListModalDisclosure'
-export * from './useFoodsListModalDisclosure'
-
 export default FoodsListModal

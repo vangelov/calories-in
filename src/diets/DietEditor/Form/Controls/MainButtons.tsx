@@ -6,11 +6,11 @@ const PlusStyled = chakra(Plus)
 
 type Props = {
   onMealAdd: () => void
-  onSave: () => void
+
   onExport: () => void
 }
 
-function MainButtons({ onMealAdd, onSave, onExport }: Props) {
+function MainButtons({ onMealAdd, onExport }: Props) {
   const screenSize = useScreenSize()
   const mr = screenSize >= 2 ? 1 : 2
 

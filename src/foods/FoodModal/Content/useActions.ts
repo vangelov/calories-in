@@ -8,7 +8,7 @@ import useSubmitFoodForm from './useSubmitFoodForm'
 type Params = {
   food?: Food
   onClose: () => void
-  onFoodCreatedOrUpdated: (newFood: Food, oldFood?: Food) => void
+  onFoodCreatedOrUpdated?: (newFood: Food, oldFood?: Food) => void
 }
 
 function useActions({ food, onFoodCreatedOrUpdated, onClose }: Params) {
@@ -19,7 +19,7 @@ function useActions({ food, onFoodCreatedOrUpdated, onClose }: Params) {
 
   const { onSubmit } = useSubmitFoodForm({
     onComplete: (newOrUpdatedFood: Food) => {
-      onFoodCreatedOrUpdated(newOrUpdatedFood, food)
+      onFoodCreatedOrUpdated && onFoodCreatedOrUpdated(newOrUpdatedFood, food)
       onClose()
     },
   })

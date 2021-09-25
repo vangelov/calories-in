@@ -20,7 +20,7 @@ type Props = {
   title: string
   nameInputRef: RefObject<HTMLInputElement>
   food?: Food
-  onFoodCreatedOrUpdated: (newFood: Food, oldFood?: Food) => void
+  onFoodCreatedOrUpdated?: (newFood: Food, oldFood?: Food) => void
 }
 
 function Content({
