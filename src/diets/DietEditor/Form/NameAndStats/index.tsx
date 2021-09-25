@@ -27,7 +27,7 @@ function NameAndStats({ selectedVariantForm }: Props) {
 
   return (
     <Flex
-      pb={2}
+      pb={3}
       borderBottomWidth={1}
       borderBottomColor="gray.100"
       width="100%"
