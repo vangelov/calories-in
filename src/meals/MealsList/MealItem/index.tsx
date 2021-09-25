@@ -4,7 +4,7 @@ import Header from './Header'
 import { RefObject, memo } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { IngredientsList } from 'ingredients'
-import { Food, SelectFoodsDrawer } from 'foods'
+import { SelectFoodsDrawer } from 'foods'
 import { useFoods } from 'foods'
 import { useUpdateMealStats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
@@ -16,7 +16,6 @@ type Props = {
   index: number
   variantIndex: number
   onRemove: (variantIndex: number, index: number) => void
-  onViewFoodDetails: (food: Food) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
   onFirstAppear: (mealForm: MealForm) => void
   selectedVariantFormFieldId: string
@@ -31,7 +30,7 @@ function MealItem({
   variantIndex,
   selectedVariantFormFieldId,
   onFirstAppear,
-  onViewFoodDetails,
+
   ...rest
 }: Props) {
   const drawerDisclosure = useDisclosure()
@@ -47,6 +46,11 @@ function MealItem({
   const mealFormStatsTree = useMemo(
     () => getMealFormStatsTree(mealForm, foodsById),
     [mealForm, foodsById]
+  )
+
+  const ingredientsStats = useMemo(
+    () => mealFormStatsTree.subtrees.map(({ stats }) => stats),
+    [mealFormStatsTree]
   )
 
   useUpdateMealStats({
@@ -92,14 +96,11 @@ function MealItem({
 
             <IngredientsList
               ingredientsForms={mealForm.ingredientsForms}
-              ingredientsStats={mealFormStatsTree.subtrees.map(
-                ({ stats }) => stats
-              )}
+              ingredientsStats={ingredientsStats}
               mealForm={mealForm}
               mealIndex={index}
               variantIndex={variantIndex}
               onAddIngredients={drawerDisclosure.onOpen}
-              onViewFoodDetails={onViewFoodDetails}
             />
 
             <SelectFoodsDrawer

@@ -7,20 +7,17 @@ import { Droppable } from 'react-beautiful-dnd'
 import { useDietFormActions } from 'diets'
 import { MealForm } from 'meals'
 import useScrollToAndFocusMeal from './useScrollToAndFocusMeal'
-import { Food } from 'foods'
 
 type Props = {
   mealsForms: MealForm[]
   selectedVariantFormIndex: number
   selectedVariantFormFieldId: string
-  onViewFoodDetails: (food: Food) => void
 }
 
 function MealsList({
   mealsForms,
   selectedVariantFormIndex,
   selectedVariantFormFieldId,
-  onViewFoodDetails,
 }: Props) {
   const getMealNameInputRefById = useGetRefForId<HTMLInputElement>()
   const scrollTargetRef = useRef<HTMLDivElement>(null)
@@ -46,7 +43,6 @@ function MealsList({
               mealForm={mealForm}
               onFirstAppear={onScrollToMeal}
               selectedVariantFormFieldId={selectedVariantFormFieldId}
-              onViewFoodDetails={onViewFoodDetails}
             />
           ))}
 

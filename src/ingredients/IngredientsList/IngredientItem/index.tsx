@@ -1,7 +1,7 @@
 import { IngredientForm } from 'ingredients'
 import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
-import { Food, useFoods } from 'foods'
+import { FoodModal, useFoods } from 'foods'
 import { ContextMenuFlex } from 'general'
 import { Stats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
@@ -10,6 +10,7 @@ import getMenuItems from './getMenuItems'
 import StatsLayout from './StatsLayout'
 import MissingStatsLayout from './MissingStatsLayout'
 import Menu from './Menu'
+import { useDisclosure } from '@chakra-ui/hooks'
 
 type Props = {
   variantIndex: number
@@ -18,7 +19,6 @@ type Props = {
   ingredientForm: IngredientForm
   ingredientStats: Stats
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
-  onViewFoodDetails: (food: Food) => void
   isLast: boolean
 }
 
@@ -30,7 +30,6 @@ function IngredientItem({
   ingredientStats,
   onRemove,
   isLast,
-  onViewFoodDetails,
 }: Props) {
   const actions = useActions({
     variantIndex,
@@ -42,10 +41,11 @@ function IngredientItem({
 
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
+  const foodModalDisclosure = useDisclosure()
 
   const menuItems = getMenuItems({
     onRemove: actions.onRemoveRequest,
-    onViewFoodDetails: () => onViewFoodDetails(food),
+    onViewFoodDetails: foodModalDisclosure.onOpen,
   })
 
   return (
@@ -86,6 +86,13 @@ function IngredientItem({
               <MissingStatsLayout onRemoveRequest={actions.onRemoveRequest} />
             )}
           </ContextMenuFlex>
+
+          <FoodModal
+            isOpen={foodModalDisclosure.isOpen}
+            onClose={foodModalDisclosure.onClose}
+            onFoodCreatedOrUpdated={() => {}}
+            food={food}
+          />
         </PresenceAnimation>
       )}
     </Draggable>

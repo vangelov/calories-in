@@ -1,6 +1,6 @@
 import { useDietForm } from 'diets'
 import { FormVersionsStoreProvider } from 'general/formVersions'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Page, PageHeader, PageBody, PageFooter } from 'layout'
 import NameAndStats from './NameAndStats'
 import { MealsList } from 'meals'
@@ -9,8 +9,6 @@ import { VariantsList } from 'variants'
 import useScrollManager from './useScrollManager'
 import useActions from './useActions'
 import { useSaveValue } from 'persistence'
-import { Food, FoodModal } from 'foods'
-import { useDisclosure } from '@chakra-ui/hooks'
 
 type Props = {
   isEditingExistingDiet: boolean
@@ -27,15 +25,8 @@ function Form({ isEditingExistingDiet }: Props) {
     horizontalScrollRef,
   })
   const actions = useActions({ scrollManager })
-  const foodModalDisclosure = useDisclosure()
-  const [food, setFood] = useState<Food>()
 
   useSaveValue({ value: dietForm, key: 'lastDietForm' })
-
-  function onViewFoodDetails(food: Food) {
-    setFood(food)
-    foodModalDisclosure.onOpen()
-  }
 
   return (
     <FormVersionsStoreProvider
@@ -45,12 +36,6 @@ function Form({ isEditingExistingDiet }: Props) {
       onRedo={actions.onUndoOrRedo}
     >
       <Page>
-        <FoodModal
-          isOpen={foodModalDisclosure.isOpen}
-          onClose={foodModalDisclosure.onClose}
-          onFoodCreatedOrUpdated={() => {}}
-          food={food}
-        />
         <PageHeader>
           <>
             <NameAndStats
@@ -66,7 +51,6 @@ function Form({ isEditingExistingDiet }: Props) {
             selectedVariantFormFieldId={selectedVariantForm.fieldId}
             mealsForms={selectedVariantForm.mealsForms}
             selectedVariantFormIndex={dietForm.selectedVariantFormIndex}
-            onViewFoodDetails={onViewFoodDetails}
           />
         </PageBody>
 
