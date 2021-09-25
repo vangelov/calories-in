@@ -1,10 +1,10 @@
-import { Food } from 'foods'
+import { Food, FoodId } from 'foods'
 import { useForm } from 'react-hook-form'
 import { object, string, number } from 'yup'
 import { objectFromNutritionDataKeys, MappedNutritionData } from 'stats'
 
 type FoodForm = {
-  id?: number
+  id?: FoodId
   name: string
   categoryId: number
   servingSizeInGrams: string

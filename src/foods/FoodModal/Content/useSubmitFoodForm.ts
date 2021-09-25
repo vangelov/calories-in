@@ -2,7 +2,8 @@ import { objectFromNutritionDataKeys } from 'stats'
 import { Food, FoodForm } from 'foods'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
 import { useFormContext } from 'react-hook-form'
-import { useFoodsActions, useFoods } from 'foods'
+import { useFoodsActions } from 'foods'
+import { v4 as uuidv4 } from 'uuid'
 
 type Params = {
   onComplete: (food: Food) => void
@@ -11,17 +12,11 @@ type Params = {
 function useSubmitFoodForm({ onComplete }: Params) {
   const { handleSubmit } = useFormContext()
   const foodsActions = useFoodsActions()
-  const { foodsById } = useFoods()
   const oneTimeCheckActions = useOneTimeCheckActions()
 
   const onSubmit = handleSubmit((foodForm: FoodForm) => {
-    const id =
-      foodForm.id !== undefined
-        ? foodForm.id
-        : Object.keys(foodsById).length + 1
-
     const food: Food = {
-      id,
+      id: uuidv4(),
       name: foodForm.name,
       categoryId: foodForm.categoryId,
       addedByUser: true,

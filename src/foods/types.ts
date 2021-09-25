@@ -1,11 +1,13 @@
 import { NutritionData } from 'stats'
 
+type FoodId = string | number
+
 type Food = {
-  id: number
+  id: FoodId
   categoryId: number
   name: string
   addedByUser?: boolean
   servingSizeInGrams?: number
 } & NutritionData
 
-export type { Food }
+export type { Food, FoodId }

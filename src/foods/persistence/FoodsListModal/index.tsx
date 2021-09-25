@@ -18,10 +18,10 @@ function FoodsListModal({ onClose, isOpen, foodsToImport }: Props) {
 
   function onImport() {
     if (foodsToImport) {
-      foodsActions.importFoods(foodsToImport)
+      foodsActions.setFoods(foodsToImport)
       toast({
         position: 'top',
-        variant: 'success',
+        status: 'success',
         title: 'Foods imported',
         isClosable: true,
       })

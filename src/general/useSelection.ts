@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
-type Item = { id: number }
-
-type SelectionMap = { [id: number]: boolean | undefined }
+type Id = number | string
+type Item = { id: Id }
+type SelectionMap = { [id in Id]: boolean | undefined }
 
 type Selection<T extends Item> = {
-  isIdSelected: (id: number) => boolean
+  isIdSelected: (id: Id) => boolean
   onToggleItem: (item: T) => void
   selectedItems: T[]
   selectionMap: SelectionMap
@@ -27,7 +27,7 @@ function useSelection<T extends Item>(): Selection<T> {
     setSelectionMap({ ...selectionMap, [id]: !isSelected })
   }
 
-  function isIdSelected(id: number) {
+  function isIdSelected(id: Id) {
     const isSelected = Boolean(selectionMap[id])
     return isSelected
   }

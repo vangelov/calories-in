@@ -1,7 +1,7 @@
 import { DietForm } from 'diets'
-import { Food } from 'foods'
+import { Food, FoodId } from 'foods'
 
-function hasMissingFoods(dietForm: DietForm, foodsById: Record<number, Food>) {
+function hasMissingFoods(dietForm: DietForm, foodsById: Record<FoodId, Food>) {
   const { variantsForms } = dietForm
 
   for (const variantForm of variantsForms) {
