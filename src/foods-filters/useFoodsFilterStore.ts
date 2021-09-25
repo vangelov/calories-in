@@ -39,7 +39,7 @@ function useFoodsFilterStore({
   const resetCategoryIdAndQuery = useCallback(() => {
     setFilter(filter => ({
       ...DEFAULT_FILTER,
-      onlyFoodsAddedbyUser: filter.onlyFoodsAddedByUser,
+      onlyFoodsAddedByUser: filter.onlyFoodsAddedByUser,
     }))
   }, [])
 

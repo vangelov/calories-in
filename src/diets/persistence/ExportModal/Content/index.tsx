@@ -28,7 +28,7 @@ function Content({ onClose }: Props) {
       <ModalHeader>Export</ModalHeader>
       <ModalCloseButton />
       <ModalBody>
-        <Suspense fallback={<Loader label="Loading..." />}>
+        <Suspense fallback={<Loader label="Exporting..." />}>
           <Exporter onBlobUpdate={setBlob} />
         </Suspense>
       </ModalBody>
@@ -41,8 +41,9 @@ function Content({ onClose }: Props) {
         <DownloadButton
           blob={blob}
           onClose={onClose}
-          label="Download PDF"
+          label="Download"
           fileName={fileName}
+          isLoading={blob === undefined}
         />
       </ModalFooter>
     </ModalContent>

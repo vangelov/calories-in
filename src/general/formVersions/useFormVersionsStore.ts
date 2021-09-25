@@ -69,8 +69,6 @@ function useFormVersionsStore({
   const redo = useCallback(() => {
     const result = deltasStackRef.current.getNextNodeToPatch()
 
-    console.log('redo')
-
     if (result) {
       const { delta, appLocation } = result
       lastFormRef.current = patcher.patch(lastFormRef.current, deepCopy(delta))
@@ -90,12 +88,12 @@ function useFormVersionsStore({
         clearTimeout(timeoutIdRef.current)
       }
 
-      console.log('push', form, lastFormRef.current)
+      //console.log('push', form, lastFormRef.current)
 
       timeoutIdRef.current = window.setTimeout(() => {
         if (form !== lastFormRef.current) {
           const delta = patcher.diff(lastFormRef.current, form)
-          console.log('d', delta)
+          //console.log('d', delta)
           if (delta && shouldSaveDelta(delta)) {
             lastFormRef.current = deepCopy(form)
 

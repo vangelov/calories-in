@@ -9,7 +9,7 @@ import {
   Text,
   HStack,
 } from '@chakra-ui/react'
-import { RefObject, useRef } from 'react'
+import { RefObject, useRef, useState } from 'react'
 import { FoodsList, FoodsListMethods, FoodModal } from 'foods'
 import useSelection, { Item } from 'general/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
@@ -21,6 +21,8 @@ import {
   FoodsListModal,
   useFoodsListModalDisclosure,
 } from 'foods/persistence'
+import { FoodsFilterStoreProvider } from 'foods-filters'
+import { loadFoodsFilter } from 'foods-filters/persistence'
 
 type Props = {
   onClose: () => void
@@ -49,6 +51,7 @@ function Content({
 
   const foodsListModalDisclosure = useFoodsListModalDisclosure()
   const importFoods = useImportFoods({ foodsListModalDisclosure })
+  const [foodsFilter] = useState(loadFoodsFilter)
 
   return (
     <DrawerContent>
@@ -72,13 +75,15 @@ function Content({
 
           <SelectedFoodsList selection={selection} />
 
-          <FoodsList
-            ref={listRef}
-            searchInputRef={searchInputRef}
-            selection={selection}
-            flex={1}
-            onFoodPreview={actions.onPreviewFood}
-          />
+          <FoodsFilterStoreProvider initialFilter={foodsFilter}>
+            <FoodsList
+              ref={listRef}
+              searchInputRef={searchInputRef}
+              selection={selection}
+              flex={1}
+              onFoodPreview={actions.onPreviewFood}
+            />
+          </FoodsFilterStoreProvider>
         </VStack>
       </DrawerBody>
 

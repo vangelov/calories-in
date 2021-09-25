@@ -8,27 +8,22 @@ import { FoodsStoreProvider } from 'foods'
 import { loadFoods } from 'foods/persistence'
 import { OneTimeCheckStoreProvider } from 'general/oneTimeCheck'
 import { DietEditor } from 'diets'
-import { loadFoodsFilter } from 'foods-filters/persistence'
 import { useState } from 'react'
-import { FoodsFilterStoreProvider } from 'foods-filters'
 
 smoothscroll.polyfill()
 
 function App() {
   const [foods] = useState(loadFoods)
-  const [foodsFilter] = useState(loadFoodsFilter)
 
   return (
     <ChakraProvider theme={theme}>
       <ScreenSizeProvider>
         <OneTimeCheckStoreProvider>
-          <FoodsFilterStoreProvider initialFilter={foodsFilter}>
-            <FoodsStoreProvider initialFoods={foods}>
-              <MainLayout>
-                <DietEditor />
-              </MainLayout>
-            </FoodsStoreProvider>
-          </FoodsFilterStoreProvider>
+          <FoodsStoreProvider initialFoods={foods}>
+            <MainLayout>
+              <DietEditor />
+            </MainLayout>
+          </FoodsStoreProvider>
         </OneTimeCheckStoreProvider>
       </ScreenSizeProvider>
     </ChakraProvider>

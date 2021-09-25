@@ -12,8 +12,6 @@ function UndoRedoButtons() {
   const screenSize = useScreenSize()
   const spacing = screenSize >= 2 ? 1 : 2
 
-  console.log('can', canUndo, canRedo)
-
   return (
     <ButtonGroup spacing={spacing} variant="outline">
       <ResponsiveIconButton

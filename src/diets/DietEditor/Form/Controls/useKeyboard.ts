@@ -19,10 +19,8 @@ function useKeyboard() {
         event.preventDefault()
 
         if (shiftKey) {
-          console.log('key redo')
           formVersionsActions.redo()
         } else {
-          console.log('key undo')
           formVersionsActions.undo()
         }
       }
