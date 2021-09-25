@@ -31,6 +31,7 @@ import { Food } from 'foods'
 import { FixedSizeList } from 'react-window'
 import { FoodsFilterPopoverOrModal } from 'foods-filters'
 import { useSaveValue } from 'persistence'
+import { UsageType } from './VirtualizedList/FoodItem'
 
 const SearchStyled = chakra(Search)
 
@@ -44,7 +45,7 @@ type Props = {
   onFoodPreview?: (food: Food) => void
   forwardedRef?: ForwardedRef<FoodsListMethods>
   allowsFiltering?: boolean
-  areItemsInteractive?: boolean
+  itemUsageType?: UsageType
 } & FlexProps
 
 function FoodsList({
@@ -53,7 +54,7 @@ function FoodsList({
   onFoodPreview,
   forwardedRef,
   allowsFiltering = true,
-  areItemsInteractive = true,
+  itemUsageType = 'selectOrPreview',
   ...rest
 }: Props) {
   const { allFoods, userFoods } = useFoods()
@@ -116,7 +117,7 @@ function FoodsList({
             selection ? selection.onToggleItem(food) : () => {}
           }
           onFoodPreview={onFoodPreview || (() => {})}
-          areItemsInteractive={areItemsInteractive}
+          itemUsageType={itemUsageType}
         />
       ) : (
         <Flex

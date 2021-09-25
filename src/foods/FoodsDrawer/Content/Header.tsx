@@ -2,11 +2,16 @@ import { DrawerHeader, Text } from '@chakra-ui/react'
 
 type Props = {
   mealName?: string
+  canSelect: boolean
 }
 
-function Header({ mealName }: Props) {
+function Header({ mealName, canSelect }: Props) {
   const fontWeight = mealName ? 'normal' : 'bold'
-  const titlePrefix = mealName ? 'Add Foods to ' : 'Add Foods'
+  const titlePrefix = mealName
+    ? 'Add Foods to '
+    : canSelect
+    ? 'Add Foods'
+    : 'Foods'
 
   return (
     <DrawerHeader fontWeight={fontWeight}>

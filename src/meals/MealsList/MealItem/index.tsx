@@ -4,7 +4,7 @@ import Header from './Header'
 import { RefObject, memo } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { IngredientsList } from 'ingredients'
-import { SelectFoodsDrawer } from 'foods'
+import { FoodsDrawer } from 'foods'
 import { useFoods } from 'foods'
 import { useUpdateMealStats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
@@ -103,7 +103,7 @@ function MealItem({
               onAddIngredients={drawerDisclosure.onOpen}
             />
 
-            <SelectFoodsDrawer
+            <FoodsDrawer
               isOpen={drawerDisclosure.isOpen}
               onClose={drawerDisclosure.onClose}
               mealName={mealForm.name}

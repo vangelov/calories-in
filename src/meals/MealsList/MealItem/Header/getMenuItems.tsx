@@ -18,7 +18,7 @@ function getMenuItems({ onRemove, onAddIngredient }: Params) {
     </MenuItem>,
     <MenuItem key="remove" onClick={onRemove}>
       <Trash2Styled pointerEvents="none" size={20} mr={3} />
-      Remove
+      Remove meal
     </MenuItem>,
   ]
 }

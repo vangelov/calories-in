@@ -25,8 +25,9 @@ type Props = {
   onClose: () => void
   mealName?: string
   searchInputRef: RefObject<HTMLInputElement>
-  variantFormIndex: number
-  mealFormIndex: number
+  variantFormIndex?: number
+  mealFormIndex?: number
+  canSelect: boolean
 }
 
 function Content({
@@ -35,6 +36,7 @@ function Content({
   searchInputRef,
   variantFormIndex,
   mealFormIndex,
+  canSelect,
 }: Props) {
   const selection = useSelection<Item>()
   const listRef = useRef<FoodsListMethods>(null)
@@ -53,7 +55,7 @@ function Content({
   return (
     <DrawerContent>
       <DrawerCloseButton />
-      <Header mealName={mealName} />
+      <Header mealName={mealName} canSelect={canSelect} />
 
       <DrawerBody overflow="hidden">
         <VStack width="100%" height="100%" spacing={3} alignItems="stretch">
@@ -70,7 +72,7 @@ function Content({
             </Button>
           </Flex>
 
-          <SelectedFoodsList selection={selection} />
+          {canSelect && <SelectedFoodsList selection={selection} />}
 
           <FoodsFilterStoreProvider initialFilter={foodsFilter}>
             <FoodsList
@@ -79,6 +81,7 @@ function Content({
               selection={selection}
               flex={1}
               onFoodPreview={actions.onPreviewFood}
+              itemUsageType={canSelect ? 'selectOrPreview' : 'previewOnly'}
             />
           </FoodsFilterStoreProvider>
         </VStack>
@@ -92,11 +95,13 @@ function Content({
 
         <HStack spacing={3}>
           <Button variant="outline" size="md" onClick={onClose}>
-            Cancel
+            Close
           </Button>
-          <Button size="md" colorScheme="teal" onClick={actions.onSave}>
-            Add
-          </Button>
+          {canSelect && (
+            <Button size="md" colorScheme="teal" onClick={actions.onSave}>
+              Add
+            </Button>
+          )}
         </HStack>
       </DrawerFooter>
 

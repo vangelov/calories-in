@@ -5,6 +5,7 @@ import { forwardRef, useRef, useState, ForwardedRef } from 'react'
 import { Food } from 'foods'
 import Inner from './Inner'
 import FoodItemRenderer from './FoodItemRenderer'
+import { UsageType } from './FoodItem'
 
 type Props = {
   foodsCount: number
@@ -13,7 +14,7 @@ type Props = {
   onFoodSelect: (food: Food) => void
   onFoodPreview: (food: Food) => void
   forwardRef?: ForwardedRef<FixedSizeList>
-  areItemsInteractive?: boolean
+  itemUsageType: UsageType
 }
 
 function VirtualizedList({
@@ -23,7 +24,7 @@ function VirtualizedList({
   onFoodPreview,
   foodsCount,
   forwardRef,
-  areItemsInteractive = true,
+  itemUsageType,
 }: Props) {
   const [height, setHeight] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
@@ -42,7 +43,7 @@ function VirtualizedList({
           onFoodSelect,
           onFoodPreview,
           isFoodSelected,
-          isInteractive: areItemsInteractive,
+          usageType: itemUsageType,
         }}
         itemSize={72}
         width="100%"

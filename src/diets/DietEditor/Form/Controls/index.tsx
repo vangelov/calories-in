@@ -10,6 +10,7 @@ import {
   MissingFoodsModal,
   useImportFoods,
 } from 'foods/persistence'
+import { FoodsDrawer } from 'foods'
 
 function Controls() {
   const dietFormActions = useDietFormActions()
@@ -18,6 +19,7 @@ function Controls() {
   const { onLoadFromFile } = useImportDietForm({ missingFoodsModalDisclosure })
   const foodsListModalDisclosure = useDisclosure()
   const importFoods = useImportFoods({ foodsListModalDisclosure })
+  const foodsDrawerDisclosure = useDisclosure()
 
   useKeyboard()
 
@@ -32,7 +34,11 @@ function Controls() {
       </Flex>
 
       <Flex flex="6" justifyContent="flex-end">
-        <MenuButtons onImport={onLoadFromFile} onClear={onClear} />
+        <MenuButtons
+          onImport={onLoadFromFile}
+          onClear={onClear}
+          onViewFoods={foodsDrawerDisclosure.onOpen}
+        />
 
         <MainButtons
           onMealAdd={dietFormActions.appendMealForm}
@@ -54,6 +60,12 @@ function Controls() {
           isOpen={foodsListModalDisclosure.isOpen}
           onClose={foodsListModalDisclosure.onClose}
           foodsToImport={importFoods.foodsToImport}
+        />
+
+        <FoodsDrawer
+          isOpen={foodsDrawerDisclosure.isOpen}
+          onClose={foodsDrawerDisclosure.onClose}
+          canSelect={false}
         />
       </Flex>
     </Flex>

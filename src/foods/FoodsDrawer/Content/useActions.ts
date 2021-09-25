@@ -7,8 +7,8 @@ import { useDietFormActions } from 'diets'
 
 type Params = {
   onClose: () => void
-  variantFormIndex: number
-  mealFormIndex: number
+  variantFormIndex?: number
+  mealFormIndex?: number
   selection: Selection<Item>
   listRef: RefObject<FoodsListMethods>
 }
@@ -25,11 +25,13 @@ function useActions({
   const dietFormActions = useDietFormActions()
 
   function onSave() {
-    dietFormActions.appendIngredientsForms(
-      variantFormIndex,
-      mealFormIndex,
-      selection.selectedItems.map(({ id }) => id)
-    )
+    if (variantFormIndex !== undefined && mealFormIndex !== undefined) {
+      dietFormActions.appendIngredientsForms(
+        variantFormIndex,
+        mealFormIndex,
+        selection.selectedItems.map(({ id }) => id)
+      )
+    }
     onClose()
   }
 

@@ -14,11 +14,11 @@ function getMenuItems({ onRemove, onViewFoodDetails }: Props) {
   return [
     <MenuItem key="remove" onClick={onRemove}>
       <Trash2Styled pointerEvents="none" size={20} mr={3} />
-      Remove
+      Remove food
     </MenuItem>,
     <MenuItem key="viewDetails" onClick={onViewFoodDetails}>
       <InfoStyled pointerEvents="none" size={20} mr={3} />
-      View details
+      View food details
     </MenuItem>,
   ]
 }

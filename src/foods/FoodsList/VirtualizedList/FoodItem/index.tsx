@@ -10,23 +10,27 @@ import AnimateAppear from './AnimateAppear'
 
 const InfoStyled = chakra(Info)
 
+type UsageType = 'selectOrPreview' | 'previewOnly' | 'nonInteractive'
+
 type Props = {
   food: Food
   isSelected?: boolean
-  isInteractive?: boolean
-  onPreview: () => void
+  onPreview: (food: Food) => void
+  onChoose: (food: Food) => void
+  usageType?: UsageType
 } & FlexProps
 
 function FoodItem({
   food,
   isSelected = false,
   onPreview,
-  isInteractive = true,
+  onChoose,
+  usageType = 'selectOrPreview',
   ...rest
 }: Props) {
-  function onClick(event: MouseEvent<HTMLButtonElement>) {
+  function onInfoButtonClick(event: MouseEvent<HTMLButtonElement>) {
     event.stopPropagation()
-    onPreview()
+    onPreview(food)
   }
 
   const one = useOneTimeCheckActions()
@@ -34,12 +38,22 @@ function FoodItem({
   const shouldAnimate2 = one.checkAndReset(`test2-${food.id}`)
 
   return (
-    <Box pb={2} {...rest}>
+    <Box
+      pb={2}
+      onClick={() => {
+        if (usageType === 'previewOnly') {
+          onPreview(food)
+        } else if (usageType === 'selectOrPreview') {
+          onChoose(food)
+        }
+      }}
+      {...rest}
+    >
       <AnimateAppear shouldAnimate={shouldAnimate}>
         <Flex
-          cursor={isInteractive ? 'pointer' : undefined}
+          cursor={usageType !== 'nonInteractive' ? 'pointer' : undefined}
           _hover={
-            isInteractive
+            usageType !== 'nonInteractive'
               ? {
                   backgroundColor: !isSelected ? 'gray.50' : undefined,
                 }
@@ -68,12 +82,12 @@ function FoodItem({
             position="relative"
             zIndex={1}
           />
-          {isInteractive && (
+          {usageType === 'selectOrPreview' && (
             <ResponsiveIconButton
               aria-label="Food details"
               icon={<InfoStyled color="gray.400" pointerEvents="none" />}
               variant="ghost"
-              onClick={onClick}
+              onClick={onInfoButtonClick}
               position="relative"
               zIndex={1}
             />
@@ -83,5 +97,7 @@ function FoodItem({
     </Box>
   )
 }
+
+export type { UsageType }
 
 export default FoodItem

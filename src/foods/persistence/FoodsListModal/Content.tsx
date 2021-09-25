@@ -37,7 +37,7 @@ function Content({ onClose, title, onImport, action }: Props) {
         <FoodsList
           allowsFiltering={false}
           height="350px"
-          areItemsInteractive={false}
+          itemUsageType="nonInteractive"
         />
       </ModalBody>
 

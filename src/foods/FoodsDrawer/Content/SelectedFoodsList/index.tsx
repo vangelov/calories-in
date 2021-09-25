@@ -1,6 +1,5 @@
 import { Flex, Text, Wrap } from '@chakra-ui/react'
 import { Selection, Item } from 'general/useSelection'
-import { Food } from 'foods'
 import SelectedFoodItem from './SelectedFoodItem'
 import { useFoods } from 'foods'
 
@@ -12,10 +11,6 @@ function SelectedFoods({ selection }: Props) {
   const { selectedItems: selectedFoods } = selection
   const { foodsById } = useFoods()
 
-  function onFoodUnselect(food: Food) {
-    selection.onToggleItem(food)
-  }
-
   return (
     <Flex alignItems="center" minHeight="56px">
       {selectedFoods.length > 0 ? (
@@ -24,7 +19,7 @@ function SelectedFoods({ selection }: Props) {
             <SelectedFoodItem
               key={id}
               food={foodsById[id]}
-              onUnselect={onFoodUnselect}
+              onUnselect={selection.onToggleItem}
             />
           ))}
         </Wrap>

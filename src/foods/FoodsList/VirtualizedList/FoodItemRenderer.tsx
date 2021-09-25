@@ -1,5 +1,5 @@
 import { Food } from 'foods'
-import FoodItem from './FoodItem'
+import FoodItem, { UsageType } from './FoodItem'
 import { TOP_PADDING } from './Inner'
 
 type Data = {
@@ -7,7 +7,7 @@ type Data = {
   isFoodSelected: (food: Food) => boolean
   onFoodSelect: (food: Food) => void
   onFoodPreview: (food: Food) => void
-  isInteractive: boolean
+  usageType: UsageType
 }
 
 type Props = {
@@ -22,7 +22,7 @@ function FoodItemRenderer({ style, index, data }: Props) {
     onFoodSelect,
     onFoodPreview,
     isFoodSelected,
-    isInteractive,
+    usageType,
   } = data
   const food = getFood(index)
 
@@ -33,11 +33,11 @@ function FoodItemRenderer({ style, index, data }: Props) {
         ...style,
         top: `${parseFloat(style['top'] as string) + TOP_PADDING}px`,
       }}
-      onClick={() => onFoodSelect(food)}
+      onChoose={onFoodSelect}
       isSelected={isFoodSelected(food)}
-      onPreview={() => onFoodPreview(food)}
+      onPreview={onFoodPreview}
       food={food}
-      isInteractive={isInteractive}
+      usageType={usageType}
     />
   )
 }
