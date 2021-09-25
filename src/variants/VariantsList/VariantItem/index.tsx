@@ -5,7 +5,7 @@ import Menu from './Menu'
 import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
 import PresenceAnimation from './PresenceAnimation'
-import useActions from './useActions'
+import useVariantFormEvents from './useVariantFormEvents'
 import mergeRefs from 'react-merge-refs'
 import { ContextMenuFlex } from 'general'
 import getMenuItems from './getMenuItems'
@@ -38,7 +38,7 @@ function VariantItem({
   ...rest
 }: Props) {
   const ref = useRef<HTMLDivElement>(null)
-  const actions = useActions({
+  const variantFormEvents = useVariantFormEvents({
     onSelect,
     onDelete,
     variantForm,
@@ -50,7 +50,7 @@ function VariantItem({
     canRemove,
     onClone: () => onClone(index),
     onEditName: () => onEditName(index),
-    onDelete: actions.onRemoveRequest,
+    onDelete: variantFormEvents.onRemoveRequest,
   })
 
   return (
@@ -69,9 +69,9 @@ function VariantItem({
 
         return (
           <PresenceAnimation
-            shouldAnimate={actions.shouldAnimate}
-            isVisible={actions.isVisible}
-            onAnimationComplete={actions.onAnimationComplete}
+            shouldAnimate={variantFormEvents.shouldAnimate}
+            isVisible={variantFormEvents.isVisible}
+            onAnimationComplete={variantFormEvents.onAnimationComplete}
           >
             <ContextMenuFlex
               ref={mergeRefs(refs)}
@@ -80,7 +80,7 @@ function VariantItem({
               borderRadius="full"
               fontWeight="medium"
               borderWidth="1px"
-              onClick={actions.onClick}
+              onClick={variantFormEvents.onClick}
               px={3}
               cursor="pointer"
               menuItems={menuItems}
@@ -102,7 +102,7 @@ function VariantItem({
                   canRemove={canRemove}
                   onClone={() => onClone(index)}
                   onEditName={() => onEditName(index)}
-                  onDelete={actions.onRemoveRequest}
+                  onDelete={variantFormEvents.onRemoveRequest}
                   isSelected={isSelected}
                 />
               </HStack>

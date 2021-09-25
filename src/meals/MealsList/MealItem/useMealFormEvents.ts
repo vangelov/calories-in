@@ -10,7 +10,7 @@ type Params = {
   onFirstAppear: (mealForm: MealForm) => void
 }
 
-function useActions({
+function useMealFormEvents({
   mealForm,
   index,
   onRemove,
@@ -38,4 +38,4 @@ function useActions({
   return { onAnimationComplete, shouldAnimate, onRemoveRequest, isVisible }
 }
 
-export default useActions
+export default useMealFormEvents

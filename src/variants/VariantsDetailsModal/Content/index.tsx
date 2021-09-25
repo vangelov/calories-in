@@ -10,7 +10,7 @@ import FormFields from './FormFields'
 import { RefObject } from 'react'
 import { VariantForm } from 'variants'
 import { StatsTree } from 'stats'
-import useActions from './useActions'
+import useVariantFormEvents from './useVariantFormEvents'
 
 type Props = {
   onClose: () => void
@@ -27,7 +27,7 @@ function Content({
   variantsForms,
   dietFormStatsTree,
 }: Props) {
-  const actions = useActions({ dietFormStatsTree })
+  const variantFormEvents = useVariantFormEvents({ dietFormStatsTree })
 
   return (
     <ModalContent>
@@ -37,12 +37,14 @@ function Content({
       <ModalBody>
         <form>
           <FormFields
-            variantStats={actions.variantStats}
+            variantStats={variantFormEvents.variantStats}
             initialVariantForm={initialVariantForm}
             selectInputRef={selectInputRef}
             canEdit={false}
             variantsForms={variantsForms}
-            onVariantFormFieldIdChange={actions.onVariantFormFieldIdChange}
+            onVariantFormFieldIdChange={
+              variantFormEvents.onVariantFormFieldIdChange
+            }
           />
         </form>
       </ModalBody>

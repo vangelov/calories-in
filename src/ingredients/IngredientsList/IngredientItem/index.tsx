@@ -5,7 +5,7 @@ import { FoodModal, useFoods } from 'foods'
 import { ContextMenuFlex } from 'general'
 import { Stats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
-import useActions from './useActions'
+import useIngredientsEvents from './useIngredientsEvents'
 import getMenuItems from './getMenuItems'
 import StatsLayout from './StatsLayout'
 import MissingStatsLayout from './MissingStatsLayout'
@@ -31,7 +31,7 @@ function IngredientItem({
   onRemove,
   isLast,
 }: Props) {
-  const actions = useActions({
+  const ingredientEvents = useIngredientsEvents({
     variantIndex,
     mealIndex,
     index,
@@ -44,7 +44,7 @@ function IngredientItem({
   const foodModalDisclosure = useDisclosure()
 
   const menuItems = getMenuItems({
-    onRemove: actions.onRemoveRequest,
+    onRemove: ingredientEvents.onRemoveRequest,
     onViewFoodDetails: foodModalDisclosure.onOpen,
   })
 
@@ -56,9 +56,9 @@ function IngredientItem({
     >
       {(provided, snapshot) => (
         <PresenceAnimation
-          shouldAnimate={actions.shouldAnimate}
-          onAnimationComplete={actions.onAnimationComplete}
-          isVisible={actions.isVisible}
+          shouldAnimate={ingredientEvents.shouldAnimate}
+          onAnimationComplete={ingredientEvents.onAnimationComplete}
+          isVisible={ingredientEvents.isVisible}
         >
           <ContextMenuFlex
             ref={provided.innerRef}
@@ -79,11 +79,13 @@ function IngredientItem({
               <StatsLayout
                 ingredientForm={ingredientForm}
                 ingredientStats={ingredientStats}
-                onAmountChange={actions.onAmountChange}
+                onAmountChange={ingredientEvents.onAmountChange}
                 menuElement={<Menu mr={3} items={menuItems} />}
               />
             ) : (
-              <MissingStatsLayout onRemoveRequest={actions.onRemoveRequest} />
+              <MissingStatsLayout
+                onRemoveRequest={ingredientEvents.onRemoveRequest}
+              />
             )}
           </ContextMenuFlex>
 

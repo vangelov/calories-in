@@ -1,4 +1,5 @@
 export { default as HFadeScroll } from './HFadeScroll'
+export * from './HFadeScroll'
 export { default as Badge } from './Badge'
 export { default as deepCopy } from './deepCopy'
 export { default as Menu } from './Menu'

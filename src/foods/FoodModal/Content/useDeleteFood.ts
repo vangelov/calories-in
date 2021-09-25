@@ -1,32 +1,17 @@
 import { useDisclosure } from '@chakra-ui/hooks'
 import { useFoodsActions } from 'foods'
 import { Food } from 'foods'
-import { useState } from 'react'
 import { useToast } from '@chakra-ui/react'
-import useSubmitFoodForm from './useSubmitFoodForm'
 
 type Params = {
   food?: Food
   onClose: () => void
-  onFoodCreatedOrUpdated?: (newFood: Food, oldFood?: Food) => void
 }
 
-function useActions({ food, onFoodCreatedOrUpdated, onClose }: Params) {
-  const [isEditing, setIsEditing] = useState(!food)
+function useDeleteFood({ food, onClose }: Params) {
   const deleteConfirmationDisclosure = useDisclosure()
   const foodsActions = useFoodsActions()
   const toast = useToast()
-
-  const { onSubmit } = useSubmitFoodForm({
-    onComplete: (newOrUpdatedFood: Food) => {
-      onFoodCreatedOrUpdated && onFoodCreatedOrUpdated(newOrUpdatedFood, food)
-      onClose()
-    },
-  })
-
-  function onToggleEdit() {
-    setIsEditing(!isEditing)
-  }
 
   function onDelete() {
     deleteConfirmationDisclosure.onOpen()
@@ -49,12 +34,9 @@ function useActions({ food, onFoodCreatedOrUpdated, onClose }: Params) {
 
   return {
     deleteConfirmationDisclosure,
-    isEditing,
-    onToggleEdit,
-    onSubmit,
     onDelete,
     onConfirmDelete,
   }
 }
 
-export default useActions
+export default useDeleteFood

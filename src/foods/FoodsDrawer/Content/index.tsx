@@ -15,11 +15,12 @@ import { FoodsList, FoodsListMethods, FoodModal } from 'foods'
 import useSelection, { Item } from 'general/useSelection'
 import SelectedFoodsList from './SelectedFoodsList'
 import Header from './Header'
-import useActions from './useActions'
 import MenuButtons from './MenuButtons'
 import { useImportFoods, FoodsListModal } from 'foods/persistence'
 import { FoodsFilterStoreProvider } from 'foods-filters'
 import { loadFoodsFilter } from 'foods-filters/persistence'
+import useFoodEvents from './useFoodEvents'
+import useAddFoods from './useAddFoods'
 
 type Props = {
   onClose: () => void
@@ -40,13 +41,13 @@ function Content({
 }: Props) {
   const selection = useSelection<Item>()
   const listRef = useRef<FoodsListMethods>(null)
-  const actions = useActions({
+  const addFoods = useAddFoods({
     selection,
-    listRef,
     variantFormIndex,
     mealFormIndex,
     onClose,
   })
+  const foodEvents = useFoodEvents({ listRef })
 
   const foodsListModalDisclosure = useDisclosure()
   const importFoods = useImportFoods({ foodsListModalDisclosure })
@@ -66,7 +67,7 @@ function Content({
             <Button
               variant="link"
               colorScheme="teal"
-              onClick={actions.onCreateFood}
+              onClick={foodEvents.onCreateFood}
             >
               Create new food
             </Button>
@@ -80,7 +81,7 @@ function Content({
               searchInputRef={searchInputRef}
               selection={selection}
               flex={1}
-              onFoodPreview={actions.onPreviewFood}
+              onFoodPreview={foodEvents.onPreviewFood}
               itemUsageType={canSelect ? 'selectOrPreview' : 'previewOnly'}
             />
           </FoodsFilterStoreProvider>
@@ -98,7 +99,7 @@ function Content({
             Close
           </Button>
           {canSelect && (
-            <Button size="md" colorScheme="teal" onClick={actions.onSave}>
+            <Button size="md" colorScheme="teal" onClick={addFoods.onAdd}>
               Add
             </Button>
           )}
@@ -106,10 +107,10 @@ function Content({
       </DrawerFooter>
 
       <FoodModal
-        isOpen={actions.foodModalDisclosure.isOpen}
-        onClose={actions.foodModalDisclosure.onClose}
-        onFoodCreatedOrUpdated={actions.onFoodCreatedOrUpdated}
-        food={actions.food}
+        isOpen={foodEvents.foodModalDisclosure.isOpen}
+        onClose={foodEvents.foodModalDisclosure.onClose}
+        onFoodCreatedOrUpdated={foodEvents.onFoodCreatedOrUpdated}
+        food={foodEvents.food}
       />
 
       <FoodsListModal

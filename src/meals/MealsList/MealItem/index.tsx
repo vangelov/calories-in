@@ -8,7 +8,7 @@ import { FoodsDrawer } from 'foods'
 import { useFoods } from 'foods'
 import { useUpdateMealStats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
-import useActions from './useActions'
+import useMealFormEvents from './useMealFormEvents'
 import { useMemo } from 'react'
 
 type Props = {
@@ -35,7 +35,7 @@ function MealItem({
 }: Props) {
   const drawerDisclosure = useDisclosure()
   const { foodsById } = useFoods()
-  const actions = useActions({
+  const mealFormEvents = useMealFormEvents({
     mealForm,
     variantIndex,
     index,
@@ -67,9 +67,9 @@ function MealItem({
     >
       {(provided, snapshot) => (
         <PresenceAnimation
-          shouldAnimate={actions.shouldAnimate}
-          isVisible={actions.isVisible}
-          onAnimationComplete={actions.onAnimationComplete}
+          shouldAnimate={mealFormEvents.shouldAnimate}
+          isVisible={mealFormEvents.isVisible}
+          onAnimationComplete={mealFormEvents.onAnimationComplete}
         >
           <Flex
             ref={provided.innerRef}
@@ -90,7 +90,7 @@ function MealItem({
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}
               mealForm={mealForm}
-              onRemove={actions.onRemoveRequest}
+              onRemove={mealFormEvents.onRemoveRequest}
               onAddIngredient={drawerDisclosure.onOpen}
             />
 

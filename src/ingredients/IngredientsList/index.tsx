@@ -27,8 +27,6 @@ function IngredientsList({
 }: Props) {
   const dietFormActions = useDietFormActions()
 
-  console.log('list', mealIndex)
-
   return (
     <Droppable droppableId={mealForm.fieldId} type="ingredientsList">
       {provided => (

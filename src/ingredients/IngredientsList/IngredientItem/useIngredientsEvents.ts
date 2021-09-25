@@ -14,7 +14,7 @@ type Params = {
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
 }
 
-function useActions({
+function useIngredientsEvents({
   variantIndex,
   mealIndex,
   index,
@@ -56,4 +56,4 @@ function useActions({
   }
 }
 
-export default useActions
+export default useIngredientsEvents

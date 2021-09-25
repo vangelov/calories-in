@@ -7,8 +7,9 @@ import { MealsList } from 'meals'
 import Controls from './Controls'
 import { VariantsList } from 'variants'
 import useScrollManager from './useScrollManager'
-import useActions from './useActions'
 import { useSaveValue } from 'persistence'
+import useDietFormEvents from './useDietFormEvents'
+import useVariantFormEvents from './useVariantFormActions'
 
 type Props = {
   isEditingExistingDiet: boolean
@@ -24,7 +25,8 @@ function Form({ isEditingExistingDiet }: Props) {
     selectedVariantForm,
     horizontalScrollRef,
   })
-  const actions = useActions({ scrollManager })
+  const dietFormEvents = useDietFormEvents({ scrollManager })
+  const variantFormEvents = useVariantFormEvents({ scrollManager })
 
   useSaveValue({ value: dietForm, key: 'lastDietForm' })
 
@@ -32,8 +34,8 @@ function Form({ isEditingExistingDiet }: Props) {
     <FormVersionsStoreProvider
       horizontalScrollRef={horizontalScrollRef}
       form={dietForm}
-      onUndo={actions.onUndoOrRedo}
-      onRedo={actions.onUndoOrRedo}
+      onUndo={dietFormEvents.onUndoOrRedo}
+      onRedo={dietFormEvents.onUndoOrRedo}
     >
       <Page>
         <PageHeader>
@@ -56,8 +58,8 @@ function Form({ isEditingExistingDiet }: Props) {
 
         <PageFooter>
           <VariantsList
-            onVariantFormCopy={actions.onVariantFormCopy}
-            onVariantFormSelect={actions.onVariantFormSelect}
+            onVariantFormCopy={variantFormEvents.onVariantFormCopy}
+            onVariantFormSelect={variantFormEvents.onVariantFormSelect}
             ref={horizontalScrollRef}
           />
         </PageFooter>

@@ -6,12 +6,13 @@ import VariantNameModal from './VariantNameModal'
 import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
 import { useDietForm } from 'diets'
 import { VariantForm } from 'variants'
-import useActions from './useActions'
 import { HFadeScroll, useScreenSize } from 'general'
 import mergeRefs from 'react-merge-refs'
 import ScrollButtons from './ScrollButtons'
 import VariantsMenuOrDrawer from '../VariantsMenuOrDrawer'
 import { useGetRefForId } from 'dom'
+import useScrollState from './useScrollState'
+import useVariantFormEvents from './useVariantFormEvents'
 
 type Props = {
   onVariantFormSelect: (variantForm: VariantForm, index: number) => void
@@ -27,13 +28,15 @@ function VariantsList({
   const screenSize = useScreenSize()
   const isPhone = screenSize <= 1
 
-  const actions = useActions({
+  const variantFormEvents = useVariantFormEvents({
     onVariantFormSelect,
     onVariantFormCopy,
   })
 
   const dietForm = useDietForm()
   const getVariantItemRefById = useGetRefForId<HTMLDivElement>()
+
+  const scrollState = useScrollState()
 
   return (
     <Flex>
@@ -43,7 +46,7 @@ function VariantsList({
         aria-label="Add variant"
         icon={<Plus size={20} pointerEvents="none" />}
         variant="outline"
-        onClick={actions.onAppend}
+        onClick={variantFormEvents.onAppend}
         mr={3}
         flexShrink={0}
       />
@@ -61,7 +64,7 @@ function VariantsList({
       >
         {provided => (
           <HFadeScroll
-            onScrollStateChange={actions.onScrollStateChange}
+            onScrollStateChange={scrollState.onScrollStateChange}
             ref={mergeRefs([provided.innerRef, scrollNodeRef, forwardedRef])}
           >
             {dietForm.variantsForms.map((variantForm, index) => {
@@ -70,13 +73,13 @@ function VariantsList({
                   canRemove={dietForm.variantsForms.length > 1}
                   mr={1}
                   index={index}
-                  onDelete={actions.onRemove}
-                  onEditName={actions.onRename}
-                  onClone={actions.onCopy}
+                  onDelete={variantFormEvents.onRemove}
+                  onEditName={variantFormEvents.onRename}
+                  onClone={variantFormEvents.onCopy}
                   key={variantForm.fieldId}
                   variantForm={variantForm}
                   isSelected={index === dietForm.selectedVariantFormIndex}
-                  onSelect={actions.onSelect}
+                  onSelect={variantFormEvents.onSelect}
                   ref={getVariantItemRefById(variantForm.fieldId)}
                 >
                   {variantForm.name}
@@ -97,16 +100,16 @@ function VariantsList({
       ) : (
         <ScrollButtons
           scrollNodeRef={scrollNodeRef}
-          showsButtons={actions.showsScrollButtons}
-          canScrollLeft={actions.canScrollLeft}
-          canScrollRight={actions.canScrollRight}
+          showsButtons={scrollState.showsScrollButtons}
+          canScrollLeft={scrollState.canScrollLeft}
+          canScrollRight={scrollState.canScrollRight}
         />
       )}
 
       <VariantNameModal
-        isOpen={actions.modalDisclosure.isOpen}
-        onClose={actions.modalDisclosure.onClose}
-        variantFormIndex={actions.variantFormIndex}
+        isOpen={variantFormEvents.modalDisclosure.isOpen}
+        onClose={variantFormEvents.modalDisclosure.onClose}
+        variantFormIndex={variantFormEvents.variantFormIndex}
       />
     </Flex>
   )

@@ -6,7 +6,7 @@ type Params = {
   dietFormStatsTree: StatsTree
 }
 
-function useActions({ dietFormStatsTree }: Params) {
+function useVariantFormEvents({ dietFormStatsTree }: Params) {
   const { reset } = useFormContext()
   const variantFormFieldId = useWatch({ name: 'variantFormFieldId' })
 
@@ -35,4 +35,4 @@ function useActions({ dietFormStatsTree }: Params) {
   return { onVariantFormFieldIdChange, variantStats }
 }
 
-export default useActions
+export default useVariantFormEvents

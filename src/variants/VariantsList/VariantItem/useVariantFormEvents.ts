@@ -9,11 +9,16 @@ type Params = {
   onSelect: (variantForm: VariantForm, index: number) => void
   variantForm: VariantForm
   index: number
-
   ref: RefObject<HTMLDivElement>
 }
 
-function useActions({ onDelete, onSelect, variantForm, ref, index }: Params) {
+function useVariantFormEvents({
+  onDelete,
+  onSelect,
+  variantForm,
+  ref,
+  index,
+}: Params) {
   const oneTimeCheckActions = useOneTimeCheckActions()
   const [isVisible, setIsVisible] = useState(true)
 
@@ -60,4 +65,4 @@ function useActions({ onDelete, onSelect, variantForm, ref, index }: Params) {
   }
 }
 
-export default useActions
+export default useVariantFormEvents

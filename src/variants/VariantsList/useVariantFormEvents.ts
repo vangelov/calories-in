@@ -8,14 +8,14 @@ type Props = {
   onVariantFormCopy: () => void
 }
 
-function useActions({ onVariantFormSelect, onVariantFormCopy }: Props) {
+function useVariantFormEvents({
+  onVariantFormSelect,
+  onVariantFormCopy,
+}: Props) {
   const modalDisclosure = useDisclosure()
 
   const [variantFormIndex, setVariantFormIndex] = useState<number>(0)
   const dietFormActions = useDietFormActions()
-  const [showsScrollButtons, setShowsScrollButtons] = useState(false)
-  const [canScrollLeft, setCanScrollLeft] = useState(false)
-  const [canScrollRight, setCanScrollRight] = useState(false)
 
   const { onOpen } = modalDisclosure
 
@@ -54,16 +54,6 @@ function useActions({ onVariantFormSelect, onVariantFormCopy }: Props) {
     [dietFormActions]
   )
 
-  function onScrollStateChange(
-    isScrollable: boolean,
-    canScrollLeft: boolean,
-    canScrollRight: boolean
-  ) {
-    setCanScrollLeft(canScrollLeft)
-    setCanScrollRight(canScrollRight)
-    setShowsScrollButtons(isScrollable)
-  }
-
   return {
     onAppend,
     onCopy,
@@ -72,11 +62,7 @@ function useActions({ onVariantFormSelect, onVariantFormCopy }: Props) {
     variantFormIndex,
     onRemove,
     modalDisclosure,
-    showsScrollButtons,
-    canScrollLeft,
-    canScrollRight,
-    onScrollStateChange,
   }
 }
 
-export default useActions
+export default useVariantFormEvents
