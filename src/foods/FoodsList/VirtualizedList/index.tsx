@@ -1,11 +1,11 @@
 import { Box } from '@chakra-ui/react'
 import { FixedSizeList } from 'react-window'
-import useResizeObserver from '@react-hook/resize-observer'
-import { forwardRef, useRef, useState, ForwardedRef } from 'react'
+import { forwardRef, ForwardedRef } from 'react'
 import { Food } from 'foods'
 import Inner from './Inner'
 import FoodItemRenderer from './FoodItemRenderer'
 import { UsageType } from './FoodItem'
+import { useElementHeight } from 'general'
 
 type Props = {
   foodsCount: number
@@ -26,17 +26,14 @@ function VirtualizedList({
   forwardRef,
   itemUsageType,
 }: Props) {
-  const [height, setHeight] = useState(0)
-  const ref = useRef<HTMLDivElement>(null)
-
-  useResizeObserver(ref, entry => setHeight(entry.contentRect.height))
+  const { elementHeight, elementRef } = useElementHeight()
 
   return (
-    <Box position="relative" ref={ref} flex={1}>
+    <Box position="relative" ref={elementRef} flex={1}>
       <FixedSizeList
         style={{ position: 'absolute', top: 0 }}
         innerElementType={Inner}
-        height={height}
+        height={elementHeight}
         itemCount={foodsCount}
         itemData={{
           getFood,

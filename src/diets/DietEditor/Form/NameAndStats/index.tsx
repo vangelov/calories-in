@@ -26,12 +26,7 @@ function NameAndStats({ selectedVariantForm }: Props) {
   const modalDisclosure = useDisclosure()
 
   return (
-    <Flex
-      pb={3}
-      borderBottomWidth={1}
-      borderBottomColor="gray.100"
-      width="100%"
-    >
+    <Flex py={3} bg="white" width="100%">
       <StatsLayout
         nameElement={<Name />}
         energyElement={

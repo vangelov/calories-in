@@ -1,5 +1,4 @@
 import { Box, Flex, Divider } from '@chakra-ui/react'
-import { useScreenSize } from 'general'
 import { ReactNode, RefObject } from 'react'
 import ElementContainer from './ElementContainer'
 import useHasSideNavigation from './useHasSideNavigation'
@@ -10,16 +9,12 @@ type PageHeaderProps = {
 
 function PageHeader({ children }: PageHeaderProps) {
   return (
-    <Flex
-      justifyContent="center"
-      position="sticky"
-      top="0"
-      zIndex={2}
-      bg="white"
-    >
+    <Flex justifyContent="center" position="sticky" top="0" zIndex={2}>
       <ElementContainer>
-        <Box py={3}>{children}</Box>
-        <Divider />
+        <Box borderWidth={{ base: 0, lg: 1 }} borderTopWidth={0}>
+          {children}
+        </Box>
+        <Divider display={{ base: 'block', lg: 'none' }} />
       </ElementContainer>
     </Flex>
   )
@@ -43,20 +38,25 @@ type PageFooterProps = {
 }
 
 function PageFooter({ children, footerContainerRef }: PageFooterProps) {
-  const screenSize = useScreenSize()
   const hasSideNavigation = useHasSideNavigation()
 
   return (
     <Box
       position="fixed"
       bottom="0"
-      left={hasSideNavigation ? '200px' : 0}
-      right={0}
+      left={hasSideNavigation ? '200px' : 3}
+      right={3}
       zIndex={2}
     >
-      <ElementContainer bg="white" mx="auto" ref={footerContainerRef}>
-        <Divider />
-        <Box py={3} px={screenSize > 3 ? 0 : 3}>
+      <ElementContainer mx="auto" ref={footerContainerRef}>
+        <Divider display={{ base: 'block', lg: 'none' }} />
+
+        <Box
+          py={3}
+          bg="white"
+          borderWidth={{ base: 0, lg: 1 }}
+          borderBottomWidth={0}
+        >
           {children}
         </Box>
       </ElementContainer>

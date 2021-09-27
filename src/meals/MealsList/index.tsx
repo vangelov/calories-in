@@ -12,12 +12,14 @@ type Props = {
   mealsForms: MealForm[]
   selectedVariantFormIndex: number
   selectedVariantFormFieldId: string
+  headerHeight: number
 }
 
 function MealsList({
   mealsForms,
   selectedVariantFormIndex,
   selectedVariantFormFieldId,
+  headerHeight,
 }: Props) {
   const getMealNameInputRefById = useGetRefForId<HTMLInputElement>()
   const scrollTargetRef = useRef<HTMLDivElement>(null)
@@ -32,7 +34,15 @@ function MealsList({
   return (
     <Droppable droppableId="mealsList" type="mealsList">
       {provided => (
-        <Box pt={3} ref={provided.innerRef}>
+        <Box
+          px={{ base: 0, lg: 3 }}
+          py={3}
+          borderLeftWidth={{ base: 0, lg: 1 }}
+          borderRightWidth={{ base: 0, lg: 1 }}
+          ref={provided.innerRef}
+          minHeight={`calc(100vh - ${headerHeight}px)`}
+          bg="white"
+        >
           {mealsForms.map((mealForm, index) => (
             <MealItem
               key={mealForm.fieldId}
@@ -47,7 +57,7 @@ function MealsList({
           ))}
 
           {provided.placeholder}
-          <Box ref={scrollTargetRef} height="58px" />
+          <Box ref={scrollTargetRef} height="48px" />
         </Box>
       )}
     </Droppable>

@@ -39,7 +39,7 @@ function VariantsList({
   const scrollState = useScrollState()
 
   return (
-    <Flex>
+    <Flex px={{ base: 0, lg: 3 }}>
       <IconButton
         borderRadius="full"
         size="sm"

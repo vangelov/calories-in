@@ -28,7 +28,7 @@ function Controls() {
   }
 
   return (
-    <Flex width="100%" pt={3} alignItems="center">
+    <Flex bg="white" width="100%" py={3} alignItems="center">
       <Flex flex="4" justifyContent="space-between">
         <UndoRedoButtons />
       </Flex>

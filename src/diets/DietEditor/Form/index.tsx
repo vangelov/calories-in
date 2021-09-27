@@ -10,6 +10,8 @@ import useScrollManager from './useScrollManager'
 import { useSaveValue } from 'persistence'
 import useDietFormEvents from './useDietFormEvents'
 import useVariantFormEvents from './useVariantFormActions'
+import { Divider, Box } from '@chakra-ui/react'
+import { useElementHeight } from 'general'
 
 type Props = {
   isEditingExistingDiet: boolean
@@ -28,6 +30,11 @@ function Form({ isEditingExistingDiet }: Props) {
   const dietFormEvents = useDietFormEvents({ scrollManager })
   const variantFormEvents = useVariantFormEvents({ scrollManager })
 
+  const {
+    elementHeight: headerHeight,
+    elementRef: headerRef,
+  } = useElementHeight()
+
   useSaveValue({ value: dietForm, key: 'lastDietForm' })
 
   return (
@@ -39,17 +46,19 @@ function Form({ isEditingExistingDiet }: Props) {
     >
       <Page>
         <PageHeader>
-          <>
+          <Box ref={headerRef} bg="white" px={{ base: 0, lg: 3 }}>
             <NameAndStats
               selectedVariantForm={selectedVariantForm}
               isEditingExistingDiet={isEditingExistingDiet}
             />
+            <Divider />
             <Controls />
-          </>
+          </Box>
         </PageHeader>
 
         <PageBody>
           <MealsList
+            headerHeight={headerHeight}
             selectedVariantFormFieldId={selectedVariantForm.fieldId}
             mealsForms={selectedVariantForm.mealsForms}
             selectedVariantFormIndex={dietForm.selectedVariantFormIndex}
