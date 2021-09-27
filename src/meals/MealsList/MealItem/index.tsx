@@ -4,11 +4,11 @@ import Header from './Header'
 import { RefObject, memo } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
 import { IngredientsList } from 'ingredients'
-import { Food, SelectFoodsDrawer } from 'foods'
+import { FoodsDrawer } from 'foods'
 import { useFoods } from 'foods'
 import { useUpdateMealStats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
-import useActions from './useActions'
+import useMealFormEvents from './useMealFormEvents'
 import { useMemo } from 'react'
 
 type Props = {
@@ -16,7 +16,6 @@ type Props = {
   index: number
   variantIndex: number
   onRemove: (variantIndex: number, index: number) => void
-  onViewFoodDetails: (food: Food) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
   onFirstAppear: (mealForm: MealForm) => void
   selectedVariantFormFieldId: string
@@ -31,12 +30,12 @@ function MealItem({
   variantIndex,
   selectedVariantFormFieldId,
   onFirstAppear,
-  onViewFoodDetails,
+
   ...rest
 }: Props) {
   const drawerDisclosure = useDisclosure()
   const { foodsById } = useFoods()
-  const actions = useActions({
+  const mealFormEvents = useMealFormEvents({
     mealForm,
     variantIndex,
     index,
@@ -47,6 +46,11 @@ function MealItem({
   const mealFormStatsTree = useMemo(
     () => getMealFormStatsTree(mealForm, foodsById),
     [mealForm, foodsById]
+  )
+
+  const ingredientsStats = useMemo(
+    () => mealFormStatsTree.subtrees.map(({ stats }) => stats),
+    [mealFormStatsTree]
   )
 
   useUpdateMealStats({
@@ -63,9 +67,9 @@ function MealItem({
     >
       {(provided, snapshot) => (
         <PresenceAnimation
-          shouldAnimate={actions.shouldAnimate}
-          isVisible={actions.isVisible}
-          onAnimationComplete={actions.onAnimationComplete}
+          shouldAnimate={mealFormEvents.shouldAnimate}
+          isVisible={mealFormEvents.isVisible}
+          onAnimationComplete={mealFormEvents.onAnimationComplete}
         >
           <Flex
             ref={provided.innerRef}
@@ -86,23 +90,20 @@ function MealItem({
               getMealNameInputRefById={getMealNameInputRefById}
               index={index}
               mealForm={mealForm}
-              onRemove={actions.onRemoveRequest}
+              onRemove={mealFormEvents.onRemoveRequest}
               onAddIngredient={drawerDisclosure.onOpen}
             />
 
             <IngredientsList
               ingredientsForms={mealForm.ingredientsForms}
-              ingredientsStats={mealFormStatsTree.subtrees.map(
-                ({ stats }) => stats
-              )}
+              ingredientsStats={ingredientsStats}
               mealForm={mealForm}
               mealIndex={index}
               variantIndex={variantIndex}
               onAddIngredients={drawerDisclosure.onOpen}
-              onViewFoodDetails={onViewFoodDetails}
             />
 
-            <SelectFoodsDrawer
+            <FoodsDrawer
               isOpen={drawerDisclosure.isOpen}
               onClose={drawerDisclosure.onClose}
               mealName={mealForm.name}

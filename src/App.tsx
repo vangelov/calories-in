@@ -5,9 +5,9 @@ import theme from 'theme'
 import smoothscroll from 'smoothscroll-polyfill'
 import { ScreenSizeProvider } from 'general'
 import { FoodsStoreProvider } from 'foods'
+import { loadFoods } from 'foods/persistence'
 import { OneTimeCheckStoreProvider } from 'general/oneTimeCheck'
 import { DietEditor } from 'diets'
-import { loadFoods } from 'persistence'
 import { useState } from 'react'
 
 smoothscroll.polyfill()

@@ -1,5 +1,5 @@
 import { Food } from 'foods'
-import FoodItem from './FoodItem'
+import FoodItem, { UsageType } from './FoodItem'
 import { TOP_PADDING } from './Inner'
 
 type Data = {
@@ -7,6 +7,7 @@ type Data = {
   isFoodSelected: (food: Food) => boolean
   onFoodSelect: (food: Food) => void
   onFoodPreview: (food: Food) => void
+  usageType: UsageType
 }
 
 type Props = {
@@ -16,7 +17,13 @@ type Props = {
 }
 
 function FoodItemRenderer({ style, index, data }: Props) {
-  const { getFood, onFoodSelect, onFoodPreview, isFoodSelected } = data
+  const {
+    getFood,
+    onFoodSelect,
+    onFoodPreview,
+    isFoodSelected,
+    usageType,
+  } = data
   const food = getFood(index)
 
   return (
@@ -26,10 +33,11 @@ function FoodItemRenderer({ style, index, data }: Props) {
         ...style,
         top: `${parseFloat(style['top'] as string) + TOP_PADDING}px`,
       }}
-      onClick={() => onFoodSelect(food)}
+      onChoose={onFoodSelect}
       isSelected={isFoodSelected(food)}
-      onPreview={() => onFoodPreview(food)}
+      onPreview={onFoodPreview}
       food={food}
+      usageType={usageType}
     />
   )
 }

@@ -10,16 +10,27 @@ import AnimateAppear from './AnimateAppear'
 
 const InfoStyled = chakra(Info)
 
+type UsageType = 'selectOrPreview' | 'previewOnly' | 'nonInteractive'
+
 type Props = {
   food: Food
   isSelected?: boolean
-  onPreview: () => void
+  onPreview: (food: Food) => void
+  onChoose: (food: Food) => void
+  usageType?: UsageType
 } & FlexProps
 
-function FoodItem({ food, isSelected = false, onPreview, ...rest }: Props) {
-  function onClick(event: MouseEvent<HTMLButtonElement>) {
+function FoodItem({
+  food,
+  isSelected = false,
+  onPreview,
+  onChoose,
+  usageType = 'selectOrPreview',
+  ...rest
+}: Props) {
+  function onInfoButtonClick(event: MouseEvent<HTMLButtonElement>) {
     event.stopPropagation()
-    onPreview()
+    onPreview(food)
   }
 
   const one = useOneTimeCheckActions()
@@ -27,13 +38,27 @@ function FoodItem({ food, isSelected = false, onPreview, ...rest }: Props) {
   const shouldAnimate2 = one.checkAndReset(`test2-${food.id}`)
 
   return (
-    <Box pb={2} {...rest}>
+    <Box
+      pb={2}
+      onClick={() => {
+        if (usageType === 'previewOnly') {
+          onPreview(food)
+        } else if (usageType === 'selectOrPreview') {
+          onChoose(food)
+        }
+      }}
+      {...rest}
+    >
       <AnimateAppear shouldAnimate={shouldAnimate}>
         <Flex
-          cursor="pointer"
-          _hover={{
-            backgroundColor: !isSelected ? 'gray.50' : undefined,
-          }}
+          cursor={usageType !== 'nonInteractive' ? 'pointer' : undefined}
+          _hover={
+            usageType !== 'nonInteractive'
+              ? {
+                  backgroundColor: !isSelected ? 'gray.50' : undefined,
+                }
+              : undefined
+          }
           position="relative"
           transition="border 150ms ease-out"
           borderColor={isSelected ? 'teal.500' : 'gray.200'}
@@ -57,18 +82,22 @@ function FoodItem({ food, isSelected = false, onPreview, ...rest }: Props) {
             position="relative"
             zIndex={1}
           />
-          <ResponsiveIconButton
-            aria-label="Food details"
-            icon={<InfoStyled color="gray.400" pointerEvents="none" />}
-            variant="ghost"
-            onClick={onClick}
-            position="relative"
-            zIndex={1}
-          />
+          {usageType === 'selectOrPreview' && (
+            <ResponsiveIconButton
+              aria-label="Food details"
+              icon={<InfoStyled color="gray.400" pointerEvents="none" />}
+              variant="ghost"
+              onClick={onInfoButtonClick}
+              position="relative"
+              zIndex={1}
+            />
+          )}
         </Flex>
       </AnimateAppear>
     </Box>
   )
 }
+
+export type { UsageType }
 
 export default FoodItem

@@ -1,52 +1,45 @@
-import { useCallback, useState, useRef } from 'react'
+import { useCallback, useState } from 'react'
 import { FoodsFilter, DEFAULT_FILTER } from './foodsFilter'
 import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
+import { useSaveValue } from 'persistence'
 
-let savedFilter = DEFAULT_FILTER
+type Params = {
+  initialFilter: FoodsFilter
+  shouldSaveFilter?: boolean
+}
 
-function useFoodsFilterStore() {
-  const [filter, setFilter] = useState<FoodsFilter>(savedFilter)
-  const timeoutRef = useRef<number>()
+function filterWithoutQuery(filter: FoodsFilter) {
+  return { ...filter, query: '' }
+}
 
-  const saveFilter = useCallback((filter: FoodsFilter) => {
-    window.clearTimeout(timeoutRef.current)
+function useFoodsFilterStore({
+  initialFilter,
+  shouldSaveFilter = true,
+}: Params) {
+  const [filter, setFilter] = useState<FoodsFilter>(initialFilter)
 
-    timeoutRef.current = window.setTimeout(() => {
-      const filterToSave: FoodsFilter = {
-        ...DEFAULT_FILTER,
-        onlyFoodsAddedbyUser: filter.onlyFoodsAddedbyUser,
-      }
-
-      savedFilter = filterToSave
-    }, 500)
-  }, [])
+  useSaveValue({
+    value: filterWithoutQuery(filter),
+    key: 'foodsFilter',
+    isEnabled: shouldSaveFilter,
+  })
 
   const updateFilter = useCallback(
     (partialFilter: Partial<FoodsFilter>) =>
       setFilter(filter => {
-        const newFilter = { ...filter, ...partialFilter }
-
-        if (partialFilter.onlyFoodsAddedbyUser !== undefined) {
-          saveFilter(newFilter)
-        }
-        return newFilter
+        return { ...filter, ...partialFilter }
       }),
-    [saveFilter]
+    []
   )
 
   const resetFilter = useCallback(() => {
-    setFilter(() => {
-      const newFilter = { ...DEFAULT_FILTER }
-      saveFilter(newFilter)
-
-      return newFilter
-    })
-  }, [saveFilter])
+    setFilter({ ...DEFAULT_FILTER })
+  }, [])
 
   const resetCategoryIdAndQuery = useCallback(() => {
     setFilter(filter => ({
       ...DEFAULT_FILTER,
-      onlyFoodsAddedbyUser: filter.onlyFoodsAddedbyUser,
+      onlyFoodsAddedByUser: filter.onlyFoodsAddedByUser,
     }))
   }, [])
 

@@ -8,7 +8,7 @@ type Props = {
   onClose: () => void
   isOpen: boolean
   food?: Food
-  onFoodCreatedOrUpdated: (newFood: Food, oldFood?: Food) => void
+  onFoodCreatedOrUpdated?: (newFood: Food, oldFood?: Food) => void
 }
 
 function FoodModal({ onClose, isOpen, food, onFoodCreatedOrUpdated }: Props) {

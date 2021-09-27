@@ -18,7 +18,7 @@ function Content({ selectRef }: Props) {
 
   function onCheckboxChange(event: ChangeEvent<HTMLInputElement>) {
     const { checked } = event.target
-    foodsFilterActions.updateFilter({ onlyFoodsAddedbyUser: checked })
+    foodsFilterActions.updateFilter({ onlyFoodsAddedByUser: checked })
   }
 
   return (
@@ -35,7 +35,7 @@ function Content({ selectRef }: Props) {
       <Checkbox
         onChange={onCheckboxChange}
         colorScheme="teal"
-        isChecked={Boolean(filter.onlyFoodsAddedbyUser)}
+        isChecked={Boolean(filter.onlyFoodsAddedByUser)}
       >
         Only items added by me
       </Checkbox>

@@ -1,17 +1,19 @@
 import { chakra } from '@chakra-ui/react'
-import { MoreHorizontal, Trash, Download } from 'react-feather'
+import { MoreHorizontal, Trash, Download, List } from 'react-feather'
 import { Menu, MenuItem, ResponsiveIconButton, useScreenSize } from 'general'
 
 const DownloadStyled = chakra(Download)
+const ListStyled = chakra(List)
 const TrashStyled = chakra(Trash)
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 
 type Props = {
   onImport: () => void
   onClear: () => void
+  onViewFoods: () => void
 }
 
-function MenuButtons({ onImport, onClear }: Props) {
+function MenuButtons({ onImport, onClear, onViewFoods }: Props) {
   const screenSize = useScreenSize()
   const mr = screenSize >= 2 ? 1 : 2
 
@@ -31,11 +33,15 @@ function MenuButtons({ onImport, onClear }: Props) {
     >
       <MenuItem onClick={onImport}>
         <DownloadStyled pointerEvents="none" mr={3} />
-        Import
+        Import meal plan
+      </MenuItem>
+      <MenuItem onClick={onViewFoods}>
+        <ListStyled pointerEvents="none" mr={3} />
+        View foods
       </MenuItem>
       <MenuItem onClick={onClear}>
         <TrashStyled pointerEvents="none" mr={3} />
-        Clear data
+        Clear all data
       </MenuItem>
     </Menu>
   )

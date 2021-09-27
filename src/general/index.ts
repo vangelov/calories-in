@@ -1,7 +1,7 @@
 export { default as HFadeScroll } from './HFadeScroll'
+export * from './HFadeScroll'
 export { default as Badge } from './Badge'
 export { default as deepCopy } from './deepCopy'
-export { default as DeleteConfirmationModal } from './DeleteConfirmationModal'
 export { default as Menu } from './Menu'
 export * from './Menu'
 export { default as ResponsiveButton } from './ResponsiveButton'

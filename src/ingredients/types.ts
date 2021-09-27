@@ -1,5 +1,7 @@
+import { FoodId } from 'foods'
+
 type Ingredient = {
-  foodId: number
+  foodId: FoodId
   amountInGrams: number
 }
 

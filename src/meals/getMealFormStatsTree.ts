@@ -1,11 +1,11 @@
-import { Food } from 'foods'
+import { Food, FoodId } from 'foods'
 import { MealForm } from 'meals'
 import { getStatsTree, StatsTree } from 'stats'
 import { getIngredientFormStatsTree } from 'ingredients'
 
 function getMealFormStatsTree(
   mealForm: MealForm,
-  foodsById: Record<number, Food>
+  foodsById: Record<FoodId, Food>
 ): StatsTree {
   return getStatsTree({
     id: mealForm.fieldId,

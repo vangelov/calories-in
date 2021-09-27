@@ -31,6 +31,7 @@ import { Food } from 'foods'
 import { FixedSizeList } from 'react-window'
 import { FoodsFilterPopoverOrModal } from 'foods-filters'
 import { useSaveValue } from 'persistence'
+import { UsageType } from './VirtualizedList/FoodItem'
 
 const SearchStyled = chakra(Search)
 
@@ -40,9 +41,11 @@ type FoodsListMethods = {
 
 type Props = {
   searchInputRef?: RefObject<HTMLInputElement>
-  selection: Selection<Item>
-  onFoodPreview: (food: Food) => void
+  selection?: Selection<Item>
+  onFoodPreview?: (food: Food) => void
   forwardedRef?: ForwardedRef<FoodsListMethods>
+  allowsFiltering?: boolean
+  itemUsageType?: UsageType
 } & FlexProps
 
 function FoodsList({
@@ -50,6 +53,8 @@ function FoodsList({
   searchInputRef,
   onFoodPreview,
   forwardedRef,
+  allowsFiltering = true,
+  itemUsageType = 'selectOrPreview',
   ...rest
 }: Props) {
   const { allFoods, userFoods } = useFoods()
@@ -64,7 +69,7 @@ function FoodsList({
       foodsFilterActions.resetCategoryIdAndQuery()
 
       if (listRef.current) {
-        const foods = filter.onlyFoodsAddedbyUser ? userFoods : allFoods
+        const foods = filter.onlyFoodsAddedByUser ? userFoods : allFoods
         const index = foods.map(({ id }) => id).indexOf(food.id)
         listRef.current.scrollToItem(index, 'center')
       }
@@ -76,9 +81,11 @@ function FoodsList({
   return (
     <Flex flexDirection="column" {...rest}>
       <HStack spacing={3}>
-        <Box>
-          <FoodsFilterPopoverOrModal />
-        </Box>
+        {allowsFiltering && (
+          <Box>
+            <FoodsFilterPopoverOrModal />
+          </Box>
+        )}
 
         <InputGroup size="md" flex={4}>
           <InputLeftElement
@@ -102,10 +109,15 @@ function FoodsList({
         <VirtualizedList
           ref={listRef}
           foodsCount={filteredFoods.length}
-          isFoodSelected={food => selection.isIdSelected(food.id)}
+          isFoodSelected={food =>
+            selection ? selection.isIdSelected(food.id) : false
+          }
           getFood={index => filteredFoods[index]}
-          onFoodSelect={food => selection.onToggleItem(food)}
-          onFoodPreview={onFoodPreview}
+          onFoodSelect={food =>
+            selection ? selection.onToggleItem(food) : () => {}
+          }
+          onFoodPreview={onFoodPreview || (() => {})}
+          itemUsageType={itemUsageType}
         />
       ) : (
         <Flex

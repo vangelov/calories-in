@@ -4,14 +4,22 @@ import MenuButtons from './MenuButtons'
 import MainButtons from './MainButtons'
 import { getDietForm, useDietFormActions } from 'diets'
 import useKeyboard from './useKeyboard'
-import { ExportModal } from 'persistence'
-import useLoadDietForm from './useLoadDietForm'
-import { MissingFoodsModal } from 'foods'
+import { ExportModal, useImportDietForm } from 'diets/persistence'
+import {
+  FoodsListModal,
+  MissingFoodsModal,
+  useImportFoods,
+} from 'foods/persistence'
+import { FoodsDrawer } from 'foods'
 
 function Controls() {
   const dietFormActions = useDietFormActions()
-  const modalDisclosure = useDisclosure()
-  const { onLoadFromFile, missingFoodsModalDisclosure } = useLoadDietForm()
+  const exportModalDisclosure = useDisclosure()
+  const missingFoodsModalDisclosure = useDisclosure()
+  const { onLoadFromFile } = useImportDietForm({ missingFoodsModalDisclosure })
+  const foodsListModalDisclosure = useDisclosure()
+  const importFoods = useImportFoods({ foodsListModalDisclosure })
+  const foodsDrawerDisclosure = useDisclosure()
 
   useKeyboard()
 
@@ -26,22 +34,38 @@ function Controls() {
       </Flex>
 
       <Flex flex="6" justifyContent="flex-end">
-        <MenuButtons onImport={onLoadFromFile} onClear={onClear} />
+        <MenuButtons
+          onImport={onLoadFromFile}
+          onClear={onClear}
+          onViewFoods={foodsDrawerDisclosure.onOpen}
+        />
 
         <MainButtons
           onMealAdd={dietFormActions.appendMealForm}
-          onSave={() => {}}
-          onExport={modalDisclosure.onOpen}
+          onExport={exportModalDisclosure.onOpen}
         />
 
         <ExportModal
-          isOpen={modalDisclosure.isOpen}
-          onClose={modalDisclosure.onClose}
+          isOpen={exportModalDisclosure.isOpen}
+          onClose={exportModalDisclosure.onClose}
         />
 
         <MissingFoodsModal
           isOpen={missingFoodsModalDisclosure.isOpen}
-          onCancel={missingFoodsModalDisclosure.onClose}
+          onClose={missingFoodsModalDisclosure.onClose}
+          onImport={importFoods.onImport}
+        />
+
+        <FoodsListModal
+          isOpen={foodsListModalDisclosure.isOpen}
+          onClose={foodsListModalDisclosure.onClose}
+          foodsToImport={importFoods.foodsToImport}
+        />
+
+        <FoodsDrawer
+          isOpen={foodsDrawerDisclosure.isOpen}
+          onClose={foodsDrawerDisclosure.onClose}
+          canSelect={false}
         />
       </Flex>
     </Flex>

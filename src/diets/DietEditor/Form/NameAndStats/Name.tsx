@@ -1,4 +1,4 @@
-import { Input, HStack, VStack } from '@chakra-ui/react'
+import { Input, Flex } from '@chakra-ui/react'
 import { useDietForm, useDietFormActions } from 'diets'
 import { ChangeEvent } from 'react'
 
@@ -12,7 +12,7 @@ function Name() {
   }
 
   return (
-    <VStack height="100%" alignItems="flex-start" spacing={1}>
+    <Flex height="100%" alignItems="center">
       <Input
         placeholder="Meal plan name"
         size="md"
@@ -24,16 +24,7 @@ function Name() {
         bg="white"
         value={dietForm.name}
       />
-
-      <HStack display={{ base: 'none', md: 'flex' }} width="100%" spacing={4}>
-        {/*<HStack spacing={1}>
-          <AlertCircleStyled color="gray.400" size="16px" />
-          <Text fontSize="xs" textColor="gray.400">
-            Unsaved changes
-          </Text>
-  </HStack>*/}
-      </HStack>
-    </VStack>
+    </Flex>
   )
 }
 

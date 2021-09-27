@@ -1,5 +1,5 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
-import { Food } from 'foods'
+import { Food, FoodId } from 'foods'
 import { IngredientForm } from 'ingredients'
 import { Stats } from 'stats'
 import PdfStat from 'stats/PdfStat'
@@ -9,7 +9,7 @@ import { getComputedColorFromChakra } from 'theme'
 type Props = {
   ingredientForm: IngredientForm
   stats: Stats
-  foodsById: Record<number, Food>
+  foodsById: Record<FoodId, Food>
 }
 
 function PdfIngredientItem({ ingredientForm, stats, foodsById }: Props) {

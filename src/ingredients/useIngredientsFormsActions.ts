@@ -7,6 +7,7 @@ import {
   IngredientForm,
 } from './ingredientForm'
 import { OneTimeCheckActions } from 'general/oneTimeCheck'
+import { FoodId } from 'foods'
 
 type Params = {
   setDietForm: (action: SetStateAction<DietForm>) => void
@@ -21,7 +22,7 @@ function useIngredientsFormsActions({
   oneTimeCheckActions,
 }: Params) {
   const appendIngredientsForms = useCallback(
-    (variantFormIndex: number, mealFormIndex: number, foodsIds: number[]) => {
+    (variantFormIndex: number, mealFormIndex: number, foodsIds: FoodId[]) => {
       setDietForm(dietForm =>
         produce(dietForm, draftDietForm => {
           const ingredientForms = foodsIds.map(id =>

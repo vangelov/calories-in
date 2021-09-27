@@ -1,15 +1,16 @@
 import { IngredientForm } from 'ingredients'
 import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
-import { Food, useFoods } from 'foods'
+import { FoodModal, useFoods } from 'foods'
 import { ContextMenuFlex } from 'general'
 import { Stats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
-import useActions from './useActions'
+import useIngredientsEvents from './useIngredientsEvents'
 import getMenuItems from './getMenuItems'
 import StatsLayout from './StatsLayout'
 import MissingStatsLayout from './MissingStatsLayout'
 import Menu from './Menu'
+import { useDisclosure } from '@chakra-ui/hooks'
 
 type Props = {
   variantIndex: number
@@ -18,7 +19,6 @@ type Props = {
   ingredientForm: IngredientForm
   ingredientStats: Stats
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
-  onViewFoodDetails: (food: Food) => void
   isLast: boolean
 }
 
@@ -30,9 +30,8 @@ function IngredientItem({
   ingredientStats,
   onRemove,
   isLast,
-  onViewFoodDetails,
 }: Props) {
-  const actions = useActions({
+  const ingredientEvents = useIngredientsEvents({
     variantIndex,
     mealIndex,
     index,
@@ -42,10 +41,11 @@ function IngredientItem({
 
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
+  const foodModalDisclosure = useDisclosure()
 
   const menuItems = getMenuItems({
-    onRemove: actions.onRemoveRequest,
-    onViewFoodDetails: () => onViewFoodDetails(food),
+    onRemove: ingredientEvents.onRemoveRequest,
+    onViewFoodDetails: foodModalDisclosure.onOpen,
   })
 
   return (
@@ -56,9 +56,9 @@ function IngredientItem({
     >
       {(provided, snapshot) => (
         <PresenceAnimation
-          shouldAnimate={actions.shouldAnimate}
-          onAnimationComplete={actions.onAnimationComplete}
-          isVisible={actions.isVisible}
+          shouldAnimate={ingredientEvents.shouldAnimate}
+          onAnimationComplete={ingredientEvents.onAnimationComplete}
+          isVisible={ingredientEvents.isVisible}
         >
           <ContextMenuFlex
             ref={provided.innerRef}
@@ -79,13 +79,21 @@ function IngredientItem({
               <StatsLayout
                 ingredientForm={ingredientForm}
                 ingredientStats={ingredientStats}
-                onAmountChange={actions.onAmountChange}
+                onAmountChange={ingredientEvents.onAmountChange}
                 menuElement={<Menu mr={3} items={menuItems} />}
               />
             ) : (
-              <MissingStatsLayout onRemoveRequest={actions.onRemoveRequest} />
+              <MissingStatsLayout
+                onRemoveRequest={ingredientEvents.onRemoveRequest}
+              />
             )}
           </ContextMenuFlex>
+
+          <FoodModal
+            isOpen={foodModalDisclosure.isOpen}
+            onClose={foodModalDisclosure.onClose}
+            food={food}
+          />
         </PresenceAnimation>
       )}
     </Draggable>
