@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   name: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 'medium',
     marginLeft: 10,
   },

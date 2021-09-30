@@ -48,7 +48,7 @@ function PdfIngredientItem({ ingredientForm, stats, foodsById }: Props) {
 const styles = StyleSheet.create({
   root: { paddingTop: 10, paddingBottom: 10 },
   name: {
-    fontSize: 14,
+    fontSize: 12,
     marginLeft: 10,
   },
 })

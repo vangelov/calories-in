@@ -50,15 +50,11 @@ function StatsLayout({
       }
       amountElement={
         <RightAligned>
-          {isHovered ? (
-            test
-          ) : (
-            <AmountInput
-              size={amountInputSize}
-              onChange={onAmountChange}
-              value={ingredientForm.amountInGrams}
-            />
-          )}
+          <AmountInput
+            size={amountInputSize}
+            onChange={onAmountChange}
+            value={ingredientForm.amountInGrams}
+          />
         </RightAligned>
       }
       energyElement={

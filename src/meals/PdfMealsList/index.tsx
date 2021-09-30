@@ -18,7 +18,7 @@ function PdfMealsList({ mealsForms, mealsFormsStatsTrees, foodsById }: Props) {
 
         return (
           <PdfMealItem
-            style={{ marginTop: 20 }}
+            style={{ marginTop: 12 }}
             key={mealForm.fieldId}
             mealForm={mealForm}
             stats={stats}

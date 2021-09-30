@@ -50,11 +50,11 @@ function PdfDietEditor({ dietForm, foodsById, ...rest }: Props) {
 
 const styles = StyleSheet.create({
   page: {
-    padding: 20,
+    padding: 12,
     fontFamily: 'Roboto',
   },
   title: {
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 20,
   },

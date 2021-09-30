@@ -11,10 +11,8 @@ function PageHeader({ children }: PageHeaderProps) {
   return (
     <Flex justifyContent="center" position="sticky" top="0" zIndex={2}>
       <ElementContainer>
-        <Box borderWidth={{ base: 0, lg: 1 }} borderTopWidth={0}>
-          {children}
-        </Box>
-        <Divider display={{ base: 'block', lg: 'none' }} />
+        <Box>{children}</Box>
+        <Divider />
       </ElementContainer>
     </Flex>
   )
@@ -49,14 +47,9 @@ function PageFooter({ children, footerContainerRef }: PageFooterProps) {
       zIndex={2}
     >
       <ElementContainer mx="auto" ref={footerContainerRef}>
-        <Divider display={{ base: 'block', lg: 'none' }} />
+        <Divider />
 
-        <Box
-          py={3}
-          bg="white"
-          borderWidth={{ base: 0, lg: 1 }}
-          borderBottomWidth={0}
-        >
+        <Box py={3} bg="white">
           {children}
         </Box>
       </ElementContainer>
@@ -69,7 +62,24 @@ type Props = {
 }
 
 function Page({ children }: Props) {
-  return <>{children}</>
+  return (
+    <Box>
+      <Flex
+        position="absolute"
+        justifyContent="center"
+        left="0"
+        right="0"
+        bottom="0"
+        top="0"
+        display={{ base: 'none', lg: 'flex' }}
+      >
+        <Box bg="white" boxShadow="lg" width="900px" height="100%" />
+      </Flex>
+      <Box position="relative" zIndex={1}>
+        {children}
+      </Box>
+    </Box>
+  )
 }
 
 export { PageHeader, PageBody, PageFooter }

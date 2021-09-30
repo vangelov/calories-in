@@ -37,8 +37,6 @@ function MealsList({
         <Box
           px={{ base: 0, lg: 3 }}
           py={3}
-          borderLeftWidth={{ base: 0, lg: 1 }}
-          borderRightWidth={{ base: 0, lg: 1 }}
           ref={provided.innerRef}
           minHeight={`calc(100vh - ${headerHeight}px)`}
           bg="white"

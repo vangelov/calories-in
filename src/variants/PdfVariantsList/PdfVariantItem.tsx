@@ -86,7 +86,7 @@ function PdfVariantItem({
 
 const styles = StyleSheet.create({
   name: {
-    fontSize: 14,
+    fontSize: 12,
     fontWeight: 'semibold',
   },
 })

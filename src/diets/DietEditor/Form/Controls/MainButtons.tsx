@@ -12,7 +12,6 @@ type Props = {
 
 function MainButtons({ onMealAdd, onExport }: Props) {
   const screenSize = useScreenSize()
-  const mr = screenSize >= 2 ? 1 : 2
 
   if (screenSize >= 2) {
     return (
@@ -22,7 +21,7 @@ function MainButtons({ onMealAdd, onExport }: Props) {
           leftIcon={<Share size={20} pointerEvents="none" />}
           variant="outline"
           colorScheme="teal"
-          mr={mr}
+          mr={2}
           onClick={onExport}
         >
           Export
@@ -48,7 +47,7 @@ function MainButtons({ onMealAdd, onExport }: Props) {
         variant="outline"
         onClick={onExport}
         colorScheme="teal"
-        mr={mr}
+        mr={2}
       />
 
       <ResponsiveIconButton
