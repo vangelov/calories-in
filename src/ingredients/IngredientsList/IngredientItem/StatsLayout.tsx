@@ -5,13 +5,6 @@ import { RightAligned } from 'layout'
 import { Stats } from 'stats'
 import { useScreenSize } from 'general'
 import { ChangeEvent, ReactElement } from 'react'
-import {
-  NumberInput,
-  NumberInputField,
-  NumberIncrementStepper,
-  NumberInputStepper,
-  NumberDecrementStepper,
-} from '@chakra-ui/react'
 
 type Props = {
   ingredientStats: Stats
@@ -31,16 +24,6 @@ function StatsLayout({
   const amountInputSize = useScreenSize() >= 2 ? 'sm' : 'md'
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
-
-  const test = (
-    <NumberInput size="sm" defaultValue={15} min={10} max={20}>
-      <NumberInputField />
-      <NumberInputStepper>
-        <NumberIncrementStepper />
-        <NumberDecrementStepper />
-      </NumberInputStepper>
-    </NumberInput>
-  )
 
   return (
     <StatsLayoutBase

@@ -8,13 +8,6 @@ type Props = {
 const MAX_AMOUNT_EXCLUDING = 10000
 
 function AmountInput({ unit = 'g', size, name, ...rest }: Props) {
-  let register = {}
-
-  const props = {
-    ...rest,
-    ...register,
-  }
-
   function onMouseDown(event: MouseEvent<HTMLInputElement>) {
     const input = event.target as HTMLInputElement
 
@@ -38,18 +31,18 @@ function AmountInput({ unit = 'g', size, name, ...rest }: Props) {
         textColor="gray.500"
         textAlign="right"
         bg="white"
-        maxWidth="74px"
+        maxWidth="62px"
         size={size}
         type="number"
         pattern="\d*"
         borderRadius={6}
-        {...props}
+        {...rest}
         onChange={event => {
           const { value } = event.target
           const valueAsNumber = Number(value)
 
           if (valueAsNumber >= 0 && valueAsNumber < MAX_AMOUNT_EXCLUDING) {
-            props.onChange && props.onChange(event)
+            rest.onChange && rest.onChange(event)
           }
         }}
         onMouseDown={onMouseDown}
