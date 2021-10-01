@@ -71,7 +71,7 @@ function VariantsList({
               return (
                 <VariantItem
                   canRemove={dietForm.variantsForms.length > 1}
-                  mr={1}
+                  mr={index === dietForm.variantsForms.length - 1 ? 0 : 2}
                   index={index}
                   onDelete={variantFormEvents.onRemove}
                   onEditName={variantFormEvents.onRename}
