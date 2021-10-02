@@ -22,6 +22,7 @@ function PdfVariantsList({
   const nonEmptyVariantsForms = variantsForms.filter(
     ({ mealsForms }) => mealsForms.length > 0
   )
+
   return (
     <View>
       {nonEmptyVariantsForms.map((variantForm, index) => {

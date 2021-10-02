@@ -43,7 +43,7 @@ function PdfIngredientsList({
             },
           ]}
         >
-          No foods added
+          No foods added yet
         </Text>
       )}
     </View>
