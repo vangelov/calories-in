@@ -1,7 +1,7 @@
 import { Modal, ModalOverlay } from '@chakra-ui/react'
 import { useRef } from 'react'
 import Content from './Content'
-import VariantFormMethodsProvider from './VariantNameFormProvider'
+import VariantNameFormProvider from './VariantNameFormProvider'
 
 type Props = {
   onClose: () => void
@@ -22,14 +22,14 @@ function VariantNameModal({ onClose, isOpen, variantFormIndex }: Props) {
       finalFocusRef={finalFocusRef}
     >
       <ModalOverlay />
-      <VariantFormMethodsProvider variantFormIndex={variantFormIndex}>
+      <VariantNameFormProvider variantFormIndex={variantFormIndex}>
         <Content
           title="Rename Day"
           onClose={onClose}
           initialRef={initialRef}
           variantFormIndex={variantFormIndex}
         />
-      </VariantFormMethodsProvider>
+      </VariantNameFormProvider>
     </Modal>
   )
 }

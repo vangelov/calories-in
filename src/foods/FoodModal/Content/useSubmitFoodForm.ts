@@ -16,7 +16,7 @@ function useSubmitFoodForm({ onComplete }: Params) {
 
   const onSubmit = handleSubmit((foodForm: FoodForm) => {
     const food: Food = {
-      id: uuidv4(),
+      id: foodForm.id !== undefined ? foodForm.id : uuidv4(),
       name: foodForm.name,
       categoryId: foodForm.categoryId,
       addedByUser: true,

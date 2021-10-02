@@ -1,6 +1,5 @@
 import { MealForm } from 'meals'
 import { v4 as uuidv4 } from 'uuid'
-import { object, string } from 'yup'
 import deepCopy from 'general/deepCopy'
 
 type VariantForm = {
@@ -18,23 +17,6 @@ function getVariantForm(name: string): VariantForm {
     mealsForms: [],
   }
 }
-
-const variantFormSchema = object().shape({
-  name: string()
-    .required('Please add a name')
-    .test(
-      'uniqueName',
-      'This name has alredy been used',
-      (name, { options }) => {
-        const variantsFormsNames = options.context as string[]
-
-        return (
-          name !== undefined &&
-          !variantsFormsNames.includes(name.toLocaleLowerCase())
-        )
-      }
-    ),
-})
 
 function getInsertVariantFormAnimationKey(fieldId: string) {
   return `insert-variant-animmation-${fieldId}`
@@ -57,9 +39,4 @@ function duplicate(originalVariantForm: VariantForm) {
 
 export type { VariantForm }
 
-export {
-  getVariantForm,
-  getInsertVariantFormAnimationKey,
-  variantFormSchema,
-  duplicate,
-}
+export { getVariantForm, getInsertVariantFormAnimationKey, duplicate }

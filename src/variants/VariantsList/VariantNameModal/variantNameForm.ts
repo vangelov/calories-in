@@ -1,3 +1,4 @@
+import { VariantForm } from 'variants'
 import { object, string } from 'yup'
 
 type VariantNameForm = {
@@ -10,23 +11,42 @@ function getVariantNameForm(name: string): VariantNameForm {
   }
 }
 
+type VariantNameFormSchemaContext = {
+  variantsForms: VariantForm[]
+  variantForm?: VariantForm
+}
+
 const variantNameFormSchema = object().shape({
   name: string()
     .required('Please add a name')
     .test(
       'uniqueName',
       'This name has alredy been used',
-      (name, { options }) => {
-        const variantsFormsNames = options.context as string[]
+      (currentName, { options }) => {
+        if (currentName === undefined) {
+          return true
+        }
 
-        return (
-          name !== undefined &&
-          !variantsFormsNames.includes(name.toLocaleLowerCase())
+        const {
+          variantsForms,
+          variantForm,
+        } = options.context as VariantNameFormSchemaContext
+
+        const sameVariantFormExists = variantsForms.some(
+          ({ name, fieldId }) => {
+            const haveSameNames =
+              currentName.toLowerCase() === name.toLowerCase()
+            return variantForm
+              ? fieldId !== variantForm.fieldId && haveSameNames
+              : haveSameNames
+          }
         )
+
+        return !sameVariantFormExists
       }
     ),
 })
 
 export { getVariantNameForm, variantNameFormSchema }
 
-export type { VariantNameForm }
+export type { VariantNameForm, VariantNameFormSchemaContext }

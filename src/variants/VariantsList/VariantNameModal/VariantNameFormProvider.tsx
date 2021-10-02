@@ -7,6 +7,7 @@ import {
   VariantNameForm,
   variantNameFormSchema,
 } from './variantNameForm'
+import { VariantNameFormSchemaContext } from './variantNameForm'
 
 type Props = {
   children: ReactNode
@@ -15,19 +16,23 @@ type Props = {
 
 function VariantNameFormProvider({ children, variantFormIndex }: Props) {
   const dietForm = useDietForm()
-  const variantsFormsNames = dietForm.variantsForms.map(({ name }) =>
-    name.toLocaleLowerCase()
-  )
+  const { variantsForms } = dietForm
+  const variantForm =
+    variantFormIndex !== undefined ? variantsForms[variantFormIndex] : undefined
+
   const defaultValues = getVariantNameForm(
     variantFormIndex !== undefined
       ? dietForm.variantsForms[variantFormIndex].name
       : ''
   )
 
-  const formMethods = useForm<VariantNameForm, typeof variantsFormsNames>({
+  const formMethods = useForm<VariantNameForm, VariantNameFormSchemaContext>({
     defaultValues,
     mode: 'onChange',
-    context: variantsFormsNames,
+    context: {
+      variantsForms,
+      variantForm,
+    },
     resolver: yupResolver(variantNameFormSchema),
   })
 

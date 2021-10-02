@@ -2,7 +2,13 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ReactNode } from 'react'
 import { FormProvider } from 'react-hook-form'
-import { Food, FoodForm, foodFormSchema, getFoodForm } from 'foods'
+import {
+  Food,
+  FoodForm,
+  foodFormSchema,
+  FoodFormSchemaContext,
+  getFoodForm,
+} from 'foods'
 import { useFoods } from 'foods/useFoodsStore'
 
 type Props = {
@@ -13,12 +19,14 @@ type Props = {
 function FoodFormProvider({ food, children }: Props) {
   const defaultValues = getFoodForm(food)
   const { allFoods } = useFoods()
-  const allFoodsNames = allFoods.map(({ name }) => name.toLocaleLowerCase())
 
-  const formMethods = useForm<FoodForm, typeof allFoodsNames>({
+  const formMethods = useForm<FoodForm, FoodFormSchemaContext>({
     defaultValues,
     resolver: yupResolver(foodFormSchema),
-    context: allFoodsNames,
+    context: {
+      allFoods,
+      food,
+    },
     mode: 'onChange',
   })
 

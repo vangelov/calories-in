@@ -35,18 +35,30 @@ function getFoodForm(food?: Food) {
   }
 }
 
+type FoodFormSchemaContext = {
+  allFoods: Food[]
+  food?: Food
+}
+
 const foodFormSchema = object().shape({
   name: string()
     .required('Please add a name')
     .test(
       'uniqueName',
       'This name has alredy been used',
-      (name, { options }) => {
-        const foodsNames = options.context as string[]
+      (currentName, { options }) => {
+        if (currentName === undefined) {
+          return true
+        }
 
-        return (
-          name !== undefined && !foodsNames.includes(name.toLocaleLowerCase())
-        )
+        const { allFoods, food } = options.context as FoodFormSchemaContext
+
+        const sameFoodExists = allFoods.some(({ name, id }) => {
+          const haveSameNames = currentName.toLowerCase() === name.toLowerCase()
+          return food ? id !== food.id && haveSameNames : haveSameNames
+        })
+
+        return !sameFoodExists
       }
     ),
   categoryId: number()
@@ -63,7 +75,7 @@ function useFoodForm(foodForm: FoodForm) {
   return formMethods
 }
 
-export type { FoodForm }
+export type { FoodForm, FoodFormSchemaContext }
 
 export {
   useFoodForm,
