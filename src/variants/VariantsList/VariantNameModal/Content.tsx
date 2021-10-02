@@ -15,6 +15,7 @@ import { RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useMergeRefs } from '@chakra-ui/react'
 import useSubmitVariantNameForm from './useSubmitVariantNameForm'
+import { useFormError, useSelectInputText } from 'general'
 
 type Props = {
   title: string
@@ -23,29 +24,19 @@ type Props = {
   variantFormIndex: number
 }
 
-function Content({
-  title,
-  onClose,
-  initialRef,
-
-  variantFormIndex,
-}: Props) {
-  const { register, formState } = useFormContext()
+function Content({ title, onClose, initialRef, variantFormIndex }: Props) {
+  const { register } = useFormContext()
   const nameRegister = register('name')
   const nameInputRef = useMergeRefs(nameRegister.ref, initialRef)
-  const { errors, touchedFields } = formState
 
   const onSubmit = useSubmitVariantNameForm({
     variantFormIndex,
-
     onComplete: onClose,
   })
 
-  const isInvalid =
-    errors['name'] !== undefined &&
-    (touchedFields['name'] || formState.isSubmitted)
+  const { errorMessage, isInvalid } = useFormError('name')
 
-  const errorMessage = errors['name']?.message
+  useSelectInputText(initialRef)
 
   return (
     <form onSubmit={onSubmit}>
@@ -55,13 +46,13 @@ function Content({
 
         <ModalBody>
           <FormControl isInvalid={isInvalid}>
-            <FormLabel>Variant name</FormLabel>
+            <FormLabel>Name</FormLabel>
             <Input
               autoComplete="off"
               {...nameRegister}
               ref={nameInputRef}
               focusBorderColor={isInvalid ? 'red.500' : undefined}
-              placeholder="Enter variant name"
+              placeholder="Enter name"
             />
             <Fade in={Boolean(errorMessage)}>
               <FormErrorMessage>{errorMessage}</FormErrorMessage>{' '}
@@ -79,7 +70,7 @@ function Content({
             variant="solid"
             onClick={onSubmit}
           >
-            Save
+            Rename
           </Button>
         </ModalFooter>
       </ModalContent>

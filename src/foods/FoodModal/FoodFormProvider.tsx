@@ -19,6 +19,7 @@ function FoodFormProvider({ food, children }: Props) {
     defaultValues,
     resolver: yupResolver(foodFormSchema),
     context: allFoodsNames,
+    mode: 'onChange',
   })
 
   return <FormProvider {...formMethods}>{children}</FormProvider>

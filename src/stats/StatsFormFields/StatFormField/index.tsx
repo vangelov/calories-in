@@ -10,8 +10,8 @@ import {
   Box,
   Fade,
 } from '@chakra-ui/react'
+import { useFormError } from 'general'
 import { ReactNode, RefObject } from 'react'
-import { useFormContext } from 'react-hook-form'
 import useGetInputElement, { InputType } from './useGetInputElement'
 
 type Props = {
@@ -46,9 +46,8 @@ function StatFormField(props: Props) {
     labelDetail,
     ...rest
   } = props
-  const { formState } = useFormContext()
-  const { errors } = formState
-  const isInvalid = errors[name] !== undefined
+  const { errorMessage, isInvalid } = useFormError(name)
+
   const inputElement = useGetInputElement({
     isInvalid,
     name,
@@ -69,8 +68,6 @@ function StatFormField(props: Props) {
       {labelDetail}
     </Text>
   ) : null
-
-  const errorMessage = errors[name]?.message
 
   return (
     <FormControl

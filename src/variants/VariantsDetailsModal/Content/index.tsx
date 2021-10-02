@@ -31,7 +31,7 @@ function Content({
 
   return (
     <ModalContent>
-      <ModalHeader>Variants Details</ModalHeader>
+      <ModalHeader>Meal Plan Details</ModalHeader>
       <ModalCloseButton />
 
       <ModalBody>
