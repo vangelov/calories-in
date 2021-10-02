@@ -1,8 +1,9 @@
 import { Diet } from 'diets'
 import { getVariantForm, VariantForm } from 'variants'
+import { v4 as uuidv4 } from 'uuid'
 
 type DietForm = {
-  formId: string
+  fieldId: string
   name: string
   selectedVariantFormIndex: number
   variantsForms: VariantForm[]
@@ -10,10 +11,11 @@ type DietForm = {
 
 function getDietForm(diet?: Diet): DietForm {
   const variantsForms = [getVariantForm('Day 1')]
+  const fieldId = uuidv4()
 
   if (diet) {
     return {
-      formId: diet.id.toString(),
+      fieldId,
       name: diet.name,
       variantsForms,
       selectedVariantFormIndex: 0,
@@ -21,7 +23,7 @@ function getDietForm(diet?: Diet): DietForm {
   }
 
   return {
-    formId: Math.random().toString(),
+    fieldId,
     name: '',
     variantsForms,
     selectedVariantFormIndex: 0,

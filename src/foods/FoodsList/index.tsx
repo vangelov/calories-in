@@ -120,13 +120,8 @@ function FoodsList({
           itemUsageType={itemUsageType}
         />
       ) : (
-        <Flex
-          textColor="gray.400"
-          flex={1}
-          alignItems="center"
-          justifyContent="center"
-        >
-          <Text>No foods found</Text>
+        <Flex flex={1} alignItems="center" justifyContent="center">
+          <Text textColor="gray.400">No foods found</Text>
         </Flex>
       )}
     </Flex>

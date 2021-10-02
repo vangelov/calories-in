@@ -1,4 +1,4 @@
-import { getMealForm, MealForm } from 'meals'
+import { MealForm } from 'meals'
 import { v4 as uuidv4 } from 'uuid'
 import { object, string } from 'yup'
 import deepCopy from 'general/deepCopy'
@@ -11,12 +11,11 @@ type VariantForm = {
 
 function getVariantForm(name: string): VariantForm {
   const fieldId = uuidv4()
-  const firstMeal = getMealForm()
 
   return {
     fieldId,
     name,
-    mealsForms: [firstMeal],
+    mealsForms: [],
   }
 }
 

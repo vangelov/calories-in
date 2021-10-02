@@ -19,10 +19,12 @@ function PdfVariantsList({
   foodsById,
 }: Props) {
   const name = variantsForms.length === 1 ? dietForm.name : undefined
-
+  const nonEmptyVariantsForms = variantsForms.filter(
+    ({ mealsForms }) => mealsForms.length > 0
+  )
   return (
     <View>
-      {variantsForms.map((variantForm, index) => {
+      {nonEmptyVariantsForms.map((variantForm, index) => {
         const { stats, subtrees } = variantsFormsStatsTrees[index]
 
         return (

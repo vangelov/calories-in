@@ -12,7 +12,7 @@ function getDietFormStatsTree(
   )
 
   return getStatsTree({
-    id: dietForm.formId,
+    id: dietForm.fieldId,
     subtrees,
     calculateAvg: true,
   })
