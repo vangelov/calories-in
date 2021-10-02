@@ -2,6 +2,7 @@ import { ButtonGroup, chakra } from '@chakra-ui/react'
 import { useFormVersionsActions, useFormVersions } from 'general/formVersions'
 import { CornerUpLeft, CornerUpRight } from 'react-feather'
 import { ResponsiveIconButton } from 'general'
+import Tooltip from 'general/Tooltip'
 
 const CornerUpLeftStyled = chakra(CornerUpLeft)
 const CornerUpRightStyled = chakra(CornerUpRight)
@@ -12,19 +13,23 @@ function UndoRedoButtons() {
 
   return (
     <ButtonGroup spacing={2} variant="outline">
-      <ResponsiveIconButton
-        aria-label="Undo"
-        icon={<CornerUpLeftStyled size={20} pointerEvents="none" />}
-        isDisabled={!canUndo}
-        onClick={() => undo()}
-      />
+      <Tooltip label="Undo">
+        <ResponsiveIconButton
+          aria-label="Undo"
+          icon={<CornerUpLeftStyled size={20} pointerEvents="none" />}
+          isDisabled={!canUndo}
+          onClick={() => undo()}
+        />
+      </Tooltip>
 
-      <ResponsiveIconButton
-        aria-label="Redo"
-        icon={<CornerUpRightStyled size={20} pointerEvents="none" />}
-        isDisabled={!canRedo}
-        onClick={() => redo()}
-      />
+      <Tooltip label="Redo">
+        <ResponsiveIconButton
+          aria-label="Redo"
+          icon={<CornerUpRightStyled size={20} pointerEvents="none" />}
+          isDisabled={!canRedo}
+          onClick={() => redo()}
+        />
+      </Tooltip>
     </ButtonGroup>
   )
 }

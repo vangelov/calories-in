@@ -9,6 +9,7 @@ import useVariantFormEvents from './useVariantFormEvents'
 import mergeRefs from 'react-merge-refs'
 import { ContextMenuFlex } from 'general'
 import getMenuItems from './getMenuItems'
+import useScrollIntoView from './useScrollIntoView'
 
 type Props = {
   children: ReactNode
@@ -45,6 +46,8 @@ function VariantItem({
     index,
     ref,
   })
+
+  useScrollIntoView({ isSelected, ref })
 
   const menuItems = getMenuItems({
     canRemove,

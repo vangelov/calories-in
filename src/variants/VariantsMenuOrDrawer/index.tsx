@@ -5,7 +5,6 @@ import { useDisclosure } from '@chakra-ui/hooks'
 import Menu from './Menu'
 import { useDietFormActions } from 'diets'
 import { RefObject } from 'react'
-import { isSafari } from 'react-device-detect'
 import { VariantForm } from 'variants'
 
 type Props = {
@@ -22,19 +21,6 @@ function VariantsMenuOrDrawer({
   const dietActions = useDietFormActions()
 
   function onSelect(variantForm: VariantForm, index: number) {
-    const variantRef = getVariantItemRefById(variantForm.fieldId)
-
-    setTimeout(() => {
-      variantRef.current?.scrollIntoView(
-        isSafari
-          ? undefined
-          : {
-              block: 'center',
-              behavior: 'smooth',
-            }
-      )
-    }, 200)
-
     dietActions.setSelectedVariantFormIndex(index)
     onVariantFormSelect(variantForm, index)
   }

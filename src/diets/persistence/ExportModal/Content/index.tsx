@@ -41,7 +41,7 @@ function Content({ onClose }: Props) {
         <DownloadButton
           blob={blob}
           onClose={onClose}
-          label="Download"
+          label="Download PDF"
           fileName={fileName}
           isLoading={blob === undefined}
         />

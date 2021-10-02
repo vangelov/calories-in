@@ -6,7 +6,7 @@ import VariantNameModal from './VariantNameModal'
 import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
 import { useDietForm } from 'diets'
 import { VariantForm } from 'variants'
-import { HFadeScroll, useScreenSize } from 'general'
+import { HFadeScroll, useScreenSize, Tooltip } from 'general'
 import mergeRefs from 'react-merge-refs'
 import ScrollButtons from './ScrollButtons'
 import VariantsMenuOrDrawer from '../VariantsMenuOrDrawer'
@@ -40,16 +40,18 @@ function VariantsList({
 
   return (
     <Flex px={{ base: 0, lg: 3 }}>
-      <IconButton
-        borderRadius="full"
-        size="sm"
-        aria-label="Add variant"
-        icon={<Plus size={20} pointerEvents="none" />}
-        variant="outline"
-        onClick={variantFormEvents.onAppend}
-        mr={3}
-        flexShrink={0}
-      />
+      <Tooltip label="Add day">
+        <IconButton
+          borderRadius="full"
+          size="sm"
+          aria-label="Add day"
+          icon={<Plus size={20} pointerEvents="none" />}
+          variant="outline"
+          onClick={variantFormEvents.onAppend}
+          mr={3}
+          flexShrink={0}
+        />
+      </Tooltip>
       {!isPhone && (
         <VariantsMenuOrDrawer
           getVariantItemRefById={getVariantItemRefById}

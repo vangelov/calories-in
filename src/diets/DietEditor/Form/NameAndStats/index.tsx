@@ -6,6 +6,7 @@ import { ResponsiveIconButton } from 'general'
 import { memo } from 'react'
 import { useVariantStats, EnergyStat, StatsLayout, Stat } from 'stats'
 import { VariantForm, VariantsDetailsModal } from 'variants'
+import Tooltip from 'general/Tooltip'
 
 const IntoStyled = chakra(Info)
 
@@ -64,12 +65,14 @@ function NameAndStats({ selectedVariantForm }: Props) {
         }
         menuElement={
           <RightAligned>
-            <ResponsiveIconButton
-              aria-label="Nutrition details"
-              icon={<IntoStyled size={20} pointerEvents="none" />}
-              variant="ghost"
-              onClick={modalDisclosure.onOpen}
-            />
+            <Tooltip label="Meal plan details">
+              <ResponsiveIconButton
+                aria-label="Nutrition details"
+                icon={<IntoStyled size={20} pointerEvents="none" />}
+                variant="ghost"
+                onClick={modalDisclosure.onOpen}
+              />
+            </Tooltip>
           </RightAligned>
         }
       />
