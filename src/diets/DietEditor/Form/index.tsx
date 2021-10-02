@@ -12,6 +12,7 @@ import useDietFormEvents from './useDietFormEvents'
 import useVariantFormEvents from './useVariantFormActions'
 import { Divider, Box } from '@chakra-ui/react'
 import { useElementHeight } from 'general'
+import { canExportDietForm } from 'diets/persistence'
 
 type Props = {
   isEditingExistingDiet: boolean
@@ -52,7 +53,7 @@ function Form({ isEditingExistingDiet }: Props) {
               isEditingExistingDiet={isEditingExistingDiet}
             />
             <Divider />
-            <Controls />
+            <Controls canExport={canExportDietForm(dietForm)} />
           </Box>
         </PageHeader>
 

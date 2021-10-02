@@ -12,7 +12,11 @@ import {
 } from 'foods/persistence'
 import { FoodsDrawer } from 'foods'
 
-function Controls() {
+type Props = {
+  canExport: boolean
+}
+
+function Controls({ canExport }: Props) {
   const dietFormActions = useDietFormActions()
   const exportModalDisclosure = useDisclosure()
   const missingFoodsModalDisclosure = useDisclosure()
@@ -43,6 +47,7 @@ function Controls() {
         <MainButtons
           onMealAdd={dietFormActions.appendMealForm}
           onExport={exportModalDisclosure.onOpen}
+          canExport={canExport}
         />
 
         <ExportModal

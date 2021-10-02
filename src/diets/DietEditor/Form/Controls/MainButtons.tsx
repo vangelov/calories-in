@@ -6,11 +6,11 @@ const PlusStyled = chakra(Plus)
 
 type Props = {
   onMealAdd: () => void
-
   onExport: () => void
+  canExport: boolean
 }
 
-function MainButtons({ onMealAdd, onExport }: Props) {
+function MainButtons({ onMealAdd, onExport, canExport }: Props) {
   const screenSize = useScreenSize()
 
   if (screenSize >= 2) {
@@ -18,6 +18,7 @@ function MainButtons({ onMealAdd, onExport }: Props) {
       <>
         <Button
           size="sm"
+          isDisabled={!canExport}
           leftIcon={<Share size={20} pointerEvents="none" />}
           variant="outline"
           colorScheme="teal"
