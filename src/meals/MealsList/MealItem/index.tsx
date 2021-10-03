@@ -92,6 +92,7 @@ function MealItem({
               mealForm={mealForm}
               onRemove={mealFormEvents.onRemoveRequest}
               onAddIngredient={drawerDisclosure.onOpen}
+              onClone={mealFormEvents.onClone}
             />
 
             <IngredientsList

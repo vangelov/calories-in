@@ -14,6 +14,7 @@ type Props = {
   index: number
   onAddIngredient: (index: number) => void
   onRemove: (index: number) => void
+  onClone: (index: number) => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
   ingredientsStatsSum: Stats
 } & BoxProps
@@ -23,6 +24,7 @@ function Header({
   variantIndex,
   index,
   onRemove,
+  onClone,
   onAddIngredient,
   getMealNameInputRefById,
   ingredientsStatsSum,
@@ -31,6 +33,7 @@ function Header({
   const menuItems = getMenuItems({
     onAddIngredient: () => onAddIngredient(index),
     onRemove: () => onRemove(index),
+    onClone: () => onClone(index),
   })
 
   return (

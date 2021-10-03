@@ -27,11 +27,11 @@ function MenuButtons({ onImport, onExport }: Props) {
     >
       <MenuItem onClick={onImport}>
         <DownloadStyled pointerEvents="none" mr={3} />
-        Import
+        Import custom foods
       </MenuItem>
       <MenuItem onClick={onExport}>
         <ShareStyled pointerEvents="none" mr={3} />
-        Export
+        Export custom foods
       </MenuItem>
     </Menu>
   )

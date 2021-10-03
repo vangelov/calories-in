@@ -1,6 +1,7 @@
 import { MealForm, getInsertMealFormAnimationKey } from 'meals'
 import { useState } from 'react'
 import { useOneTimeCheckActions } from 'general/oneTimeCheck'
+import { useDietFormActions } from 'diets'
 
 type Params = {
   mealForm: MealForm
@@ -19,6 +20,7 @@ function useMealFormEvents({
 }: Params) {
   const [isVisible, setIsVisible] = useState(true)
   const oneTimeCheckActions = useOneTimeCheckActions()
+  const dietFormActions = useDietFormActions()
   const shouldAnimate = oneTimeCheckActions.checkAndReset(
     getInsertMealFormAnimationKey(mealForm.fieldId)
   )
@@ -35,7 +37,17 @@ function useMealFormEvents({
     setIsVisible(false)
   }
 
-  return { onAnimationComplete, shouldAnimate, onRemoveRequest, isVisible }
+  function onClone(mealIndex: number) {
+    dietFormActions.duplicateMealForm(variantIndex, mealIndex)
+  }
+
+  return {
+    onAnimationComplete,
+    shouldAnimate,
+    onRemoveRequest,
+    isVisible,
+    onClone,
+  }
 }
 
 export default useMealFormEvents

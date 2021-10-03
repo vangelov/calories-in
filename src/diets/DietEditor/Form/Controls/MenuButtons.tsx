@@ -1,10 +1,10 @@
 import { chakra } from '@chakra-ui/react'
-import { MoreHorizontal, Trash, Download, List } from 'react-feather'
+import { MoreHorizontal, FilePlus, Download, List } from 'react-feather'
 import { Menu, MenuItem, ResponsiveIconButton } from 'general'
 
 const DownloadStyled = chakra(Download)
 const ListStyled = chakra(List)
-const TrashStyled = chakra(Trash)
+const FilePlusStyled = chakra(FilePlus)
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 
 type Props = {
@@ -28,6 +28,10 @@ function MenuButtons({ onImport, onClear, onViewFoods }: Props) {
         />
       }
     >
+      <MenuItem onClick={onClear}>
+        <FilePlusStyled pointerEvents="none" mr={3} />
+        New meal plan
+      </MenuItem>
       <MenuItem onClick={onImport}>
         <DownloadStyled pointerEvents="none" mr={3} />
         Import meal plan
@@ -35,10 +39,6 @@ function MenuButtons({ onImport, onClear, onViewFoods }: Props) {
       <MenuItem onClick={onViewFoods}>
         <ListStyled pointerEvents="none" mr={3} />
         View foods
-      </MenuItem>
-      <MenuItem onClick={onClear}>
-        <TrashStyled pointerEvents="none" mr={3} />
-        Clear all data
       </MenuItem>
     </Menu>
   )

@@ -22,7 +22,7 @@ function getMenuItems({ onClone, onEditName, canRemove, onDelete }: Props) {
 
     <MenuItem key="copy" onClick={onClone}>
       <CopyStyled pointerEvents="none" size={20} mr={3} />
-      Copy
+      Duplicate
     </MenuItem>,
 
     <MenuItem key="remove" disabled={!canRemove} onClick={onDelete}>

@@ -5,9 +5,9 @@ import {
   getInsertVariantFormAnimationKey,
   getVariantForm,
   VariantForm,
-  duplicate,
 } from './variantForm'
 import { OneTimeCheckActions } from 'general/oneTimeCheck'
+import { duplicate, getDuplicatedName, getEnumeratedName } from 'form'
 
 type Params = {
   setDietForm: (action: SetStateAction<DietForm>) => void
@@ -27,26 +27,7 @@ function getIndexAfterRemove(selectedIndex: number, indexToRemove: number) {
 }
 
 function getAppendedVariantFormName(variantForms: VariantForm[]) {
-  return enumeratedName(`Day ${variantForms.length + 1}`, variantForms)
-}
-
-function getDuplicatedVariantFormName(
-  index: number,
-  variantForms: VariantForm[]
-) {
-  const variantForm = variantForms[index]
-  return enumeratedName(`Copy of ${variantForm.name}`, variantForms)
-}
-
-function enumeratedName(currentName: string, variantForms: VariantForm[]) {
-  const presentCount = variantForms.filter(({ name }) => name === currentName)
-    .length
-
-  if (presentCount > 0) {
-    return `${currentName} (${presentCount})`
-  }
-
-  return currentName
+  return getEnumeratedName(`Day ${variantForms.length + 1}`, variantForms)
 }
 
 function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
@@ -98,12 +79,12 @@ function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
           oneTimeCheckActions.set(
             getInsertVariantFormAnimationKey(copiedVariantForm.fieldId)
           )
-          const newVariantFormForm = {
+          const newVariantForm = {
             ...copiedVariantForm,
-            name: getDuplicatedVariantFormName(variantFormIndex, variantsForms),
+            name: getDuplicatedName(variantFormIndex, variantsForms),
           }
 
-          variantsForms.splice(variantFormIndex + 1, 0, newVariantFormForm)
+          variantsForms.splice(variantFormIndex + 1, 0, newVariantForm)
           draftDietForm.selectedVariantFormIndex = variantFormIndex + 1
         })
       ),

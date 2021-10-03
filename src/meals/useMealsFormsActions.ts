@@ -7,6 +7,8 @@ import {
   MealForm,
 } from './mealForm'
 import { OneTimeCheckActions } from 'general/oneTimeCheck'
+import { duplicate } from 'form'
+import { getDuplicatedName } from 'form/names'
 
 type Params = {
   setDietForm: (action: SetStateAction<DietForm>) => void
@@ -15,17 +17,19 @@ type Params = {
 
 function useMealsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
   const appendMealForm = useCallback(
-    () =>
+    (mealForm?: MealForm) =>
       setDietForm(
         produce(draftDietForm => {
-          const mealForm = getMealForm()
+          const mealFormToAppend = mealForm || getMealForm()
           const { selectedVariantFormIndex, variantsForms } = draftDietForm
 
           oneTimeCheckActions.set(
-            getInsertMealFormAnimationKey(mealForm.fieldId)
+            getInsertMealFormAnimationKey(mealFormToAppend.fieldId)
           )
 
-          variantsForms[selectedVariantFormIndex].mealsForms.push(mealForm)
+          variantsForms[selectedVariantFormIndex].mealsForms.push(
+            mealFormToAppend
+          )
         })
       ),
     [setDietForm, oneTimeCheckActions]
@@ -72,11 +76,27 @@ function useMealsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
           mealsForms[mealFormIndex] = {
             ...mealForm,
             ...partialMealForm,
-          }
+          } as MealForm
         })
       )
     },
     [setDietForm]
+  )
+
+  const duplicateMealForm = useCallback(
+    (variantFormIndex: number, mealFormIndex: number) =>
+      setDietForm(
+        produce(draftDietForm => {
+          const { mealsForms } = draftDietForm.variantsForms[variantFormIndex]
+          const mealForm = mealsForms[mealFormIndex]
+          const newMealForm = {
+            ...duplicate(mealForm),
+            name: getDuplicatedName(mealFormIndex, mealsForms),
+          }
+          appendMealForm(newMealForm)
+        })
+      ),
+    [setDietForm, appendMealForm]
   )
 
   return {
@@ -84,6 +104,7 @@ function useMealsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
     removeMealForm,
     moveMealForm,
     updateMealForm,
+    duplicateMealForm,
   }
 }
 

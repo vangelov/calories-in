@@ -10,7 +10,7 @@ import {
   Box,
   Fade,
 } from '@chakra-ui/react'
-import { useFormError } from 'general'
+import { useFormError } from 'form'
 import { ReactNode, RefObject } from 'react'
 import useGetInputElement, { InputType } from './useGetInputElement'
 

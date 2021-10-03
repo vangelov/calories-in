@@ -15,7 +15,7 @@ import { RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useMergeRefs } from '@chakra-ui/react'
 import useSubmitVariantNameForm from './useSubmitVariantNameForm'
-import { useFormError, useSelectInputText } from 'general'
+import { useFormError, useSelectInputText } from 'form'
 
 type Props = {
   title: string
