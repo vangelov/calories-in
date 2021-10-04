@@ -33,6 +33,8 @@ function PdfVariantItem({
     [stats]
   )
 
+  console.log('m', mealsFormsStatsTrees)
+
   return (
     <View style={[style]}>
       <PdfStatsLayout

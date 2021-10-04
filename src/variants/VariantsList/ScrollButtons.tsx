@@ -36,7 +36,7 @@ function ScrollButtons({
         icon={<ArrowLeft size={20} pointerEvents="none" />}
         variant="outline"
         onClick={onTest2}
-        ml={3}
+        ml={1}
         flexShrink={0}
         isDisabled={!canScrollLeft}
       />

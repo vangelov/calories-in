@@ -1,6 +1,7 @@
 import { View } from '@react-pdf/renderer'
 import { DietForm } from 'diets'
 import { Food } from 'foods'
+import { ReactElement } from 'react'
 import { StatsTree } from 'stats'
 import { VariantForm } from 'variants/variantForm'
 import PdfVariantItem from './PdfVariantItem'
@@ -19,29 +20,28 @@ function PdfVariantsList({
   foodsById,
 }: Props) {
   const name = variantsForms.length === 1 ? dietForm.name : undefined
-  const nonEmptyVariantsForms = variantsForms.filter(
-    ({ mealsForms }) => mealsForms.length > 0
-  )
+  const variantItems: ReactElement[] = []
 
-  return (
-    <View>
-      {nonEmptyVariantsForms.map((variantForm, index) => {
-        const { stats, subtrees } = variantsFormsStatsTrees[index]
+  variantsForms.forEach((variantForm, index) => {
+    const { mealsForms } = variantForm
+    const { stats, subtrees } = variantsFormsStatsTrees[index]
 
-        return (
-          <PdfVariantItem
-            style={{ marginTop: index > 0 ? 70 : 0 }}
-            key={variantForm.fieldId}
-            name={name}
-            variantForm={variantForm}
-            stats={stats}
-            mealsFormsStatsTrees={subtrees}
-            foodsById={foodsById}
-          />
-        )
-      })}
-    </View>
-  )
+    if (mealsForms.length > 0) {
+      variantItems.push(
+        <PdfVariantItem
+          style={{ marginTop: index > 0 ? 70 : 0 }}
+          key={variantForm.fieldId}
+          name={name}
+          variantForm={variantForm}
+          stats={stats}
+          mealsFormsStatsTrees={subtrees}
+          foodsById={foodsById}
+        />
+      )
+    }
+  })
+
+  return <View>{variantItems}</View>
 }
 
 export default PdfVariantsList
