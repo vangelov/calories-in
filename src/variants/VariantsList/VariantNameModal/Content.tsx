@@ -9,7 +9,8 @@ import {
   ModalContent,
   ModalHeader,
   ModalCloseButton,
-  Fade,
+  Collapse,
+  Box,
 } from '@chakra-ui/react'
 import { RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
@@ -54,9 +55,11 @@ function Content({ title, onClose, initialRef, variantFormIndex }: Props) {
               focusBorderColor={isInvalid ? 'red.500' : undefined}
               placeholder="Enter name"
             />
-            <Fade in={Boolean(errorMessage)}>
-              <FormErrorMessage>{errorMessage}</FormErrorMessage>{' '}
-            </Fade>
+            <Collapse animateOpacity={true} in={Boolean(errorMessage)}>
+              <Box minHeight="21px">
+                <FormErrorMessage>{errorMessage}</FormErrorMessage>
+              </Box>
+            </Collapse>
           </FormControl>
         </ModalBody>
 

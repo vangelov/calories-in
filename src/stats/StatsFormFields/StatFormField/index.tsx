@@ -8,7 +8,7 @@ import {
   FormErrorMessage,
   FormControlProps,
   Box,
-  Fade,
+  Collapse,
 } from '@chakra-ui/react'
 import { useFormError } from 'form'
 import { ReactNode, RefObject } from 'react'
@@ -63,7 +63,7 @@ function StatFormField(props: Props) {
       as={isReadOnly ? 'span' : undefined}
       fontSize="sm"
       fontWeight="thin"
-      ml={isReadOnly ? 1 : 0}
+      ml={1}
     >
       {labelDetail}
     </Text>
@@ -79,15 +79,8 @@ function StatFormField(props: Props) {
     >
       <VStack spacing={2} alignItems="stretch">
         {isIdented ? <Divider /> : null}
-        <Flex
-          justifyContent={
-            isReadOnly && !(isCaption || isEmphasized)
-              ? undefined
-              : 'space-between'
-          }
-          alignItems="center"
-        >
-          <Box>
+        <Flex justifyContent={'space-between'} alignItems="center">
+          <Flex>
             <FormLabel
               fontWeight={
                 isIdented ? 'normal' : isEmphasized ? 'semibold' : 'medium'
@@ -100,10 +93,17 @@ function StatFormField(props: Props) {
               {isReadOnly && labelDetailElement}
             </FormLabel>
             {!isReadOnly && labelDetailElement}
-          </Box>
+            {isReadOnly && !(isCaption || isEmphasized) && (
+              <Box ml={2}>{inputElement}</Box>
+            )}
+          </Flex>
 
           <Flex ml={2} justifyContent="flex-end">
-            {inputElement}
+            {!(isReadOnly && !(isCaption || isEmphasized)) && inputElement}
+
+            {/*{isReadOnly && !(isCaption || isEmphasized) && (
+              <Text fontWeight="medium">10%</Text>
+            )}*/}
 
             {!isReadOnly && inputType === 'nutritionValue' && (
               <Flex
@@ -120,9 +120,11 @@ function StatFormField(props: Props) {
             )}
           </Flex>
         </Flex>
-        <Fade in={Boolean(errorMessage)}>
-          <FormErrorMessage>{errorMessage}</FormErrorMessage>
-        </Fade>
+        <Collapse animateOpacity={true} in={Boolean(errorMessage)}>
+          <Box minHeight="21px">
+            <FormErrorMessage>{errorMessage}</FormErrorMessage>
+          </Box>
+        </Collapse>
       </VStack>
 
       {children}

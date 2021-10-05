@@ -21,7 +21,7 @@ const variantNameFormSchema = object().shape({
     .required('Please add a name')
     .test(
       'uniqueName',
-      'This name has alredy been used',
+      'This name has already been used',
       (currentName, { options }) => {
         if (currentName === undefined) {
           return true

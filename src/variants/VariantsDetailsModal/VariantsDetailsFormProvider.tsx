@@ -25,7 +25,6 @@ function VariantsDetailsFormProvider({
 
   const formMethods = useForm<VariantsDetailsForm>({
     defaultValues,
-    mode: 'onChange',
   })
 
   return <FormProvider {...formMethods}>{children}</FormProvider>

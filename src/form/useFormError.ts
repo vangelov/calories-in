@@ -7,7 +7,7 @@ function useFormError(name: string) {
   const isInvalid =
     errors[name] && (touchedFields[name] || formState.isSubmitted)
 
-  const errorMessage = errors[name]?.message
+  const errorMessage = isInvalid ? errors[name]?.message : undefined
 
   return {
     isInvalid,
