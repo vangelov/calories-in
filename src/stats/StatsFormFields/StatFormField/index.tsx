@@ -12,12 +12,14 @@ import {
 } from '@chakra-ui/react'
 import { useFormError } from 'form'
 import { ReactNode, RefObject } from 'react'
+import useGetDailyValuePercent from './useGetDailyValuePercent'
 import useGetInputElement, { InputType } from './useGetInputElement'
 
 type Props = {
   name: string
   label: string
   labelDetail?: string
+
   inputType: InputType
   nutritionValueUnit?: string
   isIdented?: boolean
@@ -47,6 +49,7 @@ function StatFormField(props: Props) {
     ...rest
   } = props
   const { errorMessage, isInvalid } = useFormError(name)
+  const dailyValuePercent = useGetDailyValuePercent(name as any)
 
   const inputElement = useGetInputElement({
     isInvalid,
@@ -101,9 +104,12 @@ function StatFormField(props: Props) {
           <Flex ml={2} justifyContent="flex-end">
             {!(isReadOnly && !(isCaption || isEmphasized)) && inputElement}
 
-            {/*{isReadOnly && !(isCaption || isEmphasized) && (
-              <Text fontWeight="medium">10%</Text>
-            )}*/}
+            {dailyValuePercent !== undefined &&
+              dailyValuePercent > 0 &&
+              isReadOnly &&
+              !(isCaption || isEmphasized) && (
+                <Text fontWeight="medium">{`${dailyValuePercent}%`}</Text>
+              )}
 
             {!isReadOnly && inputType === 'nutritionValue' && (
               <Flex

@@ -37,6 +37,8 @@ type NutritionData = {
   zinc: number
   manganese: number
   copper: number
+  choline: number
+  niacin: number
 }
 
 type Stats = {

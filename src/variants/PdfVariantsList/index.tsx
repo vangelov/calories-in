@@ -20,16 +20,16 @@ function PdfVariantsList({
   foodsById,
 }: Props) {
   const name = variantsForms.length === 1 ? dietForm.name : undefined
-  const variantItems: ReactElement[] = []
+  const variantItemsElements: ReactElement[] = []
 
   variantsForms.forEach((variantForm, index) => {
     const { mealsForms } = variantForm
     const { stats, subtrees } = variantsFormsStatsTrees[index]
 
     if (mealsForms.length > 0) {
-      variantItems.push(
+      variantItemsElements.push(
         <PdfVariantItem
-          style={{ marginTop: index > 0 ? 70 : 0 }}
+          style={{ marginTop: variantItemsElements.length > 0 ? 50 : 0 }}
           key={variantForm.fieldId}
           name={name}
           variantForm={variantForm}
@@ -41,7 +41,7 @@ function PdfVariantsList({
     }
   })
 
-  return <View>{variantItems}</View>
+  return <View>{variantItemsElements}</View>
 }
 
 export default PdfVariantsList

@@ -13,7 +13,10 @@ type Props = {
   showsEnergyPercentFromFats?: boolean
 }
 
-function Macros({ canEdit, showsEnergyPercentFromFats = false }: Props) {
+function MacrosFormFields({
+  canEdit,
+  showsEnergyPercentFromFats = false,
+}: Props) {
   const [showsAllFatTypes, setShowsAllFatTypes] = useState(false)
 
   function onShowAllFatTypesToggle() {
@@ -135,4 +138,4 @@ function Macros({ canEdit, showsEnergyPercentFromFats = false }: Props) {
   )
 }
 
-export default Macros
+export default MacrosFormFields

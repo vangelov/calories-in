@@ -14,6 +14,7 @@ const NUTRITION_STATS_KEYS: (keyof NutritionData)[] = [
   'fiber',
   'sodium',
   'cholesterol',
+
   'vitaminA',
   'vitaminD',
   'vitaminE',
@@ -26,6 +27,10 @@ const NUTRITION_STATS_KEYS: (keyof NutritionData)[] = [
   'vitaminB3',
   'vitaminB9',
   'vitaminC',
+  'vitaminD',
+  'vitaminE',
+  'vitaminK',
+
   'magnesium',
   'calcium',
   'phosphorus',
@@ -35,6 +40,8 @@ const NUTRITION_STATS_KEYS: (keyof NutritionData)[] = [
   'zinc',
   'manganese',
   'copper',
+  'choline',
+  'niacin',
 ]
 
 function objectFromNutritionDataKeys<T>(
