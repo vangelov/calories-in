@@ -1,8 +1,6 @@
-import { FlexProps, Collapse, Text, Flex, Box, Divider } from '@chakra-ui/react'
-import { useState } from 'react'
+import { FlexProps, Text, Flex, Box, Divider } from '@chakra-ui/react'
 import MacrosFormFields from './MacrosFormFields'
 import VitaminsAndMineralsFormFields from './VitaminsAndMineralsFormFields'
-import RevealButton from './ReavealButton'
 
 type Props = {
   canEdit: boolean
@@ -13,21 +11,15 @@ function StatsFormFields({
   canEdit,
   showsEnergyPrecentFromFat = false,
 }: Props) {
-  const [showsVitaminsAndMinerals, setShowsVitaminsAndMinerals] = useState(
-    false
-  )
-
-  function onShowVitaminsAndMineralsToggle() {
-    setShowsVitaminsAndMinerals(!showsVitaminsAndMinerals)
-  }
-
   return (
     <Box>
       {!canEdit && (
         <>
-          <Divider borderBottomWidth="8px" />
+          <Divider size="md" />
           <Flex justifyContent="flex-end" py={2}>
-            <Text fontWeight="medium">% Daily Value *</Text>
+            <Text fontSize="sm" fontWeight="medium">
+              % Daily Value *
+            </Text>
           </Flex>
         </>
       )}
@@ -37,18 +29,18 @@ function StatsFormFields({
         showsEnergyPercentFromFats={showsEnergyPrecentFromFat}
       />
 
-      <Collapse in={showsVitaminsAndMinerals} animateOpacity>
-        <VitaminsAndMineralsFormFields canEdit={canEdit} />
-      </Collapse>
+      <VitaminsAndMineralsFormFields canEdit={canEdit} mt={2} />
 
-      <RevealButton
-        mt={2}
-        alignSelf="flex-start"
-        isContentShown={showsVitaminsAndMinerals}
-        onClick={onShowVitaminsAndMineralsToggle}
-        showContentLabel="Show  vitamins and minerals"
-        hideContentLabel="Hide  vitamins and minerals"
-      />
+      {!canEdit && (
+        <Box>
+          <Divider my={2} borderColor="gray.400" />
+          <Text fontSize="sm">
+            * The % Daily Value (DV) tells you how much nutrient in a serving of
+            food contributes to a daily diet. 2000 calories a day is used for
+            general nutrition advise.{' '}
+          </Text>
+        </Box>
+      )}
     </Box>
   )
 }

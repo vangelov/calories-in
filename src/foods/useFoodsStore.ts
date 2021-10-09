@@ -24,7 +24,9 @@ function useFoodsStore({ initialFoods }: Params) {
 
     for (const food of initialFoods) {
       initialMap[food.id] = {
-        ...objectFromNutritionDataKeys(key => 0),
+        ...objectFromNutritionDataKeys(
+          key => [0, 0, 3][Math.round(Math.random() * 100) % 3]
+        ),
         ...food,
       }
     }

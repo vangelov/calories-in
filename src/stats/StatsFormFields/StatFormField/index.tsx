@@ -9,10 +9,10 @@ import {
   FormControlProps,
   Box,
   Collapse,
+  DividerProps,
 } from '@chakra-ui/react'
 import { useFormError } from 'form'
 import { ReactNode, RefObject } from 'react'
-import useGetDailyValuePercent from './useGetDailyValuePercent'
 import useGetInputElement, { InputType } from './useGetInputElement'
 
 type Props = {
@@ -29,6 +29,9 @@ type Props = {
   isCaption?: boolean
   children?: ReactNode
   isValueBold?: boolean
+  dividerProps?: DividerProps
+  hasDivider?: boolean
+  dailyValuePercent?: number
 } & FormControlProps
 
 function StatFormField(props: Props) {
@@ -46,10 +49,12 @@ function StatFormField(props: Props) {
     isRequired,
     children,
     labelDetail,
+    dividerProps = {},
+    hasDivider = true,
+    dailyValuePercent,
     ...rest
   } = props
   const { errorMessage, isInvalid } = useFormError(name)
-  const dailyValuePercent = useGetDailyValuePercent(name as any)
 
   const inputElement = useGetInputElement({
     isInvalid,
@@ -81,7 +86,7 @@ function StatFormField(props: Props) {
       {...rest}
     >
       <VStack spacing={2} alignItems="stretch">
-        {isIdented ? <Divider /> : null}
+        {hasDivider && <Divider {...dividerProps} />}
         <Flex justifyContent={'space-between'} alignItems="center">
           <Flex>
             <FormLabel
@@ -105,7 +110,6 @@ function StatFormField(props: Props) {
             {!(isReadOnly && !(isCaption || isEmphasized)) && inputElement}
 
             {dailyValuePercent !== undefined &&
-              dailyValuePercent > 0 &&
               isReadOnly &&
               !(isCaption || isEmphasized) && (
                 <Text fontWeight="medium">{`${dailyValuePercent}%`}</Text>
