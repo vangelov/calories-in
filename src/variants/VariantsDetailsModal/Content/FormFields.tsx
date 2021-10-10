@@ -5,6 +5,7 @@ import {
   roundMacrosPercents,
   Stats,
   StatsFormFields,
+  StatValueDetail,
 } from 'stats'
 import { VariantForm } from 'variants'
 import { Stat } from 'stats'
@@ -80,10 +81,14 @@ function FormFields({
               type="diet"
               label="Protein"
               value={variantStats.protein}
-              valueDetail={`${proteinPercent}%`}
-              showsValueDetail={true}
               isLarge={isLarge}
               justifyContent="flex-start"
+              valueDetailElement={
+                <StatValueDetail
+                  label={`${proteinPercent}%`}
+                  tooltipLabel={'% energy from protein'}
+                />
+              }
             />
 
             <Stat
@@ -91,9 +96,13 @@ function FormFields({
               type="diet"
               label="Carbs"
               value={variantStats.carbs}
-              valueDetail={`${carbsPercent}%`}
-              showsValueDetail={true}
               isLarge={isLarge}
+              valueDetailElement={
+                <StatValueDetail
+                  label={`${carbsPercent}%`}
+                  tooltipLabel={'% energy from carbs'}
+                />
+              }
             />
 
             <Stat
@@ -101,9 +110,13 @@ function FormFields({
               type="diet"
               label="Fat"
               value={variantStats.fat}
-              valueDetail={`${fatPercent}%`}
-              showsValueDetail={true}
               isLarge={isLarge}
+              valueDetailElement={
+                <StatValueDetail
+                  label={`${fatPercent}%`}
+                  tooltipLabel={'% energy coming from fats'}
+                />
+              }
             />
           </Flex>
         </Flex>

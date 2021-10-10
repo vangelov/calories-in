@@ -3,7 +3,7 @@ import { Tooltip as TooltipBase } from '@chakra-ui/react'
 
 type Props = {
   children: ReactElement
-  label: string
+  label?: string
 }
 
 function Tooltip({ children, label }: Props) {

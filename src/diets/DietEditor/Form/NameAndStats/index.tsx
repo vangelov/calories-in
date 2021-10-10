@@ -4,7 +4,13 @@ import { RightAligned } from 'layout'
 import Name from './Name'
 import { ResponsiveIconButton } from 'general'
 import { memo } from 'react'
-import { useVariantStats, EnergyStat, StatsLayout, Stat } from 'stats'
+import {
+  useVariantStats,
+  EnergyStat,
+  StatsLayout,
+  Stat,
+  StatValueDetail,
+} from 'stats'
 import { VariantForm, VariantsDetailsModal } from 'variants'
 import Tooltip from 'general/Tooltip'
 
@@ -39,8 +45,12 @@ function NameAndStats({ selectedVariantForm }: Props) {
             type="diet"
             label="Protein"
             value={variantStats.protein}
-            valueDetail={`${proteinPercent}%`}
-            showsValueDetail={true}
+            valueDetailElement={
+              <StatValueDetail
+                label={`${proteinPercent}%`}
+                tooltipLabel={'% energy from protein'}
+              />
+            }
           />
         }
         carbsElement={
@@ -49,8 +59,12 @@ function NameAndStats({ selectedVariantForm }: Props) {
             type="diet"
             label="Carbs"
             value={variantStats.carbs}
-            valueDetail={`${carbsPercent}%`}
-            showsValueDetail={true}
+            valueDetailElement={
+              <StatValueDetail
+                label={`${carbsPercent}%`}
+                tooltipLabel={'% energy from carbs'}
+              />
+            }
           />
         }
         fatElement={
@@ -59,8 +73,12 @@ function NameAndStats({ selectedVariantForm }: Props) {
             type="diet"
             label="Fat"
             value={variantStats.fat}
-            valueDetail={`${fatPercent}%`}
-            showsValueDetail={true}
+            valueDetailElement={
+              <StatValueDetail
+                label={`${fatPercent}%`}
+                tooltipLabel={'% energy from fats'}
+              />
+            }
           />
         }
         menuElement={

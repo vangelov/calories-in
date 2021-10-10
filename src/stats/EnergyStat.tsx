@@ -1,6 +1,7 @@
 import Stat from './Stat'
 import { ArrowUpCircle, ArrowDownCircle } from 'react-feather'
 import { useSameOrPreviousValue } from 'general'
+import StatValueDetail from './StatValueDetail'
 
 type Props = {
   energy: number
@@ -19,17 +20,25 @@ function EnergyStat({ energy, energyDiff }: Props) {
       type="dietEnergy"
       label="Energy"
       value={energy}
-      valueDetail={
-        energyDiff !== 0 ? energyValueDetail : previousOrSameEnergyValueDetail
+      valueDetailElement={
+        energyDiff !== 0 ? (
+          <StatValueDetail
+            label={
+              energyDiff !== 0
+                ? energyValueDetail
+                : previousOrSameEnergyValueDetail
+            }
+            tooltipLabel={'% energy from carbs'}
+            leftIcon={
+              energyDiff > 0 ? (
+                <ArrowUpCircle width="15px" height="15px" />
+              ) : (
+                <ArrowDownCircle width="15px" height="15px" />
+              )
+            }
+          />
+        ) : undefined
       }
-      valueDetailLeftIcon={
-        energyDiff > 0 ? (
-          <ArrowUpCircle width="15px" height="15px" />
-        ) : (
-          <ArrowDownCircle width="15px" height="15px" />
-        )
-      }
-      showsValueDetail={energyDiff !== 0}
     />
   )
 }

@@ -1,5 +1,5 @@
-import { Text, Box, HStack, FlexProps } from '@chakra-ui/react'
-import { ReactNode } from 'react'
+import { Text, Box, FlexProps } from '@chakra-ui/react'
+import { cloneElement, ReactElement } from 'react'
 import { RightAligned } from 'layout'
 import {
   isForDiet,
@@ -12,22 +12,19 @@ import {
 
 type Props = {
   value: number
-  valueDetail?: string
-  valueDetailLeftIcon?: ReactNode
+
   label?: string
   type: StatVariant
-  showsValueDetail?: boolean
+  valueDetailElement?: ReactElement
   isLarge?: boolean
 } & FlexProps
 
 function Stat({
   value,
-  valueDetail,
   label,
   type,
-  valueDetailLeftIcon,
-  showsValueDetail = false,
   isLarge = false,
+  valueDetailElement,
   ...rest
 }: Props) {
   return (
@@ -61,13 +58,7 @@ function Stat({
         </Text>
       </Text>
 
-      {showsValueDetail && (
-        <HStack alignItems="center" spacing={1}>
-          {valueDetail && valueDetailLeftIcon}
-
-          <Text fontSize={isLarge ? 'md' : 'sm'}>{valueDetail}</Text>
-        </HStack>
-      )}
+      {valueDetailElement && cloneElement(valueDetailElement, { isLarge })}
     </RightAligned>
   )
 }
