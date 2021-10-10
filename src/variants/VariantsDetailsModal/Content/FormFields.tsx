@@ -114,7 +114,7 @@ function FormFields({
               valueDetailElement={
                 <StatValueDetail
                   label={`${fatPercent}%`}
-                  tooltipLabel={'% energy coming from fats'}
+                  tooltipLabel={'% energy from fats'}
                 />
               }
             />

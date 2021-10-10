@@ -1,11 +1,16 @@
 import { ButtonGroup, chakra } from '@chakra-ui/react'
 import { useFormVersionsActions, useFormVersions } from 'general/formVersions'
 import { CornerUpLeft, CornerUpRight } from 'react-feather'
-import { ResponsiveIconButton } from 'general'
+import {
+  ResponsiveIconButton,
+  getCtrlKeyName,
+  TooltipCommandLabel,
+} from 'general'
 import Tooltip from 'general/Tooltip'
 
 const CornerUpLeftStyled = chakra(CornerUpLeft)
 const CornerUpRightStyled = chakra(CornerUpRight)
+const ctrlKeyName = getCtrlKeyName()
 
 function UndoRedoButtons() {
   const { undo, redo } = useFormVersionsActions()
@@ -13,7 +18,11 @@ function UndoRedoButtons() {
 
   return (
     <ButtonGroup spacing={2} variant="outline">
-      <Tooltip label="Undo">
+      <Tooltip
+        label={
+          <TooltipCommandLabel command="Undo" kbdCombo={`${ctrlKeyName}+Z`} />
+        }
+      >
         <ResponsiveIconButton
           aria-label="Undo"
           icon={<CornerUpLeftStyled size={20} pointerEvents="none" />}
@@ -22,7 +31,14 @@ function UndoRedoButtons() {
         />
       </Tooltip>
 
-      <Tooltip label="Redo">
+      <Tooltip
+        label={
+          <TooltipCommandLabel
+            command="Redo"
+            kbdCombo={`${ctrlKeyName}+Shift+Z`}
+          />
+        }
+      >
         <ResponsiveIconButton
           aria-label="Redo"
           icon={<CornerUpRightStyled size={20} pointerEvents="none" />}

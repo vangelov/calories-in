@@ -1,9 +1,9 @@
-import { ReactElement, useState, cloneElement, useRef } from 'react'
+import { ReactElement, useState, cloneElement, useRef, ReactNode } from 'react'
 import { Tooltip as TooltipBase } from '@chakra-ui/react'
 
 type Props = {
   children: ReactElement
-  label?: string
+  label?: ReactNode
 }
 
 function Tooltip({ children, label }: Props) {
