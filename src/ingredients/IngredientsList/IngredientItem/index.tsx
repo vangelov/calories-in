@@ -1,6 +1,6 @@
 import { IngredientForm } from 'ingredients'
 import { Draggable } from 'react-beautiful-dnd'
-import { memo, useState } from 'react'
+import { memo } from 'react'
 import { FoodModal, useFoods } from 'foods'
 import { ContextMenuFlex } from 'general'
 import { Stats } from 'stats'
@@ -42,7 +42,6 @@ function IngredientItem({
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
   const foodModalDisclosure = useDisclosure()
-  const [isHovered, setIsHovered] = useState(false)
 
   const menuItems = getMenuItems({
     onRemove: ingredientEvents.onRemoveRequest,
@@ -72,15 +71,12 @@ function IngredientItem({
             position="relative"
             py={2}
             _hover={{ backgroundColor: 'gray.50' }}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
             borderBottomRadius={isLast ? 10 : 0}
             overflow="hidden"
             menuItems={menuItems}
           >
             {food ? (
               <StatsLayout
-                isHovered={isHovered}
                 ingredientForm={ingredientForm}
                 ingredientStats={ingredientStats}
                 onAmountChange={ingredientEvents.onAmountChange}

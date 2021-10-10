@@ -19,7 +19,7 @@ function SelectedFoods({ selection }: Props) {
             <SelectedFoodItem
               key={id}
               food={foodsById[id]}
-              onUnselect={selection.onToggleItem}
+              onUnselect={selection.toggleItem}
             />
           ))}
         </Wrap>

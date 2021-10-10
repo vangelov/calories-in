@@ -9,7 +9,6 @@ import { ChangeEvent, ReactElement } from 'react'
 type Props = {
   ingredientStats: Stats
   ingredientForm: IngredientForm
-  isHovered: boolean
   onAmountChange: (event: ChangeEvent<HTMLInputElement>) => void
   menuElement: ReactElement
 }
@@ -19,7 +18,6 @@ function StatsLayout({
   ingredientForm,
   onAmountChange,
   menuElement,
-  isHovered,
 }: Props) {
   const amountInputSize = useScreenSize() >= 2 ? 'sm' : 'md'
   const { foodsById } = useFoods()
@@ -29,7 +27,12 @@ function StatsLayout({
     <StatsLayoutBase
       prefersAmount={true}
       nameElement={
-        <FoodInfo ml={3} fontSize={{ base: 'sm', md: 'md' }} food={food} />
+        <FoodInfo
+          width="85%"
+          ml={3}
+          fontSize={{ base: 'sm', md: 'md' }}
+          food={food}
+        />
       }
       amountElement={
         <RightAligned>

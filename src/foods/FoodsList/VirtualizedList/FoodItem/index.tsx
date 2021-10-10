@@ -76,7 +76,6 @@ function FoodItem({
           <FoodInfo
             fontSize="md"
             nameNoOfLines={1}
-            detailText="test"
             food={food}
             energy={food.energy}
             position="relative"

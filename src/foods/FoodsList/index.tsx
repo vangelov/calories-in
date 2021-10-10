@@ -121,7 +121,7 @@ function FoodsList({
           }
           getFood={index => filteredFoods[index]}
           onFoodSelect={food =>
-            selection ? selection.onToggleItem(food) : () => {}
+            selection ? selection.toggleItem(food) : () => {}
           }
           onFoodPreview={onFoodPreview || (() => {})}
           itemUsageType={itemUsageType}

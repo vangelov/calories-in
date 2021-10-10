@@ -6,7 +6,9 @@ type SelectionMap = { [id in Id]: boolean | undefined }
 
 type Selection<T extends Item> = {
   isIdSelected: (id: Id) => boolean
-  onToggleItem: (item: T) => void
+  toggleItem: (item: T) => void
+  addItem: (item: T) => void
+  removeItem: (item: T) => void
   selectedItems: T[]
   selectionMap: SelectionMap
 }
@@ -15,16 +17,25 @@ function useSelection<T extends Item>(): Selection<T> {
   const [selectionMap, setSelectionMap] = useState<SelectionMap>({})
   const [selectedItems, setSelectedItems] = useState<T[]>([])
 
-  function onToggleItem(item: T) {
+  function toggleItem(item: T) {
     const { id } = item
     const isSelected = Boolean(selectionMap[id])
 
     if (isSelected) {
-      setSelectedItems(selectedItems.filter(({ id }) => item.id !== id))
+      removeItem(item)
     } else {
-      setSelectedItems([...selectedItems, item])
+      addItem(item)
     }
+
     setSelectionMap({ ...selectionMap, [id]: !isSelected })
+  }
+
+  function removeItem(item: T) {
+    setSelectedItems(selectedItems.filter(({ id }) => item.id !== id))
+  }
+
+  function addItem(item: T) {
+    setSelectedItems([...selectedItems, item])
   }
 
   function isIdSelected(id: Id) {
@@ -34,9 +45,11 @@ function useSelection<T extends Item>(): Selection<T> {
 
   return {
     isIdSelected,
-    onToggleItem,
+    toggleItem,
     selectionMap,
     selectedItems,
+    removeItem,
+    addItem,
   }
 }
 

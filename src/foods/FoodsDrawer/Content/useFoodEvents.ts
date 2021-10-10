@@ -24,7 +24,7 @@ function useFoodEvents({ listRef, selection }: Params) {
   }
 
   function onFoodDeleted(food: Food) {
-    selection.onToggleItem(food)
+    selection.removeItem(food)
   }
 
   function onFoodCreatedOrUpdated(newFood: Food, oldFood?: Food) {
