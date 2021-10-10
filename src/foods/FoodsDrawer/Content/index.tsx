@@ -59,7 +59,12 @@ function Content({
       <Header mealName={mealName} canSelect={canSelect} />
 
       <DrawerBody overflow="hidden">
-        <VStack width="100%" height="100%" spacing={3} alignItems="stretch">
+        <VStack
+          width="100%"
+          height="100%"
+          spacing={canSelect ? 3 : 6}
+          alignItems="stretch"
+        >
           <Flex>
             <Text textColor="gray.500" size="lg" mr={1}>
               Foods missing?
