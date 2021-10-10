@@ -1,34 +1,26 @@
-import { Divider, VStack, Box, Collapse } from '@chakra-ui/react'
-import { useState } from 'react'
+import { VStack } from '@chakra-ui/react'
 import StatFormField from './StatFormField'
-import styled from '@emotion/styled'
-import RevealButton from './ReavealButton'
-
-const StyledCollapse = styled(Collapse)`
-  align-self: stretch;
-`
+import useGetDailyValuePercent from './useGetDailyValuePercent'
 
 type Props = {
   canEdit: boolean
   showsEnergyPercentFromFats?: boolean
 }
 
-function Macros({ canEdit, showsEnergyPercentFromFats = false }: Props) {
-  const [showsAllFatTypes, setShowsAllFatTypes] = useState(false)
-
-  function onShowAllFatTypesToggle() {
-    setShowsAllFatTypes(!showsAllFatTypes)
-  }
+function MacrosFormFields({
+  canEdit,
+  showsEnergyPercentFromFats = false,
+}: Props) {
+  const getDailyValuePercent = useGetDailyValuePercent()
 
   return (
     <VStack spacing={2} alignItems="flex-start">
-      <Divider />
-
       <StatFormField
         name="fat"
         label="Fat"
         inputType="nutritionValue"
         isReadOnly={!canEdit}
+        dailyValuePercent={getDailyValuePercent('fat')}
       />
 
       <StatFormField
@@ -37,10 +29,12 @@ function Macros({ canEdit, showsEnergyPercentFromFats = false }: Props) {
         label="Saturated fat"
         inputType="nutritionValue"
         isReadOnly={!canEdit}
+        dailyValuePercent={getDailyValuePercent('saturatedFat')}
       />
 
       {showsEnergyPercentFromFats && (
         <StatFormField
+          ml={3}
           isIdented={true}
           name="saturatedFatEnergyPercent"
           label="Energy from saturated fat"
@@ -50,37 +44,23 @@ function Macros({ canEdit, showsEnergyPercentFromFats = false }: Props) {
         />
       )}
 
-      <StyledCollapse in={showsAllFatTypes} animateOpacity>
-        <VStack spacing={2} alignItems="flex-start">
-          <StatFormField
-            isIdented={true}
-            name="polyunsaturatedFat"
-            label="Polyunsaturated fat"
-            inputType="nutritionValue"
-            isReadOnly={!canEdit}
-            width="100%"
-          />
-          <StatFormField
-            isIdented={true}
-            name="monounsaturatedFat"
-            label="Monounsaturated fat"
-            inputType="nutritionValue"
-            isReadOnly={!canEdit}
-          />
-        </VStack>
-      </StyledCollapse>
-
-      <Box>
-        <RevealButton
-          ml={10}
-          isContentShown={showsAllFatTypes}
-          onClick={onShowAllFatTypesToggle}
-          showContentLabel="Show more fat types"
-          hideContentLabel="Show less fat types"
-        />
-      </Box>
-
-      <Divider />
+      <StatFormField
+        isIdented={true}
+        name="polyunsaturatedFat"
+        label="Polyunsaturated fat"
+        inputType="nutritionValue"
+        isReadOnly={!canEdit}
+        width="100%"
+        dailyValuePercent={getDailyValuePercent('polyunsaturatedFat')}
+      />
+      <StatFormField
+        isIdented={true}
+        name="monounsaturatedFat"
+        label="Monounsaturated fat"
+        inputType="nutritionValue"
+        isReadOnly={!canEdit}
+        dailyValuePercent={getDailyValuePercent('monounsaturatedFat')}
+      />
 
       <StatFormField
         name="cholesterol"
@@ -88,9 +68,8 @@ function Macros({ canEdit, showsEnergyPercentFromFats = false }: Props) {
         inputType="nutritionValue"
         isReadOnly={!canEdit}
         nutritionValueUnit="mg"
+        dailyValuePercent={getDailyValuePercent('cholesterol')}
       />
-
-      <Divider />
 
       <StatFormField
         name="sodium"
@@ -98,9 +77,8 @@ function Macros({ canEdit, showsEnergyPercentFromFats = false }: Props) {
         inputType="nutritionValue"
         isReadOnly={!canEdit}
         nutritionValueUnit="mg"
+        dailyValuePercent={getDailyValuePercent('sodium')}
       />
-
-      <Divider />
 
       <StatFormField
         name="carbs"
@@ -114,6 +92,7 @@ function Macros({ canEdit, showsEnergyPercentFromFats = false }: Props) {
         label="Sugar"
         inputType="nutritionValue"
         isReadOnly={!canEdit}
+        dailyValuePercent={getDailyValuePercent('sugar')}
       />
       <StatFormField
         isIdented={true}
@@ -121,9 +100,8 @@ function Macros({ canEdit, showsEnergyPercentFromFats = false }: Props) {
         label="Fiber"
         inputType="nutritionValue"
         isReadOnly={!canEdit}
+        dailyValuePercent={getDailyValuePercent('fiber')}
       />
-
-      <Divider />
 
       <StatFormField
         name="protein"
@@ -135,4 +113,4 @@ function Macros({ canEdit, showsEnergyPercentFromFats = false }: Props) {
   )
 }
 
-export default Macros
+export default MacrosFormFields

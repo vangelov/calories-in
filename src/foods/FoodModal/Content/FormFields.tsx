@@ -1,4 +1,4 @@
-import { Box, FlexProps, VStack, Divider } from '@chakra-ui/react'
+import { Box, FlexProps, VStack } from '@chakra-ui/react'
 import { RefObject } from 'react'
 import { StatsFormFields, StatFormField } from 'stats'
 
@@ -11,7 +11,7 @@ function FormFields({ nameInputRef, canEdit, ...rest }: Props) {
   return (
     <Box {...rest} p={4}>
       <VStack spacing={2} alignItems="stretch">
-        <VStack spacing={4} alignItems="stretch">
+        <VStack spacing={2} alignItems="stretch">
           <StatFormField
             textInputRef={nameInputRef}
             name="name"
@@ -19,6 +19,7 @@ function FormFields({ nameInputRef, canEdit, ...rest }: Props) {
             inputType="text"
             isRequired={true}
             isReadOnly={!canEdit}
+            hasDivider={false}
           />
           <StatFormField
             name="categoryId"
@@ -36,7 +37,6 @@ function FormFields({ nameInputRef, canEdit, ...rest }: Props) {
               inputType="nutritionValue"
               isReadOnly={!canEdit}
             />
-            <Divider />
 
             <StatFormField
               name="energy"

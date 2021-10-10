@@ -9,6 +9,7 @@ import {
   FormControlProps,
   Box,
   Collapse,
+  DividerProps,
 } from '@chakra-ui/react'
 import { useFormError } from 'form'
 import { ReactNode, RefObject } from 'react'
@@ -18,6 +19,7 @@ type Props = {
   name: string
   label: string
   labelDetail?: string
+
   inputType: InputType
   nutritionValueUnit?: string
   isIdented?: boolean
@@ -27,6 +29,9 @@ type Props = {
   isCaption?: boolean
   children?: ReactNode
   isValueBold?: boolean
+  dividerProps?: DividerProps
+  hasDivider?: boolean
+  dailyValuePercent?: number
 } & FormControlProps
 
 function StatFormField(props: Props) {
@@ -44,6 +49,9 @@ function StatFormField(props: Props) {
     isRequired,
     children,
     labelDetail,
+    dividerProps = {},
+    hasDivider = true,
+    dailyValuePercent,
     ...rest
   } = props
   const { errorMessage, isInvalid } = useFormError(name)
@@ -78,7 +86,7 @@ function StatFormField(props: Props) {
       {...rest}
     >
       <VStack spacing={2} alignItems="stretch">
-        {isIdented ? <Divider /> : null}
+        {hasDivider && <Divider {...dividerProps} />}
         <Flex justifyContent={'space-between'} alignItems="center">
           <Flex>
             <FormLabel
@@ -101,9 +109,11 @@ function StatFormField(props: Props) {
           <Flex ml={2} justifyContent="flex-end">
             {!(isReadOnly && !(isCaption || isEmphasized)) && inputElement}
 
-            {/*{isReadOnly && !(isCaption || isEmphasized) && (
-              <Text fontWeight="medium">10%</Text>
-            )}*/}
+            {dailyValuePercent !== undefined &&
+              isReadOnly &&
+              !(isCaption || isEmphasized) && (
+                <Text fontWeight="medium">{`${dailyValuePercent}%`}</Text>
+              )}
 
             {!isReadOnly && inputType === 'nutritionValue' && (
               <Flex
@@ -120,12 +130,13 @@ function StatFormField(props: Props) {
             )}
           </Flex>
         </Flex>
-        <Collapse animateOpacity={true} in={Boolean(errorMessage)}>
-          <Box minHeight="21px">
-            <FormErrorMessage>{errorMessage}</FormErrorMessage>
-          </Box>
-        </Collapse>
       </VStack>
+
+      <Collapse animateOpacity={true} in={Boolean(errorMessage)}>
+        <Box minHeight="21px">
+          <FormErrorMessage>{errorMessage}</FormErrorMessage>
+        </Box>
+      </Collapse>
 
       {children}
     </FormControl>

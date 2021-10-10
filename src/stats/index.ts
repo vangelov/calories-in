@@ -15,3 +15,4 @@ export * from './StatsFormFields'
 
 export { default as AmountInput } from './AmountInput'
 export { default as EnergyStat } from './EnergyStat'
+export { default as getUnit } from './getUnit'
