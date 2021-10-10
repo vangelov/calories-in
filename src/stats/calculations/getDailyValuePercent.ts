@@ -10,7 +10,7 @@ const DAILY_VALUES_RECORD: DailyValuesRecord = {
   manganese: 2.3,
   phosphorus: 1250,
   potassium: 4700,
-  vitaminA: 9,
+  vitaminA: 900,
   vitaminB1: 1.5,
   vitaminB2: 1.3,
   vitaminB5: 5,

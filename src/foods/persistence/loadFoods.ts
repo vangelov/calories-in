@@ -1,14 +1,14 @@
-import builInFoods from 'foods/builtIn.json'
+import { builtInFoods } from 'foods'
 
 function loadFoods() {
   const userFoodsString = localStorage.getItem('userFoods')
 
   if (userFoodsString) {
     const userFoods = JSON.parse(userFoodsString)
-    return [...userFoods, ...builInFoods]
+    return [...userFoods, ...builtInFoods]
   }
 
-  return builInFoods
+  return builtInFoods
 }
 
 export default loadFoods

@@ -43,7 +43,6 @@ const unitsRecord: UnitsRecord = {
   manganese: 'mg',
   copper: 'mg',
   choline: 'g',
-  niacin: 'g',
 }
 
 function getUnit(name: keyof NutritionData) {

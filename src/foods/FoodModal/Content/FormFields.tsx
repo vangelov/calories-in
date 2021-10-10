@@ -11,7 +11,7 @@ function FormFields({ nameInputRef, canEdit, ...rest }: Props) {
   return (
     <Box {...rest} p={4}>
       <VStack spacing={2} alignItems="stretch">
-        <VStack spacing={4} alignItems="stretch">
+        <VStack spacing={2} alignItems="stretch">
           <StatFormField
             textInputRef={nameInputRef}
             name="name"

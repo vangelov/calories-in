@@ -6,10 +6,10 @@
     { "name": "Dairy and eggs", "id": 5},
     { "name": "Grains & Pasta", "id": 6},
     { "name": "Vegetables", "id": 7 },
-    { "name": "Starchy Vegetables", "id": 8 },
-    { "name": "Legumes", "id": 9 },
-    { "name": "Fruits", "id": 10 },
-    { "name": "Nuts and seeds", "id": 11  },
-    { "name": "Fats, oils & butters", "id": 12  }
+    { "name": "Legumes", "id": 8 },
+    { "name": "Fruits", "id": 9 },
+    { "name": "Nuts and seeds", "id": 10  },
+    { "name": "Fats, oils & butters", "id": 11  },
+    { "name": "Other", "id": 12 }
 ]
           

@@ -130,12 +130,13 @@ function StatFormField(props: Props) {
             )}
           </Flex>
         </Flex>
-        <Collapse animateOpacity={true} in={Boolean(errorMessage)}>
-          <Box minHeight="21px">
-            <FormErrorMessage>{errorMessage}</FormErrorMessage>
-          </Box>
-        </Collapse>
       </VStack>
+
+      <Collapse animateOpacity={true} in={Boolean(errorMessage)}>
+        <Box minHeight="21px">
+          <FormErrorMessage>{errorMessage}</FormErrorMessage>
+        </Box>
+      </Collapse>
 
       {children}
     </FormControl>

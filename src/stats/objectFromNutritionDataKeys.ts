@@ -41,7 +41,6 @@ const NUTRITION_STATS_KEYS: (keyof NutritionData)[] = [
   'manganese',
   'copper',
   'choline',
-  'niacin',
 ]
 
 function objectFromNutritionDataKeys<T>(
