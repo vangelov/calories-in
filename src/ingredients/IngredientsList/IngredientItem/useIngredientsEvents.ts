@@ -5,6 +5,7 @@ import {
   getInsertIngredientFormAnimationKey,
   IngredientForm,
 } from 'ingredients'
+import { useToast } from '@chakra-ui/toast'
 
 type Params = {
   variantIndex: number
@@ -23,6 +24,7 @@ function useIngredientsEvents({
 }: Params) {
   const [isVisible, setIsVisible] = useState(true)
   const dietFormActions = useDietFormActions()
+  const toast = useToast()
 
   const oneTimeCheckActions = useOneTimeCheckActions()
   const shouldAnimate = oneTimeCheckActions.checkAndReset(
@@ -43,6 +45,16 @@ function useIngredientsEvents({
     }
   }
 
+  function onFoodUpdated() {
+    toast({
+      position: 'top',
+      title: 'Food updated',
+      status: 'success',
+      duration: 2000,
+      isClosable: true,
+    })
+  }
+
   function onRemoveRequest() {
     setIsVisible(false)
   }
@@ -53,6 +65,7 @@ function useIngredientsEvents({
     onRemoveRequest,
     isVisible,
     shouldAnimate,
+    onFoodUpdated,
   }
 }
 
