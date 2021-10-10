@@ -20,6 +20,7 @@ import {
   useImperativeHandle,
   forwardRef,
   ChangeEvent,
+  useEffect,
 } from 'react'
 import { useFoods } from 'foods'
 import {
@@ -63,6 +64,12 @@ function FoodsList({
   const filter = useFoodsFilter()
   const foodsFilterActions = useFoodsFilterActions()
   const filteredFoods = useFilterFoods(allFoods, userFoods, filter)
+
+  useEffect(() => {
+    if (filter.categoryId) {
+      listRef.current?.scrollToItem(0, 'start')
+    }
+  }, [filter.categoryId])
 
   useImperativeHandle(forwardedRef, () => ({
     scrollToFood: (food: Food) => {
