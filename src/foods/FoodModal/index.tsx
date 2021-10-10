@@ -9,9 +9,16 @@ type Props = {
   isOpen: boolean
   food?: Food
   onFoodCreatedOrUpdated?: (newFood: Food, oldFood?: Food) => void
+  onFoodDeleted?: (food: Food) => void
 }
 
-function FoodModal({ onClose, isOpen, food, onFoodCreatedOrUpdated }: Props) {
+function FoodModal({
+  onClose,
+  isOpen,
+  food,
+  onFoodCreatedOrUpdated,
+  onFoodDeleted,
+}: Props) {
   const nameInputRef = useRef<HTMLInputElement>(null)
   const title = food ? 'Food Details' : 'Create Food'
 
@@ -31,6 +38,7 @@ function FoodModal({ onClose, isOpen, food, onFoodCreatedOrUpdated }: Props) {
           title={title}
           food={food}
           onFoodCreatedOrUpdated={onFoodCreatedOrUpdated}
+          onFoodDeleted={onFoodDeleted}
         />
       </FoodFormProvider>
     </Modal>

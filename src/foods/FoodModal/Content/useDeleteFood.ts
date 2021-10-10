@@ -6,9 +6,10 @@ import { useToast } from '@chakra-ui/react'
 type Params = {
   food?: Food
   onClose: () => void
+  onFoodDeleted?: (food: Food) => void
 }
 
-function useDeleteFood({ food, onClose }: Params) {
+function useDeleteFood({ food, onClose, onFoodDeleted }: Params) {
   const deleteConfirmationDisclosure = useDisclosure()
   const foodsActions = useFoodsActions()
   const toast = useToast()
@@ -28,6 +29,7 @@ function useDeleteFood({ food, onClose }: Params) {
         isClosable: true,
       })
       deleteConfirmationDisclosure.onClose()
+      onFoodDeleted && onFoodDeleted(food)
       onClose()
     }
   }

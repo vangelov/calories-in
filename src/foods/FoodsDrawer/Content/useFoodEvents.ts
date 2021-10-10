@@ -2,12 +2,14 @@ import { useDisclosure } from '@chakra-ui/react'
 import { Food } from 'foods'
 import { useState, RefObject } from 'react'
 import { FoodsListMethods } from 'foods'
+import { Selection } from 'general'
 
 type Params = {
   listRef: RefObject<FoodsListMethods>
+  selection: Selection<Food>
 }
 
-function useFoodEvents({ listRef }: Params) {
+function useFoodEvents({ listRef, selection }: Params) {
   const foodModalDisclosure = useDisclosure()
   const [food, setFood] = useState<Food>()
 
@@ -19,6 +21,10 @@ function useFoodEvents({ listRef }: Params) {
   function onPreviewFood(food: Food) {
     setFood(food)
     foodModalDisclosure.onOpen()
+  }
+
+  function onFoodDeleted(food: Food) {
+    selection.onToggleItem(food)
   }
 
   function onFoodCreatedOrUpdated(newFood: Food, oldFood?: Food) {
@@ -37,6 +43,7 @@ function useFoodEvents({ listRef }: Params) {
     onFoodCreatedOrUpdated,
     food,
     foodModalDisclosure,
+    onFoodDeleted,
   }
 }
 

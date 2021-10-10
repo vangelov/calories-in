@@ -22,6 +22,7 @@ type Props = {
   nameInputRef: RefObject<HTMLInputElement>
   food?: Food
   onFoodCreatedOrUpdated?: (newFood: Food, oldFood?: Food) => void
+  onFoodDeleted?: (food: Food) => void
 }
 
 function Content({
@@ -30,9 +31,10 @@ function Content({
   title,
   food,
   onFoodCreatedOrUpdated,
+  onFoodDeleted,
 }: Props) {
   const canEdit = Boolean(food && food.addedByUser)
-  const deleteFood = useDeleteFood({ food, onClose })
+  const deleteFood = useDeleteFood({ food, onClose, onFoodDeleted })
   const [isEditing, setIsEditing] = useState(!food)
 
   const { onSubmit } = useSubmitFoodForm({

@@ -1,11 +1,12 @@
-import { Selection, Item } from 'general/useSelection'
+import { Selection } from 'general'
 import { useDietFormActions } from 'diets'
+import { Food } from 'foods'
 
 type Params = {
   onClose: () => void
   variantFormIndex?: number
   mealFormIndex?: number
-  selection: Selection<Item>
+  selection: Selection<Food>
 }
 
 function useAddFoods({

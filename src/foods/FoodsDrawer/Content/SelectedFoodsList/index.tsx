@@ -1,10 +1,10 @@
 import { Flex, Text, Wrap } from '@chakra-ui/react'
-import { Selection, Item } from 'general/useSelection'
+import { Selection } from 'general'
 import SelectedFoodItem from './SelectedFoodItem'
-import { useFoods } from 'foods'
+import { Food, useFoods } from 'foods'
 
 type Props = {
-  selection: Selection<Item>
+  selection: Selection<Food>
 }
 
 function SelectedFoods({ selection }: Props) {

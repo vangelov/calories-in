@@ -12,7 +12,7 @@ import {
 import { Divider } from '@chakra-ui/react'
 import { Search } from 'react-feather'
 import VirtualizedList from './VirtualizedList'
-import { Selection, Item } from 'general/useSelection'
+import { Selection } from 'general'
 import {
   ForwardedRef,
   RefObject,
@@ -41,7 +41,7 @@ type FoodsListMethods = {
 
 type Props = {
   searchInputRef?: RefObject<HTMLInputElement>
-  selection?: Selection<Item>
+  selection?: Selection<Food>
   onFoodPreview?: (food: Food) => void
   forwardedRef?: ForwardedRef<FoodsListMethods>
   allowsFiltering?: boolean

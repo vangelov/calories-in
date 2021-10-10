@@ -1,7 +1,7 @@
 import { ForwardedRef, ReactNode } from 'react'
 import { Box, BoxProps, Center, Fade, Text } from '@chakra-ui/react'
 import { forwardRef } from 'react'
-import useSameOrPreviousValue from 'general/useSameOrPreviousValue'
+import { useSameOrPreviousValue } from 'general'
 
 type Props = {
   children: ReactNode

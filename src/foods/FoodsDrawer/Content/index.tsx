@@ -11,8 +11,8 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import { RefObject, useRef, useState } from 'react'
-import { FoodsList, FoodsListMethods, FoodModal } from 'foods'
-import useSelection, { Item } from 'general/useSelection'
+import { FoodsList, FoodsListMethods, FoodModal, Food } from 'foods'
+import { useSelection } from 'general'
 import SelectedFoodsList from './SelectedFoodsList'
 import Header from './Header'
 import MenuButtons from './MenuButtons'
@@ -39,7 +39,7 @@ function Content({
   mealFormIndex,
   canSelect,
 }: Props) {
-  const selection = useSelection<Item>()
+  const selection = useSelection<Food>()
   const listRef = useRef<FoodsListMethods>(null)
   const addFoods = useAddFoods({
     selection,
@@ -47,7 +47,7 @@ function Content({
     mealFormIndex,
     onClose,
   })
-  const foodEvents = useFoodEvents({ listRef })
+  const foodEvents = useFoodEvents({ listRef, selection })
 
   const foodsListModalDisclosure = useDisclosure()
   const importFoods = useImportFoods({ foodsListModalDisclosure })
@@ -110,6 +110,7 @@ function Content({
         isOpen={foodEvents.foodModalDisclosure.isOpen}
         onClose={foodEvents.foodModalDisclosure.onClose}
         onFoodCreatedOrUpdated={foodEvents.onFoodCreatedOrUpdated}
+        onFoodDeleted={foodEvents.onFoodDeleted}
         food={foodEvents.food}
       />
 
