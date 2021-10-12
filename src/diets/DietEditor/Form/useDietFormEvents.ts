@@ -1,5 +1,5 @@
 import { DietForm, useDietFormActions } from 'diets'
-import { AppLocation } from 'general/formVersions/appLocation'
+import { AppLocation } from 'undoRedo'
 import { ScrollManager } from './useScrollManager'
 
 type Params = {

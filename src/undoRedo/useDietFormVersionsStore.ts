@@ -33,7 +33,7 @@ function shouldSaveDelta(delta: Delta) {
   return false === onlySelectedFormIndexChanged
 }
 
-function useFormVersionsStore({
+function useDietFormVersionsStore({
   form,
   horizontalScrollRef,
   onUndo,
@@ -123,11 +123,15 @@ function useFormVersionsStore({
 }
 
 const [
-  FormVersionsStoreProvider,
-  useFormVersions,
-  useFormVersionsActions,
-] = makeStoreProvider(useFormVersionsStore)
+  DietFormVersionsStoreProvider,
+  useDietFormVersions,
+  useDietFormVersionsActions,
+] = makeStoreProvider(useDietFormVersionsStore)
 
-export { FormVersionsStoreProvider, useFormVersions, useFormVersionsActions }
+export {
+  DietFormVersionsStoreProvider,
+  useDietFormVersions,
+  useDietFormVersionsActions,
+}
 
-export default useFormVersionsStore
+export default useDietFormVersionsStore

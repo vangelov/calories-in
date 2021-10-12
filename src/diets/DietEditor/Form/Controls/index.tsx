@@ -1,9 +1,8 @@
 import { Flex, useDisclosure } from '@chakra-ui/react'
-import UndoRedoButtons from './UndoRedoButtons'
 import MenuButtons from './MenuButtons'
 import MainButtons from './MainButtons'
 import { getDietForm, useDietFormActions } from 'diets'
-import useKeyboard from './useKeyboard'
+import { useKeyboard, UndoRedoButtons } from 'undoRedo'
 import { ExportModal, useImportDietForm } from 'diets/persistence'
 import {
   FoodsListModal,

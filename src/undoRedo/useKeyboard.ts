@@ -1,9 +1,9 @@
 import { useContext, useEffect } from 'react'
 import { ContentBoxRefContext } from 'layout'
-import { useFormVersionsActions } from 'general/formVersions'
+import { useDietFormVersionsActions } from './useDietFormVersionsStore'
 
 function useKeyboard() {
-  const formVersionsActions = useFormVersionsActions()
+  const formVersionsActions = useDietFormVersionsActions()
   const contentBoxRef = useContext(ContentBoxRefContext)
   const node = contentBoxRef.current
 

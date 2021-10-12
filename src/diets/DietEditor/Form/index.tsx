@@ -1,5 +1,5 @@
 import { useDietForm } from 'diets'
-import { FormVersionsStoreProvider } from 'general/formVersions'
+import { DietFormVersionsStoreProvider } from 'undoRedo'
 import { useRef } from 'react'
 import { Page, PageHeader, PageBody, PageFooter } from 'layout'
 import NameAndStats from './NameAndStats'
@@ -39,7 +39,7 @@ function Form({ isEditingExistingDiet }: Props) {
   useSaveValue({ value: dietForm, key: 'lastDietForm' })
 
   return (
-    <FormVersionsStoreProvider
+    <DietFormVersionsStoreProvider
       horizontalScrollRef={horizontalScrollRef}
       form={dietForm}
       onUndo={dietFormEvents.onUndoOrRedo}
@@ -74,7 +74,7 @@ function Form({ isEditingExistingDiet }: Props) {
           />
         </PageFooter>
       </Page>
-    </FormVersionsStoreProvider>
+    </DietFormVersionsStoreProvider>
   )
 }
 

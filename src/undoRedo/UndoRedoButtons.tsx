@@ -1,5 +1,8 @@
 import { ButtonGroup, chakra } from '@chakra-ui/react'
-import { useFormVersionsActions, useFormVersions } from 'general/formVersions'
+import {
+  useDietFormVersionsActions,
+  useDietFormVersions,
+} from './useDietFormVersionsStore'
 import { CornerUpLeft, CornerUpRight } from 'react-feather'
 import {
   ResponsiveIconButton,
@@ -13,8 +16,8 @@ const CornerUpRightStyled = chakra(CornerUpRight)
 const ctrlKeyName = getCtrlKeyName()
 
 function UndoRedoButtons() {
-  const { undo, redo } = useFormVersionsActions()
-  const { canUndo, canRedo } = useFormVersions()
+  const { undo, redo } = useDietFormVersionsActions()
+  const { canUndo, canRedo } = useDietFormVersions()
 
   return (
     <ButtonGroup spacing={2} variant="outline">
