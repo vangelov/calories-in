@@ -1,6 +1,6 @@
 import { DietFormStoreProvider } from 'diets'
 import Form from './Form'
-import { useOneTimeCheckActions } from 'general/oneTimeCheck'
+import { useOneTimeCheckActions } from 'general'
 import DndContextProvider from './DndContextProvider'
 import { MealsStatsStoreProvider } from 'stats'
 import { useState } from 'react'

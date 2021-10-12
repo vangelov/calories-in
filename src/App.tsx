@@ -5,7 +5,7 @@ import theme from 'theme'
 import smoothscroll from 'smoothscroll-polyfill'
 import { FoodsStoreProvider } from 'foods'
 import { loadFoods } from 'foods/persistence'
-import { OneTimeCheckStoreProvider } from 'general/oneTimeCheck'
+import { OneTimeCheckStoreProvider } from 'general'
 import { DietEditor } from 'diets'
 import { useState } from 'react'
 

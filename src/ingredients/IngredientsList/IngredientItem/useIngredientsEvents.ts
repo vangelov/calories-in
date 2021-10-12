@@ -1,5 +1,5 @@
 import { useDietFormActions } from 'diets'
-import { useOneTimeCheckActions } from 'general/oneTimeCheck'
+import { useOneTimeCheckActions } from 'general'
 import { ChangeEvent, useState } from 'react'
 import {
   getInsertIngredientFormAnimationKey,

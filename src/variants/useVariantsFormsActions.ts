@@ -6,7 +6,7 @@ import {
   getVariantForm,
   VariantForm,
 } from './variantForm'
-import { OneTimeCheckActions } from 'general/oneTimeCheck'
+import { OneTimeCheckActions } from 'general'
 import { duplicate, getDuplicatedName, getEnumeratedName } from 'form'
 
 type Params = {

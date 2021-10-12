@@ -1,6 +1,6 @@
 import { objectFromNutritionDataKeys } from 'stats'
 import { Food, FoodForm } from 'foods'
-import { useOneTimeCheckActions } from 'general/oneTimeCheck'
+import { useOneTimeCheckActions } from 'general'
 import { useFormContext } from 'react-hook-form'
 import { useFoodsActions } from 'foods'
 import { v4 as uuidv4 } from 'uuid'
@@ -25,9 +25,9 @@ function useSubmitFoodForm({ onComplete }: Params) {
     }
 
     if (foodForm.id === undefined) {
-      oneTimeCheckActions.set(`test-${food.id}`)
+      oneTimeCheckActions.set(`food-appear-${food.id}`)
     }
-    oneTimeCheckActions.set(`test2-${food.id}`)
+    oneTimeCheckActions.set(`food-flash-${food.id}`)
 
     foodsActions.setFoods([food])
     onComplete(food)

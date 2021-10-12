@@ -1,6 +1,6 @@
 import { MealForm, getInsertMealFormAnimationKey } from 'meals'
 import { useState } from 'react'
-import { useOneTimeCheckActions } from 'general/oneTimeCheck'
+import { useOneTimeCheckActions } from 'general'
 import { useDietFormActions } from 'diets'
 
 type Params = {

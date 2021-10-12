@@ -6,7 +6,7 @@ import {
   getMealForm,
   MealForm,
 } from './mealForm'
-import { OneTimeCheckActions } from 'general/oneTimeCheck'
+import { OneTimeCheckActions } from 'general'
 import { duplicate } from 'form'
 import { getDuplicatedName } from 'form/names'
 

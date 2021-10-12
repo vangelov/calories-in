@@ -1,6 +1,6 @@
 import { getInsertVariantFormAnimationKey, VariantForm } from 'variants'
 import { RefObject, useState } from 'react'
-import { useOneTimeCheckActions } from 'general/oneTimeCheck'
+import { useOneTimeCheckActions } from 'general'
 import { MouseEvent } from 'react'
 import { isSafari } from 'react-device-detect'
 

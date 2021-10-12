@@ -4,7 +4,7 @@ import { Food } from 'foods'
 import { Info } from 'react-feather'
 import { MouseEvent } from 'react'
 import { ResponsiveIconButton, Tooltip } from 'general'
-import { useOneTimeCheckActions } from 'general/oneTimeCheck'
+import { useOneTimeCheckActions } from 'general'
 import DisappearingBox from './DisappearingBox'
 import AnimateAppear from './AnimateAppear'
 
@@ -33,9 +33,13 @@ function FoodItem({
     onPreview(food)
   }
 
-  const one = useOneTimeCheckActions()
-  const shouldAnimate = one.checkAndReset(`test-${food.id}`)
-  const shouldAnimate2 = one.checkAndReset(`test2-${food.id}`)
+  const oneTimeCheckActions = useOneTimeCheckActions()
+  const shouldAnimateAppear = oneTimeCheckActions.checkAndReset(
+    `food-appear-${food.id}`
+  )
+  const shouldAnimateFlash = oneTimeCheckActions.checkAndReset(
+    `food-flash-${food.id}`
+  )
 
   return (
     <Box
@@ -49,7 +53,7 @@ function FoodItem({
       }}
       {...rest}
     >
-      <AnimateAppear shouldAnimate={shouldAnimate}>
+      <AnimateAppear shouldAnimate={shouldAnimateAppear}>
         <Flex
           cursor={usageType !== 'nonInteractive' ? 'pointer' : undefined}
           _hover={
@@ -71,7 +75,9 @@ function FoodItem({
           p={3}
           height="64px"
         >
-          {shouldAnimate2 && <DisappearingBox shouldAnimate={shouldAnimate2} />}
+          {shouldAnimateFlash && (
+            <DisappearingBox shouldAnimate={shouldAnimateFlash} />
+          )}
 
           <FoodInfo
             fontSize="md"

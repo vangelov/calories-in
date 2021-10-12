@@ -7,7 +7,7 @@ import {
   useIngredientsFormsActions,
   IngredientsFormsActions,
 } from 'ingredients'
-import { OneTimeCheckActions } from 'general/oneTimeCheck'
+import { OneTimeCheckActions } from 'general'
 import { makeStoreProvider } from 'general/stores'
 
 export type Params = {

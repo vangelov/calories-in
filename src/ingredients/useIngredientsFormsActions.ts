@@ -6,7 +6,7 @@ import {
   getInsertIngredientFormAnimationKey,
   IngredientForm,
 } from './ingredientForm'
-import { OneTimeCheckActions } from 'general/oneTimeCheck'
+import { OneTimeCheckActions } from 'general'
 import { FoodId } from 'foods'
 
 type Params = {
