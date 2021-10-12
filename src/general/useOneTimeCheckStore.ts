@@ -1,4 +1,4 @@
-import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
+import { makeStoreProvider, useCallbacksMemo } from 'general'
 import { useRef, useCallback } from 'react'
 
 type KeysMap = {

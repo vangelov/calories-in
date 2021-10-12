@@ -8,8 +8,8 @@ import {
   ResponsiveIconButton,
   getCtrlKeyName,
   TooltipCommandLabel,
+  Tooltip,
 } from 'general'
-import Tooltip from 'general/Tooltip'
 
 const CornerUpLeftStyled = chakra(CornerUpLeft)
 const CornerUpRightStyled = chakra(CornerUpRight)

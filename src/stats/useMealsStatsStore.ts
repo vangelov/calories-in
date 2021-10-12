@@ -1,7 +1,7 @@
 import { Stats } from './types'
 import { useState, useCallback } from 'react'
 import produce from 'immer'
-import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
+import { makeStoreProvider, useCallbacksMemo } from 'general'
 
 type MealsStats = Record<string, Record<number, Stats> | undefined>
 

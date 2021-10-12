@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { FoodsFilter, DEFAULT_FILTER } from './foodsFilter'
-import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
+import { makeStoreProvider, useCallbacksMemo } from 'general'
 import { useSaveValue } from 'persistence'
 
 type Params = {

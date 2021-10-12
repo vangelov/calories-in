@@ -2,13 +2,12 @@ import { useCallback, useState } from 'react'
 import { DietForm } from './dietForm'
 import { useVariantsFormsActions, VariantsFormsActions } from 'variants'
 import { useMealsFormsActions, MealsFormsActions } from 'meals'
-import { useCallbacksMemo } from 'general/stores'
+import { useCallbacksMemo, makeStoreProvider } from 'general'
 import {
   useIngredientsFormsActions,
   IngredientsFormsActions,
 } from 'ingredients'
 import { OneTimeCheckActions } from 'general'
-import { makeStoreProvider } from 'general/stores'
 
 export type Params = {
   initialDietForm: DietForm

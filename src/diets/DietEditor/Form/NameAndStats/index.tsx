@@ -2,7 +2,7 @@ import { Flex, chakra, useDisclosure } from '@chakra-ui/react'
 import { Info } from 'react-feather'
 import { RightAligned } from 'layout'
 import Name from './Name'
-import { ResponsiveIconButton } from 'general'
+import { ResponsiveIconButton, Tooltip } from 'general'
 import { memo } from 'react'
 import {
   useVariantStats,
@@ -12,7 +12,6 @@ import {
   StatValueDetail,
 } from 'stats'
 import { VariantForm, VariantsDetailsModal } from 'variants'
-import Tooltip from 'general/Tooltip'
 
 const IntoStyled = chakra(Info)
 

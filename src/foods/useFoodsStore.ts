@@ -1,7 +1,7 @@
 import { Food, FoodId } from 'foods'
 import { useState, useCallback, useMemo } from 'react'
 import produce from 'immer'
-import { makeStoreProvider, useCallbacksMemo } from 'general/stores'
+import { makeStoreProvider, useCallbacksMemo } from 'general'
 
 type Params = {
   initialFoods: Food[]
