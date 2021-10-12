@@ -77,6 +77,8 @@ function StatFormField(props: Props) {
     </Text>
   ) : null
 
+  const isValueNextToLabel = isReadOnly && !(isCaption || isEmphasized)
+
   return (
     <FormControl
       isInvalid={isInvalid}
@@ -101,19 +103,15 @@ function StatFormField(props: Props) {
               {isReadOnly && labelDetailElement}
             </FormLabel>
             {!isReadOnly && labelDetailElement}
-            {isReadOnly && !(isCaption || isEmphasized) && (
-              <Box ml={2}>{inputElement}</Box>
-            )}
+            {isValueNextToLabel && <Box ml={2}>{inputElement}</Box>}
           </Flex>
 
           <Flex ml={2} justifyContent="flex-end">
-            {!(isReadOnly && !(isCaption || isEmphasized)) && inputElement}
+            {!isValueNextToLabel && inputElement}
 
-            {dailyValuePercent !== undefined &&
-              isReadOnly &&
-              !(isCaption || isEmphasized) && (
-                <Text fontWeight="medium">{`${dailyValuePercent}%`}</Text>
-              )}
+            {dailyValuePercent !== undefined && isValueNextToLabel && (
+              <Text fontWeight="medium">{`${dailyValuePercent}%`}</Text>
+            )}
 
             {!isReadOnly && inputType === 'nutritionValue' && (
               <Flex
