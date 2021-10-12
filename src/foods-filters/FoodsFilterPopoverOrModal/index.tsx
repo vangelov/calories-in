@@ -1,4 +1,4 @@
-import { useScreenSize } from 'general'
+import { useScreenSize, ScreenSize } from 'general'
 import Modal from './Modal'
 import Trigger from './Trigger'
 import Popover from './Popover'
@@ -8,7 +8,7 @@ function FoodsFilterPopoverOrModal() {
   const screenSize = useScreenSize()
   const modalDisclosure = useDisclosure()
 
-  if (screenSize < 2) {
+  if (screenSize < ScreenSize.Medium) {
     return (
       <>
         <Trigger onClick={modalDisclosure.onOpen} />

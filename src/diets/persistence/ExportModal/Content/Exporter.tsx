@@ -2,7 +2,7 @@ import ReactPDF, { PDFViewer, BlobProvider } from '@react-pdf/renderer'
 import PdfDietEditor from 'diets/PdfDietEditor'
 import { useDietForm } from 'diets'
 import { useFoods } from 'foods'
-import { useScreenSize, Loader } from 'general'
+import { useScreenSize, Loader, ScreenSize } from 'general'
 import { useRef } from 'react'
 import { HStack, Text, chakra } from '@chakra-ui/react'
 import { Check } from 'react-feather'
@@ -35,7 +35,7 @@ function Exporter({ onBlobUpdate }: Props) {
     />
   )
 
-  if (screenSize < 2) {
+  if (screenSize < ScreenSize.Medium) {
     return (
       <BlobProvider document={document}>
         {({ loading }) => {

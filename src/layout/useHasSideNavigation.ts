@@ -2,7 +2,7 @@
 
 function useHasSideNavigation() {
   /*const screenSize = useScreenSize()
-  return screenSize >= 3*/
+  return screenSize >= ScreenSize.Large*/
 
   return false
 }

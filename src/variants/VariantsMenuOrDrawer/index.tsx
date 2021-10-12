@@ -1,4 +1,4 @@
-import { useScreenSize } from 'general'
+import { useScreenSize, ScreenSize } from 'general'
 import Drawer from './Drawer'
 import Trigger from './Trigger'
 import { useDisclosure } from '@chakra-ui/hooks'
@@ -25,7 +25,7 @@ function VariantsMenuOrDrawer({
     onVariantFormSelect(variantForm, index)
   }
 
-  if (screenSize < 2) {
+  if (screenSize < ScreenSize.Medium) {
     return (
       <>
         <Trigger onClick={modalDisclosure.onOpen} />

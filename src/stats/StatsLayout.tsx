@@ -1,5 +1,5 @@
 import { Grid, GridItem, Box, GridProps } from '@chakra-ui/react'
-import { useScreenSize } from 'general'
+import { useScreenSize, ScreenSize } from 'general'
 import { ForwardedRef, ReactElement, forwardRef } from 'react'
 
 type Props = {
@@ -28,7 +28,7 @@ function StatsLayout({
 }: Props) {
   const screenSize = useScreenSize()
 
-  if (screenSize >= 2) {
+  if (screenSize >= ScreenSize.Medium) {
     return (
       <Grid
         ref={forwardedRef}

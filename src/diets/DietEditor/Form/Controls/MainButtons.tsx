@@ -1,6 +1,6 @@
 import { Button, chakra } from '@chakra-ui/react'
 import { Plus, Share } from 'react-feather'
-import { ResponsiveIconButton, useScreenSize } from 'general'
+import { ResponsiveIconButton, useScreenSize, ScreenSize } from 'general'
 
 const PlusStyled = chakra(Plus)
 
@@ -13,7 +13,7 @@ type Props = {
 function MainButtons({ onMealAdd, onExport, canExport }: Props) {
   const screenSize = useScreenSize()
 
-  if (screenSize >= 2) {
+  if (screenSize >= ScreenSize.Medium) {
     return (
       <>
         <Button

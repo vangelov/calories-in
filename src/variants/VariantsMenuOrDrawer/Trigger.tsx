@@ -1,7 +1,7 @@
 import { IconButton } from '@chakra-ui/react'
 import { Menu } from 'react-feather'
 import { ForwardedRef, forwardRef } from 'react'
-import { useScreenSize, Tooltip } from 'general'
+import { useScreenSize, Tooltip, ScreenSize } from 'general'
 
 type Props = {
   forwardedRef?: ForwardedRef<HTMLButtonElement>
@@ -10,7 +10,7 @@ type Props = {
 
 function Trigger({ forwardedRef, onClick, ...rest }: Props) {
   const screenSize = useScreenSize()
-  const isPhone = screenSize <= 1
+  const isPhone = screenSize <= ScreenSize.Small
 
   return (
     <Tooltip label="All days">

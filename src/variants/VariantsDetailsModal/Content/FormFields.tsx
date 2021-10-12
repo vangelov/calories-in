@@ -6,11 +6,11 @@ import {
   Stats,
   StatsFormFields,
   StatValueDetail,
+  Stat,
 } from 'stats'
 import { VariantForm } from 'variants'
-import { Stat } from 'stats'
 import { Flex } from '@chakra-ui/react'
-import { useScreenSize } from 'general'
+import { useScreenSize, ScreenSize } from 'general'
 
 type Props = {
   selectInputRef: RefObject<HTMLSelectElement>
@@ -41,7 +41,7 @@ function FormFields({
   )
 
   const screenSize = useScreenSize()
-  const isLarge = screenSize >= 2
+  const isLarge = screenSize >= ScreenSize.Medium
 
   return (
     <Box {...rest} p={4}>

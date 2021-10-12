@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from '@chakra-ui/react'
-import { useScreenSize } from './ScreenSizeProvider'
+import { useScreenSize, ScreenSize } from 'general'
 import { ForwardedRef, forwardRef } from 'react'
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
 
 function ResponsiveButton({ forwardedRef, ...rest }: Props) {
   const screenSize = useScreenSize()
-  const size = screenSize >= 2 ? 'sm' : 'md'
+  const size = screenSize >= ScreenSize.Medium ? 'sm' : 'md'
 
   return <Button ref={forwardedRef} size={size} {...rest} />
 }

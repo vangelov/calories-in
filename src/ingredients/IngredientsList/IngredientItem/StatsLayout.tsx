@@ -1,9 +1,8 @@
 import { IngredientForm } from 'ingredients'
 import { FoodInfo, useFoods } from 'foods'
-import { StatsLayout as StatsLayoutBase, Stat, AmountInput } from 'stats'
+import { StatsLayout as StatsLayoutBase, Stat, AmountInput, Stats } from 'stats'
 import { RightAligned } from 'layout'
-import { Stats } from 'stats'
-import { useScreenSize } from 'general'
+import { useScreenSize, ScreenSize } from 'general'
 import { ChangeEvent, ReactElement } from 'react'
 
 type Props = {
@@ -19,7 +18,7 @@ function StatsLayout({
   onAmountChange,
   menuElement,
 }: Props) {
-  const amountInputSize = useScreenSize() >= 2 ? 'sm' : 'md'
+  const amountInputSize = useScreenSize() >= ScreenSize.Medium ? 'sm' : 'md'
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
 

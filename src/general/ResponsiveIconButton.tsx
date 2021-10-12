@@ -1,5 +1,5 @@
 import { IconButtonProps, IconButton } from '@chakra-ui/react'
-import { useScreenSize } from './ScreenSizeProvider'
+import { useScreenSize, ScreenSize } from 'general'
 import { ForwardedRef, forwardRef } from 'react'
 
 type Props = {
@@ -13,7 +13,7 @@ function ResponsiveIconButton({
   ...rest
 }: Props) {
   const screenSize = useScreenSize()
-  const size = screenSize >= 2 ? 'sm' : 'md'
+  const size = screenSize >= ScreenSize.Medium ? 'sm' : 'md'
 
   return <IconButton ref={forwardedRef} size={size} {...rest} />
 }

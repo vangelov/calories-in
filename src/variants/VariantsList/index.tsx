@@ -6,7 +6,7 @@ import VariantNameModal from './VariantNameModal'
 import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
 import { useDietForm } from 'diets'
 import { VariantForm } from 'variants'
-import { HFadeScroll, useScreenSize, Tooltip } from 'general'
+import { HFadeScroll, useScreenSize, Tooltip, ScreenSize } from 'general'
 import mergeRefs from 'react-merge-refs'
 import ScrollButtons from './ScrollButtons'
 import VariantsMenuOrDrawer from '../VariantsMenuOrDrawer'
@@ -26,7 +26,7 @@ function VariantsList({
 }: Props) {
   const scrollNodeRef = useRef<HTMLDivElement>(null)
   const screenSize = useScreenSize()
-  const isPhone = screenSize <= 1
+  const isPhone = screenSize <= ScreenSize.Small
 
   const variantFormEvents = useVariantFormEvents({
     onVariantFormSelect,
