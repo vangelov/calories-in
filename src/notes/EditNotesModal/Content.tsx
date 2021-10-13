@@ -17,20 +17,24 @@ import { useFormContext } from 'react-hook-form'
 import { useMergeRefs } from '@chakra-ui/react'
 import { useFormError } from 'form'
 import { NotesForm } from 'notes'
+import { useOneTimeCheckActions } from 'general'
 
 type Props = {
   title: string
   onClose: () => void
   initialRef: RefObject<HTMLInputElement>
   onEditNotes: (notes: string) => void
+  fieldId: string
 }
 
-function Content({ title, onClose, initialRef, onEditNotes }: Props) {
+function Content({ title, onClose, initialRef, onEditNotes, fieldId }: Props) {
   const { register, handleSubmit } = useFormContext()
   const notesRegister = register('notes')
   const notesInputRef = useMergeRefs(notesRegister.ref, initialRef)
+  const oneTimeCheckActions = useOneTimeCheckActions()
 
   const onSubmit = handleSubmit((form: NotesForm) => {
+    oneTimeCheckActions.set(`notes-${fieldId}`)
     onEditNotes(form.notes)
     onClose()
   })

@@ -16,7 +16,7 @@ function useNotesEvents({
   index,
   ingredientForm,
 }: Params) {
-  const [areNotesVisible, setAreNotesVisible] = useState(false)
+  const [areNotesVisible, setAreNotesVisible] = useState(true)
   const dietFormActions = useDietFormActions()
   const oneTimeCheckActions = useOneTimeCheckActions()
   const ref = useRef<string>()
@@ -44,6 +44,7 @@ function useNotesEvents({
       dietFormActions.updateIngredientForm(variantIndex, mealIndex, index, {
         notes: undefined,
       })
+      setAreNotesVisible(true)
     } else if (!areNotesVisible) {
       dietFormActions.updateIngredientForm(variantIndex, mealIndex, index, {
         notes: ref.current,

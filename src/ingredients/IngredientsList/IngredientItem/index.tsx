@@ -95,6 +95,7 @@ function IngredientItem({
                 food={food}
                 notes={ingredientForm.notes}
                 showsNotes={notesEvents.areNotesVisible}
+                shouldAnimateNotes={notesEvents.shouldAnimateNotes}
                 onNotesAnimationComplete={notesEvents.onNotesAnimationComplete}
               />
             ) : (
@@ -116,6 +117,7 @@ function IngredientItem({
             onClose={editNotesModalDisclosure.onClose}
             notes={ingredientForm.notes}
             onEditNotes={notesEvents.onEditNotes}
+            fieldId={ingredientForm.fieldId}
           />
         </PresenceAnimation>
       )}

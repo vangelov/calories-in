@@ -8,9 +8,16 @@ type Props = {
   isOpen: boolean
   notes?: string
   onEditNotes: (notes: string) => void
+  fieldId: string
 }
 
-function EditNotesModal({ onClose, isOpen, notes, onEditNotes }: Props) {
+function EditNotesModal({
+  onClose,
+  isOpen,
+  notes,
+  onEditNotes,
+  fieldId,
+}: Props) {
   const initialRef = useRef<HTMLInputElement>(null)
   const finalFocusRef = useRef(null)
 
@@ -29,6 +36,7 @@ function EditNotesModal({ onClose, isOpen, notes, onEditNotes }: Props) {
           onClose={onClose}
           onEditNotes={onEditNotes}
           initialRef={initialRef}
+          fieldId={fieldId}
         />
       </NotesFormProvider>
     </Modal>

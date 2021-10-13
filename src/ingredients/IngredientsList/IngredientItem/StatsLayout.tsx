@@ -16,6 +16,7 @@ type Props = {
   notes?: string
   showsNotes?: boolean
   onNotesAnimationComplete: () => void
+  shouldAnimateNotes: boolean
 }
 
 function StatsLayout({
@@ -27,6 +28,7 @@ function StatsLayout({
   notes,
   showsNotes = true,
   onNotesAnimationComplete,
+  shouldAnimateNotes,
 }: Props) {
   const amountInputSize = useScreenSize() >= ScreenSize.Medium ? 'sm' : 'md'
 
@@ -41,17 +43,19 @@ function StatsLayout({
           food={food}
           notes={notes}
         >
-          <PresenceAnimation
-            shouldAnimate={true}
-            isVisible={showsNotes}
-            onAnimationComplete={onNotesAnimationComplete}
-          >
-            <Box width="100%">
-              <Text fontSize="sm" textColor="gray.400">
-                {notes}
-              </Text>
-            </Box>
-          </PresenceAnimation>
+          {notes && (
+            <PresenceAnimation
+              shouldAnimate={shouldAnimateNotes}
+              isVisible={showsNotes}
+              onAnimationComplete={onNotesAnimationComplete}
+            >
+              <Box width="100%">
+                <Text fontSize="sm" textColor="gray.400">
+                  {notes}
+                </Text>
+              </Box>
+            </PresenceAnimation>
+          )}
         </FoodInfo>
       }
       amountElement={
