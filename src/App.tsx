@@ -5,7 +5,7 @@ import theme from 'theme'
 import smoothscroll from 'smoothscroll-polyfill'
 import { FoodsStoreProvider } from 'foods'
 import { loadFoods } from 'foods/persistence'
-import { OneTimeCheckStoreProvider } from 'general'
+import { OneTimeCheckStoreProvider, ScreenSizeProvider } from 'general'
 import { DietEditor } from 'diets'
 import { useState } from 'react'
 
@@ -16,13 +16,15 @@ function App() {
 
   return (
     <ChakraProvider theme={theme}>
-      <OneTimeCheckStoreProvider>
-        <FoodsStoreProvider initialFoods={foods}>
-          <MainLayout>
-            <DietEditor />
-          </MainLayout>
-        </FoodsStoreProvider>
-      </OneTimeCheckStoreProvider>
+      <ScreenSizeProvider>
+        <OneTimeCheckStoreProvider>
+          <FoodsStoreProvider initialFoods={foods}>
+            <MainLayout>
+              <DietEditor />
+            </MainLayout>
+          </FoodsStoreProvider>
+        </OneTimeCheckStoreProvider>
+      </ScreenSizeProvider>
     </ChakraProvider>
   )
 }
