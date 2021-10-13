@@ -29,7 +29,7 @@ function PdfVariantsList({
     if (mealsForms.length > 0) {
       variantItemsElements.push(
         <PdfVariantItem
-          style={{ marginTop: variantItemsElements.length > 0 ? 50 : 0 }}
+          index={index}
           key={variantForm.fieldId}
           name={name}
           variantForm={variantForm}

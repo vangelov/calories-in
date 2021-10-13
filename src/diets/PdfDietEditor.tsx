@@ -4,6 +4,8 @@ import ReactPDF, {
   Font,
   StyleSheet,
   Text,
+  View,
+  Link,
 } from '@react-pdf/renderer'
 import { Food } from 'foods'
 import { getComputedColorFromChakra } from 'theme'
@@ -43,6 +45,30 @@ function PdfDietEditor({ dietForm, foodsById, ...rest }: Props) {
           variantsFormsStatsTrees={dietFormStatsTree.subtrees}
           foodsById={foodsById}
         />
+
+        <View
+          fixed
+          style={{
+            marginTop: 16,
+
+            alignItems: 'center',
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 12,
+              color: getComputedColorFromChakra('gray.800'),
+            }}
+          >
+            Created using:{' '}
+            <Link
+              style={{ color: getComputedColorFromChakra('teal.500') }}
+              src="http://caorories-in.com"
+            >
+              http://calories-in.com
+            </Link>
+          </Text>
+        </View>
       </Page>
     </Document>
   )

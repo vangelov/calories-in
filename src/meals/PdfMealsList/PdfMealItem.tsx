@@ -32,6 +32,7 @@ function PdfMealItem({
         style,
         { borderColor: getComputedColorFromChakra('gray.200') },
       ]}
+      wrap={false}
     >
       <View
         style={[
