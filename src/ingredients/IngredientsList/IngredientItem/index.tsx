@@ -11,6 +11,8 @@ import StatsLayout from './StatsLayout'
 import MissingStatsLayout from './MissingStatsLayout'
 import Menu from './Menu'
 import { useDisclosure } from '@chakra-ui/hooks'
+import { EditNotesModal } from 'notes'
+import useNotesEvents from './useNotesEvents'
 
 type Props = {
   variantIndex: number
@@ -39,11 +41,20 @@ function IngredientItem({
     ingredientForm,
   })
 
+  const notesEvents = useNotesEvents({
+    variantIndex,
+    mealIndex,
+    index,
+    ingredientForm,
+  })
+
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
   const foodModalDisclosure = useDisclosure()
+  const editNotesModalDisclosure = useDisclosure()
 
   const menuItems = getMenuItems({
+    onEditNotes: editNotesModalDisclosure.onOpen,
     onRemove: ingredientEvents.onRemoveRequest,
     onViewFoodDetails: foodModalDisclosure.onOpen,
   })
@@ -81,6 +92,10 @@ function IngredientItem({
                 ingredientStats={ingredientStats}
                 onAmountChange={ingredientEvents.onAmountChange}
                 menuElement={<Menu mr={3} items={menuItems} />}
+                food={food}
+                notes={ingredientForm.notes}
+                showsNotes={notesEvents.areNotesVisible}
+                onNotesAnimationComplete={notesEvents.onNotesAnimationComplete}
               />
             ) : (
               <MissingStatsLayout
@@ -94,6 +109,13 @@ function IngredientItem({
             onClose={foodModalDisclosure.onClose}
             onFoodCreatedOrUpdated={ingredientEvents.onFoodUpdated}
             food={food}
+          />
+
+          <EditNotesModal
+            isOpen={editNotesModalDisclosure.isOpen}
+            onClose={editNotesModalDisclosure.onClose}
+            notes={ingredientForm.notes}
+            onEditNotes={notesEvents.onEditNotes}
           />
         </PresenceAnimation>
       )}

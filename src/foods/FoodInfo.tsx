@@ -20,6 +20,7 @@ function FoodInfo({
   nameNoOfLines,
   energy,
   notes,
+  children,
   ...rest
 }: Props) {
   return (
@@ -38,11 +39,7 @@ function FoodInfo({
           </Text>
         )}
 
-        {notes && (
-          <Text fontSize="sm" textColor="gray.400">
-            {notes}
-          </Text>
-        )}
+        {children}
       </Box>
     </Flex>
   )
