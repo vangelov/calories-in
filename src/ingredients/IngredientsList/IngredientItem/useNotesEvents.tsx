@@ -40,16 +40,12 @@ function useNotesEvents({
   }
 
   function onNotesAnimationComplete() {
-    if (!areNotesVisible && !ref.current) {
-      dietFormActions.updateIngredientForm(variantIndex, mealIndex, index, {
-        notes: undefined,
-      })
-      setAreNotesVisible(true)
-    } else if (!areNotesVisible) {
+    if (!areNotesVisible) {
       dietFormActions.updateIngredientForm(variantIndex, mealIndex, index, {
         notes: ref.current,
       })
       ref.current = undefined
+
       setAreNotesVisible(true)
     }
   }

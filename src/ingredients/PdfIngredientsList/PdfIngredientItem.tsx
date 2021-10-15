@@ -19,14 +19,27 @@ function PdfIngredientItem({ ingredientForm, stats, foodsById }: Props) {
     <View style={styles.root}>
       <PdfStatsLayout
         nameElement={
-          <Text
-            style={[
-              styles.name,
-              { color: getComputedColorFromChakra('gray.600') },
-            ]}
-          >
-            {food.name}
-          </Text>
+          <View style={{ marginLeft: 10 }}>
+            <Text
+              style={[
+                styles.name,
+                { color: getComputedColorFromChakra('gray.600') },
+              ]}
+            >
+              {food.name}
+            </Text>
+
+            {ingredientForm.notes ? (
+              <Text
+                style={[
+                  styles.notes,
+                  { color: getComputedColorFromChakra('gray.400') },
+                ]}
+              >
+                {ingredientForm.notes}
+              </Text>
+            ) : null}
+          </View>
         }
         amountElement={
           <PdfStat
@@ -49,7 +62,10 @@ const styles = StyleSheet.create({
   root: { paddingTop: 10, paddingBottom: 10 },
   name: {
     fontSize: 12,
-    marginLeft: 10,
+  },
+  notes: {
+    marginTop: 3,
+    fontSize: 10,
   },
 })
 

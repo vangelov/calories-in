@@ -13,6 +13,7 @@ import Menu from './Menu'
 import { useDisclosure } from '@chakra-ui/hooks'
 import { EditNotesModal } from 'notes'
 import useNotesEvents from './useNotesEvents'
+import { Box, Text } from '@chakra-ui/react'
 
 type Props = {
   variantIndex: number
@@ -94,10 +95,21 @@ function IngredientItem({
                 menuElement={<Menu mr={3} items={menuItems} />}
                 food={food}
                 notes={ingredientForm.notes}
-                showsNotes={notesEvents.areNotesVisible}
-                shouldAnimateNotes={notesEvents.shouldAnimateNotes}
-                onNotesAnimationComplete={notesEvents.onNotesAnimationComplete}
-              />
+              >
+                {ingredientForm.notes && (
+                  <PresenceAnimation
+                    shouldAnimate={notesEvents.shouldAnimateNotes}
+                    isVisible={notesEvents.areNotesVisible}
+                    onAnimationComplete={notesEvents.onNotesAnimationComplete}
+                  >
+                    <Box width="100%">
+                      <Text fontSize="sm" textColor="gray.400">
+                        {ingredientForm.notes}
+                      </Text>
+                    </Box>
+                  </PresenceAnimation>
+                )}
+              </StatsLayout>
             ) : (
               <MissingStatsLayout
                 onRemoveRequest={ingredientEvents.onRemoveRequest}

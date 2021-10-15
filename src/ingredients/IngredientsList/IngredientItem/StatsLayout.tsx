@@ -3,9 +3,7 @@ import { Food, FoodInfo } from 'foods'
 import { StatsLayout as StatsLayoutBase, Stat, AmountInput, Stats } from 'stats'
 import { RightAligned } from 'layout'
 import { useScreenSize, ScreenSize } from 'general'
-import { ChangeEvent, ReactElement } from 'react'
-import { Text, Box } from '@chakra-ui/react'
-import PresenceAnimation from './PresenceAnimation'
+import { ChangeEvent, ReactElement, ReactNode } from 'react'
 
 type Props = {
   ingredientStats: Stats
@@ -14,9 +12,7 @@ type Props = {
   menuElement: ReactElement
   food: Food
   notes?: string
-  showsNotes?: boolean
-  onNotesAnimationComplete: () => void
-  shouldAnimateNotes: boolean
+  children: ReactNode
 }
 
 function StatsLayout({
@@ -26,9 +22,7 @@ function StatsLayout({
   menuElement,
   food,
   notes,
-  showsNotes = true,
-  onNotesAnimationComplete,
-  shouldAnimateNotes,
+  children,
 }: Props) {
   const amountInputSize = useScreenSize() >= ScreenSize.Medium ? 'sm' : 'md'
 
@@ -43,19 +37,7 @@ function StatsLayout({
           food={food}
           notes={notes}
         >
-          {notes && (
-            <PresenceAnimation
-              shouldAnimate={shouldAnimateNotes}
-              isVisible={showsNotes}
-              onAnimationComplete={onNotesAnimationComplete}
-            >
-              <Box width="100%">
-                <Text fontSize="sm" textColor="gray.400">
-                  {notes}
-                </Text>
-              </Box>
-            </PresenceAnimation>
-          )}
+          {children}
         </FoodInfo>
       }
       amountElement={

@@ -36,7 +36,7 @@ function PdfVariantItem({
   )
 
   return (
-    <View style={[style]} break={index > 0}>
+    <View style={[style]}>
       <PdfStatsLayout
         nameElement={
           <Text
