@@ -14,11 +14,11 @@ function Header({ mealName, canSelect }: Props) {
     : 'Foods'
 
   return (
-    <DrawerHeader fontWeight={fontWeight}>
+    <DrawerHeader fontWeight={fontWeight} mr={3}>
       {titlePrefix}
 
       {mealName && (
-        <Text as="span" fontSize="xl" mr={3} fontWeight="bold">
+        <Text as="span" fontSize="xl" fontWeight="bold">
           {mealName}
         </Text>
       )}

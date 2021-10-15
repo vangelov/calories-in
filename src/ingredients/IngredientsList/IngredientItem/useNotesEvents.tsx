@@ -58,4 +58,8 @@ function useNotesEvents({
   }
 }
 
+type NotesEvents = ReturnType<typeof useNotesEvents>
+
+export type { NotesEvents }
+
 export default useNotesEvents

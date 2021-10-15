@@ -26,7 +26,6 @@ function PdfVariantItem({
   mealsFormsStatsTrees,
   foodsById,
   style = {},
-  index,
 }: Props) {
   const { mealsForms } = variantForm
 

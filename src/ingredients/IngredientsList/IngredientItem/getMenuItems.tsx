@@ -1,5 +1,6 @@
 import { chakra } from '@chakra-ui/react'
 import { MenuItem } from 'general'
+import { IngredientForm } from 'ingredients'
 import { Trash2, Info, Edit } from 'react-feather'
 
 const InfoStyled = chakra(Info)
@@ -10,13 +11,19 @@ type Props = {
   onEditNotes: () => void
   onRemove: () => void
   onViewFoodDetails: () => void
+  ingredientForm: IngredientForm
 }
 
-function getMenuItems({ onRemove, onViewFoodDetails, onEditNotes }: Props) {
+function getMenuItems({
+  ingredientForm,
+  onRemove,
+  onViewFoodDetails,
+  onEditNotes,
+}: Props) {
   return [
     <MenuItem key="editNotes" onClick={onEditNotes}>
       <EditStyled pointerEvents="none" size={20} mr={3} />
-      Edit notes
+      {ingredientForm.notes ? 'Edit notes' : 'Add notes'}
     </MenuItem>,
     <MenuItem key="remove" onClick={onRemove}>
       <Trash2Styled pointerEvents="none" size={20} mr={3} />

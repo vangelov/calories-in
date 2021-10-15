@@ -7,12 +7,11 @@ import {
   FormLabel,
   FormErrorMessage,
   ModalContent,
-  ModalHeader,
   ModalCloseButton,
   Collapse,
   Box,
 } from '@chakra-ui/react'
-import { RefObject } from 'react'
+import { ReactNode, RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useMergeRefs } from '@chakra-ui/react'
 import { useFormError } from 'form'
@@ -20,14 +19,15 @@ import { NotesForm } from 'notes'
 import { useOneTimeCheckActions } from 'general'
 
 type Props = {
-  title: string
   onClose: () => void
   initialRef: RefObject<HTMLInputElement>
   onEditNotes: (notes: string) => void
   fieldId: string
+
+  header: ReactNode
 }
 
-function Content({ title, onClose, initialRef, onEditNotes, fieldId }: Props) {
+function Content({ header, onClose, initialRef, onEditNotes, fieldId }: Props) {
   const { register, handleSubmit } = useFormContext()
   const notesRegister = register('notes')
   const notesInputRef = useMergeRefs(notesRegister.ref, initialRef)
@@ -44,12 +44,12 @@ function Content({ title, onClose, initialRef, onEditNotes, fieldId }: Props) {
   return (
     <form onSubmit={onSubmit}>
       <ModalContent>
-        <ModalHeader>{title}</ModalHeader>
+        {header}
         <ModalCloseButton />
 
         <ModalBody>
           <FormControl isInvalid={isInvalid}>
-            <FormLabel>Name</FormLabel>
+            <FormLabel>Notes</FormLabel>
             <Textarea
               autoComplete="off"
               {...notesRegister}
