@@ -30,6 +30,7 @@ function PdfVariantsList({
       variantItemsElements.push(
         <PdfVariantItem
           index={index}
+          style={{ marginTop: variantItemsElements.length > 0 ? 50 : 0 }}
           key={variantForm.fieldId}
           name={name}
           variantForm={variantForm}

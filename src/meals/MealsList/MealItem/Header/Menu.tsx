@@ -16,6 +16,7 @@ function Menu({ items, ...rest }: Props) {
         arrow
         align="end"
         viewScroll="close"
+        portal={true}
         menuButton={
           <ResponsiveIconButton
             aria-label="Meal actions"

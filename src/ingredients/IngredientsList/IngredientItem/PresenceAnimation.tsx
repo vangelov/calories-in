@@ -12,9 +12,8 @@ const variants = {
   open: {
     opacity: 1,
     height: 'auto',
-    x: 0,
   },
-  collapsed: { opacity: 0, height: 0, x: 0 },
+  collapsed: { opacity: 0, height: 0 },
 }
 
 function PresenceAnimation({

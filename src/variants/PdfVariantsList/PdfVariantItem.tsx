@@ -26,7 +26,6 @@ function PdfVariantItem({
   mealsFormsStatsTrees,
   foodsById,
   style = {},
-  index,
 }: Props) {
   const { mealsForms } = variantForm
 
@@ -36,7 +35,7 @@ function PdfVariantItem({
   )
 
   return (
-    <View style={[style]} break={index > 0}>
+    <View style={[style]}>
       <PdfStatsLayout
         nameElement={
           <Text

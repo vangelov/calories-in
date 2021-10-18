@@ -7,6 +7,7 @@ import {
   getValueTextColor,
   isForDiet,
   isForEnergy,
+  isForIngredient,
   StatVariant,
 } from './statsVariants'
 
@@ -20,7 +21,13 @@ type Props = {
 
 function PdfStat({ label, value, variant, valueDetail, style = {} }: Props) {
   return (
-    <View style={[styles.root, style]}>
+    <View
+      style={[
+        styles.root,
+        { justifyContent: isForIngredient(variant) ? 'center' : undefined },
+        style,
+      ]}
+    >
       {isForDiet(variant) && (
         <View
           style={[

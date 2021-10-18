@@ -1,15 +1,18 @@
 import { IngredientForm } from 'ingredients'
-import { FoodInfo, useFoods } from 'foods'
+import { Food, FoodInfo } from 'foods'
 import { StatsLayout as StatsLayoutBase, Stat, AmountInput, Stats } from 'stats'
 import { RightAligned } from 'layout'
 import { useScreenSize, ScreenSize } from 'general'
-import { ChangeEvent, ReactElement } from 'react'
+import { ChangeEvent, ReactElement, ReactNode } from 'react'
 
 type Props = {
   ingredientStats: Stats
   ingredientForm: IngredientForm
   onAmountChange: (event: ChangeEvent<HTMLInputElement>) => void
   menuElement: ReactElement
+  food: Food
+  notes?: string
+  children: ReactNode
 }
 
 function StatsLayout({
@@ -17,10 +20,11 @@ function StatsLayout({
   ingredientForm,
   onAmountChange,
   menuElement,
+  food,
+  notes,
+  children,
 }: Props) {
   const amountInputSize = useScreenSize() >= ScreenSize.Medium ? 'sm' : 'md'
-  const { foodsById } = useFoods()
-  const food = foodsById[ingredientForm.foodId]
 
   return (
     <StatsLayoutBase
@@ -31,7 +35,10 @@ function StatsLayout({
           ml={3}
           fontSize={{ base: 'sm', md: 'md' }}
           food={food}
-        />
+          notes={notes}
+        >
+          {children}
+        </FoodInfo>
       }
       amountElement={
         <RightAligned>
