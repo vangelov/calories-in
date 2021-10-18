@@ -24,10 +24,9 @@ function PresenceAnimation({
 }: Props) {
   return (
     <motion.div
-      style={{ overflow: 'hidden' }}
       transition={{
         ease: 'easeInOut',
-        duration: 4,
+        duration: shouldAnimate ? 0.12 : undefined,
       }}
       initial={shouldAnimate ? 'hidden' : false}
       animate={isVisible ? 'open' : 'collapsed'}
