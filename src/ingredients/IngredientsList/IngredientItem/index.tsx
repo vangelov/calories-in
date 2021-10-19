@@ -118,14 +118,16 @@ function IngredientItem({
             food={food}
           />
 
-          <EditNotesModal
-            isOpen={editNotesModalDisclosure.isOpen}
-            onClose={editNotesModalDisclosure.onClose}
-            notes={ingredientForm.notes}
-            onEditNotes={notesEvents.onEditNotes}
-            fieldId={ingredientForm.fieldId}
-            ownerName={food.name}
-          />
+          {food && (
+            <EditNotesModal
+              isOpen={editNotesModalDisclosure.isOpen}
+              onClose={editNotesModalDisclosure.onClose}
+              notes={ingredientForm.notes}
+              onEditNotes={notesEvents.onEditNotes}
+              fieldId={ingredientForm.fieldId}
+              ownerName={food.name}
+            />
+          )}
         </PresenceAnimation>
       )}
     </Draggable>

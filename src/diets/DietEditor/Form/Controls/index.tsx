@@ -44,7 +44,6 @@ function Controls({ canExport }: Props) {
         />
 
         <MainButtons
-          onMealAdd={() => dietFormActions.appendMealForm()}
           onExport={exportModalDisclosure.onOpen}
           canExport={canExport}
         />

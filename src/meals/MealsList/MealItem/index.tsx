@@ -1,5 +1,5 @@
 import { MealForm, getMealFormStatsTree } from 'meals'
-import { Flex, LayoutProps, SpaceProps, useDisclosure } from '@chakra-ui/react'
+import { Flex, FlexProps, useDisclosure } from '@chakra-ui/react'
 import Header from './Header'
 import { RefObject, memo } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
@@ -19,8 +19,8 @@ type Props = {
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
   onFirstAppear: (mealForm: MealForm) => void
   selectedVariantFormFieldId: string
-} & LayoutProps &
-  SpaceProps
+  isDragging: boolean
+} & FlexProps
 
 function MealItem({
   mealForm,
@@ -30,10 +30,10 @@ function MealItem({
   variantIndex,
   selectedVariantFormFieldId,
   onFirstAppear,
-
+  isDragging,
   ...rest
 }: Props) {
-  const drawerDisclosure = useDisclosure()
+  const foodsDrawerDisclosure = useDisclosure()
   const { foodsById } = useFoods()
   const mealFormEvents = useMealFormEvents({
     mealForm,
@@ -41,6 +41,7 @@ function MealItem({
     index,
     onFirstAppear,
     onRemove,
+    foodsDrawerDisclosure,
   })
 
   const mealFormStatsTree = useMemo(
@@ -70,6 +71,7 @@ function MealItem({
           shouldAnimate={mealFormEvents.shouldAnimate}
           isVisible={mealFormEvents.isVisible}
           onAnimationComplete={mealFormEvents.onAnimationComplete}
+          isDragging={isDragging}
         >
           <Flex
             ref={provided.innerRef}
@@ -78,7 +80,6 @@ function MealItem({
             flexDirection="column"
             borderRadius={10}
             borderWidth="1px"
-            mb={3}
             backgroundColor="white"
             boxShadow={snapshot.isDragging ? 'lg' : undefined}
             {...rest}
@@ -91,7 +92,7 @@ function MealItem({
               index={index}
               mealForm={mealForm}
               onRemove={mealFormEvents.onRemoveRequest}
-              onAddIngredient={drawerDisclosure.onOpen}
+              onAddIngredient={foodsDrawerDisclosure.onOpen}
               onClone={mealFormEvents.onClone}
             />
 
@@ -101,15 +102,14 @@ function MealItem({
               mealForm={mealForm}
               mealIndex={index}
               variantIndex={variantIndex}
-              onAddIngredients={drawerDisclosure.onOpen}
+              onAddIngredients={foodsDrawerDisclosure.onOpen}
             />
 
             <FoodsDrawer
-              isOpen={drawerDisclosure.isOpen}
-              onClose={drawerDisclosure.onClose}
+              isOpen={foodsDrawerDisclosure.isOpen}
+              onClose={foodsDrawerDisclosure.onClose}
               mealName={mealForm.name}
-              mealFormIndex={index}
-              variantFormIndex={variantIndex}
+              onSelectedFoods={mealFormEvents.onAddFoods}
             />
           </Flex>
         </PresenceAnimation>

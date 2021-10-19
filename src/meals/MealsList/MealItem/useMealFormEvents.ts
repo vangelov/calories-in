@@ -2,6 +2,8 @@ import { MealForm, getInsertMealFormAnimationKey } from 'meals'
 import { useState } from 'react'
 import { useOneTimeCheckActions } from 'general'
 import { useDietFormActions } from 'diets'
+import { Food } from 'foods'
+import { UseDisclosureReturn } from '@chakra-ui/hooks'
 
 type Params = {
   mealForm: MealForm
@@ -9,6 +11,7 @@ type Params = {
   variantIndex: number
   onRemove: (variantIndex: number, index: number) => void
   onFirstAppear: (mealForm: MealForm) => void
+  foodsDrawerDisclosure: UseDisclosureReturn
 }
 
 function useMealFormEvents({
@@ -17,6 +20,7 @@ function useMealFormEvents({
   onRemove,
   variantIndex,
   onFirstAppear,
+  foodsDrawerDisclosure,
 }: Params) {
   const [isVisible, setIsVisible] = useState(true)
   const oneTimeCheckActions = useOneTimeCheckActions()
@@ -41,12 +45,22 @@ function useMealFormEvents({
     dietFormActions.duplicateMealForm(variantIndex, mealIndex)
   }
 
+  function onAddFoods(foods: Food[]) {
+    dietFormActions.appendIngredientsForms(
+      variantIndex,
+      index,
+      foods.map(({ id }) => id)
+    )
+    foodsDrawerDisclosure.onClose()
+  }
+
   return {
     onAnimationComplete,
     shouldAnimate,
     onRemoveRequest,
     isVisible,
     onClone,
+    onAddFoods,
   }
 }
 

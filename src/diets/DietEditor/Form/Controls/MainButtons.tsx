@@ -1,16 +1,13 @@
-import { Button, chakra } from '@chakra-ui/react'
-import { Plus, Share } from 'react-feather'
+import { Button } from '@chakra-ui/react'
+import { Share } from 'react-feather'
 import { ResponsiveIconButton, useScreenSize, ScreenSize } from 'general'
 
-const PlusStyled = chakra(Plus)
-
 type Props = {
-  onMealAdd: () => void
   onExport: () => void
   canExport: boolean
 }
 
-function MainButtons({ onMealAdd, onExport, canExport }: Props) {
+function MainButtons({ onExport, canExport }: Props) {
   const screenSize = useScreenSize()
 
   if (screenSize >= ScreenSize.Medium) {
@@ -20,21 +17,11 @@ function MainButtons({ onMealAdd, onExport, canExport }: Props) {
           size="sm"
           isDisabled={!canExport}
           leftIcon={<Share size={20} pointerEvents="none" />}
-          variant="outline"
+          variant="solid"
           colorScheme="teal"
-          mr={2}
           onClick={onExport}
         >
           Export
-        </Button>
-        <Button
-          size="sm"
-          colorScheme="teal"
-          leftIcon={<PlusStyled size={20} color="white" pointerEvents="none" />}
-          variant="solid"
-          onClick={onMealAdd}
-        >
-          Add Meal
         </Button>
       </>
     )
@@ -45,19 +32,9 @@ function MainButtons({ onMealAdd, onExport, canExport }: Props) {
       <ResponsiveIconButton
         aria-label="Export"
         icon={<Share size={20} pointerEvents="none" />}
-        variant="outline"
+        variant="solid"
         onClick={onExport}
         colorScheme="teal"
-        mr={2}
-      />
-
-      <ResponsiveIconButton
-        colorScheme="teal"
-        size="md"
-        aria-label="Add meal"
-        icon={<PlusStyled size={20} color="white" pointerEvents="none" />}
-        variant="solid"
-        onClick={onMealAdd}
       />
     </>
   )

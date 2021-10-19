@@ -6,13 +6,15 @@ type Props = {
   shouldAnimate: boolean
   onAnimationComplete: () => void
   isVisible: boolean
+  isDragging: boolean
 }
 
 const variants = {
   open: {
     opacity: 1,
+    height: 'auto',
   },
-  hidden: { opacity: 0 },
+
   collapsed: { opacity: 0, height: 0, x: 0 },
 }
 
@@ -21,14 +23,15 @@ function PresenceAnimation({
   onAnimationComplete,
   shouldAnimate,
   isVisible,
+  isDragging,
 }: Props) {
   return (
     <motion.div
+      style={{ overflow: isDragging ? undefined : 'hidden' }}
       transition={{
         ease: 'easeInOut',
-        duration: shouldAnimate ? 0.12 : undefined,
       }}
-      initial={shouldAnimate ? 'hidden' : false}
+      initial={shouldAnimate ? 'collapsed' : false}
       animate={isVisible ? 'open' : 'collapsed'}
       onAnimationComplete={onAnimationComplete}
       variants={variants}
