@@ -20,13 +20,11 @@ function useVariantStats({ variantFormFieldId }: Params) {
       : []
     const statsSum = sumStats(finalStats)
 
-    console.log('test', mealsStatsForVariant)
-
-    const vf = dietForm.variantsForms.find(
+    const variantForm = dietForm.variantsForms.find(
       ({ fieldId }) => fieldId === variantFormFieldId
     )
 
-    if (vf && vf?.mealsForms.length === 0) {
+    if (variantForm && variantForm.mealsForms.length === 0) {
       energyCacheRef.current[variantFormFieldId] = 0
     } else if (
       mealsStatsForVariant &&
@@ -48,8 +46,6 @@ function useVariantStats({ variantFormFieldId }: Params) {
     cachedEnergy !== undefined && cachedEnergy > 0
       ? variantStats.energy - cachedEnergy
       : 0
-
-  console.log('d', energyDiff)
 
   return {
     variantStats,

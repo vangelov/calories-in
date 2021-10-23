@@ -21,15 +21,12 @@ function useScrollToAndFocusMeal({
 
   function onMealAdd(foods: Food[], mealName?: string) {
     foodsDrawerDisclosure.onClose()
-    setTimeout(() => {
-      const foodsIds = foods.map(({ id }) => id)
-      const ingredients = foodsIds.map(id => ({
-        foodId: id,
-        amountInGrams: DEFAULT_SERVING_SIZE_IN_GRAMS,
-      }))
-      const mealForm = getMealForm({ name: mealName as string, ingredients })
-      dietFormActions.appendMealForm(mealForm)
-    }, 200)
+    const ingredients = foods.map(({ id }) => ({
+      foodId: id,
+      amountInGrams: DEFAULT_SERVING_SIZE_IN_GRAMS,
+    }))
+    const mealForm = getMealForm({ name: mealName as string, ingredients })
+    dietFormActions.appendMealForm(mealForm)
   }
 
   const onScrollToMeal = useCallback(
