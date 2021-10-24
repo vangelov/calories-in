@@ -57,13 +57,6 @@ function Header({
             index={index}
           />
         }
-        amountElement={
-          <Stat
-            type="meal"
-            label="Amount"
-            value={ingredientsStatsSum.amountInGrams}
-          />
-        }
         energyElement={
           <Stat
             type="mealEnergy"

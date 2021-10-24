@@ -28,7 +28,7 @@ function useIngredientsFormsActions({
           const ingredientForms = foodsIds.map(id =>
             getIngredientForm({
               foodId: id,
-              amountInGrams: DEFAULT_AMOUNT_IN_GRAMS,
+              amount: DEFAULT_AMOUNT_IN_GRAMS,
             })
           )
           ingredientForms.forEach(({ fieldId }) => {

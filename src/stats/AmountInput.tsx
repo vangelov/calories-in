@@ -1,13 +1,13 @@
-import { InputProps, Input, Text, HStack } from '@chakra-ui/react'
-import { MouseEvent } from 'react'
+import { InputProps, Input, Flex } from '@chakra-ui/react'
+import { MouseEvent, ReactNode } from 'react'
 
 type Props = {
-  unit?: string
+  children?: ReactNode
 } & InputProps
 
 const MAX_AMOUNT_EXCLUDING = 10000
 
-function AmountInput({ unit = 'g', size, name, ...rest }: Props) {
+function AmountInput({ size, name, children, ...rest }: Props) {
   function onMouseDown(event: MouseEvent<HTMLInputElement>) {
     const input = event.target as HTMLInputElement
 
@@ -23,7 +23,7 @@ function AmountInput({ unit = 'g', size, name, ...rest }: Props) {
   }
 
   return (
-    <HStack spacing={1} alignItems="center">
+    <Flex alignItems="center">
       <Input
         fontSize="md"
         autoComplete="off"
@@ -31,11 +31,14 @@ function AmountInput({ unit = 'g', size, name, ...rest }: Props) {
         textColor="gray.500"
         textAlign="right"
         bg="white"
-        maxWidth="74px"
+        maxWidth="64px"
         size={size}
         type="number"
         pattern="\d*"
-        borderRadius={6}
+        borderTopLeftRadius={6}
+        borderBottomLeftRadius={6}
+        borderTopRightRadius={0}
+        borderBottomRightRadius={0}
         {...rest}
         onChange={event => {
           const { value } = event.target
@@ -48,12 +51,8 @@ function AmountInput({ unit = 'g', size, name, ...rest }: Props) {
         onMouseDown={onMouseDown}
       />
 
-      {unit && (
-        <Text fontSize="sm" textColor="gray.500">
-          {unit}
-        </Text>
-      )}
-    </HStack>
+      {children}
+    </Flex>
   )
 }
 

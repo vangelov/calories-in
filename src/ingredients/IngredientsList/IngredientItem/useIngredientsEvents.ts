@@ -35,7 +35,7 @@ function useIngredientsEvents({
     const { value } = event.target
 
     dietFormActions.updateIngredientForm(variantIndex, mealIndex, index, {
-      amountInGrams: value,
+      amount: value,
     })
   }
 

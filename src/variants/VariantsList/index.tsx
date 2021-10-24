@@ -53,10 +53,7 @@ function VariantsList({
         />
       </Tooltip>
       {!isPhone && (
-        <VariantsMenuOrDrawer
-          getVariantItemRefById={getVariantItemRefById}
-          onVariantFormSelect={onVariantFormSelect}
-        />
+        <VariantsMenuOrDrawer onVariantFormSelect={onVariantFormSelect} />
       )}
 
       <Droppable
@@ -95,10 +92,7 @@ function VariantsList({
       </Droppable>
 
       {isPhone ? (
-        <VariantsMenuOrDrawer
-          getVariantItemRefById={getVariantItemRefById}
-          onVariantFormSelect={onVariantFormSelect}
-        />
+        <VariantsMenuOrDrawer onVariantFormSelect={onVariantFormSelect} />
       ) : (
         <ScrollButtons
           scrollNodeRef={scrollNodeRef}

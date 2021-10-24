@@ -44,7 +44,7 @@ function PdfIngredientItem({ ingredientForm, stats, foodsById }: Props) {
         amountElement={
           <PdfStat
             variant="ingredientAmount"
-            value={Number(ingredientForm.amountInGrams)}
+            value={Number(ingredientForm.amount)}
           />
         }
         energyElement={

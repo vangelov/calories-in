@@ -1,15 +1,16 @@
 import { Food, FoodId } from 'foods'
-import { MealForm } from 'meals'
 import { getStatsTree, StatsTree } from 'stats'
-import { getIngredientFormStatsTree } from 'ingredients'
+import { getIngredientFormStatsTree, IngredientForm } from 'ingredients'
 
 function getMealFormStatsTree(
-  mealForm: MealForm,
+  fieldId: string,
+  ingredientsForms: IngredientForm[],
+
   foodsById: Record<FoodId, Food>
 ): StatsTree {
   return getStatsTree({
-    id: mealForm.fieldId,
-    subtrees: mealForm.ingredientsForms.map(ingredientForm =>
+    id: fieldId,
+    subtrees: ingredientsForms.map(ingredientForm =>
       getIngredientFormStatsTree(
         ingredientForm,
         foodsById[ingredientForm.foodId]

@@ -26,7 +26,7 @@ function useScrollTo() {
       }
 
       window.addEventListener('scroll', listener)
-      console.log('n', node)
+
       node.scrollIntoView({
         behavior: 'smooth',
         block: 'start',

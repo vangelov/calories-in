@@ -11,7 +11,7 @@ function getIngredientFormStatsTree(
   let stats: Stats
 
   if (food) {
-    const amountInGrams = round(Number(ingredientForm.amountInGrams))
+    const amountInGrams = round(Number(ingredientForm.amount))
     const servingSizeInGrams =
       food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS
     const scale = amountInGrams / servingSizeInGrams

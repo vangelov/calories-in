@@ -3,37 +3,33 @@ import Drawer from './Drawer'
 import Trigger from './Trigger'
 import { useDisclosure } from '@chakra-ui/hooks'
 import Menu from './Menu'
-import { useDietFormActions } from 'diets'
-import { VariantForm } from 'variants'
+import { Portion } from 'portions'
 
 type Props = {
-  onVariantFormSelect: (variantForm: VariantForm, index: number) => void
+  onPortionSelect: (portion: Portion) => void
+  selectedPortionId: string
 }
 
-function VariantsMenuOrDrawer({ onVariantFormSelect }: Props) {
+function PortionsMenuOrDrawer({ onPortionSelect, selectedPortionId }: Props) {
   const screenSize = useScreenSize()
   const modalDisclosure = useDisclosure()
-  const dietActions = useDietFormActions()
-
-  function onSelect(variantForm: VariantForm, index: number) {
-    dietActions.setSelectedVariantFormIndex(index)
-    onVariantFormSelect(variantForm, index)
-  }
 
   if (screenSize < ScreenSize.Medium) {
     return (
       <>
         <Trigger onClick={modalDisclosure.onOpen} />
         <Drawer
-          onSelect={onSelect}
+          onSelect={onPortionSelect}
+          selectedPortionId={selectedPortionId}
           isOpen={modalDisclosure.isOpen}
           onClose={modalDisclosure.onClose}
         />
       </>
     )
   }
-
-  return <Menu onSelect={onSelect} />
+  return (
+    <Menu onSelect={onPortionSelect} selectedPortionId={selectedPortionId} />
+  )
 }
 
-export default VariantsMenuOrDrawer
+export default PortionsMenuOrDrawer

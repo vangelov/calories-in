@@ -8,6 +8,7 @@ import { loadFoods } from 'foods/persistence'
 import { OneTimeCheckStoreProvider, ScreenSizeProvider } from 'general'
 import { DietEditor } from 'diets'
 import { useState } from 'react'
+import { PortionsStoreProvider } from 'portions'
 
 smoothscroll.polyfill()
 
@@ -18,11 +19,13 @@ function App() {
     <ChakraProvider theme={theme}>
       <ScreenSizeProvider>
         <OneTimeCheckStoreProvider>
-          <FoodsStoreProvider initialFoods={foods}>
-            <MainLayout>
-              <DietEditor />
-            </MainLayout>
-          </FoodsStoreProvider>
+          <PortionsStoreProvider>
+            <FoodsStoreProvider initialFoods={foods}>
+              <MainLayout>
+                <DietEditor />
+              </MainLayout>
+            </FoodsStoreProvider>
+          </PortionsStoreProvider>
         </OneTimeCheckStoreProvider>
       </ScreenSizeProvider>
     </ChakraProvider>
