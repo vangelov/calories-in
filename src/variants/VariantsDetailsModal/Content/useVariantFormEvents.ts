@@ -1,5 +1,5 @@
 import { useFormContext, useWatch } from 'react-hook-form'
-import { getVariantsDetailsForm } from '../variantsDetailsForm'
+import { getVariantsDetailsForm } from './variantsDetailsForm'
 import { Stats, StatsTree } from 'stats'
 
 type Params = {

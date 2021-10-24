@@ -3,7 +3,6 @@ import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
 import { FoodModal, useFoods } from 'foods'
 import { ContextMenuFlex } from 'general'
-import { Stats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
 import useIngredientsEvents from './useIngredientsEvents'
 import getMenuItems from './getMenuItems'
@@ -20,7 +19,10 @@ type Props = {
   mealIndex: number
   index: number
   ingredientForm: IngredientForm
-  ingredientStats: Stats
+  energy: number
+  protein: number
+  carbs: number
+  fat: number
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
   isLast: boolean
 }
@@ -30,7 +32,10 @@ function IngredientItem({
   mealIndex,
   index,
   ingredientForm,
-  ingredientStats,
+  energy,
+  protein,
+  carbs,
+  fat,
   onRemove,
   isLast,
 }: Props) {
@@ -60,6 +65,8 @@ function IngredientItem({
     onViewFoodDetails: foodModalDisclosure.onOpen,
     ingredientForm,
   })
+
+  console.log('ing', variantIndex, mealIndex, index)
 
   return (
     <Draggable
@@ -91,7 +98,10 @@ function IngredientItem({
             {food ? (
               <StatsLayout
                 ingredientForm={ingredientForm}
-                ingredientStats={ingredientStats}
+                energy={energy}
+                protein={protein}
+                carbs={carbs}
+                fat={fat}
                 onAmountChange={ingredientEvents.onAmountChange}
                 menuElement={<Menu mr={3} items={menuItems} />}
                 food={food}

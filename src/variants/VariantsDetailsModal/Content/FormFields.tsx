@@ -3,22 +3,23 @@ import { RefObject, ChangeEvent, useMemo } from 'react'
 import {
   getMacrosPercents,
   roundMacrosPercents,
-  Stats,
   StatsFormFields,
   StatValueDetail,
   Stat,
+  StatsTree,
 } from 'stats'
 import { VariantForm } from 'variants'
 import { Flex } from '@chakra-ui/react'
 import { useScreenSize, ScreenSize } from 'general'
+import useVariantFormEvents from './useVariantFormEvents'
 
 type Props = {
   selectInputRef: RefObject<HTMLSelectElement>
   canEdit: boolean
   initialVariantForm: VariantForm
   variantsForms: VariantForm[]
-  variantStats: Stats
-  onVariantFormFieldIdChange: (value: string) => void
+
+  dietFormStatsTree: StatsTree
 } & FlexProps
 
 function FormFields({
@@ -26,13 +27,15 @@ function FormFields({
   canEdit,
   variantsForms,
   initialVariantForm,
-  variantStats,
-  onVariantFormFieldIdChange,
+
+  dietFormStatsTree,
   ...rest
 }: Props) {
+  const variantFormEvents = useVariantFormEvents({ dietFormStatsTree })
+  const { variantStats } = variantFormEvents
   function onSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const { value } = event.target
-    onVariantFormFieldIdChange(value)
+    variantFormEvents.onVariantFormFieldIdChange(value)
   }
 
   const { proteinPercent, carbsPercent, fatPercent } = useMemo(

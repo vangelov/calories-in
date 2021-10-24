@@ -1,12 +1,12 @@
-import { MealForm, getMealFormStatsTree } from 'meals'
+import { MealForm } from 'meals'
 import { Flex, FlexProps, useDisclosure } from '@chakra-ui/react'
 import Header from './Header'
 import { RefObject, memo } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import { IngredientsList } from 'ingredients'
+import { getIngredientFormStatsTree, IngredientsList } from 'ingredients'
 import { FoodsDrawer } from 'foods'
 import { useFoods } from 'foods'
-import { useUpdateMealStats } from 'stats'
+import { getStatsTree, useUpdateMealStats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
 import useMealFormEvents from './useMealFormEvents'
 import { useMemo } from 'react'
@@ -45,8 +45,17 @@ function MealItem({
   })
 
   const mealFormStatsTree = useMemo(
-    () => getMealFormStatsTree(mealForm, foodsById),
-    [mealForm, foodsById]
+    () =>
+      getStatsTree({
+        id: mealForm.fieldId,
+        subtrees: mealForm.ingredientsForms.map(ingredientForm =>
+          getIngredientFormStatsTree(
+            ingredientForm,
+            foodsById[ingredientForm.foodId]
+          )
+        ),
+      }),
+    [mealForm.fieldId, mealForm.ingredientsForms, foodsById]
   )
 
   const ingredientsStats = useMemo(
@@ -99,7 +108,7 @@ function MealItem({
             <IngredientsList
               ingredientsForms={mealForm.ingredientsForms}
               ingredientsStats={ingredientsStats}
-              mealForm={mealForm}
+              mealFormFieldId={mealForm.fieldId}
               mealIndex={index}
               variantIndex={variantIndex}
               onAddIngredients={foodsDrawerDisclosure.onOpen}

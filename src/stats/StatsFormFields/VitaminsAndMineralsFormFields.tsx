@@ -61,6 +61,7 @@ function VitaminsAndMinerals({ canEdit, ...rest }: Props) {
       >
         {fieldsDataToShow.map(({ name, label, labelDetail }) => (
           <StatFormField
+            key={name}
             name={name}
             label={label}
             inputType="nutritionValue"

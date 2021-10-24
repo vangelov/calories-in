@@ -1,12 +1,15 @@
 import { IngredientForm } from 'ingredients'
 import { Food, FoodInfo } from 'foods'
-import { StatsLayout as StatsLayoutBase, Stat, AmountInput, Stats } from 'stats'
+import { StatsLayout as StatsLayoutBase, Stat, AmountInput } from 'stats'
 import { RightAligned } from 'layout'
 import { useScreenSize, ScreenSize } from 'general'
 import { ChangeEvent, ReactElement, ReactNode } from 'react'
 
 type Props = {
-  ingredientStats: Stats
+  energy: number
+  protein: number
+  carbs: number
+  fat: number
   ingredientForm: IngredientForm
   onAmountChange: (event: ChangeEvent<HTMLInputElement>) => void
   menuElement: ReactElement
@@ -16,7 +19,10 @@ type Props = {
 }
 
 function StatsLayout({
-  ingredientStats,
+  energy,
+  protein,
+  carbs,
+  fat,
   ingredientForm,
   onAmountChange,
   menuElement,
@@ -49,14 +55,10 @@ function StatsLayout({
           />
         </RightAligned>
       }
-      energyElement={
-        <Stat type="ingredientEnergy" value={ingredientStats.energy} />
-      }
-      proteinElement={
-        <Stat type="ingredient" value={ingredientStats.protein} />
-      }
-      carbsElement={<Stat type="ingredient" value={ingredientStats.carbs} />}
-      fatElement={<Stat type="ingredient" value={ingredientStats.fat} />}
+      energyElement={<Stat type="ingredientEnergy" value={energy} />}
+      proteinElement={<Stat type="ingredient" value={protein} />}
+      carbsElement={<Stat type="ingredient" value={carbs} />}
+      fatElement={<Stat type="ingredient" value={fat} />}
       menuElement={menuElement}
     />
   )
