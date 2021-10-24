@@ -55,7 +55,7 @@ function Content({ header, onClose, initialRef, onEditNotes, fieldId }: Props) {
               {...notesRegister}
               ref={notesInputRef}
               focusBorderColor={isInvalid ? 'red.500' : undefined}
-              placeholder="Enter name"
+              placeholder="Enter notes"
             />
             <Collapse animateOpacity={true} in={Boolean(errorMessage)}>
               <Box minHeight="21px">

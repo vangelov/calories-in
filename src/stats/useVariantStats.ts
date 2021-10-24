@@ -2,6 +2,7 @@ import { useMemo, useRef } from 'react'
 import { getMacrosPercents, roundMacrosPercents } from './calculations'
 import { sumStats } from 'stats'
 import { useMealsStats } from './useMealsStatsStore'
+import { useDietForm } from 'diets'
 
 type Params = {
   variantFormFieldId: string
@@ -9,6 +10,7 @@ type Params = {
 
 function useVariantStats({ variantFormFieldId }: Params) {
   const mealsStats = useMealsStats()
+  const dietForm = useDietForm()
   const energyCacheRef = useRef<Record<string, number | undefined>>({})
 
   const variantStats = useMemo(() => {
@@ -18,7 +20,13 @@ function useVariantStats({ variantFormFieldId }: Params) {
       : []
     const statsSum = sumStats(finalStats)
 
-    if (
+    const variantForm = dietForm.variantsForms.find(
+      ({ fieldId }) => fieldId === variantFormFieldId
+    )
+
+    if (variantForm && variantForm.mealsForms.length === 0) {
+      energyCacheRef.current[variantFormFieldId] = 0
+    } else if (
       mealsStatsForVariant &&
       energyCacheRef.current[variantFormFieldId] === undefined
     ) {
@@ -26,7 +34,7 @@ function useVariantStats({ variantFormFieldId }: Params) {
     }
 
     return statsSum
-  }, [mealsStats, variantFormFieldId])
+  }, [mealsStats, variantFormFieldId, dietForm])
 
   const { proteinPercent, carbsPercent, fatPercent } = useMemo(
     () => roundMacrosPercents(getMacrosPercents(variantStats)),

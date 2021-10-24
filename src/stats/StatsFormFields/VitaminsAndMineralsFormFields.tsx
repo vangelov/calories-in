@@ -42,7 +42,9 @@ function VitaminsAndMinerals({ canEdit, ...rest }: Props) {
   const getValue = useGetValue()
   const getDailyValuePercent = useGetDailyValuePercent()
 
-  const fieldsDataToShow = fieldsData.filter(({ name }) => getValue(name) > 0)
+  const fieldsDataToShow = canEdit
+    ? fieldsData
+    : fieldsData.filter(({ name }) => getValue(name) > 0)
 
   if (fieldsDataToShow.length === 0) {
     return null

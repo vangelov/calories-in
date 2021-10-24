@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box, Flex, useDisclosure } from '@chakra-ui/react'
 import MealItem from './MealItem'
 import { useRef, memo } from 'react'
 import { useGetRefForId } from 'dom'
@@ -7,6 +7,8 @@ import { useDietFormActions } from 'diets'
 import { MealForm } from 'meals'
 import useScrollToAndFocusMeal from './useScrollToAndFocusMeal'
 import EmptyList from './EmptyList'
+import { FoodsDrawer } from 'foods'
+import MealsControls from './MealsControls'
 
 type Props = {
   mealsForms: MealForm[]
@@ -23,17 +25,19 @@ function MealsList({
 }: Props) {
   const getMealNameInputRefById = useGetRefForId<HTMLInputElement>()
   const scrollTargetRef = useRef<HTMLDivElement>(null)
+  const foodsDrawerDisclosure = useDisclosure()
 
-  const { onScrollToMeal } = useScrollToAndFocusMeal({
+  const { onScrollToMeal, onMealAdd } = useScrollToAndFocusMeal({
     scrollTargetRef,
     getMealNameInputRefById,
+    foodsDrawerDisclosure,
   })
 
   const dietFormActions = useDietFormActions()
 
   return (
     <Droppable droppableId="mealsList" type="mealsList">
-      {provided => (
+      {(provided, snapshot) => (
         <Flex
           px={{ base: 0, lg: 3 }}
           py={3}
@@ -53,14 +57,29 @@ function MealsList({
                 mealForm={mealForm}
                 onFirstAppear={onScrollToMeal}
                 selectedVariantFormFieldId={selectedVariantFormFieldId}
+                mb={3}
+                isDragging={snapshot.isDraggingOver}
               />
             ))
           ) : (
-            <EmptyList />
+            <EmptyList onAddMeal={foodsDrawerDisclosure.onOpen} />
           )}
 
           {provided.placeholder}
+          {mealsForms.length > 0 && (
+            <MealsControls
+              mealsForms={mealsForms}
+              onAddMeal={foodsDrawerDisclosure.onOpen}
+            />
+          )}
           <Box ref={scrollTargetRef} height="48px" />
+
+          <FoodsDrawer
+            isOpen={foodsDrawerDisclosure.isOpen}
+            onClose={foodsDrawerDisclosure.onClose}
+            mealName={`Meal ${mealsForms.length + 1}`}
+            onSelectedFoods={onMealAdd}
+          />
         </Flex>
       )}
     </Droppable>

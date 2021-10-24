@@ -20,14 +20,13 @@ import { useImportFoods, FoodsListModal } from 'foods/persistence'
 import { FoodsFilterStoreProvider } from 'foods-filters'
 import { loadFoodsFilter } from 'foods-filters/persistence'
 import useFoodEvents from './useFoodEvents'
-import useAddFoods from './useAddFoods'
 
 type Props = {
   onClose: () => void
   mealName?: string
   searchInputRef: RefObject<HTMLInputElement>
-  variantFormIndex?: number
-  mealFormIndex?: number
+  onSelectedFoods?: (foods: Food[], mealName?: string) => void
+
   canSelect: boolean
 }
 
@@ -35,23 +34,20 @@ function Content({
   onClose,
   mealName,
   searchInputRef,
-  variantFormIndex,
-  mealFormIndex,
+  onSelectedFoods,
   canSelect,
 }: Props) {
   const selection = useSelection<Food>()
   const listRef = useRef<FoodsListMethods>(null)
-  const addFoods = useAddFoods({
-    selection,
-    variantFormIndex,
-    mealFormIndex,
-    onClose,
-  })
   const foodEvents = useFoodEvents({ listRef, selection })
 
   const foodsListModalDisclosure = useDisclosure()
   const importFoods = useImportFoods({ foodsListModalDisclosure })
   const [foodsFilter] = useState(loadFoodsFilter)
+
+  function onAdd() {
+    onSelectedFoods && onSelectedFoods(selection.selectedItems, mealName)
+  }
 
   return (
     <DrawerContent>
@@ -104,7 +100,7 @@ function Content({
             Close
           </Button>
           {canSelect && (
-            <Button size="md" colorScheme="teal" onClick={addFoods.onAdd}>
+            <Button size="md" colorScheme="teal" onClick={onAdd}>
               Add
             </Button>
           )}
