@@ -7,7 +7,6 @@ function getDietFormStatsTree(
   dietForm: DietForm,
   foodsById: Record<number, Food>
 ): StatsTree {
-  console.log('test')
   const subtrees = dietForm.variantsForms.map(variantForm =>
     getVariantFormStatsTree(variantForm, foodsById)
   )

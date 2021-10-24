@@ -12,11 +12,11 @@ import PortionItem from './PortionItem'
 type Props = {
   isOpen: boolean
   onClose: () => void
-  onSelect: (portion: Portion) => void
+  onChange: (portion: Portion) => void
   selectedPortionId: string
 }
 
-function Drawer({ isOpen, onClose, onSelect, selectedPortionId }: Props) {
+function Drawer({ isOpen, onClose, onChange, selectedPortionId }: Props) {
   const { portions } = usePortions()
 
   return (
@@ -38,7 +38,7 @@ function Drawer({ isOpen, onClose, onSelect, selectedPortionId }: Props) {
                 isSelected={isSelected}
                 onClick={() => {
                   onClose()
-                  onSelect(portion)
+                  onChange(portion)
                 }}
               />
             )

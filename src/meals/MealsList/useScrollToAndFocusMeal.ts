@@ -24,6 +24,7 @@ function useScrollToAndFocusMeal({
     const ingredients = foods.map(({ id }) => ({
       foodId: id,
       amount: DEFAULT_SERVING_SIZE_IN_GRAMS,
+      portionId: 'grams',
     }))
     const mealForm = getMealForm({ name: mealName as string, ingredients })
     dietFormActions.appendMealForm(mealForm)

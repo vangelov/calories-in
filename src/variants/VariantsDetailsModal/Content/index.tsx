@@ -11,8 +11,7 @@ import { RefObject } from 'react'
 import { VariantForm } from 'variants'
 import { StatsTree } from 'stats'
 import VariantsDetailsFormProvider from './VariantsDetailsFormProvider'
-import { useFoods } from 'foods'
-import { useDietForm, getDietFormStatsTree } from 'diets'
+import { useDietForm, useGetDietFormStatsTree } from 'diets'
 
 type Props = {
   onClose: () => void
@@ -21,11 +20,11 @@ type Props = {
 }
 
 function Content({ onClose, selectInputRef, initialVariantForm }: Props) {
-  const { foodsById } = useFoods()
   const dietForm = useDietForm()
   const { variantsForms } = dietForm
 
-  const dietFormStatsTree = getDietFormStatsTree(dietForm, foodsById)
+  const getDietFormStatsTree = useGetDietFormStatsTree()
+  const dietFormStatsTree = getDietFormStatsTree(dietForm)
   const initialVariantStatsTree = dietFormStatsTree.subtrees.find(
     (statsTree: StatsTree) => statsTree.id === initialVariantForm.fieldId
   )

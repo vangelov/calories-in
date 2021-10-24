@@ -7,6 +7,7 @@ type IngredientForm = {
   foodId: FoodId
   amount: string
   notes?: string
+  portionId: string
 }
 
 function getIngredientForm(ingredient: Ingredient): IngredientForm {
@@ -16,6 +17,7 @@ function getIngredientForm(ingredient: Ingredient): IngredientForm {
     fieldId,
     foodId: ingredient.foodId,
     amount: ingredient.amount.toString(),
+    portionId: ingredient.portionId,
   }
 }
 

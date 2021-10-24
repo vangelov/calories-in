@@ -29,6 +29,7 @@ function useIngredientsFormsActions({
             getIngredientForm({
               foodId: id,
               amount: DEFAULT_AMOUNT_IN_GRAMS,
+              portionId: 'grams',
             })
           )
           ingredientForms.forEach(({ fieldId }) => {

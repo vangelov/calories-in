@@ -12,7 +12,7 @@ const defaultPortions: Portion[] = [
     gramsPerAmount: 28.34952,
   },
   {
-    id: 'milliters',
+    id: 'milliliters',
     unit: 'ml',
     millilitersPerAmount: 1,
   },
@@ -23,7 +23,7 @@ const defaultPortions: Portion[] = [
   },
   {
     id: 'tablespoons',
-    unit: 'tsp',
+    unit: 'tbsp',
     millilitersPerAmount: 15,
   },
   {

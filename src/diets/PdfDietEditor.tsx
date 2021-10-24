@@ -8,6 +8,7 @@ import ReactPDF, {
   Link,
 } from '@react-pdf/renderer'
 import { Food } from 'foods'
+import { StatsTree } from 'stats/calculations/getStatsTree'
 import { getComputedColorFromChakra } from 'theme'
 import PdfVariantsList from 'variants/PdfVariantsList'
 import { DietForm } from './dietForm'
@@ -16,11 +17,16 @@ import getDietFormStatsTree from './getDietFormStatsTree'
 type Props = {
   dietForm: DietForm
   foodsById: Record<number, Food>
+  dietFormStatsTree: StatsTree
 } & ReactPDF.DocumentProps
 
-function PdfDietEditor({ dietForm, foodsById, ...rest }: Props) {
+function PdfDietEditor({
+  dietForm,
+  foodsById,
+  dietFormStatsTree,
+  ...rest
+}: Props) {
   const { variantsForms } = dietForm
-  const dietFormStatsTree = getDietFormStatsTree(dietForm, foodsById)
 
   return (
     <Document {...rest}>

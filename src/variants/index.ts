@@ -6,3 +6,4 @@ export * from './variantForm'
 
 export { default as VariantsDetailsModal } from './VariantsDetailsModal'
 export { default as getVariantFormStatsTree } from './getVariantFormStatsTree'
+export { default as useGetVariantFormStatsTree } from './useGetVariantFormStatsTree'

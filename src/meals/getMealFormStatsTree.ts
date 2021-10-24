@@ -5,7 +5,6 @@ import { getIngredientFormStatsTree, IngredientForm } from 'ingredients'
 function getMealFormStatsTree(
   fieldId: string,
   ingredientsForms: IngredientForm[],
-
   foodsById: Record<FoodId, Food>
 ): StatsTree {
   return getStatsTree({

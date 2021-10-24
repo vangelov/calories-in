@@ -1,12 +1,18 @@
 import { ForwardedRef, forwardRef } from 'react'
 import { Button } from '@chakra-ui/react'
+import { usePortions } from 'portions'
 
 type Props = {
+  selectedPortionId: string
   forwardedRef?: ForwardedRef<HTMLButtonElement>
   onClick?: () => void
 }
 
-function Trigger({ forwardedRef, ...rest }: Props) {
+function Trigger({ forwardedRef, selectedPortionId, ...rest }: Props) {
+  const { portionsById } = usePortions()
+  console.log('portionsById', portionsById, selectedPortionId)
+  const portion = portionsById[selectedPortionId]
+
   return (
     <Button
       size="sm"
@@ -21,7 +27,7 @@ function Trigger({ forwardedRef, ...rest }: Props) {
       ref={forwardedRef}
       {...rest}
     >
-      g
+      {portion.unit}
     </Button>
   )
 }

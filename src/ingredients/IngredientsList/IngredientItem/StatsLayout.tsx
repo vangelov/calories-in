@@ -3,7 +3,7 @@ import { Food, FoodInfo } from 'foods'
 import { StatsLayout as StatsLayoutBase, Stat, AmountInput } from 'stats'
 import { useScreenSize, ScreenSize } from 'general'
 import { ChangeEvent, ReactElement, ReactNode } from 'react'
-import { PortionsMenuOrDrawer } from 'portions'
+import { Portion, PortionsMenuOrDrawer } from 'portions'
 
 type Props = {
   energy: number
@@ -12,6 +12,7 @@ type Props = {
   fat: number
   ingredientForm: IngredientForm
   onAmountChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onPortionChange: (portion: Portion) => void
   menuElement: ReactElement
   food: Food
   notes?: string
@@ -25,6 +26,7 @@ function StatsLayout({
   fat,
   ingredientForm,
   onAmountChange,
+  onPortionChange,
   menuElement,
   food,
   notes,
@@ -53,8 +55,8 @@ function StatsLayout({
           value={ingredientForm.amount}
         >
           <PortionsMenuOrDrawer
-            selectedPortionId="grams"
-            onPortionSelect={() => {}}
+            selectedPortionId={ingredientForm.portionId}
+            onPortionChange={onPortionChange}
           />
         </AmountInput>
       }

@@ -39,12 +39,16 @@ function IngredientItem({
   onRemove,
   isLast,
 }: Props) {
+  const { foodsById } = useFoods()
+  const food = foodsById[ingredientForm.foodId]
+
   const ingredientEvents = useIngredientsEvents({
     variantIndex,
     mealIndex,
     index,
     onRemove,
     ingredientForm,
+    food,
   })
 
   const notesEvents = useNotesEvents({
@@ -54,8 +58,6 @@ function IngredientItem({
     ingredientForm,
   })
 
-  const { foodsById } = useFoods()
-  const food = foodsById[ingredientForm.foodId]
   const foodModalDisclosure = useDisclosure()
   const editNotesModalDisclosure = useDisclosure()
 
@@ -103,6 +105,7 @@ function IngredientItem({
                 carbs={carbs}
                 fat={fat}
                 onAmountChange={ingredientEvents.onAmountChange}
+                onPortionChange={ingredientEvents.onPortionChange}
                 menuElement={<Menu mr={3} items={menuItems} />}
                 food={food}
                 notes={ingredientForm.notes}

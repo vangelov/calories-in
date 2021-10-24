@@ -8,20 +8,27 @@ const CheckStyled = chakra(Check)
 
 type Props = {
   selectedPortionId: string
-  onSelect: (portion: Portion) => void
+  onChange: (portion: Portion) => void
 }
 
-function Menu({ onSelect, selectedPortionId }: Props) {
+function Menu({ onChange, selectedPortionId }: Props) {
   const { portions } = usePortions()
 
   return (
-    <MenuBase portal={true} arrow menuButton={<Trigger />}>
+    <MenuBase
+      portal={true}
+      overflow="auto"
+      position="anchor"
+      viewScroll="close"
+      arrow
+      menuButton={<Trigger selectedPortionId={selectedPortionId} />}
+    >
       {portions.map(portion => {
         const { id, unit } = portion
         const isSelected = id === selectedPortionId
 
         return (
-          <MenuItem key={id} onClick={() => onSelect(portion)}>
+          <MenuItem key={id} onClick={() => onChange(portion)}>
             <CheckStyled
               color={isSelected ? 'teal' : 'transparent'}
               pointerEvents="none"

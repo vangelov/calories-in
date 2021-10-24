@@ -6,20 +6,23 @@ import Menu from './Menu'
 import { Portion } from 'portions'
 
 type Props = {
-  onPortionSelect: (portion: Portion) => void
+  onPortionChange: (portion: Portion) => void
   selectedPortionId: string
 }
 
-function PortionsMenuOrDrawer({ onPortionSelect, selectedPortionId }: Props) {
+function PortionsMenuOrDrawer({ onPortionChange, selectedPortionId }: Props) {
   const screenSize = useScreenSize()
   const modalDisclosure = useDisclosure()
 
   if (screenSize < ScreenSize.Medium) {
     return (
       <>
-        <Trigger onClick={modalDisclosure.onOpen} />
+        <Trigger
+          selectedPortionId={selectedPortionId}
+          onClick={modalDisclosure.onOpen}
+        />
         <Drawer
-          onSelect={onPortionSelect}
+          onChange={onPortionChange}
           selectedPortionId={selectedPortionId}
           isOpen={modalDisclosure.isOpen}
           onClose={modalDisclosure.onClose}
@@ -28,7 +31,7 @@ function PortionsMenuOrDrawer({ onPortionSelect, selectedPortionId }: Props) {
     )
   }
   return (
-    <Menu onSelect={onPortionSelect} selectedPortionId={selectedPortionId} />
+    <Menu onChange={onPortionChange} selectedPortionId={selectedPortionId} />
   )
 }
 

@@ -3,9 +3,8 @@ import { Flex, FlexProps, useDisclosure } from '@chakra-ui/react'
 import Header from './Header'
 import { RefObject, memo } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import { getIngredientFormStatsTree, IngredientsList } from 'ingredients'
+import { IngredientsList, useGetIngredientFormStatsTree } from 'ingredients'
 import { FoodsDrawer } from 'foods'
-import { useFoods } from 'foods'
 import { getStatsTree, useUpdateMealStats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
 import useMealFormEvents from './useMealFormEvents'
@@ -34,7 +33,6 @@ function MealItem({
   ...rest
 }: Props) {
   const foodsDrawerDisclosure = useDisclosure()
-  const { foodsById } = useFoods()
   const mealFormEvents = useMealFormEvents({
     mealForm,
     variantIndex,
@@ -43,19 +41,17 @@ function MealItem({
     onRemove,
     foodsDrawerDisclosure,
   })
+  const getIngredientFormStatsTree = useGetIngredientFormStatsTree()
 
   const mealFormStatsTree = useMemo(
     () =>
       getStatsTree({
         id: mealForm.fieldId,
         subtrees: mealForm.ingredientsForms.map(ingredientForm =>
-          getIngredientFormStatsTree(
-            ingredientForm,
-            foodsById[ingredientForm.foodId]
-          )
+          getIngredientFormStatsTree(ingredientForm)
         ),
       }),
-    [mealForm.fieldId, mealForm.ingredientsForms, foodsById]
+    [mealForm.fieldId, mealForm.ingredientsForms, getIngredientFormStatsTree]
   )
 
   const ingredientsStats = useMemo(

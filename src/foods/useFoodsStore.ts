@@ -22,7 +22,7 @@ function useFoodsStore({ initialFoods }: Params) {
     const initialMap: Record<FoodId, Food> = {}
 
     for (const food of initialFoods) {
-      initialMap[food.id] = food
+      initialMap[food.id] = { ...food, gramsPerMilliliter: 0.9083333 }
     }
 
     return initialMap

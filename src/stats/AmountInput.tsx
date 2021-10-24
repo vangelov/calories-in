@@ -31,7 +31,7 @@ function AmountInput({ size, name, children, ...rest }: Props) {
         textColor="gray.500"
         textAlign="right"
         bg="white"
-        maxWidth="64px"
+        maxWidth="74px"
         size={size}
         type="number"
         pattern="\d*"
