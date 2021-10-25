@@ -1,4 +1,4 @@
-import { chakra } from '@chakra-ui/react'
+import { chakra, Text } from '@chakra-ui/react'
 import { Check } from 'react-feather'
 import { Menu as MenuBase, MenuItem } from 'general'
 import Trigger from './Trigger'
@@ -35,7 +35,14 @@ function Menu({ onChange, selectedPortionId }: Props) {
               size={15}
               mr={3}
             />
-            {unit}
+            <Text fontWeight="500" fontSize="sm">
+              {unit}{' '}
+              <Text
+                as="span"
+                fontWeight="normal"
+                color="gray.500"
+              >{`(${id})`}</Text>
+            </Text>
           </MenuItem>
         )
       })}

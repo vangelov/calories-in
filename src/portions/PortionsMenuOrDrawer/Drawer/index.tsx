@@ -34,7 +34,7 @@ function Drawer({ isOpen, onClose, onChange, selectedPortionId }: Props) {
             return (
               <PortionItem
                 key={id}
-                name={portion.unit}
+                portion={portion}
                 isSelected={isSelected}
                 onClick={() => {
                   onClose()

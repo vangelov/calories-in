@@ -10,13 +10,11 @@ type Props = {
 
 function Trigger({ forwardedRef, selectedPortionId, ...rest }: Props) {
   const { portionsById } = usePortions()
-  console.log('portionsById', portionsById, selectedPortionId)
   const portion = portionsById[selectedPortionId]
 
   return (
     <Button
       size="sm"
-      ml="-1px"
       borderTopRightRadius={6}
       borderBottomRightRadius={6}
       borderTopLeftRadius={0}

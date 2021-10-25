@@ -7,7 +7,7 @@ type Props = {
 
 const MAX_AMOUNT_EXCLUDING = 10000
 
-function AmountInput({ size, name, children, ...rest }: Props) {
+function AmountInput({ name, children, ...rest }: Props) {
   function onMouseDown(event: MouseEvent<HTMLInputElement>) {
     const input = event.target as HTMLInputElement
 
@@ -32,13 +32,8 @@ function AmountInput({ size, name, children, ...rest }: Props) {
         textAlign="right"
         bg="white"
         maxWidth="74px"
-        size={size}
         type="number"
         pattern="\d*"
-        borderTopLeftRadius={6}
-        borderBottomLeftRadius={6}
-        borderTopRightRadius={0}
-        borderBottomRightRadius={0}
         {...rest}
         onChange={event => {
           const { value } = event.target

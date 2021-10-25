@@ -12,7 +12,6 @@ import { StatsTree } from 'stats/calculations/getStatsTree'
 import { getComputedColorFromChakra } from 'theme'
 import PdfVariantsList from 'variants/PdfVariantsList'
 import { DietForm } from './dietForm'
-import getDietFormStatsTree from './getDietFormStatsTree'
 
 type Props = {
   dietForm: DietForm

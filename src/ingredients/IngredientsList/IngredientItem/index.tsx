@@ -68,8 +68,6 @@ function IngredientItem({
     ingredientForm,
   })
 
-  console.log('ing', variantIndex, mealIndex, index)
-
   return (
     <Draggable
       key={ingredientForm.fieldId}

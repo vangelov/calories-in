@@ -1,12 +1,13 @@
 import { Box, BoxProps, Flex, Text } from '@chakra-ui/react'
+import { Portion } from 'portions'
 import { Check } from 'react-feather'
 
 type Props = {
-  name: string
+  portion: Portion
   isSelected: boolean
 } & BoxProps
 
-function PortionItem({ name, isSelected, ...rest }: Props) {
+function PortionItem({ portion, id, isSelected, ...rest }: Props) {
   return (
     <Box
       position="relative"
@@ -24,8 +25,9 @@ function PortionItem({ name, isSelected, ...rest }: Props) {
       {...rest}
     >
       <Flex justifyContent="space-between">
-        <Text fontSize="md" fontWeight="normal">
-          {name}
+        <Text fontSize="md" fontWeight="500">
+          {portion.unit}{' '}
+          <Text as="span" color="gray.500">{`(${portion.id})`}</Text>
         </Text>
         {isSelected && (
           <Flex alignItems="center">

@@ -1,9 +1,9 @@
 import { IngredientForm } from 'ingredients'
 import { Food, FoodInfo } from 'foods'
 import { StatsLayout as StatsLayoutBase, Stat, AmountInput } from 'stats'
-import { useScreenSize, ScreenSize } from 'general'
 import { ChangeEvent, ReactElement, ReactNode } from 'react'
 import { Portion, PortionsMenuOrDrawer } from 'portions'
+import { Flex } from '@chakra-ui/react'
 
 type Props = {
   energy: number
@@ -32,8 +32,6 @@ function StatsLayout({
   notes,
   children,
 }: Props) {
-  const amountInputSize = useScreenSize() >= ScreenSize.Medium ? 'sm' : 'md'
-
   return (
     <StatsLayoutBase
       prefersAmount={true}
@@ -49,16 +47,25 @@ function StatsLayout({
         </FoodInfo>
       }
       amountElement={
-        <AmountInput
-          size={amountInputSize}
-          onChange={onAmountChange}
-          value={ingredientForm.amount}
-        >
-          <PortionsMenuOrDrawer
-            selectedPortionId={ingredientForm.portionId}
-            onPortionChange={onPortionChange}
-          />
-        </AmountInput>
+        <Flex height="100%" alignItems="center">
+          <AmountInput
+            size="sm"
+            onChange={onAmountChange}
+            value={ingredientForm.amount}
+            mr="-1px"
+            zIndex={1}
+            position="relative"
+            borderTopLeftRadius={6}
+            borderBottomLeftRadius={6}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={0}
+          >
+            <PortionsMenuOrDrawer
+              selectedPortionId={ingredientForm.portionId}
+              onPortionChange={onPortionChange}
+            />
+          </AmountInput>
+        </Flex>
       }
       energyElement={<Stat type="ingredientEnergy" value={energy} />}
       proteinElement={<Stat type="ingredient" value={protein} />}
