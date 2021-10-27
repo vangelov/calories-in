@@ -1,15 +1,22 @@
 import { Food } from 'foods'
 import { Portion } from 'portions'
 
-function getToGramsConversionFactor(portion: Portion, food: Food): number {
+function getToGramsConversionFactor(
+  portion: Portion,
+  food: Food,
+  foodPortion: Portion
+): number {
   const { gramsPerAmount, millilitersPerAmount } = portion
-  const { gramsPerMilliliter } = food
 
   if (gramsPerAmount) {
     return gramsPerAmount
   }
 
-  if (millilitersPerAmount && gramsPerMilliliter) {
+  if (millilitersPerAmount && foodPortion.millilitersPerAmount) {
+    const { gramsPerWeightPortion } = food
+    const gramsPerMilliliter =
+      gramsPerWeightPortion / foodPortion.millilitersPerAmount
+
     return millilitersPerAmount * gramsPerMilliliter
   }
 
@@ -19,18 +26,20 @@ function getToGramsConversionFactor(portion: Portion, food: Food): number {
 function getAmountFromPortionToGrams(
   amountInPortion: number,
   portion: Portion,
-  food: Food
+  food: Food,
+  foodPortion: Portion
 ): number {
-  const factor = getToGramsConversionFactor(portion, food)
+  const factor = getToGramsConversionFactor(portion, food, foodPortion)
   return amountInPortion * factor
 }
 
 function getAmountFromGramsToPortion(
   amountInGrams: number,
   portion: Portion,
-  food: Food
+  food: Food,
+  foodPortion: Portion
 ): number {
-  const factor = getToGramsConversionFactor(portion, food)
+  const factor = getToGramsConversionFactor(portion, food, foodPortion)
   return amountInGrams / factor
 }
 
@@ -39,11 +48,28 @@ type GetAmountParams = {
   toPortion: Portion
   amount: number
   food: Food
+  foodPortion: Portion
 }
 
-function getAmount({ fromPortion, toPortion, amount, food }: GetAmountParams) {
-  const amountInGrams = getAmountFromPortionToGrams(amount, fromPortion, food)
-  return getAmountFromGramsToPortion(amountInGrams, toPortion, food)
+function getAmount({
+  fromPortion,
+  toPortion,
+  amount,
+  food,
+  foodPortion,
+}: GetAmountParams) {
+  const amountInGrams = getAmountFromPortionToGrams(
+    amount,
+    fromPortion,
+    food,
+    foodPortion
+  )
+  return getAmountFromGramsToPortion(
+    amountInGrams,
+    toPortion,
+    food,
+    foodPortion
+  )
 }
 
 export { getAmount, getAmountFromPortionToGrams, getAmountFromGramsToPortion }

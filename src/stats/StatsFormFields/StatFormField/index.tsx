@@ -17,7 +17,8 @@ import useGetInputElement, { InputType } from './useGetInputElement'
 
 type Props = {
   name: string
-  label: string
+  label?: string
+  labelElement?: ReactNode
   labelDetail?: string
 
   inputType: InputType
@@ -52,6 +53,7 @@ function StatFormField(props: Props) {
     dividerProps = {},
     hasDivider = true,
     dailyValuePercent,
+    labelElement,
     ...rest
   } = props
   const { errorMessage, isInvalid } = useFormError(name)
@@ -99,7 +101,7 @@ function StatFormField(props: Props) {
               fontSize={isCaption ? 'lg' : 'md'}
               m={0}
             >
-              {label}
+              {label || labelElement}
               {isReadOnly && labelDetailElement}
             </FormLabel>
             {!isReadOnly && labelDetailElement}
@@ -140,5 +142,7 @@ function StatFormField(props: Props) {
     </FormControl>
   )
 }
+
+export type { Props as StatFormFieldProps }
 
 export default StatFormField

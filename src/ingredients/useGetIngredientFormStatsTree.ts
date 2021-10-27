@@ -17,10 +17,12 @@ function useGetIngredientFormStatsTree() {
       let stats: Stats
 
       if (food) {
+        const foodPortion = portionsById[food.weightPortionId]
         const amountInGrams = getAmountFromPortionToGrams(
           Number(ingredientForm.amount),
           portion,
-          food
+          food,
+          foodPortion
         )
         const servingSizeInGrams =
           food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS

@@ -55,6 +55,7 @@ function useIngredientsEvents({
       fromPortion: portionsById[ingredientForm.portionId],
       toPortion: newPortion,
       food,
+      foodPortion: portionsById[food.weightPortionId],
     })
 
     dietFormActions.updateIngredientForm(variantIndex, mealIndex, index, {

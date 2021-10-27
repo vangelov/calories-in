@@ -122,12 +122,14 @@ function IngredientItem({
             )}
           </ContextMenuFlex>
 
-          <FoodModal
-            isOpen={foodModalDisclosure.isOpen}
-            onClose={foodModalDisclosure.onClose}
-            onFoodCreatedOrUpdated={ingredientEvents.onFoodUpdated}
-            food={food}
-          />
+          {food && (
+            <FoodModal
+              isOpen={foodModalDisclosure.isOpen}
+              onClose={foodModalDisclosure.onClose}
+              onFoodCreatedOrUpdated={ingredientEvents.onFoodUpdated}
+              food={food}
+            />
+          )}
 
           {food && (
             <EditNotesModal

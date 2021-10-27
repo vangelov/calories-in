@@ -8,6 +8,8 @@ type FoodForm = {
   name: string
   categoryId: number
   servingSizeInGrams: string
+  weightPortionId: string
+  gramsPerWeightPortion: string
 } & MappedNutritionData<string>
 
 const DEFAULT_SERVING_SIZE_IN_GRAMS = 100
@@ -22,6 +24,8 @@ function getFoodForm(food?: Food) {
       name: food.name,
       categoryId: food.categoryId,
       servingSizeInGrams: servingSizeInGrams.toString(),
+      weightPortionId: food.weightPortionId,
+      gramsPerWeightPortion: food.gramsPerWeightPortion.toString(),
       ...objectFromNutritionDataKeys(key => food[key].toString()),
     }
   }
@@ -30,8 +34,10 @@ function getFoodForm(food?: Food) {
     name: '',
     categoryId: 0,
     servingSizeInGrams: DEFAULT_SERVING_SIZE_IN_GRAMS.toString(),
-    ...objectFromNutritionDataKeys(key => '0'),
+    ...objectFromNutritionDataKeys(() => '0'),
     energy: '',
+    weightPortionId: 'teaspoons',
+    gramsPerWeightPortion: '0',
   }
 }
 
@@ -65,6 +71,7 @@ const foodFormSchema = object().shape({
     .notOneOf([0], 'Please select category')
     .typeError('Please select category'),
   energy: string().required('Please enter energy'),
+  servingSizeInGrams: string().required('Please enter a value'),
 })
 
 function useFoodForm(foodForm: FoodForm) {

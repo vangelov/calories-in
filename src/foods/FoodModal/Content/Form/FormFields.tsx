@@ -1,6 +1,7 @@
 import { Box, FlexProps, VStack } from '@chakra-ui/react'
 import { RefObject } from 'react'
 import { StatsFormFields, StatFormField } from 'stats'
+import WeightFormField from 'stats/StatsFormFields/WeightFormField'
 
 type Props = {
   nameInputRef: RefObject<HTMLInputElement>
@@ -34,6 +35,7 @@ function FormFields({ nameInputRef, canEdit, ...rest }: Props) {
               isEmphasized={true}
               name="servingSizeInGrams"
               label="Nutrition info per"
+              isRequired={true}
               inputType="nutritionValue"
               isReadOnly={!canEdit}
             />
@@ -47,6 +49,12 @@ function FormFields({ nameInputRef, canEdit, ...rest }: Props) {
               inputType="nutritionValue"
               nutritionValueUnit="kcal"
               isRequired={true}
+              isReadOnly={!canEdit}
+            />
+            <WeightFormField
+              isEmphasized={true}
+              name="gramsPerWeightPortion"
+              inputType="nutritionValue"
               isReadOnly={!canEdit}
             />
           </VStack>

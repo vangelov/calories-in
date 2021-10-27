@@ -8,7 +8,9 @@ type Food = {
   name: string
   addedByUser?: boolean
   servingSizeInGrams?: number
-  gramsPerMilliliter?: number
+
+  weightPortionId: string
+  gramsPerWeightPortion: number
 } & NutritionData
 
 export type { Food, FoodId }
