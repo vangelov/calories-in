@@ -54,6 +54,8 @@ function MealItem({
     [mealForm.fieldId, mealForm.ingredientsForms, getIngredientFormStatsTree]
   )
 
+  console.log('meal', variantIndex, index)
+
   const ingredientsStats = useMemo(
     () => mealFormStatsTree.subtrees.map(({ stats }) => stats),
     [mealFormStatsTree]

@@ -2,27 +2,23 @@ import { useFoods } from 'foods'
 import { IngredientForm } from './ingredientForm'
 import { StatsTree, objectFromNutritionDataKeys, Stats } from 'stats'
 import { DEFAULT_SERVING_SIZE_IN_GRAMS } from 'foods'
-import { getAmountFromPortionToGrams, usePortions } from 'portions'
+import { useGetAmount } from 'portions'
 import { useCallback } from 'react'
 
 function useGetIngredientFormStatsTree() {
   const { foodsById } = useFoods()
-  const { portionsById } = usePortions()
+  const { getAmountFromPortionToGrams } = useGetAmount()
 
   const getIngredientFormStatsTree = useCallback(
     (ingredientForm: IngredientForm): StatsTree => {
       const food = foodsById[ingredientForm.foodId]
-      const portion = portionsById[ingredientForm.portionId]
-
       let stats: Stats
 
       if (food) {
-        const foodPortion = portionsById[food.weightPortionId]
         const amountInGrams = getAmountFromPortionToGrams(
           Number(ingredientForm.amount),
-          portion,
-          food,
-          foodPortion
+          ingredientForm.portionId,
+          food
         )
         const servingSizeInGrams =
           food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS
@@ -45,7 +41,7 @@ function useGetIngredientFormStatsTree() {
         subtrees: [],
       }
     },
-    [foodsById, portionsById]
+    [foodsById, getAmountFromPortionToGrams]
   )
 
   return getIngredientFormStatsTree

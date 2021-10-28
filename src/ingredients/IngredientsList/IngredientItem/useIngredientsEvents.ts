@@ -6,12 +6,7 @@ import {
   IngredientForm,
 } from 'ingredients'
 import { useToast } from '@chakra-ui/toast'
-import {
-  getAmount,
-  Portion,
-  usePortions,
-  formatConvertedAmount,
-} from 'portions'
+import { Portion, formatConvertedAmount, useGetAmount } from 'portions'
 import { Food } from 'foods'
 
 type Params = {
@@ -34,7 +29,7 @@ function useIngredientsEvents({
   const [isVisible, setIsVisible] = useState(true)
   const dietFormActions = useDietFormActions()
   const toast = useToast()
-  const { portionsById } = usePortions()
+  const { getAmountFromPortionToPortion } = useGetAmount()
 
   const oneTimeCheckActions = useOneTimeCheckActions()
   const shouldAnimate = oneTimeCheckActions.checkAndReset(
@@ -50,13 +45,12 @@ function useIngredientsEvents({
   }
 
   function onPortionChange(newPortion: Portion) {
-    const newAmount = getAmount({
-      amount: Number(ingredientForm.amount),
-      fromPortion: portionsById[ingredientForm.portionId],
-      toPortion: newPortion,
-      food,
-      foodPortion: portionsById[food.weightPortionId],
-    })
+    const newAmount = getAmountFromPortionToPortion(
+      Number(ingredientForm.amount),
+      ingredientForm.portionId,
+      newPortion.id,
+      food
+    )
 
     dietFormActions.updateIngredientForm(variantIndex, mealIndex, index, {
       portionId: newPortion.id,
