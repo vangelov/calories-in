@@ -2,18 +2,17 @@ import { chakra, Text } from '@chakra-ui/react'
 import { Check } from 'react-feather'
 import { Menu as MenuBase, MenuItem } from 'general'
 import Trigger from './Trigger'
-import { Portion, usePortions } from 'portions'
+import { Portion } from 'portions'
 
 const CheckStyled = chakra(Check)
 
 type Props = {
   selectedPortionId: string
   onChange: (portion: Portion) => void
+  portions: Portion[]
 }
 
-function Menu({ onChange, selectedPortionId }: Props) {
-  const { portions } = usePortions()
-
+function Menu({ portions, onChange, selectedPortionId }: Props) {
   return (
     <MenuBase
       portal={true}
@@ -24,7 +23,7 @@ function Menu({ onChange, selectedPortionId }: Props) {
       menuButton={<Trigger selectedPortionId={selectedPortionId} />}
     >
       {portions.map(portion => {
-        const { id, unit } = portion
+        const { id, unit, millilitersPerAmount } = portion
         const isSelected = id === selectedPortionId
 
         return (
@@ -37,11 +36,13 @@ function Menu({ onChange, selectedPortionId }: Props) {
             />
             <Text fontWeight="500" fontSize="sm">
               {unit}{' '}
-              <Text
-                as="span"
-                fontWeight="normal"
-                color="gray.500"
-              >{`(${id})`}</Text>
+              {id !== 'milliliters' && millilitersPerAmount && (
+                <Text
+                  as="span"
+                  fontWeight="normal"
+                  color="gray.500"
+                >{`(${millilitersPerAmount} ml)`}</Text>
+              )}
             </Text>
           </MenuItem>
         )

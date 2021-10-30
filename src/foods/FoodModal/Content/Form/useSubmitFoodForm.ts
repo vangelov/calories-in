@@ -15,16 +15,23 @@ function useSubmitFoodForm({ onComplete }: Params) {
   const oneTimeCheckActions = useOneTimeCheckActions()
 
   const onSubmit = handleSubmit((foodForm: FoodForm) => {
-    console.log('submit', foodForm)
     const food: Food = {
       id: foodForm.id !== undefined ? foodForm.id : uuidv4(),
       name: foodForm.name,
       categoryId: foodForm.categoryId,
       addedByUser: true,
       servingSizeInGrams: Number(foodForm.servingSizeInGrams),
-      weightPortionId: foodForm.weightPortionId,
-      gramsPerWeightPortion: Number(foodForm.gramsPerWeightPortion),
       ...objectFromNutritionDataKeys(key => Number(foodForm[key])),
+    }
+
+    const { volumeForm } = foodForm
+    const volumeWeightInGrams = Number(volumeForm.weightInGrams)
+
+    if (volumeWeightInGrams > 0) {
+      food.volume = {
+        portionId: volumeForm.portionId,
+        weightInGrams: volumeWeightInGrams,
+      }
     }
 
     if (foodForm.id === undefined) {

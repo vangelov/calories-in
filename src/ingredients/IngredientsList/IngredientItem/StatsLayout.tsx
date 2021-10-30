@@ -63,6 +63,7 @@ function StatsLayout({
             <PortionsMenuOrDrawer
               selectedPortionId={ingredientForm.portionId}
               onPortionChange={onPortionChange}
+              food={food}
             />
           </AmountInput>
         </Flex>

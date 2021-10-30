@@ -2,31 +2,29 @@ import { Food } from 'foods'
 import { useCallbacksMemo } from 'general'
 import { usePortions } from 'portions'
 import { useCallback } from 'react'
-import getToGramsConversionFactor from './getToGramsConversionFactor'
+import useGetToGramsConversionFactor from './useGetToGramsConversionFactor'
 
 function useGetAmount() {
   const { portionsById } = usePortions()
+  const getToGramsConversionFactor = useGetToGramsConversionFactor()
 
   const getAmountFromPortionToGrams = useCallback(
     (amountInGrams: number, portionId: string, food: Food) => {
       const portion = portionsById[portionId]
-      const foodPortion = portionsById[food.weightPortionId]
 
-      const factor = getToGramsConversionFactor(portion, food, foodPortion)
+      const factor = getToGramsConversionFactor(portion, food)
       return amountInGrams * factor
     },
-    [portionsById]
+    [getToGramsConversionFactor, portionsById]
   )
 
   const getAmountFromGramsToPortion = useCallback(
     (amountInPortion: number, portionId: string, food: Food) => {
       const portion = portionsById[portionId]
-      const foodPortion = portionsById[food.weightPortionId]
-
-      const factor = getToGramsConversionFactor(portion, food, foodPortion)
+      const factor = getToGramsConversionFactor(portion, food)
       return amountInPortion / factor
     },
-    [portionsById]
+    [portionsById, getToGramsConversionFactor]
   )
 
   const getAmountFromPortionToPortion = useCallback(

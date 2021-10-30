@@ -6,7 +6,7 @@ import {
   DrawerContent,
   DrawerCloseButton,
 } from '@chakra-ui/react'
-import { Portion, usePortions } from 'portions'
+import { Portion } from 'portions'
 import PortionItem from './PortionItem'
 
 type Props = {
@@ -14,11 +14,16 @@ type Props = {
   onClose: () => void
   onChange: (portion: Portion) => void
   selectedPortionId: string
+  portions: Portion[]
 }
 
-function Drawer({ isOpen, onClose, onChange, selectedPortionId }: Props) {
-  const { portions } = usePortions()
-
+function Drawer({
+  portions,
+  isOpen,
+  onClose,
+  onChange,
+  selectedPortionId,
+}: Props) {
   return (
     <DrawerBase isOpen={isOpen} placement="bottom" onClose={onClose}>
       <DrawerOverlay />
@@ -27,7 +32,7 @@ function Drawer({ isOpen, onClose, onChange, selectedPortionId }: Props) {
         <DrawerHeader fontSize="md">Portions</DrawerHeader>
 
         <DrawerBody>
-          {portions.map((portion, index) => {
+          {portions.map(portion => {
             const { id } = portion
             const isSelected = id === selectedPortionId
 

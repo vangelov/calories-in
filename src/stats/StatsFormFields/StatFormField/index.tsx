@@ -123,9 +123,7 @@ function StatFormField(props: Props) {
                 alignItems="center"
                 ml={1}
               >
-                <Text fontSize="lg" textColor="gray.500">
-                  {nutritionValueUnit}
-                </Text>
+                <Text textColor="gray.500">{nutritionValueUnit}</Text>
               </Flex>
             )}
           </Flex>

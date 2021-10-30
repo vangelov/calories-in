@@ -1,18 +1,19 @@
 import {
   ModalContent,
-  ModalHeader,
   ModalCloseButton,
-  ModalFooter,
   ModalBody,
   Button,
-  HStack,
   Divider,
   Box,
+  VStack,
 } from '@chakra-ui/react'
 import { Food } from 'foods'
-import FormFields from './FormFields'
 import { RefObject } from 'react'
 import useSubmitFoodForm from './useSubmitFoodForm'
+import { StatFormField } from 'stats'
+import Footer from './Footer'
+import Header from './Header'
+import Tabs from './Tabs'
 
 type Props = {
   onClose: () => void
@@ -20,7 +21,6 @@ type Props = {
   nameInputRef: RefObject<HTMLInputElement>
   food?: Food
   canEdit: boolean
-
   isEditing: boolean
   onToggleEdit: () => void
   onDelete: () => void
@@ -48,23 +48,42 @@ function Form({
   return (
     <form onSubmit={onSubmit}>
       <ModalContent>
-        <ModalHeader>
-          {title}
-          {canEdit && (
-            <Button
-              ml={3}
-              variant="link"
-              colorScheme="teal"
-              onClick={onToggleEdit}
-            >
-              {isEditing ? 'Back to preview' : 'Edit food'}
-            </Button>
-          )}
-        </ModalHeader>
+        <Header
+          title={title}
+          canEdit={canEdit}
+          isEditing={isEditing}
+          onClose={onClose}
+          onToggleEdit={onToggleEdit}
+        />
         <ModalCloseButton />
 
         <ModalBody>
-          <FormFields nameInputRef={nameInputRef} canEdit={isEditing} />
+          <VStack spacing={6} align="stretch\">
+            <VStack spacing={2} align="stretch">
+              <StatFormField
+                textInputRef={nameInputRef}
+                name="name"
+                label="Name"
+                inputType="text"
+                isRequired={true}
+                isReadOnly={!isEditing}
+                hasDivider={false}
+              />
+              <StatFormField
+                name="categoryId"
+                label="Category"
+                inputType="foodCategory"
+                isRequired={true}
+                isReadOnly={!isEditing}
+              />
+            </VStack>
+
+            <Tabs
+              nameInputRef={nameInputRef}
+              isEditing={isEditing}
+              food={food}
+            />
+          </VStack>
 
           {isEditing && food && (
             <Box>
@@ -76,21 +95,7 @@ function Form({
           )}
         </ModalBody>
 
-        <ModalFooter>
-          <HStack spacing={3}>
-            <Button onClick={onClose}>Close</Button>
-            {isEditing && (
-              <Button
-                colorScheme="teal"
-                type="submit"
-                variant="solid"
-                onClick={onSubmit}
-              >
-                Save
-              </Button>
-            )}
-          </HStack>
-        </ModalFooter>
+        <Footer onClose={onClose} onSubmit={onSubmit} isEditing={isEditing} />
       </ModalContent>
     </form>
   )

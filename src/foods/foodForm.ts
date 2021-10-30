@@ -2,19 +2,21 @@ import { Food, FoodId } from 'foods'
 import { useForm } from 'react-hook-form'
 import { object, string, number } from 'yup'
 import { objectFromNutritionDataKeys, MappedNutritionData } from 'stats'
+import { FoodVolumeForm, getFoodVolumeForm } from './foodVolumeForm'
 
 type FoodForm = {
   id?: FoodId
   name: string
   categoryId: number
   servingSizeInGrams: string
-  weightPortionId: string
-  gramsPerWeightPortion: string
+  volumeForm: FoodVolumeForm
 } & MappedNutritionData<string>
 
 const DEFAULT_SERVING_SIZE_IN_GRAMS = 100
 
 function getFoodForm(food?: Food) {
+  const volumeForm = getFoodVolumeForm(food?.volume)
+
   if (food) {
     const servingSizeInGrams =
       food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS
@@ -24,8 +26,7 @@ function getFoodForm(food?: Food) {
       name: food.name,
       categoryId: food.categoryId,
       servingSizeInGrams: servingSizeInGrams.toString(),
-      weightPortionId: food.weightPortionId,
-      gramsPerWeightPortion: food.gramsPerWeightPortion.toString(),
+      volumeForm,
       ...objectFromNutritionDataKeys(key => food[key].toString()),
     }
   }
@@ -36,8 +37,7 @@ function getFoodForm(food?: Food) {
     servingSizeInGrams: DEFAULT_SERVING_SIZE_IN_GRAMS.toString(),
     ...objectFromNutritionDataKeys(() => '0'),
     energy: '',
-    weightPortionId: 'teaspoons',
-    gramsPerWeightPortion: '0',
+    volumeForm,
   }
 }
 

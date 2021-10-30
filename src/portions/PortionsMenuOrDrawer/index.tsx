@@ -3,16 +3,24 @@ import Drawer from './Drawer'
 import Trigger from './Trigger'
 import { useDisclosure } from '@chakra-ui/hooks'
 import Menu from './Menu'
-import { Portion } from 'portions'
+import { Portion, usePortions } from 'portions'
+import { Food } from 'foods'
 
 type Props = {
   onPortionChange: (portion: Portion) => void
   selectedPortionId: string
+  food: Food
 }
 
-function PortionsMenuOrDrawer({ onPortionChange, selectedPortionId }: Props) {
+function PortionsMenuOrDrawer({
+  food,
+  onPortionChange,
+  selectedPortionId,
+}: Props) {
   const screenSize = useScreenSize()
   const modalDisclosure = useDisclosure()
+  const { allPortions, weightBasedPortions } = usePortions()
+  const portions = food.volume ? allPortions : weightBasedPortions
 
   if (screenSize < ScreenSize.Medium) {
     return (
@@ -22,6 +30,7 @@ function PortionsMenuOrDrawer({ onPortionChange, selectedPortionId }: Props) {
           onClick={modalDisclosure.onOpen}
         />
         <Drawer
+          portions={portions}
           onChange={onPortionChange}
           selectedPortionId={selectedPortionId}
           isOpen={modalDisclosure.isOpen}
@@ -31,7 +40,11 @@ function PortionsMenuOrDrawer({ onPortionChange, selectedPortionId }: Props) {
     )
   }
   return (
-    <Menu onChange={onPortionChange} selectedPortionId={selectedPortionId} />
+    <Menu
+      portions={portions}
+      onChange={onPortionChange}
+      selectedPortionId={selectedPortionId}
+    />
   )
 }
 

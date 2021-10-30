@@ -8,6 +8,8 @@ type Props = {
 } & BoxProps
 
 function PortionItem({ portion, id, isSelected, ...rest }: Props) {
+  const { unit, millilitersPerAmount } = portion
+
   return (
     <Box
       position="relative"
@@ -26,8 +28,13 @@ function PortionItem({ portion, id, isSelected, ...rest }: Props) {
     >
       <Flex justifyContent="space-between">
         <Text fontSize="md" fontWeight="500">
-          {portion.unit}{' '}
-          <Text as="span" color="gray.500">{`(${portion.id})`}</Text>
+          {unit}{' '}
+          {id !== 'milliliters' && millilitersPerAmount && (
+            <Text
+              as="span"
+              color="gray.500"
+            >{`(${millilitersPerAmount} ml)`}</Text>
+          )}
         </Text>
         {isSelected && (
           <Flex alignItems="center">

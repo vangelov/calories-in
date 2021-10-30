@@ -16,11 +16,27 @@ function usePortionsStore() {
     return initialMap
   })
 
-  const portions = useMemo(() => Object.values(portionsById), [portionsById])
+  const allPortions = useMemo(() => Object.values(portionsById), [portionsById])
+
+  const weightBasedPortions = useMemo(
+    () =>
+      allPortions.filter(({ gramsPerAmount }) => gramsPerAmount !== undefined),
+    [allPortions]
+  )
+
+  const volumeBasedPortions = useMemo(
+    () =>
+      allPortions.filter(
+        ({ millilitersPerAmount }) => millilitersPerAmount !== undefined
+      ),
+    [allPortions]
+  )
 
   const state = useCallbacksMemo({
     portionsById,
-    portions,
+    allPortions,
+    volumeBasedPortions,
+    weightBasedPortions,
   })
 
   return [state, setPortionsById] as const
