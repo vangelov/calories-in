@@ -6,6 +6,7 @@ import { useScreenSize, Loader, ScreenSize } from 'general'
 import { useRef } from 'react'
 import { HStack, Text, chakra } from '@chakra-ui/react'
 import { Check } from 'react-feather'
+import { usePortions } from 'portions'
 
 const CheckStyled = chakra(Check)
 
@@ -16,6 +17,7 @@ type Props = {
 function Exporter({ onBlobUpdate }: Props) {
   const dietForm = useDietForm()
   const { foodsById } = useFoods()
+  const { portionsById } = usePortions()
   const screenSize = useScreenSize()
   const isUrlUpdatedRef = useRef(false)
   const getDietFormStatsTree = useGetDietFormStatsTree()
@@ -32,6 +34,7 @@ function Exporter({ onBlobUpdate }: Props) {
     <PdfDietEditor
       dietForm={dietForm}
       foodsById={foodsById}
+      portionsById={portionsById}
       onRender={onRender}
       subject={JSON.stringify(dietForm)}
       dietFormStatsTree={dietFormStatsTree}

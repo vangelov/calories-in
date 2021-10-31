@@ -1,6 +1,7 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
 import { Food, FoodId } from 'foods'
 import { IngredientForm } from 'ingredients'
+import { Portion } from 'portions'
 import { Stats } from 'stats'
 import PdfStat from 'stats/PdfStat'
 import PdfStatsLayout from 'stats/PdfStatsLayout'
@@ -10,10 +11,18 @@ type Props = {
   ingredientForm: IngredientForm
   stats: Stats
   foodsById: Record<FoodId, Food>
+  portionsById: Record<string, Portion>
 }
 
-function PdfIngredientItem({ ingredientForm, stats, foodsById }: Props) {
-  const food = foodsById[ingredientForm.foodId]
+function PdfIngredientItem({
+  ingredientForm,
+  stats,
+  foodsById,
+  portionsById,
+}: Props) {
+  const { portionId, foodId } = ingredientForm
+  const food = foodsById[foodId]
+  const portion = portionsById[portionId]
 
   return (
     <View style={styles.root}>
@@ -45,6 +54,7 @@ function PdfIngredientItem({ ingredientForm, stats, foodsById }: Props) {
           <PdfStat
             variant="ingredientAmount"
             value={Number(ingredientForm.amount)}
+            unit={portion.unit}
           />
         }
         energyElement={

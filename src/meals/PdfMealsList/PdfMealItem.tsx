@@ -7,6 +7,7 @@ import PdfStat from 'stats/PdfStat'
 import PdfStatsLayout from 'stats/PdfStatsLayout'
 import { Food } from 'foods'
 import PdfIngredientsList from 'ingredients/PdfIngredientsList'
+import { Portion } from 'portions'
 
 type Props = {
   mealForm: MealForm
@@ -14,6 +15,7 @@ type Props = {
   stats: Stats
   ingredientsFormsStats: Stats[]
   foodsById: Record<number, Food>
+  portionsById: Record<string, Portion>
 }
 
 function PdfMealItem({
@@ -22,6 +24,7 @@ function PdfMealItem({
   ingredientsFormsStats,
   style = {},
   foodsById,
+  portionsById,
 }: Props) {
   const { ingredientsForms } = mealForm
 
@@ -57,13 +60,6 @@ function PdfMealItem({
               {mealForm.name || 'Untitled meal'}
             </Text>
           }
-          amountElement={
-            <PdfStat
-              variant="meal"
-              label="Amount"
-              value={stats.amountInGrams}
-            />
-          }
           energyElement={
             <PdfStat variant="mealEnergy" label="Energy" value={stats.energy} />
           }
@@ -80,6 +76,7 @@ function PdfMealItem({
         ingredientsForms={ingredientsForms}
         ingredientsFormsStats={ingredientsFormsStats}
         foodsById={foodsById}
+        portionsById={portionsById}
       />
     </View>
   )

@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet } from '@react-pdf/renderer'
 import { Food, FoodId } from 'foods'
 import { IngredientForm } from 'ingredients'
+import { Portion } from 'portions'
 import { Stats } from 'stats'
 import { getComputedColorFromChakra } from 'theme'
 import PdfIngredientItem from './PdfIngredientItem'
@@ -9,12 +10,14 @@ type Props = {
   ingredientsForms: IngredientForm[]
   ingredientsFormsStats: Stats[]
   foodsById: Record<FoodId, Food>
+  portionsById: Record<string, Portion>
 }
 
 function PdfIngredientsList({
   ingredientsForms,
   ingredientsFormsStats,
   foodsById,
+  portionsById,
 }: Props) {
   const filteredIngredientsForms = ingredientsForms.filter(
     ({ foodId }) => foodsById[foodId]
@@ -31,6 +34,7 @@ function PdfIngredientsList({
             ingredientForm={ingredientForm}
             stats={stats}
             foodsById={foodsById}
+            portionsById={portionsById}
           />
         )
       })}

@@ -8,6 +8,7 @@ import { Food } from 'foods'
 import { getComputedColorFromChakra } from 'theme'
 import PdfMealsList from 'meals/PdfMealsList'
 import { useMemo } from 'react'
+import { Portion } from 'portions'
 
 type Props = {
   name?: string
@@ -16,6 +17,7 @@ type Props = {
   mealsFormsStatsTrees: StatsTree[]
   style?: Style
   foodsById: Record<number, Food>
+  portionsById: Record<string, Portion>
   index: number
 }
 
@@ -25,6 +27,7 @@ function PdfVariantItem({
   stats,
   mealsFormsStatsTrees,
   foodsById,
+  portionsById,
   style = {},
 }: Props) {
   const { mealsForms } = variantForm
@@ -80,6 +83,7 @@ function PdfVariantItem({
         mealsForms={mealsForms}
         mealsFormsStatsTrees={mealsFormsStatsTrees}
         foodsById={foodsById}
+        portionsById={portionsById}
       />
     </View>
   )

@@ -17,9 +17,20 @@ type Props = {
   valueDetail?: string
   style?: Style
   variant: StatVariant
+  unit?: string
 }
 
-function PdfStat({ label, value, variant, valueDetail, style = {} }: Props) {
+const UNITS_WITH_DISTANCE = ['oz', 'tsp', 'tbsp', 'fl oz', 'c']
+
+function PdfStat({
+  label,
+  value,
+  variant,
+  valueDetail,
+  unit = 'g',
+  style = {},
+}: Props) {
+  const hasDistanceBetweenValueAndUnit = UNITS_WITH_DISTANCE.includes(unit)
   return (
     <View
       style={[
@@ -56,7 +67,8 @@ function PdfStat({ label, value, variant, valueDetail, style = {} }: Props) {
         ]}
       >
         {value}
-        <Text style={styles.unit}>{isForEnergy(variant) ? 'kcal' : 'g'}</Text>
+        {hasDistanceBetweenValueAndUnit ? ' ' : ''}
+        <Text style={styles.unit}>{isForEnergy(variant) ? 'kcal' : unit}</Text>
       </Text>
 
       {valueDetail && <Text style={[styles.valueDetail]}>{valueDetail}</Text>}
