@@ -10,6 +10,7 @@ import {
   Box,
   Collapse,
   DividerProps,
+  FormLabelProps,
 } from '@chakra-ui/react'
 import { useFormError } from 'form'
 import { ReactNode, RefObject } from 'react'
@@ -20,7 +21,6 @@ type Props = {
   label?: string
   labelElement?: ReactNode
   labelDetail?: string
-
   inputType: InputType
   nutritionValueUnit?: string
   isIdented?: boolean
@@ -33,6 +33,7 @@ type Props = {
   dividerProps?: DividerProps
   hasDivider?: boolean
   dailyValuePercent?: number
+  formLabelProps?: FormLabelProps
 } & FormControlProps
 
 function StatFormField(props: Props) {
@@ -54,6 +55,7 @@ function StatFormField(props: Props) {
     hasDivider = true,
     dailyValuePercent,
     labelElement,
+    formLabelProps,
     ...rest
   } = props
   const { errorMessage, isInvalid } = useFormError(name)
@@ -100,6 +102,7 @@ function StatFormField(props: Props) {
               flexShrink={0}
               fontSize={isCaption ? 'lg' : 'md'}
               m={0}
+              {...formLabelProps}
             >
               {label || labelElement}
               {isReadOnly && labelDetailElement}

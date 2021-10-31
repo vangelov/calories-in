@@ -70,6 +70,7 @@ function VitaminsAndMinerals({ canEdit, ...rest }: Props) {
             isReadOnly={!canEdit}
             dailyValuePercent={getDailyValuePercent(name)}
             hasDivider={false}
+            formLabelProps={{ fontWeight: 'normal' }}
           />
         ))}
       </VStack>

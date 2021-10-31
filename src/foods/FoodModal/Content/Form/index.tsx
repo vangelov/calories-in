@@ -6,6 +6,7 @@ import {
   Divider,
   Box,
   VStack,
+  Text,
 } from '@chakra-ui/react'
 import { Food } from 'foods'
 import { RefObject } from 'react'
@@ -60,15 +61,21 @@ function Form({
         <ModalBody>
           <VStack spacing={6} align="stretch\">
             <VStack spacing={2} align="stretch">
-              <StatFormField
-                textInputRef={nameInputRef}
-                name="name"
-                label="Name"
-                inputType="text"
-                isRequired={true}
-                isReadOnly={!isEditing}
-                hasDivider={false}
-              />
+              {isEditing ? (
+                <StatFormField
+                  textInputRef={nameInputRef}
+                  name="name"
+                  label="Name"
+                  inputType="text"
+                  isRequired={true}
+                  isReadOnly={!isEditing}
+                  hasDivider={false}
+                />
+              ) : (
+                <Text fontSize="xl" fontWeight="bold">
+                  {food?.name}
+                </Text>
+              )}
               <StatFormField
                 name="categoryId"
                 label="Category"

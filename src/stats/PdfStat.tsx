@@ -31,6 +31,7 @@ function PdfStat({
   style = {},
 }: Props) {
   const hasDistanceBetweenValueAndUnit = UNITS_WITH_DISTANCE.includes(unit)
+
   return (
     <View
       style={[
