@@ -88,7 +88,11 @@ function MealItem({
             borderRadius={10}
             borderWidth="1px"
             backgroundColor="white"
-            boxShadow={snapshot.isDragging ? 'lg' : undefined}
+            boxShadow={
+              snapshot.isDragging
+                ? 'rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.4) 0px 15px 40px'
+                : undefined
+            }
             {...rest}
           >
             <Header

@@ -25,7 +25,7 @@ function PdfMealsList({
 
         return (
           <PdfMealItem
-            style={{ marginTop: 12 }}
+            style={{ marginTop: index === 0 ? 24 : 12 }}
             key={mealForm.fieldId}
             mealForm={mealForm}
             stats={stats}

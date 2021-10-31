@@ -13,6 +13,7 @@ import { useDisclosure } from '@chakra-ui/hooks'
 import { EditNotesModal } from 'notes'
 import useNotesEvents from './useNotesEvents'
 import Notes from './Notes'
+import { useTheme } from '@chakra-ui/react'
 
 type Props = {
   variantIndex: number
@@ -68,7 +69,10 @@ function IngredientItem({
     ingredientForm,
   })
 
-  console.log('ingredient', variantIndex, mealIndex, index)
+  const t = useTheme()
+  console.log('t', t.shadows)
+
+  // console.log('ingredient', variantIndex, mealIndex, index)
 
   return (
     <Draggable
@@ -87,7 +91,11 @@ function IngredientItem({
             {...provided.draggableProps}
             {...provided.dragHandleProps}
             style={provided.draggableProps.style}
-            boxShadow={snapshot.isDragging ? 'lg' : undefined}
+            boxShadow={
+              snapshot.isDragging
+                ? 'rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.4) 0px 15px 40px'
+                : undefined
+            }
             bg={snapshot.isDragging ? 'white' : undefined}
             alignItems="center"
             position="relative"

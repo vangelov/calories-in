@@ -20,7 +20,9 @@ function StatValueDetail({
       {leftIcon}
 
       <Tooltip label={tooltipLabel}>
-        <Text fontSize={isLarge ? 'md' : 'sm'}>{label}</Text>
+        <Text color="gray.800" fontSize={isLarge ? 'md' : 'sm'}>
+          {label}
+        </Text>
       </Tooltip>
     </HStack>
   )
