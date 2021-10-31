@@ -89,7 +89,7 @@ function Form({
             <Box>
               <Divider />
               <Button width="100%" my={3} colorScheme="red" onClick={onDelete}>
-                Delete
+                Delete food
               </Button>
             </Box>
           )}

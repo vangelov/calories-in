@@ -46,11 +46,7 @@ function useMealFormEvents({
   }
 
   function onAddFoods(foods: Food[]) {
-    dietFormActions.appendIngredientsForms(
-      variantIndex,
-      index,
-      foods.map(({ id }) => id)
-    )
+    dietFormActions.appendIngredientsForms(variantIndex, index, foods)
     foodsDrawerDisclosure.onClose()
   }
 

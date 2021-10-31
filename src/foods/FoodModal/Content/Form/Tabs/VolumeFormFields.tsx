@@ -11,7 +11,7 @@ type Props = {
 
 function VolumeFields({ canEdit, food }: Props) {
   const { register } = useFormContext<FoodForm>()
-  const { portionsById } = usePortions()
+  const { portionsById, volumeBasedPortions } = usePortions()
   const portion = food?.volume ? portionsById[food.volume.portionId] : undefined
 
   return (
@@ -22,15 +22,17 @@ function VolumeFields({ canEdit, food }: Props) {
       </Text>
 
       <HStack spacing={2}>
-        <Text fontWeight="medium">1</Text>
+        {canEdit && <Text fontWeight="medium">1</Text>}
         {canEdit ? (
           <PortionsSelect
             width="200px"
-            type="volumeBased"
+            portions={volumeBasedPortions}
             {...register('volumeForm.portionId')}
           />
         ) : (
-          <Text fontWeight="medium">{`${portion?.singular} (${portion?.millilitersPerAmount} ml)`}</Text>
+          <Text fontWeight="medium">
+            1 {`${portion?.singular} (${portion?.millilitersPerAmount} ml)`}
+          </Text>
         )}
 
         <Text fontWeight="medium">=</Text>

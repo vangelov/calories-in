@@ -1,5 +1,5 @@
 import { Box, BoxProps, Flex, Text } from '@chakra-ui/react'
-import { Portion } from 'portions'
+import { Portion, getPortionDescription } from 'portions'
 import { Check } from 'react-feather'
 
 type Props = {
@@ -7,8 +7,8 @@ type Props = {
   isSelected: boolean
 } & BoxProps
 
-function PortionItem({ portion, id, isSelected, ...rest }: Props) {
-  const { unit, millilitersPerAmount } = portion
+function PortionItem({ portion, isSelected, ...rest }: Props) {
+  const { unit } = portion
 
   return (
     <Box
@@ -29,12 +29,9 @@ function PortionItem({ portion, id, isSelected, ...rest }: Props) {
       <Flex justifyContent="space-between">
         <Text fontSize="md" fontWeight="500">
           {unit}{' '}
-          {id !== 'milliliters' && millilitersPerAmount && (
-            <Text
-              as="span"
-              color="gray.500"
-            >{`(${millilitersPerAmount} ml)`}</Text>
-          )}
+          <Text as="span" color="gray.500">
+            {getPortionDescription(portion)}
+          </Text>
         </Text>
         {isSelected && (
           <Flex alignItems="center">

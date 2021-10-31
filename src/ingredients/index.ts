@@ -4,3 +4,4 @@ export { default as useIngredientsFormsActions } from './useIngredientsFormsActi
 export * from './useIngredientsFormsActions'
 export * from './types'
 export { default as useGetIngredientFormStatsTree } from './useGetIngredientFormStatsTree'
+export { default as getIngredient } from './getIngredient'

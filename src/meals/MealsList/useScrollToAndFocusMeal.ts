@@ -1,9 +1,10 @@
 import { getMealForm, MealForm } from 'meals'
 import { useScrollTo } from 'dom'
 import { RefObject, useCallback } from 'react'
-import { DEFAULT_SERVING_SIZE_IN_GRAMS, Food } from 'foods'
+import { Food } from 'foods'
 import { useDietFormActions } from 'diets'
 import { UseDisclosureReturn } from '@chakra-ui/hooks'
+import { getIngredient } from 'ingredients'
 
 type Params = {
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
@@ -21,11 +22,7 @@ function useScrollToAndFocusMeal({
 
   function onMealAdd(foods: Food[], mealName?: string) {
     foodsDrawerDisclosure.onClose()
-    const ingredients = foods.map(({ id }) => ({
-      foodId: id,
-      amount: DEFAULT_SERVING_SIZE_IN_GRAMS,
-      portionId: 'grams',
-    }))
+    const ingredients = foods.map(getIngredient)
     const mealForm = getMealForm({ name: mealName as string, ingredients })
     dietFormActions.appendMealForm(mealForm)
   }

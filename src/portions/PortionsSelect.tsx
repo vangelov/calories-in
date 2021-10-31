@@ -1,20 +1,13 @@
 import { SelectProps, Select } from '@chakra-ui/select'
+import { Portion } from 'portions'
 import { ForwardedRef, forwardRef } from 'react'
-import usePortionsForType, { PortionsType } from './usePortionsForType'
 
 type Props = {
-  type?: PortionsType
   forwardedRef?: ForwardedRef<HTMLSelectElement>
+  portions: Portion[]
 } & SelectProps
 
-function PortionsSelect({
-  type = 'all',
-  children,
-  forwardedRef,
-  ...rest
-}: Props) {
-  const portions = usePortionsForType(type)
-
+function PortionsSelect({ children, forwardedRef, portions, ...rest }: Props) {
   return (
     <Select focusBorderColor="teal.500" size="md" ref={forwardedRef} {...rest}>
       {children}

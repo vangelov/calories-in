@@ -7,14 +7,13 @@ import {
   IngredientForm,
 } from './ingredientForm'
 import { OneTimeCheckActions } from 'general'
-import { FoodId } from 'foods'
+import { Food } from 'foods'
+import { getIngredient } from 'ingredients'
 
 type Params = {
   setDietForm: (action: SetStateAction<DietForm>) => void
   oneTimeCheckActions: OneTimeCheckActions
 }
-
-const DEFAULT_AMOUNT_IN_GRAMS = 100
 
 function useIngredientsFormsActions({
   setDietForm,
@@ -22,16 +21,12 @@ function useIngredientsFormsActions({
   oneTimeCheckActions,
 }: Params) {
   const appendIngredientsForms = useCallback(
-    (variantFormIndex: number, mealFormIndex: number, foodsIds: FoodId[]) => {
+    (variantFormIndex: number, mealFormIndex: number, foods: Food[]) => {
       setDietForm(dietForm =>
         produce(dietForm, draftDietForm => {
-          const ingredientForms = foodsIds.map(id =>
-            getIngredientForm({
-              foodId: id,
-              amount: DEFAULT_AMOUNT_IN_GRAMS,
-              portionId: 'grams',
-            })
-          )
+          const ingredients = foods.map(getIngredient)
+          const ingredientForms = ingredients.map(getIngredientForm)
+
           ingredientForms.forEach(({ fieldId }) => {
             oneTimeCheckActions.set(
               getInsertIngredientFormAnimationKey(fieldId)
