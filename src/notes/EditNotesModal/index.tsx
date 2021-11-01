@@ -1,8 +1,6 @@
-import { Modal, ModalOverlay } from '@chakra-ui/react'
+import { Modal, ModalOverlay, ModalProps } from '@chakra-ui/react'
 import { useRef } from 'react'
 import Content from './Content'
-import NotesFormProvider from './NotesFormProvider'
-import Header from './Header'
 
 type Props = {
   onClose: () => void
@@ -11,7 +9,7 @@ type Props = {
   onEditNotes: (notes: string) => void
   fieldId: string
   ownerName: string
-}
+} & Omit<ModalProps, 'children'>
 
 function EditNotesModal({
   onClose,
@@ -20,6 +18,7 @@ function EditNotesModal({
   onEditNotes,
   fieldId,
   ownerName,
+  ...rest
 }: Props) {
   const initialRef = useRef<HTMLInputElement>(null)
   const finalFocusRef = useRef(null)
@@ -31,21 +30,20 @@ function EditNotesModal({
       onClose={onClose}
       initialFocusRef={initialRef}
       finalFocusRef={finalFocusRef}
+      {...rest}
     >
       <ModalOverlay />
-      <NotesFormProvider notes={notes}>
-        <Content
-          header={<Header ownerName={ownerName} notes={notes} />}
-          onClose={onClose}
-          onEditNotes={onEditNotes}
-          initialRef={initialRef}
-          fieldId={fieldId}
-        />
-      </NotesFormProvider>
+
+      <Content
+        onClose={onClose}
+        onEditNotes={onEditNotes}
+        initialRef={initialRef}
+        fieldId={fieldId}
+        notes={notes}
+        ownerName={ownerName}
+      />
     </Modal>
   )
 }
-
-export * from './notesForm'
 
 export default EditNotesModal

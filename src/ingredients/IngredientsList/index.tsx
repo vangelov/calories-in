@@ -14,6 +14,7 @@ type Props = {
   onAddIngredients: () => void
   ingredientsForms: IngredientForm[]
   ingredientsStats: Stats[]
+  shouldAddRadiusToLastBottomBorder?: boolean
 }
 
 function IngredientsList({
@@ -23,6 +24,7 @@ function IngredientsList({
   onAddIngredients,
   ingredientsForms,
   ingredientsStats,
+  shouldAddRadiusToLastBottomBorder,
 }: Props) {
   const dietFormActions = useDietFormActions()
 
@@ -46,6 +48,11 @@ function IngredientsList({
                 carbs={carbs}
                 fat={fat}
                 isLast={index === ingredientsForms.length - 1}
+                shouldAddRadiusToLastBottomBorder={
+                  shouldAddRadiusToLastBottomBorder !== undefined
+                    ? shouldAddRadiusToLastBottomBorder
+                    : index === ingredientsForms.length - 1
+                }
               />
             )
           })}

@@ -1,7 +1,7 @@
 import { FormProvider, useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { ReactNode } from 'react'
-import { getNotesForm, NotesForm, notesFormSchema } from './notesForm'
+import { getNotesForm, NotesForm, notesFormSchema } from 'notes'
 
 type Props = {
   children: ReactNode

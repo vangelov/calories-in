@@ -13,7 +13,6 @@ import { useDisclosure } from '@chakra-ui/hooks'
 import { EditNotesModal } from 'notes'
 import useNotesEvents from './useNotesEvents'
 import Notes from './Notes'
-import { useTheme } from '@chakra-ui/react'
 
 type Props = {
   variantIndex: number
@@ -25,6 +24,7 @@ type Props = {
   carbs: number
   fat: number
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
+  shouldAddRadiusToLastBottomBorder: boolean
   isLast: boolean
 }
 
@@ -38,6 +38,7 @@ function IngredientItem({
   carbs,
   fat,
   onRemove,
+  shouldAddRadiusToLastBottomBorder,
   isLast,
 }: Props) {
   const { foodsById } = useFoods()
@@ -69,9 +70,6 @@ function IngredientItem({
     ingredientForm,
   })
 
-  const t = useTheme()
-  console.log('t', t.shadows)
-
   // console.log('ingredient', variantIndex, mealIndex, index)
 
   return (
@@ -101,7 +99,9 @@ function IngredientItem({
             position="relative"
             py={2}
             _hover={{ backgroundColor: 'gray.50' }}
-            borderBottomRadius={isLast ? 10 : 0}
+            borderBottomRadius={
+              isLast && shouldAddRadiusToLastBottomBorder ? 10 : 0
+            }
             overflow="hidden"
             menuItems={menuItems}
           >
