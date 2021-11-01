@@ -78,6 +78,24 @@ function PdfMealItem({
         foodsById={foodsById}
         portionsById={portionsById}
       />
+      {mealForm.notes && (
+        <View
+          style={[
+            styles.notes,
+            {
+              borderTopColor: getComputedColorFromChakra('gray.100'),
+            },
+          ]}
+        >
+          <Text
+            style={{
+              color: getComputedColorFromChakra('gray.400'),
+            }}
+          >
+            {mealForm.notes}
+          </Text>
+        </View>
+      )}
     </View>
   )
 }
@@ -98,6 +116,11 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderBottomWidth: 1,
+  },
+  notes: {
+    padding: 12,
+    borderTopWidth: 1,
+    fontSize: 12,
   },
 })
 
