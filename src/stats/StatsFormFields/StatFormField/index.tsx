@@ -10,6 +10,7 @@ import {
   Box,
   Collapse,
   DividerProps,
+  FormLabelProps,
 } from '@chakra-ui/react'
 import { useFormError } from 'form'
 import { ReactNode, RefObject } from 'react'
@@ -17,9 +18,9 @@ import useGetInputElement, { InputType } from './useGetInputElement'
 
 type Props = {
   name: string
-  label: string
+  label?: string
+  labelElement?: ReactNode
   labelDetail?: string
-
   inputType: InputType
   nutritionValueUnit?: string
   isIdented?: boolean
@@ -32,6 +33,7 @@ type Props = {
   dividerProps?: DividerProps
   hasDivider?: boolean
   dailyValuePercent?: number
+  formLabelProps?: FormLabelProps
 } & FormControlProps
 
 function StatFormField(props: Props) {
@@ -52,6 +54,8 @@ function StatFormField(props: Props) {
     dividerProps = {},
     hasDivider = true,
     dailyValuePercent,
+    labelElement,
+    formLabelProps,
     ...rest
   } = props
   const { errorMessage, isInvalid } = useFormError(name)
@@ -98,8 +102,9 @@ function StatFormField(props: Props) {
               flexShrink={0}
               fontSize={isCaption ? 'lg' : 'md'}
               m={0}
+              {...formLabelProps}
             >
-              {label}
+              {label || labelElement}
               {isReadOnly && labelDetailElement}
             </FormLabel>
             {!isReadOnly && labelDetailElement}
@@ -121,9 +126,7 @@ function StatFormField(props: Props) {
                 alignItems="center"
                 ml={1}
               >
-                <Text fontSize="lg" textColor="gray.500">
-                  {nutritionValueUnit}
-                </Text>
+                <Text textColor="gray.500">{nutritionValueUnit}</Text>
               </Flex>
             )}
           </Flex>
@@ -140,5 +143,7 @@ function StatFormField(props: Props) {
     </FormControl>
   )
 }
+
+export type { Props as StatFormFieldProps }
 
 export default StatFormField

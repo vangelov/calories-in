@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 type MealForm = {
   fieldId: string
   name: string
+  notes?: string
   ingredientsForms: IngredientForm[]
 }
 

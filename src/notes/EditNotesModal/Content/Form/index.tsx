@@ -11,23 +11,31 @@ import {
   Collapse,
   Box,
 } from '@chakra-ui/react'
-import { ReactNode, RefObject } from 'react'
+import { RefObject } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useMergeRefs } from '@chakra-ui/react'
 import { useFormError } from 'form'
 import { NotesForm } from 'notes'
 import { useOneTimeCheckActions } from 'general'
+import Header from './Header'
 
 type Props = {
   onClose: () => void
   initialRef: RefObject<HTMLInputElement>
   onEditNotes: (notes: string) => void
   fieldId: string
-
-  header: ReactNode
+  ownerName: string
+  notes?: string
 }
 
-function Content({ header, onClose, initialRef, onEditNotes, fieldId }: Props) {
+function Form({
+  ownerName,
+  notes,
+  onClose,
+  initialRef,
+  onEditNotes,
+  fieldId,
+}: Props) {
   const { register, handleSubmit } = useFormContext()
   const notesRegister = register('notes')
   const notesInputRef = useMergeRefs(notesRegister.ref, initialRef)
@@ -44,7 +52,7 @@ function Content({ header, onClose, initialRef, onEditNotes, fieldId }: Props) {
   return (
     <form onSubmit={onSubmit}>
       <ModalContent>
-        {header}
+        <Header ownerName={ownerName} notes={notes} />
         <ModalCloseButton />
 
         <ModalBody>
@@ -83,4 +91,4 @@ function Content({ header, onClose, initialRef, onEditNotes, fieldId }: Props) {
   )
 }
 
-export default Content
+export default Form

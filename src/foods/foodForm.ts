@@ -2,17 +2,21 @@ import { Food, FoodId } from 'foods'
 import { useForm } from 'react-hook-form'
 import { object, string, number } from 'yup'
 import { objectFromNutritionDataKeys, MappedNutritionData } from 'stats'
+import { FoodVolumeForm, getFoodVolumeForm } from './foodVolumeForm'
 
 type FoodForm = {
   id?: FoodId
   name: string
   categoryId: number
   servingSizeInGrams: string
+  volumeForm: FoodVolumeForm
 } & MappedNutritionData<string>
 
 const DEFAULT_SERVING_SIZE_IN_GRAMS = 100
 
 function getFoodForm(food?: Food) {
+  const volumeForm = getFoodVolumeForm(food?.volume)
+
   if (food) {
     const servingSizeInGrams =
       food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS
@@ -22,6 +26,7 @@ function getFoodForm(food?: Food) {
       name: food.name,
       categoryId: food.categoryId,
       servingSizeInGrams: servingSizeInGrams.toString(),
+      volumeForm,
       ...objectFromNutritionDataKeys(key => food[key].toString()),
     }
   }
@@ -30,8 +35,9 @@ function getFoodForm(food?: Food) {
     name: '',
     categoryId: 0,
     servingSizeInGrams: DEFAULT_SERVING_SIZE_IN_GRAMS.toString(),
-    ...objectFromNutritionDataKeys(key => '0'),
+    ...objectFromNutritionDataKeys(() => '0'),
     energy: '',
+    volumeForm,
   }
 }
 
@@ -65,6 +71,7 @@ const foodFormSchema = object().shape({
     .notOneOf([0], 'Please select category')
     .typeError('Please select category'),
   energy: string().required('Please enter energy'),
+  servingSizeInGrams: string().required('Please enter a value'),
 })
 
 function useFoodForm(foodForm: FoodForm) {

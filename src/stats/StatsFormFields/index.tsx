@@ -35,8 +35,8 @@ function StatsFormFields({
         <Box>
           <Divider my={2} borderColor="gray.400" />
           <Text fontSize="sm">
-            * The % Daily Value (DV) tells you how much nutrient in a serving of
-            food contributes to a daily diet. 2000 calories a day is used for
+            * The % Daily Value (DV) tells you how much a nutrient in a serving
+            of food contributes to a daily diet. 2000 calories a day is used for
             general nutrition advise.{' '}
           </Text>
         </Box>

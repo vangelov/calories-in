@@ -5,8 +5,9 @@ import { FoodId } from 'foods'
 type IngredientForm = {
   fieldId: string
   foodId: FoodId
-  amountInGrams: string
+  amount: string
   notes?: string
+  portionId: string
 }
 
 function getIngredientForm(ingredient: Ingredient): IngredientForm {
@@ -15,7 +16,8 @@ function getIngredientForm(ingredient: Ingredient): IngredientForm {
   return {
     fieldId,
     foodId: ingredient.foodId,
-    amountInGrams: ingredient.amountInGrams.toString(),
+    amount: ingredient.amount.toString(),
+    portionId: ingredient.portionId,
   }
 }
 

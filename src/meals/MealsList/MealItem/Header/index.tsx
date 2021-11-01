@@ -12,9 +12,10 @@ type Props = {
   mealForm: MealForm
   variantIndex: number
   index: number
-  onAddIngredient: (index: number) => void
-  onRemove: (index: number) => void
-  onClone: (index: number) => void
+  onAddIngredient: () => void
+  onRemove: () => void
+  onClone: () => void
+  onEditNotes: () => void
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
   ingredientsStatsSum: Stats
 } & BoxProps
@@ -26,14 +27,17 @@ function Header({
   onRemove,
   onClone,
   onAddIngredient,
+  onEditNotes,
   getMealNameInputRefById,
   ingredientsStatsSum,
   ...rest
 }: Props) {
   const menuItems = getMenuItems({
-    onAddIngredient: () => onAddIngredient(index),
-    onRemove: () => onRemove(index),
-    onClone: () => onClone(index),
+    onAddIngredient,
+    onRemove,
+    onClone,
+    onEditNotes,
+    mealForm,
   })
 
   return (
@@ -55,13 +59,6 @@ function Header({
             mealForm={mealForm}
             getMealNameInputRefById={getMealNameInputRefById}
             index={index}
-          />
-        }
-        amountElement={
-          <Stat
-            type="meal"
-            label="Amount"
-            value={ingredientsStatsSum.amountInGrams}
           />
         }
         energyElement={

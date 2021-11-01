@@ -8,8 +8,8 @@ import {
   foodFormSchema,
   FoodFormSchemaContext,
   getFoodForm,
+  useFoods,
 } from 'foods'
-import { useFoods } from 'foods/useFoodsStore'
 
 type Props = {
   food?: Food

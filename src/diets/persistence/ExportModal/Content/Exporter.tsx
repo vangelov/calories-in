@@ -1,11 +1,12 @@
 import ReactPDF, { PDFViewer, BlobProvider } from '@react-pdf/renderer'
 import PdfDietEditor from 'diets/PdfDietEditor'
-import { useDietForm } from 'diets'
+import { useDietForm, useGetDietFormStatsTree } from 'diets'
 import { useFoods } from 'foods'
 import { useScreenSize, Loader, ScreenSize } from 'general'
 import { useRef } from 'react'
 import { HStack, Text, chakra } from '@chakra-ui/react'
 import { Check } from 'react-feather'
+import { usePortions } from 'portions'
 
 const CheckStyled = chakra(Check)
 
@@ -16,8 +17,11 @@ type Props = {
 function Exporter({ onBlobUpdate }: Props) {
   const dietForm = useDietForm()
   const { foodsById } = useFoods()
+  const { portionsById } = usePortions()
   const screenSize = useScreenSize()
   const isUrlUpdatedRef = useRef(false)
+  const getDietFormStatsTree = useGetDietFormStatsTree()
+  const dietFormStatsTree = getDietFormStatsTree(dietForm)
 
   function onRender({ blob }: ReactPDF.OnRenderProps) {
     if (false === isUrlUpdatedRef.current && blob) {
@@ -30,8 +34,10 @@ function Exporter({ onBlobUpdate }: Props) {
     <PdfDietEditor
       dietForm={dietForm}
       foodsById={foodsById}
+      portionsById={portionsById}
       onRender={onRender}
       subject={JSON.stringify(dietForm)}
+      dietFormStatsTree={dietFormStatsTree}
     />
   )
 

@@ -1,9 +1,9 @@
 import { IngredientForm } from 'ingredients'
 import { Food, FoodInfo } from 'foods'
 import { StatsLayout as StatsLayoutBase, Stat, AmountInput } from 'stats'
-import { RightAligned } from 'layout'
-import { useScreenSize, ScreenSize } from 'general'
 import { ChangeEvent, ReactElement, ReactNode } from 'react'
+import { Portion, PortionsMenuOrDrawer } from 'portions'
+import { Flex } from '@chakra-ui/react'
 
 type Props = {
   energy: number
@@ -12,6 +12,7 @@ type Props = {
   fat: number
   ingredientForm: IngredientForm
   onAmountChange: (event: ChangeEvent<HTMLInputElement>) => void
+  onPortionChange: (portion: Portion) => void
   menuElement: ReactElement
   food: Food
   notes?: string
@@ -25,13 +26,12 @@ function StatsLayout({
   fat,
   ingredientForm,
   onAmountChange,
+  onPortionChange,
   menuElement,
   food,
   notes,
   children,
 }: Props) {
-  const amountInputSize = useScreenSize() >= ScreenSize.Medium ? 'sm' : 'md'
-
   return (
     <StatsLayoutBase
       prefersAmount={true}
@@ -47,13 +47,26 @@ function StatsLayout({
         </FoodInfo>
       }
       amountElement={
-        <RightAligned>
+        <Flex height="100%" alignItems="center">
           <AmountInput
-            size={amountInputSize}
+            size="sm"
             onChange={onAmountChange}
-            value={ingredientForm.amountInGrams}
-          />
-        </RightAligned>
+            value={ingredientForm.amount}
+            mr="-1px"
+            zIndex={1}
+            position="relative"
+            borderTopLeftRadius={6}
+            borderBottomLeftRadius={6}
+            borderTopRightRadius={0}
+            borderBottomRightRadius={0}
+          >
+            <PortionsMenuOrDrawer
+              selectedPortionId={ingredientForm.portionId}
+              onPortionChange={onPortionChange}
+              food={food}
+            />
+          </AmountInput>
+        </Flex>
       }
       energyElement={<Stat type="ingredientEnergy" value={energy} />}
       proteinElement={<Stat type="ingredient" value={protein} />}

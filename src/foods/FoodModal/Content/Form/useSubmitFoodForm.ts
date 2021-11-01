@@ -24,6 +24,16 @@ function useSubmitFoodForm({ onComplete }: Params) {
       ...objectFromNutritionDataKeys(key => Number(foodForm[key])),
     }
 
+    const { volumeForm } = foodForm
+    const volumeWeightInGrams = Number(volumeForm.weightInGrams)
+
+    if (volumeWeightInGrams > 0) {
+      food.volume = {
+        portionId: volumeForm.portionId,
+        weightInGrams: volumeWeightInGrams,
+      }
+    }
+
     if (foodForm.id === undefined) {
       oneTimeCheckActions.set(`food-appear-${food.id}`)
     }

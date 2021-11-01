@@ -3,13 +3,13 @@ import { Flex, FlexProps, useDisclosure } from '@chakra-ui/react'
 import Header from './Header'
 import { RefObject, memo } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
-import { getIngredientFormStatsTree, IngredientsList } from 'ingredients'
+import { IngredientsList } from 'ingredients'
 import { FoodsDrawer } from 'foods'
-import { useFoods } from 'foods'
-import { getStatsTree, useUpdateMealStats } from 'stats'
 import PresenceAnimation from './PresenceAnimation'
 import useMealFormEvents from './useMealFormEvents'
-import { useMemo } from 'react'
+import { EditNotesModal } from 'notes'
+import Notes from './Notes'
+import useGetAndUpdateStats from './useGetAndUpdateStats'
 
 type Props = {
   mealForm: MealForm
@@ -34,7 +34,6 @@ function MealItem({
   ...rest
 }: Props) {
   const foodsDrawerDisclosure = useDisclosure()
-  const { foodsById } = useFoods()
   const mealFormEvents = useMealFormEvents({
     mealForm,
     variantIndex,
@@ -43,30 +42,14 @@ function MealItem({
     onRemove,
     foodsDrawerDisclosure,
   })
+  const editNotesModalDisclosure = useDisclosure()
 
-  const mealFormStatsTree = useMemo(
-    () =>
-      getStatsTree({
-        id: mealForm.fieldId,
-        subtrees: mealForm.ingredientsForms.map(ingredientForm =>
-          getIngredientFormStatsTree(
-            ingredientForm,
-            foodsById[ingredientForm.foodId]
-          )
-        ),
-      }),
-    [mealForm.fieldId, mealForm.ingredientsForms, foodsById]
-  )
+  console.log('meal', variantIndex, index)
 
-  const ingredientsStats = useMemo(
-    () => mealFormStatsTree.subtrees.map(({ stats }) => stats),
-    [mealFormStatsTree]
-  )
-
-  useUpdateMealStats({
-    stats: mealFormStatsTree.stats,
-    selectedVariantFormFieldId,
+  const { mealFormStatsTree, ingredientsStats } = useGetAndUpdateStats({
+    mealForm,
     index,
+    selectedVariantFormFieldId,
   })
 
   return (
@@ -90,7 +73,11 @@ function MealItem({
             borderRadius={10}
             borderWidth="1px"
             backgroundColor="white"
-            boxShadow={snapshot.isDragging ? 'lg' : undefined}
+            boxShadow={
+              snapshot.isDragging
+                ? 'rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.4) 0px 15px 40px'
+                : undefined
+            }
             {...rest}
           >
             <Header
@@ -103,6 +90,7 @@ function MealItem({
               onRemove={mealFormEvents.onRemoveRequest}
               onAddIngredient={foodsDrawerDisclosure.onOpen}
               onClone={mealFormEvents.onClone}
+              onEditNotes={editNotesModalDisclosure.onOpen}
             />
 
             <IngredientsList
@@ -112,6 +100,19 @@ function MealItem({
               mealIndex={index}
               variantIndex={variantIndex}
               onAddIngredients={foodsDrawerDisclosure.onOpen}
+              shouldAddRadiusToLastBottomBorder={!mealForm.notes}
+            />
+
+            {mealForm.notes && <Notes mealForm={mealForm} />}
+
+            <EditNotesModal
+              isOpen={editNotesModalDisclosure.isOpen}
+              onClose={editNotesModalDisclosure.onClose}
+              notes={mealForm.notes}
+              onEditNotes={mealFormEvents.onEditNotes}
+              fieldId={mealForm.fieldId}
+              ownerName={mealForm.name}
+              size="xl"
             />
 
             <FoodsDrawer

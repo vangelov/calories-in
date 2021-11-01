@@ -4,18 +4,13 @@ import Trigger from './Trigger'
 import { useDisclosure } from '@chakra-ui/hooks'
 import Menu from './Menu'
 import { useDietFormActions } from 'diets'
-import { RefObject } from 'react'
 import { VariantForm } from 'variants'
 
 type Props = {
-  getVariantItemRefById: (field: string) => RefObject<HTMLDivElement>
   onVariantFormSelect: (variantForm: VariantForm, index: number) => void
 }
 
-function VariantsMenuOrDrawer({
-  getVariantItemRefById,
-  onVariantFormSelect,
-}: Props) {
+function VariantsMenuOrDrawer({ onVariantFormSelect }: Props) {
   const screenSize = useScreenSize()
   const modalDisclosure = useDisclosure()
   const dietActions = useDietFormActions()

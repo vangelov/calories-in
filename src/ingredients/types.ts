@@ -2,7 +2,8 @@ import { FoodId } from 'foods'
 
 type Ingredient = {
   foodId: FoodId
-  amountInGrams: number
+  amount: number
+  portionId: string
 }
 
 export type { Ingredient }

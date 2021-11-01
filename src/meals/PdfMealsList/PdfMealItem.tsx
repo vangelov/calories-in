@@ -7,6 +7,7 @@ import PdfStat from 'stats/PdfStat'
 import PdfStatsLayout from 'stats/PdfStatsLayout'
 import { Food } from 'foods'
 import PdfIngredientsList from 'ingredients/PdfIngredientsList'
+import { Portion } from 'portions'
 
 type Props = {
   mealForm: MealForm
@@ -14,6 +15,7 @@ type Props = {
   stats: Stats
   ingredientsFormsStats: Stats[]
   foodsById: Record<number, Food>
+  portionsById: Record<string, Portion>
 }
 
 function PdfMealItem({
@@ -22,6 +24,7 @@ function PdfMealItem({
   ingredientsFormsStats,
   style = {},
   foodsById,
+  portionsById,
 }: Props) {
   const { ingredientsForms } = mealForm
 
@@ -57,13 +60,6 @@ function PdfMealItem({
               {mealForm.name || 'Untitled meal'}
             </Text>
           }
-          amountElement={
-            <PdfStat
-              variant="meal"
-              label="Amount"
-              value={stats.amountInGrams}
-            />
-          }
           energyElement={
             <PdfStat variant="mealEnergy" label="Energy" value={stats.energy} />
           }
@@ -80,7 +76,26 @@ function PdfMealItem({
         ingredientsForms={ingredientsForms}
         ingredientsFormsStats={ingredientsFormsStats}
         foodsById={foodsById}
+        portionsById={portionsById}
       />
+      {mealForm.notes && (
+        <View
+          style={[
+            styles.notes,
+            {
+              borderTopColor: getComputedColorFromChakra('gray.100'),
+            },
+          ]}
+        >
+          <Text
+            style={{
+              color: getComputedColorFromChakra('gray.400'),
+            }}
+          >
+            {mealForm.notes}
+          </Text>
+        </View>
+      )}
     </View>
   )
 }
@@ -101,6 +116,11 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderBottomWidth: 1,
+  },
+  notes: {
+    padding: 12,
+    borderTopWidth: 1,
+    fontSize: 12,
   },
 })
 

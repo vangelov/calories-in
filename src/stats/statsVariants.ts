@@ -32,7 +32,7 @@ function getValueTextColor(statVariant: StatVariant) {
     return 'gray.400'
   }
 
-  return 'gray.600'
+  return 'gray.800'
 }
 
 function getValueFontWeight(statVariant: StatVariant) {
@@ -49,7 +49,7 @@ function getValueFontWeight(statVariant: StatVariant) {
 
 function getLabelColor(statVariant: StatVariant) {
   if (isForDiet(statVariant)) {
-    return 'gray.600'
+    return 'gray.800'
   }
 
   return 'gray.400'

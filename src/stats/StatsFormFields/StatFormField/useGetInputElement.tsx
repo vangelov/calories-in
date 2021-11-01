@@ -67,7 +67,7 @@ function useGetInputElement({
       <Controller
         name={name}
         render={({ field }) => (
-          <AmountInput value={field.value} onChange={field.onChange} unit="" />
+          <AmountInput value={field.value} onChange={field.onChange} />
         )}
       />
     )

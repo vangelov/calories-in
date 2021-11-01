@@ -34,11 +34,11 @@ function StatsLayout({
         ref={forwardedRef}
         width="100%"
         gap={0}
-        templateColumns="repeat(10, 1fr)"
+        templateColumns="repeat(11, 1fr)"
         {...rest}
       >
         <GridItem colSpan={4}>{nameElement}</GridItem>
-        <GridItem colSpan={1}>{amountElement}</GridItem>
+        <GridItem colSpan={2}>{amountElement}</GridItem>
         <GridItem colSpan={1}>{energyElement}</GridItem>
         <GridItem colSpan={1}>{proteinElement}</GridItem>
         <GridItem colSpan={1}>{carbsElement}</GridItem>

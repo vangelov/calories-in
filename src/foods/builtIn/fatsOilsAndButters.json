@@ -3,7 +3,7 @@
     "id": 199,
     "name": "Olive oil",
     "categoryId": 11,
-    "energy": 884,
+    "energy": 884, 
     "fat": 100,
     "saturatedFat": 13.808,
     "monounsaturatedFat": 72.961,
@@ -35,7 +35,11 @@
     "zinc": 0,
     "manganese": 0,
     "copper": 0,
-    "choline": 0.3
+    "choline": 0.3,
+    "volume": {
+      "portionId": "tablespoons",
+      "weightInGrams": 13.5
+    }
   },
   {
     "id": 200,
@@ -73,7 +77,11 @@
     "zinc": 0.02,
     "manganese": 0,
     "copper": 0,
-    "choline": 0.3
+    "choline": 0.3,
+    "volume": {
+      "portionId": "cups",
+      "weightInGrams": 218
+    }
   },
   {
     "id": 201,
@@ -111,7 +119,11 @@
     "zinc": 0,
     "manganese": 0,
     "copper": 0,
-    "choline": 0.2
+    "choline": 0.2,
+    "volume": {
+      "portionId": "tablespoons",
+      "weightInGrams": 13.6
+    }
   },
   {
     "id": 202,
@@ -149,7 +161,11 @@
     "zinc": 0.07,
     "manganese": 0,
     "copper": 0,
-    "choline": 0.2
+    "choline": 0.2,
+    "volume": {
+      "portionId": "tablespoons",
+      "weightInGrams": 13.6
+    }
   },
   {
     "id": 203,
@@ -187,7 +203,11 @@
     "zinc": 0,
     "manganese": 0,
     "copper": 0,
-    "choline": 0.2
+    "choline": 0.2,
+    "volume": {
+      "portionId": "teaspoons",
+      "weightInGrams": 4.5
+    }
   },
   {
     "id": 204,
@@ -225,7 +245,11 @@
     "zinc": 0,
     "manganese": 0,
     "copper": 0,
-    "choline": 0
+    "choline": 0,
+    "volume": {
+      "portionId": "teaspoons",
+      "weightInGrams": 4.5
+    }
   },
   {
     "id": 205,
@@ -263,7 +287,11 @@
     "zinc": 0,
     "manganese": 0,
     "copper": 0,
-    "choline": 0
+    "choline": 0,
+    "volume": {
+      "portionId": "cups",
+      "weightInGrams": 218
+    }
   },
   {
     "id": 206,
@@ -301,7 +329,11 @@
     "zinc": 0,
     "manganese": 0,
     "copper": 0,
-    "choline": 0
+    "choline": 0,
+    "volume": {
+      "portionId": "teaspoons",
+      "weightInGrams": 4.5
+    }
   },
   {
     "id": 207,
@@ -339,7 +371,11 @@
     "zinc": 2.78,
     "manganese": 0,
     "copper": 0.515,
-    "choline": 63.5
+    "choline": 63.5,
+    "volume": {
+      "portionId": "tablespoons",
+      "weightInGrams": 16
+    }
   },
   {
     "id": 208,
@@ -377,7 +413,11 @@
     "zinc": 3.29,
     "manganese": 2.131,
     "copper": 0.934,
-    "choline": 52.1
+    "choline": 52.1,
+    "volume": {
+      "portionId": "tablespoons",
+      "weightInGrams": 16
+    }
   },
   {
     "id": 209,
@@ -415,7 +455,11 @@
     "zinc": 4.62,
     "manganese": 1.456,
     "copper": 1.61,
-    "choline": 25.8
+    "choline": 25.8,
+    "volume": {
+      "portionId": "tablespoons",
+      "weightInGrams": 15
+    }
   },
   {
     "id": 210,
@@ -453,7 +497,11 @@
     "zinc": 0.64,
     "manganese": 0.142,
     "copper": 0.19,
-    "choline": 14.2
+    "choline": 14.2,
+    "volume": {
+      "portionId": "cups",
+      "weightInGrams": 230
+    }
   },
   {
     "id": 211,
