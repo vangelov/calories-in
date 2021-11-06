@@ -128,7 +128,9 @@ function FoodsList({
         />
       ) : (
         <Flex flex={1} alignItems="center" justifyContent="center">
-          <Text textColor="gray.400">No foods found</Text>
+          <Text textColor="gray.400" fontWeight="medium">
+            No foods found
+          </Text>
         </Flex>
       )}
     </Flex>

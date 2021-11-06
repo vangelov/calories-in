@@ -8,7 +8,7 @@ type Props = {
 function EmptyList({ onAddIngredients }: Props) {
   return (
     <Flex py={2} px={3} justifyContent="space-between" alignItems="center">
-      <Text fontSize="md" textColor="gray.400">
+      <Text fontSize="md" textColor="gray.400" fontWeight="medium">
         No foods added yet
       </Text>
 

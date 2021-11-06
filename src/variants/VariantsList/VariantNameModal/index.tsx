@@ -24,7 +24,7 @@ function VariantNameModal({ onClose, isOpen, variantFormIndex }: Props) {
       <ModalOverlay />
       <VariantNameFormProvider variantFormIndex={variantFormIndex}>
         <Content
-          title="Rename Day"
+          title="Rename Variant"
           onClose={onClose}
           initialRef={initialRef}
           variantFormIndex={variantFormIndex}

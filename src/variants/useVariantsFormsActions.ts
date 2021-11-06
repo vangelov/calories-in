@@ -27,7 +27,7 @@ function getIndexAfterRemove(selectedIndex: number, indexToRemove: number) {
 }
 
 function getAppendedVariantFormName(variantForms: VariantForm[]) {
-  return getEnumeratedName(`Day ${variantForms.length + 1}`, variantForms)
+  return getEnumeratedName(`Variant ${variantForms.length + 1}`, variantForms)
 }
 
 function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {

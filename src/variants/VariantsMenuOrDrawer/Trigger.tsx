@@ -13,7 +13,7 @@ function Trigger({ forwardedRef, onClick, ...rest }: Props) {
   const isPhone = screenSize <= ScreenSize.Small
 
   return (
-    <Tooltip label="All days">
+    <Tooltip label="All variants">
       <IconButton
         borderRadius="full"
         size="sm"

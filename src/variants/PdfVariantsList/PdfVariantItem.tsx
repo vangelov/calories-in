@@ -11,7 +11,6 @@ import { useMemo } from 'react'
 import { Portion } from 'portions'
 
 type Props = {
-  name?: string
   variantForm: VariantForm
   stats: Stats
   mealsFormsStatsTrees: StatsTree[]
@@ -22,7 +21,6 @@ type Props = {
 }
 
 function PdfVariantItem({
-  name,
   variantForm,
   stats,
   mealsFormsStatsTrees,
@@ -47,7 +45,7 @@ function PdfVariantItem({
               { color: getComputedColorFromChakra('teal.600') },
             ]}
           >
-            {name || variantForm.name}
+            {variantForm.name}
           </Text>
         }
         energyElement={
@@ -79,6 +77,13 @@ function PdfVariantItem({
         }
       />
 
+      <View
+        style={[
+          { backgroundColor: getComputedColorFromChakra('gray.100') },
+          styles.separator,
+        ]}
+      />
+
       <PdfMealsList
         mealsForms={mealsForms}
         mealsFormsStatsTrees={mealsFormsStatsTrees}
@@ -91,9 +96,11 @@ function PdfVariantItem({
 
 const styles = StyleSheet.create({
   name: {
-    fontSize: 18,
-
     fontWeight: 'semibold',
+  },
+  separator: {
+    height: 1,
+    marginTop: 12,
   },
 })
 

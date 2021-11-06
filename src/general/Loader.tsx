@@ -1,16 +1,19 @@
-import { Spinner, Text, HStack } from '@chakra-ui/react'
+import { Spinner, Text, Center, Flex } from '@chakra-ui/react'
 
 type Props = {
   label: string
-  size?: 'md' | 'lg'
 }
 
-function Loader({ label, size = 'md' }: Props) {
+function Loader({ label }: Props) {
   return (
-    <HStack spacing={2}>
-      <Spinner size={size} color="teal" />
-      <Text size={size}>{label}</Text>
-    </HStack>
+    <Center height="200px" spacing={2}>
+      <Flex flexDirection="column" alignItems="center">
+        <Spinner size="lg" color="teal" />
+        <Text mt={4} fontSize="lg" fontWeight="medium">
+          {label}
+        </Text>
+      </Flex>
+    </Center>
   )
 }
 

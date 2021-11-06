@@ -40,7 +40,7 @@ function VariantsList({
 
   return (
     <Flex px={{ base: 0, lg: 3 }}>
-      <Tooltip label="Add day">
+      <Tooltip label="Add variant">
         <IconButton
           borderRadius="full"
           size="sm"

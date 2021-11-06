@@ -3,14 +3,13 @@ import ReactPDF, {
   Page,
   Font,
   StyleSheet,
-  Text,
   View,
 } from '@react-pdf/renderer'
 import { Food } from 'foods'
 import { Portion } from 'portions'
 import { StatsTree } from 'stats/calculations/getStatsTree'
 import { getComputedColorFromChakra } from 'theme'
-import PdfVariantsList from 'variants/PdfVariantsList'
+import PdfVariantItem from 'variants/PdfVariantsList/PdfVariantItem'
 import { DietForm } from './dietForm'
 
 type Props = {
@@ -28,36 +27,28 @@ function PdfDietEditor({
   dietFormStatsTree,
   ...rest
 }: Props) {
-  const { variantsForms } = dietForm
+  const { variantsForms, selectedVariantFormIndex } = dietForm
+  const variantForm = variantsForms[selectedVariantFormIndex]
+  const { stats, subtrees } = dietFormStatsTree.subtrees[
+    selectedVariantFormIndex
+  ]
 
   return (
     <Document {...rest}>
-      <Page style={{ borderWidth: 0 }}>
+      <Page style={styles.page}>
         <View
           style={{
-            alignItems: 'center',
-
             backgroundColor: getComputedColorFromChakra('teal.600'),
-            padding: 12,
-            flexDirection: 'row',
+            height: '10px',
           }}
-        >
-          <Text
-            style={{
-              fontFamily: 'Helvetica-Bold',
-              color: 'white',
-              fontSize: '18px',
-            }}
-          >
-            Dimitar Chikakchiev
-          </Text>
-        </View>
+        />
 
-        <View style={styles.page}>
-          <PdfVariantsList
-            dietForm={dietForm}
-            variantsForms={variantsForms}
-            variantsFormsStatsTrees={dietFormStatsTree.subtrees}
+        <View style={styles.content}>
+          <PdfVariantItem
+            index={0}
+            variantForm={variantForm}
+            stats={stats}
+            mealsFormsStatsTrees={subtrees}
             foodsById={foodsById}
             portionsById={portionsById}
           />
@@ -69,13 +60,10 @@ function PdfDietEditor({
 
 const styles = StyleSheet.create({
   page: {
-    padding: 12,
     fontFamily: 'Roboto',
   },
-  title: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  content: {
+    padding: 12,
   },
 })
 

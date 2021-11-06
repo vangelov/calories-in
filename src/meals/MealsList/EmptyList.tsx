@@ -11,7 +11,7 @@ type Props = {
 function EmptyList({ onAddMeal }: Props) {
   return (
     <Center flex={1} flexDirection="column">
-      <Text fontSize="md" textColor="gray.400">
+      <Text fontSize="md" fontWeight="medium" textColor="gray.400">
         You haven't added any meals yet
       </Text>
       <ResponsiveButton

@@ -8,7 +8,7 @@ type Props = {
 
 function ExportModal({ isOpen, onClose }: Props) {
   return (
-    <Modal size="lg" isOpen={isOpen} onClose={onClose}>
+    <Modal size="sm" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <Content onClose={onClose} />
     </Modal>

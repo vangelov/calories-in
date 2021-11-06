@@ -57,7 +57,8 @@ function PdfIngredientsList({
 const styles = StyleSheet.create({
   emptyListText: {
     padding: 10,
-    fontSize: 12,
+    fontSize: 14,
+    fontWeight: 'medium',
   },
 })
 

@@ -83,18 +83,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   label: {
-    fontSize: 8,
+    fontSize: 10,
     marginBottom: 2,
   },
   unit: {
-    fontSize: 10,
+    fontSize: 12,
   },
   value: {
-    fontSize: 12,
+    fontSize: 14,
   },
   valueDetail: {
     marginTop: '2px',
-    fontSize: 10,
+    fontSize: 12,
   },
   line: {
     position: 'absolute',

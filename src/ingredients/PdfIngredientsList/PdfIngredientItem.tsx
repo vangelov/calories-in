@@ -71,11 +71,11 @@ function PdfIngredientItem({
 const styles = StyleSheet.create({
   root: { paddingTop: 10, paddingBottom: 10 },
   name: {
-    fontSize: 12,
+    fontSize: 14,
   },
   notes: {
     marginTop: 3,
-    fontSize: 10,
+    fontSize: 12,
   },
 })
 

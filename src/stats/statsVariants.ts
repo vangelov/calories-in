@@ -52,7 +52,7 @@ function getLabelColor(statVariant: StatVariant) {
     return 'gray.800'
   }
 
-  return 'gray.400'
+  return 'gray.500'
 }
 
 export {

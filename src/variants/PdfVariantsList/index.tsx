@@ -1,5 +1,4 @@
 import { View } from '@react-pdf/renderer'
-import { DietForm } from 'diets'
 import { Food } from 'foods'
 import { Portion } from 'portions'
 import { ReactElement } from 'react'
@@ -8,7 +7,6 @@ import { VariantForm } from 'variants/variantForm'
 import PdfVariantItem from './PdfVariantItem'
 
 type Props = {
-  dietForm: DietForm
   variantsForms: VariantForm[]
   variantsFormsStatsTrees: StatsTree[]
   foodsById: Record<number, Food>
@@ -16,13 +14,11 @@ type Props = {
 }
 
 function PdfVariantsList({
-  dietForm,
   variantsForms,
   variantsFormsStatsTrees,
   foodsById,
   portionsById,
 }: Props) {
-  const name = variantsForms.length === 1 ? dietForm.name : undefined
   const variantItemsElements: ReactElement[] = []
 
   variantsForms.forEach((variantForm, index) => {
@@ -35,7 +31,6 @@ function PdfVariantsList({
           index={index}
           style={{ marginTop: variantItemsElements.length > 0 ? 50 : 0 }}
           key={variantForm.fieldId}
-          name={name}
           variantForm={variantForm}
           stats={stats}
           mealsFormsStatsTrees={subtrees}

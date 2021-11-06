@@ -1,69 +1,77 @@
-import ReactPDF, { PDFViewer, BlobProvider } from '@react-pdf/renderer'
+import { usePDF } from '@react-pdf/renderer'
 import PdfDietEditor from 'diets/PdfDietEditor'
 import { useDietForm, useGetDietFormStatsTree } from 'diets'
 import { useFoods } from 'foods'
-import { useScreenSize, Loader, ScreenSize } from 'general'
-import { useRef } from 'react'
-import { HStack, Text, chakra } from '@chakra-ui/react'
-import { Check } from 'react-feather'
+import { Loader } from 'general'
+import { useEffect, useState } from 'react'
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+} from '@chakra-ui/react'
 import { usePortions } from 'portions'
 
-const CheckStyled = chakra(Check)
-
 type Props = {
-  onBlobUpdate: (blob: Blob) => void
+  onUpdate: (blob: Blob, url: string) => void
 }
 
-function Exporter({ onBlobUpdate }: Props) {
+function Exporter({ onUpdate }: Props) {
   const dietForm = useDietForm()
   const { foodsById } = useFoods()
   const { portionsById } = usePortions()
-  const screenSize = useScreenSize()
-  const isUrlUpdatedRef = useRef(false)
   const getDietFormStatsTree = useGetDietFormStatsTree()
   const dietFormStatsTree = getDietFormStatsTree(dietForm)
-
-  function onRender({ blob }: ReactPDF.OnRenderProps) {
-    if (false === isUrlUpdatedRef.current && blob) {
-      isUrlUpdatedRef.current = true
-      onBlobUpdate(blob)
-    }
-  }
+  const [isLoading, setIsLoading] = useState(true)
 
   const document = (
     <PdfDietEditor
       dietForm={dietForm}
       foodsById={foodsById}
       portionsById={portionsById}
-      onRender={onRender}
       subject={JSON.stringify(dietForm)}
       dietFormStatsTree={dietFormStatsTree}
     />
   )
 
-  if (screenSize < ScreenSize.Medium) {
-    return (
-      <BlobProvider document={document}>
-        {({ loading }) => {
-          if (loading) {
-            return <Loader label="Exporting..." />
-          }
+  const [instance] = usePDF({ document })
+  const { blob, url } = instance
 
-          return (
-            <HStack spacing={2}>
-              <CheckStyled color="teal" />
-              <Text size="lg">Done</Text>
-            </HStack>
-          )
-        }}
-      </BlobProvider>
-    )
+  useEffect(() => {
+    if (blob && url && !isLoading) {
+      onUpdate(blob, url)
+    }
+  }, [blob, url, isLoading, onUpdate])
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 500)
+  }, [])
+
+  if (isLoading) {
+    return <Loader label="Exporting..." />
   }
 
   return (
-    <PDFViewer showToolbar={false} width="100%" height="300px">
-      {document}
-    </PDFViewer>
+    <Alert
+      status="success"
+      variant="subtle"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      textAlign="center"
+      height="200px"
+      bg="white"
+    >
+      <AlertIcon boxSize="40px" mr={0} />
+      <AlertTitle mt={4} mb={1} fontSize="lg">
+        Your PDF file was successfully created!
+      </AlertTitle>
+      <AlertDescription maxWidth="sm">
+        You can download it or view it in the browser
+      </AlertDescription>
+    </Alert>
   )
 }
 
