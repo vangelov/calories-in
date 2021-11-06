@@ -5,7 +5,6 @@ import ReactPDF, {
   StyleSheet,
   Text,
   View,
-  Link,
 } from '@react-pdf/renderer'
 import { Food } from 'foods'
 import { Portion } from 'portions'
@@ -33,51 +32,35 @@ function PdfDietEditor({
 
   return (
     <Document {...rest}>
-      <Page style={styles.page}>
-        {variantsForms.length > 1 && (
-          <Text
-            style={[
-              styles.title,
-              {
-                color: getComputedColorFromChakra(
-                  dietForm.name ? 'gray.600' : 'gray.400'
-                ),
-              },
-            ]}
-          >
-            {dietForm.name || 'Untitled meal plan'}
-          </Text>
-        )}
-        <PdfVariantsList
-          dietForm={dietForm}
-          variantsForms={variantsForms}
-          variantsFormsStatsTrees={dietFormStatsTree.subtrees}
-          foodsById={foodsById}
-          portionsById={portionsById}
-        />
-
+      <Page style={{ borderWidth: 0 }}>
         <View
-          fixed
           style={{
-            marginTop: 16,
-
             alignItems: 'center',
+
+            backgroundColor: getComputedColorFromChakra('teal.600'),
+            padding: 12,
+            flexDirection: 'row',
           }}
         >
           <Text
             style={{
-              fontSize: 12,
-              color: getComputedColorFromChakra('gray.800'),
+              fontFamily: 'Helvetica-Bold',
+              color: 'white',
+              fontSize: '18px',
             }}
           >
-            Created using:{' '}
-            <Link
-              style={{ color: getComputedColorFromChakra('teal.500') }}
-              src="http://caorories-in.com"
-            >
-              http://calories-in.com
-            </Link>
+            Dimitar Chikakchiev
           </Text>
+        </View>
+
+        <View style={styles.page}>
+          <PdfVariantsList
+            dietForm={dietForm}
+            variantsForms={variantsForms}
+            variantsFormsStatsTrees={dietFormStatsTree.subtrees}
+            foodsById={foodsById}
+            portionsById={portionsById}
+          />
         </View>
       </Page>
     </Document>

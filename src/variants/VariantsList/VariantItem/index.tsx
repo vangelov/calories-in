@@ -78,11 +78,12 @@ function VariantItem({
           >
             <ContextMenuFlex
               ref={mergeRefs(refs)}
-              bg={isSelected ? 'gray.100' : 'white'}
+              bg={isSelected ? 'gray.50' : 'white'}
               _hover={{ bg: isSelected ? 'gray.100' : 'gray.50' }}
               borderRadius="full"
               fontWeight="medium"
               borderWidth="1px"
+              borderColor={isSelected ? 'teal.500' : 'gray.200'}
               onClick={variantFormEvents.onClick}
               px={3}
               cursor="pointer"
@@ -97,6 +98,7 @@ function VariantItem({
                   noOfLines={1}
                   flexShrink={0}
                   fontSize="sm"
+                  textColor={isSelected ? 'teal.600' : 'gray.600'}
                 >
                   {children}
                 </Text>

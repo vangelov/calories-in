@@ -18,7 +18,7 @@ function DietEditor() {
       >
         <MealsStatsStoreProvider>
           <DndContextProvider>
-            <Form isEditingExistingDiet={false} />
+            <Form />
           </DndContextProvider>
         </MealsStatsStoreProvider>
       </DietFormStoreProvider>

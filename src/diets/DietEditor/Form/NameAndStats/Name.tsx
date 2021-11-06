@@ -1,29 +1,42 @@
-import { Input, Flex } from '@chakra-ui/react'
-import { useDietForm, useDietFormActions } from 'diets'
-import { ChangeEvent } from 'react'
+import { Flex, Heading, Button } from '@chakra-ui/react'
+import { useDietForm } from 'diets'
+import { ScreenSize, useScreenSize } from 'general'
+import { Share } from 'react-feather'
 
-function Name() {
+type Props = {
+  canExport: boolean
+  onExport: () => void
+}
+
+function Name({ canExport, onExport }: Props) {
   const dietForm = useDietForm()
-  const dietFormActions = useDietFormActions()
-
-  function onNameChange(event: ChangeEvent<HTMLInputElement>) {
-    const { value } = event.target
-    dietFormActions.updateDietForm({ name: value })
-  }
+  const variantForm = dietForm.variantsForms[dietForm.selectedVariantFormIndex]
+  const screenSize = useScreenSize()
 
   return (
     <Flex height="100%" alignItems="center">
-      <Input
-        placeholder="Meal plan name"
-        size="md"
-        fontSize="md"
-        fontWeight="semibold"
-        autoComplete="off"
-        textColor="gray.600"
-        onChange={onNameChange}
-        bg="white"
-        value={dietForm.name}
-      />
+      <Heading
+        wordBreak="break-all"
+        fontSize={screenSize >= ScreenSize.Medium ? '24px' : '20px'}
+        color="teal.600"
+      >
+        {variantForm.name}
+      </Heading>
+      {screenSize >= ScreenSize.Medium && (
+        <Button
+          flexShrink={0}
+          colorScheme="teal"
+          size="sm"
+          variant="solid"
+          ml={3}
+          mr={3}
+          isDisabled={!canExport}
+          onClick={onExport}
+          leftIcon={<Share size={20} pointerEvents="none" />}
+        >
+          Export
+        </Button>
+      )}
     </Flex>
   )
 }

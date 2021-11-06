@@ -44,7 +44,7 @@ function PdfVariantItem({
           <Text
             style={[
               styles.name,
-              { color: getComputedColorFromChakra('gray.600') },
+              { color: getComputedColorFromChakra('teal.600') },
             ]}
           >
             {name || variantForm.name}
@@ -91,7 +91,8 @@ function PdfVariantItem({
 
 const styles = StyleSheet.create({
   name: {
-    fontSize: 12,
+    fontSize: 18,
+
     fontWeight: 'semibold',
   },
 })

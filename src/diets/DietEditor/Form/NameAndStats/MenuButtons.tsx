@@ -1,19 +1,26 @@
 import { chakra } from '@chakra-ui/react'
-import { MoreHorizontal, FilePlus, Download, List } from 'react-feather'
+import { MoreHorizontal, FilePlus, Download, List, Info } from 'react-feather'
 import { Menu, MenuItem, ResponsiveIconButton } from 'general'
 
 const DownloadStyled = chakra(Download)
 const ListStyled = chakra(List)
 const FilePlusStyled = chakra(FilePlus)
 const MoreHorizontalStyled = chakra(MoreHorizontal)
+const InfoStyled = chakra(Info)
 
 type Props = {
   onImport: () => void
   onClear: () => void
   onViewFoods: () => void
+  onVariantDetails: () => void
 }
 
-function MenuButtons({ onImport, onClear, onViewFoods }: Props) {
+function MenuButtons({
+  onImport,
+  onClear,
+  onViewFoods,
+  onVariantDetails,
+}: Props) {
   return (
     <Menu
       arrow
@@ -21,13 +28,16 @@ function MenuButtons({ onImport, onClear, onViewFoods }: Props) {
       viewScroll="close"
       menuButton={
         <ResponsiveIconButton
-          mr={2}
           aria-label="Meal plan actions"
           icon={<MoreHorizontalStyled size={20} pointerEvents="none" />}
           variant="outline"
         />
       }
     >
+      <MenuItem onClick={onVariantDetails}>
+        <InfoStyled pointerEvents="none" mr={3} />
+        View variant details
+      </MenuItem>
       <MenuItem onClick={onClear}>
         <FilePlusStyled pointerEvents="none" mr={3} />
         New meal plan

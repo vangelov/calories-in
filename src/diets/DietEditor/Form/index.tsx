@@ -11,18 +11,15 @@ import { useSaveValue } from 'persistence'
 import useDietFormEvents from './useDietFormEvents'
 import useVariantFormEvents from './useVariantFormActions'
 import { Divider, Box } from '@chakra-ui/react'
-import { useElementHeight } from 'general'
+import { ScreenSize, useElementHeight, useScreenSize } from 'general'
 import { canExportDietForm } from 'diets/persistence'
 
-type Props = {
-  isEditingExistingDiet: boolean
-}
-
-function Form({ isEditingExistingDiet }: Props) {
+function Form() {
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
   const dietForm = useDietForm()
   const { variantsForms } = dietForm
   const selectedVariantForm = variantsForms[dietForm.selectedVariantFormIndex]
+  const screenSize = useScreenSize()
 
   const scrollManager = useScrollManager({
     selectedVariantForm,
@@ -50,10 +47,12 @@ function Form({ isEditingExistingDiet }: Props) {
           <Box ref={headerRef} bg="white" px={{ base: 0, lg: 3 }}>
             <NameAndStats
               selectedVariantForm={selectedVariantForm}
-              isEditingExistingDiet={isEditingExistingDiet}
+              canExport={canExportDietForm(dietForm)}
             />
-            <Divider />
-            <Controls canExport={canExportDietForm(dietForm)} />
+            {screenSize <= ScreenSize.Small && <Divider />}
+            {screenSize <= ScreenSize.Small && (
+              <Controls canExport={canExportDietForm(dietForm)} />
+            )}
           </Box>
         </PageHeader>
 

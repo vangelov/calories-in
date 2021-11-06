@@ -34,6 +34,7 @@ function Menu({
           {...rest}
           size="xs"
           borderRadius="full"
+          color={isSelected ? 'teal.600' : 'gray.800'}
           _hover={{ backgroundColor: isSelected ? 'gray.200' : 'gray.100' }}
         />
       }
