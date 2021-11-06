@@ -2,6 +2,7 @@ import { Text, StyleSheet, View } from '@react-pdf/renderer'
 import { Food, FoodId } from 'foods'
 import { IngredientForm } from 'ingredients'
 import { Portion } from 'portions'
+import { getAmountFromPortionToGrams } from 'portions/useGetAmount'
 import { Stats } from 'stats'
 import PdfStat from 'stats/PdfStat'
 import PdfStatsLayout from 'stats/PdfStatsLayout'
@@ -14,13 +15,48 @@ type Props = {
   portionsById: Record<string, Portion>
 }
 
+const UNITS_WITH_DISTANCE = ['oz', 'tsp', 'tbsp', 'fl oz', 'c']
+
+function getTest(
+  portion: Portion,
+  amount: string,
+  portionsById: Record<string, Portion>,
+  food: Food
+) {
+  const { gramsPerAmount, millilitersPerAmount } = portion
+
+  const weightInGrams = Math.round(
+    getAmountFromPortionToGrams(Number(amount), portion.id, food, portionsById)
+  )
+
+  if (gramsPerAmount) {
+    const a = `${amount}${
+      UNITS_WITH_DISTANCE.includes(portion.unit) ? ' ' : ''
+    }${portion.unit}`
+
+    if (gramsPerAmount !== 1) {
+      return `${a} (${weightInGrams}g)`
+    }
+
+    return a
+  }
+
+  if (millilitersPerAmount) {
+    return `${amount}${UNITS_WITH_DISTANCE.includes(portion.unit) ? ' ' : ''}${
+      portion.unit
+    } (${weightInGrams}g)`
+  }
+
+  return ''
+}
+
 function PdfIngredientItem({
   ingredientForm,
   stats,
   foodsById,
   portionsById,
 }: Props) {
-  const { portionId, foodId } = ingredientForm
+  const { portionId, foodId, amount } = ingredientForm
   const food = foodsById[foodId]
   const portion = portionsById[portionId]
 
@@ -35,7 +71,7 @@ function PdfIngredientItem({
                 { color: getComputedColorFromChakra('gray.600') },
               ]}
             >
-              {food.name}
+              {getTest(portion, amount, portionsById, food)} {food.name}
             </Text>
 
             {ingredientForm.notes ? (
@@ -49,13 +85,6 @@ function PdfIngredientItem({
               </Text>
             ) : null}
           </View>
-        }
-        amountElement={
-          <PdfStat
-            variant="ingredientAmount"
-            value={Number(ingredientForm.amount)}
-            unit={portion.unit}
-          />
         }
         energyElement={
           <PdfStat variant="ingredientEnergy" value={stats.energy} />

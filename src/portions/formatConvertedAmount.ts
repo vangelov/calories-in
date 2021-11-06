@@ -5,7 +5,7 @@ function formatConvertedAmount(amount: number, newPortion: Portion): string {
     return Math.round(amount).toString()
   }
 
-  const amountStringFixedTo2 = amount.toFixed(2)
+  const amountStringFixedTo2 = amount.toFixed(1)
   const amountFixedTo2 = Number(amountStringFixedTo2)
 
   return Number.isInteger(amountFixedTo2)

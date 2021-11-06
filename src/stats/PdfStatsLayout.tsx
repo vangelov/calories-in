@@ -3,7 +3,7 @@ import { ReactElement } from 'react'
 
 type Props = {
   nameElement: ReactElement
-  amountElement?: ReactElement
+
   energyElement: ReactElement
   proteinElement: ReactElement
   carbsElement: ReactElement
@@ -12,7 +12,7 @@ type Props = {
 
 function PdfStatsLayout({
   nameElement,
-  amountElement = <View />,
+
   energyElement,
   proteinElement,
   carbsElement,
@@ -21,7 +21,6 @@ function PdfStatsLayout({
   return (
     <View style={styles.root}>
       <View style={styles.name}>{nameElement}</View>
-      <View style={styles.macro}>{amountElement}</View>
       <View style={styles.macro}>{energyElement}</View>
       <View style={styles.macro}>{proteinElement}</View>
       <View style={styles.macro}>{carbsElement}</View>
@@ -30,8 +29,8 @@ function PdfStatsLayout({
   )
 }
 
-const NAME_WIDTH = '35%'
-const MACROS_COUNT = 5
+const NAME_WIDTH = '50%'
+const MACROS_COUNT = 4
 const MACRO_WIDTH = `${(100 - parseInt(NAME_WIDTH, 10)) / MACROS_COUNT}%`
 
 const styles = StyleSheet.create({
