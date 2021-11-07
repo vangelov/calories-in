@@ -29,7 +29,7 @@ function MainLayout({ children }: MainLayoutProps) {
           height="100vh"
           position="fixed"
           width="200px"
-          bg="teal.600"
+          bg="teal.500"
         />
       )}
 

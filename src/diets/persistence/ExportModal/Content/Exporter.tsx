@@ -16,6 +16,17 @@ type Props = {
   onUpdate: (blob: Blob, url: string) => void
 }
 
+function isReady(
+  data: {
+    blob: Blob | null
+    url: string | null
+  },
+  isLoading: boolean
+): data is { blob: Blob; url: string } {
+  const { blob, url } = data
+  return blob !== null && url !== null && !isLoading
+}
+
 function Exporter({ onUpdate }: Props) {
   const dietForm = useDietForm()
   const { foodsById } = useFoods()
@@ -35,13 +46,14 @@ function Exporter({ onUpdate }: Props) {
   )
 
   const [instance] = usePDF({ document })
-  const { blob, url } = instance
+
+  console.log('i', instance)
 
   useEffect(() => {
-    if (blob && url && !isLoading) {
-      onUpdate(blob, url)
+    if (isReady(instance, isLoading)) {
+      onUpdate(instance.blob, instance.url)
     }
-  }, [blob, url, isLoading, onUpdate])
+  }, [onUpdate, instance, isLoading])
 
   useEffect(() => {
     setTimeout(() => {
@@ -49,7 +61,7 @@ function Exporter({ onUpdate }: Props) {
     }, 500)
   }, [])
 
-  if (isLoading) {
+  if (!isReady(instance, isLoading)) {
     return <Loader label="Exporting..." />
   }
 
@@ -66,7 +78,7 @@ function Exporter({ onUpdate }: Props) {
     >
       <AlertIcon boxSize="40px" mr={0} />
       <AlertTitle mt={4} mb={1} fontSize="lg">
-        Your PDF file was successfully created!
+        Your PDF file is ready!
       </AlertTitle>
       <AlertDescription maxWidth="sm">
         You can download it or view it in the browser

@@ -38,8 +38,8 @@ function PdfDietEditor({
       <Page style={styles.page}>
         <View
           style={{
-            backgroundColor: getComputedColorFromChakra('teal.600'),
-            height: '10px',
+            backgroundColor: getComputedColorFromChakra('teal.500'),
+            height: '8px',
           }}
         />
 
