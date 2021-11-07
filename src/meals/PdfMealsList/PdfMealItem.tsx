@@ -79,6 +79,7 @@ function PdfMealItem({
         foodsById={foodsById}
         portionsById={portionsById}
       />
+
       {mealForm.notes && (
         <View
           style={[

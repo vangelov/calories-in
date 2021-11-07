@@ -1,9 +1,7 @@
-import { usePDF } from '@react-pdf/renderer'
 import PdfDietEditor from 'diets/PdfDietEditor'
 import { useDietForm, useGetDietFormStatsTree } from 'diets'
 import { useFoods } from 'foods'
 import { Loader } from 'general'
-import { useEffect, useState } from 'react'
 import {
   Alert,
   AlertIcon,
@@ -11,20 +9,10 @@ import {
   AlertDescription,
 } from '@chakra-ui/react'
 import { usePortions } from 'portions'
+import usePdfExport from './usePdfExport'
 
 type Props = {
   onUpdate: (blob: Blob, url: string) => void
-}
-
-function isReady(
-  data: {
-    blob: Blob | null
-    url: string | null
-  },
-  isLoading: boolean
-): data is { blob: Blob; url: string } {
-  const { blob, url } = data
-  return blob !== null && url !== null && !isLoading
 }
 
 function Exporter({ onUpdate }: Props) {
@@ -33,7 +21,6 @@ function Exporter({ onUpdate }: Props) {
   const { portionsById } = usePortions()
   const getDietFormStatsTree = useGetDietFormStatsTree()
   const dietFormStatsTree = getDietFormStatsTree(dietForm)
-  const [isLoading, setIsLoading] = useState(true)
 
   const document = (
     <PdfDietEditor
@@ -45,29 +32,15 @@ function Exporter({ onUpdate }: Props) {
     />
   )
 
-  const [instance] = usePDF({ document })
+  const { isLoading, error } = usePdfExport({ document, onUpdate })
 
-  console.log('i', instance)
-
-  useEffect(() => {
-    if (isReady(instance, isLoading)) {
-      onUpdate(instance.blob, instance.url)
-    }
-  }, [onUpdate, instance, isLoading])
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, 500)
-  }, [])
-
-  if (!isReady(instance, isLoading)) {
+  if (isLoading) {
     return <Loader label="Exporting..." />
   }
 
   return (
     <Alert
-      status="success"
+      status={error ? 'error' : 'success'}
       variant="subtle"
       flexDirection="column"
       alignItems="center"
@@ -78,11 +51,15 @@ function Exporter({ onUpdate }: Props) {
     >
       <AlertIcon boxSize="40px" mr={0} />
       <AlertTitle mt={4} mb={1} fontSize="lg">
-        Your PDF file is ready!
+        {error
+          ? 'Something went wrong while creating your pdf file'
+          : 'Your PDF file is ready!'}
       </AlertTitle>
-      <AlertDescription maxWidth="sm">
-        You can download it or view it in the browser
-      </AlertDescription>
+      {!error && (
+        <AlertDescription maxWidth="sm">
+          You can download it or view it in the browser
+        </AlertDescription>
+      )}
     </Alert>
   )
 }
