@@ -43,14 +43,8 @@ function Form() {
       onRedo={dietFormEvents.onUndoOrRedo}
     >
       <Page>
-        <PageHeader>
-          <Box
-            ref={headerRef}
-            bg="white"
-            borderTopWidth="8px"
-            borderTopColor="teal.500"
-            px={{ base: 0, lg: 3 }}
-          >
+        <PageHeader ref={headerRef}>
+          <Box bg="white" borderTopWidth="8px" borderTopColor="teal.500" px={3}>
             <NameAndStats
               selectedVariantForm={selectedVariantForm}
               canExport={canExportDietForm(dietForm)}

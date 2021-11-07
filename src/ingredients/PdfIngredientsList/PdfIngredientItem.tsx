@@ -74,7 +74,7 @@ function PdfIngredientItem({
               {getTest(portion, amount, portionsById, food)} {food.name}
             </Text>
 
-            {ingredientForm.notes ? (
+            {ingredientForm.notes && (
               <Text
                 style={[
                   styles.notes,
@@ -83,7 +83,7 @@ function PdfIngredientItem({
               >
                 {ingredientForm.notes}
               </Text>
-            ) : null}
+            )}
           </View>
         }
         energyElement={

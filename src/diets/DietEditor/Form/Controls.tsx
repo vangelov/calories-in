@@ -1,4 +1,4 @@
-import { Flex, useDisclosure } from '@chakra-ui/react'
+import { Flex, useDisclosure, Button } from '@chakra-ui/react'
 import { useKeyboard, UndoRedoButtons } from 'undoRedo'
 import { ExportModal } from 'diets/persistence'
 import {
@@ -7,7 +7,6 @@ import {
   useImportFoods,
 } from 'foods/persistence'
 import { FoodsDrawer } from 'foods'
-import { ResponsiveButton } from 'general'
 import { Share } from 'react-feather'
 
 type Props = {
@@ -32,15 +31,16 @@ function Controls({ canExport }: Props) {
     >
       <UndoRedoButtons />
 
-      <ResponsiveButton
+      <Button
         isDisabled={!canExport}
         leftIcon={<Share size={20} pointerEvents="none" />}
         variant="solid"
         colorScheme="teal"
         onClick={exportModalDisclosure.onOpen}
+        size="sm"
       >
         Export
-      </ResponsiveButton>
+      </Button>
 
       <ExportModal
         isOpen={exportModalDisclosure.isOpen}

@@ -1,5 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react'
-import { ResponsiveButton } from 'general'
+import { Flex, Text, Button } from '@chakra-ui/react'
 
 type Props = {
   onAddIngredients: () => void
@@ -12,13 +11,9 @@ function EmptyList({ onAddIngredients }: Props) {
         No foods added yet
       </Text>
 
-      <ResponsiveButton
-        colorScheme="teal"
-        variant="ghost"
-        onClick={onAddIngredients}
-      >
+      <Button colorScheme="teal" variant="ghost" onClick={onAddIngredients}>
         Add foods
-      </ResponsiveButton>
+      </Button>
     </Flex>
   )
 }

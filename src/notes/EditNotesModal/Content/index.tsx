@@ -5,10 +5,11 @@ import Form from './Form'
 type Props = {
   onClose: () => void
   initialRef: RefObject<HTMLInputElement>
-  onEditNotes: (notes: string) => void
+  onEditNotes: (notes?: string) => void
   fieldId: string
   ownerName: string
   notes?: string
+  textAreaHeight?: string | number
 }
 
 function Content({
@@ -18,6 +19,7 @@ function Content({
   onEditNotes,
   fieldId,
   notes,
+  textAreaHeight,
 }: Props) {
   return (
     <NotesFormProvider notes={notes}>
@@ -28,6 +30,7 @@ function Content({
         onEditNotes={onEditNotes}
         initialRef={initialRef}
         fieldId={fieldId}
+        textAreaHeight={textAreaHeight}
       />
     </NotesFormProvider>
   )

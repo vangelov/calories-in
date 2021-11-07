@@ -6,9 +6,10 @@ type Props = {
   onClose: () => void
   isOpen: boolean
   notes?: string
-  onEditNotes: (notes: string) => void
+  onEditNotes: (notes?: string) => void
   fieldId: string
   ownerName: string
+  textAreaHeight?: string | number
 } & Omit<ModalProps, 'children'>
 
 function EditNotesModal({
@@ -18,6 +19,7 @@ function EditNotesModal({
   onEditNotes,
   fieldId,
   ownerName,
+  textAreaHeight,
   ...rest
 }: Props) {
   const initialRef = useRef<HTMLInputElement>(null)
@@ -41,6 +43,7 @@ function EditNotesModal({
         fieldId={fieldId}
         notes={notes}
         ownerName={ownerName}
+        textAreaHeight={textAreaHeight}
       />
     </Modal>
   )

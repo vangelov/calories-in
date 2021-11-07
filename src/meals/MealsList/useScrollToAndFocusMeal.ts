@@ -5,6 +5,7 @@ import { Food } from 'foods'
 import { useDietFormActions } from 'diets'
 import { UseDisclosureReturn } from '@chakra-ui/hooks'
 import { getIngredient } from 'ingredients'
+import { isMobile } from 'react-device-detect'
 
 type Params = {
   getMealNameInputRefById: (id: string) => RefObject<HTMLInputElement>
@@ -35,7 +36,7 @@ function useScrollToAndFocusMeal({
         await scrollTo(scrollTargetRef.current)
       }
 
-      if (mealNameInputRef.current) {
+      if (mealNameInputRef.current && !isMobile) {
         mealNameInputRef.current.setSelectionRange(
           0,
           mealNameInputRef.current.value.length

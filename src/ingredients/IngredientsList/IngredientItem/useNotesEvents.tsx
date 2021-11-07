@@ -25,7 +25,7 @@ function useNotesEvents({
     `notes-${ingredientForm.fieldId}`
   )
 
-  function onEditNotes(notes: string) {
+  function onEditNotes(notes?: string) {
     if (ingredientForm.notes) {
       ref.current = notes
       setAreNotesVisible(false)

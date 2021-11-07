@@ -1,5 +1,4 @@
-import { Flex, Text, chakra } from '@chakra-ui/react'
-import { ResponsiveButton } from 'general'
+import { Flex, Text, chakra, Button } from '@chakra-ui/react'
 import { MealForm } from 'meals'
 import { Plus } from 'react-feather'
 
@@ -16,14 +15,15 @@ function MealsControls({ mealsForms, onAddMeal }: Props) {
       <Text fontWeight="semibold" textColor="gray.500">
         {`${mealsForms.length} ${mealsForms.length === 1 ? 'meal' : 'meals'}`}
       </Text>
-      <ResponsiveButton
+      <Button
         colorScheme="teal"
         variant="outline"
         onClick={onAddMeal}
+        size="sm"
         leftIcon={<PlusStyled size={20} pointerEvents="none" />}
       >
         Add meal
-      </ResponsiveButton>
+      </Button>
     </Flex>
   )
 }

@@ -1,10 +1,8 @@
-import { FoodInfo } from 'foods'
-import { Flex, FlexProps, Box, chakra } from '@chakra-ui/react'
-import { Food } from 'foods'
+import { FoodInfo, Food } from 'foods'
+import { Flex, FlexProps, Box, chakra, IconButton } from '@chakra-ui/react'
 import { Info } from 'react-feather'
 import { MouseEvent } from 'react'
-import { ResponsiveIconButton, Tooltip } from 'general'
-import { useOneTimeCheckActions } from 'general'
+import { useOneTimeCheckActions, Tooltip } from 'general'
 import DisappearingBox from './DisappearingBox'
 import AnimateAppear from './AnimateAppear'
 
@@ -89,7 +87,7 @@ function FoodItem({
           />
           {usageType === 'selectOrPreview' && (
             <Tooltip label="Food details">
-              <ResponsiveIconButton
+              <IconButton
                 aria-label="Food details"
                 icon={<InfoStyled color="gray.400" pointerEvents="none" />}
                 variant="ghost"

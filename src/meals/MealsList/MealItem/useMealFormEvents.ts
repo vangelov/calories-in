@@ -47,7 +47,7 @@ function useMealFormEvents({
     dietFormActions.duplicateMealForm(variantIndex, index)
   }
 
-  function onEditNotes(notes: string) {
+  function onEditNotes(notes?: string) {
     toast({
       status: 'success',
       position: 'top',

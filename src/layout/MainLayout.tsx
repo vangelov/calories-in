@@ -37,7 +37,6 @@ function MainLayout({ children }: MainLayoutProps) {
         <Box
           ref={contentBoxRef}
           bg={{ base: 'white', lg: 'gray.50' }}
-          px={3}
           ml={hasSideNavigation ? '200px' : 0}
         >
           {children}

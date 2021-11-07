@@ -8,7 +8,7 @@ type Props = {
 
 function ResponsiveButton({ forwardedRef, ...rest }: Props) {
   const screenSize = useScreenSize()
-  const size = screenSize >= ScreenSize.Medium ? 'sm' : 'md'
+  const size = screenSize >= ScreenSize.Medium ? 'sm' : 'sm'
 
   return <Button ref={forwardedRef} size={size} {...rest} />
 }

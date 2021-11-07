@@ -100,7 +100,7 @@ function Content({
             Close
           </Button>
           {canSelect && (
-            <Button size="md" colorScheme="teal" onClick={onAdd}>
+            <Button colorScheme="teal" onClick={onAdd}>
               Add
             </Button>
           )}

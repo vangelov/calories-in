@@ -1,7 +1,6 @@
 import { StatsLayout as StatsLayoutBase } from 'stats'
 import { RightAligned } from 'layout'
-import { ResponsiveButton } from 'general'
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Text, Button } from '@chakra-ui/react'
 
 type Props = {
   onRemoveRequest: () => void
@@ -25,7 +24,7 @@ function MissingStatsLayout({ onRemoveRequest }: Props) {
       fatElement={<div />}
       menuElement={
         <RightAligned>
-          <ResponsiveButton
+          <Button
             mr={3}
             alignSelf="flex-end"
             variant="outline"
@@ -33,7 +32,7 @@ function MissingStatsLayout({ onRemoveRequest }: Props) {
             onClick={onRemoveRequest}
           >
             Remove
-          </ResponsiveButton>
+          </Button>
         </RightAligned>
       }
     />

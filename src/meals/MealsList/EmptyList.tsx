@@ -1,6 +1,5 @@
-import { Text, Center, chakra } from '@chakra-ui/react'
+import { Text, Center, chakra, Button } from '@chakra-ui/react'
 import { Plus } from 'react-feather'
-import { ResponsiveButton } from 'general'
 
 const PlusStyled = chakra(Plus)
 
@@ -14,15 +13,16 @@ function EmptyList({ onAddMeal }: Props) {
       <Text fontSize="md" fontWeight="medium" textColor="gray.400">
         You haven't added any meals yet
       </Text>
-      <ResponsiveButton
+      <Button
         mt={3}
         onClick={onAddMeal}
         colorScheme="teal"
         variant="outline"
+        size="sm"
         leftIcon={<PlusStyled size={20} pointerEvents="none" />}
       >
         Add meal
-      </ResponsiveButton>
+      </Button>
     </Center>
   )
 }

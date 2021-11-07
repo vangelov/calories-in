@@ -1,6 +1,6 @@
-import { ButtonProps } from '@chakra-ui/react'
+import { ButtonProps, IconButton } from '@chakra-ui/react'
 import { RightAligned } from 'layout'
-import { ResponsiveIconButton, Menu as MenuBase, MenuItem } from 'general'
+import { Menu as MenuBase, MenuItem } from 'general'
 import { MoreHorizontal } from 'react-feather'
 import { ReactElement } from 'react'
 
@@ -17,10 +17,11 @@ function Menu({ items, ...rest }: Props) {
         viewScroll="close"
         portal={true}
         menuButton={
-          <ResponsiveIconButton
+          <IconButton
             aria-label="Food actions"
             icon={<MoreHorizontal size={20} pointerEvents="none" />}
             variant="ghost"
+            size="sm"
             {...rest}
           />
         }

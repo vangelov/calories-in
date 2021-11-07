@@ -39,7 +39,7 @@ function VariantsList({
   const scrollState = useScrollState()
 
   return (
-    <Flex px={{ base: 0, lg: 3 }}>
+    <Flex px={3}>
       <Tooltip label="Add variant">
         <IconButton
           borderRadius="full"
