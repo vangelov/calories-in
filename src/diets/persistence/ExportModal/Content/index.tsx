@@ -75,7 +75,7 @@ function Content({ onClose }: Props) {
             </Button>
           )}
 
-          <Button isFullWidth={true} variant="solid" onClick={onViewInBrowser}>
+          <Button isFullWidth={true} variant="solid" onClick={onClose}>
             Close
           </Button>
         </VStack>

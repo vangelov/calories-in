@@ -42,6 +42,7 @@ function StatsLayout({
           fontSize={{ base: 'sm', md: 'md' }}
           food={food}
           notes={notes}
+          canBeLink={true}
         >
           {children}
         </FoodInfo>

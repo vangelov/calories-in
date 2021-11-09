@@ -101,7 +101,7 @@ function Content({
           </Button>
           {canSelect && (
             <Button colorScheme="teal" onClick={onAdd}>
-              Add
+              Add these foods
             </Button>
           )}
         </HStack>

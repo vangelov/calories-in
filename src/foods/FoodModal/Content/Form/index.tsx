@@ -95,7 +95,7 @@ function Form({
           {isEditing && food && (
             <Box>
               <Divider />
-              <Button width="100%" my={3} colorScheme="red" onClick={onDelete}>
+              <Button width="100%" my={6} colorScheme="red" onClick={onDelete}>
                 Delete food
               </Button>
             </Box>

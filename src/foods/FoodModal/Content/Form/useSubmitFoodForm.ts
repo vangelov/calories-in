@@ -21,6 +21,7 @@ function useSubmitFoodForm({ onComplete }: Params) {
       categoryId: foodForm.categoryId,
       addedByUser: true,
       servingSizeInGrams: Number(foodForm.servingSizeInGrams),
+      url: foodForm.url,
       ...objectFromNutritionDataKeys(key => Number(foodForm[key])),
     }
 

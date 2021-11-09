@@ -1,4 +1,4 @@
-import { Text, StyleSheet, View } from '@react-pdf/renderer'
+import { Text, StyleSheet, View, Link } from '@react-pdf/renderer'
 import { Food, FoodId } from 'foods'
 import { IngredientForm } from 'ingredients'
 import { Portion, getIngredientPortionDescription } from 'portions'
@@ -28,19 +28,39 @@ function PdfIngredientItem({
       <PdfStatsLayout
         nameElement={
           <View style={{ marginLeft: 10 }}>
-            <Text
-              style={[
-                styles.name,
-                { color: getComputedColorFromChakra('gray.600') },
-              ]}
-            >
-              {getIngredientPortionDescription(
-                ingredientForm,
-                foodsById,
-                portionsById
-              )}{' '}
-              {food.name}
-            </Text>
+            {food.url ? (
+              <Link
+                src={food.url}
+                style={[
+                  styles.name,
+                  {
+                    color: getComputedColorFromChakra('teal.600'),
+                    textDecoration: 'none',
+                  },
+                ]}
+              >
+                {getIngredientPortionDescription(
+                  ingredientForm,
+                  foodsById,
+                  portionsById
+                )}{' '}
+                {food.name}
+              </Link>
+            ) : (
+              <Text
+                style={[
+                  styles.name,
+                  { color: getComputedColorFromChakra('gray.600') },
+                ]}
+              >
+                {getIngredientPortionDescription(
+                  ingredientForm,
+                  foodsById,
+                  portionsById
+                )}{' '}
+                {food.name}
+              </Text>
+            )}
 
             {ingredientForm.notes && (
               <Text

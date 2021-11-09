@@ -14,6 +14,7 @@ type Food = {
   addedByUser?: boolean
   servingSizeInGrams?: number
   volume?: FoodVolume
+  url?: string
 } & NutritionData
 
 export type { Food, FoodId, FoodVolume }

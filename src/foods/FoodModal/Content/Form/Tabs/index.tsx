@@ -9,6 +9,7 @@ import {
   TabPanel,
 } from '@chakra-ui/react'
 import VolumeFormFields from './VolumeFormFields'
+import UrlField from './UrlField'
 
 type Props = {
   nameInputRef: RefObject<HTMLInputElement>
@@ -24,6 +25,7 @@ function Tabs({ nameInputRef, food, isEditing }: Props) {
       <TabList>
         <Tab>Nutrition Facts</Tab>
         {showsVolumeTab && <Tab>Volume</Tab>}
+        <Tab>Link</Tab>
       </TabList>
 
       <TabPanels>
@@ -38,6 +40,9 @@ function Tabs({ nameInputRef, food, isEditing }: Props) {
             <VolumeFormFields food={food} canEdit={isEditing} />
           </TabPanel>
         )}
+        <TabPanel px={0}>
+          <UrlField canEdit={isEditing} food={food} />
+        </TabPanel>
       </TabPanels>
     </TabsBase>
   )
