@@ -1,4 +1,4 @@
-import { BoxProps, Input } from '@chakra-ui/react'
+import { BoxProps, Input, Flex } from '@chakra-ui/react'
 import { useDietFormActions } from 'diets'
 import { MealForm } from 'meals'
 import { RefObject, ChangeEvent } from 'react'
@@ -28,20 +28,22 @@ function Name({
   }
 
   return (
-    <Input
-      ref={getMealNameInputRefById(mealForm.fieldId)}
-      placeholder="Meal name"
-      onChange={onNameChange}
-      autoComplete="off"
-      bg="white"
-      width="85%"
-      fontSize={{ base: 'sm', md: 'md' }}
-      textColor="gray.600"
-      fontWeight="medium"
-      size="md"
-      value={mealForm.name}
-      {...rest}
-    />
+    <Flex alignItems="center" height="100%">
+      <Input
+        ref={getMealNameInputRefById(mealForm.fieldId)}
+        placeholder="Meal name"
+        onChange={onNameChange}
+        autoComplete="off"
+        bg="white"
+        width="85%"
+        fontSize={{ base: 'sm', md: 'md' }}
+        textColor="gray.600"
+        fontWeight="medium"
+        size="md"
+        value={mealForm.name}
+        {...rest}
+      />
+    </Flex>
   )
 }
 

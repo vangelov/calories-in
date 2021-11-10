@@ -17,8 +17,8 @@ function VolumeFields({ canEdit, food }: Props) {
   return (
     <Flex flexDirection="column" alignItems="center">
       <Text fontSize="md" mb={6} color="gray.600">
-        To convert between weight- and volume-based units, specify the weight of
-        this food in grams for some volume measurement:
+        Want to convert between weight and volume? Go ahead and enter how much
+        this food weights for some volume measurement:
       </Text>
 
       <HStack spacing={2}>

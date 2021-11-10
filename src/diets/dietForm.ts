@@ -24,7 +24,7 @@ function getDietForm(diet?: Diet): DietForm {
 
   return {
     fieldId,
-    name: '',
+    name: 'Untitled plan',
     variantsForms,
     selectedVariantFormIndex: 0,
   }

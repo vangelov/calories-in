@@ -1,4 +1,3 @@
-import { View } from '@react-pdf/renderer'
 import { Food } from 'foods'
 import { Portion } from 'portions'
 import { ReactElement } from 'react'
@@ -29,7 +28,6 @@ function PdfVariantsList({
       variantItemsElements.push(
         <PdfVariantItem
           index={index}
-          style={{ marginTop: variantItemsElements.length > 0 ? 50 : 0 }}
           key={variantForm.fieldId}
           variantForm={variantForm}
           stats={stats}
@@ -41,7 +39,7 @@ function PdfVariantsList({
     }
   })
 
-  return <View>{variantItemsElements}</View>
+  return variantItemsElements
 }
 
 export default PdfVariantsList

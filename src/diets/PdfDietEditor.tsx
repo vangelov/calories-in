@@ -7,6 +7,7 @@ import ReactPDF, {
 } from '@react-pdf/renderer'
 import { Food } from 'foods'
 import { Portion } from 'portions'
+import { ReactElement } from 'react'
 import { StatsTree } from 'stats/calculations/getStatsTree'
 import { getComputedColorFromChakra } from 'theme'
 import PdfVariantItem from 'variants/PdfVariantsList/PdfVariantItem'
@@ -27,11 +28,28 @@ function PdfDietEditor({
   dietFormStatsTree,
   ...rest
 }: Props) {
-  const { variantsForms, selectedVariantFormIndex } = dietForm
-  const variantForm = variantsForms[selectedVariantFormIndex]
-  const { stats, subtrees } = dietFormStatsTree.subtrees[
-    selectedVariantFormIndex
-  ]
+  const { variantsForms } = dietForm
+
+  const variantItemsElements: ReactElement[] = []
+
+  variantsForms.forEach((variantForm, index) => {
+    const { mealsForms } = variantForm
+    const { stats, subtrees } = dietFormStatsTree.subtrees[index]
+
+    if (mealsForms.length > 0) {
+      variantItemsElements.push(
+        <PdfVariantItem
+          index={variantItemsElements.length}
+          key={variantForm.fieldId}
+          variantForm={variantForm}
+          stats={stats}
+          mealsFormsStatsTrees={subtrees}
+          foodsById={foodsById}
+          portionsById={portionsById}
+        />
+      )
+    }
+  })
 
   return (
     <Document {...rest}>
@@ -43,16 +61,7 @@ function PdfDietEditor({
           }}
         />
 
-        <View style={styles.content}>
-          <PdfVariantItem
-            index={0}
-            variantForm={variantForm}
-            stats={stats}
-            mealsFormsStatsTrees={subtrees}
-            foodsById={foodsById}
-            portionsById={portionsById}
-          />
-        </View>
+        {variantItemsElements}
       </Page>
     </Document>
   )

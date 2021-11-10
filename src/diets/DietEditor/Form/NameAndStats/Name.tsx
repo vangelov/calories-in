@@ -1,42 +1,46 @@
-import { Flex, Heading, Button } from '@chakra-ui/react'
-import { useDietForm } from 'diets'
-import { ScreenSize, useScreenSize } from 'general'
-import { Share } from 'react-feather'
+import { Flex, Input, IconButton } from '@chakra-ui/react'
+import { useDietForm, useDietFormActions } from 'diets'
+import { ChevronDown } from 'react-feather'
+import { ChangeEvent } from 'react'
 
-type Props = {
-  canExport: boolean
-  onExport: () => void
-}
-
-function Name({ canExport, onExport }: Props) {
+function Name() {
   const dietForm = useDietForm()
+  const dietFormActions = useDietFormActions()
   const variantForm = dietForm.variantsForms[dietForm.selectedVariantFormIndex]
-  const screenSize = useScreenSize()
+
+  function onNameChange(event: ChangeEvent<HTMLInputElement>) {
+    const { value } = event.target
+    dietFormActions.updateVariantForm(dietForm.selectedVariantFormIndex, {
+      name: value,
+    })
+  }
 
   return (
-    <Flex height="100%" alignItems="center">
-      <Heading
-        wordBreak="break-all"
-        fontSize={screenSize >= ScreenSize.Medium ? '24px' : '20px'}
-        color="teal.600"
-      >
-        {variantForm.name}
-      </Heading>
-      {screenSize >= ScreenSize.Medium && (
-        <Button
-          flexShrink={0}
-          colorScheme="teal"
-          size="sm"
-          variant="solid"
-          ml={3}
-          mr={3}
-          isDisabled={!canExport}
-          onClick={onExport}
-          leftIcon={<Share size={20} pointerEvents="none" />}
-        >
-          Export
-        </Button>
-      )}
+    <Flex position="relative" height="100%" alignItems="center">
+      <Input
+        placeholder="Meal plan name"
+        size="md"
+        fontSize="lg"
+        fontWeight="semibold"
+        autoComplete="off"
+        textColor="gray.600"
+        bg="white"
+        borderBottomRightRadius={0}
+        borderTopRightRadius={0}
+        color="teal"
+        mr="-1px"
+        zIndex={1}
+        position="relative"
+        onChange={onNameChange}
+        value={variantForm.name}
+      />
+      <IconButton
+        borderBottomLeftRadius={0}
+        borderTopLeftRadius={0}
+        variant="outline"
+        aria-label="test"
+        icon={<ChevronDown />}
+      />
     </Flex>
   )
 }

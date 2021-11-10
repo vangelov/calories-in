@@ -2,7 +2,6 @@ import { Text, StyleSheet, View } from '@react-pdf/renderer'
 import { roundMacrosPercents, Stats, StatsTree, getMacrosPercents } from 'stats'
 import PdfStat from 'stats/PdfStat'
 import PdfStatsLayout from 'stats/PdfStatsLayout'
-import { Style } from '@react-pdf/types/style'
 import { VariantForm } from 'variants'
 import { Food } from 'foods'
 import { getComputedColorFromChakra } from 'theme'
@@ -14,7 +13,6 @@ type Props = {
   variantForm: VariantForm
   stats: Stats
   mealsFormsStatsTrees: StatsTree[]
-  style?: Style
   foodsById: Record<number, Food>
   portionsById: Record<string, Portion>
   index: number
@@ -26,7 +24,7 @@ function PdfVariantItem({
   mealsFormsStatsTrees,
   foodsById,
   portionsById,
-  style = {},
+  index,
 }: Props) {
   const { mealsForms } = variantForm
 
@@ -36,7 +34,7 @@ function PdfVariantItem({
   )
 
   return (
-    <View style={[style]}>
+    <View style={styles.root} break={index > 0}>
       <PdfStatsLayout
         nameElement={
           <Text
@@ -95,6 +93,11 @@ function PdfVariantItem({
 }
 
 const styles = StyleSheet.create({
+  root: {
+    paddingTop: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
+  },
   name: {
     fontWeight: 'semibold',
     fontSize: 20,
