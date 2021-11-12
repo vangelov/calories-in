@@ -95,13 +95,18 @@ function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
     (fromIndex: number, toIndex: number) =>
       setDietForm(
         produce(draftDietForm => {
-          const { variantsForms } = draftDietForm
+          const { variantsForms, selectedVariantFormIndex } = draftDietForm
+          const selectedVariantForm = variantsForms[selectedVariantFormIndex]
 
           const variantForm = variantsForms[fromIndex]
           variantsForms.splice(fromIndex, 1)
           variantsForms.splice(toIndex, 0, variantForm)
 
-          draftDietForm.selectedVariantFormIndex = toIndex
+          const newSelectedVariantFormIndex = variantsForms.findIndex(
+            ({ fieldId }) => fieldId === selectedVariantForm.fieldId
+          )
+
+          draftDietForm.selectedVariantFormIndex = newSelectedVariantFormIndex
         })
       ),
     [setDietForm]

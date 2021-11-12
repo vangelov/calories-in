@@ -66,7 +66,7 @@ function FoodItem({
           borderColor={isSelected ? 'teal.500' : 'gray.200'}
           backgroundColor={isSelected ? 'gray.50' : 'white'}
           borderWidth="1px"
-          borderRadius={4}
+          borderRadius={8}
           overflow="hidden"
           justifyContent="space-between"
           alignItems="center"

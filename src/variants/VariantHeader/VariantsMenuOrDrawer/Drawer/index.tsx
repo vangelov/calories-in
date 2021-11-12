@@ -19,9 +19,10 @@ type Props = {
   onClose: () => void
   onSelect: (variantForm: VariantForm, index: number) => void
   onCreate: () => void
+  onReorder: () => void
 }
 
-function Drawer({ isOpen, onClose, onSelect, onCreate }: Props) {
+function Drawer({ isOpen, onClose, onSelect, onCreate, onReorder }: Props) {
   const { variantsForms, selectedVariantFormIndex } = useDietForm()
 
   return (
@@ -66,7 +67,10 @@ function Drawer({ isOpen, onClose, onSelect, onCreate }: Props) {
 
             <Button
               colorScheme="teal"
-              onClick={onCreate}
+              onClick={() => {
+                onReorder()
+                onClose()
+              }}
               isFullWidth={true}
               variant="outline"
             >

@@ -9,7 +9,7 @@ import {
   Stat,
   StatValueDetail,
 } from 'stats'
-import { VariantForm, VariantsDetailsModal } from 'variants'
+import { VariantForm, VariantsDetailsModal, VariantsOrderModal } from 'variants'
 import MenuButtons from './MenuButtons'
 
 type Props = {
@@ -25,12 +25,18 @@ function VariantHeader({ selectedVariantForm, onVariantFormSelect }: Props) {
     fatPercent,
     energyDiff,
   } = useVariantStats({ variantFormFieldId: selectedVariantForm.fieldId })
-  const modalDisclosure = useDisclosure()
+  const variantsDetailsModalDisclosure = useDisclosure()
+  const variantsOrModalDisclosure = useDisclosure()
 
   return (
     <Flex py={3} bg="white" width="100%">
       <StatsLayout
-        nameElement={<Name onVariantFormSelect={onVariantFormSelect} />}
+        nameElement={
+          <Name
+            onReorder={variantsOrModalDisclosure.onOpen}
+            onVariantFormSelect={onVariantFormSelect}
+          />
+        }
         energyElement={
           <EnergyStat energy={variantStats.energy} energyDiff={energyDiff} />
         }
@@ -78,14 +84,21 @@ function VariantHeader({ selectedVariantForm, onVariantFormSelect }: Props) {
         }
         menuElement={
           <RightAligned>
-            <MenuButtons onVariantDetails={modalDisclosure.onOpen} />
+            <MenuButtons
+              onVariantDetails={variantsDetailsModalDisclosure.onOpen}
+            />
           </RightAligned>
         }
       />
 
+      <VariantsOrderModal
+        isOpen={variantsOrModalDisclosure.isOpen}
+        onClose={variantsOrModalDisclosure.onClose}
+      />
+
       <VariantsDetailsModal
-        isOpen={modalDisclosure.isOpen}
-        onClose={modalDisclosure.onClose}
+        isOpen={variantsDetailsModalDisclosure.isOpen}
+        onClose={variantsDetailsModalDisclosure.onClose}
         initialVariantForm={selectedVariantForm}
       />
     </Flex>

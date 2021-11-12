@@ -12,9 +12,10 @@ const ShuffleStyled = chakra(Shuffle)
 type Props = {
   onSelect: (variantForm: VariantForm, index: number) => void
   onCreate: () => void
+  onReorder: () => void
 }
 
-function Menu({ onSelect, onCreate }: Props) {
+function Menu({ onSelect, onCreate, onReorder }: Props) {
   const { variantsForms, selectedVariantFormIndex } = useDietForm()
 
   return (
@@ -44,7 +45,7 @@ function Menu({ onSelect, onCreate }: Props) {
         <PlusStyled pointerEvents="none" size={16} mr={3} />
         Create new
       </MenuItem>
-      <MenuItem onClick={onCreate}>
+      <MenuItem onClick={onReorder}>
         <ShuffleStyled pointerEvents="none" size={16} mr={3} />
         Re-order
       </MenuItem>

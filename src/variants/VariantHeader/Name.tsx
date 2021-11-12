@@ -6,9 +6,10 @@ import VariantsMenuOrDrawer from './VariantsMenuOrDrawer'
 
 type Props = {
   onVariantFormSelect: (variantForm: VariantForm, index: number) => void
+  onReorder: () => void
 }
 
-function Name({ onVariantFormSelect }: Props) {
+function Name({ onVariantFormSelect, onReorder }: Props) {
   const dietForm = useDietForm()
   const dietFormActions = useDietFormActions()
   const variantForm = dietForm.variantsForms[dietForm.selectedVariantFormIndex]
@@ -49,6 +50,7 @@ function Name({ onVariantFormSelect }: Props) {
       <VariantsMenuOrDrawer
         onVariantFormCreate={onVariantFormCreate}
         onVariantFormSelect={onVariantFormSelect}
+        onReorderVariantForms={onReorder}
       />
     </Flex>
   )
