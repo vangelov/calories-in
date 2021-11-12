@@ -25,19 +25,19 @@ function getMenuItems({
 }: Params) {
   return [
     <MenuItem key="addFoods" onClick={() => onAddIngredient()}>
-      <PlusStyled pointerEvents="none" size={20} mr={3} />
+      <PlusStyled pointerEvents="none" size={16} mr={3} />
       Add foods
     </MenuItem>,
     <MenuItem key="editNotes" onClick={() => onEditNotes()}>
-      <EditStyled pointerEvents="none" size={20} mr={3} />
+      <EditStyled pointerEvents="none" size={16} mr={3} />
       {mealForm.notes ? 'Edit notes' : 'Add notes'}
     </MenuItem>,
     <MenuItem key="duplicateMeal" onClick={() => onClone()}>
-      <CopyStyled pointerEvents="none" size={20} mr={3} />
+      <CopyStyled pointerEvents="none" size={16} mr={3} />
       Duplicate meal
     </MenuItem>,
     <MenuItem key="remove" onClick={() => onRemove()}>
-      <Trash2Styled pointerEvents="none" size={20} mr={3} />
+      <Trash2Styled pointerEvents="none" size={16} mr={3} />
       Remove meal
     </MenuItem>,
   ]

@@ -11,7 +11,12 @@ function EmptyList({ onAddIngredients }: Props) {
         No foods added yet
       </Text>
 
-      <Button colorScheme="teal" variant="ghost" onClick={onAddIngredients}>
+      <Button
+        colorScheme="teal"
+        size="sm"
+        variant="ghost"
+        onClick={onAddIngredients}
+      >
         Add foods
       </Button>
     </Flex>

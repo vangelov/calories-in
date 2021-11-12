@@ -14,10 +14,10 @@ import MenuButtons from './MenuButtons'
 
 type Props = {
   selectedVariantForm: VariantForm
-  canExport: boolean
+  onVariantFormSelect: (variantForm: VariantForm, index: number) => void
 }
 
-function NameAndStats({ selectedVariantForm, canExport }: Props) {
+function VariantHeader({ selectedVariantForm, onVariantFormSelect }: Props) {
   const {
     variantStats,
     proteinPercent,
@@ -30,7 +30,7 @@ function NameAndStats({ selectedVariantForm, canExport }: Props) {
   return (
     <Flex py={3} bg="white" width="100%">
       <StatsLayout
-        nameElement={<Name />}
+        nameElement={<Name onVariantFormSelect={onVariantFormSelect} />}
         energyElement={
           <EnergyStat energy={variantStats.energy} energyDiff={energyDiff} />
         }
@@ -92,4 +92,4 @@ function NameAndStats({ selectedVariantForm, canExport }: Props) {
   )
 }
 
-export default memo(NameAndStats)
+export default memo(VariantHeader)

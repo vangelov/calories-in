@@ -51,7 +51,7 @@ function Controls() {
         />
         <Button
           isDisabled={!canExport}
-          leftIcon={<Share size={20} pointerEvents="none" />}
+          leftIcon={<Share size={16} pointerEvents="none" />}
           variant="solid"
           colorScheme="teal"
           onClick={exportModalDisclosure.onOpen}

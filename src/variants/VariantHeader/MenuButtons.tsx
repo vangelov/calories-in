@@ -25,7 +25,7 @@ function MenuButtons({ onVariantDetails }: Props) {
       }
     >
       <MenuItem onClick={onVariantDetails}>
-        <InfoStyled pointerEvents="none" mr={3} />
+        <InfoStyled pointerEvents="none" size={16} mr={3} />
         View variant details
       </MenuItem>
     </Menu>

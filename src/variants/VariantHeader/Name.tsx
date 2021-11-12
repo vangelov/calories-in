@@ -1,18 +1,30 @@
-import { Flex, Input, IconButton } from '@chakra-ui/react'
+import { Flex, Input } from '@chakra-ui/react'
 import { useDietForm, useDietFormActions } from 'diets'
-import { ChevronDown } from 'react-feather'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useRef } from 'react'
+import { VariantForm } from 'variants'
+import VariantsMenuOrDrawer from './VariantsMenuOrDrawer'
 
-function Name() {
+type Props = {
+  onVariantFormSelect: (variantForm: VariantForm, index: number) => void
+}
+
+function Name({ onVariantFormSelect }: Props) {
   const dietForm = useDietForm()
   const dietFormActions = useDietFormActions()
   const variantForm = dietForm.variantsForms[dietForm.selectedVariantFormIndex]
+  const inputRef = useRef<HTMLInputElement>(null)
 
   function onNameChange(event: ChangeEvent<HTMLInputElement>) {
     const { value } = event.target
     dietFormActions.updateVariantForm(dietForm.selectedVariantFormIndex, {
       name: value,
     })
+  }
+
+  function onVariantFormCreate() {
+    if (inputRef.current) {
+      inputRef.current.focus()
+    }
   }
 
   return (
@@ -23,7 +35,6 @@ function Name() {
         fontSize="lg"
         fontWeight="semibold"
         autoComplete="off"
-        textColor="gray.600"
         bg="white"
         borderBottomRightRadius={0}
         borderTopRightRadius={0}
@@ -33,13 +44,11 @@ function Name() {
         position="relative"
         onChange={onNameChange}
         value={variantForm.name}
+        ref={inputRef}
       />
-      <IconButton
-        borderBottomLeftRadius={0}
-        borderTopLeftRadius={0}
-        variant="outline"
-        aria-label="test"
-        icon={<ChevronDown />}
+      <VariantsMenuOrDrawer
+        onVariantFormCreate={onVariantFormCreate}
+        onVariantFormSelect={onVariantFormSelect}
       />
     </Flex>
   )

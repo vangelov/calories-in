@@ -20,7 +20,7 @@ function MealsControls({ mealsForms, onAddMeal }: Props) {
         variant="outline"
         onClick={onAddMeal}
         size="sm"
-        leftIcon={<PlusStyled size={20} pointerEvents="none" />}
+        leftIcon={<PlusStyled size={16} pointerEvents="none" />}
       >
         Add meal
       </Button>

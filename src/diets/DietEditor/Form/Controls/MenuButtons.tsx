@@ -30,15 +30,15 @@ function MenuButtons({ onImport, onClear, onViewFoods }: Props) {
       }
     >
       <MenuItem onClick={onClear}>
-        <FilePlusStyled pointerEvents="none" mr={3} />
+        <FilePlusStyled size={16} pointerEvents="none" mr={3} />
         New meal plan
       </MenuItem>
       <MenuItem onClick={onImport}>
-        <DownloadStyled pointerEvents="none" mr={3} />
+        <DownloadStyled size={16} pointerEvents="none" mr={3} />
         Import meal plan
       </MenuItem>
       <MenuItem onClick={onViewFoods}>
-        <ListStyled pointerEvents="none" mr={3} />
+        <ListStyled size={16} pointerEvents="none" mr={3} />
         View foods
       </MenuItem>
     </Menu>

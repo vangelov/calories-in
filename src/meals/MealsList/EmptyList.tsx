@@ -19,7 +19,7 @@ function EmptyList({ onAddMeal }: Props) {
         colorScheme="teal"
         variant="outline"
         size="sm"
-        leftIcon={<PlusStyled size={20} pointerEvents="none" />}
+        leftIcon={<PlusStyled size={16} pointerEvents="none" />}
       >
         Add meal
       </Button>
