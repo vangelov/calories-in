@@ -6,5 +6,6 @@ export * from './variantForm'
 
 export { default as VariantsDetailsModal } from './VariantsDetailsModal'
 export { default as useGetVariantFormStatsTree } from './useGetVariantFormStatsTree'
-export { default as VariantHeader } from './VariantHeader'
+export { default as SelectedVariantHeader } from './SelectedVariantHeader'
 export { default as VariantsOrderModal } from './VariantsOrderModal'
+export { default as getVariantFormIndexAfterRemove } from './getVariantFormIndexAfterRemove'

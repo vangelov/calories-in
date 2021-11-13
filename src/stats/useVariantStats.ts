@@ -13,6 +13,13 @@ function useVariantStats({ variantFormFieldId }: Params) {
   const dietForm = useDietForm()
   const energyCacheRef = useRef<Record<string, number | undefined>>({})
 
+  const variantForm = dietForm.variantsForms.find(
+    ({ fieldId }) => fieldId === variantFormFieldId
+  )
+
+  const shouldSetEnergyToZero =
+    variantForm && variantForm.mealsForms.length === 0
+
   const variantStats = useMemo(() => {
     const mealsStatsForVariant = mealsStats[variantFormFieldId]
     const finalStats = mealsStatsForVariant
@@ -20,11 +27,7 @@ function useVariantStats({ variantFormFieldId }: Params) {
       : []
     const statsSum = sumStats(finalStats)
 
-    const variantForm = dietForm.variantsForms.find(
-      ({ fieldId }) => fieldId === variantFormFieldId
-    )
-
-    if (variantForm && variantForm.mealsForms.length === 0) {
+    if (shouldSetEnergyToZero) {
       energyCacheRef.current[variantFormFieldId] = 0
     } else if (
       mealsStatsForVariant &&
@@ -34,12 +37,11 @@ function useVariantStats({ variantFormFieldId }: Params) {
     }
 
     return statsSum
-  }, [mealsStats, variantFormFieldId, dietForm])
+  }, [mealsStats, variantFormFieldId, shouldSetEnergyToZero])
 
-  const { proteinPercent, carbsPercent, fatPercent } = useMemo(
-    () => roundMacrosPercents(getMacrosPercents(variantStats)),
-    [variantStats]
-  )
+  const { proteinPercent, carbsPercent, fatPercent } = useMemo(() => {
+    return roundMacrosPercents(getMacrosPercents(variantStats))
+  }, [variantStats])
 
   const cachedEnergy = energyCacheRef.current[variantFormFieldId]
   const energyDiff =

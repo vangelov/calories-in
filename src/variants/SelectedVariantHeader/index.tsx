@@ -1,7 +1,7 @@
 import { Flex, useDisclosure } from '@chakra-ui/react'
 import { RightAligned } from 'layout'
 import Name from './Name'
-import { memo } from 'react'
+import { useRef } from 'react'
 import {
   useVariantStats,
   EnergyStat,
@@ -9,15 +9,21 @@ import {
   Stat,
   StatValueDetail,
 } from 'stats'
-import { VariantForm, VariantsDetailsModal, VariantsOrderModal } from 'variants'
+import { VariantsDetailsModal, VariantsOrderModal } from 'variants'
 import MenuButtons from './MenuButtons'
+import VariantsMenuOrDrawer from './VariantsMenuOrDrawer'
+import useVariantFormEvents from './useVariantFormEvents'
+import { useDietForm, ScrollManager } from 'diets'
 
 type Props = {
-  selectedVariantForm: VariantForm
-  onVariantFormSelect: (variantForm: VariantForm, index: number) => void
+  scrollManager: ScrollManager
 }
 
-function VariantHeader({ selectedVariantForm, onVariantFormSelect }: Props) {
+function SelectedVariantHeader({ scrollManager }: Props) {
+  const dietForm = useDietForm()
+  const { variantsForms, selectedVariantFormIndex } = dietForm
+  const selectedVariantForm = variantsForms[selectedVariantFormIndex]
+
   const {
     variantStats,
     proteinPercent,
@@ -26,16 +32,33 @@ function VariantHeader({ selectedVariantForm, onVariantFormSelect }: Props) {
     energyDiff,
   } = useVariantStats({ variantFormFieldId: selectedVariantForm.fieldId })
   const variantsDetailsModalDisclosure = useDisclosure()
-  const variantsOrModalDisclosure = useDisclosure()
+  const variantsOrderModalDisclosure = useDisclosure()
+  const nameInputRef = useRef<HTMLInputElement>(null)
+
+  const variantFormEvents = useVariantFormEvents({
+    nameInputRef,
+    scrollManager,
+    selectedVariantFormIndex,
+  })
+
+  console.log('header')
 
   return (
     <Flex py={3} bg="white" width="100%">
       <StatsLayout
         nameElement={
-          <Name
-            onReorder={variantsOrModalDisclosure.onOpen}
-            onVariantFormSelect={onVariantFormSelect}
-          />
+          <Flex position="relative" height="100%" alignItems="center">
+            <Name
+              ref={nameInputRef}
+              name={selectedVariantForm.name}
+              onNameChange={variantFormEvents.onNameChange}
+            />
+            <VariantsMenuOrDrawer
+              onCreate={variantFormEvents.onCreate}
+              onSelect={variantFormEvents.onSelect}
+              onReorder={variantsOrderModalDisclosure.onOpen}
+            />
+          </Flex>
         }
         energyElement={
           <EnergyStat energy={variantStats.energy} energyDiff={energyDiff} />
@@ -85,15 +108,18 @@ function VariantHeader({ selectedVariantForm, onVariantFormSelect }: Props) {
         menuElement={
           <RightAligned>
             <MenuButtons
-              onVariantDetails={variantsDetailsModalDisclosure.onOpen}
+              onDetails={variantsDetailsModalDisclosure.onOpen}
+              onCopy={variantFormEvents.onCopy}
+              onRemove={variantFormEvents.onRemove}
+              canRemove={variantsForms.length > 1}
             />
           </RightAligned>
         }
       />
 
       <VariantsOrderModal
-        isOpen={variantsOrModalDisclosure.isOpen}
-        onClose={variantsOrModalDisclosure.onClose}
+        isOpen={variantsOrderModalDisclosure.isOpen}
+        onClose={variantsOrderModalDisclosure.onClose}
       />
 
       <VariantsDetailsModal
@@ -105,4 +131,4 @@ function VariantHeader({ selectedVariantForm, onVariantFormSelect }: Props) {
   )
 }
 
-export default memo(VariantHeader)
+export default SelectedVariantHeader

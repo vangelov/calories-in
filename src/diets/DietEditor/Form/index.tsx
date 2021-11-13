@@ -1,16 +1,14 @@
-import { useDietForm } from 'diets'
+import { useDietForm, useScrollManager } from 'diets'
 import { DietFormVersionsStoreProvider } from 'undoRedo'
 import { useRef } from 'react'
 import { Page, PageHeader, PageBody, PageFooter } from 'layout'
 import { MealsList } from 'meals'
-import useScrollManager from './useScrollManager'
 import { useSaveValue } from 'persistence'
 import useDietFormEvents from './useDietFormEvents'
 import { Box } from '@chakra-ui/react'
 import { useElementHeight } from 'general'
 import Controls from './Controls'
-import { VariantHeader } from 'variants'
-import useVariantFormEvents from './useVariantFormEvents'
+import { SelectedVariantHeader } from 'variants'
 
 function Form() {
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
@@ -23,7 +21,6 @@ function Form() {
     horizontalScrollRef,
   })
   const dietFormEvents = useDietFormEvents({ scrollManager })
-  const variantFormEvents = useVariantFormEvents({ scrollManager })
 
   const {
     elementHeight: headerHeight,
@@ -42,10 +39,7 @@ function Form() {
       <Page>
         <PageHeader ref={headerRef}>
           <Box bg="white" borderTopWidth="8px" borderTopColor="teal.500" px={3}>
-            <VariantHeader
-              selectedVariantForm={selectedVariantForm}
-              onVariantFormSelect={variantFormEvents.onVariantFormSelect}
-            />
+            <SelectedVariantHeader scrollManager={scrollManager} />
           </Box>
         </PageHeader>
 
