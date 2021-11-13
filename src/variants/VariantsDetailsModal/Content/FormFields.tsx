@@ -1,5 +1,5 @@
 import { Box, FlexProps, VStack, Select } from '@chakra-ui/react'
-import { RefObject, ChangeEvent, useMemo } from 'react'
+import { ChangeEvent, useMemo } from 'react'
 import {
   getMacrosPercents,
   roundMacrosPercents,
@@ -14,7 +14,6 @@ import { useScreenSize, ScreenSize } from 'general'
 import useVariantFormEvents from './useVariantFormEvents'
 
 type Props = {
-  selectInputRef: RefObject<HTMLSelectElement>
   canEdit: boolean
   initialVariantForm: VariantForm
   variantsForms: VariantForm[]
@@ -23,7 +22,6 @@ type Props = {
 } & FlexProps
 
 function FormFields({
-  selectInputRef,
   canEdit,
   variantsForms,
   initialVariantForm,
@@ -55,7 +53,6 @@ function FormFields({
             size="md"
             defaultValue={initialVariantForm.fieldId}
             onChange={onSelectChange}
-            ref={selectInputRef}
           >
             <option key="avg" value={''}>
               Average across all variants

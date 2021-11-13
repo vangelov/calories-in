@@ -57,7 +57,8 @@ function Exporter({ onUpdate }: Props) {
       </AlertTitle>
       {!error && (
         <AlertDescription maxWidth="sm">
-          You can download it or view it in the browser
+          If you download this plan, it can be imported later if you need to
+          change something.
         </AlertDescription>
       )}
     </Alert>

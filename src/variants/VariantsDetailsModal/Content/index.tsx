@@ -7,7 +7,6 @@ import {
   Button,
 } from '@chakra-ui/react'
 import FormFields from './FormFields'
-import { RefObject } from 'react'
 import { VariantForm } from 'variants'
 import { StatsTree } from 'stats'
 import VariantsDetailsFormProvider from './VariantsDetailsFormProvider'
@@ -15,11 +14,11 @@ import { useDietForm, useGetDietFormStatsTree } from 'diets'
 
 type Props = {
   onClose: () => void
-  selectInputRef: RefObject<HTMLSelectElement>
+
   initialVariantForm: VariantForm
 }
 
-function Content({ onClose, selectInputRef, initialVariantForm }: Props) {
+function Content({ onClose, initialVariantForm }: Props) {
   const dietForm = useDietForm()
   const { variantsForms } = dietForm
 
@@ -46,7 +45,6 @@ function Content({ onClose, selectInputRef, initialVariantForm }: Props) {
           <form>
             <FormFields
               initialVariantForm={initialVariantForm}
-              selectInputRef={selectInputRef}
               canEdit={false}
               variantsForms={variantsForms}
               dietFormStatsTree={dietFormStatsTree}
