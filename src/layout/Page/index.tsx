@@ -17,7 +17,7 @@ function Page({ children }: Props) {
         top="0"
         display={{ base: 'none', lg: 'flex' }}
       >
-        <Box bg="white" boxShadow="lg" width="800px" height="100%" />
+        <Box bg="white" boxShadow="lg" width="820px" height="100%" />
       </Flex>
       <Box position="relative" zIndex={1}>
         {children}
