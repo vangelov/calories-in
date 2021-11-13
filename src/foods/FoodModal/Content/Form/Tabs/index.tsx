@@ -10,22 +10,43 @@ import {
 } from '@chakra-ui/react'
 import VolumeFormFields from './VolumeFormFields'
 import UrlField from './UrlField'
+import { useFormContext } from 'react-hook-form'
 
 type Props = {
   nameInputRef: RefObject<HTMLInputElement>
   food?: Food
   isEditing: boolean
+  tabIndex: number
+  onTabIndexChange: (index: number) => void
 }
 
-function Tabs({ nameInputRef, food, isEditing }: Props) {
+function Tabs({
+  nameInputRef,
+  food,
+  isEditing,
+  tabIndex,
+  onTabIndexChange,
+}: Props) {
   const showsVolumeTab = isEditing || food?.volume
+  const showsLinkTab = isEditing || food?.url
+  const { formState } = useFormContext()
+
+  if (formState.errors?.energy) {
+  }
 
   return (
-    <TabsBase variant="enclosed" colorScheme="teal">
+    <TabsBase
+      index={tabIndex}
+      onChange={onTabIndexChange}
+      variant="enclosed"
+      colorScheme="teal"
+    >
       <TabList>
-        <Tab>Nutrition Facts</Tab>
+        <Tab color={formState.errors?.energy ? 'red.500' : undefined}>
+          Nutrition Facts
+        </Tab>
         {showsVolumeTab && <Tab>Volume</Tab>}
-        <Tab>Link</Tab>
+        {showsLinkTab && <Tab>Link</Tab>}
       </TabList>
 
       <TabPanels>
@@ -40,9 +61,11 @@ function Tabs({ nameInputRef, food, isEditing }: Props) {
             <VolumeFormFields food={food} canEdit={isEditing} />
           </TabPanel>
         )}
-        <TabPanel px={0}>
-          <UrlField canEdit={isEditing} food={food} />
-        </TabPanel>
+        {showsLinkTab && (
+          <TabPanel px={0}>
+            <UrlField canEdit={isEditing} food={food} />
+          </TabPanel>
+        )}
       </TabPanels>
     </TabsBase>
   )

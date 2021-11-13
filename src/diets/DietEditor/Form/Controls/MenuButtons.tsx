@@ -31,11 +31,11 @@ function MenuButtons({ onImport, onClear, onViewFoods }: Props) {
     >
       <MenuItem onClick={onClear}>
         <FilePlusStyled size={16} pointerEvents="none" mr={3} />
-        New meal plan
+        New plan
       </MenuItem>
       <MenuItem onClick={onImport}>
         <DownloadStyled size={16} pointerEvents="none" mr={3} />
-        Import meal plan
+        Import plan
       </MenuItem>
       <MenuItem onClick={onViewFoods}>
         <ListStyled size={16} pointerEvents="none" mr={3} />

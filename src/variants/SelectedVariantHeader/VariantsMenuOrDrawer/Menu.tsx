@@ -13,9 +13,10 @@ type Props = {
   onSelect: (variantForm: VariantForm, index: number) => void
   onCreate: () => void
   onReorder: () => void
+  canReorder: boolean
 }
 
-function Menu({ onSelect, onCreate, onReorder }: Props) {
+function Menu({ onSelect, onCreate, onReorder, canReorder }: Props) {
   const { variantsForms, selectedVariantFormIndex } = useDietForm()
 
   return (
@@ -45,10 +46,12 @@ function Menu({ onSelect, onCreate, onReorder }: Props) {
         <PlusStyled pointerEvents="none" size={16} mr={3} />
         Create new
       </MenuItem>
-      <MenuItem onClick={onReorder}>
-        <ShuffleStyled pointerEvents="none" size={16} mr={3} />
-        Re-order
-      </MenuItem>
+      {canReorder && (
+        <MenuItem onClick={onReorder}>
+          <ShuffleStyled pointerEvents="none" size={16} mr={3} />
+          Re-order
+        </MenuItem>
+      )}
     </MenuBase>
   )
 }

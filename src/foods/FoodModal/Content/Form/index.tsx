@@ -9,7 +9,7 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { Food } from 'foods'
-import { RefObject } from 'react'
+import { RefObject, useState } from 'react'
 import useSubmitFoodForm from './useSubmitFoodForm'
 import { StatFormField } from 'stats'
 import Footer from './Footer'
@@ -46,6 +46,12 @@ function Form({
     },
   })
 
+  const [tabIndex, setTabIndex] = useState(0)
+
+  function onTabIndexChange(index: number) {
+    setTabIndex(index)
+  }
+
   return (
     <form onSubmit={onSubmit}>
       <ModalContent>
@@ -54,7 +60,10 @@ function Form({
           canEdit={canEdit}
           isEditing={isEditing}
           onClose={onClose}
-          onToggleEdit={onToggleEdit}
+          onToggleEdit={() => {
+            setTabIndex(0)
+            onToggleEdit()
+          }}
         />
         <ModalCloseButton />
 
@@ -89,6 +98,8 @@ function Form({
               nameInputRef={nameInputRef}
               isEditing={isEditing}
               food={food}
+              tabIndex={tabIndex}
+              onTabIndexChange={onTabIndexChange}
             />
           </VStack>
 

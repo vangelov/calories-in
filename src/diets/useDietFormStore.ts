@@ -8,6 +8,7 @@ import {
   IngredientsFormsActions,
 } from 'ingredients'
 import { OneTimeCheckActions } from 'general'
+import { useSaveValue } from 'persistence'
 
 export type Params = {
   initialDietForm: DietForm
@@ -24,6 +25,8 @@ function useDietFormStore({
   oneTimeCheckActions,
 }: Params) {
   const [dietForm, setDietForm] = useState(initialDietForm)
+
+  useSaveValue({ value: dietForm, key: 'lastDietForm' })
 
   const variantsFormsActions = useVariantsFormsActions({
     setDietForm,

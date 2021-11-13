@@ -3,7 +3,6 @@ import { DietFormVersionsStoreProvider } from 'undoRedo'
 import { useRef } from 'react'
 import { Page, PageHeader, PageBody, PageFooter } from 'layout'
 import { MealsList } from 'meals'
-import { useSaveValue } from 'persistence'
 import useDietFormEvents from './useDietFormEvents'
 import { Box } from '@chakra-ui/react'
 import { useElementHeight } from 'general'
@@ -26,8 +25,6 @@ function Form() {
     elementHeight: headerHeight,
     elementRef: headerRef,
   } = useElementHeight()
-
-  useSaveValue({ value: dietForm, key: 'lastDietForm' })
 
   return (
     <DietFormVersionsStoreProvider

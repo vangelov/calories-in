@@ -9,9 +9,15 @@ type Props = {
   onSelect: (variantForm: VariantForm, index: number) => void
   onCreate: () => void
   onReorder: () => void
+  canReorder: boolean
 }
 
-function VariantsMenuOrDrawer({ onSelect, onCreate, onReorder }: Props) {
+function VariantsMenuOrDrawer({
+  onSelect,
+  onCreate,
+  onReorder,
+  canReorder,
+}: Props) {
   const screenSize = useScreenSize()
   const modalDisclosure = useDisclosure()
 
@@ -23,6 +29,7 @@ function VariantsMenuOrDrawer({ onSelect, onCreate, onReorder }: Props) {
           onSelect={onSelect}
           onCreate={onCreate}
           onReorder={onReorder}
+          canReorder={canReorder}
           isOpen={modalDisclosure.isOpen}
           onClose={modalDisclosure.onClose}
         />
@@ -30,7 +37,14 @@ function VariantsMenuOrDrawer({ onSelect, onCreate, onReorder }: Props) {
     )
   }
 
-  return <Menu onSelect={onSelect} onCreate={onCreate} onReorder={onReorder} />
+  return (
+    <Menu
+      canReorder={canReorder}
+      onSelect={onSelect}
+      onCreate={onCreate}
+      onReorder={onReorder}
+    />
+  )
 }
 
 export default VariantsMenuOrDrawer

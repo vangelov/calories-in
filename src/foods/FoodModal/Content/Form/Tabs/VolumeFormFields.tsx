@@ -15,10 +15,14 @@ function VolumeFields({ canEdit, food }: Props) {
   const portion = food?.volume ? portionsById[food.volume.portionId] : undefined
 
   return (
-    <Flex flexDirection="column" alignItems="center">
+    <Flex
+      minHeight={canEdit ? '200px' : undefined}
+      flexDirection="column"
+      alignItems="center"
+    >
       <Text fontSize="md" mb={6} color="gray.600">
-        Want to convert between weight and volume? Go ahead and enter how much
-        this food weights for some volume measurement:
+        To convert between weight and volume, enter how much this food weights
+        for some volume measurement:
       </Text>
 
       <HStack spacing={2}>

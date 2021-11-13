@@ -41,8 +41,6 @@ function SelectedVariantHeader({ scrollManager }: Props) {
     selectedVariantFormIndex,
   })
 
-  console.log('header')
-
   return (
     <Flex py={3} bg="white" width="100%">
       <StatsLayout
@@ -54,6 +52,7 @@ function SelectedVariantHeader({ scrollManager }: Props) {
               onNameChange={variantFormEvents.onNameChange}
             />
             <VariantsMenuOrDrawer
+              canReorder={variantsForms.length > 1}
               onCreate={variantFormEvents.onCreate}
               onSelect={variantFormEvents.onSelect}
               onReorder={variantsOrderModalDisclosure.onOpen}

@@ -12,10 +12,14 @@ function UrlField({ canEdit, food }: Props) {
   const { register } = useFormContext<FoodForm>()
 
   return (
-    <Flex flexDirection="column" alignItems="center">
+    <Flex
+      minHeight={canEdit ? '200px' : undefined}
+      flexDirection="column"
+      alignItems="center"
+    >
       <Text fontSize="md" mb={6} color="gray.600">
-        To convert between weight- and volume-based units, specify the weight of
-        this food in grams for some volume measurement:
+        Links allow you to show a specific web page for a food. They work both
+        on the web editor and in the exported pdf files.
       </Text>
 
       <FormControl id="email">

@@ -20,9 +20,17 @@ type Props = {
   onSelect: (variantForm: VariantForm, index: number) => void
   onCreate: () => void
   onReorder: () => void
+  canReorder: boolean
 }
 
-function Drawer({ isOpen, onClose, onSelect, onCreate, onReorder }: Props) {
+function Drawer({
+  isOpen,
+  onClose,
+  onSelect,
+  onCreate,
+  onReorder,
+  canReorder,
+}: Props) {
   const { variantsForms, selectedVariantFormIndex } = useDietForm()
 
   return (
@@ -65,17 +73,19 @@ function Drawer({ isOpen, onClose, onSelect, onCreate, onReorder }: Props) {
               Create new
             </Button>
 
-            <Button
-              colorScheme="teal"
-              onClick={() => {
-                onReorder()
-                onClose()
-              }}
-              isFullWidth={true}
-              variant="outline"
-            >
-              Re-order
-            </Button>
+            {canReorder && (
+              <Button
+                colorScheme="teal"
+                onClick={() => {
+                  onReorder()
+                  onClose()
+                }}
+                isFullWidth={true}
+                variant="outline"
+              >
+                Re-order
+              </Button>
+            )}
           </VStack>
         </DrawerFooter>
       </DrawerContent>

@@ -5,8 +5,8 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
-  Text,
   VStack,
+  Text,
 } from '@chakra-ui/react'
 import { useState, useCallback } from 'react'
 import { Suspense, lazy } from 'react'
@@ -24,8 +24,6 @@ function Content({ onClose }: Props) {
   const [blob, setBlob] = useState<Blob>()
   const [url, setUrl] = useState<string>()
   const dietForm = useDietForm()
-  const { variantsForms, selectedVariantFormIndex } = dietForm
-  const variantForm = variantsForms[selectedVariantFormIndex]
 
   const onUpdate = useCallback((blob: Blob, url: string) => {
     setBlob(blob)
@@ -41,7 +39,7 @@ function Content({ onClose }: Props) {
       <ModalHeader fontWeight="normal">
         Export{' '}
         <Text as="span" fontWeight="bold">
-          {variantForm.name}
+          {dietForm.name}
         </Text>
       </ModalHeader>
       <ModalCloseButton />
@@ -59,7 +57,7 @@ function Content({ onClose }: Props) {
               onClose={onClose}
               label="Download"
               isFullWidth={true}
-              fileName={variantForm.name}
+              fileName={dietForm.name}
               isLoading={blob === undefined}
             />
           )}
