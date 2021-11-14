@@ -1,4 +1,4 @@
-import { Flex, Text, HStack } from '@chakra-ui/layout'
+import { Flex, Text, HStack, Alert, AlertIcon } from '@chakra-ui/react'
 import { Food, FoodForm } from 'foods'
 import { PortionsSelect, usePortions } from 'portions'
 import { Controller, useFormContext } from 'react-hook-form'
@@ -15,18 +15,15 @@ function VolumeFields({ canEdit, food }: Props) {
   const portion = food?.volume ? portionsById[food.volume.portionId] : undefined
 
   return (
-    <Flex
-      minHeight={canEdit ? '200px' : undefined}
-      flexDirection="column"
-      alignItems="center"
-    >
-      <Text fontSize="md" mb={6} color="gray.600">
+    <Flex minHeight={canEdit ? '200px' : undefined} flexDirection="column">
+      <Alert status="info" mb={3} borderRadius={6} bg="gray.100">
+        <AlertIcon color="teal.400" />
         To convert between weight and volume, enter how much this food weights
         for some volume measurement:
-      </Text>
+      </Alert>
 
       <HStack spacing={2}>
-        {canEdit && <Text fontWeight="medium">1</Text>}
+        {canEdit && <Text fontWeight="medium">1 x</Text>}
         {canEdit ? (
           <PortionsSelect
             width="200px"
@@ -35,7 +32,7 @@ function VolumeFields({ canEdit, food }: Props) {
           />
         ) : (
           <Text fontWeight="medium">
-            1 {`${portion?.singular} (${portion?.millilitersPerAmount} ml)`}
+            1 x {`${portion?.singular} (${portion?.millilitersPerAmount} ml)`}
           </Text>
         )}
 

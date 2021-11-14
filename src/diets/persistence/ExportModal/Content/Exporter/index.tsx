@@ -49,7 +49,7 @@ function Exporter({ onUpdate }: Props) {
       height="200px"
       bg="white"
     >
-      <AlertIcon boxSize="40px" mr={0} />
+      <AlertIcon color="teal.400" boxSize="40px" mr={0} />
       <AlertTitle mt={4} mb={1} fontSize="lg">
         {error
           ? 'Something went wrong while creating your pdf file'
@@ -57,7 +57,7 @@ function Exporter({ onUpdate }: Props) {
       </AlertTitle>
       {!error && (
         <AlertDescription maxWidth="sm">
-          If you download this plan, it can be imported later if you need to
+          Downloading this plan will allow you to import it later if you need to
           change something.
         </AlertDescription>
       )}

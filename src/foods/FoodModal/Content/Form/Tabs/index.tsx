@@ -12,26 +12,46 @@ import VolumeFormFields from './VolumeFormFields'
 import UrlField from './UrlField'
 import { useFormContext } from 'react-hook-form'
 
+type TabName = 'nutrition' | 'volume' | 'link'
+
 type Props = {
   nameInputRef: RefObject<HTMLInputElement>
   food?: Food
   isEditing: boolean
+  selectedTabName: TabName
+  tabNames: TabName[]
+  onTabNameChange: (name: TabName) => void
 }
 
-function Tabs({ nameInputRef, food, isEditing }: Props) {
-  const showsVolumeTab = isEditing || food?.volume
-  const showsLinkTab = isEditing || food?.url
+function Tabs({
+  nameInputRef,
+  food,
+  isEditing,
+  selectedTabName,
+  tabNames,
+  onTabNameChange,
+}: Props) {
   const { formState } = useFormContext()
+  const tabIndex = tabNames.indexOf(selectedTabName)
+
+  function onTabIndexChange(index: number) {
+    onTabNameChange(tabNames[index])
+  }
 
   return (
-    <TabsBase variant="enclosed" colorScheme="teal">
+    <TabsBase
+      variant="enclosed"
+      colorScheme="teal"
+      index={tabIndex}
+      onChange={onTabIndexChange}
+    >
       <TabList>
         <Tab color={formState.errors?.energy ? 'red.500' : undefined}>
           Nutrition Facts
         </Tab>
 
-        <Tab display={!showsVolumeTab ? 'none' : undefined}>Volume</Tab>
-        <Tab display={!showsLinkTab ? 'none' : undefined}>Link</Tab>
+        {tabNames.includes('volume') && <Tab>Volume</Tab>}
+        {tabNames.includes('link') && <Tab>Link</Tab>}
       </TabList>
 
       <TabPanels>
@@ -41,16 +61,22 @@ function Tabs({ nameInputRef, food, isEditing }: Props) {
             canEdit={isEditing}
           />
         </TabPanel>
-        <TabPanel px={0}>
-          <VolumeFormFields food={food} canEdit={isEditing} />
-        </TabPanel>
+        {tabNames.includes('volume') && (
+          <TabPanel px={0}>
+            <VolumeFormFields food={food} canEdit={isEditing} />
+          </TabPanel>
+        )}
 
-        <TabPanel px={0}>
-          <UrlField canEdit={isEditing} food={food} />
-        </TabPanel>
+        {tabNames.includes('link') && (
+          <TabPanel px={0}>
+            <UrlField canEdit={isEditing} food={food} />
+          </TabPanel>
+        )}
       </TabPanels>
     </TabsBase>
   )
 }
+
+export type { TabName }
 
 export default Tabs

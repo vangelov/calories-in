@@ -1,4 +1,11 @@
-import { Flex, Text, FormControl, FormLabel, Link } from '@chakra-ui/react'
+import {
+  Flex,
+  FormControl,
+  FormLabel,
+  Link,
+  Alert,
+  AlertIcon,
+} from '@chakra-ui/react'
 import { Input } from '@chakra-ui/react'
 import { Food, FoodForm } from 'foods'
 import { useFormContext } from 'react-hook-form'
@@ -12,18 +19,15 @@ function UrlField({ canEdit, food }: Props) {
   const { register } = useFormContext<FoodForm>()
 
   return (
-    <Flex
-      minHeight={canEdit ? '200px' : undefined}
-      flexDirection="column"
-      alignItems="center"
-    >
-      <Text fontSize="md" mb={6} color="gray.600">
+    <Flex minHeight={canEdit ? '200px' : undefined} flexDirection="column">
+      <Alert status="info" mb={3} borderRadius={6} bg="gray.100">
+        <AlertIcon color="teal.400" />
         Links allow you to show a specific web page for a food. They work both
         on the web editor and in the exported pdf files.
-      </Text>
+      </Alert>
 
       <FormControl id="email">
-        <Flex justifyContent="center" alignItems="center">
+        <Flex alignItems="center">
           <FormLabel mb={0} flexShrink={0}>
             Link:
           </FormLabel>
@@ -32,13 +36,11 @@ function UrlField({ canEdit, food }: Props) {
               {...register('url')}
               placeholder="http://example.com"
               type="email"
-              maxWidth="250px"
             />
           ) : (
             <Link
               href={food?.url}
               target="_blank"
-              maxWidth="250px"
               noOfLines={1}
               color="teal.500"
             >
