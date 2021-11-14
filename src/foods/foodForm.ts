@@ -10,6 +10,7 @@ type FoodForm = {
   categoryId: number
   servingSizeInGrams: string
   volumeForm: FoodVolumeForm
+  url?: string
 } & MappedNutritionData<string>
 
 const DEFAULT_SERVING_SIZE_IN_GRAMS = 100
@@ -27,6 +28,7 @@ function getFoodForm(food?: Food) {
       categoryId: food.categoryId,
       servingSizeInGrams: servingSizeInGrams.toString(),
       volumeForm,
+      url: food.url,
       ...objectFromNutritionDataKeys(key => food[key].toString()),
     }
   }

@@ -1,7 +1,7 @@
 [
     {
       "id": 27,
-      "name": "Beef chuck steak (boneless, raw)",
+      "name": "Beef chuck steak (boneless)",
       "categoryId": 2,
       "energy": 160,
       "fat": 8.29,
@@ -39,7 +39,7 @@
     },
     {
       "id": 28,
-      "name": "Beef flank steak (raw)",
+      "name": "Beef flank steak",
       "categoryId": 2,
       "energy": 137,
       "fat": 5,
@@ -77,7 +77,7 @@
     },
     {
       "id": 29,
-      "name": "Beef top sirloin steak (boneless, raw)",
+      "name": "Beef top sirloin steak (boneless)",
       "categoryId": 2,
       "energy": 189,
       "fat": 11.13,
@@ -115,7 +115,7 @@
     },
     {
       "id": 30,
-      "name": "Beef top round steak (boneless, raw)",
+      "name": "Beef top round steak (boneless)",
       "categoryId": 2,
       "energy": 124,
       "fat": 3.26,
@@ -153,7 +153,7 @@
     },
     {
       "id": 31,
-      "name": "Beef tenderloin steak (raw)",
+      "name": "Beef tenderloin steak",
       "categoryId": 2,
       "energy": 148,
       "fat": 5.93,
@@ -191,7 +191,7 @@
     },
     {
       "id": 32,
-      "name": "Beef eye of round steak (raw)",
+      "name": "Beef eye of round steak",
       "categoryId": 2,
       "energy": 124,
       "fat": 3.38,
@@ -229,7 +229,7 @@
     },
     {
       "id": 33,
-      "name": "Beef shoulder steak (raw)",
+      "name": "Beef shoulder steak",
       "categoryId": 2,
       "energy": 125,
       "fat": 4.35,
@@ -267,7 +267,7 @@
     },
     {
       "id": 34,
-      "name": "Beef ribeye steak (boneless, raw)",
+      "name": "Beef ribeye steak (boneless)",
       "categoryId": 2,
       "energy": 169,
       "fat": 9.39,
@@ -305,7 +305,7 @@
     },
     {
       "id": 35,
-      "name": "Beef chuck for stew (raw)",
+      "name": "Beef chuck for stew",
       "categoryId": 2,
       "energy": 130,
       "fat": 4.81,
@@ -343,7 +343,7 @@
     },
     {
       "id": 36,
-      "name": "Beef brisket flat cut (raw)",
+      "name": "Beef brisket flat cut",
       "categoryId": 2,
       "energy": 194,
       "fat": 12.75,
@@ -381,7 +381,7 @@
     },
     {
       "id": 37,
-      "name": "Beef bottom round roast (boneless, raw)",
+      "name": "Beef bottom round roast (boneless)",
       "categoryId": 2,
       "energy": 130,
       "fat": 4.93,
@@ -419,7 +419,7 @@
     },
     {
       "id": 38,
-      "name": "Beef cross cut shank (raw)",
+      "name": "Beef cross cut shank",
       "categoryId": 2,
       "energy": 128,
       "fat": 3.85,
@@ -457,7 +457,7 @@
     },
     {
       "id": 39,
-      "name": "Beef short ribs (boneless, raw)",
+      "name": "Beef short ribs (boneless)",
       "categoryId": 2,
       "energy": 240,
       "fat": 19.03,
@@ -495,7 +495,7 @@
     },
     {
       "id": 40,
-      "name": "Beef tri-tip roast (raw)",
+      "name": "Beef tri-tip roast",
       "categoryId": 2,
       "energy": 157,
       "fat": 7.68,
@@ -533,7 +533,7 @@
     },
     {
       "id": 41,
-      "name": "Beef back ribs (raw)",
+      "name": "Beef back ribs",
       "categoryId": 2,
       "energy": 252,
       "fat": 19.36,
@@ -571,7 +571,7 @@
     },
     {
       "id": 42,
-      "name": "Beef tongue (raw)",
+      "name": "Beef tongue",
       "categoryId": 2,
       "energy": 224,
       "fat": 16.09,
@@ -609,7 +609,7 @@
     },
     {
       "id": 43,
-      "name": "Beef liver (raw)",
+      "name": "Beef liver",
       "categoryId": 2,
       "energy": 135,
       "fat": 3.63,
@@ -647,7 +647,7 @@
     },
     {
       "id": 44,
-      "name": "Ground beef (70% lean,  raw)",
+      "name": "Ground beef (70% lean)",
       "categoryId": 2,
       "energy": 332,
       "fat": 30,
@@ -685,7 +685,7 @@
     },
     {
       "id": 45,
-      "name": "Ground beef (75% lean, raw)",
+      "name": "Ground beef (75% lean)",
       "categoryId": 2,
       "energy": 293,
       "fat": 25,
@@ -723,7 +723,7 @@
     },
     {
       "id": 46,
-      "name": "Ground beef (80% lean, raw)",
+      "name": "Ground beef (80% lean)",
       "categoryId": 2,
       "energy": 254,
       "fat": 20,
@@ -761,7 +761,7 @@
     },
     {
       "id": 47,
-      "name": "Ground beef (90% lean, raw)",
+      "name": "Ground beef (90% lean)",
       "categoryId": 2,
       "energy": 176,
       "fat": 10,
@@ -799,7 +799,7 @@
     },
     {
       "id": 48,
-      "name": "Ground beef (95% lean, raw)",
+      "name": "Ground beef (95% lean)",
       "categoryId": 2,
       "energy": 137,
       "fat": 5,

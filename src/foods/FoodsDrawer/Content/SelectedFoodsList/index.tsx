@@ -24,7 +24,9 @@ function SelectedFoods({ selection }: Props) {
           ))}
         </Wrap>
       ) : (
-        <Text textColor="gray.400">No foods selected</Text>
+        <Text textColor="gray.400" fontWeight="medium">
+          No foods selected
+        </Text>
       )}
     </Flex>
   )

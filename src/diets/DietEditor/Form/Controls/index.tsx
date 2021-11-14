@@ -1,21 +1,23 @@
-import { Flex, useDisclosure } from '@chakra-ui/react'
-import MenuButtons from './MenuButtons'
-import MainButtons from './MainButtons'
-import { getDietForm, useDietFormActions } from 'diets'
-import { useKeyboard, UndoRedoButtons } from 'undoRedo'
-import { ExportModal, useImportDietForm } from 'diets/persistence'
+import { Flex, useDisclosure, Button } from '@chakra-ui/react'
+import { UndoRedoButtons, useKeyboard } from 'undoRedo'
+import { getDietForm, useDietForm, useDietFormActions } from 'diets'
+import {
+  useImportDietForm,
+  ExportModal,
+  canExportDietForm,
+} from 'diets/persistence'
 import {
   FoodsListModal,
   MissingFoodsModal,
   useImportFoods,
 } from 'foods/persistence'
 import { FoodsDrawer } from 'foods'
+import { Share } from 'react-feather'
+import MenuButtons from './MenuButtons'
+import Name from './Name'
 
-type Props = {
-  canExport: boolean
-}
-
-function Controls({ canExport }: Props) {
+function Controls() {
+  const dietForm = useDietForm()
   const dietFormActions = useDietFormActions()
   const exportModalDisclosure = useDisclosure()
   const missingFoodsModalDisclosure = useDisclosure()
@@ -23,6 +25,7 @@ function Controls({ canExport }: Props) {
   const foodsListModalDisclosure = useDisclosure()
   const importFoods = useImportFoods({ foodsListModalDisclosure })
   const foodsDrawerDisclosure = useDisclosure()
+  const canExport = canExportDietForm(dietForm)
 
   useKeyboard()
 
@@ -31,46 +34,55 @@ function Controls({ canExport }: Props) {
   }
 
   return (
-    <Flex bg="white" width="100%" py={3} alignItems="center">
-      <Flex flex="4" justifyContent="space-between">
+    <Flex px={3} width="100%" alignItems="center">
+      <Flex flex={1} mr={3}>
         <UndoRedoButtons />
       </Flex>
 
-      <Flex flex="6" justifyContent="flex-end">
+      <Flex flexShrink={1} justifyContent="center" flex={4}>
+        <Name />
+      </Flex>
+
+      <Flex ml={3} justifyContent="flex-end" spacing={3} flex={1}>
         <MenuButtons
           onImport={onLoadFromFile}
           onClear={onClear}
           onViewFoods={foodsDrawerDisclosure.onOpen}
         />
-
-        <MainButtons
-          onExport={exportModalDisclosure.onOpen}
-          canExport={canExport}
-        />
-
-        <ExportModal
-          isOpen={exportModalDisclosure.isOpen}
-          onClose={exportModalDisclosure.onClose}
-        />
-
-        <MissingFoodsModal
-          isOpen={missingFoodsModalDisclosure.isOpen}
-          onClose={missingFoodsModalDisclosure.onClose}
-          onImport={importFoods.onImport}
-        />
-
-        <FoodsListModal
-          isOpen={foodsListModalDisclosure.isOpen}
-          onClose={foodsListModalDisclosure.onClose}
-          foodsToImport={importFoods.foodsToImport}
-        />
-
-        <FoodsDrawer
-          isOpen={foodsDrawerDisclosure.isOpen}
-          onClose={foodsDrawerDisclosure.onClose}
-          canSelect={false}
-        />
+        <Button
+          isDisabled={!canExport}
+          leftIcon={<Share size={16} pointerEvents="none" />}
+          variant="solid"
+          colorScheme="teal"
+          onClick={exportModalDisclosure.onOpen}
+          size="sm"
+        >
+          Export
+        </Button>
       </Flex>
+
+      <MissingFoodsModal
+        isOpen={missingFoodsModalDisclosure.isOpen}
+        onClose={missingFoodsModalDisclosure.onClose}
+        onImport={importFoods.onImport}
+      />
+
+      <FoodsListModal
+        isOpen={foodsListModalDisclosure.isOpen}
+        onClose={foodsListModalDisclosure.onClose}
+        foodsToImport={importFoods.foodsToImport}
+      />
+
+      <FoodsDrawer
+        isOpen={foodsDrawerDisclosure.isOpen}
+        onClose={foodsDrawerDisclosure.onClose}
+        canSelect={false}
+      />
+
+      <ExportModal
+        isOpen={exportModalDisclosure.isOpen}
+        onClose={exportModalDisclosure.onClose}
+      />
     </Flex>
   )
 }

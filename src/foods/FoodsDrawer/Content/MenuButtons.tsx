@@ -19,7 +19,7 @@ function MenuButtons({ onImport, onExport }: Props) {
       viewScroll="close"
       menuButton={
         <IconButton
-          aria-label="Meal plan actions"
+          aria-label="Foods actions"
           icon={<MoreHorizontalStyled size={20} pointerEvents="none" />}
           variant="outline"
         />

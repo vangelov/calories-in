@@ -25,11 +25,11 @@ function isForMeal(statVaraint: StatVariant) {
 
 function getValueTextColor(statVariant: StatVariant) {
   if (isForMeal(statVariant) || statVariant === 'ingredientAmount') {
-    return 'gray.500'
+    return 'gray.600'
   }
 
   if (isForIngredient(statVariant)) {
-    return 'gray.400'
+    return 'gray.500'
   }
 
   return 'gray.800'
@@ -52,7 +52,7 @@ function getLabelColor(statVariant: StatVariant) {
     return 'gray.800'
   }
 
-  return 'gray.400'
+  return 'gray.500'
 }
 
 export {

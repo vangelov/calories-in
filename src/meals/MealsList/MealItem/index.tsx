@@ -113,6 +113,7 @@ function MealItem({
               fieldId={mealForm.fieldId}
               ownerName={mealForm.name}
               size="xl"
+              textAreaHeight="150px"
             />
 
             <FoodsDrawer

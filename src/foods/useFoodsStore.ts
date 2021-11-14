@@ -2,6 +2,7 @@ import { Food, FoodId } from 'foods'
 import { useState, useCallback, useMemo } from 'react'
 import produce from 'immer'
 import { makeStoreProvider, useCallbacksMemo } from 'general'
+import { useSaveValue } from 'persistence'
 
 type Params = {
   initialFoods: Food[]
@@ -58,6 +59,8 @@ function useFoodsStore({ initialFoods }: Params) {
     () => sortedFoods(allFoods.filter(food => food.addedByUser)),
     [allFoods]
   )
+
+  useSaveValue({ value: userFoods, key: 'userFoods' })
 
   const actions = useCallbacksMemo({ setFoods, removeFood })
 

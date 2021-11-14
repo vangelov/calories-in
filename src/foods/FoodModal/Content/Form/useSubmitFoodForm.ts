@@ -9,6 +9,10 @@ type Params = {
   onComplete: (food: Food) => void
 }
 
+function withProtocol(url: string) {
+  return !/^https?:\/\//i.test(url) ? `http://${url}` : url
+}
+
 function useSubmitFoodForm({ onComplete }: Params) {
   const { handleSubmit } = useFormContext()
   const foodsActions = useFoodsActions()
@@ -21,6 +25,7 @@ function useSubmitFoodForm({ onComplete }: Params) {
       categoryId: foodForm.categoryId,
       addedByUser: true,
       servingSizeInGrams: Number(foodForm.servingSizeInGrams),
+      url: foodForm.url ? withProtocol(foodForm.url) : undefined,
       ...objectFromNutritionDataKeys(key => Number(foodForm[key])),
     }
 

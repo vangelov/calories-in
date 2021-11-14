@@ -70,7 +70,7 @@ function Content({
               colorScheme="teal"
               onClick={foodEvents.onCreateFood}
             >
-              Create new food
+              Create a new food
             </Button>
           </Flex>
 
@@ -86,6 +86,11 @@ function Content({
               itemUsageType={canSelect ? 'selectOrPreview' : 'previewOnly'}
             />
           </FoodsFilterStoreProvider>
+
+          <Text fontSize="sm" color="gray.400">
+            * All nutririon data is for raw/dry foods unless indicated
+            otherwise.
+          </Text>
         </VStack>
       </DrawerBody>
 
@@ -100,8 +105,8 @@ function Content({
             Close
           </Button>
           {canSelect && (
-            <Button size="md" colorScheme="teal" onClick={onAdd}>
-              Add
+            <Button colorScheme="teal" onClick={onAdd}>
+              Add these foods
             </Button>
           )}
         </HStack>

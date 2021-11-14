@@ -1,15 +1,10 @@
-import { ButtonGroup, chakra } from '@chakra-ui/react'
+import { ButtonGroup, chakra, IconButton } from '@chakra-ui/react'
 import {
   useDietFormVersionsActions,
   useDietFormVersions,
 } from './useDietFormVersionsStore'
 import { CornerUpLeft, CornerUpRight } from 'react-feather'
-import {
-  ResponsiveIconButton,
-  getCtrlKeyName,
-  TooltipCommandLabel,
-  Tooltip,
-} from 'general'
+import { getCtrlKeyName, TooltipCommandLabel, Tooltip } from 'general'
 
 const CornerUpLeftStyled = chakra(CornerUpLeft)
 const CornerUpRightStyled = chakra(CornerUpRight)
@@ -26,11 +21,12 @@ function UndoRedoButtons() {
           <TooltipCommandLabel command="Undo" kbdCombo={`${ctrlKeyName}+Z`} />
         }
       >
-        <ResponsiveIconButton
+        <IconButton
           aria-label="Undo"
           icon={<CornerUpLeftStyled size={20} pointerEvents="none" />}
           isDisabled={!canUndo}
           onClick={() => undo()}
+          size="sm"
         />
       </Tooltip>
 
@@ -42,11 +38,12 @@ function UndoRedoButtons() {
           />
         }
       >
-        <ResponsiveIconButton
+        <IconButton
           aria-label="Redo"
           icon={<CornerUpRightStyled size={20} pointerEvents="none" />}
           isDisabled={!canRedo}
           onClick={() => redo()}
+          size="sm"
         />
       </Tooltip>
     </ButtonGroup>

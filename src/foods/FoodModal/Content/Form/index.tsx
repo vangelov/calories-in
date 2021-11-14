@@ -15,6 +15,7 @@ import { StatFormField } from 'stats'
 import Footer from './Footer'
 import Header from './Header'
 import Tabs from './Tabs'
+import useTabs from './useTabs'
 
 type Props = {
   onClose: () => void
@@ -44,6 +45,11 @@ function Form({
       onFoodCreatedOrUpdated && onFoodCreatedOrUpdated(newOrUpdatedFood, food)
       onClose()
     },
+  })
+
+  const { tabNames, onTabNameChange, selectedTabName } = useTabs({
+    isEditing,
+    food,
   })
 
   return (
@@ -89,13 +95,16 @@ function Form({
               nameInputRef={nameInputRef}
               isEditing={isEditing}
               food={food}
+              tabNames={tabNames}
+              onTabNameChange={onTabNameChange}
+              selectedTabName={selectedTabName}
             />
           </VStack>
 
           {isEditing && food && (
             <Box>
               <Divider />
-              <Button width="100%" my={3} colorScheme="red" onClick={onDelete}>
+              <Button width="100%" my={6} colorScheme="red" onClick={onDelete}>
                 Delete food
               </Button>
             </Box>

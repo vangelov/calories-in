@@ -3,15 +3,14 @@ import ReactPDF, {
   Page,
   Font,
   StyleSheet,
-  Text,
   View,
-  Link,
 } from '@react-pdf/renderer'
 import { Food } from 'foods'
 import { Portion } from 'portions'
+import { ReactElement } from 'react'
 import { StatsTree } from 'stats/calculations/getStatsTree'
 import { getComputedColorFromChakra } from 'theme'
-import PdfVariantsList from 'variants/PdfVariantsList'
+import PdfVariantItem from 'variants/PdfVariantsList/PdfVariantItem'
 import { DietForm } from './dietForm'
 
 type Props = {
@@ -31,54 +30,38 @@ function PdfDietEditor({
 }: Props) {
   const { variantsForms } = dietForm
 
-  return (
-    <Document {...rest}>
-      <Page style={styles.page}>
-        {variantsForms.length > 1 && (
-          <Text
-            style={[
-              styles.title,
-              {
-                color: getComputedColorFromChakra(
-                  dietForm.name ? 'gray.600' : 'gray.400'
-                ),
-              },
-            ]}
-          >
-            {dietForm.name || 'Untitled meal plan'}
-          </Text>
-        )}
-        <PdfVariantsList
-          dietForm={dietForm}
-          variantsForms={variantsForms}
-          variantsFormsStatsTrees={dietFormStatsTree.subtrees}
+  const variantItemsElements: ReactElement[] = []
+
+  variantsForms.forEach((variantForm, index) => {
+    const { mealsForms } = variantForm
+    const { stats, subtrees } = dietFormStatsTree.subtrees[index]
+
+    if (mealsForms.length > 0) {
+      variantItemsElements.push(
+        <PdfVariantItem
+          index={variantItemsElements.length}
+          key={variantForm.fieldId}
+          variantForm={variantForm}
+          stats={stats}
+          mealsFormsStatsTrees={subtrees}
           foodsById={foodsById}
           portionsById={portionsById}
         />
+      )
+    }
+  })
 
+  return (
+    <Document {...rest}>
+      <Page style={styles.page}>
         <View
-          fixed
           style={{
-            marginTop: 16,
-
-            alignItems: 'center',
+            backgroundColor: getComputedColorFromChakra('teal.500'),
+            height: '8px',
           }}
-        >
-          <Text
-            style={{
-              fontSize: 12,
-              color: getComputedColorFromChakra('gray.800'),
-            }}
-          >
-            Created using:{' '}
-            <Link
-              style={{ color: getComputedColorFromChakra('teal.500') }}
-              src="http://caorories-in.com"
-            >
-              http://calories-in.com
-            </Link>
-          </Text>
-        </View>
+        />
+
+        {variantItemsElements}
       </Page>
     </Document>
   )
@@ -86,13 +69,10 @@ function PdfDietEditor({
 
 const styles = StyleSheet.create({
   page: {
-    padding: 12,
     fontFamily: 'Roboto',
   },
-  title: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    marginBottom: 20,
+  content: {
+    padding: 12,
   },
 })
 

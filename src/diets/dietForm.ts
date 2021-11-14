@@ -10,7 +10,7 @@ type DietForm = {
 }
 
 function getDietForm(diet?: Diet): DietForm {
-  const variantsForms = [getVariantForm('Day 1')]
+  const variantsForms = [getVariantForm('Variant 1')]
   const fieldId = uuidv4()
 
   if (diet) {
@@ -24,7 +24,7 @@ function getDietForm(diet?: Diet): DietForm {
 
   return {
     fieldId,
-    name: '',
+    name: 'Untitled plan',
     variantsForms,
     selectedVariantFormIndex: 0,
   }

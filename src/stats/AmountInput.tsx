@@ -1,5 +1,5 @@
 import { InputProps, Input, Flex } from '@chakra-ui/react'
-import { MouseEvent, ReactNode } from 'react'
+import { MouseEvent, ReactNode, WheelEvent } from 'react'
 
 type Props = {
   children?: ReactNode
@@ -20,6 +20,11 @@ function AmountInput({ name, children, ...rest }: Props) {
       input.setSelectionRange(length, length)
       input.type = 'number'
     }
+  }
+
+  function onWheel(event: WheelEvent<HTMLInputElement>) {
+    const target = event.target as HTMLInputElement
+    target.blur()
   }
 
   return (
@@ -44,6 +49,7 @@ function AmountInput({ name, children, ...rest }: Props) {
           }
         }}
         onMouseDown={onMouseDown}
+        onWheel={onWheel}
       />
 
       {children}

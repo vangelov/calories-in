@@ -78,6 +78,7 @@ function PdfMealItem({
         foodsById={foodsById}
         portionsById={portionsById}
       />
+
       {mealForm.notes && (
         <View
           style={[
@@ -106,7 +107,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   name: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 'medium',
     marginLeft: 10,
   },
@@ -120,7 +121,7 @@ const styles = StyleSheet.create({
   notes: {
     padding: 12,
     borderTopWidth: 1,
-    fontSize: 12,
+    fontSize: 14,
   },
 })
 

@@ -39,8 +39,7 @@ function MealsList({
     <Droppable droppableId="mealsList" type="mealsList">
       {(provided, snapshot) => (
         <Flex
-          px={{ base: 0, lg: 3 }}
-          py={3}
+          p={3}
           ref={provided.innerRef}
           minHeight={`calc(100vh - ${headerHeight}px)`}
           bg="white"

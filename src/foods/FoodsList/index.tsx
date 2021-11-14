@@ -31,7 +31,6 @@ import {
 import { Food } from 'foods'
 import { FixedSizeList } from 'react-window'
 import { FoodsFilterPopoverOrModal } from 'foods-filters'
-import { useSaveValue } from 'persistence'
 import { UsageType } from './VirtualizedList/FoodItem'
 
 const SearchStyled = chakra(Search)
@@ -83,8 +82,6 @@ function FoodsList({
     },
   }))
 
-  useSaveValue({ value: userFoods, key: 'userFoods' })
-
   return (
     <Flex flexDirection="column" {...rest}>
       <HStack spacing={3}>
@@ -128,7 +125,9 @@ function FoodsList({
         />
       ) : (
         <Flex flex={1} alignItems="center" justifyContent="center">
-          <Text textColor="gray.400">No foods found</Text>
+          <Text textColor="gray.400" fontWeight="medium">
+            No foods found
+          </Text>
         </Flex>
       )}
     </Flex>

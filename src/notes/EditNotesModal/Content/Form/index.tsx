@@ -22,10 +22,11 @@ import Header from './Header'
 type Props = {
   onClose: () => void
   initialRef: RefObject<HTMLInputElement>
-  onEditNotes: (notes: string) => void
+  onEditNotes: (notes?: string) => void
   fieldId: string
   ownerName: string
   notes?: string
+  textAreaHeight?: string | number
 }
 
 function Form({
@@ -35,6 +36,7 @@ function Form({
   initialRef,
   onEditNotes,
   fieldId,
+  textAreaHeight,
 }: Props) {
   const { register, handleSubmit } = useFormContext()
   const notesRegister = register('notes')
@@ -43,7 +45,7 @@ function Form({
 
   const onSubmit = handleSubmit((form: NotesForm) => {
     oneTimeCheckActions.set(`notes-${fieldId}`)
-    onEditNotes(form.notes)
+    onEditNotes(form.notes || undefined)
     onClose()
   })
 
@@ -64,6 +66,7 @@ function Form({
               ref={notesInputRef}
               focusBorderColor={isInvalid ? 'red.500' : undefined}
               placeholder="Enter notes"
+              height={textAreaHeight}
             />
             <Collapse animateOpacity={true} in={Boolean(errorMessage)}>
               <Box minHeight="21px">

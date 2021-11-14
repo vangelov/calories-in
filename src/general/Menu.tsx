@@ -4,6 +4,8 @@ import {
   MenuButton,
   MenuItem,
   ControlledMenu as ControlledMenuBase,
+  MenuDivider,
+  MenuHeader,
 } from '@szhsin/react-menu'
 import '@szhsin/react-menu/dist/index.css'
 
@@ -18,6 +20,6 @@ const ControlledMenu = styled(ControlledMenuBase)`
   ${bowShadow}
 `
 
-export { MenuButton, MenuItem, ControlledMenu }
+export { MenuButton, MenuItem, ControlledMenu, MenuDivider, MenuHeader }
 
 export default Menu

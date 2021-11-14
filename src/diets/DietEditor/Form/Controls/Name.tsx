@@ -1,5 +1,5 @@
-import { Input, Flex } from '@chakra-ui/react'
 import { useDietForm, useDietFormActions } from 'diets'
+import { Editable, EditableInput, EditablePreview } from '@chakra-ui/react'
 import { ChangeEvent } from 'react'
 
 function Name() {
@@ -12,19 +12,10 @@ function Name() {
   }
 
   return (
-    <Flex height="100%" alignItems="center">
-      <Input
-        placeholder="Meal plan name"
-        size="md"
-        fontSize="md"
-        fontWeight="semibold"
-        autoComplete="off"
-        textColor="gray.600"
-        onChange={onNameChange}
-        bg="white"
-        value={dietForm.name}
-      />
-    </Flex>
+    <Editable size="sm" textAlign="center" value={dietForm.name} width="100%">
+      <EditablePreview width="100%" />
+      <EditableInput onChange={onNameChange} />
+    </Editable>
   )
 }
 

@@ -13,7 +13,13 @@ function Header({ title, canEdit, isEditing, onToggleEdit }: Props) {
     <ModalHeader>
       {title}
       {canEdit && (
-        <Button ml={3} variant="link" colorScheme="teal" onClick={onToggleEdit}>
+        <Button
+          ml={3}
+          variant="link"
+          size="md"
+          colorScheme="teal"
+          onClick={onToggleEdit}
+        >
           {isEditing ? 'Back to preview' : 'Edit food'}
         </Button>
       )}

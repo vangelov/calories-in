@@ -22,15 +22,15 @@ function getMenuItems({
 }: Props) {
   return [
     <MenuItem key="editNotes" onClick={onEditNotes}>
-      <EditStyled pointerEvents="none" size={20} mr={3} />
+      <EditStyled pointerEvents="none" size={16} mr={3} />
       {ingredientForm.notes ? 'Edit notes' : 'Add notes'}
     </MenuItem>,
     <MenuItem key="remove" onClick={onRemove}>
-      <Trash2Styled pointerEvents="none" size={20} mr={3} />
+      <Trash2Styled pointerEvents="none" size={16} mr={3} />
       Remove food
     </MenuItem>,
     <MenuItem key="viewDetails" onClick={onViewFoodDetails}>
-      <InfoStyled pointerEvents="none" size={20} mr={3} />
+      <InfoStyled pointerEvents="none" size={16} mr={3} />
       View food details
     </MenuItem>,
   ]

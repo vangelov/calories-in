@@ -2,7 +2,6 @@ import { Text, StyleSheet, View } from '@react-pdf/renderer'
 import { roundMacrosPercents, Stats, StatsTree, getMacrosPercents } from 'stats'
 import PdfStat from 'stats/PdfStat'
 import PdfStatsLayout from 'stats/PdfStatsLayout'
-import { Style } from '@react-pdf/types/style'
 import { VariantForm } from 'variants'
 import { Food } from 'foods'
 import { getComputedColorFromChakra } from 'theme'
@@ -11,24 +10,21 @@ import { useMemo } from 'react'
 import { Portion } from 'portions'
 
 type Props = {
-  name?: string
   variantForm: VariantForm
   stats: Stats
   mealsFormsStatsTrees: StatsTree[]
-  style?: Style
   foodsById: Record<number, Food>
   portionsById: Record<string, Portion>
   index: number
 }
 
 function PdfVariantItem({
-  name,
   variantForm,
   stats,
   mealsFormsStatsTrees,
   foodsById,
   portionsById,
-  style = {},
+  index,
 }: Props) {
   const { mealsForms } = variantForm
 
@@ -38,16 +34,16 @@ function PdfVariantItem({
   )
 
   return (
-    <View style={[style]}>
+    <View style={styles.root} break={index > 0}>
       <PdfStatsLayout
         nameElement={
           <Text
             style={[
               styles.name,
-              { color: getComputedColorFromChakra('gray.600') },
+              { color: getComputedColorFromChakra('teal.600') },
             ]}
           >
-            {name || variantForm.name}
+            {variantForm.name}
           </Text>
         }
         energyElement={
@@ -79,6 +75,13 @@ function PdfVariantItem({
         }
       />
 
+      <View
+        style={[
+          { backgroundColor: getComputedColorFromChakra('gray.100') },
+          styles.separator,
+        ]}
+      />
+
       <PdfMealsList
         mealsForms={mealsForms}
         mealsFormsStatsTrees={mealsFormsStatsTrees}
@@ -90,9 +93,18 @@ function PdfVariantItem({
 }
 
 const styles = StyleSheet.create({
+  root: {
+    paddingTop: 12,
+    paddingLeft: 12,
+    paddingRight: 12,
+  },
   name: {
-    fontSize: 12,
     fontWeight: 'semibold',
+    fontSize: 20,
+  },
+  separator: {
+    height: 1,
+    marginTop: 12,
   },
 })
 

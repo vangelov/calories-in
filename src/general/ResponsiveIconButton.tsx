@@ -13,7 +13,7 @@ function ResponsiveIconButton({
   ...rest
 }: Props) {
   const screenSize = useScreenSize()
-  const size = screenSize >= ScreenSize.Medium ? 'sm' : 'md'
+  const size = screenSize >= ScreenSize.Medium ? 'sm' : 'sm'
 
   return <IconButton ref={forwardedRef} size={size} {...rest} />
 }

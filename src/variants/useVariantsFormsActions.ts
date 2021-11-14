@@ -8,26 +8,15 @@ import {
 } from './variantForm'
 import { OneTimeCheckActions } from 'general'
 import { duplicate, getDuplicatedName, getEnumeratedName } from 'form'
+import getVariantFormIndexAfterRemove from './getVariantFormIndexAfterRemove'
 
 type Params = {
   setDietForm: (action: SetStateAction<DietForm>) => void
   oneTimeCheckActions: OneTimeCheckActions
 }
 
-function getIndexAfterRemove(selectedIndex: number, indexToRemove: number) {
-  if (indexToRemove < selectedIndex) {
-    return selectedIndex - 1
-  }
-
-  if (indexToRemove === selectedIndex && indexToRemove > 0) {
-    return indexToRemove - 1
-  }
-
-  return selectedIndex
-}
-
 function getAppendedVariantFormName(variantForms: VariantForm[]) {
-  return getEnumeratedName(`Day ${variantForms.length + 1}`, variantForms)
+  return getEnumeratedName(`Variant ${variantForms.length + 1}`, variantForms)
 }
 
 function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
@@ -53,16 +42,23 @@ function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
   )
 
   const removeVariantForm = useCallback(
-    (indexToRemove: number) =>
+    (
+      indexToRemove: number,
+      onRemove?: (newSelectedVariantForm: VariantForm) => void
+    ) =>
       setDietForm(dietForm =>
         produce(dietForm, draftDietForm => {
-          const { selectedVariantFormIndex } = draftDietForm
+          const { selectedVariantFormIndex, variantsForms } = draftDietForm
 
-          draftDietForm.selectedVariantFormIndex = getIndexAfterRemove(
+          draftDietForm.selectedVariantFormIndex = getVariantFormIndexAfterRemove(
             selectedVariantFormIndex,
             indexToRemove
           )
           draftDietForm.variantsForms.splice(indexToRemove, 1)
+
+          if (onRemove) {
+            onRemove(variantsForms[draftDietForm.selectedVariantFormIndex])
+          }
         })
       ),
     [setDietForm]
@@ -95,13 +91,18 @@ function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {
     (fromIndex: number, toIndex: number) =>
       setDietForm(
         produce(draftDietForm => {
-          const { variantsForms } = draftDietForm
+          const { variantsForms, selectedVariantFormIndex } = draftDietForm
+          const selectedVariantForm = variantsForms[selectedVariantFormIndex]
 
           const variantForm = variantsForms[fromIndex]
           variantsForms.splice(fromIndex, 1)
           variantsForms.splice(toIndex, 0, variantForm)
 
-          draftDietForm.selectedVariantFormIndex = toIndex
+          const newSelectedVariantFormIndex = variantsForms.findIndex(
+            ({ fieldId }) => fieldId === selectedVariantForm.fieldId
+          )
+
+          draftDietForm.selectedVariantFormIndex = newSelectedVariantFormIndex
         })
       ),
     [setDietForm]

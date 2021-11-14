@@ -1,7 +1,7 @@
-import { Text, StyleSheet, View } from '@react-pdf/renderer'
+import { Text, StyleSheet, View, Link } from '@react-pdf/renderer'
 import { Food, FoodId } from 'foods'
 import { IngredientForm } from 'ingredients'
-import { Portion } from 'portions'
+import { Portion, getIngredientPortionDescription } from 'portions'
 import { Stats } from 'stats'
 import PdfStat from 'stats/PdfStat'
 import PdfStatsLayout from 'stats/PdfStatsLayout'
@@ -20,25 +20,49 @@ function PdfIngredientItem({
   foodsById,
   portionsById,
 }: Props) {
-  const { portionId, foodId } = ingredientForm
+  const { foodId } = ingredientForm
   const food = foodsById[foodId]
-  const portion = portionsById[portionId]
 
   return (
     <View style={styles.root}>
       <PdfStatsLayout
         nameElement={
           <View style={{ marginLeft: 10 }}>
-            <Text
-              style={[
-                styles.name,
-                { color: getComputedColorFromChakra('gray.600') },
-              ]}
-            >
-              {food.name}
-            </Text>
+            {food.url ? (
+              <Link
+                src={food.url}
+                style={[
+                  styles.name,
+                  {
+                    color: getComputedColorFromChakra('teal.600'),
+                    textDecoration: 'none',
+                  },
+                ]}
+              >
+                {getIngredientPortionDescription(
+                  ingredientForm,
+                  foodsById,
+                  portionsById
+                )}{' '}
+                {food.name}
+              </Link>
+            ) : (
+              <Text
+                style={[
+                  styles.name,
+                  { color: getComputedColorFromChakra('gray.600') },
+                ]}
+              >
+                {getIngredientPortionDescription(
+                  ingredientForm,
+                  foodsById,
+                  portionsById
+                )}{' '}
+                {food.name}
+              </Text>
+            )}
 
-            {ingredientForm.notes ? (
+            {ingredientForm.notes && (
               <Text
                 style={[
                   styles.notes,
@@ -47,15 +71,8 @@ function PdfIngredientItem({
               >
                 {ingredientForm.notes}
               </Text>
-            ) : null}
+            )}
           </View>
-        }
-        amountElement={
-          <PdfStat
-            variant="ingredientAmount"
-            value={Number(ingredientForm.amount)}
-            unit={portion.unit}
-          />
         }
         energyElement={
           <PdfStat variant="ingredientEnergy" value={stats.energy} />
@@ -71,11 +88,11 @@ function PdfIngredientItem({
 const styles = StyleSheet.create({
   root: { paddingTop: 10, paddingBottom: 10 },
   name: {
-    fontSize: 12,
+    fontSize: 14,
   },
   notes: {
     marginTop: 3,
-    fontSize: 10,
+    fontSize: 12,
   },
 })
 

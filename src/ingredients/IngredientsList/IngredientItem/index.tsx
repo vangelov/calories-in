@@ -70,7 +70,7 @@ function IngredientItem({
     ingredientForm,
   })
 
-  // console.log('ingredient', variantIndex, mealIndex, index)
+  console.log('ingredient', variantIndex, mealIndex, index)
 
   return (
     <Draggable
