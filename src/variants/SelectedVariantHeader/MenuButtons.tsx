@@ -1,20 +1,28 @@
 import { chakra, IconButton } from '@chakra-ui/react'
-import { MoreHorizontal, Info, Trash2, Copy } from 'react-feather'
+import { MoreHorizontal, Info, Trash2, Copy, Plus } from 'react-feather'
 import { Menu, MenuItem } from 'general'
 
 const Trash2Styled = chakra(Trash2)
 const CopyStyled = chakra(Copy)
 const MoreHorizontalStyled = chakra(MoreHorizontal)
 const InfoStyled = chakra(Info)
+const PlusStyled = chakra(Plus)
 
 type Props = {
+  onAddMeal: () => void
   onDetails: () => void
   onCopy: () => void
   onRemove: () => void
   canRemove: boolean
 }
 
-function MenuButtons({ onDetails, canRemove, onCopy, onRemove }: Props) {
+function MenuButtons({
+  onAddMeal,
+  onDetails,
+  canRemove,
+  onCopy,
+  onRemove,
+}: Props) {
   return (
     <Menu
       arrow
@@ -29,6 +37,10 @@ function MenuButtons({ onDetails, canRemove, onCopy, onRemove }: Props) {
         />
       }
     >
+      <MenuItem onClick={onAddMeal}>
+        <PlusStyled pointerEvents="none" size={16} mr={3} />
+        Add meal
+      </MenuItem>
       <MenuItem onClick={onDetails}>
         <InfoStyled pointerEvents="none" size={16} mr={3} />
         View variant details

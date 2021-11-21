@@ -9,6 +9,7 @@ import {
   Text,
   HStack,
   useDisclosure,
+  chakra,
 } from '@chakra-ui/react'
 import { RefObject, useRef, useState } from 'react'
 import { FoodsList, FoodsListMethods, FoodModal, Food } from 'foods'
@@ -20,6 +21,8 @@ import { useImportFoods, FoodsListModal } from 'foods/persistence'
 import { FoodsFilterStoreProvider } from 'foods-filters'
 import { loadFoodsFilter } from 'foods-filters/persistence'
 import useFoodEvents from './useFoodEvents'
+import { Info } from 'react-feather'
+const InfoStyled = chakra(Info)
 
 type Props = {
   onClose: () => void
@@ -63,7 +66,7 @@ function Content({
         >
           <Flex>
             <Text textColor="gray.500" size="lg" mr={1}>
-              Foods missing?
+              Need more foods?
             </Text>
             <Button
               variant="link"
@@ -87,10 +90,13 @@ function Content({
             />
           </FoodsFilterStoreProvider>
 
-          <Text fontSize="sm" color="gray.400">
-            * All nutririon data is for raw/dry foods unless indicated
-            otherwise.
-          </Text>
+          <Flex color="gray.500" flexDirection="row" alignItems="center">
+            <InfoStyled size={15} mr={1} />
+            <Text fontSize="sm">
+              All nutririon data is for raw/dry foods unless indicated
+              otherwise.
+            </Text>
+          </Flex>
         </VStack>
       </DrawerBody>
 
@@ -105,8 +111,12 @@ function Content({
             Close
           </Button>
           {canSelect && (
-            <Button colorScheme="teal" onClick={onAdd}>
-              Add these foods
+            <Button
+              isDisabled={selection.selectedItems.length === 0}
+              colorScheme="teal"
+              onClick={onAdd}
+            >
+              Add foods
             </Button>
           )}
         </HStack>

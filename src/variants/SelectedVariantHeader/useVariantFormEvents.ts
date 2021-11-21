@@ -34,6 +34,10 @@ function useVariantFormEvents({
   function onCopy() {
     dietFormActions.duplicateVariantForm(selectedVariantFormIndex)
     setScrollState({ top: 0 })
+
+    if (nameInputRef.current) {
+      nameInputRef.current.focus()
+    }
   }
 
   function onRemove() {

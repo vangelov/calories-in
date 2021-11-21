@@ -1,4 +1,4 @@
-import { Box, Flex, useDisclosure } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import MealItem from './MealItem'
 import { useRef, memo } from 'react'
 import { useGetRefForId } from 'dom'
@@ -7,7 +7,6 @@ import { useDietFormActions } from 'diets'
 import { MealForm } from 'meals'
 import useScrollToAndFocusMeal from './useScrollToAndFocusMeal'
 import EmptyList from './EmptyList'
-import { FoodsDrawer } from 'foods'
 import MealsControls from './MealsControls'
 
 type Props = {
@@ -15,6 +14,7 @@ type Props = {
   selectedVariantFormIndex: number
   selectedVariantFormFieldId: string
   headerHeight: number
+  onAddMeal: () => void
 }
 
 function MealsList({
@@ -22,15 +22,14 @@ function MealsList({
   selectedVariantFormIndex,
   selectedVariantFormFieldId,
   headerHeight,
+  onAddMeal,
 }: Props) {
   const getMealNameInputRefById = useGetRefForId<HTMLInputElement>()
   const scrollTargetRef = useRef<HTMLDivElement>(null)
-  const foodsDrawerDisclosure = useDisclosure()
 
-  const { onScrollToMeal, onMealAdd } = useScrollToAndFocusMeal({
+  const { onScrollToMeal } = useScrollToAndFocusMeal({
     scrollTargetRef,
     getMealNameInputRefById,
-    foodsDrawerDisclosure,
   })
 
   const dietFormActions = useDietFormActions()
@@ -61,24 +60,14 @@ function MealsList({
               />
             ))
           ) : (
-            <EmptyList onAddMeal={foodsDrawerDisclosure.onOpen} />
+            <EmptyList onAddMeal={onAddMeal} />
           )}
 
           {provided.placeholder}
           {mealsForms.length > 0 && (
-            <MealsControls
-              mealsForms={mealsForms}
-              onAddMeal={foodsDrawerDisclosure.onOpen}
-            />
+            <MealsControls mealsForms={mealsForms} onAddMeal={onAddMeal} />
           )}
           <Box ref={scrollTargetRef} height="48px" />
-
-          <FoodsDrawer
-            isOpen={foodsDrawerDisclosure.isOpen}
-            onClose={foodsDrawerDisclosure.onClose}
-            mealName={`Meal ${mealsForms.length + 1}`}
-            onSelectedFoods={onMealAdd}
-          />
         </Flex>
       )}
     </Droppable>

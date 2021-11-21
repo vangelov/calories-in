@@ -10,8 +10,8 @@ type Props = {
 function EmptyList({ onAddMeal }: Props) {
   return (
     <Center flex={1} flexDirection="column">
-      <Text fontSize="md" fontWeight="medium" textColor="gray.400">
-        You haven't added any meals yet
+      <Text fontSize="lg" fontWeight="medium" textColor="gray.500">
+        Let's add the first meal
       </Text>
       <Button
         mt={3}

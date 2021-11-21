@@ -20,11 +20,13 @@ function UrlField({ canEdit, food }: Props) {
 
   return (
     <Flex minHeight={canEdit ? '200px' : undefined} flexDirection="column">
-      <Alert status="info" mb={3} borderRadius={6} bg="gray.100">
-        <AlertIcon color="teal.400" />
-        Links allow you to show a specific web page for a food. They work both
-        on the web editor and in the exported pdf files.
-      </Alert>
+      {canEdit && (
+        <Alert status="info" mb={3} borderRadius={6} bg="gray.100">
+          <AlertIcon color="teal.400" />
+          Add a link so that clicking on this food will open a web page. Links
+          work both on the web editor and in the exported PDF files.
+        </Alert>
+      )}
 
       <FormControl id="email">
         <Flex alignItems="center">

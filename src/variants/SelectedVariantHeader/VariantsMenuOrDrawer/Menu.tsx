@@ -1,6 +1,6 @@
 import { chakra } from '@chakra-ui/react'
 import { Check, Plus, Shuffle } from 'react-feather'
-import { Menu as MenuBase, MenuItem, MenuDivider } from 'general'
+import { Menu as MenuBase, MenuItem, MenuDivider, MenuHeader } from 'general'
 import Trigger from './Trigger'
 import { useDietForm } from 'diets'
 import { VariantForm } from 'variants'
@@ -21,6 +21,7 @@ function Menu({ onSelect, onCreate, onReorder, canReorder }: Props) {
 
   return (
     <MenuBase arrow menuButton={<Trigger />}>
+      <MenuHeader>Variants</MenuHeader>
       {variantsForms.map((variantForm, index) => {
         const { fieldId, name } = variantForm
         const isSelected = index === selectedVariantFormIndex

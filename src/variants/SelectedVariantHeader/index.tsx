@@ -17,9 +17,10 @@ import { useDietForm, ScrollManager } from 'diets'
 
 type Props = {
   scrollManager: ScrollManager
+  onAddMeal: () => void
 }
 
-function SelectedVariantHeader({ scrollManager }: Props) {
+function SelectedVariantHeader({ onAddMeal, scrollManager }: Props) {
   const dietForm = useDietForm()
   const { variantsForms, selectedVariantFormIndex } = dietForm
   const selectedVariantForm = variantsForms[selectedVariantFormIndex]
@@ -107,6 +108,7 @@ function SelectedVariantHeader({ scrollManager }: Props) {
         menuElement={
           <RightAligned>
             <MenuButtons
+              onAddMeal={onAddMeal}
               onDetails={variantsDetailsModalDisclosure.onOpen}
               onCopy={variantFormEvents.onCopy}
               onRemove={variantFormEvents.onRemove}

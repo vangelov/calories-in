@@ -16,11 +16,13 @@ function VolumeFields({ canEdit, food }: Props) {
 
   return (
     <Flex minHeight={canEdit ? '200px' : undefined} flexDirection="column">
-      <Alert status="info" mb={3} borderRadius={6} bg="gray.100">
-        <AlertIcon color="teal.400" />
-        To convert between weight and volume, enter how much this food weights
-        for some volume measurement:
-      </Alert>
+      {canEdit && (
+        <Alert status="info" mb={3} borderRadius={6} bg="gray.100">
+          <AlertIcon color="teal.400" />
+          Enter how much this food weights for some volume measurement if want
+          yo convert between weight and volume.
+        </Alert>
+      )}
 
       <HStack spacing={2}>
         {canEdit && <Text fontWeight="medium">1 x</Text>}

@@ -1,13 +1,25 @@
+import { UseDisclosureReturn } from '@chakra-ui/hooks'
 import { DietForm, useDietFormActions, ScrollManager } from 'diets'
+import { Food } from 'foods'
+import { getIngredient } from 'ingredients'
+import { getMealForm } from 'meals'
 import { AppLocation } from 'undoRedo'
 
 type Params = {
   scrollManager: ScrollManager
+  foodsDrawerDisclosure: UseDisclosureReturn
 }
 
-function useDietFormEvents({ scrollManager }: Params) {
+function useDietFormEvents({ scrollManager, foodsDrawerDisclosure }: Params) {
   const dietFormActions = useDietFormActions()
   const { setScrollState } = scrollManager
+
+  function onMealAdded(foods: Food[], mealName?: string) {
+    foodsDrawerDisclosure.onClose()
+    const ingredients = foods.map(getIngredient)
+    const mealForm = getMealForm({ name: mealName as string, ingredients })
+    dietFormActions.appendMealForm(mealForm)
+  }
 
   function onUndoOrRedo(
     form: DietForm,
@@ -27,6 +39,7 @@ function useDietFormEvents({ scrollManager }: Params) {
 
   return {
     onUndoOrRedo,
+    onMealAdded,
   }
 }
 
