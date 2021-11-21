@@ -11,7 +11,7 @@ type Params = {
 function sortedFoods(foods: Food[]) {
   return [...foods].sort((food1, food2) => {
     if (food1.categoryId === food2.categoryId) {
-      return food1.name.localeCompare(food1.name)
+      return food1.name.localeCompare(food2.name)
     }
 
     return food1.categoryId - food2.categoryId
@@ -28,6 +28,8 @@ function useFoodsStore({ initialFoods }: Params) {
 
     return initialMap
   })
+
+  console.log('f', foodsById)
 
   const setFoods = useCallback(
     (foods: Food[]) =>

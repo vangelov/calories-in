@@ -103,7 +103,7 @@ function MealItem({
               shouldAddRadiusToLastBottomBorder={!mealForm.notes}
             />
 
-            {mealForm.notes && <Notes mealForm={mealForm} />}
+            {mealForm.notes && <Notes notes={mealForm.notes} />}
 
             <EditNotesModal
               isOpen={editNotesModalDisclosure.isOpen}

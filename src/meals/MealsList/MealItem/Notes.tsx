@@ -1,16 +1,21 @@
-import { Box, Text } from '@chakra-ui/react'
-import { MealForm } from 'meals'
+import { Box, UnorderedList, ListItem } from '@chakra-ui/react'
 
 type Props = {
-  mealForm: MealForm
+  notes: string
 }
 
-function Notes({ mealForm }: Props) {
+function Notes({ notes }: Props) {
+  const lines = notes.split('\n').filter(line => line.length > 0)
+
   return (
     <Box borderTopColor="gray.100" borderTopWidth={1} p={3}>
-      <Text fontSize="md" whiteSpace="pre-wrap" color="gray.400">
-        {mealForm.notes}
-      </Text>
+      <UnorderedList spacing={3}>
+        {lines.map(line => (
+          <ListItem fontSize="md" color="gray.600" key={line}>
+            {line}
+          </ListItem>
+        ))}
+      </UnorderedList>
     </Box>
   )
 }

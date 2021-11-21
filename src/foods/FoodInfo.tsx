@@ -50,7 +50,7 @@ function FoodInfo({
         )}
 
         {energy !== undefined && (
-          <Text fontSize="sm" textColor="gray.400">
+          <Text fontSize="sm" textColor="gray.500">
             <Text as="span" fontWeight="bold" fontSize="xs">
               {`${Math.round(energy as number)}kcal`}
             </Text>{' '}

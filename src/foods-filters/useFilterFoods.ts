@@ -34,6 +34,8 @@ function useFilterFoods(
     [foodsToFilter]
   )
 
+  console.log('f', foodsToFilter)
+
   const { query, categoryId } = filter
   if (!query) {
     return categoryId ? foodsByCategoryId[categoryId] || [] : foodsToFilter

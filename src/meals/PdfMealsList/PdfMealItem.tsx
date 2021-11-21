@@ -8,6 +8,7 @@ import PdfStatsLayout from 'stats/PdfStatsLayout'
 import { Food } from 'foods'
 import PdfIngredientsList from 'ingredients/PdfIngredientsList'
 import { Portion } from 'portions'
+import Notes from './Notes'
 
 type Props = {
   mealForm: MealForm
@@ -79,24 +80,7 @@ function PdfMealItem({
         portionsById={portionsById}
       />
 
-      {mealForm.notes && (
-        <View
-          style={[
-            styles.notes,
-            {
-              borderTopColor: getComputedColorFromChakra('gray.100'),
-            },
-          ]}
-        >
-          <Text
-            style={{
-              color: getComputedColorFromChakra('gray.400'),
-            }}
-          >
-            {mealForm.notes}
-          </Text>
-        </View>
-      )}
+      {mealForm.notes && <Notes notes={mealForm.notes} />}
     </View>
   )
 }
@@ -117,11 +101,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderBottomWidth: 1,
-  },
-  notes: {
-    padding: 12,
-    borderTopWidth: 1,
-    fontSize: 14,
   },
 })
 

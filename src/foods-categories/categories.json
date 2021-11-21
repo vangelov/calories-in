@@ -1,15 +1,21 @@
 [
-    { "name": "Poultry", "id": 1 },
-    { "name": "Beef", "id": 2 },
-    { "name": "Pork", "id": 3 },
-    { "name": "Fish", "id": 4 },
-    { "name": "Dairy and eggs", "id": 5},
-    { "name": "Grains & Pasta", "id": 6},
-    { "name": "Vegetables", "id": 7 },
-    { "name": "Legumes", "id": 8 },
-    { "name": "Fruits", "id": 9 },
-    { "name": "Nuts and seeds", "id": 10  },
-    { "name": "Fats, oils & butters", "id": 11  },
-    { "name": "Other", "id": 12 }
+    { "name": "Poultry", "id": 100 },
+    { "name": "Beef", "id": 200 },
+    { "name": "Pork", "id": 300 },
+    { "name": "Finfish & Shellfish", "id": 400 },
+    { "name": "Dairy and eggs", "id": 500},
+    { "name": "Grains & Pasta", "id": 600},
+    { "name": "Vegetables", "id": 700 },
+    { "name": "Legumes & Legume Products", "id": 800 },
+    { "name": "Fruits & Juices", "id": 900 },
+    { "name": "Nut and Seed Products", "id": 1000  },
+    { "name": "Fats & Oils", "id": 2000  },
+    { "name": "Baked Products", "id": 3000 },
+    { "name": "Sauces & Soups", "id": 4000 },
+    { "name": "Spices & Herbs", "id": 5000 },
+    { "name": "Sweets & Snacks", "id": 6000 },
+    { "name": "Beverages", "id": 7000 },
+    { "name": "Other", "id": 8000 }
 ]
           
+ 
