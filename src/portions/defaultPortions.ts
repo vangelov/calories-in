@@ -39,7 +39,7 @@ const defaultPortions: Portion[] = [
   },
   {
     id: 'cups',
-    unit: 'c',
+    unit: 'cup',
     millilitersPerAmount: 240,
     singular: 'cup',
   },

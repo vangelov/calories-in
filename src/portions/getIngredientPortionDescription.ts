@@ -3,7 +3,7 @@ import { IngredientForm } from 'ingredients'
 import { Portion } from './types'
 import { getAmountFromPortionToGrams } from './useGetAmount'
 
-const UNITS_WITH_DISTANCE = ['oz', 'tsp', 'tbsp', 'fl oz', 'c']
+const UNITS_WITH_DISTANCE = ['oz', 'tsp', 'tbsp', 'fl oz', 'cup']
 
 function getIngredientPortionDescription(
   ingredientForm: IngredientForm,

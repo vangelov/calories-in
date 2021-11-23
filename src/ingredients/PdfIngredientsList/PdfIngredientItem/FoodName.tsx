@@ -16,8 +16,15 @@ function Name({ ingredientForm, foodsById, portionsById }: Props) {
 
   const text = (
     <>
-      {getIngredientPortionDescription(ingredientForm, foodsById, portionsById)}{' '}
       {food.name}
+      {', '}
+      <Text>
+        {getIngredientPortionDescription(
+          ingredientForm,
+          foodsById,
+          portionsById
+        )}
+      </Text>
     </>
   )
 

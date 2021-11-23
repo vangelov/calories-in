@@ -6,8 +6,6 @@ type Props = {
 }
 
 function Notes({ notes }: Props) {
-  const lines = notes.split('\n').filter(line => line.length > 0)
-
   return (
     <View
       style={[
@@ -17,33 +15,16 @@ function Notes({ notes }: Props) {
         },
       ]}
     >
-      {lines.map((line, index) => (
-        <View
-          style={{
-            flexDirection: 'row',
-            marginTop: index > 0 ? 12 : 0,
-          }}
-        >
-          <View
-            style={[
-              {
-                backgroundColor: getComputedColorFromChakra('gray.600'),
-              },
-              styles.dot,
-            ]}
-          />
-          <Text
-            style={[
-              {
-                color: getComputedColorFromChakra('gray.600'),
-              },
-              styles.line,
-            ]}
-          >
-            {line}
-          </Text>
-        </View>
-      ))}
+      <Text
+        style={[
+          {
+            color: getComputedColorFromChakra('gray.600'),
+          },
+          styles.text,
+        ]}
+      >
+        {notes}
+      </Text>
     </View>
   )
 }
@@ -54,15 +35,7 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     fontSize: 14,
   },
-  dot: {
-    marginTop: 5,
-    width: 7,
-    height: 7,
-    borderRadius: 4,
-
-    marginRight: 16,
-  },
-  line: {
+  text: {
     flexDirection: 'row',
     flex: 1,
   },

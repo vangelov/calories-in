@@ -29,8 +29,6 @@ function useFoodsStore({ initialFoods }: Params) {
     return initialMap
   })
 
-  console.log('f', foodsById)
-
   const setFoods = useCallback(
     (foods: Food[]) =>
       setFoodsById(

@@ -1,6 +1,6 @@
 import { chakra, IconButton } from '@chakra-ui/react'
 import { MoreHorizontal, FilePlus, Download, List } from 'react-feather'
-import { Menu, MenuItem } from 'general'
+import { Menu, MenuHeader, MenuItem, MenuDivider } from 'general'
 
 const DownloadStyled = chakra(Download)
 const ListStyled = chakra(List)
@@ -29,13 +29,15 @@ function MenuButtons({ onImport, onClear, onViewFoods }: Props) {
         />
       }
     >
+      <MenuHeader key="header">Meal plan</MenuHeader>
       <MenuItem onClick={onClear}>
         <FilePlusStyled size={16} pointerEvents="none" mr={3} />
-        New plan
+        New
       </MenuItem>
+      <MenuDivider key="divider" />
       <MenuItem onClick={onImport}>
         <DownloadStyled size={16} pointerEvents="none" mr={3} />
-        Import plan
+        Import
       </MenuItem>
       <MenuItem onClick={onViewFoods}>
         <ListStyled size={16} pointerEvents="none" mr={3} />

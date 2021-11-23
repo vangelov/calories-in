@@ -1,6 +1,6 @@
 import { chakra, IconButton } from '@chakra-ui/react'
 import { MoreHorizontal, Info, Trash2, Copy, Plus } from 'react-feather'
-import { Menu, MenuItem } from 'general'
+import { Menu, MenuItem, MenuHeader, MenuDivider } from 'general'
 
 const Trash2Styled = chakra(Trash2)
 const CopyStyled = chakra(Copy)
@@ -37,21 +37,24 @@ function MenuButtons({
         />
       }
     >
+      <MenuHeader>Variant</MenuHeader>
       <MenuItem onClick={onAddMeal}>
         <PlusStyled pointerEvents="none" size={16} mr={3} />
         Add meal
       </MenuItem>
+
       <MenuItem onClick={onDetails}>
         <InfoStyled pointerEvents="none" size={16} mr={3} />
-        View variant details
+        View details
       </MenuItem>
+      <MenuDivider key="divider" />
       <MenuItem key="copy" onClick={onCopy}>
         <CopyStyled pointerEvents="none" size={20} mr={3} />
-        Duplicate variant
+        Duplicate
       </MenuItem>
       <MenuItem key="remove" disabled={!canRemove} onClick={onRemove}>
         <Trash2Styled pointerEvents="none" size={20} mr={3} />
-        Remove variant
+        Remove
       </MenuItem>
     </Menu>
   )
