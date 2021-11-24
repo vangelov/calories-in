@@ -38,6 +38,7 @@ function getMenuItems({
       <CopyStyled pointerEvents="none" size={16} mr={3} />
       Duplicate
     </MenuItem>,
+
     <MenuItem key="remove" onClick={() => onRemove()}>
       <Trash2Styled pointerEvents="none" size={16} mr={3} />
       Remove

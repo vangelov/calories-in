@@ -4,6 +4,7 @@ import { Menu as MenuBase, MenuItem, MenuDivider, MenuHeader } from 'general'
 import Trigger from './Trigger'
 import { useDietForm } from 'diets'
 import { VariantForm } from 'variants'
+import { getComputedColorFromChakra } from 'theme'
 
 const CheckStyled = chakra(Check)
 const PlusStyled = chakra(Plus)
@@ -28,7 +29,12 @@ function Menu({ onSelect, onCreate, onReorder, canReorder }: Props) {
 
         return (
           <MenuItem
-            styles={{ color: isSelected ? 'teal' : undefined }}
+            styles={{
+              color: isSelected
+                ? getComputedColorFromChakra('teal.600')
+                : undefined,
+              maxWidth: '300px',
+            }}
             key={fieldId}
             onClick={() => onSelect(variantForm, index)}
           >
@@ -36,6 +42,7 @@ function Menu({ onSelect, onCreate, onReorder, canReorder }: Props) {
               color={isSelected ? 'teal' : 'transparent'}
               pointerEvents="none"
               size={16}
+              flexShrink={0}
               mr={3}
             />
             {name}

@@ -34,9 +34,17 @@ function Menu({ portions, onChange, selectedPortionId }: Props) {
               size={15}
               mr={3}
             />
-            <Text fontWeight="500" fontSize="sm">
+            <Text
+              color={isSelected ? 'teal.600' : undefined}
+              fontWeight="500"
+              fontSize="sm"
+            >
               {unit}{' '}
-              <Text as="span" fontWeight="normal" color="gray.500">
+              <Text
+                as="span"
+                fontWeight="normal"
+                color={isSelected ? 'teal.600' : 'gray.500'}
+              >
                 {getPortionDescription(portion)}
               </Text>
             </Text>

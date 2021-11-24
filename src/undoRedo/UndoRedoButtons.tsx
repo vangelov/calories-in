@@ -4,7 +4,13 @@ import {
   useDietFormVersions,
 } from './useDietFormVersionsStore'
 import { CornerUpLeft, CornerUpRight } from 'react-feather'
-import { getCtrlKeyName, TooltipCommandLabel, Tooltip } from 'general'
+import {
+  getCtrlKeyName,
+  TooltipCommandLabel,
+  Tooltip,
+  ScreenSize,
+  useScreenSize,
+} from 'general'
 
 const CornerUpLeftStyled = chakra(CornerUpLeft)
 const CornerUpRightStyled = chakra(CornerUpRight)
@@ -13,6 +19,7 @@ const ctrlKeyName = getCtrlKeyName()
 function UndoRedoButtons() {
   const { undo, redo } = useDietFormVersionsActions()
   const { canUndo, canRedo } = useDietFormVersions()
+  const screenSize = useScreenSize()
 
   return (
     <ButtonGroup spacing={2} variant="outline">
@@ -26,7 +33,7 @@ function UndoRedoButtons() {
           icon={<CornerUpLeftStyled size={20} pointerEvents="none" />}
           isDisabled={!canUndo}
           onClick={() => undo()}
-          size="sm"
+          size={screenSize >= ScreenSize.Medium ? 'sm' : 'md'}
         />
       </Tooltip>
 
@@ -43,7 +50,7 @@ function UndoRedoButtons() {
           icon={<CornerUpRightStyled size={20} pointerEvents="none" />}
           isDisabled={!canRedo}
           onClick={() => redo()}
-          size="sm"
+          size={screenSize >= ScreenSize.Medium ? 'sm' : 'md'}
         />
       </Tooltip>
     </ButtonGroup>

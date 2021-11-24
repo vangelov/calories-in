@@ -1,4 +1,4 @@
-import { Flex, useDisclosure, Button } from '@chakra-ui/react'
+import { Flex, useDisclosure, Button, IconButton } from '@chakra-ui/react'
 import { UndoRedoButtons, useKeyboard } from 'undoRedo'
 import { getDietForm, useDietForm, useDietFormActions } from 'diets'
 import {
@@ -15,6 +15,7 @@ import { FoodsDrawer } from 'foods'
 import { Share } from 'react-feather'
 import MenuButtons from './MenuButtons'
 import Name from './Name'
+import { ScreenSize, useScreenSize } from 'general'
 
 function Controls() {
   const dietForm = useDietForm()
@@ -26,6 +27,7 @@ function Controls() {
   const importFoods = useImportFoods({ foodsListModalDisclosure })
   const foodsDrawerDisclosure = useDisclosure()
   const canExport = canExportDietForm(dietForm)
+  const screenSize = useScreenSize()
 
   useKeyboard()
 
@@ -49,16 +51,25 @@ function Controls() {
           onClear={onClear}
           onViewFoods={foodsDrawerDisclosure.onOpen}
         />
-        <Button
-          isDisabled={!canExport}
-          leftIcon={<Share size={16} pointerEvents="none" />}
-          variant="solid"
-          colorScheme="teal"
-          onClick={exportModalDisclosure.onOpen}
-          size="sm"
-        >
-          Export
-        </Button>
+        {screenSize >= ScreenSize.Medium ? (
+          <Button
+            isDisabled={!canExport}
+            leftIcon={<Share size={16} pointerEvents="none" />}
+            variant="solid"
+            colorScheme="teal"
+            onClick={exportModalDisclosure.onOpen}
+            size="sm"
+          >
+            Export
+          </Button>
+        ) : (
+          <IconButton
+            aria-label="Export"
+            colorScheme="teal"
+            size="md"
+            icon={<Share size={16} pointerEvents="none" />}
+          />
+        )}
       </Flex>
 
       <MissingFoodsModal

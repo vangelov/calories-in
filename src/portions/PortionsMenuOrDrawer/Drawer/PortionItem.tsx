@@ -27,9 +27,13 @@ function PortionItem({ portion, isSelected, ...rest }: Props) {
       {...rest}
     >
       <Flex justifyContent="space-between">
-        <Text fontSize="md" fontWeight="500">
+        <Text
+          color={isSelected ? 'teal.600' : undefined}
+          fontSize="md"
+          fontWeight="500"
+        >
           {unit}{' '}
-          <Text as="span" color="gray.500">
+          <Text as="span" color={isSelected ? 'teal.600' : 'gray.500'}>
             {getPortionDescription(portion)}
           </Text>
         </Text>

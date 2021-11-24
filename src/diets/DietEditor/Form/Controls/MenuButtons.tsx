@@ -1,6 +1,13 @@
 import { chakra, IconButton } from '@chakra-ui/react'
 import { MoreHorizontal, FilePlus, Download, List } from 'react-feather'
-import { Menu, MenuHeader, MenuItem, MenuDivider } from 'general'
+import {
+  Menu,
+  MenuHeader,
+  MenuItem,
+  MenuDivider,
+  ScreenSize,
+  useScreenSize,
+} from 'general'
 
 const DownloadStyled = chakra(Download)
 const ListStyled = chakra(List)
@@ -14,6 +21,8 @@ type Props = {
 }
 
 function MenuButtons({ onImport, onClear, onViewFoods }: Props) {
+  const screenSize = useScreenSize()
+
   return (
     <Menu
       arrow
@@ -24,7 +33,7 @@ function MenuButtons({ onImport, onClear, onViewFoods }: Props) {
           aria-label="Meal plan actions"
           icon={<MoreHorizontalStyled size={20} pointerEvents="none" />}
           variant="outline"
-          size="sm"
+          size={screenSize >= ScreenSize.Medium ? 'sm' : 'md'}
           mr={2}
         />
       }
