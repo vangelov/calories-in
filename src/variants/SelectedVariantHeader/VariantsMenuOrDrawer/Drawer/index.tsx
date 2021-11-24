@@ -13,6 +13,7 @@ import {
 import { useDietForm } from 'diets'
 import { VariantForm } from 'variants'
 import VariantItem from './VariantItem'
+import { Plus, Shuffle } from 'react-feather'
 
 type Props = {
   isOpen: boolean
@@ -63,6 +64,7 @@ function Drawer({
         <DrawerFooter>
           <VStack width="100%" spacing={3}>
             <Button
+              leftIcon={<Plus size={20} />}
               colorScheme="teal"
               onClick={() => {
                 onCreate()
@@ -76,6 +78,7 @@ function Drawer({
             {canReorder && (
               <Button
                 colorScheme="teal"
+                leftIcon={<Shuffle size={20} />}
                 onClick={() => {
                   onReorder()
                   onClose()

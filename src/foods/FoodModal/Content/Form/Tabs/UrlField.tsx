@@ -21,7 +21,7 @@ function UrlField({ canEdit, food }: Props) {
   return (
     <Flex minHeight={canEdit ? '200px' : undefined} flexDirection="column">
       {canEdit && (
-        <Alert status="info" mb={3} borderRadius={6} bg="gray.100">
+        <Alert status="info" mb={3}>
           <AlertIcon color="teal.400" />
           Add a link so that clicking on this food will open a web page. Links
           work both on the web editor and in the exported PDF files.
