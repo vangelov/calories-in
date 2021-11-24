@@ -32,7 +32,7 @@ function MenuButtons({ onImport, onClear, onViewFoods }: Props) {
       <MenuHeader key="header">Meal plan</MenuHeader>
       <MenuItem onClick={onClear}>
         <FilePlusStyled size={16} pointerEvents="none" mr={3} />
-        New
+        Create new
       </MenuItem>
       <MenuDivider key="divider" />
       <MenuItem onClick={onImport}>
