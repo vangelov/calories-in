@@ -53,7 +53,7 @@ function Exporter({ onUpdate }: Props) {
       <AlertTitle mt={4} mb={1} fontSize="lg">
         {error
           ? 'Something went wrong while creating your pdf file'
-          : 'Your PDF file is ready!'}
+          : 'Your PDF file is ready'}
       </AlertTitle>
       {!error && (
         <AlertDescription maxWidth="sm">

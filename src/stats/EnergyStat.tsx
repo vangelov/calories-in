@@ -28,7 +28,7 @@ function EnergyStat({ energy, energyDiff }: Props) {
                 ? energyValueDetail
                 : previousOrSameEnergyValueDetail
             }
-            tooltipLabel={'% energy from carbs'}
+            tooltipLabel={'Energy change'}
             leftIcon={
               energyDiff > 0 ? (
                 <ArrowUpCircle width="15px" height="15px" />

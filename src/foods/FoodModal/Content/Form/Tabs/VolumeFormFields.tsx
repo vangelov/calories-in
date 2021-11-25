@@ -19,8 +19,9 @@ function VolumeFields({ canEdit, food }: Props) {
       {canEdit && (
         <Alert status="info" mb={3}>
           <AlertIcon color="teal.400" />
-          Enter how much this food weights for some volume measurement if you
-          want to convert between weight and volume.
+          Enter the food weight in grams per some volume measurement if you want
+          to convert between weight and volume (for example: between grams and
+          cups).
         </Alert>
       )}
 

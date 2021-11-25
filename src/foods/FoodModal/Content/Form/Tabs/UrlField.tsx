@@ -23,8 +23,8 @@ function UrlField({ canEdit, food }: Props) {
       {canEdit && (
         <Alert status="info" mb={3}>
           <AlertIcon color="teal.400" />
-          Add a link so that clicking on this food will open a web page. Links
-          work both on the web editor and in the exported PDF files.
+          Add a link will open a web page when the food is clicked. This is
+          useful if you want to show a specific product.
         </Alert>
       )}
 
