@@ -47,7 +47,7 @@ function PdfIngredientsList({
             },
           ]}
         >
-          No foods added yet
+          You haven't added any foods
         </Text>
       )}
     </View>
@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
   emptyListText: {
     padding: 10,
     fontSize: 14,
-    fontWeight: 'medium',
   },
 })
 

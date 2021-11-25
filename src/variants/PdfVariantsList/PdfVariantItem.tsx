@@ -40,10 +40,14 @@ function PdfVariantItem({
           <Text
             style={[
               styles.name,
-              { color: getComputedColorFromChakra('teal.600') },
+              {
+                color: variantForm.name
+                  ? getComputedColorFromChakra('teal.600')
+                  : getComputedColorFromChakra('gray.400'),
+              },
             ]}
           >
-            {variantForm.name}
+            {variantForm.name || 'Untitled variant'}
           </Text>
         }
         energyElement={
@@ -100,7 +104,7 @@ const styles = StyleSheet.create({
   },
   name: {
     fontWeight: 'semibold',
-    fontSize: 20,
+    fontSize: 16,
   },
   separator: {
     height: 1,

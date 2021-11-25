@@ -34,7 +34,7 @@ function Content({ onClose, initialVariantForm }: Props) {
 
   return (
     <ModalContent>
-      <ModalHeader>Meal Plan Details</ModalHeader>
+      <ModalHeader>Variant Details</ModalHeader>
       <ModalCloseButton />
 
       <ModalBody>

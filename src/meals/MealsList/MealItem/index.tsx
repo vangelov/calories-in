@@ -44,8 +44,6 @@ function MealItem({
   })
   const editNotesModalDisclosure = useDisclosure()
 
-  console.log('meal', variantIndex, index)
-
   const { mealFormStatsTree, ingredientsStats } = useGetAndUpdateStats({
     mealForm,
     index,

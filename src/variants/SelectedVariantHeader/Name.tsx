@@ -11,7 +11,7 @@ function Name({ forwardedRef, name, onNameChange }: Props) {
   return (
     <Input
       ref={forwardedRef}
-      placeholder="Meal plan name"
+      placeholder="Variant name"
       size="md"
       fontSize="lg"
       fontWeight="semibold"

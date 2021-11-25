@@ -22,7 +22,7 @@ function Badge({ children, count, forwardedRef, ...rest }: Props) {
           top="-5px"
           right="-5px"
           height="20px"
-          bg="gray.500"
+          bg="teal.500"
           position="absolute"
           borderRadius="full"
           pointerEvents="none"
