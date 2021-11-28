@@ -89,14 +89,6 @@ function Content({
               itemUsageType={canSelect ? 'selectOrPreview' : 'previewOnly'}
             />
           </FoodsFilterStoreProvider>
-
-          <Flex color="gray.500" flexDirection="row" alignItems="center">
-            <InfoStyled size={15} mr={1} />
-            <Text fontSize="sm">
-              All nutririon data is for raw/dry foods unless indicated
-              otherwise.
-            </Text>
-          </Flex>
         </VStack>
       </DrawerBody>
 

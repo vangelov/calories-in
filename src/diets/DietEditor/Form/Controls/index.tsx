@@ -64,9 +64,11 @@ function Controls() {
           </Button>
         ) : (
           <IconButton
+            isDisabled={!canExport}
             aria-label="Export"
             colorScheme="teal"
             size="md"
+            onClick={exportModalDisclosure.onOpen}
             icon={<Share size={16} pointerEvents="none" />}
           />
         )}
