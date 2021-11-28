@@ -5,14 +5,14 @@ import { FoodModal, useFoods } from 'foods'
 import { ContextMenuFlex } from 'general'
 import PresenceAnimation from './PresenceAnimation'
 import useIngredientsEvents from './useIngredientsEvents'
-import getMenuItems from './getMenuItems'
+import getMenuOrDrawerItems from './getMenuOrDrawerItems'
 import StatsLayout from './StatsLayout'
 import MissingStatsLayout from './MissingStatsLayout'
-import Menu from './Menu'
-import { useDisclosure } from '@chakra-ui/hooks'
+import { useDisclosure } from '@chakra-ui/react'
 import { EditNotesModal } from 'notes'
 import useNotesEvents from './useNotesEvents'
 import Notes from './Notes'
+import MenuOrDrawer from './MenuOrDrawer'
 
 type Props = {
   variantIndex: number
@@ -63,14 +63,14 @@ function IngredientItem({
   const foodModalDisclosure = useDisclosure()
   const editNotesModalDisclosure = useDisclosure()
 
-  const menuItems = getMenuItems({
+  const menuOrDrawerItems = getMenuOrDrawerItems({
     onEditNotes: editNotesModalDisclosure.onOpen,
     onRemove: ingredientEvents.onRemoveRequest,
     onViewFoodDetails: foodModalDisclosure.onOpen,
     ingredientForm,
   })
 
-  console.log('ingredient', variantIndex, mealIndex, index)
+  // console.log('ingredient', variantIndex, mealIndex, index)
 
   return (
     <Draggable
@@ -103,7 +103,7 @@ function IngredientItem({
               isLast && shouldAddRadiusToLastBottomBorder ? 10 : 0
             }
             overflow="hidden"
-            menuItems={menuItems}
+            menuOrDrawerItems={menuOrDrawerItems}
           >
             {food ? (
               <StatsLayout
@@ -114,7 +114,7 @@ function IngredientItem({
                 fat={fat}
                 onAmountChange={ingredientEvents.onAmountChange}
                 onPortionChange={ingredientEvents.onPortionChange}
-                menuElement={<Menu mr={3} items={menuItems} />}
+                menuElement={<MenuOrDrawer>{menuOrDrawerItems}</MenuOrDrawer>}
                 food={food}
                 notes={ingredientForm.notes}
               >

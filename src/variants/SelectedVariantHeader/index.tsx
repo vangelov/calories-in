@@ -1,5 +1,4 @@
 import { Flex, useDisclosure } from '@chakra-ui/react'
-import { RightAligned } from 'layout'
 import Name from './Name'
 import { useRef } from 'react'
 import {
@@ -10,10 +9,12 @@ import {
   StatValueDetail,
 } from 'stats'
 import { VariantsDetailsModal, VariantsOrderModal } from 'variants'
-import MenuButtons from './MenuButtons'
+import MenuOrDrawer from './MenuOrDrawer'
 import VariantsMenuOrDrawer from './VariantsMenuOrDrawer'
 import useVariantFormEvents from './useVariantFormEvents'
 import { useDietForm, ScrollManager } from 'diets'
+import { ContextMenuFlex } from 'general'
+import getMenuOrDrawerItems from './getMenuOrDrawerItems'
 
 type Props = {
   scrollManager: ScrollManager
@@ -42,8 +43,21 @@ function SelectedVariantHeader({ onAddMeal, scrollManager }: Props) {
     selectedVariantFormIndex,
   })
 
+  const menuOrDrawerItems = getMenuOrDrawerItems({
+    onAddMeal,
+    onDetails: variantsDetailsModalDisclosure.onOpen,
+    onCopy: variantFormEvents.onCopy,
+    onRemove: variantFormEvents.onRemove,
+    canRemove: variantsForms.length > 1,
+  })
+
   return (
-    <Flex py={3} bg="white" width="100%">
+    <ContextMenuFlex
+      py={3}
+      bg="white"
+      width="100%"
+      menuOrDrawerItems={menuOrDrawerItems}
+    >
       <StatsLayout
         nameElement={
           <Flex position="relative" height="100%" alignItems="center">
@@ -105,17 +119,7 @@ function SelectedVariantHeader({ onAddMeal, scrollManager }: Props) {
             }
           />
         }
-        menuElement={
-          <RightAligned>
-            <MenuButtons
-              onAddMeal={onAddMeal}
-              onDetails={variantsDetailsModalDisclosure.onOpen}
-              onCopy={variantFormEvents.onCopy}
-              onRemove={variantFormEvents.onRemove}
-              canRemove={variantsForms.length > 1}
-            />
-          </RightAligned>
-        }
+        menuElement={<MenuOrDrawer>{menuOrDrawerItems}</MenuOrDrawer>}
       />
 
       <VariantsOrderModal
@@ -128,7 +132,7 @@ function SelectedVariantHeader({ onAddMeal, scrollManager }: Props) {
         onClose={variantsDetailsModalDisclosure.onClose}
         initialVariantForm={selectedVariantForm}
       />
-    </Flex>
+    </ContextMenuFlex>
   )
 }
 

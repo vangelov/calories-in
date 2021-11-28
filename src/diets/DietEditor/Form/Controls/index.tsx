@@ -13,7 +13,7 @@ import {
 } from 'foods/persistence'
 import { FoodsDrawer } from 'foods'
 import { Share } from 'react-feather'
-import MenuButtons from './MenuButtons'
+import MenuOrDrawer from './MenuOrDrawer'
 import Name from './Name'
 import { ScreenSize, useScreenSize } from 'general'
 
@@ -46,7 +46,7 @@ function Controls() {
       </Flex>
 
       <Flex ml={3} justifyContent="flex-end" spacing={3} flex={1}>
-        <MenuButtons
+        <MenuOrDrawer
           onImport={onLoadFromFile}
           onClear={onClear}
           onViewFoods={foodsDrawerDisclosure.onOpen}

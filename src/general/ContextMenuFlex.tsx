@@ -2,14 +2,18 @@ import { Flex, FlexProps } from '@chakra-ui/react'
 import { ForwardedRef, ReactElement, forwardRef } from 'react'
 import { MenuItem, ControlledMenu } from 'general'
 import { useState } from 'react'
+import { getMenuItems } from './MenuOrDrawer'
+import { isDesktop } from 'react-device-detect'
 
 type Props = {
-  menuItems: ReactElement<typeof MenuItem>[]
+  menuItems?: ReactElement<typeof MenuItem>[]
+  menuOrDrawerItems?: ReactElement[]
   forwardedRef?: ForwardedRef<HTMLDivElement>
 } & FlexProps
 
 function ContextMenuFlex({
   menuItems,
+  menuOrDrawerItems = [],
   children,
   forwardedRef,
   ...rest
@@ -24,7 +28,10 @@ function ContextMenuFlex({
       onContextMenu={event => {
         const { target, clientX, clientY } = event
 
-        if ((target as HTMLElement).tagName?.toLowerCase() === 'input') {
+        if (
+          !isDesktop ||
+          (target as HTMLElement).tagName?.toLowerCase() === 'input'
+        ) {
           return
         }
 
@@ -33,15 +40,17 @@ function ContextMenuFlex({
         setOpen(true)
       }}
     >
-      <ControlledMenu
-        anchorPoint={anchorPoint}
-        isOpen={isOpen}
-        viewScroll="close"
-        portal={true}
-        onClose={() => setOpen(false)}
-      >
-        {menuItems}
-      </ControlledMenu>
+      {isDesktop && (
+        <ControlledMenu
+          anchorPoint={anchorPoint}
+          isOpen={isOpen}
+          viewScroll="close"
+          portal={true}
+          onClose={() => setOpen(false)}
+        >
+          {getMenuItems(menuOrDrawerItems)}
+        </ControlledMenu>
+      )}
       {children}
     </Flex>
   )

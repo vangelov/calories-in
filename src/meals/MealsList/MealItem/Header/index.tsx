@@ -3,10 +3,10 @@ import { MealForm } from 'meals'
 import { Stat, StatsLayout } from 'stats'
 import { RefObject } from 'react'
 import Name from './Name'
-import Menu from './Menu'
+import MenuOrDrawer from './MenuOrDrawer'
 import { Stats } from 'stats'
 import { ContextMenuFlex } from 'general'
-import getMenuItems from './getMenuItems'
+import getMenuOrDrawerItems from './getMenuOrDrawerItems'
 
 type Props = {
   mealForm: MealForm
@@ -32,7 +32,7 @@ function Header({
   ingredientsStatsSum,
   ...rest
 }: Props) {
-  const menuItems = getMenuItems({
+  const menuOrDrawerItems = getMenuOrDrawerItems({
     onAddIngredient,
     onRemove,
     onClone,
@@ -48,7 +48,7 @@ function Header({
       borderBottomWidth={1}
       justifyContent="space-between"
       _hover={{ backgroundColor: 'gray.100' }}
-      menuItems={menuItems}
+      menuOrDrawerItems={menuOrDrawerItems}
       {...rest}
     >
       <StatsLayout
@@ -81,7 +81,7 @@ function Header({
         fatElement={
           <Stat type="meal" label="Fat" value={ingredientsStatsSum.fat} />
         }
-        menuElement={<Menu mr={3} items={menuItems} />}
+        menuElement={<MenuOrDrawer>{menuOrDrawerItems}</MenuOrDrawer>}
       />
     </ContextMenuFlex>
   )
