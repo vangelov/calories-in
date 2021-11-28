@@ -1,4 +1,4 @@
-import Stat from './Stat'
+import Stat, { StatProps } from './Stat'
 import { ArrowUpCircle, ArrowDownCircle } from 'react-feather'
 import { useSameOrPreviousValue } from 'general'
 import StatValueDetail from './StatValueDetail'
@@ -6,9 +6,9 @@ import StatValueDetail from './StatValueDetail'
 type Props = {
   energy: number
   energyDiff: number
-}
+} & StatProps
 
-function EnergyStat({ energy, energyDiff }: Props) {
+function EnergyStat({ energy, energyDiff, ...rest }: Props) {
   const energyValueDetail = `${Math.abs(energyDiff)}kcal`
   const previousOrSameEnergyValueDetail = useSameOrPreviousValue(
     energyValueDetail
@@ -39,6 +39,7 @@ function EnergyStat({ energy, energyDiff }: Props) {
           />
         ) : undefined
       }
+      {...rest}
     />
   )
 }

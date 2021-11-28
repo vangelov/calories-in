@@ -24,6 +24,7 @@ function getMenuOrDrawerItems({
 }: Params) {
   return [
     <MenuOrDrawerItem
+      key="addMeal"
       icon={<PlusStyled pointerEvents="none" />}
       onClick={onAddMeal}
     >
@@ -31,13 +32,14 @@ function getMenuOrDrawerItems({
     </MenuOrDrawerItem>,
 
     <MenuOrDrawerItem
+      key="viewDetails"
       icon={<InfoStyled pointerEvents="none" />}
       onClick={onDetails}
     >
       View details
     </MenuOrDrawerItem>,
     <MenuOrDrawerSeparator key="divider" />,
-    <MenuOrDrawerItem icon={<CopyStyled />} onClick={onCopy}>
+    <MenuOrDrawerItem icon={<CopyStyled />} onClick={onCopy} key="copy">
       Duplicate
     </MenuOrDrawerItem>,
     <MenuOrDrawerItem

@@ -1,14 +1,14 @@
 import { useScreenSize, ScreenSize } from 'general'
 import Drawer from './Drawer'
 import Trigger from './Trigger'
-import { useDisclosure, ButtonProps } from '@chakra-ui/react'
+import { useDisclosure, IconButtonProps } from '@chakra-ui/react'
 import Menu from './Menu'
 import { ReactElement } from 'react'
 
 type Props = {
   children: ReactElement | ReactElement[]
   title: string
-} & ButtonProps
+} & IconButtonProps
 
 function MenuOrDrawer({ children, title, ...rest }: Props) {
   const screenSize = useScreenSize()

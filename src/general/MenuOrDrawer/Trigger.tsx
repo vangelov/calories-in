@@ -9,7 +9,7 @@ type Props = {
 function Trigger({ forwardedRef, ...rest }: Props) {
   return (
     <IconButton
-      aria-label="Actions menu"
+      aria-label="Actions"
       icon={<MoreHorizontal size={20} pointerEvents="none" />}
       variant="ghost"
       size="sm"

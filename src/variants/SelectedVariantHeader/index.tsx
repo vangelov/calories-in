@@ -51,11 +51,14 @@ function SelectedVariantHeader({ onAddMeal, scrollManager }: Props) {
     canRemove: variantsForms.length > 1,
   })
 
+  const hasAtLeastOneMeal = selectedVariantForm.mealsForms.length > 0
+
   return (
     <ContextMenuFlex
       py={3}
       bg="white"
       width="100%"
+      position="relative"
       menuOrDrawerItems={menuOrDrawerItems}
     >
       <StatsLayout
@@ -75,7 +78,11 @@ function SelectedVariantHeader({ onAddMeal, scrollManager }: Props) {
           </Flex>
         }
         energyElement={
-          <EnergyStat energy={variantStats.energy} energyDiff={energyDiff} />
+          <EnergyStat
+            energy={variantStats.energy}
+            isDisabled={!hasAtLeastOneMeal}
+            energyDiff={energyDiff}
+          />
         }
         proteinElement={
           <Stat
@@ -83,6 +90,7 @@ function SelectedVariantHeader({ onAddMeal, scrollManager }: Props) {
             type="diet"
             label="Protein"
             value={variantStats.protein}
+            isDisabled={!hasAtLeastOneMeal}
             valueDetailElement={
               <StatValueDetail
                 label={`${proteinPercent}%`}
@@ -97,6 +105,7 @@ function SelectedVariantHeader({ onAddMeal, scrollManager }: Props) {
             type="diet"
             label="Carbs"
             value={variantStats.carbs}
+            isDisabled={!hasAtLeastOneMeal}
             valueDetailElement={
               <StatValueDetail
                 label={`${carbsPercent}%`}
@@ -111,6 +120,7 @@ function SelectedVariantHeader({ onAddMeal, scrollManager }: Props) {
             type="diet"
             label="Fat"
             value={variantStats.fat}
+            isDisabled={!hasAtLeastOneMeal}
             valueDetailElement={
               <StatValueDetail
                 label={`${fatPercent}%`}

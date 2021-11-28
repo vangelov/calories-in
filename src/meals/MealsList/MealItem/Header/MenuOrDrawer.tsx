@@ -14,6 +14,7 @@ function MenuOrDrawer({ children }: Props) {
         title="Meal"
         variant="outline"
         _hover={{ backgroundColor: 'gray.200' }}
+        aria-label="Meal actions"
       >
         {children}
       </MenuOrDrawerBase>

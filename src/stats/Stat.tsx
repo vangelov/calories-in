@@ -1,4 +1,4 @@
-import { Text, Box, FlexProps } from '@chakra-ui/react'
+import { Text, Box, FlexProps, useTheme } from '@chakra-ui/react'
 import { cloneElement, ReactElement } from 'react'
 import { RightAligned } from 'layout'
 import {
@@ -11,24 +11,34 @@ import {
 } from './statsVariants'
 
 type Props = {
-  value: number
+  value?: number
 
   label?: string
-  type: StatVariant
+  type?: StatVariant
   valueDetailElement?: ReactElement
   isLarge?: boolean
+  isDisabled?: boolean
 } & FlexProps
 
 function Stat({
-  value,
+  value = 0,
   label,
-  type,
+  type = 'ingredient',
   isLarge = false,
   valueDetailElement,
+  isDisabled = false,
   ...rest
 }: Props) {
+  const theme = useTheme()
+
+  console.log('t', theme)
   return (
-    <RightAligned position="relative" {...rest}>
+    <RightAligned
+      opacity={isDisabled ? 0.4 : undefined}
+      pointerEvents={isDisabled ? 'none' : undefined}
+      position="relative"
+      {...rest}
+    >
       {isForDiet(type) && (
         <Box
           position="absolute"
@@ -62,5 +72,7 @@ function Stat({
     </RightAligned>
   )
 }
+
+export type { Props as StatProps }
 
 export default Stat

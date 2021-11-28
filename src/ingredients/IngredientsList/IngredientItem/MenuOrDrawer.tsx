@@ -9,7 +9,7 @@ type Props = {
 function MenuOrDrawer({ children }: Props) {
   return (
     <RightAligned>
-      <MenuOrDrawerBase mr={3} title="Food">
+      <MenuOrDrawerBase aria-label="Food actions" mr={3} title="Food">
         {children}
       </MenuOrDrawerBase>
     </RightAligned>

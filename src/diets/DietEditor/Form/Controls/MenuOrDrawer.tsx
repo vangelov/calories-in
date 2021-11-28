@@ -1,5 +1,5 @@
 import { chakra } from '@chakra-ui/react'
-import { FilePlus, Download, List } from 'react-feather'
+import { FilePlus, Download, List, Menu } from 'react-feather'
 import {
   MenuOrDrawer as MenuOrDrawerBase,
   MenuOrDrawerItem,
@@ -25,9 +25,10 @@ function MenuOrDrawer({ onImport, onClear, onViewFoods }: Props) {
     <MenuOrDrawerBase
       title="Meal plan"
       variant="outline"
-      colorScheme="teal"
       mr={2}
       size={screenSize < ScreenSize.Medium ? 'md' : 'sm'}
+      icon={<Menu size={20} />}
+      aria-label="Meal plan actions"
     >
       <MenuOrDrawerItem icon={<FilePlusStyled />} onClick={onClear}>
         Create new
