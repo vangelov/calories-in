@@ -9,7 +9,6 @@ import {
   Text,
   HStack,
   useDisclosure,
-  chakra,
 } from '@chakra-ui/react'
 import { RefObject, useRef, useState } from 'react'
 import { FoodsList, FoodsListMethods, FoodModal, Food } from 'foods'
@@ -21,8 +20,6 @@ import { useImportFoods, FoodsListModal } from 'foods/persistence'
 import { FoodsFilterStoreProvider } from 'foods-filters'
 import { loadFoodsFilter } from 'foods-filters/persistence'
 import useFoodEvents from './useFoodEvents'
-import { Info } from 'react-feather'
-const InfoStyled = chakra(Info)
 
 type Props = {
   onClose: () => void
