@@ -1,10 +1,9 @@
 import { DietForm } from 'diets'
 
 function canExportDietForm(dietForm: DietForm) {
-  const { variantsForms, selectedVariantFormIndex } = dietForm
-  const variantForm = variantsForms[selectedVariantFormIndex]
+  const { variantsForms } = dietForm
 
-  return variantForm.mealsForms.length > 0
+  return variantsForms.some(({ mealsForms }) => mealsForms.length > 0)
 }
 
 export default canExportDietForm
