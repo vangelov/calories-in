@@ -118,6 +118,7 @@ function MealItem({
               isOpen={foodsDrawerDisclosure.isOpen}
               onClose={foodsDrawerDisclosure.onClose}
               mealName={mealForm.name}
+              mealForm={mealForm}
               onSelectedFoods={mealFormEvents.onAddFoods}
             />
           </Flex>

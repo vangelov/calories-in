@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import { RefObject, useRef, useState } from 'react'
 import { FoodsList, FoodsListMethods, FoodModal, Food } from 'foods'
-import { useSelection } from 'general'
+import { useSelection, Tooltip } from 'general'
 import SelectedFoodsList from './SelectedFoodsList'
 import Header from './Header'
 import MenuButtons from './MenuButtons'
@@ -20,10 +20,12 @@ import { useImportFoods, FoodsListModal } from 'foods/persistence'
 import { FoodsFilterStoreProvider } from 'foods-filters'
 import { loadFoodsFilter } from 'foods-filters/persistence'
 import useFoodEvents from './useFoodEvents'
+import { MealForm } from 'meals'
 
 type Props = {
   onClose: () => void
   mealName?: string
+  mealForm?: MealForm
   searchInputRef: RefObject<HTMLInputElement>
   onSelectedFoods?: (foods: Food[], mealName?: string) => void
 
@@ -33,6 +35,7 @@ type Props = {
 function Content({
   onClose,
   mealName,
+  mealForm,
   searchInputRef,
   onSelectedFoods,
   canSelect,
@@ -52,7 +55,7 @@ function Content({
   return (
     <DrawerContent>
       <DrawerCloseButton />
-      <Header mealName={mealName} canSelect={canSelect} />
+      <Header mealForm={mealForm} mealName={mealName} canSelect={canSelect} />
 
       <DrawerBody overflow="hidden">
         <VStack
@@ -100,13 +103,19 @@ function Content({
             Close
           </Button>
           {canSelect && (
-            <Button
-              isDisabled={selection.selectedItems.length === 0}
-              colorScheme="teal"
-              onClick={onAdd}
+            <Tooltip
+              isActive={!mealForm}
+              delay={300}
+              label="You can add more later"
             >
-              Add foods
-            </Button>
+              <Button
+                isDisabled={selection.selectedItems.length === 0}
+                colorScheme="teal"
+                onClick={onAdd}
+              >
+                {mealForm ? 'Add foods' : 'Select foods'}
+              </Button>
+            </Tooltip>
           )}
         </HStack>
       </DrawerFooter>
