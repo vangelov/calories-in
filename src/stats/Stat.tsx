@@ -1,4 +1,4 @@
-import { Text, Box, FlexProps, useTheme } from '@chakra-ui/react'
+import { Text, Box, FlexProps } from '@chakra-ui/react'
 import { cloneElement, ReactElement } from 'react'
 import { RightAligned } from 'layout'
 import {
@@ -29,9 +29,6 @@ function Stat({
   isDisabled = false,
   ...rest
 }: Props) {
-  const theme = useTheme()
-
-  console.log('t', theme)
   return (
     <RightAligned
       opacity={isDisabled ? 0.4 : undefined}

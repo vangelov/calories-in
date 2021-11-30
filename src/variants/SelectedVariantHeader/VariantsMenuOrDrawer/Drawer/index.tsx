@@ -39,7 +39,7 @@ function Drawer({
       <DrawerOverlay />
       <DrawerContent maxHeight="500px">
         <DrawerCloseButton />
-        <DrawerHeader fontSize="md">Variants</DrawerHeader>
+        <DrawerHeader fontSize="md">Days</DrawerHeader>
 
         <DrawerBody>
           {variantsForms.map((variantForm, index) => {
@@ -72,7 +72,7 @@ function Drawer({
               }}
               isFullWidth={true}
             >
-              Create new
+              Add new
             </Button>
 
             {canReorder && (

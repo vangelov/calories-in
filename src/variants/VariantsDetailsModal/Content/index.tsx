@@ -34,7 +34,7 @@ function Content({ onClose, initialVariantForm }: Props) {
 
   return (
     <ModalContent>
-      <ModalHeader>Variant Details</ModalHeader>
+      <ModalHeader>Day Details</ModalHeader>
       <ModalCloseButton />
 
       <ModalBody>

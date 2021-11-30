@@ -8,11 +8,7 @@ type Props = {
 function MenuOrDrawer({ children }: Props) {
   return (
     <RightAligned>
-      <MenuOrDrawerBase
-        title="Variant"
-        variant="outline"
-        aria-label="Variant actions"
-      >
+      <MenuOrDrawerBase title="Day" variant="outline" aria-label="Day actions">
         {children}
       </MenuOrDrawerBase>
     </RightAligned>

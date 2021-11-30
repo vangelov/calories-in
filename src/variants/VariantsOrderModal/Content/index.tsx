@@ -20,7 +20,7 @@ function Content({ onClose }: Props) {
 
   return (
     <ModalContent>
-      <ModalHeader>Reorder Variants</ModalHeader>
+      <ModalHeader>Reorder Days</ModalHeader>
       <ModalCloseButton />
 
       <ModalBody>

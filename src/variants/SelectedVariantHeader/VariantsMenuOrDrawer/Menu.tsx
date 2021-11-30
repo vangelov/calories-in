@@ -22,7 +22,7 @@ function Menu({ onSelect, onCreate, onReorder, canReorder }: Props) {
 
   return (
     <MenuBase arrow menuButton={<Trigger />}>
-      <MenuHeader>Variants</MenuHeader>
+      <MenuHeader>Days</MenuHeader>
       {variantsForms.map((variantForm, index) => {
         const { fieldId, name } = variantForm
         const isSelected = index === selectedVariantFormIndex
@@ -52,7 +52,7 @@ function Menu({ onSelect, onCreate, onReorder, canReorder }: Props) {
       <MenuDivider />
       <MenuItem onClick={onCreate}>
         <PlusStyled pointerEvents="none" size={16} mr={3} />
-        Create new
+        Add new
       </MenuItem>
       {canReorder && (
         <MenuItem onClick={onReorder}>

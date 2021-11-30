@@ -16,7 +16,7 @@ type Params = {
 }
 
 function getAppendedVariantFormName(variantForms: VariantForm[]) {
-  return getEnumeratedName(`Variant ${variantForms.length + 1}`, variantForms)
+  return getEnumeratedName(`Day ${variantForms.length + 1}`, variantForms)
 }
 
 function useVariantsFormsActions({ setDietForm, oneTimeCheckActions }: Params) {

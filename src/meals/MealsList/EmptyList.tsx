@@ -12,11 +12,11 @@ function EmptyList({ onAddMeal }: Props) {
     <Center textAlign="center" flex={1} flexDirection="column">
       <VStack spacing={6}>
         <Text fontSize="xl" fontWeight="medium" textColor="gray.500">
-          You haven't added any meals to this variant
+          You haven't added any meals to this day yet
         </Text>
         <Text maxWidth="450px" mt={3} fontSize="md" textColor="gray.400">
-          Variants represent different types of days in your meal plan. For
-          example: a normal day or a cheat day.
+          Days can be specific weekdays or just types of days. For example: a
+          training or a rest day.
         </Text>
         <Button
           mt={3}

@@ -9,7 +9,7 @@ type Props = {
 
 function Trigger({ forwardedRef, ...rest }: Props) {
   return (
-    <Tooltip label="All variants">
+    <Tooltip label="Days actions">
       <IconButton
         borderBottomLeftRadius={0}
         borderTopLeftRadius={0}

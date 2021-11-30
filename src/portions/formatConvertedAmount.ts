@@ -5,12 +5,12 @@ function formatConvertedAmount(amount: number, newPortion: Portion): string {
     return Math.round(amount).toString()
   }
 
-  const amountStringFixedTo2 = amount.toFixed(1)
-  const amountFixedTo2 = Number(amountStringFixedTo2)
+  const amountStringFixedTo1 = amount.toFixed(1)
+  const amountFixedTo1 = Number(amountStringFixedTo1)
 
-  return Number.isInteger(amountFixedTo2)
-    ? amount.toString()
-    : amountStringFixedTo2
+  return Number.isInteger(amountFixedTo1)
+    ? amountFixedTo1.toString()
+    : amountStringFixedTo1
 }
 
 export default formatConvertedAmount
