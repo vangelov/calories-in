@@ -38,7 +38,7 @@ function MenuOrDrawer({ onImport, onClear, onViewFoods }: Props) {
         Import
       </MenuOrDrawerItem>
       <MenuOrDrawerItem icon={<ListStyled />} onClick={onViewFoods}>
-        View foods
+        Manage foods
       </MenuOrDrawerItem>
     </MenuOrDrawerBase>
   )

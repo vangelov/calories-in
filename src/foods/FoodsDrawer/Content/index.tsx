@@ -92,11 +92,13 @@ function Content({
         </VStack>
       </DrawerBody>
 
-      <DrawerFooter justifyContent="space-between">
-        <MenuButtons
-          onImport={importFoods.onImport}
-          onExport={foodsListModalDisclosure.onOpen}
-        />
+      <DrawerFooter justifyContent={canSelect ? 'flex-end' : 'space-between'}>
+        {!canSelect && (
+          <MenuButtons
+            onImport={importFoods.onImport}
+            onExport={foodsListModalDisclosure.onOpen}
+          />
+        )}
 
         <HStack spacing={3}>
           <Button variant="outline" size="md" onClick={onClose}>
