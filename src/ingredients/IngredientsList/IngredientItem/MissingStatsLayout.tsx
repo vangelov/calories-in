@@ -1,6 +1,7 @@
 import { StatsLayout as StatsLayoutBase } from 'stats'
 import { RightAligned } from 'layout'
 import { Flex, Text, Button } from '@chakra-ui/react'
+import { Trash2 } from 'react-feather'
 
 type Props = {
   onRemoveRequest: () => void
@@ -29,7 +30,9 @@ function MissingStatsLayout({ onRemoveRequest }: Props) {
             alignSelf="flex-end"
             variant="outline"
             colorScheme="red"
+            size="sm"
             onClick={onRemoveRequest}
+            leftIcon={<Trash2 size={16} />}
           >
             Remove
           </Button>
