@@ -1,13 +1,20 @@
 import { InputProps, Input, Flex } from '@chakra-ui/react'
 import { MouseEvent, ReactNode, WheelEvent } from 'react'
+import amountAsNumber from 'stats/amountAsNumber'
 
 type Props = {
   children?: ReactNode
+  acceptsFractions?: boolean
 } & InputProps
 
 const MAX_AMOUNT_EXCLUDING = 10000
 
-function AmountInput({ name, children, ...rest }: Props) {
+function AmountInput({
+  name,
+  children,
+  acceptsFractions = false,
+  ...rest
+}: Props) {
   function onMouseDown(event: MouseEvent<HTMLInputElement>) {
     const input = event.target as HTMLInputElement
 
@@ -27,6 +34,17 @@ function AmountInput({ name, children, ...rest }: Props) {
     target.blur()
   }
 
+  const numProps = acceptsFractions
+    ? {}
+    : {
+        type: 'number',
+        pattern: 'd*',
+        onMouseDown,
+        onWheel,
+      }
+
+  console.log('t', numProps, rest)
+
   return (
     <Flex alignItems="center">
       <Input
@@ -37,19 +55,16 @@ function AmountInput({ name, children, ...rest }: Props) {
         textAlign="right"
         bg="white"
         maxWidth="74px"
-        type="number"
-        pattern="\d*"
+        {...numProps}
         {...rest}
         onChange={event => {
           const { value } = event.target
-          const valueAsNumber = Number(value)
+          const valueAsNumber = amountAsNumber(value)
 
           if (valueAsNumber >= 0 && valueAsNumber < MAX_AMOUNT_EXCLUDING) {
             rest.onChange && rest.onChange(event)
           }
         }}
-        onMouseDown={onMouseDown}
-        onWheel={onWheel}
       />
 
       {children}

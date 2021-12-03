@@ -8,6 +8,7 @@ import {
 import { useToast } from '@chakra-ui/toast'
 import { Portion, formatConvertedAmount, useGetAmount } from 'portions'
 import { Food } from 'foods'
+import amountAsNumber from 'stats/amountAsNumber'
 
 type Params = {
   variantIndex: number
@@ -46,7 +47,7 @@ function useIngredientsEvents({
 
   function onPortionChange(newPortion: Portion) {
     const newAmount = getAmountFromPortionToPortion(
-      Number(ingredientForm.amount),
+      amountAsNumber(ingredientForm.amount),
       ingredientForm.portionId,
       newPortion.id,
       food

@@ -4,6 +4,7 @@ import { StatsTree, objectFromNutritionDataKeys, Stats } from 'stats'
 import { DEFAULT_SERVING_SIZE_IN_GRAMS } from 'foods'
 import { useGetAmount } from 'portions'
 import { useCallback } from 'react'
+import amountAsNumber from 'stats/amountAsNumber'
 
 function useGetIngredientFormStatsTree() {
   const { foodsById } = useFoods()
@@ -16,7 +17,7 @@ function useGetIngredientFormStatsTree() {
 
       if (food) {
         const amountInGrams = getAmountFromPortionToGrams(
-          Number(ingredientForm.amount),
+          amountAsNumber(ingredientForm.amount),
           ingredientForm.portionId,
           food
         )

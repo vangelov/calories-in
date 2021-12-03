@@ -1,5 +1,6 @@
 import { Food, FoodId } from 'foods'
 import { IngredientForm } from 'ingredients'
+import amountAsNumber from 'stats/amountAsNumber'
 import { Portion } from './types'
 import { getAmountFromPortionToGrams } from './useGetAmount'
 
@@ -14,13 +15,13 @@ function getIngredientPortionDescription(
   const portion = portionsById[portionId]
 
   const distance = UNITS_WITH_DISTANCE.includes(portion.unit) ? ' ' : ''
-  const mainPart = `${amount}${distance}${portion.unit}`
+  const mainPart = `${amount || 0}${distance}${portion.unit}`
   const { gramsPerAmount, millilitersPerAmount } = portion
 
   if (gramsPerAmount !== 1 || millilitersPerAmount) {
     const weightInGrams = Math.round(
       getAmountFromPortionToGrams(
-        Number(amount),
+        amountAsNumber(amount),
         portion.id,
         foodsById[foodId],
         portionsById

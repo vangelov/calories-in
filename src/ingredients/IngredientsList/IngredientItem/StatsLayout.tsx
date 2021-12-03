@@ -32,6 +32,10 @@ function StatsLayout({
   notes,
   children,
 }: Props) {
+  const acceptsFractions = ['teaspoons', 'tablespoons', 'cups'].includes(
+    ingredientForm.portionId
+  )
+
   return (
     <StatsLayoutBase
       prefersAmount={true}
@@ -60,6 +64,7 @@ function StatsLayout({
             borderBottomLeftRadius={6}
             borderTopRightRadius={0}
             borderBottomRightRadius={0}
+            acceptsFractions={acceptsFractions}
           >
             <PortionsMenuOrDrawer
               selectedPortionId={ingredientForm.portionId}

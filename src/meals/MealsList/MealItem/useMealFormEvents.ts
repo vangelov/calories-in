@@ -58,8 +58,6 @@ function useMealFormEvents({
       isClosable: true,
     })
 
-    console.log('lines', notes?.split('\n'))
-
     dietFormActions.updateMealForm(variantIndex, index, {
       notes,
     })

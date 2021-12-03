@@ -6281,6 +6281,11 @@ form-data@~2.3.2:
     combined-stream "^1.0.6"
     mime-types "^2.1.12"
 
+format-quantity@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/format-quantity/-/format-quantity-1.0.1.tgz#97e2cd2de315931f4a755b13f67e703154b50bb9"
+  integrity sha512-d45b0+rThtiCf/KhLHaI+12wQunOVzO9uhH/dsd/rcyd1z50876HnTccPtsyXYFoRQSd4vfxtrE8qXV5gRJKMg==
+
 forwarded@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/forwarded/-/forwarded-0.1.2.tgz#98c23dab1175657b8c0573e8ceccd91b0ff18c84"
@@ -8925,6 +8930,11 @@ num2fraction@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/num2fraction/-/num2fraction-1.2.2.tgz#6f682b6a027a4e9ddfa4564cd2589d1d4e669ede"
   integrity sha1-b2gragJ6Tp3fpFZM0lidHU5mnt4=
+
+numeric-quantity@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/numeric-quantity/-/numeric-quantity-1.0.2.tgz#391cb1c0a11847704b5f983e30af13f697d0b959"
+  integrity sha512-u9HQWviRs/WcYmgSWoeYqOvJ2Pk6iJwxyRE60NA1bYcoFTC5vieWTu/43b+9inUasxlNYahInuDLfWiovxPZ2g==
 
 nwsapi@^2.2.0:
   version "2.2.0"
