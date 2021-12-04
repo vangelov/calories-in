@@ -41,7 +41,6 @@ function PdfMealItem({
         style={[
           styles.header,
           {
-            backgroundColor: getComputedColorFromChakra('gray.50'),
             borderBottomColor: getComputedColorFromChakra('gray.200'),
           },
         ]}
@@ -96,6 +95,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   header: {
+    backgroundColor: 'white',
     borderTopLeftRadius: 7,
     borderTopRightRadius: 7,
     paddingTop: 10,

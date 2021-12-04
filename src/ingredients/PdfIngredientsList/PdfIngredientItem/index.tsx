@@ -42,7 +42,7 @@ function PdfIngredientItem({
 }
 
 const styles = StyleSheet.create({
-  root: { paddingTop: 10, paddingBottom: 10 },
+  root: { paddingTop: 10, paddingBottom: 10, backgroundColor: 'white' },
   name: {
     fontSize: 14,
   },

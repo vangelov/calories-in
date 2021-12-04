@@ -1,4 +1,4 @@
-import { Box, Flex, Divider } from '@chakra-ui/react'
+import { Box, Flex } from '@chakra-ui/react'
 import { ForwardedRef, forwardRef, ReactNode } from 'react'
 import ElementContainer from './ElementContainer'
 
@@ -14,11 +14,12 @@ function PageHeader({ children, forwardedRef }: Props) {
       justifyContent="center"
       position="sticky"
       top="0"
+      bg="white"
       zIndex={2}
+      boxShadow="md"
     >
       <ElementContainer>
         <Box>{children}</Box>
-        <Divider />
       </ElementContainer>
     </Flex>
   )

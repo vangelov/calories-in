@@ -101,7 +101,7 @@ function Content({
         )}
 
         <HStack spacing={3}>
-          <Button variant="outline" size="md" onClick={onClose}>
+          <Button variant="solid" size="md" onClick={onClose}>
             Close
           </Button>
           {canSelect && (

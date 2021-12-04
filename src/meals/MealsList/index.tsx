@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { BoxProps, Flex, Box } from '@chakra-ui/react'
 import MealItem from './MealItem'
 import { useRef, memo } from 'react'
 import { useGetRefForId } from 'dom'
@@ -15,7 +15,7 @@ type Props = {
   selectedVariantFormFieldId: string
   headerHeight: number
   onAddMeal: () => void
-}
+} & BoxProps
 
 function MealsList({
   mealsForms,
@@ -23,6 +23,7 @@ function MealsList({
   selectedVariantFormFieldId,
   headerHeight,
   onAddMeal,
+  ...rest
 }: Props) {
   const getMealNameInputRefById = useGetRefForId<HTMLInputElement>()
   const scrollTargetRef = useRef<HTMLDivElement>(null)
@@ -37,13 +38,7 @@ function MealsList({
   return (
     <Droppable droppableId="mealsList" type="mealsList">
       {(provided, snapshot) => (
-        <Flex
-          p={3}
-          ref={provided.innerRef}
-          minHeight={`calc(100vh - ${headerHeight}px)`}
-          bg="white"
-          flexDirection="column"
-        >
+        <Flex ref={provided.innerRef} flexDirection="column" {...rest}>
           {mealsForms.length > 0 ? (
             mealsForms.map((mealForm, index) => (
               <MealItem
@@ -55,7 +50,7 @@ function MealsList({
                 mealForm={mealForm}
                 onFirstAppear={onScrollToMeal}
                 selectedVariantFormFieldId={selectedVariantFormFieldId}
-                mb={3}
+                mb={5}
                 isDragging={snapshot.isDraggingOver}
               />
             ))

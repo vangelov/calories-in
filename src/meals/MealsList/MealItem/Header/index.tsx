@@ -42,10 +42,9 @@ function Header({
 
   return (
     <ContextMenuFlex
-      bg="gray.50"
+      bg="white"
       py={3}
       borderTopRadius={10}
-      borderBottomWidth={1}
       justifyContent="space-between"
       _hover={{ backgroundColor: 'gray.100' }}
       menuOrDrawerItems={menuOrDrawerItems}

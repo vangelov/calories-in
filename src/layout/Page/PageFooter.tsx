@@ -1,4 +1,4 @@
-import { Box, Divider } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { ReactNode, RefObject } from 'react'
 import ElementContainer from './ElementContainer'
 
@@ -9,10 +9,16 @@ type Props = {
 
 function PageFooter({ children, footerContainerRef }: Props) {
   return (
-    <Box position="fixed" bottom="0" left={0} right={0} zIndex={2}>
+    <Box
+      bg="white"
+      boxShadow="md"
+      position="fixed"
+      bottom="0"
+      left={0}
+      right={0}
+      zIndex={2}
+    >
       <ElementContainer mx="auto" ref={footerContainerRef}>
-        <Divider />
-
         <Box py={3} bg="white">
           {children}
         </Box>

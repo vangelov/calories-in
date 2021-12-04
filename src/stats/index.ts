@@ -1,20 +1,16 @@
 export * from './types'
-
 export * from './useMealsStatsStore'
 export { default as useUpdateMealStats } from './useUpdateMealStats'
 export { default as useVariantStats } from './useVariantStats'
 export * from './calculations'
-
 export { default as Stat } from './Stat'
 export { default as StatsLayout } from './StatsLayout'
 export { default as objectFromNutritionDataKeys } from './objectFromNutritionDataKeys'
 export * from './objectFromNutritionDataKeys'
-
 export { default as StatsFormFields } from './StatsFormFields'
 export * from './StatsFormFields'
-
 export { default as AmountInput } from './AmountInput'
 export { default as EnergyStat } from './EnergyStat'
 export { default as getUnit } from './getUnit'
-
 export { default as StatValueDetail } from './StatValueDetail'
+export { default as StatsSummary } from './StatsSummary'

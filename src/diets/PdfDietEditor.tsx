@@ -53,7 +53,12 @@ function PdfDietEditor({
 
   return (
     <Document {...rest}>
-      <Page style={styles.page}>
+      <Page
+        style={[
+          styles.page,
+          { backgroundColor: getComputedColorFromChakra('gray.50') },
+        ]}
+      >
         <View
           style={{
             backgroundColor: getComputedColorFromChakra('teal.500'),

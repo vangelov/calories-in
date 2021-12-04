@@ -43,8 +43,6 @@ function AmountInput({
         onWheel,
       }
 
-  console.log('t', numProps, rest)
-
   return (
     <Flex alignItems="center">
       <Input

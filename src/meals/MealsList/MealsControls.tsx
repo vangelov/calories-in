@@ -1,4 +1,4 @@
-import { Flex, Text, chakra, Button } from '@chakra-ui/react'
+import { Flex, chakra, Button } from '@chakra-ui/react'
 import { MealForm } from 'meals'
 import { Plus } from 'react-feather'
 
@@ -11,15 +11,12 @@ type Props = {
 
 function MealsControls({ mealsForms, onAddMeal }: Props) {
   return (
-    <Flex pt={3} pb={6} justifyContent="space-between" alignItems="center">
-      <Text fontWeight="semibold" textColor="gray.500">
-        {`${mealsForms.length} ${mealsForms.length === 1 ? 'meal' : 'meals'}`}
-      </Text>
+    <Flex pt={3} pb={6} justifyContent="center" alignItems="center">
       <Button
         colorScheme="teal"
         variant="outline"
         onClick={onAddMeal}
-        size="sm"
+        size="md"
         leftIcon={<PlusStyled size={16} pointerEvents="none" />}
       >
         Add meal

@@ -8,7 +8,7 @@ type Props = {
 
 function ElementContainer({ children, forwardedRef, ...rest }: Props) {
   return (
-    <Box flex={1} ref={forwardedRef} bg="gray.50" maxWidth="820px" {...rest}>
+    <Box flex={1} ref={forwardedRef} bg="gray.50" maxWidth="1000px" {...rest}>
       {children}
     </Box>
   )
