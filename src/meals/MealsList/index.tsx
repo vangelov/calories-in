@@ -60,9 +60,11 @@ function MealsList({
 
           {provided.placeholder}
           {mealsForms.length > 0 && (
-            <MealsControls mealsForms={mealsForms} onAddMeal={onAddMeal} />
+            <>
+              <MealsControls mealsForms={mealsForms} onAddMeal={onAddMeal} />
+              <Box ref={scrollTargetRef} />
+            </>
           )}
-          <Box ref={scrollTargetRef} height="48px" />
         </Flex>
       )}
     </Droppable>

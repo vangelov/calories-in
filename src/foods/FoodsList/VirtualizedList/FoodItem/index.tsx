@@ -78,7 +78,6 @@ function FoodItem({
           )}
 
           <FoodInfo
-            fontSize="md"
             nameNoOfLines={1}
             food={food}
             energy={food.energy}

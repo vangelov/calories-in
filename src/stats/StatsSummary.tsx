@@ -13,15 +13,13 @@ function StatsSummary({ ...rest }: Props) {
       {...rest}
     >
       <Flex justifyContent="space-between">
-        <Text fontSize="lg" fontWeight="medium" textColor="teal.600">
-          Energy
+        <Text fontSize="lg" fontWeight="bold">
+          Calories
         </Text>
-        <Text fontSize="lg" textColor="teal.600">
+        <Text fontSize="lg" fontWeight="medium">
           1000kcal
         </Text>
       </Flex>
-
-      <Divider />
 
       <Flex justifyContent="space-between">
         <Text fontSize="lg" fontWeight="medium">
@@ -30,7 +28,7 @@ function StatsSummary({ ...rest }: Props) {
             (20%)
           </Text>
         </Text>
-        <Text fontSize="lg">150g</Text>
+        <Text fontSize="md">150g</Text>
       </Flex>
 
       <Flex justifyContent="space-between">
@@ -53,6 +51,8 @@ function StatsSummary({ ...rest }: Props) {
         <Text fontSize="lg">50g</Text>
       </Flex>
 
+      <Divider />
+
       <Flex justifyContent="space-between">
         <Text fontSize="lg">
           Saturated fat{' '}
@@ -70,6 +70,11 @@ function StatsSummary({ ...rest }: Props) {
             (20%)
           </Text>
         </Text>
+        <Text fontSize="lg">10g</Text>
+      </Flex>
+
+      <Flex justifyContent="space-between">
+        <Text fontSize="lg">Sodium </Text>
         <Text fontSize="lg">10g</Text>
       </Flex>
 

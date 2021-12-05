@@ -35,9 +35,8 @@ function Name({
         onChange={onNameChange}
         autoComplete="off"
         bg="white"
-        width="85%"
-        fontSize={{ base: 'sm', md: 'md' }}
         fontWeight="medium"
+        textColor="gray.600"
         size="md"
         value={mealForm.name}
         {...rest}

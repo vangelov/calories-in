@@ -38,7 +38,7 @@ function AmountInput({
     ? {}
     : {
         type: 'number',
-        pattern: 'd*',
+        pattern: '\\d*',
         onMouseDown,
         onWheel,
       }

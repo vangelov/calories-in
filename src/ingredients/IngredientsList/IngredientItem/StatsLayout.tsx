@@ -40,14 +40,7 @@ function StatsLayout({
     <StatsLayoutBase
       prefersAmount={true}
       nameElement={
-        <FoodInfo
-          width="85%"
-          ml={3}
-          fontSize={{ base: 'sm', md: 'md' }}
-          food={food}
-          notes={notes}
-          canBeLink={true}
-        >
+        <FoodInfo ml={3} mr={2} food={food} notes={notes} canBeLink={true}>
           {children}
         </FoodInfo>
       }

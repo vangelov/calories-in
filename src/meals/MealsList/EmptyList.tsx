@@ -15,6 +15,7 @@ function EmptyList({ onAddMeal }: Props) {
       boxShadow="base"
       borderRadius={6}
       flex={1}
+      p={6}
       flexDirection="column"
     >
       <VStack spacing={6}>

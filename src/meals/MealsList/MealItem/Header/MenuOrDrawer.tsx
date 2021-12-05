@@ -15,7 +15,6 @@ function MenuOrDrawer({ children }: Props) {
         variant="ghost"
         _hover={{ backgroundColor: 'gray.200' }}
         aria-label="Meal actions"
-        borderRadius="full"
       >
         {children}
       </MenuOrDrawerBase>

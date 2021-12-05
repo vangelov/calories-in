@@ -17,6 +17,7 @@ function PageHeader({ children, forwardedRef }: Props) {
       bg="white"
       zIndex={2}
       boxShadow="md"
+      px={3}
     >
       <ElementContainer>
         <Box>{children}</Box>

@@ -1,11 +1,4 @@
-import {
-  Text,
-  Box,
-  Flex,
-  BoxProps,
-  TypographyProps,
-  Link,
-} from '@chakra-ui/react'
+import { Text, Box, Flex, BoxProps, Link } from '@chakra-ui/react'
 import { Food } from 'foods'
 import { ReactNode } from 'react'
 import { DEFAULT_SERVING_SIZE_IN_GRAMS } from './foodForm'
@@ -15,7 +8,7 @@ type Props = {
   nameNoOfLines?: number
   canBeLink?: boolean
   notes?: string
-  fontSize: TypographyProps['fontSize']
+
   energy?: number
   children?: ReactNode
 } & BoxProps
@@ -35,16 +28,11 @@ function FoodInfo({
     <Flex height="100%" align="center" {...rest}>
       <Box>
         {food.url && canBeLink ? (
-          <Link
-            fontSize={fontSize}
-            target="_blank"
-            href={food.url}
-            color="teal.500"
-          >
+          <Link target="_blank" href={food.url} color="teal.500">
             {food.name}
           </Link>
         ) : (
-          <Text fontSize={fontSize} noOfLines={nameNoOfLines} color="gray.600">
+          <Text noOfLines={nameNoOfLines} color="gray.600">
             {food.name}
           </Text>
         )}
