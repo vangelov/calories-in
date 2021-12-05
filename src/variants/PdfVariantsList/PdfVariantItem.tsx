@@ -51,7 +51,7 @@ function PdfVariantItem({
           </Text>
         }
         energyElement={
-          <PdfStat variant="dietEnergy" label="Energy" value={stats.energy} />
+          <PdfStat variant="dietEnergy" label="Calories" value={stats.energy} />
         }
         proteinElement={
           <PdfStat

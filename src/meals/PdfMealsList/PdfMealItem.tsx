@@ -55,7 +55,11 @@ function PdfMealItem({
             </Text>
           }
           energyElement={
-            <PdfStat variant="mealEnergy" label="Energy" value={stats.energy} />
+            <PdfStat
+              variant="mealEnergy"
+              label="Calories"
+              value={stats.energy}
+            />
           }
           proteinElement={
             <PdfStat variant="meal" label="Protein" value={stats.protein} />

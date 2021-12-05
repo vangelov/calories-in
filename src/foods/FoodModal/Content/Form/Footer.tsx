@@ -18,7 +18,7 @@ function Footer({ onClose, onSubmit, isEditing }: Props) {
             variant="solid"
             onClick={onSubmit}
           >
-            Save
+            Save food
           </Button>
         )}
       </HStack>

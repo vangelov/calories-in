@@ -37,7 +37,7 @@ function MacrosFormFields({
           ml={3}
           isIdented={true}
           name="saturatedFatEnergyPercent"
-          label="Energy from saturated fat"
+          label="Calories from saturated fat"
           inputType="nutritionValue"
           nutritionValueUnit="%"
           isReadOnly={!canEdit}

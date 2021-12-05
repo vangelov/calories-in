@@ -14,7 +14,10 @@ function StatsSummary({ ...rest }: Props) {
     >
       <Flex justifyContent="space-between">
         <Text fontSize="lg" fontWeight="bold">
-          Calories
+          Calories{' '}
+          <Text as="span" fontSize="md" fontWeight="normal">
+            (+200kcal)
+          </Text>
         </Text>
         <Text fontSize="lg" fontWeight="medium">
           1000kcal
@@ -28,7 +31,7 @@ function StatsSummary({ ...rest }: Props) {
             (20%)
           </Text>
         </Text>
-        <Text fontSize="md">150g</Text>
+        <Text fontSize="lg">150g</Text>
       </Flex>
 
       <Flex justifyContent="space-between">

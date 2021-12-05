@@ -63,7 +63,7 @@ function Header({
         energyElement={
           <Stat
             type="mealEnergy"
-            label="Energy"
+            label="Calories"
             value={ingredientsStatsSum.energy}
           />
         }

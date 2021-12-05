@@ -18,7 +18,7 @@ function EnergyStat({ energy, energyDiff, ...rest }: Props) {
     <Stat
       justifyContent="flex-start"
       type="dietEnergy"
-      label="Energy"
+      label="Calories"
       value={energy}
       valueDetailElement={
         energyDiff !== 0 ? (
