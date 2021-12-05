@@ -98,13 +98,11 @@ function PdfVariantItem({
 
 const styles = StyleSheet.create({
   root: {
-    paddingTop: 12,
-    paddingLeft: 12,
-    paddingRight: 12,
+    padding: 24,
   },
   name: {
     fontWeight: 'semibold',
-    fontSize: 16,
+    fontSize: 20,
   },
   separator: {
     height: 1,

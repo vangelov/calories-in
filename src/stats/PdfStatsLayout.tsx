@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
   },
   macro: {
     width: MACRO_WIDTH,
-    marginRight: 10,
+    marginRight: 12,
   },
 })
 

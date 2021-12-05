@@ -12,6 +12,7 @@ type Props = {
   stats: Stats
   foodsById: Record<FoodId, Food>
   portionsById: Record<string, Portion>
+  isLast: boolean
 }
 
 function PdfIngredientItem({
@@ -19,9 +20,15 @@ function PdfIngredientItem({
   stats,
   foodsById,
   portionsById,
+  isLast,
 }: Props) {
   return (
-    <View style={styles.root}>
+    <View
+      style={[
+        styles.root,
+        isLast ? { borderBottomLeftRadius: 7, borderBottomRightRadius: 7 } : {},
+      ]}
+    >
       <PdfStatsLayout
         nameElement={
           <FoodName
@@ -42,7 +49,7 @@ function PdfIngredientItem({
 }
 
 const styles = StyleSheet.create({
-  root: { paddingTop: 10, paddingBottom: 10, backgroundColor: 'white' },
+  root: { paddingTop: 12, paddingBottom: 12, backgroundColor: 'white' },
   name: {
     fontSize: 14,
   },

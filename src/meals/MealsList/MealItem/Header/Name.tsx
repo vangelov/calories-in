@@ -34,6 +34,7 @@ function Name({
         placeholder="Meal name"
         onChange={onNameChange}
         autoComplete="off"
+        width="80%"
         bg="white"
         fontWeight="medium"
         textColor="gray.600"

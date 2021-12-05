@@ -31,20 +31,14 @@ function PdfMealItem({
 
   return (
     <View
+      wrap={false}
       style={[
         styles.root,
         style,
         { borderColor: getComputedColorFromChakra('gray.200') },
       ]}
     >
-      <View
-        style={[
-          styles.header,
-          {
-            borderBottomColor: getComputedColorFromChakra('gray.200'),
-          },
-        ]}
-      >
+      <View style={[styles.header]}>
         <PdfStatsLayout
           nameElement={
             <Text
@@ -72,6 +66,17 @@ function PdfMealItem({
           fatElement={<PdfStat variant="meal" label="Fat" value={stats.fat} />}
         />
       </View>
+
+      <View
+        style={{ paddingLeft: 10, paddingRight: 10, backgroundColor: 'white' }}
+      >
+        <View
+          style={{
+            backgroundColor: getComputedColorFromChakra('gray.100'),
+            height: '1px',
+          }}
+        />
+      </View>
       <PdfIngredientsList
         ingredientsForms={ingredientsForms}
         ingredientsFormsStats={ingredientsFormsStats}
@@ -92,15 +97,14 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 14,
     fontWeight: 'medium',
-    marginLeft: 10,
+    marginLeft: 12,
   },
   header: {
     backgroundColor: 'white',
     borderTopLeftRadius: 7,
     borderTopRightRadius: 7,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderBottomWidth: 1,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
 })
 

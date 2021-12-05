@@ -52,7 +52,7 @@ function AmountInput({
         textColor="gray.500"
         textAlign="right"
         bg="white"
-        maxWidth="74px"
+        maxWidth="68px"
         {...numProps}
         {...rest}
         onChange={event => {
