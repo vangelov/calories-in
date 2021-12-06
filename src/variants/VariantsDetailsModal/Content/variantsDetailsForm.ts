@@ -22,9 +22,8 @@ function getVariantsDetailsForm(
 
   return {
     variantFormFieldId,
-    saturatedFatEnergyPercent: getMacroEnergyPercent(
-      saturatedFatEnergyEstimate,
-      energyEstimate
+    saturatedFatEnergyPercent: Math.round(
+      getMacroEnergyPercent(saturatedFatEnergyEstimate, energyEstimate)
     ).toString(),
     ...objectFromNutritionDataKeys(key => variantStats[key].toString()),
   }

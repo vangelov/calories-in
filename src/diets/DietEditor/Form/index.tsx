@@ -8,9 +8,8 @@ import { Box, useDisclosure, Flex } from '@chakra-ui/react'
 import { ScreenSize, useElementHeight, useScreenSize } from 'general'
 import Controls from './Controls'
 import { FoodsDrawer } from 'foods'
-import { VariantsList } from 'variants'
+import { VariantsList, VariantStats } from 'variants'
 import useVariantFormEvents from './useVariantFormActions'
-import { StatsSummary } from 'stats'
 
 function Form() {
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
@@ -69,7 +68,7 @@ function Form() {
             />
 
             {screenSize >= ScreenSize.Large && (
-              <StatsSummary
+              <VariantStats
                 position="sticky"
                 top={`${headerHeight + 24}px`}
                 ml={6}
