@@ -4,6 +4,7 @@ import {
   Divider,
   Button,
   useDisclosure,
+  Text,
 } from '@chakra-ui/react'
 import { useDietForm } from 'diets'
 import {
@@ -50,6 +51,10 @@ function VariantStats({ ...rest }: Props) {
       justify="left"
       {...rest}
     >
+      <Text fontSize="lg" textAlign="center" textColor="gray.500">
+        Day totals
+      </Text>
+      <Divider />
       <EnergyStat
         energy={variantStats.energy}
         energyDiff={energyDiff}
@@ -77,8 +82,6 @@ function VariantStats({ ...rest }: Props) {
         type="primaryMacro"
         isDisabled={!hasAtLeastOneMeal}
       />
-
-      <Divider />
 
       <VariantStat
         label="Saturated fat"
