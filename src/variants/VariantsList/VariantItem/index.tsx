@@ -1,15 +1,14 @@
 import { Text, HStack, LayoutProps, SpaceProps } from '@chakra-ui/react'
 import { VariantForm } from 'variants'
 import { ForwardedRef, forwardRef, ReactNode, useRef } from 'react'
-import Menu from './Menu'
 import { Draggable } from 'react-beautiful-dnd'
 import { memo } from 'react'
 import PresenceAnimation from './PresenceAnimation'
 import useVariantFormEvents from './useVariantFormEvents'
 import mergeRefs from 'react-merge-refs'
-import { ContextMenuFlex } from 'general'
-import getMenuItems from './getMenuItems'
+import { ContextMenuFlex, MenuOrDrawer } from 'general'
 import useScrollIntoView from './useScrollIntoView'
+import getMenuOrDrawerItems from './getMenuOrDrawerItems'
 
 type Props = {
   children: ReactNode
@@ -49,7 +48,7 @@ function VariantItem({
 
   useScrollIntoView({ isSelected, ref })
 
-  const menuItems = getMenuItems({
+  const menuOrDrawerItems = getMenuOrDrawerItems({
     canRemove,
     onClone: () => onClone(index),
     onEditName: () => onEditName(index),
@@ -91,7 +90,7 @@ function VariantItem({
               height="40px"
               cursor="pointer"
               alignItems="center"
-              menuItems={menuItems}
+              menuOrDrawerItems={menuOrDrawerItems}
               {...rest}
               {...provided.draggableProps}
               {...provided.dragHandleProps}
@@ -106,13 +105,13 @@ function VariantItem({
                   {children}
                 </Text>
 
-                <Menu
-                  canRemove={canRemove}
-                  onClone={() => onClone(index)}
-                  onEditName={() => onEditName(index)}
-                  onDelete={variantFormEvents.onRemoveRequest}
-                  isSelected={isSelected}
-                />
+                <MenuOrDrawer
+                  title="Day"
+                  borderRadius="full"
+                  aria-label="Day actions"
+                >
+                  {menuOrDrawerItems}
+                </MenuOrDrawer>
               </HStack>
             </ContextMenuFlex>
           </PresenceAnimation>
