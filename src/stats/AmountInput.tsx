@@ -49,7 +49,7 @@ function AmountInput({
         fontSize="md"
         autoComplete="off"
         borderColor="gray.200"
-        textColor="gray.500"
+        textColor="gray.800"
         textAlign="right"
         bg="white"
         maxWidth="68px"

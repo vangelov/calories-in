@@ -32,7 +32,7 @@ function FoodInfo({
             {food.name}
           </Link>
         ) : (
-          <Text noOfLines={nameNoOfLines} color="gray.600">
+          <Text noOfLines={nameNoOfLines} color="gray.800">
             {food.name}
           </Text>
         )}

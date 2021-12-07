@@ -115,7 +115,7 @@ function Content({
                 colorScheme="teal"
                 onClick={onAdd}
               >
-                {mealForm ? 'Add foods' : 'Select foods'}
+                {mealForm ? 'Add selected foods' : 'Select foods'}
               </Button>
             </Tooltip>
           )}

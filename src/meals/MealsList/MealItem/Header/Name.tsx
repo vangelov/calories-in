@@ -37,7 +37,7 @@ function Name({
         width="80%"
         bg="white"
         fontWeight="medium"
-        textColor="gray.600"
+        textColor="gray.800"
         size="md"
         value={mealForm.name}
         {...rest}

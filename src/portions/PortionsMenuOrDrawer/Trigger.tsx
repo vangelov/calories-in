@@ -21,7 +21,7 @@ function Trigger({ forwardedRef, selectedPortionId, ...rest }: Props) {
       borderBottomLeftRadius={0}
       variant="outline"
       fontSize="sm"
-      textColor="gray.500"
+      textColor="gray.600"
       ref={forwardedRef}
       {...rest}
     >
