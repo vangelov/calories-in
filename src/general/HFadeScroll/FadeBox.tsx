@@ -8,7 +8,7 @@ type ShadowProps = {
 }
 
 function getLinearGradient(direction: 'left' | 'right') {
-  return `linear-gradient(to ${direction},rgba(255, 255, 255, 1), rgba(255, 255, 255, 0))`
+  return `linear-gradient(to ${direction},#F7FAFC, rgba(255, 255, 255, 0))`
 }
 
 const shadowElementBase = {

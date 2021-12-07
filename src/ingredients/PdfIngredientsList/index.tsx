@@ -35,6 +35,7 @@ function PdfIngredientsList({
             stats={stats}
             foodsById={foodsById}
             portionsById={portionsById}
+            isLast={index === filteredIngredientsForms.length - 1}
           />
         )
       })}
@@ -56,7 +57,7 @@ function PdfIngredientsList({
 
 const styles = StyleSheet.create({
   emptyListText: {
-    padding: 10,
+    padding: 12,
     fontSize: 14,
   },
 })

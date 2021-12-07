@@ -34,11 +34,10 @@ function Name({
         placeholder="Meal name"
         onChange={onNameChange}
         autoComplete="off"
+        width="80%"
         bg="white"
-        width="85%"
-        fontSize={{ base: 'sm', md: 'md' }}
-        textColor="gray.600"
         fontWeight="medium"
+        textColor="gray.800"
         size="md"
         value={mealForm.name}
         {...rest}

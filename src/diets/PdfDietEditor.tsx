@@ -53,8 +53,14 @@ function PdfDietEditor({
 
   return (
     <Document {...rest}>
-      <Page style={styles.page}>
+      <Page
+        style={[
+          styles.page,
+          { backgroundColor: getComputedColorFromChakra('gray.50') },
+        ]}
+      >
         <View
+          fixed
           style={{
             backgroundColor: getComputedColorFromChakra('teal.500'),
             height: '8px',
@@ -70,9 +76,6 @@ function PdfDietEditor({
 const styles = StyleSheet.create({
   page: {
     fontFamily: 'Roboto',
-  },
-  content: {
-    padding: 12,
   },
 })
 

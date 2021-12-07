@@ -31,21 +31,14 @@ function PdfMealItem({
 
   return (
     <View
+      wrap={false}
       style={[
         styles.root,
         style,
         { borderColor: getComputedColorFromChakra('gray.200') },
       ]}
     >
-      <View
-        style={[
-          styles.header,
-          {
-            backgroundColor: getComputedColorFromChakra('gray.50'),
-            borderBottomColor: getComputedColorFromChakra('gray.200'),
-          },
-        ]}
-      >
+      <View style={[styles.header]}>
         <PdfStatsLayout
           nameElement={
             <Text
@@ -62,7 +55,11 @@ function PdfMealItem({
             </Text>
           }
           energyElement={
-            <PdfStat variant="mealEnergy" label="Energy" value={stats.energy} />
+            <PdfStat
+              variant="mealEnergy"
+              label="Calories"
+              value={stats.energy}
+            />
           }
           proteinElement={
             <PdfStat variant="meal" label="Protein" value={stats.protein} />
@@ -71,6 +68,17 @@ function PdfMealItem({
             <PdfStat variant="meal" label="Carbs" value={stats.carbs} />
           }
           fatElement={<PdfStat variant="meal" label="Fat" value={stats.fat} />}
+        />
+      </View>
+
+      <View
+        style={{ paddingLeft: 10, paddingRight: 10, backgroundColor: 'white' }}
+      >
+        <View
+          style={{
+            backgroundColor: getComputedColorFromChakra('gray.100'),
+            height: '1px',
+          }}
         />
       </View>
       <PdfIngredientsList
@@ -93,14 +101,14 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 14,
     fontWeight: 'medium',
-    marginLeft: 10,
+    marginLeft: 12,
   },
   header: {
+    backgroundColor: 'white',
     borderTopLeftRadius: 7,
     borderTopRightRadius: 7,
-    paddingTop: 10,
-    paddingBottom: 10,
-    borderBottomWidth: 1,
+    paddingTop: 12,
+    paddingBottom: 12,
   },
 })
 

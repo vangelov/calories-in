@@ -38,12 +38,10 @@ function AmountInput({
     ? {}
     : {
         type: 'number',
-        pattern: 'd*',
+        pattern: '\\d*',
         onMouseDown,
         onWheel,
       }
-
-  console.log('t', numProps, rest)
 
   return (
     <Flex alignItems="center">
@@ -51,10 +49,10 @@ function AmountInput({
         fontSize="md"
         autoComplete="off"
         borderColor="gray.200"
-        textColor="gray.500"
+        textColor="gray.800"
         textAlign="right"
         bg="white"
-        maxWidth="74px"
+        maxWidth="68px"
         {...numProps}
         {...rest}
         onChange={event => {

@@ -24,10 +24,6 @@ function isForMeal(statVaraint: StatVariant) {
 }
 
 function getValueTextColor(statVariant: StatVariant) {
-  if (isForMeal(statVariant) || statVariant === 'ingredientAmount') {
-    return 'gray.600'
-  }
-
   if (isForIngredient(statVariant)) {
     return 'gray.500'
   }

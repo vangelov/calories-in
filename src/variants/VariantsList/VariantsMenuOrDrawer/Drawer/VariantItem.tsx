@@ -1,5 +1,4 @@
 import { Box, BoxProps, Flex, Text } from '@chakra-ui/react'
-import { useEffect, useRef } from 'react'
 import { Check } from 'react-feather'
 
 type Props = {
@@ -8,17 +7,8 @@ type Props = {
 } & BoxProps
 
 function VariantItem({ name, isSelected, ...rest }: Props) {
-  const ref = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    if (ref.current && isSelected) {
-      ref.current.scrollIntoView()
-    }
-  }, [isSelected])
-
   return (
     <Box
-      ref={ref}
       position="relative"
       as="button"
       width="100%"
@@ -27,7 +17,6 @@ function VariantItem({ name, isSelected, ...rest }: Props) {
       p={3}
       fontSize="sm"
       fontWeight="semibold"
-      color={isSelected ? 'teal' : undefined}
       _hover={{ bg: 'gray.50' }}
       _active={{
         bg: 'gray.100',

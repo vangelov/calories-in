@@ -3,23 +3,22 @@ import Drawer from './Drawer'
 import Trigger from './Trigger'
 import { useDisclosure } from '@chakra-ui/hooks'
 import Menu from './Menu'
+import { useDietFormActions } from 'diets'
 import { VariantForm } from 'variants'
 
 type Props = {
-  onSelect: (variantForm: VariantForm, index: number) => void
-  onCreate: () => void
-  onReorder: () => void
-  canReorder: boolean
+  onVariantFormSelect: (variantForm: VariantForm, index: number) => void
 }
 
-function VariantsMenuOrDrawer({
-  onSelect,
-  onCreate,
-  onReorder,
-  canReorder,
-}: Props) {
+function VariantsMenuOrDrawer({ onVariantFormSelect }: Props) {
   const screenSize = useScreenSize()
   const modalDisclosure = useDisclosure()
+  const dietActions = useDietFormActions()
+
+  function onSelect(variantForm: VariantForm, index: number) {
+    dietActions.setSelectedVariantFormIndex(index)
+    onVariantFormSelect(variantForm, index)
+  }
 
   if (screenSize < ScreenSize.Medium) {
     return (
@@ -27,9 +26,6 @@ function VariantsMenuOrDrawer({
         <Trigger onClick={modalDisclosure.onOpen} />
         <Drawer
           onSelect={onSelect}
-          onCreate={onCreate}
-          onReorder={onReorder}
-          canReorder={canReorder}
           isOpen={modalDisclosure.isOpen}
           onClose={modalDisclosure.onClose}
         />
@@ -37,14 +33,7 @@ function VariantsMenuOrDrawer({
     )
   }
 
-  return (
-    <Menu
-      canReorder={canReorder}
-      onSelect={onSelect}
-      onCreate={onCreate}
-      onReorder={onReorder}
-    />
-  )
+  return <Menu onSelect={onSelect} />
 }
 
 export default VariantsMenuOrDrawer

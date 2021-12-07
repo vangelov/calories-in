@@ -1,4 +1,4 @@
-import { Box, Flex } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
 type Props = {
@@ -8,17 +8,6 @@ type Props = {
 function Page({ children }: Props) {
   return (
     <Box>
-      <Flex
-        position="absolute"
-        justifyContent="center"
-        left="0"
-        right="0"
-        bottom="0"
-        top="0"
-        display={{ base: 'none', lg: 'flex' }}
-      >
-        <Box bg="white" boxShadow="lg" width="820px" height="100%" />
-      </Flex>
       <Box position="relative" zIndex={1}>
         {children}
       </Box>

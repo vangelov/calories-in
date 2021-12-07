@@ -27,7 +27,7 @@ function NutritionFactsFormFields({ nameInputRef, canEdit, ...rest }: Props) {
             isCaption={true}
             isValueBold={true}
             isEmphasized={true}
-            label="Energy"
+            label="Calories"
             inputType="nutritionValue"
             nutritionValueUnit="kcal"
             isRequired={true}

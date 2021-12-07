@@ -8,8 +8,8 @@ type Props = {
 
 function PageBody({ children }: Props) {
   return (
-    <Flex justifyContent="center">
-      <ElementContainer mx="auto">{children}</ElementContainer>
+    <Flex px={3} width="100%" bg="gray.50" justifyContent="center">
+      <ElementContainer width="100%">{children}</ElementContainer>
     </Flex>
   )
 }

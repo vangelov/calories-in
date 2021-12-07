@@ -16,15 +16,14 @@ function Name({ ingredientForm, foodsById, portionsById }: Props) {
 
   const text = (
     <>
-      {food.name}
-      {', '}
-      <Text>
+      <Text style={{ fontWeight: 'medium' }}>
         {getIngredientPortionDescription(
           ingredientForm,
           foodsById,
           portionsById
         )}
-      </Text>
+      </Text>{' '}
+      {food.name}
     </>
   )
 
@@ -68,7 +67,7 @@ function Name({ ingredientForm, foodsById, portionsById }: Props) {
 }
 
 const styles = StyleSheet.create({
-  root: { marginLeft: 10 },
+  root: { marginLeft: 12 },
   nameText: {
     fontSize: 14,
   },

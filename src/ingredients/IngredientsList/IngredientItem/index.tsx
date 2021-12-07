@@ -94,10 +94,10 @@ function IngredientItem({
                 ? 'rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.4) 0px 15px 40px'
                 : undefined
             }
-            bg={snapshot.isDragging ? 'white' : undefined}
+            bg={snapshot.isDragging ? 'gray.50' : undefined}
             alignItems="center"
             position="relative"
-            py={2}
+            py={3}
             _hover={{ backgroundColor: 'gray.50' }}
             borderBottomRadius={
               isLast && shouldAddRadiusToLastBottomBorder ? 10 : 0

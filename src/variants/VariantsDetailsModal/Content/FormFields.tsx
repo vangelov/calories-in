@@ -69,7 +69,7 @@ function FormFields({
           <Flex alignItems="stretch">
             <Stat
               type="dietEnergy"
-              label="Energy"
+              label="Calories"
               value={variantStats.energy}
               isLarge={isLarge}
               justifyContent="flex-start"

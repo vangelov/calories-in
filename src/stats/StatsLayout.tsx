@@ -1,4 +1,4 @@
-import { Grid, GridItem, Box, GridProps } from '@chakra-ui/react'
+import { Grid, GridItem, GridProps } from '@chakra-ui/react'
 import { useScreenSize, ScreenSize } from 'general'
 import { ForwardedRef, ReactElement, forwardRef } from 'react'
 
@@ -16,7 +16,7 @@ type Props = {
 
 function StatsLayout({
   nameElement,
-  amountElement = <Box />,
+  amountElement,
   energyElement,
   proteinElement,
   carbsElement,
@@ -37,8 +37,9 @@ function StatsLayout({
         templateColumns="repeat(11, 1fr)"
         {...rest}
       >
-        <GridItem colSpan={4}>{nameElement}</GridItem>
-        <GridItem colSpan={2}>{amountElement}</GridItem>
+        {amountElement && <GridItem colSpan={2}>{amountElement}</GridItem>}
+
+        <GridItem colSpan={amountElement ? 4 : 6}>{nameElement}</GridItem>
         <GridItem colSpan={1}>{energyElement}</GridItem>
         <GridItem colSpan={1}>{proteinElement}</GridItem>
         <GridItem colSpan={1}>{carbsElement}</GridItem>
@@ -57,8 +58,9 @@ function StatsLayout({
         gap={0}
         {...rest}
       >
-        <GridItem colSpan={4}>{nameElement}</GridItem>
-        <GridItem colSpan={2}>{amountElement}</GridItem>
+        {amountElement && <GridItem colSpan={2}>{amountElement}</GridItem>}
+
+        <GridItem colSpan={amountElement ? 4 : 6}>{nameElement}</GridItem>
         <GridItem colSpan={2}>{energyElement}</GridItem>
         <GridItem colSpan={2}>{menuElement}</GridItem>
       </Grid>
@@ -73,10 +75,9 @@ function StatsLayout({
       gap={0}
       {...rest}
     >
+      {prefersAmount && <GridItem colSpan={3}>{amountElement}</GridItem>}
       <GridItem colSpan={5}>{nameElement}</GridItem>
-      <GridItem colSpan={3}>
-        {prefersAmount ? amountElement : energyElement}
-      </GridItem>
+      {!prefersAmount && <GridItem colSpan={3}>{energyElement}</GridItem>}
       <GridItem colSpan={2}>{menuElement}</GridItem>
     </Grid>
   )

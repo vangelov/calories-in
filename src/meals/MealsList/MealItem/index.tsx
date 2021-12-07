@@ -1,5 +1,5 @@
 import { MealForm } from 'meals'
-import { Flex, FlexProps, useDisclosure } from '@chakra-ui/react'
+import { Flex, FlexProps, useDisclosure, Divider, Box } from '@chakra-ui/react'
 import Header from './Header'
 import { RefObject, memo } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
@@ -69,12 +69,11 @@ function MealItem({
             style={provided.draggableProps.style}
             flexDirection="column"
             borderRadius={10}
-            borderWidth="1px"
             backgroundColor="white"
             boxShadow={
               snapshot.isDragging
                 ? 'rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.4) 0px 15px 40px'
-                : undefined
+                : 'base'
             }
             {...rest}
           >
@@ -90,6 +89,10 @@ function MealItem({
               onClone={mealFormEvents.onClone}
               onEditNotes={editNotesModalDisclosure.onOpen}
             />
+
+            <Box px={3}>
+              <Divider />
+            </Box>
 
             <IngredientsList
               ingredientsForms={mealForm.ingredientsForms}

@@ -1,14 +1,15 @@
 import { useDietForm, useScrollManager } from 'diets'
 import { DietFormVersionsStoreProvider } from 'undoRedo'
 import { useRef } from 'react'
-import { Page, PageHeader, PageBody, PageFooter } from 'layout'
+import { Page, PageHeader, PageBody } from 'layout'
 import { MealsList } from 'meals'
 import useDietFormEvents from './useDietFormEvents'
-import { Box, useDisclosure } from '@chakra-ui/react'
-import { useElementHeight } from 'general'
+import { Box, useDisclosure, Flex } from '@chakra-ui/react'
+import { ScreenSize, useElementHeight, useScreenSize } from 'general'
 import Controls from './Controls'
-import { SelectedVariantHeader } from 'variants'
 import { FoodsDrawer } from 'foods'
+import { VariantsList, VariantStats } from 'variants'
+import useVariantFormEvents from './useVariantFormActions'
 
 function Form() {
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
@@ -31,6 +32,9 @@ function Form() {
     elementHeight: headerHeight,
     elementRef: headerRef,
   } = useElementHeight()
+  const variantFormEvents = useVariantFormEvents({ scrollManager })
+
+  const screenSize = useScreenSize()
 
   return (
     <DietFormVersionsStoreProvider
@@ -41,22 +45,40 @@ function Form() {
     >
       <Page>
         <PageHeader ref={headerRef}>
-          <Box bg="white" borderTopWidth="8px" borderTopColor="teal.500" px={3}>
-            <SelectedVariantHeader
-              onAddMeal={foodsDrawerDisclosure.onOpen}
-              scrollManager={scrollManager}
-            />
+          <Box bg="white" py={3}>
+            <Controls />
           </Box>
         </PageHeader>
 
         <PageBody>
-          <MealsList
-            headerHeight={headerHeight}
-            selectedVariantFormFieldId={selectedVariantForm.fieldId}
-            mealsForms={selectedVariantForm.mealsForms}
-            selectedVariantFormIndex={dietForm.selectedVariantFormIndex}
-            onAddMeal={foodsDrawerDisclosure.onOpen}
+          <VariantsList
+            onVariantFormCopy={variantFormEvents.onVariantFormCopy}
+            onVariantFormSelect={variantFormEvents.onVariantFormSelect}
+            ref={horizontalScrollRef}
           />
+
+          <Flex justifyContent="space-between">
+            <MealsList
+              flex={1}
+              headerHeight={headerHeight}
+              selectedVariantFormFieldId={selectedVariantForm.fieldId}
+              mealsForms={selectedVariantForm.mealsForms}
+              selectedVariantFormIndex={dietForm.selectedVariantFormIndex}
+              onAddMeal={foodsDrawerDisclosure.onOpen}
+            />
+
+            {screenSize >= ScreenSize.Large && (
+              <VariantStats
+                position="sticky"
+                top={`${headerHeight + 24}px`}
+                ml={6}
+                width="300px"
+                bg="white"
+                borderRadius={6}
+                boxShadow="base"
+              />
+            )}
+          </Flex>
 
           <FoodsDrawer
             isOpen={foodsDrawerDisclosure.isOpen}
@@ -65,10 +87,6 @@ function Form() {
             onSelectedFoods={dietFormEvents.onMealAdded}
           />
         </PageBody>
-
-        <PageFooter>
-          <Controls />
-        </PageFooter>
       </Page>
     </DietFormVersionsStoreProvider>
   )

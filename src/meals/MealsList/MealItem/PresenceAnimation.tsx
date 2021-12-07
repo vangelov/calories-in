@@ -27,7 +27,6 @@ function PresenceAnimation({
 }: Props) {
   return (
     <motion.div
-      style={{ overflow: isDragging ? undefined : 'hidden' }}
       transition={{
         ease: 'easeInOut',
       }}

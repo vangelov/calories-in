@@ -9,7 +9,15 @@ type Props = {
 
 function EmptyList({ onAddMeal }: Props) {
   return (
-    <Center textAlign="center" flex={1} flexDirection="column">
+    <Center
+      textAlign="center"
+      bg="white"
+      boxShadow="base"
+      borderRadius={6}
+      flex={1}
+      p={6}
+      flexDirection="column"
+    >
       <VStack spacing={6}>
         <Text fontSize="xl" fontWeight="medium" textColor="gray.500">
           You haven't added any meals to this day yet
@@ -23,7 +31,7 @@ function EmptyList({ onAddMeal }: Props) {
           onClick={onAddMeal}
           colorScheme="teal"
           variant="outline"
-          size="sm"
+          size="md"
           leftIcon={<PlusStyled size={16} pointerEvents="none" />}
         >
           Add meal

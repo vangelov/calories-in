@@ -36,7 +36,7 @@ function Controls() {
   }
 
   return (
-    <Flex px={3} width="100%" alignItems="center">
+    <Flex width="100%" alignItems="center">
       <Flex flex={1} mr={3}>
         <UndoRedoButtons />
       </Flex>
@@ -54,11 +54,11 @@ function Controls() {
         {screenSize >= ScreenSize.Medium ? (
           <Button
             isDisabled={!canExport}
-            leftIcon={<Share size={16} pointerEvents="none" />}
+            leftIcon={<Share size={20} pointerEvents="none" />}
             variant="solid"
             colorScheme="teal"
             onClick={exportModalDisclosure.onOpen}
-            size="sm"
+            size="md"
           >
             Export
           </Button>

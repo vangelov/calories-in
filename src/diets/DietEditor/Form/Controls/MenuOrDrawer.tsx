@@ -1,11 +1,9 @@
 import { chakra } from '@chakra-ui/react'
-import { FilePlus, Download, List, Menu } from 'react-feather'
+import { FilePlus, Download, List, MoreHorizontal } from 'react-feather'
 import {
   MenuOrDrawer as MenuOrDrawerBase,
   MenuOrDrawerItem,
   MenuOrDrawerSeparator,
-  ScreenSize,
-  useScreenSize,
 } from 'general'
 
 const DownloadStyled = chakra(Download)
@@ -19,15 +17,13 @@ type Props = {
 }
 
 function MenuOrDrawer({ onImport, onClear, onViewFoods }: Props) {
-  const screenSize = useScreenSize()
-
   return (
     <MenuOrDrawerBase
+      size="md"
       title="Meal plan"
-      variant="outline"
+      variant="solid"
       mr={2}
-      size={screenSize < ScreenSize.Medium ? 'md' : 'sm'}
-      icon={<Menu size={20} />}
+      icon={<MoreHorizontal size={20} />}
       aria-label="Meal plan actions"
     >
       <MenuOrDrawerItem icon={<FilePlusStyled />} onClick={onClear}>

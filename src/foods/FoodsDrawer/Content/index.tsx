@@ -101,7 +101,7 @@ function Content({
         )}
 
         <HStack spacing={3}>
-          <Button variant="outline" size="md" onClick={onClose}>
+          <Button variant="solid" size="md" onClick={onClose}>
             Close
           </Button>
           {canSelect && (
@@ -115,7 +115,7 @@ function Content({
                 colorScheme="teal"
                 onClick={onAdd}
               >
-                {mealForm ? 'Add foods' : 'Select foods'}
+                {mealForm ? 'Add selected foods' : 'Select foods'}
               </Button>
             </Tooltip>
           )}

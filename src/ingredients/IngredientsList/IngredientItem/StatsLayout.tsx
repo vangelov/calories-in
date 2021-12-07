@@ -40,20 +40,14 @@ function StatsLayout({
     <StatsLayoutBase
       prefersAmount={true}
       nameElement={
-        <FoodInfo
-          width="85%"
-          ml={3}
-          fontSize={{ base: 'sm', md: 'md' }}
-          food={food}
-          notes={notes}
-          canBeLink={true}
-        >
+        <FoodInfo mx={2} food={food} notes={notes} canBeLink={true}>
           {children}
         </FoodInfo>
       }
       amountElement={
         <Flex height="100%" alignItems="center">
           <AmountInput
+            ml={3}
             size="sm"
             onChange={onAmountChange}
             value={ingredientForm.amount}
