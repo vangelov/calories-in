@@ -2,7 +2,7 @@ import { useDietForm, useScrollManager } from 'diets'
 import { DietFormVersionsStoreProvider } from 'undoRedo'
 import { useRef } from 'react'
 import { Page, PageHeader, PageBody } from 'layout'
-import { MealsList } from 'meals'
+import { MealsDrawer, MealsList } from 'meals'
 import useDietFormEvents from './useDietFormEvents'
 import { Box, useDisclosure, Flex } from '@chakra-ui/react'
 import { ScreenSize, useElementHeight, useScreenSize } from 'general'
@@ -23,6 +23,7 @@ function Form() {
   })
 
   const foodsDrawerDisclosure = useDisclosure()
+  const mealsDrawerDisclosure = useDisclosure()
   const dietFormEvents = useDietFormEvents({
     scrollManager,
     foodsDrawerDisclosure,
@@ -64,7 +65,7 @@ function Form() {
               selectedVariantFormFieldId={selectedVariantForm.fieldId}
               mealsForms={selectedVariantForm.mealsForms}
               selectedVariantFormIndex={dietForm.selectedVariantFormIndex}
-              onAddMeal={foodsDrawerDisclosure.onOpen}
+              onAddMeal={mealsDrawerDisclosure.onOpen}
             />
 
             {screenSize >= ScreenSize.Large && (
@@ -85,6 +86,12 @@ function Form() {
             onClose={foodsDrawerDisclosure.onClose}
             mealName={`Meal ${selectedVariantForm.mealsForms.length + 1}`}
             onSelectedFoods={dietFormEvents.onMealAdded}
+          />
+
+          <MealsDrawer
+            isOpen={mealsDrawerDisclosure.isOpen}
+            onClose={mealsDrawerDisclosure.onClose}
+            onSelectMeal={() => {}}
           />
         </PageBody>
       </Page>
