@@ -1,16 +1,16 @@
 import { Drawer, DrawerOverlay } from '@chakra-ui/react'
-import { MealForm } from 'meals'
 import { useRef } from 'react'
 import { isMobile } from 'react-device-detect'
+import { Recipe } from 'recipes'
 import Content from './Content'
 
 type Props = {
   onClose: () => void
   isOpen: boolean
-  onSelectMeal: (meal: MealForm) => void
+  onRecipeSelect: (recipe: Recipe) => void
 }
 
-function MealsDrawer({ onClose, isOpen, onSelectMeal }: Props) {
+function RecipesDrawer({ onClose, isOpen, onRecipeSelect }: Props) {
   const searchInputRef = useRef<HTMLInputElement>(null)
 
   return (
@@ -24,11 +24,11 @@ function MealsDrawer({ onClose, isOpen, onSelectMeal }: Props) {
       <DrawerOverlay />
       <Content
         onClose={onClose}
-        onSelectMeal={onSelectMeal}
+        onRecipeSelect={onRecipeSelect}
         searchInputRef={searchInputRef}
       />
     </Drawer>
   )
 }
 
-export default MealsDrawer
+export default RecipesDrawer

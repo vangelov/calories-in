@@ -11,56 +11,34 @@ import {
 import { Divider } from '@chakra-ui/react'
 import { Search } from 'react-feather'
 import VirtualizedList from './VirtualizedList'
-import {
-  ForwardedRef,
-  RefObject,
-  useRef,
-  forwardRef,
-  ChangeEvent,
-  useEffect,
-} from 'react'
-import { useFoods } from 'foods'
-import {
-  useFilterFoods,
-  useFoodsFilter,
-  useFoodsFilterActions,
-} from 'foods-filters'
-import { Food } from 'foods'
+import { RefObject, useRef } from 'react'
 import { FixedSizeList } from 'react-window'
 import MealsCategoriesSelect from './MealsCategoriesSelect'
-const SearchStyled = chakra(Search)
+import { Recipe, useRecipes } from 'recipes'
 
-type FoodsListMethods = {
-  scrollToFood: (food: Food) => void
-}
+const SearchStyled = chakra(Search)
 
 type Props = {
   searchInputRef?: RefObject<HTMLInputElement>
-
-  forwardedRef?: ForwardedRef<FoodsListMethods>
+  onRecipeSelect: (recipe: Recipe) => void
   allowsFiltering?: boolean
 } & FlexProps
 
-function MealsList({
+function RecipesList({
   searchInputRef,
-
-  forwardedRef,
+  onRecipeSelect,
   allowsFiltering = true,
 
   ...rest
 }: Props) {
-  const { allFoods, userFoods } = useFoods()
+  const { recipes } = useRecipes()
   const listRef = useRef<FixedSizeList>(null)
 
-  const filter = useFoodsFilter()
-  const foodsFilterActions = useFoodsFilterActions()
-  const filteredFoods = useFilterFoods(allFoods, userFoods, filter)
-
-  useEffect(() => {
+  /*useEffect(() => { 
     if (filter.categoryId) {
       listRef.current?.scrollToItem(0, 'start')
     }
-  }, [filter.categoryId])
+  }, [filter.categoryId])*/
 
   return (
     <Flex flexDirection="column" {...rest}>
@@ -70,26 +48,19 @@ function MealsList({
             pointerEvents="none"
             children={<SearchStyled pointerEvents="none" color="gray.400" />}
           />
-          <Input
-            ref={searchInputRef}
-            value={filter.query}
-            onChange={(event: ChangeEvent<HTMLInputElement>) =>
-              foodsFilterActions.updateFilter({ query: event.target.value })
-            }
-            placeholder="Search"
-          />
+          <Input ref={searchInputRef} placeholder="Search" />
         </InputGroup>
         <MealsCategoriesSelect />
       </VStack>
 
       <Divider mt={3} width="100%" />
 
-      {filteredFoods.length > 0 ? (
+      {recipes.length > 0 ? (
         <VirtualizedList
           ref={listRef}
-          foodsCount={filteredFoods.length}
-          getFood={index => filteredFoods[index]}
-          onFoodSelect={() => {}}
+          recipesCount={recipes.length}
+          getRecipe={index => recipes[index]}
+          onRecipeSelect={onRecipeSelect}
         />
       ) : (
         <Flex flex={1} alignItems="center" justifyContent="center">
@@ -100,8 +71,4 @@ function MealsList({
   )
 }
 
-export type { FoodsListMethods }
-
-export default forwardRef<any, Props>((props, ref) => (
-  <MealsList {...props} forwardedRef={ref} />
-))
+export default RecipesList

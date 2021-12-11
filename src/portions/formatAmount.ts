@@ -1,4 +1,3 @@
-import { Portion } from 'portions'
 import formatQuantity from 'format-quantity'
 
 function formatAsNumber(amount: number) {
@@ -10,15 +9,15 @@ function formatAsNumber(amount: number) {
     : amountStringFixedTo1
 }
 
-function formatConvertedAmount(amount: number, newPortion: Portion): string {
-  if (newPortion.id === 'grams') {
+function formatAmount(amount: number, portionId: string): string {
+  if (portionId === 'grams') {
     return Math.round(amount).toString()
   }
 
   if (
-    newPortion.id === 'ounces' ||
-    newPortion.id === 'milliliters' ||
-    newPortion.id === 'fluid ounces'
+    portionId === 'ounces' ||
+    portionId === 'milliliters' ||
+    portionId === 'fluid ounces'
   ) {
     return formatAsNumber(amount)
   }
@@ -32,4 +31,4 @@ function formatConvertedAmount(amount: number, newPortion: Portion): string {
   return formattedAsFractions
 }
 
-export default formatConvertedAmount
+export default formatAmount

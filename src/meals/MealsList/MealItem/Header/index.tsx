@@ -54,7 +54,6 @@ function Header({
         nameElement={
           <Name
             variantIndex={variantIndex}
-            ml={3}
             mealForm={mealForm}
             getMealNameInputRefById={getMealNameInputRefById}
             index={index}

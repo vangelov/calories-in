@@ -9,8 +9,8 @@ import { OneTimeCheckStoreProvider, ScreenSizeProvider } from 'general'
 import { DietEditor } from 'diets'
 import { useState } from 'react'
 import { PortionsStoreProvider } from 'portions'
-import { MealsStoreProvider } from 'meals'
-import initialMeals from 'meals/meals.json'
+import { RecipesStoreProvider } from 'recipes'
+import initialRecipes from 'recipes/recipes.json'
 
 smoothscroll.polyfill()
 
@@ -23,11 +23,11 @@ function App() {
         <OneTimeCheckStoreProvider>
           <PortionsStoreProvider>
             <FoodsStoreProvider initialFoods={foods}>
-              <MealsStoreProvider initialMeals={initialMeals}>
+              <RecipesStoreProvider initialRecipes={initialRecipes}>
                 <MainLayout>
                   <DietEditor />
                 </MainLayout>
-              </MealsStoreProvider>
+              </RecipesStoreProvider>
             </FoodsStoreProvider>
           </PortionsStoreProvider>
         </OneTimeCheckStoreProvider>

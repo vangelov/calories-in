@@ -2,7 +2,7 @@ import { useDietForm, useScrollManager } from 'diets'
 import { DietFormVersionsStoreProvider } from 'undoRedo'
 import { useRef } from 'react'
 import { Page, PageHeader, PageBody } from 'layout'
-import { MealsDrawer, MealsList } from 'meals'
+import { MealsList } from 'meals'
 import useDietFormEvents from './useDietFormEvents'
 import { Box, useDisclosure, Flex } from '@chakra-ui/react'
 import { ScreenSize, useElementHeight, useScreenSize } from 'general'
@@ -10,6 +10,7 @@ import Controls from './Controls'
 import { FoodsDrawer } from 'foods'
 import { VariantsList, VariantStats } from 'variants'
 import useVariantFormEvents from './useVariantFormActions'
+import { RecipesDrawer } from 'recipes'
 
 function Form() {
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
@@ -23,10 +24,11 @@ function Form() {
   })
 
   const foodsDrawerDisclosure = useDisclosure()
-  const mealsDrawerDisclosure = useDisclosure()
+  const recipesDrawerDisclosure = useDisclosure()
   const dietFormEvents = useDietFormEvents({
     scrollManager,
     foodsDrawerDisclosure,
+    recipesDrawerDisclosure,
   })
 
   const {
@@ -65,7 +67,7 @@ function Form() {
               selectedVariantFormFieldId={selectedVariantForm.fieldId}
               mealsForms={selectedVariantForm.mealsForms}
               selectedVariantFormIndex={dietForm.selectedVariantFormIndex}
-              onAddMeal={mealsDrawerDisclosure.onOpen}
+              onAddMeal={recipesDrawerDisclosure.onOpen}
             />
 
             {screenSize >= ScreenSize.Large && (
@@ -88,10 +90,10 @@ function Form() {
             onSelectedFoods={dietFormEvents.onMealAdded}
           />
 
-          <MealsDrawer
-            isOpen={mealsDrawerDisclosure.isOpen}
-            onClose={mealsDrawerDisclosure.onClose}
-            onSelectMeal={() => {}}
+          <RecipesDrawer
+            isOpen={recipesDrawerDisclosure.isOpen}
+            onClose={recipesDrawerDisclosure.onClose}
+            onRecipeSelect={dietFormEvents.onRecipeSelect}
           />
         </PageBody>
       </Page>

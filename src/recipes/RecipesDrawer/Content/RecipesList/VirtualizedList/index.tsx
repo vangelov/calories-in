@@ -1,22 +1,22 @@
 import { Box } from '@chakra-ui/react'
 import { FixedSizeList } from 'react-window'
 import { forwardRef, ForwardedRef } from 'react'
-import { Food } from 'foods'
 import Inner from './Inner'
-import MealItemRenderer from './MealItemRenderer'
+import RecipeItemRenderer from './RecipeItemRenderer'
 import { useElementHeight } from 'general'
+import { Recipe } from 'recipes'
 
 type Props = {
-  foodsCount: number
-  getFood: (index: number) => Food
-  onFoodSelect: (food: Food) => void
+  recipesCount: number
+  getRecipe: (index: number) => Recipe
+  onRecipeSelect: (recipe: Recipe) => void
   forwardRef?: ForwardedRef<FixedSizeList>
 }
 
 function VirtualizedList({
-  getFood,
-  onFoodSelect,
-  foodsCount,
+  getRecipe,
+  onRecipeSelect,
+  recipesCount,
   forwardRef,
 }: Props) {
   const { elementHeight, elementRef } = useElementHeight()
@@ -27,16 +27,16 @@ function VirtualizedList({
         style={{ position: 'absolute', top: 0 }}
         innerElementType={Inner}
         height={elementHeight}
-        itemCount={foodsCount}
+        itemCount={recipesCount}
         itemData={{
-          getFood,
-          onFoodSelect,
+          getRecipe,
+          onRecipeSelect,
         }}
         itemSize={105}
         width="100%"
         ref={forwardRef}
       >
-        {MealItemRenderer}
+        {RecipeItemRenderer}
       </FixedSizeList>
     </Box>
   )

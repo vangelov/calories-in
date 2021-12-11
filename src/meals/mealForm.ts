@@ -6,6 +6,7 @@ type MealForm = {
   fieldId: string
   name: string
   notes?: string
+  imageUrl?: string
   ingredientsForms: IngredientForm[]
 }
 
@@ -13,10 +14,13 @@ function getMealForm(meal?: Meal): MealForm {
   const fieldId = uuidv4()
 
   if (meal) {
+    const { name, imageUrl, ingredients } = meal
+
     return {
       fieldId,
-      name: meal.name,
-      ingredientsForms: meal.ingredients.map(ingredient =>
+      name,
+      imageUrl,
+      ingredientsForms: ingredients.map(ingredient =>
         getIngredientForm(ingredient)
       ),
     }

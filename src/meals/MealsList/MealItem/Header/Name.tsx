@@ -1,4 +1,4 @@
-import { BoxProps, Input, Flex } from '@chakra-ui/react'
+import { BoxProps, Input, Flex, Image, Box } from '@chakra-ui/react'
 import { useDietFormActions } from 'diets'
 import { MealForm } from 'meals'
 import { RefObject, ChangeEvent } from 'react'
@@ -17,6 +17,7 @@ function Name({
   getMealNameInputRefById,
   ...rest
 }: Props) {
+  const { imageUrl } = mealForm
   const dietFormActions = useDietFormActions()
 
   function onNameChange(event: ChangeEvent<HTMLInputElement>) {
@@ -28,7 +29,18 @@ function Name({
   }
 
   return (
-    <Flex alignItems="center" height="100%">
+    <Flex ml={3} alignItems="center" height="100%">
+      {imageUrl ? (
+        <Image
+          mr={3}
+          objectFit="cover"
+          borderRadius={6}
+          src={mealForm.imageUrl}
+          boxSize={10}
+        />
+      ) : (
+        <Box mr={3} borderRadius={6} bg="gray.200" boxSize={10} />
+      )}
       <Input
         ref={getMealNameInputRefById(mealForm.fieldId)}
         placeholder="Meal name"

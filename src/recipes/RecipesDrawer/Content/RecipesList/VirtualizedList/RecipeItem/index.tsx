@@ -1,16 +1,17 @@
-import { Food } from 'foods'
 import { Text, Flex, FlexProps, Box, Image } from '@chakra-ui/react'
 import { Stat } from 'stats'
+import { Recipe } from 'recipes'
 
 type Props = {
-  food: Food
-
-  onChoose: (food: Food) => void
+  recipe: Recipe
+  onChoose: (recipe: Recipe) => void
 } & FlexProps
 
-function MealItem({ food, onChoose, ...rest }: Props) {
+function RecipeItem({ recipe, onChoose, ...rest }: Props) {
+  const { imageUrl, name, energy, protein, carbs, fat } = recipe
+
   return (
-    <Box pb={2} onClick={() => onChoose(food)} {...rest}>
+    <Box pb={2} onClick={() => onChoose(recipe)} {...rest}>
       <Box
         cursor="pointer"
         _hover={{
@@ -25,7 +26,7 @@ function MealItem({ food, onChoose, ...rest }: Props) {
       >
         <Flex>
           <Image
-            src="https://myplate-prod.azureedge.net/sites/default/files/styles/recipe_525_x_350_/public/2021-01/2%20step%20chicken.jpg?itok=yqfpzbp8"
+            src={imageUrl}
             objectFit="cover"
             borderRadius={6}
             width="65px"
@@ -34,31 +35,31 @@ function MealItem({ food, onChoose, ...rest }: Props) {
           />
           <Box ml={2} flex={1}>
             <Text fontSize="md" mb={1} fontWeight="semibold">
-              Noney Mustard Dressing
+              {name}
             </Text>
             <Flex width="100%" justifyContent="space-between">
               <Stat
                 type="mealEnergy"
                 label="Calories"
-                value={100}
+                value={energy}
                 alignItems="flex-start"
               />
               <Stat
                 type="meal"
                 label="Protein"
-                value={100}
+                value={protein}
                 alignItems="flex-start"
               />
               <Stat
                 type="meal"
                 label="Carbs"
-                value={100}
+                value={carbs}
                 alignItems="flex-start"
               />
               <Stat
                 type="meal"
                 label="Fat"
-                value={100}
+                value={fat}
                 alignItems="flex-start"
               />
             </Flex>
@@ -69,4 +70,4 @@ function MealItem({ food, onChoose, ...rest }: Props) {
   )
 }
 
-export default MealItem
+export default RecipeItem

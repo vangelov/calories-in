@@ -1,0 +1,32 @@
+[
+    {
+        "id": 1,
+        "name": "Recipe 1",
+        "categoryId": 1,
+        "energy": 1000,
+        "protein": 200,
+        "carbs": 100,
+        "fat": 10, 
+        "imageUrl": "https://myplate-prod.azureedge.net/sites/default/files/styles/medium/public/2021-01/2%20step%20chicken.jpg?itok=W7IbdqAH",
+        "ingredients": [
+            { "foodId": 2003, "portionId": "tablespoons", "amount": 0.5 },
+            { "foodId": 201, "portionId": "grams", "amount": 100 },
+            { "foodId": 301, "portionId": "grams", "amount": 100 }
+        ]
+    }, 
+    {
+        "id": 2,
+        "name": "Recipe 2",
+        "categoryId": 2,
+        "energy": 1000,
+        "protein": 200,
+        "carbs": 200,
+        "fat": 10,
+        "imageUrl": "https://myplate-prod.azureedge.net/sites/default/files/styles/medium/public/2020-10/Chicken%20Creole.jpg?itok=bANsTXGP",
+        "ingredients": [
+            { "foodId": 102, "portionId": "grams", "amount": 100 },
+            { "foodId": 202, "portionId": "grams", "amount": 100 },
+            { "foodId": 302, "portionId": "grams", "amount": 100 }
+        ]
+    }
+] 
