@@ -59,26 +59,10 @@ function Header({
             index={index}
           />
         }
-        energyElement={
-          <Stat
-            type="mealEnergy"
-            label="Calories"
-            value={ingredientsStatsSum.energy}
-          />
-        }
-        proteinElement={
-          <Stat
-            type="meal"
-            label="Protein"
-            value={ingredientsStatsSum.protein}
-          />
-        }
-        carbsElement={
-          <Stat type="meal" label="Carbs" value={ingredientsStatsSum.carbs} />
-        }
-        fatElement={
-          <Stat type="meal" label="Fat" value={ingredientsStatsSum.fat} />
-        }
+        energyElement={<Stat type="mealEnergy" label="Calories" />}
+        proteinElement={<Stat type="meal" label="Protein" />}
+        carbsElement={<Stat type="meal" label="Carbs" />}
+        fatElement={<Stat type="meal" label="Fat" />}
         menuElement={<MenuOrDrawer>{menuOrDrawerItems}</MenuOrDrawer>}
       />
     </ContextMenuFlex>

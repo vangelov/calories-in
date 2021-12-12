@@ -9,7 +9,7 @@ function useGetMealFormStatsTree() {
     return getStatsTree({
       id: mealForm.fieldId,
       subtrees: mealForm.ingredientsForms.map(ingredientForm =>
-        getIngredientFormStatsTree(ingredientForm)
+        getIngredientFormStatsTree(ingredientForm, Number(mealForm.servings))
       ),
     })
   }

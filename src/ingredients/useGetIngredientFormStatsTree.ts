@@ -11,16 +11,18 @@ function useGetIngredientFormStatsTree() {
   const { getAmountFromPortionToGrams } = useGetAmount()
 
   const getIngredientFormStatsTree = useCallback(
-    (ingredientForm: IngredientForm): StatsTree => {
+    (ingredientForm: IngredientForm, servings: number): StatsTree => {
       const food = foodsById[ingredientForm.foodId]
       let stats: Stats
 
       if (food) {
-        const amountInGrams = getAmountFromPortionToGrams(
-          amountAsNumber(ingredientForm.amount),
-          ingredientForm.portionId,
-          food
-        )
+        const amountInGrams =
+          servings *
+          getAmountFromPortionToGrams(
+            amountAsNumber(ingredientForm.amount),
+            ingredientForm.portionId,
+            food
+          )
         const servingSizeInGrams =
           food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS
         const scale = amountInGrams / servingSizeInGrams

@@ -20,6 +20,7 @@ function EnergyStat({ energy, energyDiff, hasAtLeastOneMeal, ...rest }: Props) {
       detail={energyDiff !== 0 ? getEnergyDiffDetail(energyDiff) : undefined}
       type="energy"
       isDisabled={!hasAtLeastOneMeal}
+      color="teal.600"
       {...rest}
     />
   )

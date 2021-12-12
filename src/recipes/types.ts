@@ -9,6 +9,7 @@ type Recipe = {
   carbs: number
   fat: number
   imageUrl: string
+  servings: number
   ingredients: Ingredient[]
 }
 

@@ -21,10 +21,15 @@ function useGetAndUpdateStats({
       getStatsTree({
         id: mealForm.fieldId,
         subtrees: mealForm.ingredientsForms.map(ingredientForm =>
-          getIngredientFormStatsTree(ingredientForm)
+          getIngredientFormStatsTree(ingredientForm, Number(mealForm.servings))
         ),
       }),
-    [mealForm.fieldId, mealForm.ingredientsForms, getIngredientFormStatsTree]
+    [
+      mealForm.fieldId,
+      mealForm.ingredientsForms,
+      getIngredientFormStatsTree,
+      mealForm.servings,
+    ]
   )
 
   const ingredientsStats = useMemo(

@@ -49,7 +49,7 @@ function StatsLayout({
     )
   }
 
-  if (screenSize === 1) {
+  if (screenSize === ScreenSize.Small) {
     return (
       <Grid
         ref={forwardedRef}
@@ -76,8 +76,8 @@ function StatsLayout({
       {...rest}
     >
       {prefersAmount && <GridItem colSpan={3}>{amountElement}</GridItem>}
-      <GridItem colSpan={5}>{nameElement}</GridItem>
-      {!prefersAmount && <GridItem colSpan={3}>{energyElement}</GridItem>}
+      <GridItem colSpan={prefersAmount ? 5 : 6}>{nameElement}</GridItem>
+      {!prefersAmount && <GridItem colSpan={2}>{energyElement}</GridItem>}
       <GridItem colSpan={2}>{menuElement}</GridItem>
     </Grid>
   )

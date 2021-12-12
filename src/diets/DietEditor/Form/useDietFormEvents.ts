@@ -2,7 +2,7 @@ import { UseDisclosureReturn } from '@chakra-ui/hooks'
 import { DietForm, useDietFormActions, ScrollManager } from 'diets'
 import { Food } from 'foods'
 import { getMealForm, getMealFromFoods, getMealFromRecipe } from 'meals'
-import { Recipe } from 'recipes'
+import { normalizedRecipe, Recipe } from 'recipes'
 import { AppLocation } from 'undoRedo'
 
 type Params = {
@@ -28,7 +28,7 @@ function useDietFormEvents({
 
   function onRecipeSelect(recipe: Recipe) {
     recipesDrawerDisclosure.onClose()
-    const meal = getMealFromRecipe(recipe)
+    const meal = getMealFromRecipe(normalizedRecipe(recipe))
     const mealForm = getMealForm(meal)
     dietFormActions.appendMealForm(mealForm)
   }

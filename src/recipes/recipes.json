@@ -7,8 +7,13 @@
         "protein": 200,
         "carbs": 100,
         "fat": 10, 
+        "servings": 2,
         "imageUrl": "https://myplate-prod.azureedge.net/sites/default/files/styles/medium/public/2021-01/2%20step%20chicken.jpg?itok=W7IbdqAH",
         "ingredients": [
+            { "foodId": 2003, "portionId": "tablespoons", "amount": 0.5 },
+            
+            { "foodId": 201, "portionId": "grams", "amount": 100 },
+            { "foodId": 301, "portionId": "grams", "amount": 100 },
             { "foodId": 2003, "portionId": "tablespoons", "amount": 0.5 },
             { "foodId": 201, "portionId": "grams", "amount": 100 },
             { "foodId": 301, "portionId": "grams", "amount": 100 }
@@ -23,10 +28,14 @@
         "carbs": 200,
         "fat": 10,
         "imageUrl": "https://myplate-prod.azureedge.net/sites/default/files/styles/medium/public/2020-10/Chicken%20Creole.jpg?itok=bANsTXGP",
+        "servings": 1,
         "ingredients": [
             { "foodId": 102, "portionId": "grams", "amount": 100 },
             { "foodId": 202, "portionId": "grams", "amount": 100 },
-            { "foodId": 302, "portionId": "grams", "amount": 100 }
+            { "foodId": 302, "portionId": "grams", "amount": 100 },
+            { "foodId": 202, "portionId": "grams", "amount": 100 },
+            { "foodId": 202, "portionId": "grams", "amount": 100 },
+            { "foodId": 202, "portionId": "grams", "amount": 100 }
         ]
     }
 ] 

@@ -28,6 +28,10 @@ function getValueTextColor(statVariant: StatVariant) {
     return 'gray.500'
   }
 
+  if (statVariant === 'mealEnergy') {
+    return 'teal.600'
+  }
+
   return 'gray.800'
 }
 

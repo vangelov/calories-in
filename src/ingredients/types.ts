@@ -4,6 +4,7 @@ type Ingredient = {
   foodId: FoodId
   amount: number
   portionId: string
+  isHeader?: boolean
 }
 
 export type { Ingredient }

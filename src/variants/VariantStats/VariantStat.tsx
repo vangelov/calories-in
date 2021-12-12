@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Text, BoxProps } from '@chakra-ui/react'
 
 type VariantStatType = 'energy' | 'primaryMacro' | 'secondaryMacro'
 
@@ -8,7 +8,7 @@ type Props = {
   value: number
   type: VariantStatType
   isDisabled?: boolean
-}
+} & BoxProps
 
 function getLabelFontWeight(type: VariantStatType) {
   switch (type) {
@@ -37,12 +37,14 @@ function VariantStat({
   value,
   type,
   isDisabled = false,
+  ...rest
 }: Props) {
   return (
     <Flex
       opacity={isDisabled ? 0.5 : 1.0}
       pointerEvents={isDisabled ? 'none' : 'all'}
       justifyContent="space-between"
+      {...rest}
     >
       <Text fontSize="lg" fontWeight={getLabelFontWeight(type)}>
         {label}{' '}

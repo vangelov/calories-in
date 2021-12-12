@@ -6,6 +6,7 @@ import { useDietFormActions } from 'diets'
 import { IngredientForm } from 'ingredients'
 import { memo } from 'react'
 import { Stats } from 'stats'
+import HeaderItem from './HeaderItem'
 
 type Props = {
   mealIndex: number
@@ -34,6 +35,24 @@ function IngredientsList({
         <Box ref={provided.innerRef} minHeight="48px">
           {ingredientsForms.map((ingredientForm, index) => {
             const { energy, protein, carbs, fat } = ingredientsStats[index]
+
+            if (index === 3) {
+              return (
+                <HeaderItem
+                  ingredientForm={ingredientForm}
+                  index={index}
+                  key={ingredientForm.fieldId}
+                  variantIndex={variantIndex}
+                  mealIndex={mealIndex}
+                  isLast={index === ingredientsForms.length - 1}
+                  shouldAddRadiusToLastBottomBorder={
+                    shouldAddRadiusToLastBottomBorder !== undefined
+                      ? shouldAddRadiusToLastBottomBorder
+                      : index === ingredientsForms.length - 1
+                  }
+                />
+              )
+            }
 
             return (
               <IngredientItem

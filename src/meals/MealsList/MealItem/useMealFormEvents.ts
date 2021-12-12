@@ -68,6 +68,10 @@ function useMealFormEvents({
     foodsDrawerDisclosure.onClose()
   }
 
+  function onServingsChange(servings: string) {
+    dietFormActions.updateMealForm(variantIndex, index, { servings })
+  }
+
   return {
     onAnimationComplete,
     shouldAnimate,
@@ -76,6 +80,7 @@ function useMealFormEvents({
     onClone,
     onAddFoods,
     onEditNotes,
+    onServingsChange,
   }
 }
 

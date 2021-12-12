@@ -6,16 +6,19 @@ import { Recipe } from 'recipes'
 function getMealFromFoods(name: string, foods: Food[]): Meal {
   return {
     name,
-
+    servings: 1,
     ingredients: foods.map(getIngredient),
   }
 }
 
 function getMealFromRecipe(recipe: Recipe): Meal {
+  const { name, imageUrl, servings, ingredients } = recipe
+
   return {
-    name: recipe.name,
-    imageUrl: recipe.imageUrl,
-    ingredients: recipe.ingredients,
+    name,
+    imageUrl,
+    servings,
+    ingredients,
   }
 }
 

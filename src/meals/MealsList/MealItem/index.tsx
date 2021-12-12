@@ -10,6 +10,7 @@ import useMealFormEvents from './useMealFormEvents'
 import { EditNotesModal } from 'notes'
 import Notes from './Notes'
 import useGetAndUpdateStats from './useGetAndUpdateStats'
+import Footer from './Footer'
 
 type Props = {
   mealForm: MealForm
@@ -102,6 +103,18 @@ function MealItem({
               variantIndex={variantIndex}
               onAddIngredients={foodsDrawerDisclosure.onOpen}
               shouldAddRadiusToLastBottomBorder={!mealForm.notes}
+            />
+
+            <Box px={3}>
+              <Divider />
+            </Box>
+
+            <Footer
+              variantIndex={variantIndex}
+              ingredientsStatsSum={mealFormStatsTree.stats}
+              index={index}
+              mealForm={mealForm}
+              onServingsChange={mealFormEvents.onServingsChange}
             />
 
             {mealForm.notes && <Notes notes={mealForm.notes} />}
