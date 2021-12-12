@@ -7,18 +7,18 @@ function getMealFromFoods(name: string, foods: Food[]): Meal {
   return {
     name,
     servings: 1,
-    ingredients: foods.map(getIngredient),
+    ingredientsOrSeparators: foods.map(getIngredient),
   }
 }
 
 function getMealFromRecipe(recipe: Recipe): Meal {
-  const { name, imageUrl, servings, ingredients } = recipe
+  const { name, imageUrl, servings, ingredientsOrSeparators } = recipe
 
   return {
     name,
     imageUrl,
     servings,
-    ingredients,
+    ingredientsOrSeparators,
   }
 }
 

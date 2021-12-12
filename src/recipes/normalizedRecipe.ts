@@ -1,15 +1,24 @@
 import { Recipe } from 'recipes'
+import { isIngredientsSeparator } from 'ingredients'
 
 function normalizedRecipe(recipe: Recipe): Recipe {
-  const { servings, ingredients } = recipe
+  const { servings, ingredientsOrSeparators } = recipe
 
   return {
     ...recipe,
     servings: 1,
-    ingredients: ingredients.map(ingredient => ({
-      ...ingredient,
-      amount: ingredient.amount / servings,
-    })),
+    ingredientsOrSeparators: ingredientsOrSeparators.map(
+      ingredientOrSeparator => {
+        if (isIngredientsSeparator(ingredientOrSeparator)) {
+          return ingredientOrSeparator
+        }
+
+        return {
+          ...ingredientOrSeparator,
+          amount: ingredientOrSeparator.amount / servings,
+        }
+      }
+    ),
   }
 }
 

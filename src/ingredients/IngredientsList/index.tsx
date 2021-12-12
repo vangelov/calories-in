@@ -36,7 +36,7 @@ function IngredientsList({
           {ingredientsForms.map((ingredientForm, index) => {
             const { energy, protein, carbs, fat } = ingredientsStats[index]
 
-            if (index === 3) {
+            if (!ingredientForm.foodId) {
               return (
                 <HeaderItem
                   ingredientForm={ingredientForm}

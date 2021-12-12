@@ -1,9 +1,9 @@
-import { Ingredient } from 'ingredients'
+import { Ingredient, IngredientsSeparator } from 'ingredients'
 
 type Meal = {
   name: string
   imageUrl?: string
-  ingredients: Ingredient[]
+  ingredientsOrSeparators: (Ingredient | IngredientsSeparator)[]
   servings: number
 }
 

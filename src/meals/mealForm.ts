@@ -15,16 +15,14 @@ function getMealForm(meal?: Meal): MealForm {
   const fieldId = uuidv4()
 
   if (meal) {
-    const { name, imageUrl, ingredients, servings } = meal
+    const { name, imageUrl, ingredientsOrSeparators, servings } = meal
 
     return {
       fieldId,
       name,
       imageUrl,
       servings: servings.toString(),
-      ingredientsForms: ingredients.map(ingredient =>
-        getIngredientForm(ingredient)
-      ),
+      ingredientsForms: ingredientsOrSeparators.map(getIngredientForm),
     }
   }
 

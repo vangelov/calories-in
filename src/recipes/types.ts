@@ -1,4 +1,4 @@
-import { Ingredient } from 'ingredients'
+import { Ingredient, IngredientsSeparator } from 'ingredients'
 
 type Recipe = {
   id: number
@@ -10,7 +10,7 @@ type Recipe = {
   fat: number
   imageUrl: string
   servings: number
-  ingredients: Ingredient[]
+  ingredientsOrSeparators: (Ingredient | IngredientsSeparator)[]
 }
 
 export type { Recipe }

@@ -1,5 +1,9 @@
 import { FoodId } from 'foods'
 
+type IngredientsSeparator = {
+  title: string
+}
+
 type Ingredient = {
   foodId: FoodId
   amount: number
@@ -7,4 +11,15 @@ type Ingredient = {
   isHeader?: boolean
 }
 
-export type { Ingredient }
+function isIngredientsSeparator(
+  ingredientOrSeparator: Ingredient | IngredientsSeparator
+): ingredientOrSeparator is IngredientsSeparator {
+  return (
+    'title' in ingredientOrSeparator &&
+    ingredientOrSeparator.title !== undefined
+  )
+}
+
+export type { Ingredient, IngredientsSeparator }
+
+export { isIngredientsSeparator }

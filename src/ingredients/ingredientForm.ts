@@ -1,4 +1,8 @@
-import { Ingredient } from './types'
+import {
+  Ingredient,
+  IngredientsSeparator,
+  isIngredientsSeparator,
+} from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { FoodId } from 'foods'
 import { formatAmount } from 'portions'
@@ -11,8 +15,24 @@ type IngredientForm = {
   portionId: string
 }
 
-function getIngredientForm(ingredient: Ingredient): IngredientForm {
+function getIngredientForm(
+  ingredientOrSeparator: Ingredient | IngredientsSeparator
+): IngredientForm {
   const fieldId = uuidv4()
+
+  if (isIngredientsSeparator(ingredientOrSeparator)) {
+    const separator = ingredientOrSeparator
+
+    return {
+      notes: separator.title,
+      fieldId,
+      foodId: '',
+      amount: '',
+      portionId: '',
+    }
+  }
+
+  const ingredient = ingredientOrSeparator
 
   return {
     fieldId,

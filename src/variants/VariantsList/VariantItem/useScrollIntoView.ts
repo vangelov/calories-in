@@ -10,10 +10,14 @@ function useScrollIntoView({ ref, isSelected }: Params) {
   useEffect(() => {
     setTimeout(() => {
       if (isSelected) {
-        ref.current?.scrollIntoView({
-          block: 'nearest',
-          behavior: isSafari ? undefined : 'smooth',
-        })
+        ref.current?.scrollIntoView(
+          isSafari
+            ? undefined
+            : {
+                block: 'center',
+                behavior: 'smooth',
+              }
+        )
       }
     }, 200)
   }, [ref, isSelected])
