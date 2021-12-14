@@ -28,14 +28,10 @@ function useVariantFormEvents({
 
   function onAnimationComplete() {
     if (shouldAnimate) {
-      ref.current?.scrollIntoView(
-        isSafari
-          ? undefined
-          : {
-              block: 'end',
-              behavior: 'smooth',
-            }
-      )
+      ref.current?.scrollIntoView({
+        block: 'end',
+        behavior: isSafari ? 'smooth' : undefined,
+      })
     } else if (!isVisible) {
       onDelete(index)
     }
