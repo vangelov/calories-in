@@ -6,7 +6,7 @@ import {
   IngredientForm,
 } from 'ingredients'
 import { useToast } from '@chakra-ui/toast'
-import { Portion, formatConvertedAmount, useGetAmount } from 'portions'
+import { Portion, formatAmount, useGetAmount } from 'portions'
 import { Food } from 'foods'
 import amountAsNumber from 'stats/amountAsNumber'
 
@@ -55,7 +55,7 @@ function useIngredientsEvents({
 
     dietFormActions.updateIngredientForm(variantIndex, mealIndex, index, {
       portionId: newPortion.id,
-      amount: formatConvertedAmount(newAmount, newPortion),
+      amount: formatAmount(newAmount, newPortion.id),
     })
   }
 

@@ -1,6 +1,7 @@
 import { Ingredient } from './types'
 import { v4 as uuidv4 } from 'uuid'
 import { FoodId } from 'foods'
+import { formatAmount } from 'portions'
 
 type IngredientForm = {
   fieldId: string
@@ -16,7 +17,7 @@ function getIngredientForm(ingredient: Ingredient): IngredientForm {
   return {
     fieldId,
     foodId: ingredient.foodId,
-    amount: ingredient.amount.toString(),
+    amount: formatAmount(ingredient.amount, ingredient.portionId),
     portionId: ingredient.portionId,
   }
 }

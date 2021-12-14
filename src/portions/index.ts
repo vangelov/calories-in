@@ -1,7 +1,7 @@
 export * from './types'
 export * from './usePortionsStore'
 export { default as PortionsMenuOrDrawer } from './PortionsMenuOrDrawer'
-export { default as formatConvertedAmount } from './formatConvertedAmount'
+export { default as formatAmount } from './formatAmount'
 export { default as PortionsSelect } from './PortionsSelect'
 export { default as useGetAmount } from './useGetAmount'
 export { default as getPortionDescription } from './getPortionDescription'

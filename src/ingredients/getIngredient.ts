@@ -4,7 +4,10 @@ import { Ingredient } from './types'
 function getIngredient(food: Food): Ingredient {
   const { volume } = food
 
-  if (volume && ['tablespoons', 'teaspoons'].includes(volume.portionId)) {
+  if (
+    volume &&
+    ['tablespoons', 'teaspoons', 'cups'].includes(volume.portionId)
+  ) {
     const { portionId } = volume
 
     return {
