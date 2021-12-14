@@ -67,6 +67,7 @@ function VariantStats({ ...rest }: Props) {
         value={variantStats.protein}
         type="primaryMacro"
         isDisabled={!hasAtLeastOneMeal}
+        tooltipLabel="% calories from protein"
       />
       <VariantStat
         label="Carbs"
@@ -74,6 +75,7 @@ function VariantStats({ ...rest }: Props) {
         value={variantStats.carbs}
         type="primaryMacro"
         isDisabled={!hasAtLeastOneMeal}
+        tooltipLabel="% calories from carbs"
       />
       <VariantStat
         label="Fat"
@@ -81,6 +83,7 @@ function VariantStats({ ...rest }: Props) {
         value={variantStats.fat}
         type="primaryMacro"
         isDisabled={!hasAtLeastOneMeal}
+        tooltipLabel="% calories from fat"
       />
 
       <VariantStat
@@ -89,6 +92,7 @@ function VariantStats({ ...rest }: Props) {
         value={variantStats.saturatedFat}
         type="secondaryMacro"
         isDisabled={!hasAtLeastOneMeal}
+        tooltipLabel="% calories from saturated fat"
       />
       <VariantStat
         label="Sugar"

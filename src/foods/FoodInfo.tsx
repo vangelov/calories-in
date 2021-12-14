@@ -39,7 +39,7 @@ function FoodInfo({
 
         {energy !== undefined && (
           <Text fontSize="sm" textColor="gray.500">
-            <Text as="span" fontWeight="bold" fontSize="xs">
+            <Text as="span" fontWeight="medium">
               {`${Math.round(energy as number)}kcal`}
             </Text>{' '}
             / {food.servingSizeInGrams || DEFAULT_SERVING_SIZE_IN_GRAMS}g

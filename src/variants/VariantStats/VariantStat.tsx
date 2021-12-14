@@ -1,4 +1,5 @@
-import { Flex, Text } from '@chakra-ui/react'
+import { Flex, Text, BoxProps } from '@chakra-ui/react'
+import { Tooltip } from 'general'
 
 type VariantStatType = 'energy' | 'primaryMacro' | 'secondaryMacro'
 
@@ -8,7 +9,8 @@ type Props = {
   value: number
   type: VariantStatType
   isDisabled?: boolean
-}
+  tooltipLabel?: string
+} & BoxProps
 
 function getLabelFontWeight(type: VariantStatType) {
   switch (type) {
@@ -37,19 +39,24 @@ function VariantStat({
   value,
   type,
   isDisabled = false,
+  tooltipLabel,
+  ...rest
 }: Props) {
   return (
     <Flex
       opacity={isDisabled ? 0.5 : 1.0}
       pointerEvents={isDisabled ? 'none' : 'all'}
       justifyContent="space-between"
+      {...rest}
     >
       <Text fontSize="lg" fontWeight={getLabelFontWeight(type)}>
         {label}{' '}
         {detail !== undefined && (
-          <Text as="span" fontSize="md" fontWeight="normal">
-            {`(${detail})`}
-          </Text>
+          <Tooltip label={tooltipLabel}>
+            <Text as="span" fontSize="md" fontWeight="normal">
+              {`(${detail})`}
+            </Text>
+          </Tooltip>
         )}
       </Text>
       <Text fontSize="lg" fontWeight={getValueFontWeight(type)}>

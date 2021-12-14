@@ -14,6 +14,7 @@ type Props = {
   children: ReactNode
   onDelete: (index: number) => void
   onClone: (index: number) => void
+  onViewDetails: (variantForm: VariantForm) => void
   onEditName: (index: number) => void
   isSelected: boolean
   onSelect: (variantForm: VariantForm, index: number) => void
@@ -31,6 +32,7 @@ function VariantItem({
   children,
   isSelected,
   onSelect,
+  onViewDetails,
   variantForm,
   canRemove,
   index,
@@ -53,6 +55,7 @@ function VariantItem({
     onClone: () => onClone(index),
     onEditName: () => onEditName(index),
     onDelete: variantFormEvents.onRemoveRequest,
+    onViewDetails: () => onViewDetails(variantForm),
   })
 
   return (

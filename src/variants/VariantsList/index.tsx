@@ -1,11 +1,11 @@
-import { Flex, IconButton } from '@chakra-ui/react'
+import { Flex, IconButton, useDisclosure } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
 import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
 import VariantNameModal from './VariantNameModal'
 import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
 import { useDietForm } from 'diets'
-import { VariantForm } from 'variants'
+import { VariantForm, VariantsDetailsModal } from 'variants'
 import { HFadeScroll, useScreenSize, Tooltip, ScreenSize } from 'general'
 import mergeRefs from 'react-merge-refs'
 import ScrollButtons from './ScrollButtons'
@@ -28,9 +28,14 @@ function VariantsList({
   const screenSize = useScreenSize()
   const isPhone = screenSize <= ScreenSize.Small
 
+  const nameModalDisclosure = useDisclosure()
+  const detailsModalDisclosure = useDisclosure()
+
   const variantFormEvents = useVariantFormEvents({
     onVariantFormSelect,
     onVariantFormCopy,
+    nameModalDisclosure,
+    detailsModalDisclosure,
   })
 
   const dietForm = useDietForm()
@@ -76,6 +81,7 @@ function VariantsList({
                   onDelete={variantFormEvents.onRemove}
                   onEditName={variantFormEvents.onRename}
                   onClone={variantFormEvents.onCopy}
+                  onViewDetails={variantFormEvents.onViewDetails}
                   key={variantForm.fieldId}
                   variantForm={variantForm}
                   isSelected={index === dietForm.selectedVariantFormIndex}
@@ -104,10 +110,18 @@ function VariantsList({
       )}
 
       <VariantNameModal
-        isOpen={variantFormEvents.modalDisclosure.isOpen}
-        onClose={variantFormEvents.modalDisclosure.onClose}
+        isOpen={nameModalDisclosure.isOpen}
+        onClose={nameModalDisclosure.onClose}
         variantFormIndex={variantFormEvents.variantFormIndex}
       />
+
+      {variantFormEvents.variantForm && (
+        <VariantsDetailsModal
+          isOpen={detailsModalDisclosure.isOpen}
+          onClose={detailsModalDisclosure.onClose}
+          initialVariantForm={variantFormEvents.variantForm}
+        />
+      )}
     </Flex>
   )
 }

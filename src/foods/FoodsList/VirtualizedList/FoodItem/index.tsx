@@ -88,7 +88,7 @@ function FoodItem({
             <Tooltip label="Food details">
               <IconButton
                 aria-label="Food details"
-                icon={<InfoStyled color="gray.400" pointerEvents="none" />}
+                icon={<InfoStyled color="gray.500" pointerEvents="none" />}
                 variant="ghost"
                 onClick={onInfoButtonClick}
                 position="relative"

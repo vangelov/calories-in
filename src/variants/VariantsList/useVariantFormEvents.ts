@@ -1,32 +1,41 @@
 import { useState, useCallback } from 'react'
 import { VariantForm } from 'variants'
 import { useDietFormActions } from 'diets'
-import { useDisclosure } from '@chakra-ui/hooks'
+import { UseDisclosureReturn } from '@chakra-ui/hooks'
 
-type Props = {
+type Params = {
   onVariantFormSelect: (variantForm: VariantForm, index: number) => void
   onVariantFormCopy: () => void
+  nameModalDisclosure: UseDisclosureReturn
+  detailsModalDisclosure: UseDisclosureReturn
 }
 
 function useVariantFormEvents({
   onVariantFormSelect,
   onVariantFormCopy,
-}: Props) {
-  const modalDisclosure = useDisclosure()
-
+  nameModalDisclosure,
+  detailsModalDisclosure,
+}: Params) {
   const [variantFormIndex, setVariantFormIndex] = useState<number>(0)
-  const dietFormActions = useDietFormActions()
+  const [variantForm, setVariantForm] = useState<VariantForm>()
 
-  const { onOpen } = modalDisclosure
+  const dietFormActions = useDietFormActions()
 
   const onRename = useCallback(
     (index: number) => {
       setVariantFormIndex(index)
-      onOpen()
+      nameModalDisclosure.onOpen()
     },
-    [onOpen]
+    [nameModalDisclosure]
   )
 
+  const onViewDetails = useCallback(
+    (selectedVariantForm: VariantForm) => {
+      setVariantForm(selectedVariantForm)
+      detailsModalDisclosure.onOpen()
+    },
+    [detailsModalDisclosure]
+  )
   const onCopy = useCallback(
     (index: number) => {
       dietFormActions.duplicateVariantForm(index)
@@ -60,8 +69,9 @@ function useVariantFormEvents({
     onRename,
     onSelect,
     variantFormIndex,
+    variantForm,
     onRemove,
-    modalDisclosure,
+    onViewDetails,
   }
 }
 
