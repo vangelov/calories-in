@@ -20,6 +20,7 @@ function VariantNameModal({ onClose, isOpen, variantFormIndex }: Props) {
       onClose={onClose}
       initialFocusRef={initialRef}
       finalFocusRef={finalFocusRef}
+      size="sm"
     >
       <ModalOverlay />
       <VariantNameFormProvider variantFormIndex={variantFormIndex}>

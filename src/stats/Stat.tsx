@@ -21,7 +21,7 @@ type Props = {
 } & FlexProps
 
 function Stat({
-  value = 0,
+  value,
   label,
   type = 'ingredient',
   isLarge = false,
@@ -48,22 +48,24 @@ function Stat({
       )}
 
       {label && (
-        <Text fontSize={isLarge ? 'md' : 'xs'} textColor={getLabelColor(type)}>
+        <Text fontSize={isLarge ? 'md' : 'sm'} textColor={getLabelColor(type)}>
           {label}
         </Text>
       )}
 
-      <Text
-        lineHeight={5}
-        fontSize={isLarge ? 'xl' : { base: 'sm', md: 'md' }}
-        fontWeight={getValueFontWeight(type)}
-        textColor={getValueTextColor(type)}
-      >
-        {value}
-        <Text as="span" fontSize={isLarge ? 'md' : 'sm'}>
-          {isForEnergy(type) ? 'kcal' : 'g'}
+      {value !== undefined && (
+        <Text
+          lineHeight={5}
+          fontSize={isLarge ? 'xl' : { base: 'sm', md: 'md' }}
+          fontWeight={getValueFontWeight(type)}
+          textColor={getValueTextColor(type)}
+        >
+          {value}
+          <Text as="span" fontSize={isLarge ? 'md' : 'sm'}>
+            {isForEnergy(type) ? 'kcal' : 'g'}
+          </Text>
         </Text>
-      </Text>
+      )}
 
       {valueDetailElement && cloneElement(valueDetailElement, { isLarge })}
     </RightAligned>

@@ -66,7 +66,7 @@ function FormFields({
         )}
 
         <Flex width="97%" justifyContent="space-between">
-          <Flex alignItems="stretch">
+          <Box>
             <Stat
               type="dietEnergy"
               label="Calories"
@@ -74,9 +74,9 @@ function FormFields({
               isLarge={isLarge}
               justifyContent="flex-start"
             />
-          </Flex>
+          </Box>
 
-          <Flex width="70%" justifyContent="space-between">
+          <Box>
             <Stat
               type="diet"
               label="Protein"
@@ -90,7 +90,9 @@ function FormFields({
                 />
               }
             />
+          </Box>
 
+          <Box>
             <Stat
               justifyContent="flex-start"
               type="diet"
@@ -104,7 +106,9 @@ function FormFields({
                 />
               }
             />
+          </Box>
 
+          <Box>
             <Stat
               justifyContent="flex-start"
               type="diet"
@@ -118,7 +122,7 @@ function FormFields({
                 />
               }
             />
-          </Flex>
+          </Box>
         </Flex>
 
         <StatsFormFields canEdit={canEdit} showsEnergyPrecentFromFat={true} />

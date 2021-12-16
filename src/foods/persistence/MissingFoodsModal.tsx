@@ -18,7 +18,7 @@ type Props = {
 
 function MissingFoodsModal({ isOpen, onClose, onImport }: Props) {
   return (
-    <Modal isOpen={isOpen} onClose={onClose} size="lg" isCentered>
+    <Modal isOpen={isOpen} onClose={onClose} size="md" isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Missing foods</ModalHeader>

@@ -15,7 +15,7 @@ function VariantsDetailsModal({ onClose, isOpen, initialVariantForm }: Props) {
       preserveScrollBarGap={true}
       onClose={onClose}
       scrollBehavior="inside"
-      size="lg"
+      size="md"
     >
       <ModalOverlay />
 

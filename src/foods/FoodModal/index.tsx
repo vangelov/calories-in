@@ -28,7 +28,7 @@ function FoodModal({
       initialFocusRef={!food ? nameInputRef : undefined}
       onClose={onClose}
       scrollBehavior="inside"
-      size="lg"
+      size={food ? 'md' : 'lg'}
     >
       <ModalOverlay />
 
