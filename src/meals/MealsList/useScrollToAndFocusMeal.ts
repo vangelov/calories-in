@@ -18,8 +18,8 @@ function useScrollToAndFocusMeal({
     async (mealForm: MealForm) => {
       const mealNameInputRef = getMealNameInputRefById(mealForm.fieldId)
 
-      if (scrollTargetRef.current) {
-        await scrollTo(scrollTargetRef.current)
+      if (mealNameInputRef.current) {
+        await scrollTo(mealNameInputRef.current)
       }
 
       if (mealNameInputRef.current && !isMobile) {
@@ -30,7 +30,7 @@ function useScrollToAndFocusMeal({
         mealNameInputRef.current.focus()
       }
     },
-    [getMealNameInputRefById, scrollTo, scrollTargetRef]
+    [getMealNameInputRefById, scrollTo]
   )
 
   return { onScrollToMeal }

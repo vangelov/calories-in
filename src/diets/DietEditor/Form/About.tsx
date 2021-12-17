@@ -31,7 +31,7 @@ function About({ isOpen, onClose }: Props) {
             The idea for this app was born out of my experience of trying to
             find a better alternative to Google Sheets for calculating the
             macros of my meal plans. I tried different tools but nothing really
-            felt fast and simple enough. So I decided to scratch my own itch.{' '}
+            felt fast and simple enough.
             <br /> <br />
             Let me know if you found it useful or have any comments in general:{' '}
             <br /> <br />

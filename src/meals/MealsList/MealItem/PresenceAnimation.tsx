@@ -29,6 +29,7 @@ function PresenceAnimation({
     <motion.div
       transition={{
         ease: 'easeInOut',
+        duration: 0.4,
       }}
       initial={shouldAnimate ? 'collapsed' : false}
       animate={isVisible ? 'open' : 'collapsed'}
