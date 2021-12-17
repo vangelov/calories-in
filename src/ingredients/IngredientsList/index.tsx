@@ -31,7 +31,7 @@ function IngredientsList({
   return (
     <Droppable droppableId={mealFormFieldId} type="ingredientsList">
       {provided => (
-        <Box ref={provided.innerRef} minHeight="48px">
+        <Box ref={provided.innerRef} minHeight="56px">
           {ingredientsForms.map((ingredientForm, index) => {
             const { energy, protein, carbs, fat } = ingredientsStats[index]
 
