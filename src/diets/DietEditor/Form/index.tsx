@@ -4,21 +4,14 @@ import { useRef } from 'react'
 import { Page, PageHeader, PageBody } from 'layout'
 import { MealsList } from 'meals'
 import useDietFormEvents from './useDietFormEvents'
-import {
-  Box,
-  useDisclosure,
-  Flex,
-  HStack,
-  Button,
-  Divider,
-  Link,
-} from '@chakra-ui/react'
+import { Box, useDisclosure, Flex } from '@chakra-ui/react'
 import { ScreenSize, useElementHeight, useScreenSize } from 'general'
 import Controls from './Controls'
 import { FoodsDrawer } from 'foods'
 import { VariantsList, VariantStats } from 'variants'
 import useVariantFormEvents from './useVariantFormActions'
 import About from './About'
+import Footer from './Footer'
 
 function Form() {
   const horizontalScrollRef = useRef<HTMLDivElement>(null)
@@ -68,15 +61,19 @@ function Form() {
             ref={horizontalScrollRef}
           />
 
-          <Flex justifyContent="space-between">
-            <MealsList
-              flex={1}
-              headerHeight={headerHeight}
-              selectedVariantFormFieldId={selectedVariantForm.fieldId}
-              mealsForms={selectedVariantForm.mealsForms}
-              selectedVariantFormIndex={dietForm.selectedVariantFormIndex}
-              onAddMeal={foodsDrawerDisclosure.onOpen}
-            />
+          <Flex>
+            <Flex flex={1} flexDirection="column">
+              <MealsList
+                flex={1}
+                headerHeight={headerHeight}
+                selectedVariantFormFieldId={selectedVariantForm.fieldId}
+                mealsForms={selectedVariantForm.mealsForms}
+                selectedVariantFormIndex={dietForm.selectedVariantFormIndex}
+                onAddMeal={foodsDrawerDisclosure.onOpen}
+              />
+
+              <Footer mt={10} onAbout={aboutModalDisclosure.onOpen} />
+            </Flex>
 
             {screenSize >= ScreenSize.Large && (
               <VariantStats
@@ -90,38 +87,6 @@ function Form() {
               />
             )}
           </Flex>
-
-          <Box mt={10}>
-            <Divider />
-            <HStack height="50px" justify="center" spacing={3}>
-              <Button
-                variant="link"
-                color="gray.400"
-                fontWeight="thin"
-                onClick={aboutModalDisclosure.onOpen}
-              >
-                About
-              </Button>
-
-              <Link
-                variant="link"
-                color="gray.400"
-                target="_blank"
-                href="https://www.termsfeed.com/live/7e9b9ec6-aca7-4c99-a987-feb8b535a8e9"
-              >
-                Terms
-              </Link>
-
-              <Link
-                variant="link"
-                color="gray.400"
-                target="_blank"
-                href="https://www.termsfeed.com/live/ff5061b9-09e0-4fae-a8e9-010274f2085c"
-              >
-                Disclaimer
-              </Link>
-            </HStack>
-          </Box>
 
           <FoodsDrawer
             isOpen={foodsDrawerDisclosure.isOpen}

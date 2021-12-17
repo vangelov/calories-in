@@ -22,7 +22,7 @@ function EmptyList({ onAddMeal }: Props) {
         <Text fontSize="xl" fontWeight="medium" textColor="gray.500">
           You haven't added any meals to this day yet
         </Text>
-        <Text maxWidth="450px" mt={3} fontSize="md" textColor="gray.400">
+        <Text maxWidth="450px" mt={3} fontSize="md" textColor="gray.500">
           Days can be specific weekdays or just types of days. For example: a
           training or a rest day.
         </Text>
