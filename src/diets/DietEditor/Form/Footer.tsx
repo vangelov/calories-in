@@ -8,7 +8,7 @@ function Footer({ onAbout, ...rest }: Props) {
   return (
     <Box {...rest}>
       <Divider />
-      <HStack height="50px" justify="center" spacing={3}>
+      <HStack height="50px" spacing={3}>
         <Button
           variant="link"
           color="gray.500"

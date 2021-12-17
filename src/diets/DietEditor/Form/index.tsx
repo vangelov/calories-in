@@ -62,18 +62,14 @@ function Form() {
           />
 
           <Flex>
-            <Flex flex={1} flexDirection="column">
-              <MealsList
-                flex={1}
-                headerHeight={headerHeight}
-                selectedVariantFormFieldId={selectedVariantForm.fieldId}
-                mealsForms={selectedVariantForm.mealsForms}
-                selectedVariantFormIndex={dietForm.selectedVariantFormIndex}
-                onAddMeal={foodsDrawerDisclosure.onOpen}
-              />
-
-              <Footer mt={10} onAbout={aboutModalDisclosure.onOpen} />
-            </Flex>
+            <MealsList
+              flex={1}
+              headerHeight={headerHeight}
+              selectedVariantFormFieldId={selectedVariantForm.fieldId}
+              mealsForms={selectedVariantForm.mealsForms}
+              selectedVariantFormIndex={dietForm.selectedVariantFormIndex}
+              onAddMeal={foodsDrawerDisclosure.onOpen}
+            />
 
             {screenSize >= ScreenSize.Large && (
               <VariantStats
@@ -87,6 +83,8 @@ function Form() {
               />
             )}
           </Flex>
+
+          <Footer mt={10} onAbout={aboutModalDisclosure.onOpen} />
 
           <FoodsDrawer
             isOpen={foodsDrawerDisclosure.isOpen}
