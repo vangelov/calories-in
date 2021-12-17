@@ -24,7 +24,7 @@ function SelectedFoods({ selection }: Props) {
           ))}
         </Wrap>
       ) : (
-        <Text textColor="gray.500">Select one more more foods</Text>
+        <Text textColor="gray.500">Select one or more foods</Text>
       )}
     </Flex>
   )
