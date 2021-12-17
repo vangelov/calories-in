@@ -4,6 +4,8 @@ import ReactPDF, {
   Font,
   StyleSheet,
   View,
+  Text,
+  Link,
 } from '@react-pdf/renderer'
 import { Food } from 'foods'
 import { Portion } from 'portions'
@@ -63,9 +65,22 @@ function PdfDietEditor({
           fixed
           style={{
             backgroundColor: getComputedColorFromChakra('teal.500'),
-            height: '8px',
+            alignItems: 'center',
+            padding: 4,
           }}
-        />
+        >
+          <View style={{ flexDirection: 'row', fontSize: 10, color: 'white' }}>
+            <Text style={{ marginRight: 4, fontWeight: 'medium' }}>
+              Made with
+            </Text>
+            <Link
+              style={{ color: 'white', fontWeight: 'semibold' }}
+              src="http://calories-in.com"
+            >
+              calories-in.com
+            </Link>
+          </View>
+        </View>
 
         {variantItemsElements}
       </Page>
@@ -76,6 +91,7 @@ function PdfDietEditor({
 const styles = StyleSheet.create({
   page: {
     fontFamily: 'Roboto',
+    paddingBottom: 12,
   },
 })
 
