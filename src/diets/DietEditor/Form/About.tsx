@@ -38,7 +38,7 @@ function About({ isOpen, onClose }: Props) {
               <Text fontWeight="semibold" as="span" textColor="teal.600">
                 Calories-In
               </Text>{' '}
-              is targeted at people who follow meal plans that involve preparing
+              is made for people who follow meal plans that involve preparing
               everything by yourself and gives them full control to fine tune
               the nutritional values.
             </Text>
@@ -56,7 +56,7 @@ function About({ isOpen, onClose }: Props) {
               <ListItem>
                 <ListIcon as={CheckCircle} color="teal.600" />
                 <Text fontWeight="semibold" as="span" textColor="teal.600">
-                  Less foods
+                  Faster search
                 </Text>{' '}
                 : There are actually not that many foods you need when you
                 prepare everything yourself. This means all of the food data can
@@ -79,7 +79,7 @@ function About({ isOpen, onClose }: Props) {
               <ListItem>
                 <ListIcon as={CheckCircle} color="teal.600" />
                 <Text fontWeight="semibold" as="span" textColor="teal.600">
-                  Browser PDF export
+                  Faster export
                 </Text>{' '}
                 : Creating the PDF file for your meal plan is done entirely
                 inside the browser. It does not involve generating and
@@ -91,17 +91,17 @@ function About({ isOpen, onClose }: Props) {
               <ListItem>
                 <ListIcon as={CheckCircle} color="teal.600" />
                 <Text fontWeight="semibold" as="span" textColor="teal.600">
-                  More focus
+                  Simpler
                 </Text>{' '}
                 : There are no other pages except the editor. Most of the other
-                tools are bloated with additional pages for professionals, such
-                as managing clients, creating invoices, etc.
+                tools are bloated with additional features for professionals,
+                such as managing clients, creating invoices, etc.
               </ListItem>
               <br />
               <ListItem>
                 <ListIcon as={CheckCircle} color="teal.600" />
                 <Text fontWeight="semibold" as="span" textColor="teal.600">
-                  Full mobile support
+                  Fully mobile
                 </Text>{' '}
                 : You can use your phone or tablet to build your meal plans
                 right from your browser. If you add the app to your home screen
