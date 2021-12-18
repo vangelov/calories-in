@@ -9,8 +9,10 @@ import {
   Button,
   Text,
   ListItem,
-  UnorderedList,
+  List,
+  ListIcon,
 } from '@chakra-ui/react'
+import { CheckCircle } from 'react-feather'
 
 type Props = {
   isOpen: boolean
@@ -30,13 +32,15 @@ function About({ isOpen, onClose }: Props) {
         <ModalCloseButton />
         <ModalBody>
           <Text fontSize="lg">
-            <Text>Hi, I'm Vladimir, the person behind this app.</Text>
+            <Text>Hi, I'm Vladimir, the person behind this project.</Text>
             <br />
             <Text>
-              <strong>Calories-In</strong> is targeted at people who have
-              experience creating meal plans that involve preparing everything
-              by yourself and gives them full control to fine tune the
-              nutritional values.
+              <Text fontWeight="semibold" as="span" textColor="teal.600">
+                Calories-In
+              </Text>{' '}
+              is targeted at people who follow meal plans that involve preparing
+              everything by yourself and gives them full control to fine tune
+              the nutritional values.
             </Text>
             <br />
             <Text>
@@ -48,39 +52,62 @@ function About({ isOpen, onClose }: Props) {
             <br />
             <Text>The main differences to other apps in this space are:</Text>
             <br />
-            <UnorderedList ml={8}>
+            <List ml={8}>
               <ListItem>
-                <strong>Less foods</strong>: There are actually not that many
-                foods you need when you prepare everything yourself. This means
-                all of the food data can be downloaded beforehand which makes
-                the search super fast. Of course you can add your own foods if
-                you'd like.{' '}
+                <ListIcon as={CheckCircle} color="teal.600" />
+                <Text fontWeight="semibold" as="span" textColor="teal.600">
+                  Less foods
+                </Text>{' '}
+                : There are actually not that many foods you need when you
+                prepare everything yourself. This means all of the food data can
+                be downloaded beforehand which makes the search super fast. Of
+                course you can add your own foods if you'd like.{' '}
               </ListItem>
               <br />
               <ListItem>
-                <strong>Undo/Redo</strong>: Building a plan from scratch or
-                updating an existing one involves some back and forth choosing
-                the right foods and adjusting their amounts. This is especially
-                true if you want to be as close as possible to a specific
-                calorie limit and have your macros be a certain percentages
-                split.
+                <ListIcon as={CheckCircle} color="teal.600" />
+                <Text fontWeight="semibold" as="span" textColor="teal.600">
+                  Undo/Redo
+                </Text>{' '}
+                : Building a plan from scratch or updating an existing one
+                involves some back and forth choosing the right foods and
+                adjusting their amounts. This is especially true if you want to
+                be as close as possible to a specific calorie limit and have
+                your macros be a certain percentages split.
               </ListItem>
               <br />
               <ListItem>
-                <strong>Local PDF export</strong>: Creating the PDF file for
-                your meal plan is done entirely inside the browser. It does not
-                involve generating and downloading it from a server. This means
-                I can keep the cost of running the website low and you get your
-                file in less than 2 seconds.
+                <ListIcon as={CheckCircle} color="teal.600" />
+                <Text fontWeight="semibold" as="span" textColor="teal.600">
+                  Browser PDF export
+                </Text>{' '}
+                : Creating the PDF file for your meal plan is done entirely
+                inside the browser. It does not involve generating and
+                downloading it from a server. This means I can keep the cost of
+                running the website low and you get your file in less than 2
+                seconds.
               </ListItem>
               <br />
               <ListItem>
-                <strong>More focus</strong>: There are no other pages except the
-                editor. Most of the other tools are bloated with additional
-                pages for professionals, such as managing clients, creating
-                invoices, etc.
+                <ListIcon as={CheckCircle} color="teal.600" />
+                <Text fontWeight="semibold" as="span" textColor="teal.600">
+                  More focus
+                </Text>{' '}
+                : There are no other pages except the editor. Most of the other
+                tools are bloated with additional pages for professionals, such
+                as managing clients, creating invoices, etc.
               </ListItem>
-            </UnorderedList>
+              <br />
+              <ListItem>
+                <ListIcon as={CheckCircle} color="teal.600" />
+                <Text fontWeight="semibold" as="span" textColor="teal.600">
+                  Full mobile support
+                </Text>{' '}
+                : You can use your phone or tablet to build your meal plans
+                right from your browser. If you add the app to your home screen
+                it will look and feel almost like a native one.
+              </ListItem>
+            </List>
             <Text>
               <br />
               Let me know if you found it useful or have any comments in
