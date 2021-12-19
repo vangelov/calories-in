@@ -53,10 +53,6 @@ const styles = StyleSheet.create({
   name: {
     fontSize: 14,
   },
-  notes: {
-    marginTop: 3,
-    fontSize: 12,
-  },
 })
 
 export default PdfIngredientItem

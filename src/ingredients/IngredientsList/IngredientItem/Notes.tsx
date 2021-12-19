@@ -16,7 +16,7 @@ function Notes({ notesEvents, ingredientForm }: Props) {
       onAnimationComplete={notesEvents.onNotesAnimationComplete}
     >
       <Box width="100%">
-        <Text fontSize="sm" whiteSpace="pre-wrap" textColor="gray.400">
+        <Text fontSize="sm" whiteSpace="pre-wrap" textColor="gray.500">
           {ingredientForm.notes}
         </Text>
       </Box>

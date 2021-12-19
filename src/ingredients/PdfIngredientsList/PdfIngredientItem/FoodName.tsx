@@ -56,7 +56,7 @@ function Name({ ingredientForm, foodsById, portionsById }: Props) {
         <Text
           style={[
             styles.notes,
-            { color: getComputedColorFromChakra('gray.400') },
+            { color: getComputedColorFromChakra('gray.500') },
           ]}
         >
           {ingredientForm.notes}
