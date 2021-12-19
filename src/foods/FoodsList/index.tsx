@@ -82,6 +82,18 @@ function FoodsList({
     },
   }))
 
+  function onFoodSelect(food: Food) {
+    if (selection) {
+      selection.toggleItem(food)
+      const input = searchInputRef?.current
+
+      if (input) {
+        input.focus()
+        input.setSelectionRange(0, input.value.length)
+      }
+    }
+  }
+
   return (
     <Flex flexDirection="column" {...rest}>
       <HStack spacing={3}>
@@ -117,9 +129,7 @@ function FoodsList({
             selection ? selection.isIdSelected(food.id) : false
           }
           getFood={index => filteredFoods[index]}
-          onFoodSelect={food =>
-            selection ? selection.toggleItem(food) : () => {}
-          }
+          onFoodSelect={onFoodSelect}
           onFoodPreview={onFoodPreview || (() => {})}
           itemUsageType={itemUsageType}
         />
