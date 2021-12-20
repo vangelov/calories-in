@@ -86,7 +86,7 @@ function VariantItem({
               fontWeight="medium"
               borderWidth="1px"
               borderColor={isSelected ? 'teal.600' : 'gray.200'}
-              color={isSelected ? 'teal.600' : 'gray.500'}
+              color={isSelected ? 'teal.600' : 'gray.600'}
               onClick={variantFormEvents.onClick}
               pl={5}
               pr={4}

@@ -106,7 +106,9 @@ function FoodsList({
         <InputGroup size="md" flex={4}>
           <InputLeftElement
             pointerEvents="none"
-            children={<SearchStyled pointerEvents="none" color="gray.400" />}
+            children={
+              <SearchStyled pointerEvents="none" size={20} color="gray.400" />
+            }
           />
           <Input
             ref={searchInputRef}

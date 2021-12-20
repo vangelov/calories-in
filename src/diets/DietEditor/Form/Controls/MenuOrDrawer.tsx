@@ -4,6 +4,8 @@ import {
   MenuOrDrawer as MenuOrDrawerBase,
   MenuOrDrawerItem,
   MenuOrDrawerSeparator,
+  ScreenSize,
+  useScreenSize,
 } from 'general'
 
 const DownloadStyled = chakra(Download)
@@ -17,12 +19,15 @@ type Props = {
 }
 
 function MenuOrDrawer({ onImport, onClear, onViewFoods }: Props) {
+  const screenSize = useScreenSize()
+
   return (
     <MenuOrDrawerBase
       size="md"
       title="Meal plan"
       variant="solid"
       mr={2}
+      width={screenSize >= ScreenSize.Medium ? '60px' : undefined}
       icon={<MoreHorizontal size={20} />}
       aria-label="Meal plan actions"
     >

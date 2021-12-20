@@ -1,18 +1,18 @@
-import { Flex, IconButton, useDisclosure } from '@chakra-ui/react'
+import { Flex, useDisclosure } from '@chakra-ui/react'
 import VariantItem from './VariantItem'
-import { Plus } from 'react-feather'
 import { Droppable } from 'react-beautiful-dnd'
 import VariantNameModal from './VariantNameModal'
 import { ForwardedRef, createRef, forwardRef, useRef } from 'react'
 import { useDietForm } from 'diets'
 import { VariantForm, VariantsDetailsModal } from 'variants'
-import { HFadeScroll, useScreenSize, Tooltip, ScreenSize } from 'general'
+import { HFadeScroll, useScreenSize, ScreenSize } from 'general'
 import mergeRefs from 'react-merge-refs'
 import ScrollButtons from './ScrollButtons'
 import VariantsMenuOrDrawer from './VariantsMenuOrDrawer'
 import { useGetRefForId } from 'dom'
 import useScrollState from './useScrollState'
 import useVariantFormEvents from './useVariantFormEvents'
+import AddVariantButton from './AddVariantButton'
 
 type Props = {
   onVariantFormSelect: (variantForm: VariantForm, index: number) => void
@@ -45,19 +45,8 @@ function VariantsList({
 
   return (
     <Flex py={6}>
-      <Tooltip label="Add day">
-        <IconButton
-          bg="white"
-          borderRadius="full"
-          size="md"
-          aria-label="Add day"
-          icon={<Plus size={20} pointerEvents="none" />}
-          variant="outline"
-          onClick={variantFormEvents.onAppend}
-          mr={2}
-          flexShrink={0}
-        />
-      </Tooltip>
+      <AddVariantButton onClick={variantFormEvents.onAppend} />
+
       {!isPhone && (
         <VariantsMenuOrDrawer onVariantFormSelect={onVariantFormSelect} />
       )}

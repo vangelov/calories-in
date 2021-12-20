@@ -1,11 +1,19 @@
 import { useDietForm, useDietFormActions } from 'diets'
 import { Editable, EditableInput, EditablePreview } from '@chakra-ui/react'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useEffect, useRef } from 'react'
 import { getComputedColorFromChakra } from 'theme'
+import { canExportDietForm } from 'diets/persistence'
 
 function Name() {
   const dietForm = useDietForm()
   const dietFormActions = useDietFormActions()
+  const editablePreviewRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!canExportDietForm(dietForm) && editablePreviewRef.current) {
+      editablePreviewRef.current.focus()
+    }
+  }, [dietForm])
 
   function onNameChange(event: ChangeEvent<HTMLInputElement>) {
     const { value } = event.target
@@ -22,7 +30,7 @@ function Name() {
       value={dietForm.name}
       width="80%"
     >
-      <EditablePreview width="100%" />
+      <EditablePreview ref={editablePreviewRef} width="100%" />
       <EditableInput
         _focus={{ boxShadow: `${boxShadowColor} 0px 0px 0px 3px` }}
         onChange={onNameChange}

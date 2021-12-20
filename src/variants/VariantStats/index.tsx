@@ -16,6 +16,7 @@ import {
 import VariantStat from './VariantStat'
 import EnergyStat from './EnergyStat'
 import { VariantsDetailsModal } from 'variants'
+import { Info } from 'react-feather'
 
 type Props = {} & BoxProps
 
@@ -106,6 +107,7 @@ function VariantStats({ ...rest }: Props) {
       <Button
         colorScheme="teal"
         variant="link"
+        leftIcon={<Info size={16} />}
         isDisabled={!hasAtLeastOneMeal}
         onClick={variantsDetailsModalDisclosure.onOpen}
       >

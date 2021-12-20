@@ -54,11 +54,12 @@ function Controls() {
         {screenSize >= ScreenSize.Medium ? (
           <Button
             isDisabled={!canExport}
-            leftIcon={<Share size={20} pointerEvents="none" />}
+            leftIcon={<Share size={16} pointerEvents="none" />}
             variant="solid"
             colorScheme="teal"
             onClick={exportModalDisclosure.onOpen}
             size="md"
+            width="126px"
           >
             Export
           </Button>
@@ -69,7 +70,7 @@ function Controls() {
             colorScheme="teal"
             size="md"
             onClick={exportModalDisclosure.onOpen}
-            icon={<Share size={16} pointerEvents="none" />}
+            icon={<Share size={20} pointerEvents="none" />}
           />
         )}
       </Flex>
