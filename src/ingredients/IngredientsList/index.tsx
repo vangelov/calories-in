@@ -30,7 +30,7 @@ function IngredientsList({
 
   return (
     <Droppable droppableId={mealFormFieldId} type="ingredientsList">
-      {provided => (
+      {(provided, snapshot) => (
         <Box ref={provided.innerRef} minHeight="56px">
           {ingredientsForms.map((ingredientForm, index) => {
             const { energy, protein, carbs, fat } = ingredientsStats[index]
@@ -48,6 +48,7 @@ function IngredientsList({
                 carbs={carbs}
                 fat={fat}
                 isLast={index === ingredientsForms.length - 1}
+                isDraggingOver={snapshot.isDraggingOver}
                 shouldAddRadiusToLastBottomBorder={
                   shouldAddRadiusToLastBottomBorder !== undefined
                     ? shouldAddRadiusToLastBottomBorder

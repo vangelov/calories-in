@@ -6,6 +6,7 @@ type Props = {
   shouldAnimate: boolean
   onAnimationComplete: () => void
   isVisible: boolean
+  isDraggingOver?: boolean
 }
 
 const variants = {
@@ -21,9 +22,11 @@ function PresenceAnimation({
   onAnimationComplete,
   isVisible,
   children,
+  isDraggingOver = false,
 }: Props) {
   return (
     <motion.div
+      style={{ overflow: isDraggingOver ? undefined : 'hidden' }}
       transition={{ ease: 'easeInOut' }}
       initial={shouldAnimate ? 'collapsed' : false}
       animate={isVisible ? 'open' : 'collapsed'}

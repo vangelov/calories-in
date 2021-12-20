@@ -26,6 +26,7 @@ type Props = {
   onRemove: (variantIndex: number, mealIndex: number, index: number) => void
   shouldAddRadiusToLastBottomBorder: boolean
   isLast: boolean
+  isDraggingOver: boolean
 }
 
 function IngredientItem({
@@ -40,6 +41,7 @@ function IngredientItem({
   onRemove,
   shouldAddRadiusToLastBottomBorder,
   isLast,
+  isDraggingOver,
 }: Props) {
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
@@ -78,11 +80,12 @@ function IngredientItem({
       draggableId={ingredientForm.fieldId as string}
       index={index}
     >
-      {(provided, snapshot) => (
+      {(provided, { isDragging }) => (
         <PresenceAnimation
           shouldAnimate={ingredientEvents.shouldAnimate}
           onAnimationComplete={ingredientEvents.onAnimationComplete}
           isVisible={ingredientEvents.isVisible}
+          isDraggingOver={isDraggingOver}
         >
           <ContextMenuFlex
             ref={provided.innerRef}
@@ -90,17 +93,19 @@ function IngredientItem({
             {...provided.dragHandleProps}
             style={provided.draggableProps.style}
             boxShadow={
-              snapshot.isDragging
+              isDragging
                 ? 'rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.4) 0px 15px 40px'
                 : undefined
             }
-            bg={snapshot.isDragging ? 'gray.50' : undefined}
+            bg={isDragging ? 'gray.50' : undefined}
             alignItems="center"
             position="relative"
             py={3}
             _hover={{ backgroundColor: 'gray.50' }}
             borderBottomRadius={
-              isLast && shouldAddRadiusToLastBottomBorder ? 10 : 0
+              !isDragging && isLast && shouldAddRadiusToLastBottomBorder
+                ? 10
+                : 0
             }
             overflow="hidden"
             menuOrDrawerItems={menuOrDrawerItems}
