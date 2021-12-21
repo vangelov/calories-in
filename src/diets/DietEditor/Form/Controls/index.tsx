@@ -1,24 +1,20 @@
-import { Flex, useDisclosure, Button, IconButton } from '@chakra-ui/react'
+import { Flex, useDisclosure, Button } from '@chakra-ui/react'
 import { UndoRedoButtons, useKeyboard } from 'undoRedo'
-import { getDietForm, useDietForm, useDietFormActions } from 'diets'
-import {
-  useImportDietForm,
-  ExportModal,
-  canExportDietForm,
-} from 'diets/persistence'
+import { getDietForm, useDietFormActions } from 'diets'
+import { useImportDietForm, ExportModal } from 'diets/persistence'
 import {
   FoodsListModal,
   MissingFoodsModal,
   useImportFoods,
 } from 'foods/persistence'
 import { FoodsDrawer } from 'foods'
-import { Share } from 'react-feather'
+import { Plus } from 'react-feather'
 import MenuOrDrawer from './MenuOrDrawer'
 import Name from './Name'
 import { ScreenSize, useScreenSize } from 'general'
+import ExportButton from './ExportButton'
 
 function Controls() {
-  const dietForm = useDietForm()
   const dietFormActions = useDietFormActions()
   const exportModalDisclosure = useDisclosure()
   const missingFoodsModalDisclosure = useDisclosure()
@@ -26,7 +22,6 @@ function Controls() {
   const foodsListModalDisclosure = useDisclosure()
   const importFoods = useImportFoods({ foodsListModalDisclosure })
   const foodsDrawerDisclosure = useDisclosure()
-  const canExport = canExportDietForm(dietForm)
   const screenSize = useScreenSize()
 
   useKeyboard()
@@ -37,7 +32,7 @@ function Controls() {
 
   return (
     <Flex width="100%" alignItems="center">
-      <Flex flex={1} mr={3}>
+      <Flex flex={1} mr={2}>
         <UndoRedoButtons />
       </Flex>
 
@@ -45,34 +40,25 @@ function Controls() {
         <Name />
       </Flex>
 
-      <Flex ml={3} justifyContent="flex-end" spacing={3} flex={1}>
+      <Flex ml={2} justifyContent="flex-end" spacing={3} flex={1}>
         <MenuOrDrawer
           onImport={onLoadFromFile}
           onClear={onClear}
           onViewFoods={foodsDrawerDisclosure.onOpen}
         />
-        {screenSize >= ScreenSize.Medium ? (
+
+        {screenSize >= ScreenSize.Medium && (
           <Button
-            isDisabled={!canExport}
-            leftIcon={<Share size={16} pointerEvents="none" />}
-            variant="solid"
-            colorScheme="teal"
-            onClick={exportModalDisclosure.onOpen}
+            leftIcon={<Plus size={16} pointerEvents="none" />}
             size="md"
-            width="126px"
+            onClick={onClear}
+            mr={2}
           >
-            Export
+            Create
           </Button>
-        ) : (
-          <IconButton
-            isDisabled={!canExport}
-            aria-label="Export"
-            colorScheme="teal"
-            size="md"
-            onClick={exportModalDisclosure.onOpen}
-            icon={<Share size={20} pointerEvents="none" />}
-          />
         )}
+
+        <ExportButton onClick={exportModalDisclosure.onOpen} />
       </Flex>
 
       <MissingFoodsModal

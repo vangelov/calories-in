@@ -28,7 +28,7 @@ function Name() {
       fontWeight="medium"
       textAlign="center"
       value={dietForm.name}
-      width="80%"
+      width="85%"
     >
       <EditablePreview ref={editablePreviewRef} width="100%" />
       <EditableInput

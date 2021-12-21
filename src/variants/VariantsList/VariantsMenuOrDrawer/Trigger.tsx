@@ -1,5 +1,5 @@
 import { IconButton } from '@chakra-ui/react'
-import { Menu } from 'react-feather'
+import { ChevronDown } from 'react-feather'
 import { ForwardedRef, forwardRef } from 'react'
 import { useScreenSize, Tooltip, ScreenSize } from 'general'
 
@@ -19,7 +19,7 @@ function Trigger({ forwardedRef, onClick, ...rest }: Props) {
         bg="white"
         size="md"
         aria-label="Add variant"
-        icon={<Menu size={20} pointerEvents="none" />}
+        icon={<ChevronDown size={20} pointerEvents="none" />}
         variant="outline"
         mr={isPhone ? 0 : 2}
         ml={isPhone ? 2 : 0}

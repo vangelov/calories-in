@@ -1,6 +1,6 @@
 import { Button, IconButton, ButtonProps } from '@chakra-ui/react'
 import { ScreenSize, useScreenSize } from 'general'
-import { Plus } from 'react-feather'
+import { CalendarPlus } from 'icons'
 
 type Props = {} & ButtonProps
 
@@ -13,7 +13,7 @@ function AddVariantButton({ ...rest }: Props) {
         borderRadius="full"
         size="md"
         bg="white"
-        leftIcon={<Plus size={16} pointerEvents="none" />}
+        leftIcon={<CalendarPlus size={16} />}
         variant="outline"
         mr={2}
         flexShrink={0}
@@ -30,7 +30,7 @@ function AddVariantButton({ ...rest }: Props) {
       borderRadius="full"
       size="md"
       bg="white"
-      icon={<Plus size={20} pointerEvents="none" />}
+      icon={<CalendarPlus size={20} />}
       variant="outline"
       mr={2}
       flexShrink={0}

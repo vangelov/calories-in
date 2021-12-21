@@ -111,7 +111,7 @@ function VariantStats({ ...rest }: Props) {
         isDisabled={!hasAtLeastOneMeal}
         onClick={variantsDetailsModalDisclosure.onOpen}
       >
-        View Details
+        View details
       </Button>
 
       <VariantsDetailsModal

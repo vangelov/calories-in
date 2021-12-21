@@ -21,26 +21,46 @@ type Props = {
 function MenuOrDrawer({ onImport, onClear, onViewFoods }: Props) {
   const screenSize = useScreenSize()
 
+  const items = [
+    <MenuOrDrawerSeparator key="separator" />,
+    <MenuOrDrawerItem
+      key="importMealPlan"
+      icon={<DownloadStyled />}
+      onClick={onImport}
+    >
+      Import meal plan
+    </MenuOrDrawerItem>,
+    <MenuOrDrawerItem
+      key="manageFoods"
+      icon={<ListStyled />}
+      onClick={onViewFoods}
+    >
+      Manage foods
+    </MenuOrDrawerItem>,
+  ]
+
+  if (screenSize <= ScreenSize.Small) {
+    items.unshift(
+      <MenuOrDrawerItem
+        key="createMealPlan"
+        icon={<FilePlusStyled />}
+        onClick={onClear}
+      >
+        Create meal plan
+      </MenuOrDrawerItem>
+    )
+  }
+
   return (
     <MenuOrDrawerBase
       size="md"
-      title="Meal plan"
+      title="More actions"
       variant="solid"
       mr={2}
-      width={screenSize >= ScreenSize.Medium ? '60px' : undefined}
       icon={<MoreHorizontal size={20} />}
-      aria-label="Meal plan actions"
+      aria-label="More actions"
     >
-      <MenuOrDrawerItem icon={<FilePlusStyled />} onClick={onClear}>
-        Create new
-      </MenuOrDrawerItem>
-      <MenuOrDrawerSeparator />
-      <MenuOrDrawerItem icon={<DownloadStyled />} onClick={onImport}>
-        Import
-      </MenuOrDrawerItem>
-      <MenuOrDrawerItem icon={<ListStyled />} onClick={onViewFoods}>
-        Manage foods
-      </MenuOrDrawerItem>
+      {items}
     </MenuOrDrawerBase>
   )
 }

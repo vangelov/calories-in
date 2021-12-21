@@ -40,7 +40,6 @@ function VariantsList({
 
   const dietForm = useDietForm()
   const getVariantItemRefById = useGetRefForId<HTMLDivElement>()
-
   const scrollState = useScrollState()
 
   return (
