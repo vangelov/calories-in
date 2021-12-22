@@ -14,6 +14,8 @@ function useScrollTo() {
   }, [])
 
   const scrollTo = useCallback((node: HTMLElement) => {
+    didScrollRef.current = false
+
     return new Promise<void>(resolve => {
       function listener() {
         window.clearTimeout(scrollTimeoutRef.current)

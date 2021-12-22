@@ -8,10 +8,7 @@ type Params = {
   scrollTargetRef: RefObject<HTMLDivElement>
 }
 
-function useScrollToAndFocusMeal({
-  getMealNameInputRefById,
-  scrollTargetRef,
-}: Params) {
+function useScrollToAndFocusMeal({ getMealNameInputRefById }: Params) {
   const scrollTo = useScrollTo()
 
   const onScrollToMeal = useCallback(

@@ -14,9 +14,9 @@ function CalendarPlus({ size = 24, ...rest }) {
       <path
         d="M16 2V6"
         stroke="black"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
       <path
         d="M17 14V22"

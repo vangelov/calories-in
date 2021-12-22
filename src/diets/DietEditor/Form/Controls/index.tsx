@@ -8,7 +8,7 @@ import {
   useImportFoods,
 } from 'foods/persistence'
 import { FoodsDrawer } from 'foods'
-import { Plus } from 'react-feather'
+import { Trash } from 'react-feather'
 import MenuOrDrawer from './MenuOrDrawer'
 import Name from './Name'
 import { ScreenSize, useScreenSize } from 'general'
@@ -49,12 +49,12 @@ function Controls() {
 
         {screenSize >= ScreenSize.Medium && (
           <Button
-            leftIcon={<Plus size={16} pointerEvents="none" />}
+            leftIcon={<Trash size={16} />}
             size="md"
             onClick={onClear}
             mr={2}
           >
-            Create
+            Clear
           </Button>
         )}
 
