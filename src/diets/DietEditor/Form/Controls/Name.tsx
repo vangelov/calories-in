@@ -8,10 +8,18 @@ function Name() {
   const dietForm = useDietForm()
   const dietFormActions = useDietFormActions()
   const editablePreviewRef = useRef<HTMLDivElement>(null)
+  const focusedForDietFieldIdMap = useRef<Record<string, boolean | undefined>>(
+    {}
+  )
 
   useEffect(() => {
-    if (!canExportDietForm(dietForm) && editablePreviewRef.current) {
+    if (
+      !canExportDietForm(dietForm) &&
+      editablePreviewRef.current &&
+      !focusedForDietFieldIdMap.current[dietForm.fieldId]
+    ) {
       editablePreviewRef.current.focus()
+      focusedForDietFieldIdMap.current[dietForm.fieldId] = true
     }
   }, [dietForm])
 
