@@ -2,7 +2,6 @@ import { getInsertVariantFormAnimationKey, VariantForm } from 'variants'
 import { RefObject, useState } from 'react'
 import { useOneTimeCheckActions } from 'general'
 import { MouseEvent } from 'react'
-import { isSafari } from 'react-device-detect'
 
 type Params = {
   onDelete: (index: number) => void
@@ -16,7 +15,7 @@ function useVariantFormEvents({
   onDelete,
   onSelect,
   variantForm,
-  ref,
+
   index,
 }: Params) {
   const oneTimeCheckActions = useOneTimeCheckActions()
