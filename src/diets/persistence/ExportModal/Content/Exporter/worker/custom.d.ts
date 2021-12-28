@@ -1,8 +1,10 @@
 declare module 'comlink-loader!*' {
+  import { Params } from './types'
+
   class WebpackWorker extends Worker {
     constructor()
 
-    processData(data: any): Promise<Blob>
+    getDietPdfBlob(data: Params): Promise<Blob>
   }
 
   export = WebpackWorker

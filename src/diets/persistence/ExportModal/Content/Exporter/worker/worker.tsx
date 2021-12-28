@@ -6,8 +6,8 @@ if (process.env.NODE_ENV !== 'production') {
   t.$RefreshSig$ = () => () => {}
 }
 
-async function processData(data: any) {
-  const PdfDietEditor = require('../diets/PdfDietEditor').default
+async function getDietPdfBlob(data: any) {
+  const PdfDietEditor = require('diets/PdfDietEditor').default
 
   const document = (
     <PdfDietEditor
@@ -22,4 +22,4 @@ async function processData(data: any) {
   return pdf(document).toBlob()
 }
 
-export { processData }
+export { getDietPdfBlob }
