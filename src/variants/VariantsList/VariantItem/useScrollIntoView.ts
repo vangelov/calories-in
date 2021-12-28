@@ -1,5 +1,4 @@
 import { RefObject, useEffect } from 'react'
-import { isSafari } from 'react-device-detect'
 
 type Params = {
   isSelected: boolean
@@ -12,7 +11,7 @@ function useScrollIntoView({ ref, isSelected }: Params) {
       if (isSelected) {
         ref.current?.scrollIntoView({
           block: 'nearest',
-          behavior: isSafari ? undefined : 'smooth',
+          behavior: 'smooth',
         })
       }
     }, 200)
