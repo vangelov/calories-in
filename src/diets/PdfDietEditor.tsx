@@ -11,7 +11,7 @@ import { Food } from 'foods'
 import { Portion } from 'portions'
 import { ReactElement } from 'react'
 import { StatsTree } from 'stats/calculations/getStatsTree'
-import { getComputedColorFromChakra } from 'theme'
+import getComputedColorFromChakra from 'theme/getComputedColorFromChakra'
 import PdfVariantItem from 'variants/PdfVariantsList/PdfVariantItem'
 import { DietForm } from './dietForm'
 
@@ -92,6 +92,7 @@ function PdfDietEditor({
 const styles = StyleSheet.create({
   page: {
     fontFamily: 'Roboto',
+    paddingBottom: 12,
   },
 })
 

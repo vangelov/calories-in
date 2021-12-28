@@ -1,7 +1,7 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
 import { MealForm } from 'meals'
 import { Style } from '@react-pdf/types/style'
-import { getComputedColorFromChakra } from 'theme'
+import getComputedColorFromChakra from 'theme/getComputedColorFromChakra'
 import { Stats } from 'stats'
 import PdfStat from 'stats/PdfStat'
 import PdfStatsLayout from 'stats/PdfStatsLayout'
@@ -46,7 +46,7 @@ function PdfMealItem({
                 styles.name,
                 {
                   color: getComputedColorFromChakra(
-                    mealForm.name ? 'gray.600' : 'gray.400'
+                    mealForm.name ? 'gray.600' : 'gray.500'
                   ),
                 },
               ]}

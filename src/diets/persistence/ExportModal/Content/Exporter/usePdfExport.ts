@@ -1,43 +1,69 @@
-import { usePDF } from '@react-pdf/renderer'
-import { ReactElement, useEffect, useState } from 'react'
+import { useDietForm, useGetDietFormStatsTree } from 'diets'
+import { useFoods } from 'foods'
+import { usePortions } from 'portions'
+import { useEffect, useState } from 'react'
+import Worker from './worker'
+import { minDelay, useRunIfNotUnmounted } from 'general'
 
-type Props = {
+const worker = new Worker()
+
+type Params = {
   onUpdate: (blob: Blob, url: string) => void
-  document: ReactElement
 }
 
-const MINIMUM_LOADING_TIME_IN_MS = 500
+function usePdfExport({ onUpdate }: Params) {
+  const dietForm = useDietForm()
+  const { foodsById } = useFoods()
+  const { portionsById } = usePortions()
+  const getDietFormStatsTree = useGetDietFormStatsTree()
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<unknown>()
 
-function isReady(
-  instance: {
-    blob: Blob | null
-    url: string | null
-  },
-  isLoading: boolean
-): instance is { blob: Blob; url: string } {
-  const { blob, url } = instance
-  return blob !== null && url !== null && !isLoading
-}
-
-function usePdfExport({ onUpdate, document }: Props) {
-  const [isLoading, setIsLoading] = useState(true)
-  const [instance] = usePDF({ document })
+  const runIfNotUnmounted = useRunIfNotUnmounted()
 
   useEffect(() => {
-    if (isReady(instance, isLoading)) {
-      onUpdate(instance.blob, instance.url)
+    async function run() {
+      const dietFormStatsTree = getDietFormStatsTree(dietForm)
+      const startDate = new Date()
+
+      try {
+        setIsLoading(true)
+        const blob = await worker.getDietPdfBlob({
+          dietForm,
+          dietFormStatsTree,
+          foodsById,
+          portionsById,
+        })
+
+        await minDelay(startDate)
+
+        runIfNotUnmounted(() => {
+          setIsLoading(false)
+          const url = URL.createObjectURL(blob)
+          onUpdate(blob, url)
+        })
+      } catch (error) {
+        await minDelay(startDate)
+
+        runIfNotUnmounted(() => {
+          setIsLoading(false)
+          setError(error)
+        })
+      }
     }
-  }, [onUpdate, instance, isLoading])
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsLoading(false)
-    }, MINIMUM_LOADING_TIME_IN_MS)
-  }, [])
+    run()
+  }, [
+    dietForm,
+    foodsById,
+    portionsById,
+    getDietFormStatsTree,
+    onUpdate,
+    runIfNotUnmounted,
+  ])
 
   return {
-    error: instance.error,
-    isLoading: !isReady(instance, isLoading) && !instance.error,
+    isLoading,
+    error,
   }
 }
 

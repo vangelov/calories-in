@@ -84,7 +84,7 @@ function About({ isOpen, onClose }: Props) {
                 : Creating the PDF file for your meal plan is done entirely
                 inside the browser. It does not involve generating and
                 downloading it from a server. This means I can keep the cost of
-                running the website low and you get your file in less than 2
+                running the website low and you get your file in just a few
                 seconds.
               </ListItem>
               <br />

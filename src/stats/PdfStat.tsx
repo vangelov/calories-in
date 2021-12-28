@@ -1,6 +1,6 @@
 import { Text, View, StyleSheet } from '@react-pdf/renderer'
 import { Style } from '@react-pdf/types/style'
-import { getComputedColorFromChakra } from 'theme'
+import getComputedColorFromChakra from 'theme/getComputedColorFromChakra'
 import {
   getLabelColor,
   getValueFontWeight,

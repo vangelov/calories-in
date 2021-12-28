@@ -3,7 +3,7 @@ import { Food, FoodId } from 'foods'
 import { IngredientForm } from 'ingredients'
 import { Portion } from 'portions'
 import { Stats } from 'stats'
-import { getComputedColorFromChakra } from 'theme'
+import getComputedColorFromChakra from 'theme/getComputedColorFromChakra'
 import PdfIngredientItem from './PdfIngredientItem'
 
 type Props = {
@@ -44,7 +44,7 @@ function PdfIngredientsList({
           style={[
             styles.emptyListText,
             {
-              color: getComputedColorFromChakra('gray.400'),
+              color: getComputedColorFromChakra('gray.500'),
             },
           ]}
         >
@@ -57,8 +57,11 @@ function PdfIngredientsList({
 
 const styles = StyleSheet.create({
   emptyListText: {
+    backgroundColor: 'white',
     padding: 12,
     fontSize: 14,
+    borderBottomLeftRadius: 7,
+    borderBottomRightRadius: 7,
   },
 })
 

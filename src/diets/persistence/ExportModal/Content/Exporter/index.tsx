@@ -1,6 +1,3 @@
-import PdfDietEditor from 'diets/PdfDietEditor'
-import { useDietForm, useGetDietFormStatsTree } from 'diets'
-import { useFoods } from 'foods'
 import { Loader } from 'general'
 import {
   Alert,
@@ -8,7 +5,6 @@ import {
   AlertTitle,
   AlertDescription,
 } from '@chakra-ui/react'
-import { usePortions } from 'portions'
 import usePdfExport from './usePdfExport'
 
 type Props = {
@@ -16,23 +12,7 @@ type Props = {
 }
 
 function Exporter({ onUpdate }: Props) {
-  const dietForm = useDietForm()
-  const { foodsById } = useFoods()
-  const { portionsById } = usePortions()
-  const getDietFormStatsTree = useGetDietFormStatsTree()
-  const dietFormStatsTree = getDietFormStatsTree(dietForm)
-
-  const document = (
-    <PdfDietEditor
-      dietForm={dietForm}
-      foodsById={foodsById}
-      portionsById={portionsById}
-      subject={JSON.stringify(dietForm)}
-      dietFormStatsTree={dietFormStatsTree}
-    />
-  )
-
-  const { isLoading, error } = usePdfExport({ document, onUpdate })
+  const { isLoading, error } = usePdfExport({ onUpdate })
 
   if (isLoading) {
     return <Loader label="Exporting..." />
@@ -49,7 +29,7 @@ function Exporter({ onUpdate }: Props) {
       height="200px"
       bg="white"
     >
-      <AlertIcon color="teal.400" boxSize="40px" mr={0} />
+      <AlertIcon color={error ? 'red.400' : 'teal.400'} boxSize="40px" mr={0} />
       <AlertTitle mt={4} mb={1} fontSize="lg">
         {error
           ? 'Something went wrong while creating your pdf file'

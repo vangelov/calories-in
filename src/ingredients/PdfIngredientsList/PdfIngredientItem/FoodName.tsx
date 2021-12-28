@@ -1,9 +1,9 @@
 import { Text, StyleSheet, View, Link } from '@react-pdf/renderer'
 import { Food, FoodId } from 'foods'
 import { IngredientForm } from 'ingredients'
-import { Portion, getIngredientPortionDescription } from 'portions'
-import { getComputedColorFromChakra } from 'theme'
-
+import { Portion } from 'portions'
+import getComputedColorFromChakra from 'theme/getComputedColorFromChakra'
+import getIngredientPortionDescription from 'portions/getIngredientPortionDescription'
 type Props = {
   ingredientForm: IngredientForm
   foodsById: Record<FoodId, Food>

@@ -2,7 +2,7 @@ import { Food, FoodId } from 'foods'
 import { IngredientForm } from 'ingredients'
 import amountAsNumber from 'stats/amountAsNumber'
 import { Portion } from './types'
-import { getAmountFromPortionToGrams } from './useGetAmount'
+import getAmountFromPortionToGrams from './getAmountFromPortionsToGrams'
 
 const UNITS_WITH_DISTANCE = ['oz', 'tsp', 'tbsp', 'fl oz', 'cup']
 

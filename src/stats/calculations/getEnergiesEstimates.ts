@@ -1,4 +1,4 @@
-import { Stats } from 'stats'
+import { Stats } from 'stats/types'
 
 const CALORIES_PER_GRAM_PROTEIN = 4
 const CALORIES_PER_GRAM_CARBS = 4
