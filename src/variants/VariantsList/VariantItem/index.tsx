@@ -1,4 +1,4 @@
-import { Text, HStack, LayoutProps, SpaceProps } from '@chakra-ui/react'
+import { Text, HStack, LayoutProps, SpaceProps, Box } from '@chakra-ui/react'
 import { VariantForm } from 'variants'
 import { ForwardedRef, forwardRef, ReactNode, useRef } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
@@ -73,51 +73,55 @@ function VariantItem({
         }
 
         return (
-          <PresenceAnimation
-            shouldAnimate={variantFormEvents.shouldAnimate}
-            isVisible={variantFormEvents.isVisible}
-            onAnimationComplete={variantFormEvents.onAnimationComplete}
+          <Box
+            flexShrink={0}
+            ref={mergeRefs(refs)}
+            {...rest}
+            {...provided.draggableProps}
+            {...provided.dragHandleProps}
           >
-            <ContextMenuFlex
-              ref={mergeRefs(refs)}
-              bg="white"
-              _hover={{ color: !isSelected ? 'teal.600' : undefined }}
-              borderRadius="full"
-              fontWeight="medium"
-              borderWidth="1px"
-              borderColor={isSelected ? 'teal.600' : 'gray.200'}
-              color={isSelected ? 'teal.600' : 'gray.600'}
-              onClick={variantFormEvents.onClick}
-              pl={5}
-              pr={4}
-              height="40px"
-              cursor="pointer"
-              alignItems="center"
-              menuOrDrawerItems={menuOrDrawerItems}
-              {...rest}
-              {...provided.draggableProps}
-              {...provided.dragHandleProps}
+            <PresenceAnimation
+              shouldAnimate={variantFormEvents.shouldAnimate}
+              isVisible={variantFormEvents.isVisible}
+              onAnimationComplete={variantFormEvents.onAnimationComplete}
             >
-              <HStack spacing={1} height={8} overflow="hidden">
-                <Text
-                  fontWeight="semibold"
-                  noOfLines={1}
-                  flexShrink={0}
-                  fontSize="md"
-                >
-                  {children}
-                </Text>
+              <ContextMenuFlex
+                bg="white"
+                _hover={{ color: !isSelected ? 'teal.600' : undefined }}
+                borderRadius="full"
+                fontWeight="medium"
+                borderWidth="1px"
+                borderColor={isSelected ? 'teal.600' : 'gray.200'}
+                color={isSelected ? 'teal.600' : 'gray.600'}
+                onClick={variantFormEvents.onClick}
+                pl={5}
+                pr={4}
+                height="40px"
+                cursor="pointer"
+                alignItems="center"
+                menuOrDrawerItems={menuOrDrawerItems}
+              >
+                <HStack spacing={1} height={8} overflow="hidden">
+                  <Text
+                    fontWeight="semibold"
+                    noOfLines={1}
+                    flexShrink={0}
+                    fontSize="md"
+                  >
+                    {children}
+                  </Text>
 
-                <MenuOrDrawer
-                  title="Day"
-                  borderRadius="full"
-                  aria-label="Day actions"
-                >
-                  {menuOrDrawerItems}
-                </MenuOrDrawer>
-              </HStack>
-            </ContextMenuFlex>
-          </PresenceAnimation>
+                  <MenuOrDrawer
+                    title="Day"
+                    borderRadius="full"
+                    aria-label="Day actions"
+                  >
+                    {menuOrDrawerItems}
+                  </MenuOrDrawer>
+                </HStack>
+              </ContextMenuFlex>
+            </PresenceAnimation>
+          </Box>
         )
       }}
     </Draggable>

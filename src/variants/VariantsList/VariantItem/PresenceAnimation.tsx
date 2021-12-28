@@ -30,7 +30,6 @@ function PresenceAnimation({
       animate={isVisible ? 'open' : 'collapsed'}
       onAnimationComplete={onAnimationComplete}
       variants={variants}
-      style={{ flexShrink: 0 }}
     >
       {children}
     </motion.div>
