@@ -1,7 +1,7 @@
 import { useDietForm, useDietFormActions } from 'diets'
 import { Editable, EditableInput, EditablePreview } from '@chakra-ui/react'
 import { ChangeEvent, useEffect, useRef } from 'react'
-import { getComputedColorFromChakra } from 'theme'
+import getComputedColorFromChakra from 'theme/getComputedColorFromChakra'
 import { canExportDietForm } from 'diets/persistence'
 
 function Name() {

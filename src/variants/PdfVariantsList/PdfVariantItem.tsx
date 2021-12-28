@@ -1,13 +1,15 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
-import { roundMacrosPercents, Stats, StatsTree, getMacrosPercents } from 'stats'
+import { Stats, StatsTree } from 'stats'
 import PdfStat from 'stats/PdfStat'
 import PdfStatsLayout from 'stats/PdfStatsLayout'
 import { VariantForm } from 'variants'
 import { Food } from 'foods'
-import { getComputedColorFromChakra } from 'theme'
+import getComputedColorFromChakra from 'theme/getComputedColorFromChakra'
 import PdfMealsList from 'meals/PdfMealsList'
 import { useMemo } from 'react'
 import { Portion } from 'portions'
+import getMacrosPercents from 'stats/calculations/getMacrosPercents'
+import roundMacrosPercents from 'stats/calculations/roundMacrosPercents'
 
 type Props = {
   variantForm: VariantForm

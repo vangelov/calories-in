@@ -3,7 +3,7 @@ import { Food, FoodId } from 'foods'
 import { IngredientForm } from 'ingredients'
 import { Portion } from 'portions'
 import { Stats } from 'stats'
-import { getComputedColorFromChakra } from 'theme'
+import getComputedColorFromChakra from 'theme/getComputedColorFromChakra'
 import PdfIngredientItem from './PdfIngredientItem'
 
 type Props = {

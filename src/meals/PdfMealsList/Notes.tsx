@@ -1,5 +1,5 @@
 import { Text, StyleSheet, View } from '@react-pdf/renderer'
-import { getComputedColorFromChakra } from 'theme'
+import getComputedColorFromChakra from 'theme/getComputedColorFromChakra'
 
 type Props = {
   notes: string

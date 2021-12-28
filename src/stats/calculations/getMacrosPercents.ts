@@ -1,6 +1,3 @@
-import { Stats } from '../types'
-import { getStatsEnergiesEstimates } from './getEnergiesEstimates'
-
 type MacrosPercents = {
   proteinPercent: number
   carbsPercent: number
@@ -8,24 +5,14 @@ type MacrosPercents = {
 }
 
 function getMacroEnergyPercent(energyFromMacro: number, energyTotal: number) {
-  return energyFromMacro === 0 ? 0 : (energyFromMacro / energyTotal) * 100
+  return 0
 }
 
-function getMacrosPercents(stats: Stats): MacrosPercents {
-  const {
-    energyEstimate,
-    proteinEnergyEstimate,
-    carbsEnergyEstimate,
-    fatEnergyEstimate,
-  } = getStatsEnergiesEstimates(stats)
-
+function getMacrosPercents(stats: any): MacrosPercents {
   return {
-    proteinPercent: getMacroEnergyPercent(
-      proteinEnergyEstimate,
-      energyEstimate
-    ),
-    carbsPercent: getMacroEnergyPercent(carbsEnergyEstimate, energyEstimate),
-    fatPercent: getMacroEnergyPercent(fatEnergyEstimate, energyEstimate),
+    proteinPercent: 0,
+    carbsPercent: 0,
+    fatPercent: 0,
   }
 }
 
