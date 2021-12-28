@@ -1,5 +1,5 @@
 import { chakra } from '@chakra-ui/react'
-import { FilePlus, Download, List, MoreHorizontal } from 'react-feather'
+import { Download, List, MoreHorizontal, Trash } from 'react-feather'
 import {
   MenuOrDrawer as MenuOrDrawerBase,
   MenuOrDrawerItem,
@@ -10,7 +10,7 @@ import {
 
 const DownloadStyled = chakra(Download)
 const ListStyled = chakra(List)
-const FilePlusStyled = chakra(FilePlus)
+const TrashStyled = chakra(Trash)
 
 type Props = {
   onImport: () => void
@@ -42,11 +42,11 @@ function MenuOrDrawer({ onImport, onClear, onViewFoods }: Props) {
   if (screenSize <= ScreenSize.Small) {
     items.unshift(
       <MenuOrDrawerItem
-        key="createMealPlan"
-        icon={<FilePlusStyled />}
+        key="clearMealPlan"
+        icon={<TrashStyled />}
         onClick={onClear}
       >
-        Create meal plan
+        Clear
       </MenuOrDrawerItem>
     )
   }

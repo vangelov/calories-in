@@ -32,6 +32,7 @@ import { Food } from 'foods'
 import { FixedSizeList } from 'react-window'
 import { FoodsFilterPopoverOrModal } from 'foods-filters'
 import { UsageType } from './VirtualizedList/FoodItem'
+import { isMobile } from 'react-device-detect'
 
 const SearchStyled = chakra(Search)
 
@@ -87,7 +88,7 @@ function FoodsList({
       selection.toggleItem(food)
       const input = searchInputRef?.current
 
-      if (input) {
+      if (input && !isMobile) {
         input.focus()
         input.setSelectionRange(0, input.value.length)
       }
