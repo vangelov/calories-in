@@ -44,7 +44,7 @@ function PdfIngredientsList({
           style={[
             styles.emptyListText,
             {
-              color: getComputedColorFromChakra('gray.400'),
+              color: getComputedColorFromChakra('gray.500'),
             },
           ]}
         >

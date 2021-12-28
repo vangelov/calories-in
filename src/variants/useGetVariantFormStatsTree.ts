@@ -1,20 +1,24 @@
 import { StatsTree, getStatsTree } from 'stats'
 import { VariantForm } from './variantForm'
 import { useGetMealFormStatsTree } from 'meals'
+import { useCallback } from 'react'
 
 function useGetVariantFormStatsTree() {
   const getMealFormStatsTree = useGetMealFormStatsTree()
 
-  function getVariantFormStatsTree(variantForm: VariantForm): StatsTree {
-    const subtrees = variantForm.mealsForms.map(mealForm =>
-      getMealFormStatsTree(mealForm)
-    )
+  const getVariantFormStatsTree = useCallback(
+    (variantForm: VariantForm): StatsTree => {
+      const subtrees = variantForm.mealsForms.map(mealForm =>
+        getMealFormStatsTree(mealForm)
+      )
 
-    return getStatsTree({
-      id: variantForm.fieldId,
-      subtrees,
-    })
-  }
+      return getStatsTree({
+        id: variantForm.fieldId,
+        subtrees,
+      })
+    },
+    [getMealFormStatsTree]
+  )
 
   return getVariantFormStatsTree
 }

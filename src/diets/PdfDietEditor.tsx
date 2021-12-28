@@ -67,6 +67,7 @@ function PdfDietEditor({
             backgroundColor: getComputedColorFromChakra('teal.500'),
             alignItems: 'center',
             padding: 4,
+            marginBottom: 24,
           }}
         >
           <View style={{ flexDirection: 'row', fontSize: 10, color: 'white' }}>

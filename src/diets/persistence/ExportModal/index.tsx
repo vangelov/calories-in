@@ -9,9 +9,7 @@ type Props = {
 
 function ExportModal({ isOpen, onClose }: Props) {
   useEffect(() => {
-    setTimeout(() => {
-      import('./Content/Exporter')
-    }, 5000)
+    import('./Content/Exporter')
   }, [])
 
   return (

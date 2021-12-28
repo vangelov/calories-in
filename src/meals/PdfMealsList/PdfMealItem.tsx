@@ -46,7 +46,7 @@ function PdfMealItem({
                 styles.name,
                 {
                   color: getComputedColorFromChakra(
-                    mealForm.name ? 'gray.600' : 'gray.400'
+                    mealForm.name ? 'gray.600' : 'gray.500'
                   ),
                 },
               ]}

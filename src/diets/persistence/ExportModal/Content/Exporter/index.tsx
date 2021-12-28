@@ -1,4 +1,3 @@
-import PdfDietEditor from 'diets/PdfDietEditor'
 import { useDietForm, useGetDietFormStatsTree } from 'diets'
 import { useFoods } from 'foods'
 import { Loader } from 'general'
@@ -7,71 +6,89 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
-  Button,
 } from '@chakra-ui/react'
 import { usePortions } from 'portions'
-import usePdfExport from './usePdfExport'
-
-import { useEffect, useState } from 'react'
-
+import { useEffect, useRef, useState } from 'react'
 import Worker from 'worker'
+
+const instance = new Worker()
 
 type Props = {
   onUpdate: (blob: Blob, url: string) => void
 }
-const instance = new Worker()
-
-export const onClick = (data: any) => {
-  return new Promise(async resolve => {
-    // Use a web worker to process the data
-    const processed = await instance.processData(data)
-
-    resolve(processed)
-  })
-}
-
-const t: any = window
-
-t.onClick = onClick
 
 function Exporter({ onUpdate }: Props) {
   const dietForm = useDietForm()
   const { foodsById } = useFoods()
   const { portionsById } = usePortions()
   const getDietFormStatsTree = useGetDietFormStatsTree()
-  const dietFormStatsTree = getDietFormStatsTree(dietForm)
-  const [g, setG] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<unknown>()
+  const isUnmountedRef = useRef(false)
 
-  console.log('fuck')
   useEffect(() => {
-    console.log('f')
-    setG('f')
-    const test = async () => {
-      setG('d1')
-      const d = await onClick({
-        dietForm,
-        foodsById,
-        portionsById,
-        dietFormStatsTree,
-      })
-      console.log('d2', typeof d)
-
-      const u = URL.createObjectURL(d)
-      setG(u)
+    return () => {
+      isUnmountedRef.current = true
     }
-
-    test()
   }, [])
 
-  function test() {
-    window.open(g, '_blank')
+  useEffect(() => {
+    async function run() {
+      const dietFormStatsTree = getDietFormStatsTree(dietForm)
+
+      try {
+        setIsLoading(true)
+        const blob = await instance.processData({
+          dietForm,
+          dietFormStatsTree,
+          foodsById,
+          portionsById,
+        })
+        if (!isUnmountedRef.current) {
+          const url = URL.createObjectURL(blob)
+          onUpdate(blob, url)
+        }
+      } catch (error) {
+        if (!isUnmountedRef.current) {
+          setError(error)
+        }
+      } finally {
+        if (!isUnmountedRef.current) {
+          setIsLoading(false)
+        }
+      }
+    }
+    run()
+  }, [dietForm, foodsById, portionsById, getDietFormStatsTree, onUpdate])
+
+  if (isLoading) {
+    return <Loader label="Exporting..." />
   }
 
   return (
-    <div>
-      {g}
-      <Button onClick={test}>TF</Button>
-    </div>
+    <Alert
+      status={error ? 'error' : 'success'}
+      variant="subtle"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
+      textAlign="center"
+      height="200px"
+      bg="white"
+    >
+      <AlertIcon color="teal.400" boxSize="40px" mr={0} />
+      <AlertTitle mt={4} mb={1} fontSize="lg">
+        {error
+          ? 'Something went wrong while creating your pdf file'
+          : 'Your PDF file is ready'}
+      </AlertTitle>
+      {!error && (
+        <AlertDescription maxWidth="sm">
+          Downloading this plan will allow you to import it later if you need to
+          update it.
+        </AlertDescription>
+      )}
+    </Alert>
   )
 }
 
