@@ -1,4 +1,5 @@
 import { DietForm } from 'diets'
+import { fixWhiteSpace } from 'persistence'
 
 function getLocation(text: string) {
   const subject = '/Subject'
@@ -26,7 +27,13 @@ function getData(location: string, text: string) {
 function parseDietForm(text: string) {
   const location = getLocation(text)
   const data = getData(location, text)
-  const dietForm = JSON.parse(data) as DietForm
+  const dietForm = JSON.parse(data, (key: string, value) => {
+    if (key === 'notes') {
+      return fixWhiteSpace(value)
+    }
+
+    return value
+  }) as DietForm
 
   return dietForm
 }
