@@ -1,5 +1,7 @@
 <p align="center">
-  <img src="devices-preview.png" alt="Devices preview" />
+   <a href="https://calories-in.com" target="_blank">
+    <img src="devices-preview.png" alt="Devices preview" />
+  </a>
 </p>
 <h1 align="center">Calories-In</h1>
 
