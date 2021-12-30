@@ -45,9 +45,9 @@ function About({ isOpen, onClose }: Props) {
             <br />
             <Text>
               The idea was born out of my experience of trying to find a better
-              alternative to Google Sheets for calculating the macros of my meal
-              plans. I tried different tools but nothing really felt fast and
-              simple enough.
+              alternative to Google Sheets for calculating the macros of my own
+              meal plans. I wanted to be able to do this on desktop as it's more
+              convenient but nothing really felt fast and simple enough.
             </Text>
             <br />
             <Text>The main differences to other apps in this space are:</Text>
