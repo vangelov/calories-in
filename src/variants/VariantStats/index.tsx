@@ -53,7 +53,7 @@ function VariantStats({ ...rest }: Props) {
       {...rest}
     >
       <Text fontSize="lg" textAlign="center" textColor="gray.500">
-        Day totals
+        Daily totals
       </Text>
       <Divider />
       <EnergyStat
