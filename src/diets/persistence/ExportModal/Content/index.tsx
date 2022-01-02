@@ -9,16 +9,13 @@ import {
   Text,
 } from '@chakra-ui/react'
 import { useState, useCallback } from 'react'
-import { Suspense, lazy } from 'react'
-import { Loader } from 'general'
 import { DownloadButton } from 'persistence'
 import { useDietForm } from 'diets'
+import Exporter from './Exporter'
 
 type Props = {
   onClose: () => void
 }
-
-const Exporter = lazy(() => import('./Exporter'))
 
 function Content({ onClose }: Props) {
   const [blob, setBlob] = useState<Blob>()
@@ -44,9 +41,7 @@ function Content({ onClose }: Props) {
       </ModalHeader>
       <ModalCloseButton />
       <ModalBody px={0}>
-        <Suspense fallback={<Loader label="Preparing..." />}>
-          <Exporter onUpdate={onUpdate} />
-        </Suspense>
+        <Exporter onUpdate={onUpdate} />
       </ModalBody>
 
       <ModalFooter>
