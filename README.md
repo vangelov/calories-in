@@ -31,6 +31,7 @@ A huge inspiration for me has been [excalidraw.com](http://excalidraw.com).
 - [Comlink-loader](https://github.com/GoogleChromeLabs/comlink-loader)
 - [React window](https://github.com/bvaughn/react-window)
 - [Fuse.js](https://github.com/atlassian/react-beautiful-dnd)
+- [Framer Motion](https://www.framer.com/motion/)
 - [Feather icons](https://feathericons.com/)
 
 ## Available Scripts
