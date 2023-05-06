@@ -26,7 +26,6 @@ function PresenceAnimation({
 }: Props) {
   return (
     <motion.div
-      style={{ display: 'flex' }}
       transition={{ ease: 'easeInOut' }}
       initial={shouldAnimate ? 'collapsed' : false}
       animate={isVisible ? 'open' : 'collapsed'}
@@ -34,7 +33,6 @@ function PresenceAnimation({
       variants={variants}
     >
       {children}
-      <Box width={2} />
     </motion.div>
   )
 }

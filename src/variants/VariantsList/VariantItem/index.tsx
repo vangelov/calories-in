@@ -1,4 +1,11 @@
-import { Text, HStack, LayoutProps, SpaceProps, Box } from '@chakra-ui/react'
+import {
+  Text,
+  HStack,
+  LayoutProps,
+  SpaceProps,
+  Box,
+  Flex,
+} from '@chakra-ui/react'
 import { VariantForm } from 'variants'
 import { ForwardedRef, forwardRef, ReactNode, useRef } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
@@ -85,23 +92,24 @@ function VariantItem({
               isVisible={variantFormEvents.isVisible}
               onAnimationComplete={variantFormEvents.onAnimationComplete}
             >
-              <ContextMenuFlex
-                bg="white"
-                _hover={{ color: !isSelected ? 'teal.600' : undefined }}
-                borderRadius="full"
-                fontWeight="medium"
-                borderWidth="1px"
-                borderColor={isSelected ? 'teal.600' : 'gray.200'}
-                color={isSelected ? 'teal.600' : 'gray.600'}
-                onClick={variantFormEvents.onClick}
-                pl={5}
-                pr={4}
-                height="40px"
-                cursor="pointer"
-                alignItems="center"
-                menuOrDrawerItems={menuOrDrawerItems}
-              >
-                <HStack spacing={1} height={8} overflow="hidden">
+              <ContextMenuFlex menuOrDrawerItems={menuOrDrawerItems}>
+                <HStack
+                  bg="white"
+                  borderRadius="full"
+                  fontWeight="medium"
+                  _hover={{ color: !isSelected ? 'teal.600' : undefined }}
+                  cursor="pointer"
+                  alignItems="center"
+                  borderWidth="1px"
+                  borderColor={isSelected ? 'teal.600' : 'gray.200'}
+                  color={isSelected ? 'teal.600' : 'gray.600'}
+                  onClick={variantFormEvents.onClick}
+                  pl={5}
+                  pr={4}
+                  height="40px"
+                  spacing={1}
+                  overflow="hidden"
+                >
                   <Text
                     fontWeight="semibold"
                     noOfLines={1}
@@ -119,6 +127,7 @@ function VariantItem({
                     {menuOrDrawerItems}
                   </MenuOrDrawer>
                 </HStack>
+                <Box width={2} />
               </ContextMenuFlex>
             </PresenceAnimation>
           </Box>
