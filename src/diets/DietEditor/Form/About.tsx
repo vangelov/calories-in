@@ -20,10 +20,6 @@ type Props = {
 }
 
 function About({ isOpen, onClose }: Props) {
-  function onContact() {
-    window.location.href = 'mailto:vladimir@calories-in.com'
-  }
-
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="2xl" scrollBehavior="inside">
       <ModalOverlay />
@@ -57,71 +53,69 @@ function About({ isOpen, onClose }: Props) {
                 <ListIcon as={CheckCircle} color="teal.600" />
                 <Text fontWeight="semibold" as="span" textColor="teal.600">
                   Faster search
-                </Text>{' '}
-                : There are actually not that many foods you need when you
-                prepare everything yourself. This means all of the food data can
-                be downloaded beforehand which makes the search super fast. Of
-                course you can add your own foods if you'd like.{' '}
+                </Text>
+                <Text mt={1}>
+                  There are actually not that many foods you need when you
+                  prepare everything yourself. This means all of the food data
+                  can be downloaded beforehand which makes the search super
+                  fast. Of course you can add your own foods if you'd like.{' '}
+                </Text>
               </ListItem>
               <br />
               <ListItem>
                 <ListIcon as={CheckCircle} color="teal.600" />
                 <Text fontWeight="semibold" as="span" textColor="teal.600">
                   Undo/Redo
-                </Text>{' '}
-                : Building a plan from scratch or updating an existing one
-                involves some back and forth choosing the right foods and
-                adjusting their amounts. This is especially true if you want to
-                be as close as possible to a specific calorie limit and have
-                your macros be a certain percentages split.
+                </Text>
+                <Text mt={1}>
+                  Building a plan from scratch or updating an existing one
+                  involves some back and forth choosing the right foods and
+                  adjusting their amounts. This is especially true if you want
+                  to be as close as possible to a specific calorie limit and
+                  have your macros be a certain percentages split.
+                </Text>
               </ListItem>
               <br />
               <ListItem>
                 <ListIcon as={CheckCircle} color="teal.600" />
                 <Text fontWeight="semibold" as="span" textColor="teal.600">
                   Faster export
-                </Text>{' '}
-                : Creating the PDF file for your meal plan is done entirely
-                inside the browser. It does not involve generating and
-                downloading it from a server. This means I can keep the cost of
-                running the website low and you get your file in just a few
-                seconds.
+                </Text>
+                <Text mt={1}>
+                  Creating the PDF file for your meal plan is done entirely
+                  inside the browser. It does not involve generating and
+                  downloading it from a server. This means I can keep the cost
+                  of running the website low and you get your file in just a few
+                  seconds.
+                </Text>
               </ListItem>
               <br />
               <ListItem>
                 <ListIcon as={CheckCircle} color="teal.600" />
                 <Text fontWeight="semibold" as="span" textColor="teal.600">
                   Simpler
-                </Text>{' '}
-                : There are no other pages except the editor. Most of the other
-                tools are bloated with additional features for professionals,
-                such as managing clients, creating invoices, etc.
+                </Text>
+
+                <Text mt={1}>
+                  There are no other pages except the editor. Most of the other
+                  tools are bloated with additional features for professionals,
+                  such as managing clients, creating invoices, etc.
+                </Text>
               </ListItem>
               <br />
               <ListItem>
                 <ListIcon as={CheckCircle} color="teal.600" />
                 <Text fontWeight="semibold" as="span" textColor="teal.600">
                   Fully mobile
-                </Text>{' '}
-                : You can use your phone or tablet to build your meal plans
-                right from your browser. If you add the app to your home screen
-                it will look and feel almost like a native one.
+                </Text>
+                <Text mt={1}>
+                  You can use your phone or tablet to build your meal plans
+                  right from your browser. If you add the app to your home
+                  screen it will look and feel almost like a native one.
+                </Text>
               </ListItem>
             </List>
-            <Text>
-              <br />
-              Let me know if you found it useful or have any comments in
-              general:
-            </Text>
             <br />
-
-            <Button size="lg" colorScheme="teal" onClick={onContact}>
-              Contact me directly
-            </Button>
-
-            <br />
-            <br />
-            <Text>No email will go unanswered, I promise :)</Text>
           </Text>
         </ModalBody>
 
