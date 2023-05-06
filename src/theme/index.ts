@@ -6,6 +6,7 @@ import { Input, Button, Divider, Textarea, Alert } from './components'
 const theme = extendTheme({
   styles,
   colors,
+  config: { initialColorMode: 'light', useSystemColorMode: false },
   components: {
     Input,
     Button,
