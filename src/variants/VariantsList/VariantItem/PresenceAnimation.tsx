@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { motion } from 'framer-motion'
+import { Box } from '@chakra-ui/react'
 
 type Props = {
   children: ReactNode
@@ -25,6 +26,7 @@ function PresenceAnimation({
 }: Props) {
   return (
     <motion.div
+      style={{ display: 'flex' }}
       transition={{ ease: 'easeInOut' }}
       initial={shouldAnimate ? 'collapsed' : false}
       animate={isVisible ? 'open' : 'collapsed'}
@@ -32,6 +34,7 @@ function PresenceAnimation({
       variants={variants}
     >
       {children}
+      <Box width={2} />
     </motion.div>
   )
 }
