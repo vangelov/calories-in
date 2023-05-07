@@ -4,8 +4,6 @@ import ReactPDF, {
   Font,
   StyleSheet,
   View,
-  Text,
-  Link,
 } from '@react-pdf/renderer'
 import { Food } from 'foods'
 import { Portion } from 'portions'
