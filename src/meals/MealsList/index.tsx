@@ -43,6 +43,8 @@ function MealsList({
             mealsForms.map((mealForm, index) => (
               <MealItem
                 key={mealForm.fieldId}
+                data-test-type="meal"
+                data-test-index={index}
                 variantIndex={selectedVariantFormIndex}
                 getMealNameInputRefById={getMealNameInputRefById}
                 index={index}

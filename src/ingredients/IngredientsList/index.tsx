@@ -38,6 +38,8 @@ function IngredientsList({
             return (
               <IngredientItem
                 key={ingredientForm.fieldId}
+                data-test-type="ingredient"
+                data-test-index={index}
                 onRemove={dietFormActions.removeIngredientForm}
                 variantIndex={variantIndex}
                 mealIndex={mealIndex}

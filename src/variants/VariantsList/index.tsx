@@ -63,6 +63,8 @@ function VariantsList({
             {dietForm.variantsForms.map((variantForm, index) => {
               return (
                 <VariantItem
+                  data-test-type="variant"
+                  data-test-index={index}
                   canRemove={dietForm.variantsForms.length > 1}
                   index={index}
                   onDelete={variantFormEvents.onRemove}

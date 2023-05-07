@@ -73,6 +73,7 @@ function Form() {
 
             {screenSize >= ScreenSize.Large && (
               <VariantStats
+                data-test-type="variant-stats"
                 position="sticky"
                 top={`${headerHeight + 24}px`}
                 ml={6}

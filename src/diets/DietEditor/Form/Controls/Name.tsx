@@ -37,6 +37,7 @@ function Name() {
       textAlign="center"
       value={dietForm.name}
       width="85%"
+      data-test-type="diet-name"
     >
       <EditablePreview ref={editablePreviewRef} width="100%" />
       <EditableInput

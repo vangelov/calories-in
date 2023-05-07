@@ -42,6 +42,7 @@ function IngredientItem({
   shouldAddRadiusToLastBottomBorder,
   isLast,
   isDraggingOver,
+  ...rest
 }: Props) {
   const { foodsById } = useFoods()
   const food = foodsById[ingredientForm.foodId]
@@ -109,6 +110,7 @@ function IngredientItem({
             }
             overflow="hidden"
             menuOrDrawerItems={menuOrDrawerItems}
+            {...rest}
           >
             {food ? (
               <StatsLayout
