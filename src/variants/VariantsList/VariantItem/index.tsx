@@ -1,11 +1,4 @@
-import {
-  Text,
-  HStack,
-  LayoutProps,
-  SpaceProps,
-  Box,
-  Flex,
-} from '@chakra-ui/react'
+import { Text, HStack, LayoutProps, SpaceProps, Box } from '@chakra-ui/react'
 import { VariantForm } from 'variants'
 import { ForwardedRef, forwardRef, ReactNode, useRef } from 'react'
 import { Draggable } from 'react-beautiful-dnd'
